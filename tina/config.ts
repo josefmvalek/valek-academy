@@ -27,14 +27,7 @@ export default defineConfig({
         label: "Obsah webu",
         path: "content/pages",
         format: "json",
-        ui: {
-          router: ({ document }) => {
-            if (document._sys.filename === "home") {
-              return "/";
-            }
-            return undefined;
-          },
-        },
+
         fields: [
           {
             type: "string",
