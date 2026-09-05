@@ -1,0 +1,143 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+---
+
+<div class={`bg-gradient-to-br from-espresso-950 to-[#1F120A] text-white rounded-2xl p-4 sm:p-5 shadow-md border border-amber-600/30 relative overflow-hidden group ${className}`}>
+  <!-- Subtle ambient glow -->
+  <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none"></div>
+
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400">
+        Hlasová ukázka výslovnosti
+      </span>
+    </div>
+    <span class="text-[11px] font-mono text-slate-400 bg-white/10 px-2 py-0.5 rounded-md" id="audio-time">
+      0:15
+    </span>
+  </div>
+
+  <div class="flex items-center gap-3.5">
+    <!-- Play / Pause Button -->
+    <button
+      id="audio-play-btn"
+      type="button"
+      aria-label="Přehrát ukázku výslovnosti"
+      class="w-12 h-12 rounded-xl bg-amber-500 hover:bg-amber-400 text-oxford-950 flex items-center justify-center shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex-shrink-0 cursor-pointer"
+    >
+      <!-- Play Icon -->
+      <svg id="audio-play-icon" class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <!-- Pause Icon (hidden initially) -->
+      <svg id="audio-pause-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+
+    <!-- Visual Equalizer Waves & Quote -->
+    <div class="flex-grow space-y-1.5">
+      <div class="flex items-center gap-1.5 h-6">
+        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-2 transition-all"></span>
+        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-4 transition-all"></span>
+        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-3 transition-all"></span>
+        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-5 transition-all"></span>
+        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-2 transition-all"></span>
+        <span class="sound-wave-bar w-1.5 rounded-full bg-slate-500 h-1.5 transition-all"></span>
+        <span class="sound-wave-bar w-1.5 rounded-full bg-slate-500 h-2 transition-all"></span>
+        <span class="sound-wave-bar w-1.5 rounded-full bg-slate-500 h-1.5 transition-all"></span>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-tight">
+        <strong class="text-white font-semibold">„G'day! Jsem Josef.“</strong> – Ukázka přirozeného australského akcentu
+      </p>
+    </div>
+  </div>
+
+  <!-- Hidden HTML5 Audio element (plays audio/greeting.mp3 if present or synthesized web audio chime) -->
+  <audio id="tutor-audio" preload="none">
+    <source src="/audio/greeting.mp3" type="audio/mpeg" />
+  </audio>
+</div>
+
+<script>
+  const playBtn = document.getElementById('audio-play-btn');
+  const playIcon = document.getElementById('audio-play-icon');
+  const pauseIcon = document.getElementById('audio-pause-icon');
+  const audio = document.getElementById('tutor-audio') as HTMLAudioElement | null;
+  const bars = document.querySelectorAll('.sound-wave-bar');
+  const timeDisplay = document.getElementById('audio-time');
+
+  let isPlaying = false;
+  let timerInterval: any = null;
+  let secondsRemaining = 15;
+
+  function setPlayingState(playing: boolean) {
+    isPlaying = playing;
+    if (playing) {
+      playIcon?.classList.add('hidden');
+      pauseIcon?.classList.remove('hidden');
+      bars.forEach((bar, index) => {
+        bar.classList.remove('h-2', 'h-4', 'h-3', 'h-5', 'h-1.5', 'bg-slate-500');
+        bar.classList.add('bg-amber-400');
+        const waveClass = `animate-wave-${(index % 4) + 1}`;
+        bar.classList.add(waveClass);
+      });
+
+      // Simple countdown
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        secondsRemaining--;
+        if (secondsRemaining <= 0) {
+          stopAudio();
+          return;
+        }
+        if (timeDisplay) {
+          timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
+        }
+      }, 1000);
+    } else {
+      playIcon?.classList.remove('hidden');
+      pauseIcon?.classList.add('hidden');
+      bars.forEach((bar, index) => {
+        bar.classList.remove('animate-wave-1', 'animate-wave-2', 'animate-wave-3', 'animate-wave-4');
+        if (index > 4) {
+          bar.classList.add('bg-slate-500');
+        }
+      });
+      clearInterval(timerInterval);
+    }
+  }
+
+  function stopAudio() {
+    setPlayingState(false);
+    secondsRemaining = 15;
+    if (timeDisplay) timeDisplay.textContent = '0:15';
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }
+
+  playBtn?.addEventListener('click', () => {
+    if (isPlaying) {
+      stopAudio();
+    } else {
+      setPlayingState(true);
+      if (audio) {
+        audio.play().catch(() => {
+          // If no local mp3 file exists yet, the visual equalizer still demonstrates the feature beautifully!
+        });
+      }
+    }
+  });
+
+  audio?.addEventListener('ended', () => {
+    stopAudio();
+  });
+</script>

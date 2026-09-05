@@ -1,0 +1,114 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+
+const steps = [
+  {
+    step: "1",
+    icon: "🎲",
+    badge: "1. Krok: Začátek lekce",
+    title: "Zahřátí hrou & odbourání ostychu",
+    desc: "Dítě zapomene na školní stres a strach ze zkoušení. Společenská deskovka nebo karetní kvíz navodí přirozenou pohodu a chuť komunikovat v partě kamarádů."
+  },
+  {
+    step: "2",
+    icon: "🗣️",
+    badge: "2. Krok: Průběh",
+    title: "Živá konverzace & australský akcent",
+    desc: "V zápalu hry dítě reaguje v angličtině automaticky. Osvojuje si přirozený rytmus řeči, správnou intonaci a výslovnost bez zbytečného přemýšlení o poučkách."
+  },
+  {
+    step: "3",
+    icon: "🎒",
+    badge: "3. Krok: Výsledek",
+    title: "Propojení se školou & jistota",
+    desc: "Co se ve škole zdálo složité, najednou dává smysl. Pomůžeme s úkoly, dovysvětlíme látku v češtině a dítě do školy odchází sebevědomé a s lepšími známkami."
+  }
+];
+
+const games = [
+  { name: "Scrabble & slovní rébusy", tag: "Pravopis & paměť" },
+  { name: "Story Cubes & příběhy", tag: "Tvorba vět" },
+  { name: "Karetní kvízy & tajenky", tag: "Slovní zásoba" },
+  { name: "Deskovky s hrdiny a draky", tag: "Zábavná strategie" },
+  { name: "Situační scénky z cestování", tag: "Pohotová reakce" }
+];
+---
+
+<div class={`bg-parchment-50 rounded-3xl p-4 sm:p-8 md:p-10 border-2 border-parchment-300 shadow-soft-lg space-y-5 sm:space-y-8 ${className}`}>
+  
+  <!-- Header with Poster Quote -->
+  <div class="text-center max-w-2xl mx-auto space-y-2 sm:space-y-2.5">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-amber-950">
+      <span>🎲</span> <span>Výuka v malých skupinkách (3–6 dětí)</span>
+    </div>
+    <h3 class="font-academy font-bold text-2xl sm:text-3xl text-espresso-950 tracking-tight">
+      Jak deskovky a hry ve skupince pomáhají dětem mluvit anglicky?
+    </h3>
+    <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed">
+      <strong>„Hodiny se dělí dle zájmových oblastí, každý si najde své.“</strong> V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí stejně přirozeně jako mateřštinu.
+    </p>
+  </div>
+
+  <!-- 3 Steps Grid -->
+  <div class="grid md:grid-cols-3 gap-3.5 sm:gap-6 relative">
+    {steps.map((item) => (
+      <div class="bg-white rounded-2xl p-4 sm:p-6 border border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all duration-300 relative group flex flex-col justify-between">
+        
+        <div class="space-y-4">
+          <!-- Step Badge & Icon -->
+          <div class="flex items-center justify-between">
+            <span class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center text-xl font-academy font-bold group-hover:scale-110 transition-transform">
+              {item.icon}
+            </span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full">
+              {item.badge}
+            </span>
+          </div>
+
+          <!-- Title & Description -->
+          <div>
+            <h4 class="font-academy font-bold text-lg text-espresso-950 leading-snug">
+              {item.title}
+            </h4>
+            <p class="text-espresso-800/80 text-xs sm:text-sm mt-2 leading-relaxed font-normal">
+              {item.desc}
+            </p>
+          </div>
+        </div>
+
+        <div class="pt-4 mt-4 border-t border-parchment-200 text-xs font-semibold text-amber-900 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+          <span>Žádné zkoušení u tabule</span>
+        </div>
+
+      </div>
+    ))}
+  </div>
+
+  <!-- Interactive Games Showcase -->
+  <div class="pt-4 border-t border-parchment-300">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="font-academy font-bold text-xs uppercase tracking-wider text-espresso-950 block">
+          Příklady používaných her a aktivit:
+        </span>
+        <span class="text-xs text-stone-600">Hry volíme podle věku a zájmů dětí</span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        {games.map((g) => (
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-parchment-300 shadow-xs text-xs font-medium text-espresso-900 hover:border-amber-400 transition-colors">
+            <span class="text-amber-600 font-bold">•</span>
+            <span class="font-semibold">{g.name}</span>
+            <span class="text-[10px] text-stone-500 bg-parchment-100 px-1.5 py-0.2 rounded border border-parchment-200">({g.tag})</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,4 +1,6 @@
 ---
+import ParrotLogo from './ParrotLogo.astro';
+
 interface Props {
   phone?: string;
   phoneFormatted?: string;
@@ -7,53 +9,56 @@ interface Props {
 const { phone = "+420777123456", phoneFormatted = "+420 777 123 456" } = Astro.props;
 ---
 
-<header class="sticky top-0 z-50 w-full glass-nav transition-all duration-300">
+<header class="sticky top-0 z-50 w-full light-nav transition-all duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       
-      <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500/20 to-accent-600/20 border border-brand-500/40 flex items-center justify-center text-brand-400 font-display font-bold text-xl group-hover:scale-105 transition-transform">
-          JV
+      <!-- Brand Logo with Australian Parrot & Valek Academy -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="group-hover:scale-105 transition-transform duration-300">
+          <ParrotLogo className="w-12 h-12 shadow-sm rounded-full" />
         </div>
         <div class="flex flex-col">
-          <span class="font-display font-bold text-lg text-white group-hover:text-brand-400 transition-colors">
-            Mgr. Josef Válek
-          </span>
-          <span class="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            Výuka & doučování angličtiny
+          <div class="flex items-center gap-1.5">
+            <span class="font-academy font-black text-xl text-espresso-950 group-hover:text-espresso-700 transition-colors tracking-wider">
+              VALEK ACADEMY
+            </span>
+          </div>
+          <span class="text-xs text-amber-900 font-semibold flex items-center gap-1.5 -mt-0.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+            Angličtina s Čechoaustralanem
           </span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300" aria-label="Hlavní navigace">
-        <a href="#o-mne" class="hover:text-white transition-colors">O mně</a>
-        <a href="#kurzy" class="hover:text-white transition-colors">Kurzy</a>
-        <a href="#cenik" class="hover:text-white transition-colors">Ceník</a>
-        <a href="#reference" class="hover:text-white transition-colors">Reference</a>
-        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
-        <a href="#kontakt" class="hover:text-white transition-colors">Kontakt</a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-espresso-800" aria-label="Hlavní navigace">
+        <a href="#programy" class="hover:text-espresso-950 transition-colors">Hry & Skupinky</a>
+        <a href="#o-mne" class="hover:text-espresso-950 transition-colors">O lektorovi</a>
+        <a href="#cenik" class="hover:text-espresso-950 transition-colors flex items-center gap-1.5">
+          <span>Ceník</span>
+          <span class="text-[10px] font-extrabold bg-amber-200/80 text-espresso-950 border border-amber-300 px-2 py-0.5 rounded-full">1. zdarma</span>
+        </a>
+        <a href="#faq" class="hover:text-espresso-950 transition-colors">FAQ</a>
       </nav>
 
       <!-- Right Action CTAs -->
       <div class="hidden lg:flex items-center gap-4">
         <!-- Quick Phone -->
-        <a href={`tel:${phone}`} class="flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 px-3.5 py-2 rounded-lg border border-slate-700/60 transition-colors">
-          <svg class="w-3.5 h-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <a href={`tel:${phone}`} class="flex items-center gap-2 text-xs font-semibold text-espresso-800 hover:text-espresso-950 bg-parchment-100 hover:bg-parchment-200 px-3.5 py-2 rounded-xl border border-parchment-300 transition-colors">
+          <svg class="w-3.5 h-3.5 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
           </svg>
           <span>{phoneFormatted}</span>
         </a>
 
-        <!-- Primary CTA -->
-        <a href="#kontakt" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-semibold text-sm text-navy-950 bg-gradient-to-r from-brand-400 to-brand-500 hover:from-brand-300 hover:to-brand-400 shadow-glow-brand transition-all hover:scale-105 active:scale-95">
-          Lekce zdarma
+        <!-- Primary CTA with free lesson highlight -->
+        <a href="#kontakt" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-display font-bold text-sm text-espresso-950 bg-gradient-to-b from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 border border-amber-500/50 shadow-sm transition-all hover:-translate-y-0.5 active:translate-y-0">
+          <span>🎁 1. lekce zdarma</span>
         </a>
 
         <!-- Admin Shortcut -->
-        <a href="/admin" title="Přihlásit se do TinaCMS editace" class="p-2 text-slate-500 hover:text-slate-300 transition-colors rounded-lg hover:bg-slate-800/40">
+        <a href="/admin" title="TinaCMS Administrace" class="p-2 text-stone-400 hover:text-espresso-800 transition-colors rounded-lg hover:bg-parchment-200">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
           </svg>
@@ -61,7 +66,7 @@ const { phone = "+420777123456", phoneFormatted = "+420 777 123 456" } = Astro.p
       </div>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-button" type="button" class="md:hidden p-2.5 rounded-xl bg-slate-800/80 text-slate-300 hover:text-white border border-slate-700/60" aria-label="Otevřít menu" aria-expanded="false">
+      <button id="mobile-menu-button" type="button" class="md:hidden p-2.5 rounded-xl bg-parchment-100 text-espresso-800 hover:bg-parchment-200 border border-parchment-300" aria-label="Otevřít menu" aria-expanded="false">
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -71,25 +76,20 @@ const { phone = "+420777123456", phoneFormatted = "+420 777 123 456" } = Astro.p
   </div>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/80 bg-navy-900/95 backdrop-blur-xl px-4 pt-4 pb-6 space-y-3">
-    <a href="#o-mne" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">O mně</a>
-    <a href="#kurzy" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Kurzy</a>
-    <a href="#cenik" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Ceník</a>
-    <a href="#reference" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Reference</a>
-    <a href="#faq" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">FAQ</a>
-    <a href="#kontakt" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Kontakt</a>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-parchment-300 bg-parchment-50/98 backdrop-blur-xl px-4 pt-4 pb-6 space-y-3">
+    <a href="#programy" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-semibold text-espresso-900 hover:bg-parchment-200">Hry & Skupinky</a>
+    <a href="#o-mne" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-semibold text-espresso-900 hover:bg-parchment-200">O lektorovi</a>
+    <a href="#cenik" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-semibold text-espresso-900 hover:bg-parchment-200">Ceník</a>
+    <a href="#faq" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-semibold text-espresso-900 hover:bg-parchment-200">FAQ</a>
     
-    <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
-      <a href="#kontakt" class="mobile-nav-link w-full py-3 rounded-xl font-semibold text-center text-navy-950 bg-gradient-to-r from-brand-400 to-brand-500 shadow-glow-brand">
-        Nezávazná úvodní lekce zdarma
+    <div class="pt-4 border-t border-parchment-300 flex flex-col gap-3">
+      <a href="#kontakt" class="mobile-nav-link w-full py-3 rounded-xl font-display font-bold text-center text-espresso-950 bg-amber-400 shadow-sm">
+        🎁 1. lekce pro děti zdarma
       </a>
-      <div class="flex items-center justify-between text-xs text-slate-400 px-1 pt-1">
-        <a href={`tel:${phone}`} class="hover:text-white">📞 {phoneFormatted}</a>
-        <a href="/admin" class="hover:text-brand-400 flex items-center gap-1">
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-          </svg>
-          Správa webu (TinaCMS)
+      <div class="flex items-center justify-between text-xs text-stone-500 px-1 pt-1">
+        <a href={`tel:${phone}`} class="hover:text-espresso-900 font-semibold">📞 {phoneFormatted}</a>
+        <a href="/admin" class="hover:text-espresso-900 flex items-center gap-1 font-semibold">
+          Správa webu (Admin)
         </a>
       </div>
     </div>

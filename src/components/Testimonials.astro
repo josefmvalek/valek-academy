@@ -18,24 +18,24 @@ interface Props {
 
 const { testimonials } = Astro.props;
 
-const badge = testimonials.badge || "HODNOCENÍ STUDENTŮ";
-const title = testimonials.title || "Co říkají ti, kteří už jazykovou bariéru překonali?";
-const subtitle = testimonials.subtitle || "Přečtěte si autentické zkušenosti studentů různých věkových kategorií a profesí.";
+const badge = testimonials.badge || "CO O VÝUCE ŘÍKAJÍ";
+const title = testimonials.title || "Reference rodičů, studentů i dospělých";
+const subtitle = testimonials.subtitle || "Přečtěte si skutečné zkušenosti lidí, kteří s Josefem překonali jazykovou bariéru.";
 const items = testimonials.items || [];
 ---
 
-<section id="reference" class="py-20 md:py-32 relative">
+<section id="reference" class="py-20 md:py-28 relative bg-slate-50 border-t border-slate-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Header -->
     <div class="max-w-3xl mx-auto text-center space-y-4 mb-16 md:mb-20">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glow-badge text-xs font-semibold uppercase tracking-wider">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-200/80 border border-slate-300 text-xs font-bold uppercase tracking-wider text-slate-800">
         {badge}
       </div>
-      <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
+      <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-oxford-950 tracking-tight">
         {title}
       </h2>
-      <p class="text-slate-400 text-base sm:text-lg">
+      <p class="text-slate-600 text-base sm:text-lg">
         {subtitle}
       </p>
     </div>
@@ -43,9 +43,9 @@ const items = testimonials.items || [];
     <!-- Testimonials Grid -->
     <div class="grid md:grid-cols-2 gap-8">
       {items.map((item, idx) => (
-        <div class="glass-card glass-card-hover rounded-3xl p-8 sm:p-10 flex flex-col justify-between border border-slate-700/60 relative group">
+        <div class="bg-white rounded-3xl p-8 sm:p-10 flex flex-col justify-between border border-slate-200 shadow-sm hover:shadow-lg transition-all relative">
           
-          <div class="space-y-6">
+          <div class="space-y-4">
             <!-- Top Row: Stars & Quote Icon -->
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-1 text-amber-400 text-lg">
@@ -53,32 +53,32 @@ const items = testimonials.items || [];
                   <span>★</span>
                 ))}
               </div>
-              <div class="text-3xl text-brand-500/25 font-serif font-black">
+              <div class="text-3xl text-slate-300 font-serif font-black">
                 “
               </div>
             </div>
 
             <!-- Quote text -->
-            <p class="text-slate-200 text-base sm:text-lg leading-relaxed italic font-normal">
+            <p class="text-slate-700 text-base sm:text-lg leading-relaxed italic font-normal">
               „{item.quote}“
             </p>
           </div>
 
           <!-- Author Info footer -->
-          <div class="pt-6 mt-6 border-t border-slate-800 flex items-center gap-4">
-            <div class={`w-12 h-12 rounded-2xl flex items-center justify-center font-display font-bold text-sm text-white shadow-md ${
-              idx % 4 === 0 ? 'bg-gradient-to-br from-brand-500 to-amber-600' :
-              idx % 4 === 1 ? 'bg-gradient-to-br from-indigo-500 to-accent-700' :
-              idx % 4 === 2 ? 'bg-gradient-to-br from-emerald-500 to-teal-700' :
-              'bg-gradient-to-br from-rose-500 to-orange-600'
+          <div class="pt-6 mt-6 border-t border-slate-100 flex items-center gap-4">
+            <div class={`w-12 h-12 rounded-2xl flex items-center justify-center font-display font-bold text-sm text-white shadow-sm ${
+              idx % 4 === 0 ? 'bg-gradient-to-br from-blue-600 to-oxford-800' :
+              idx % 4 === 1 ? 'bg-gradient-to-br from-amber-500 to-gold-600' :
+              idx % 4 === 2 ? 'bg-gradient-to-br from-emerald-600 to-teal-700' :
+              'bg-gradient-to-br from-indigo-600 to-purple-700'
             }`}>
               {item.avatar || item.name.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <h4 class="font-display font-bold text-base text-white">
+              <h4 class="font-display font-bold text-base text-oxford-900">
                 {item.name}
               </h4>
-              <p class="text-xs text-slate-400">
+              <p class="text-xs text-slate-500">
                 {item.role}
               </p>
             </div>
@@ -88,13 +88,13 @@ const items = testimonials.items || [];
       ))}
     </div>
 
-    <!-- Google / Social rating summary pill -->
+    <!-- Rating summary pill -->
     <div class="mt-12 text-center">
-      <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-900/90 border border-slate-800 text-xs sm:text-sm text-slate-300">
-        <span class="flex items-center text-amber-400 text-sm">★★★★★</span>
-        <span class="font-semibold text-white">4.9 / 5.0</span>
-        <span class="text-slate-500">•</span>
-        <span>Více než 150 studentů v ČR i v zahraničí</span>
+      <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-slate-200 shadow-sm text-xs sm:text-sm text-slate-700">
+        <span class="flex items-center text-amber-500 text-sm">★★★★★</span>
+        <span class="font-bold text-oxford-900">4.9 / 5.0</span>
+        <span class="text-slate-400">•</span>
+        <span>Více než 150 spokojených žáků, studentů a rodičů</span>
       </div>
     </div>
 

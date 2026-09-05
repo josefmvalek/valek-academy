@@ -2,10 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
+import AudienceSegments from '../components/AudienceSegments.astro';
 import About from '../components/About.astro';
-import Services from '../components/Services.astro';
 import Pricing from '../components/Pricing.astro';
-import Testimonials from '../components/Testimonials.astro';
+import ScioSection from '../components/ScioSection.astro';
 import FAQ from '../components/FAQ.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
@@ -13,17 +13,17 @@ import { getHomePageData } from '../lib/data';
 
 const page = await getHomePageData();
 const hero = page.hero || {};
+const audience = page.audience || {};
+const scio = page.scio || {};
 const about = page.about || {};
-const services = page.services || {};
 const pricing = page.pricing || {};
-const testimonials = page.testimonials || {};
 const faq = page.faq || {};
 const contact = page.contact || {};
 ---
 
 <Layout
-  title={page.title || "Mgr. Josef Válek | Doučování a výuka angličtiny"}
-  description={hero.subtitle || "Praktická výuka angličtiny zaměřená na přirozenou konverzaci a sebevědomí v práci bez nudné gramatiky."}
+  title={page.title || "VALEK ACADEMY | Hravá angličtina s Čechoaustralanem v malých skupinkách"}
+  description={hero.subtitle || "VALEK ACADEMY: Výuka angličtiny v malých skupinkách hrou a deskovkami. Josef Válek vyrostl v Austrálii, žije 25+ let v ČR a učí s autentickým přízvukem a úsměvem."}
 >
   <Navbar
     phone={contact.phone}
@@ -32,10 +32,10 @@ const contact = page.contact || {};
 
   <main class="flex-grow">
     <Hero hero={hero} />
+    <AudienceSegments audience={audience} />
     <About about={about} />
-    <Services services={services} />
     <Pricing pricing={pricing} />
-    <Testimonials testimonials={testimonials} />
+    <ScioSection scio={scio} />
     <FAQ faq={faq} />
     <Contact contact={contact} />
   </main>

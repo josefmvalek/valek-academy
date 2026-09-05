@@ -1,249 +1,215 @@
 {
-  "title": "Mgr. Josef Válek | Moderní výuka a doučování angličtiny",
+  "title": "Josef Válek | Angličtina pro děti hrou ve skupinkách – 1. lekce ZDARMA",
   "hero": {
-    "badge": "🎯 Individuální & firemní výuka angličtiny | Online i osobně",
-    "title": "Rozmluvte se anglicky s lehkostí a bez strachu z chyb.",
-    "subtitle": "Přestaňte se učit poučky nazpaměť. Praktická angličtina šitá na míru vašim cílům – od každodenní konverzace a sebevědomí v práci až po úspěch u zkoušek a maturity.",
-    "ctaPrimaryText": "Nezávazná úvodní lekce zdarma",
+    "badge": "Vyrůstal v Austrálii • Malé skupinky dětí • 1. lekce 100% ZDARMA",
+    "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
+    "subtitle": "Konec nudného biflování u tabule. Josef vyrůstal v Austrálii od dětství do dospělosti a otevírá doučovnu pro děti v malých skupinkách (3–6 dětí) plnou deskovek, karet a přirozené konverzace se skvělým přízvukem.",
+    "ctaPrimaryText": "Vyzkoušet 1. lekci zdarma",
     "ctaPrimaryLink": "#kontakt",
-    "ctaSecondaryText": "Zobrazit ceník a balíčky",
-    "ctaSecondaryLink": "#cenik",
+    "ctaSecondaryText": "Jak výuka hrou funguje",
+    "ctaSecondaryLink": "#programy",
     "stats": [
-      { "number": "10+ let", "label": "aktivní lektorské praxe" },
-      { "number": "150+", "label": "spokojených studentů" },
-      { "number": "4.9 / 5", "label": "průměrné hodnocení studentů" },
-      { "number": "98 %", "label": "úspěšnost u zkoušek a pohovorů" }
+      { "number": "1. lekce", "label": "100% ZDARMA na vyzkoušení" },
+      { "number": "3–6 dětí", "label": "v malé přátelské skupince" },
+      { "number": "Deskovky", "label": "a hry jako hlavní metoda výuky" },
+      { "number": "Austrálie", "label": "kde Josef vyrůstal (rodilý akcent)" }
     ]
   },
-  "about": {
-    "badge": "O MNĚ A MÉ METODICE",
-    "title": "Angličtina pro reálný život – bez biflování a zbytečného stresu",
-    "teacherName": "Mgr. Josef Válek",
-    "role": "Certifikovaný lektor angličtiny s mezinárodní praxí",
-    "bio": "Jmenuji se Josef Válek a již více než 10 let pomáhám dospělým, studentům i manažerům překonávat jazykovou bariéru. Věřím, že naučit se mluvit cizím jazykem nemá být utrpení plné nudných gramatických cvičení ze zaprášených učebnic. Můj přístup staví na přirozené konverzaci, bezpečném přátelském prostředí a tématech, která vás skutečně zajímají a využijete je v praxi.",
-    "experienceYears": "10+ let",
-    "quote": "„Mým cílem není naučit vás odrecitovat předpřítomný čas, ale zajistit, abyste bez váhání zvládli objednat hotel, odprezentovat projekt nebo v klidu zavolat zahraničnímu klientovi.“",
-    "pillars": [
+  "audience": {
+    "badge": "NABÍDKA VÝUKY",
+    "title": "Hlavní zaměření: Výuka dětí hrou v malých skupinkách",
+    "subtitle": "Aktuálně otevíráme registraci pro děti ZŠ na deskovky a hry. Ostatní programy pro dospělé a maturanty připravujeme brzy:",
+    "segments": [
       {
-        "icon": "MessageSquare",
-        "title": "80 % mluvení, 20 % teorie",
-        "description": "Žádné pasivní vyplňování cvičebnic. Každou minutu věnujeme aktivní konverzaci, praktickým dialogům a rozvíjení pohotovosti."
+        "id": "zs",
+        "icon": "🎲",
+        "title": "Děti & Žáci ZŠ (Výuka hrou ve skupinkách)",
+        "age": "1. a 2. stupeň ZŠ (6–15 let)",
+        "badge": "OTEVŘENO K PŘIHLÁŠENÍ",
+        "highlight": "🎁 1. lekce ZDARMA • Malé skupinky 3–6 dětí",
+        "description": "Děti se jazyk učí nejlépe a nejrychleji, když si hrají v partě vrstevníků. Pomocí anglických společenských her, karet a zábavných aktivit se přirozeně rozmluví, ztratí ostych ze známkování ve škole a osvojí si správný australský přízvuk.",
+        "points": [
+          "První ukázková lekce ve skupince je zcela ZDARMA",
+          "Malé skupinky 3 až 6 dětí pro maximální zapojení všech",
+          "Učení formou deskových her, karet, kvízů a zábavy",
+          "Klidné dovysvětlení školní látky, pomoc s úkoly a jedničky"
+        ],
+        "ctaText": "Přihlásit dítě na 1. lekci zdarma",
+        "ctaLink": "#kontakt"
       },
       {
-        "icon": "ShieldCheck",
-        "title": "Bezpečné prostředí bez ostychu",
-        "description": "Bojíte se udělat chybu? U mě je chyba vítaným krokem k učení. Pomůžu vám zbourat vnitřní blok a získat pevnou sebedůvěru."
+        "id": "dospeli",
+        "icon": "💼",
+        "title": "Dospělí & Konverzace",
+        "age": "Dospělí všech úrovní (20+ let)",
+        "badge": "PŘIPRAVUJEME BRZY",
+        "highlight": "Čekací listina pro další semestr",
+        "description": "Josef má bohaté zkušenosti s doučováním dospělých a dlouholetou překladatelskou praxí. Tento program otevřeme v další vlně. Můžete se nezávazně zapsat na čekací listinu a dáme vám vědět přednostně.",
+        "points": [
+          "Aktivní konverzace pro práci, cestování i pohovory",
+          "Zkušenosti překladatele a dlouholetého lektora dospělých",
+          "Přednostní informování o otevření míst",
+          "Zápis je zcela nezávazný"
+        ],
+        "ctaText": "Zapsat se na čekací listinu",
+        "ctaLink": "#kontakt"
       },
       {
-        "icon": "Compass",
-        "title": "Materiály ze skutečného života",
-        "description": "Čerpáme z podcastů, autentických zahraničních článků, TED přednášek, firemních e-mailů a reálných rozhovorů."
-      },
-      {
-        "icon": "Laptop",
-        "title": "100% flexibilita a online komfort",
-        "description": "Učte se v pohodlí domova či kanceláře přes Google Meet / Zoom, nebo osobně. Termíny pružně přizpůsobíme vašemu rozvrhu."
+        "id": "ss",
+        "icon": "🎓",
+        "title": "Středoškoláci & Maturita",
+        "age": "SŠ a Gymnázia (15–19 let)",
+        "badge": "PŘIPRAVUJEME BRZY",
+        "highlight": "Čekací listina pro maturanty",
+        "description": "Systematická příprava na státní i profilovou maturitu z angličtiny a Cambridge zkoušky. Otevření plánujeme brzy – zapište se na čekací listinu.",
+        "points": [
+          "Příprava na didaktický test, slohovou práci i speaking",
+          "Nácvik testů nanečisto s rozborem",
+          "Přednostní rezervace termínů po spuštění",
+          "Zápis je zcela nezávazný"
+        ],
+        "ctaText": "Zapsat se na čekací listinu",
+        "ctaLink": "#kontakt"
       }
     ]
   },
-  "services": {
-    "badge": "KURZY & SLUŽBY",
-    "title": "Vyberte si formát, který nejlépe odpovídá vašemu cíli",
-    "subtitle": "Ať už potřebujete získat novou práci, připravit se na zahraniční cestu, nebo složit certifikát – mám pro vás osvědčený plán.",
-    "items": [
+  "about": {
+    "badge": "PŘÍBĚH LEKTORA",
+    "title": "Čech, který vyrostl v Austrálii – a teď učí s úsměvem a trpělivostí",
+    "teacherName": "Josef Válek",
+    "role": "Dlouholetý překladatel a lektor angličtiny",
+    "bio": "Dobrý den! Jmenuji se Josef Válek. V Austrálii jsem žil od útlého dětství až do dospělosti, kde jsem chodil do školy a získal naprosto přirozený cit pro angličtinu a autentický přízvuk. V České republice však žiji již více než 25 let – mluvím tedy naprosto přirozeně česky a přesně vím, s čím Češi v angličtině bojují. Dlouhá léta jsem se živil jako překladatel a soukromý učitel angličtiny pro dospělé. Nyní otevírám svou novou doučovnu a zaměřuji se na to, co funguje nejlépe: učit děti angličtinu hravě v malých skupinkách plných deskovek a smíchu.",
+    "quote": "„Děti se nepotřebují biflovat gramatické poučky nazpaměť. Když k učení přistoupíme hravě – přes deskovky, karty a partu kamarádů – jazyk do nich vklouzne přirozeně a začnou se na každou hodinu těšit.“",
+    "pillars": [
       {
-        "id": "individual",
-        "badge": "Nejžádanější",
-        "title": "Individuální výuka 1 na 1",
-        "description": "Maximální pozornost věnovaná jen vašemu pokroku. Tempo, témata i termíny jsou stoprocentně přizpůsobeny vašim potřebám.",
-        "features": [
-          "Úvodní diagnostika a plán na míru",
-          "Okamžitá individuální zpětná vazba",
-          "Vlastní tempo bez stresu a srovnávání",
-          "Sdílené studijní poznámky v cloudu"
-        ],
-        "ctaText": "Chci individuální lekce",
-        "ctaLink": "#kontakt"
+        "icon": "🎲",
+        "title": "Výuka v malých skupinkách",
+        "description": "Skupinky 3–6 dětí jsou ideální pro deskovky. Děti komunikují mezi sebou i s lektorem a učení je pro ně zábavou."
       },
       {
-        "id": "conversation",
-        "badge": "Odbourání bloku",
-        "title": "Konverzace pro dospělé",
-        "description": "Rozumíte, ale když máte promluvit, v hlavě máte prázdno? Tyto lekce jsou zaměřeny čistě na plynulost a pohotové reakce.",
-        "features": [
-          "Témata z běžného života, cestování i kultury",
-          "Aktivní rozšiřování slovní zásoby a frází",
-          "Přirozené idiomy a obraty rodilých mluvčích",
-          "Trénink reakcí bez překládání v hlavě"
-        ],
-        "ctaText": "Chci se rozmluvit",
-        "ctaLink": "#kontakt"
+        "icon": "🇦🇺",
+        "title": "Australský přízvuk & cit pro jazyk",
+        "description": "Díky vyrůstání v Austrálii předávám přirozenou intonaci a moderní živý jazyk bez českého tvrdého akcentu."
       },
       {
-        "id": "business",
-        "badge": "Pro kariéru",
-        "title": "Byznys angličtina pro profesionály",
-        "description": "Příprava na pracovní pohovory v mezinárodních firmách, vedení meetingů, prezentace a profesionální e-mailová komunikace.",
-        "features": [
-          "Simulace pracovních pohovorů a otázek",
-          "Vedení porad a prezentování projektů",
-          "Vyjednávání a argumentace v angličtině",
-          "Správný firemní styl a e-mailová etiketa"
-        ],
-        "ctaText": "Posunout kariéru",
-        "ctaLink": "#kontakt"
+        "icon": "🇨🇿",
+        "title": "25+ let v ČR & rodná čeština",
+        "description": "Žádná jazyková bariéra. Cokoliv složitějšího rád vysvětlím v češtině a s naprostým pochopením pro školní látku."
       },
       {
-        "id": "exams",
-        "badge": "Zkoušky & Škola",
-        "title": "Příprava na certifikáty a maturitu",
-        "description": "Cílený a systematický dril na Cambridge zkoušky (FCE B2, CAE C1), IELTS i státní a profilovou maturitu s 98% úspěšností.",
-        "features": [
-          "Rozbor autentických testových zadání",
-          "Osvědčené strategie pro Listening a Reading",
-          "Příprava mluveného projevu i slohových útvarů",
-          "Měření pokroku a zkušební testy nanečisto"
-        ],
-        "ctaText": "Připravit se na zkoušku",
-        "ctaLink": "#kontakt"
+        "icon": "🎁",
+        "title": "1. ukázková lekce ZDARMA",
+        "description": "Přijďte si nezávazně vyzkoušet atmosféru. Dítě si zahraje deskovku a sami uvidíte, jak se mu to líbí."
       }
     ]
   },
   "pricing": {
-    "badge": "JASNÝ CENÍK",
-    "title": "Férové ceny bez skrytých poplatků a závazků",
-    "subtitle": "Začněte nezávaznou 20minutovou konzultací zdarma a sami se rozhodněte, jaký formát vám bude vyhovovat.",
-    "guarantee": "💡 Garance spokojenosti: Pokud po 1. placené lekci nebudete spokojeni, vrátím vám 100 % částky zpět.",
+    "badge": "CENÍK & 1. LEKCE ZDARMA",
+    "title": "Začněte 1. lekcí zdarma a bez závazků",
+    "subtitle": "Každé dítě si může přijít celou lekci hrou nezávazně vyzkoušet. Pokud se mu to bude líbit, pokračujete dál.",
+    "guarantee": "🎁 1. LEKCE 100% ZDARMA: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani skryté závazky.",
     "tiers": [
       {
-        "name": "Jednotlivá lekce",
-        "price": "650 Kč",
-        "period": "/ 60 minut",
-        "description": "Ideální pro jednorázovou konzultaci, zopakování před důležitou prezentací nebo nepravidelný rozvrh.",
-        "isPopular": false,
-        "badge": "Flexibilní volba",
-        "features": [
-          "60 minut intenzivní výuky 1 na 1",
-          "Zápis klíčové slovní zásoby z každé lekce",
-          "Všechny materiály a cvičení v ceně",
-          "Plánování termínů dle vašich možností",
-          "Osobní i online varianta"
-        ],
-        "ctaText": "Vybrat jednotlivou lekci",
-        "ctaLink": "#kontakt"
-      },
-      {
-        "name": "Balíček 10 lekcí",
-        "price": "5 850 Kč",
-        "period": "/ 10× 60 minut",
-        "description": "Nejpopulárnější volba pro viditelný a dlouhodobý posun. Získáte ucelený plán a ušetříte 10 % z ceny.",
+        "name": "Děti & Žáci ZŠ (Skupinky hrou)",
+        "price": "390 Kč",
+        "period": "/ lekce (1. lekce ZDARMA)",
+        "description": "Hravá výuka v malých skupinkách plná deskovek, záchrana známek a rozvoj lásky k angličtině.",
         "isPopular": true,
-        "badge": "Nejvýhodnější (Ušetříte 650 Kč)",
+        "badge": "1. LEKCE ZDARMA • OTEVŘENO",
         "features": [
-          "10× 60 minut systematické výuky",
-          "Zvýhodněná cena 585 Kč za lekci",
-          "Všechny prémiové studijní materiály zdarma",
-          "Asynchronní e-mailová podpora a korektury textů",
-          "Přednostní rezervace atraktivních časových slotů",
-          "Platnost balíčku plné 4 měsíce"
+          "1. ukázková lekce ve skupince ZDARMA",
+          "Malá skupinka 3 až 6 dětí pro maximální zapojení",
+          "Učení formou deskových her, karet a kvízů",
+          "Dovysvětlení látky ze školy a pomoc s úkoly",
+          "Všechny herní i výukové materiály v ceně"
         ],
-        "ctaText": "Zvolit balíček se slevou",
+        "ctaText": "Vyzkoušet 1. lekci zdarma",
         "ctaLink": "#kontakt"
       },
       {
-        "name": "Firemní & Týmová výuka",
-        "price": "Od 850 Kč",
-        "period": "/ lekce na míru",
-        "description": "Na míru pro firmy, týmy a manažery s požadavkem na fakturaci, docházku a měřitelný pokrok.",
+        "name": "Dospělí & Konverzace",
+        "price": "Brzy",
+        "period": "připravujeme",
+        "description": "Odbourání ostychu, konverzace na míru, byznys témata a příprava na cesty i do práce.",
         "isPopular": false,
-        "badge": "Pro firmy",
+        "badge": "Připravujeme brzy",
         "features": [
-          "Lekce pro jednotlivce i menší skupinky (do 5 lidí)",
-          "Sylabus přesně zaměřený na váš obor a business",
-          "Pravidelný měsíční reporting docházky a pokroku",
-          "Daňový doklad / faktura pro firemní náklady",
-          "Výuka online nebo přímo ve vašich prostorách"
+          "Aktivní konverzace a nácvik reálných situací",
+          "Praxe od zkušeného překladatele a lektora",
+          "Odstranění ostychu z mluvení a chyb",
+          "Zapište se nezávazně na čekací listinu"
         ],
-        "ctaText": "Poptat firemní nabídku",
+        "ctaText": "Zapsat se na čekací listinu",
+        "ctaLink": "#kontakt"
+      },
+      {
+        "name": "Středoškoláci & Maturita",
+        "price": "Brzy",
+        "period": "připravujeme",
+        "description": "Cílená příprava k maturitě (didaktický test, esej, speaking) a odstranění nervozity.",
+        "isPopular": false,
+        "badge": "Připravujeme brzy",
+        "features": [
+          "Systematický trénink maturitních úloh",
+          "Nácvik plynulého speakingu před komisí",
+          "Materiály a podklady k tématům v ceně",
+          "Zapište se nezávazně na čekací listinu"
+        ],
+        "ctaText": "Zapsat se na čekací listinu",
         "ctaLink": "#kontakt"
       }
     ]
   },
-  "testimonials": {
-    "badge": "HODNOCENÍ STUDENTŮ",
-    "title": "Co říkají ti, kteří už jazykovou bariéru překonali?",
-    "subtitle": "Přečtěte si autentické zkušenosti studentů různých věkových kategorií a profesí.",
-    "items": [
-      {
-        "name": "Ing. Petr Kovář",
-        "role": "Senior IT Project Manager, Brno",
-        "rating": 5,
-        "quote": "Před lekcemi s panem Válkem jsem v práci panikařil pokaždé, když měl proběhnout hovor se zahraničním týmem. Po 3 měsících intenzivních konverzací vedu týmové meetingy v angličtině zcela přirozeně a bez stresu. Skvělý lidský přístup!",
-        "avatar": "PK"
-      },
-      {
-        "name": "Lucie Malá",
-        "role": "Studentka VŠ, Praha",
-        "rating": 5,
-        "quote": "Měla jsem obrovský strach z maturity z angličtiny, hlavně ze speakingu. Josef mi ukázal jednoduché struktury a praktické tipy, díky kterým jsem odmaturovala za 1! Děkuji moc za trpělivost a skvělou energii v každé lekci.",
-        "avatar": "LM"
-      },
-      {
-        "name": "Tomáš Dvořák",
-        "role": "Obchodní ředitel, Ostrava",
-        "rating": 5,
-        "quote": "Oceňuji flexibilitu a zaměření na reálnou byznys terminologii. Žádné teoretické poučky, ale okamžitý trénink obchodních jednání a psaní nabídek. Výrazně to posunulo moji sebedůvěru před zahraničními klienty.",
-        "avatar": "TD"
-      },
-      {
-        "name": "Tereza Novotná",
-        "role": "HR Specialistka, Olomouc",
-        "rating": 5,
-        "quote": "Dlouhá léta jsem byla věčný začátečník. Vystřídala jsem několik jazykových škol, ale až individuální přístup Josefa mi konečně dodal odvahu mluvit. Poprvé v životě mě učení cizího jazyka opravdu baví a vidím reálný posun.",
-        "avatar": "TN"
-      }
-    ]
+  "scio": {
+    "badge": "PŘIPRAVUJEME BRZY",
+    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
+    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
+    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
+    "features": [
+      "Rozbor typových testových úloh z matematiky a češtiny",
+      "Osvědčené postupy pro zvládnutí časového limitu",
+      "Pravidelné testy nanečisto a rozbor každé chyby",
+      "Klidné a srozumitelné vysvětlení bez nervů a stresu"
+    ],
+    "ctaText": "Předběžně se zapsat na čekací listinu",
+    "ctaLink": "#kontakt"
   },
   "faq": {
     "badge": "ČASTÉ DOTAZY",
-    "title": "Vše, co potřebujete před začátkem vědět",
-    "subtitle": "Máte další otázku? Neváhejte mi kdykoliv napsat nebo zavolat.",
+    "title": "Vše, co potřebujete vědět o výuce",
+    "subtitle": "Máte jakýkoliv dotaz? Neváhejte mi kdykoliv zavolat nebo napsat zprávu.",
     "items": [
       {
-        "question": "Jak přesně probíhá nezávazná úvodní lekce zdarma?",
-        "answer": "Úvodní lekce trvá přibližně 20 až 30 minut a probíhá online (přes Google Meet nebo Zoom) nebo telefonicky. Nejde o žádný zkouškový test! Popovídáme si o vašich cílech, zjistíme vaši přibližnou úroveň a ukážeme si, jak by výuka vypadala. Společně zjistíme, zda si lidsky sedneme, a vy se pak v klidu rozhodnete."
+        "question": "Proč je výuka v malých skupinkách a ne 1 na 1?",
+        "answer": "Deskovky a jazykové hry fungují nejlépe v partě vrstevníků! V malé skupince 3 až 6 dětí vzniká přirozená dynamika, smích a zdravá soutěživost. Děti ztrácejí ostych mnohem rychleji, když vidí, že i ostatní dělají chyby. Skupinka je přitom stále dostatečně malá na to, aby se Josef mohl věnovat každému dítěti individuálně."
       },
       {
-        "question": "Mám z mluvení obrovský blok a bojím se, že budu dělat chyby. Zvládnu to?",
-        "answer": "Naprosto určitě – většina mých studentů začínala s přesně stejným pocitem! Můj styl výuky je založený na empatii a podpoře. Nikdy vás nebudu kárat za chyby, naopak si ukážeme, že chyba je přirozená součást procesu. Během několika málo lekcí uvidíte, jak strach opadává a nastupuje radost z dorozumění."
+        "question": "Jak probíhá první ukázková lekce zdarma?",
+        "answer": "První celá lekce je pro každé dítě 100% ZDARMA. Dítě přijde do skupinky, zahraje si hry a deskovky, seznámí se s Josefem i ostatními dětmi a vy jako rodiče sami uvidíte, jak se mu to líbí a jak reaguje. K ničemu se nezavazujete – rozhodnete se až po lekci."
       },
       {
-        "question": "Musím si kupovat drahé učebnice a cvičebnice?",
-        "answer": "Nemusíte! Všechny výukové materiály, interaktivní pracovní listy, články, audionahrávky a odkazy na praktická cvičení ode mě dostanete zdarma v rámci výuky. K materiálům máte trvalý přístup ve své sdílené složce v cloudu."
+        "question": "Vyrůstal jste v Austrálii, ale domluvíme se normálně česky?",
+        "answer": "Ano, naprosto bez problému! V Austrálii jsem prožil dětství i dospívání, ale v České republice žiji již více než 25 let. Mluvím tedy plynulou češtinou. U dětí vše složité rád vysvětlím česky, takže se nikdo nemusí bát, že by něčemu nerozuměl."
       },
       {
-        "question": "Co když budu muset domluvenou lekci zrušit nebo přesunout?",
-        "answer": "Život přináší nečekané situace. Pokud lekci omluvíte alespoň 24 hodin předem, bez jakéhokoliv poplatku ji přesuneme na jiný termín. Váš kredit z předplaceného balíčku tak nikdy nepropadne."
+        "question": "Jak je to s doučováním dospělých a přípravou na maturitu?",
+        "answer": "Tento program pro dospělé i maturanty otevřeme v další fázi. Nyní se můžete nezávazně zapsat na čekací listinu přímo přes formulář a jakmile vypíšeme termíny, ozveme se vám přednostně."
       },
       {
-        "question": "Je online výuka stejně efektivní jako osobní setkání?",
-        "answer": "Z mé dlouholeté zkušenosti je online výuka často ještě efektivnější! Šetříte čas dojížděním, učíte se v klidu svého domova či kanceláře a můžeme v reálném čase sdílet obrazovku, interaktivní dokumenty a psát si slovíčka rovnou do společného dokumentu."
-      },
-      {
-        "question": "Můžete vystavit fakturu pro mou firmu nebo v rámci benefitů?",
-        "answer": "Ano, samozřejmě. Na veškeré lekce i balíčky vystavuji řádný daňový doklad. Výuku lze snadno uplatnit jako firemní vzdělávání pro zaměstnance či v rámci firemních vzdělávacích rozpočtů."
+        "question": "Musíme kupovat drahé hry a učebnice?",
+        "answer": "Nemusíte! Všechny deskové hry, karty, pracovní materiály i pomůcky jsou plně v ceně doučování."
       }
     ]
   },
   "contact": {
-    "badge": "PŮJDEME DO TOHO SPOLEČNĚ?",
-    "title": "Domluvte si nezávaznou úvodní konzultaci zdarma",
-    "subtitle": "Vyplňte krátký formulář níže nebo mi rovnou zavolejte či napište na WhatsApp. Odpovím vám obvykle do několika hodin.",
+    "badge": "PŘIHLASTE DÍTĚ NA 1. LEKCI ZDARMA",
+    "title": "Rezervujte ukázkovou lekci hrou zdarma",
+    "subtitle": "Vyberte termín a přijďte si s dítětem nezávazně vyzkoušet atmosféru v malé skupince. První lekce je zcela zdarma a nezávazná.",
     "email": "josef.valek@email.cz",
     "phone": "+420 777 123 456",
     "phoneFormatted": "+420 777 123 456",
     "whatsapp": "https://wa.me/420777123456",
-    "location": "Online výuka (celá ČR a svět) & Osobně po dohodě",
+    "location": "Výuka v přátelských prostorách & Online po domluvě",
     "hours": "Pondělí – Pátek: 8:00 – 19:00",
     "web3formsKey": ""
   }

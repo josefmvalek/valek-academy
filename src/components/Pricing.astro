@@ -23,25 +23,25 @@ interface Props {
 
 const { pricing } = Astro.props;
 
-const badge = pricing.badge || "JASNÝ CENÍK";
-const title = pricing.title || "Férové ceny bez skrytých poplatků a závazků";
-const subtitle = pricing.subtitle || "Začněte nezávaznou 20minutovou konzultací zdarma a sami se rozhodněte, jaký formát vám bude vyhovovat.";
-const guarantee = pricing.guarantee || "💡 Garance spokojenosti: Pokud po 1. placené lekci nebudete spokojeni, vrátím vám 100 % částky zpět.";
+const badge = pricing.badge || "CENÍK & 1. LEKCE ZDARMA";
+const title = pricing.title || "Transparentní ceny – pro děti 1. lekce zcela zdarma";
+const subtitle = pricing.subtitle || "Pro děti na ZŠ je 1. celá lekce v malé skupince 100% ZDARMA. Ostatní programy otevřeme brzy (můžete se nezávazně zapsat na čekací listinu).";
+const guarantee = pricing.guarantee || "🎁 1. LEKCE 100% ZDARMA: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani skryté závazky.";
 const tiers = pricing.tiers || [];
 ---
 
-<section id="cenik" class="py-20 md:py-32 relative bg-navy-900/60 border-t border-slate-800/60">
+<section id="cenik" class="py-12 md:py-16 relative bg-[#FDFBF7] border-t border-parchment-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Section Header -->
-    <div class="max-w-3xl mx-auto text-center space-y-4 mb-16 md:mb-20">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glow-badge text-xs font-semibold uppercase tracking-wider">
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-8 md:mb-12">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-950">
         {badge}
       </div>
-      <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
+      <h2 class="font-academy font-bold text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight">
         {title}
       </h2>
-      <p class="text-slate-400 text-base sm:text-lg">
+      <p class="text-espresso-800/80 text-base sm:text-lg">
         {subtitle}
       </p>
     </div>
@@ -53,15 +53,15 @@ const tiers = pricing.tiers || [];
         return (
           <div class={`rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative transition-all duration-300 ${
             isPopular
-              ? 'bg-gradient-to-b from-navy-850 to-slate-900 border-2 border-brand-400 shadow-glow-brand lg:-translate-y-3 z-10'
-              : 'glass-card border border-slate-700/60 hover:border-slate-600'
+              ? 'bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-xl glow-amber lg:-translate-y-3 z-10'
+              : 'bg-parchment-50 border border-parchment-300 shadow-xs opacity-80 hover:opacity-100'
           }`}>
             
             <!-- Popular Ribbon / Badge -->
             {isPopular && (
-              <div class="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-gradient-to-r from-brand-400 to-amber-500 text-navy-950 shadow-md">
-                  ★ {tier.badge || "Nejoblíbenější"}
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-md">
+                  🎁 {tier.badge || "1. LEKCE ZDARMA"}
                 </span>
               </div>
             )}
@@ -69,36 +69,36 @@ const tiers = pricing.tiers || [];
             <div class="space-y-6">
               <!-- Tier Top info -->
               <div>
-                {!isPopular && tier.badge && (
-                  <span class="inline-block text-xs font-bold text-brand-400 tracking-wider uppercase mb-2">
-                    {tier.badge}
+                {!isPopular && (
+                  <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-stone-600 bg-parchment-200 px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2 border border-parchment-300">
+                    <span>⏳</span> <span>{tier.badge || "Připravujeme brzy"}</span>
                   </span>
                 )}
-                <h3 class="font-display font-bold text-2xl text-white">
+                <h3 class="font-academy font-bold text-2xl text-espresso-950">
                   {tier.name}
                 </h3>
-                <p class="text-sm text-slate-400 mt-2 min-h-[40px]">
+                <p class="text-sm text-espresso-800/80 mt-2 min-h-[40px]">
                   {tier.description}
                 </p>
               </div>
 
               <!-- Price Display -->
-              <div class="pt-4 pb-2 border-y border-slate-800 flex items-baseline gap-2">
-                <span class="font-display font-black text-4xl sm:text-5xl text-white tracking-tight">
+              <div class="pt-4 pb-2 border-y border-parchment-200 flex items-baseline gap-2">
+                <span class="font-academy font-black text-4xl sm:text-5xl text-espresso-950 tracking-tight">
                   {tier.price}
                 </span>
-                <span class="text-sm text-slate-400 font-medium">
+                <span class="text-sm text-stone-500 font-medium">
                   {tier.period}
                 </span>
               </div>
 
               <!-- Features list -->
               <div class="space-y-3">
-                <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Balíček obsahuje:</div>
+                <div class="text-xs font-bold uppercase tracking-wider text-stone-400">Balíček obsahuje:</div>
                 <ul class="space-y-3">
                   {(tier.features || []).map((feat) => (
-                    <li class="flex items-start gap-3 text-sm text-slate-300">
-                      <svg class={`w-4 h-4 flex-shrink-0 mt-0.5 ${isPopular ? 'text-brand-400' : 'text-emerald-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <li class="flex items-start gap-3 text-sm text-espresso-800">
+                      <svg class={`w-4 h-4 flex-shrink-0 mt-0.5 ${isPopular ? 'text-amber-600' : 'text-emerald-600'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                       </svg>
                       <span>{feat}</span>
@@ -109,16 +109,16 @@ const tiers = pricing.tiers || [];
             </div>
 
             <!-- CTA Button -->
-            <div class="pt-8 mt-8 border-t border-slate-800">
+            <div class="pt-8 mt-8 border-t border-parchment-200">
               <a
                 href={tier.ctaLink || "#kontakt"}
                 class={`w-full inline-flex items-center justify-center py-4 px-6 rounded-2xl font-display font-bold text-base transition-all text-center ${
                   isPopular
-                    ? 'bg-gradient-to-r from-brand-400 to-brand-500 hover:from-brand-300 hover:to-brand-400 text-navy-950 shadow-glow-brand hover:scale-105 active:scale-95'
-                    : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                    ? 'bg-gradient-to-b from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 text-espresso-950 shadow-md hover:scale-[1.02] active:scale-[0.98] border border-amber-500/60'
+                    : 'bg-parchment-100 hover:bg-parchment-200 text-espresso-800 border border-parchment-300'
                 }`}
               >
-                {tier.ctaText || "Vybrat tento balíček"}
+                {tier.ctaText || (isPopular ? "Vyzkoušet 1. lekci zdarma" : "Zapsat se na čekací listinu")}
               </a>
             </div>
 
@@ -128,8 +128,8 @@ const tiers = pricing.tiers || [];
     </div>
 
     <!-- Guarantee Banner -->
-    <div class="mt-16 max-w-3xl mx-auto text-center">
-      <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-300 text-sm sm:text-base leading-relaxed">
+    <div class="mt-8 sm:mt-10 max-w-3xl mx-auto text-center">
+      <div class="p-6 rounded-2xl vintage-ribbon text-espresso-950 text-sm sm:text-base leading-relaxed font-medium shadow-xs">
         {guarantee}
       </div>
     </div>

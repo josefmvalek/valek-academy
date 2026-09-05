@@ -1,0 +1,235 @@
+---
+import HowGameLessonWorks from './HowGameLessonWorks.astro';
+
+interface Segment {
+  id: string;
+  icon: string;
+  title: string;
+  age: string;
+  badge?: string;
+  highlight: string;
+  description: string;
+  points?: string[];
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+interface Props {
+  audience: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    segments?: Segment[];
+  };
+}
+
+const { audience } = Astro.props;
+
+const badge = audience.badge || "NABÍDKA DOUČOVÁNÍ";
+const title = audience.title || "Angličtina přizpůsobená na míru – hlavní fokus na děti a hry";
+const subtitle = audience.subtitle || "Každý věk potřebuje jiný přístup. Pro děti volíme zábavu a deskovky, pro dospělé a středoškoláky cílenou praxi:";
+const segments = audience.segments || [];
+---
+
+<section id="programy" class="py-10 md:py-16 relative bg-[#FDFBF7]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-8 md:mb-10">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-900">
+        {badge}
+      </div>
+      <h2 class="font-academy font-bold text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight">
+        {title}
+      </h2>
+      <p class="text-espresso-800/80 text-base sm:text-lg">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Feature 4: Interactive Switcher / Guide Tabs -->
+    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
+      <button
+        type="button"
+        data-filter="all"
+        class="program-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-espresso-900 text-white shadow-sm cursor-pointer"
+      >
+        Všechny programy
+      </button>
+      <button
+        type="button"
+        data-filter="zs"
+        class="program-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-200/90 hover:bg-amber-300 text-espresso-950 border border-amber-400 cursor-pointer flex items-center gap-1.5"
+      >
+        <span>🎲 Pro děti (Skupinky hrou)</span>
+        <span class="bg-amber-400 text-espresso-950 text-[10px] px-1.5 py-0.2 rounded font-extrabold">1. zdarma</span>
+      </button>
+      <button
+        type="button"
+        data-filter="dospeli"
+        class="program-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-parchment-100 hover:bg-parchment-200 text-espresso-800 border border-parchment-300 cursor-pointer flex items-center gap-1.5"
+      >
+        <span>💼 Pro dospělé</span>
+        <span class="text-[10px] text-stone-500 bg-white px-1.5 py-0.2 rounded border border-parchment-300">brzy</span>
+      </button>
+      <button
+        type="button"
+        data-filter="ss"
+        class="program-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-parchment-100 hover:bg-parchment-200 text-espresso-800 border border-parchment-300 cursor-pointer flex items-center gap-1.5"
+      >
+        <span>🎓 Středoškoláci & Maturita</span>
+        <span class="text-[10px] text-stone-500 bg-white px-1.5 py-0.2 rounded border border-parchment-300">brzy</span>
+      </button>
+    </div>
+
+    <!-- 3 Big Audience Cards -->
+    <div class="grid lg:grid-cols-3 gap-8 items-stretch" id="segments-grid">
+      {segments.map((seg) => (
+        <div
+          id={`program-${seg.id}`}
+          data-segment={seg.id}
+          class:list={[
+            "segment-card rounded-3xl p-8 sm:p-10 flex flex-col justify-between border transition-all duration-300 relative group",
+            seg.id === 'zs'
+              ? "bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-md glow-amber lg:-translate-y-2 ring-1 ring-amber-400/30"
+              : "bg-parchment-50 border-parchment-300 shadow-xs opacity-80 hover:opacity-100 hover:shadow-md hover:border-parchment-400"
+          ]}
+        >
+          <div class="space-y-6">
+            
+            <!-- Top Card Header: Icon, Age & Badge -->
+            <div class="flex items-center justify-between">
+              <div
+                class:list={[
+                  "w-14 h-14 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform",
+                  seg.id === 'zs' ? "bg-amber-100 text-amber-900 border border-amber-200" : "bg-parchment-200 text-espresso-800"
+                ]}
+              >
+                {seg.icon}
+              </div>
+              <div class="flex flex-col items-end gap-1">
+                {seg.badge && (
+                  <span
+                    class:list={[
+                      "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold tracking-wide uppercase",
+                      seg.id === 'zs' ? "bg-amber-400 text-espresso-950 shadow-xs" : "bg-parchment-200 text-stone-700 border border-parchment-300"
+                    ]}
+                  >
+                    {seg.badge}
+                  </span>
+                )}
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide bg-parchment-100 text-espresso-800 border border-parchment-300">
+                  {seg.age}
+                </span>
+              </div>
+            </div>
+
+            <!-- Title & Highlight -->
+            <div>
+              <h3 class="font-academy font-bold text-2xl text-espresso-950 group-hover:text-amber-900 transition-colors">
+                {seg.title}
+              </h3>
+              <div class="inline-block mt-2 text-xs font-bold uppercase tracking-wider text-amber-900 bg-amber-100/70 px-2.5 py-1 rounded-md border border-amber-300">
+                {seg.highlight}
+              </div>
+              <p class="text-espresso-800/80 text-sm sm:text-base mt-3 leading-relaxed">
+                {seg.description}
+              </p>
+            </div>
+
+            <!-- Bullet Points -->
+            <div class="pt-3 border-t border-slate-100 space-y-2.5">
+              <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Co získáte:</div>
+              <ul class="space-y-2.5">
+                {(seg.points || []).map((point) => (
+                  <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                    <svg class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Bottom CTA -->
+          <div class="pt-8 mt-8 border-t border-slate-100">
+            <a
+              href={seg.ctaLink || "#kontakt"}
+              data-target-segment={seg.id}
+              class:list={[
+                "segment-cta w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-display font-bold text-sm transition-all text-center",
+                seg.id === 'zs'
+                  ? "bg-amber-400 hover:bg-amber-300 text-oxford-950 shadow-md font-bold"
+                  : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+              ]}
+            >
+              <span>{seg.ctaText || "Mám zájem"}</span>
+              <span>→</span>
+            </a>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Feature 1: Board Game Infographic for Kids -->
+    <div class="mt-14 sm:mt-16">
+      <HowGameLessonWorks />
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Tab switcher logic
+  const tabs = document.querySelectorAll('.program-tab');
+  const cards = document.querySelectorAll('.segment-card');
+  const select = document.getElementById('segment-select') as HTMLSelectElement | null;
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const filter = tab.getAttribute('data-filter');
+
+      // Update tab styles
+      tabs.forEach((t) => {
+        t.classList.remove('bg-oxford-900', 'text-white', 'shadow-sm');
+        t.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      tab.classList.remove('bg-slate-100', 'text-slate-700');
+      tab.classList.add('bg-oxford-900', 'text-white', 'shadow-sm');
+
+      // Filter/Highlight cards
+      cards.forEach((card) => {
+        const segId = card.getAttribute('data-segment');
+        if (filter === 'all' || filter === segId) {
+          card.classList.remove('opacity-40', 'scale-95');
+          card.classList.add('opacity-100');
+          if (filter === segId) {
+            card.classList.add('ring-2', 'ring-amber-500', 'shadow-2xl');
+          } else {
+            card.classList.remove('ring-2', 'ring-amber-500', 'shadow-2xl');
+          }
+        } else {
+          card.classList.add('opacity-40', 'scale-95');
+          card.classList.remove('ring-2', 'ring-amber-500', 'shadow-2xl');
+        }
+      });
+    });
+  });
+
+  // When clicking segment CTA, auto-select corresponding item in form
+  const ctas = document.querySelectorAll('.segment-cta');
+  ctas.forEach((cta) => {
+    cta.addEventListener('click', () => {
+      const target = cta.getAttribute('data-target-segment');
+      if (select && target) {
+        if (target === 'zs') select.selectedIndex = 0;
+        if (target === 'dospeli') select.selectedIndex = 1;
+        if (target === 'ss') select.selectedIndex = 2;
+      }
+    });
+  });
+</script>

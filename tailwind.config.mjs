@@ -1,53 +1,71 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        navy: {
-          950: '#060913',
-          900: '#0A0F1D',
-          850: '#0F1629',
-          800: '#141E38',
-          700: '#1E2D54',
+        oxford: {
+          50: '#F0F5FF',
+          100: '#E0EBFF',
+          200: '#C7D9FE',
+          600: '#1D4ED8',
+          700: '#1E3A8A',
+          800: '#172554',
+          900: '#0F172A',
+          950: '#020617',
         },
-        brand: {
+        gold: {
           50: '#FFFBEB',
           100: '#FEF3C7',
           200: '#FDE68A',
-          300: '#FCD34D',
           400: '#FBBF24',
           500: '#F59E0B',
           600: '#D97706',
           700: '#B45309',
         },
-        accent: {
-          50: '#EEF2FF',
-          100: '#E0E7FF',
-          400: '#818CF8',
-          500: '#6366F1',
-          600: '#4F46E5',
-          700: '#4338CA',
-        },
-        emerald: {
+        eucalyptus: {
+          50: '#ECFDF5',
+          100: '#D1FAE5',
           400: '#34D399',
           500: '#10B981',
           600: '#059669',
-        }
+          700: '#047857',
+        },
+        parchment: {
+          50: '#FDFBF7',
+          100: '#FAF4E8',
+          200: '#F3EAD7',
+          300: '#E8DCBF',
+          400: '#D7C49C',
+          500: '#BF9E68',
+        },
+        espresso: {
+          50: '#FBF9F7',
+          100: '#F4ECE4',
+          200: '#E6D7C7',
+          600: '#684530',
+          700: '#523422',
+          800: '#3D2517',
+          900: '#2A190F',
+          950: '#180E08',
+        },
+        'vintage-navy': '#1B2E4B',
+        'vintage-red': '#A33B2B',
       },
       fontFamily: {
+        academy: ['Cinzel', 'Playfair Display', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Outfit', 'Inter', 'sans-serif'],
+        display: ['Outfit', 'Plus Jakarta Sans', 'Inter', 'sans-serif'],
       },
       boxShadow: {
-        'glow-brand': '0 0 35px -5px rgba(245, 158, 11, 0.3)',
-        'glow-accent': '0 0 35px -5px rgba(99, 102, 241, 0.3)',
-        'card': '0 10px 30px -10px rgba(0, 0, 0, 0.5)',
+        'soft': '0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04)',
+        'soft-lg': '0 10px 30px -5px rgba(15, 23, 42, 0.09), 0 4px 6px -2px rgba(15, 23, 42, 0.05)',
+        'gold-glow': '0 0 25px -4px rgba(245, 158, 11, 0.35)',
+        'blue-glow': '0 0 25px -4px rgba(30, 58, 138, 0.25)',
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero-pattern': 'radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(6, 9, 19, 0) 70%)',
+        'light-radial': 'radial-gradient(circle at 50% 0%, rgba(219, 234, 254, 0.5) 0%, rgba(255, 255, 255, 0) 70%)',
+        'subtle-grid': "radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px)",
       }
     },
   },

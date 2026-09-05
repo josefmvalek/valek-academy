@@ -1,0 +1,51 @@
+---
+interface Props {
+  className?: string;
+  size?: number;
+}
+
+const { className = "w-10 h-10", size = 40 } = Astro.props;
+---
+
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 100 100"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <!-- Background subtle circle badge with warm gold ring -->
+  <circle cx="50" cy="52" r="44" fill="#FAF5EC" stroke="#D7C49C" stroke-width="2.5"/>
+  
+  <!-- Graduation Cap (Mortarboard) inspired by Valek Academy poster -->
+  <polygon points="50,4 78,14 50,23 22,14" fill="#2A190F" stroke="#E5AC44" stroke-width="1.2" />
+  <rect x="42" y="19" width="16" height="5" rx="1.5" fill="#3D2517" />
+  <!-- Cap Tassel -->
+  <path d="M50 14 Q58 16 63 24 Q65 29 65 33" stroke="#E5AC44" stroke-width="2" fill="none" stroke-linecap="round" />
+  <circle cx="65" cy="34" r="2" fill="#D97706" />
+
+  <!-- Crest / Crown feathers (Australian lorikeet colors) -->
+  <path d="M46 22C50 26 55 28 62 26C57 30 53 33 50 37C48 33 47 28 46 22Z" fill="#F59E0B" />
+  <path d="M40 20C44 26 49 28 58 27C52 30 48 33 46 38C43 33 41 27 40 20Z" fill="#D97706" opacity="0.85" />
+
+  <!-- Parrot Head & Neck -->
+  <path d="M44 32C44 32 55 31 63 38C69 43 71 51 68 59C66 64 61 68 56 71L46 75C42 68 40 56 41 46C42 40 43 35 44 32Z" fill="#1E3A8A" />
+
+  <!-- Australian Parrot Beak -->
+  <path d="M68 43C75 44 82 48 83 55C80 57 73 57 67 54C65 52 65 47 68 43Z" fill="#F59E0B" />
+  <path d="M68 53C72 55 77 56 77 58C73 60 67 59 64 56L68 53Z" fill="#D97706" />
+
+  <!-- Eye -->
+  <circle cx="56" cy="43" r="4.5" fill="#FFFFFF" />
+  <circle cx="57" cy="43" r="2.2" fill="#0F172A" />
+  <circle cx="58" cy="42" r="0.8" fill="#FFFFFF" />
+
+  <!-- Breast / Body plumage (Warm sunshine gold & eucalyptus green) -->
+  <path d="M46 75C53 73 59 67 62 61C66 70 65 82 60 90C53 87 47 82 46 75Z" fill="#F59E0B" />
+  <path d="M42 66C44 74 48 82 54 88C48 89 42 86 38 82C36 76 38 70 42 66Z" fill="#10B981" />
+
+  <!-- Wing arc / Flight feather line -->
+  <path d="M36 50C42 56 46 68 44 80C38 78 32 72 30 64C29 57 32 52 36 50Z" fill="#2563EB" />
+</svg>
