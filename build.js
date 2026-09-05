@@ -5,8 +5,10 @@ const hasCloudCreds = Boolean(
   process.env.TINA_TOKEN
 );
 
+// Používáme --skip-cloud-checks, aby zpoždění indexace na Tina Cloud serverech
+// nikdy nezablokovalo build na Vercelu.
 const command = hasCloudCreds
-  ? 'npx tinacms build --content=local -c "astro build"'
+  ? 'npx tinacms build --content=local --skip-cloud-checks -c "astro build"'
   : 'npx tinacms build --local --skip-cloud-checks -c "astro build"';
 
 console.log(`[build] Tina Cloud credentials ${hasCloudCreds ? 'found' : 'not configured (using safe fallback)'}.`);
