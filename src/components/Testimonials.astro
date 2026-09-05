@@ -1,0 +1,102 @@
+---
+interface Testimonial {
+  name: string;
+  role: string;
+  rating?: number;
+  quote: string;
+  avatar?: string;
+}
+
+interface Props {
+  testimonials: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    items?: Testimonial[];
+  };
+}
+
+const { testimonials } = Astro.props;
+
+const badge = testimonials.badge || "HODNOCENÍ STUDENTŮ";
+const title = testimonials.title || "Co říkají ti, kteří už jazykovou bariéru překonali?";
+const subtitle = testimonials.subtitle || "Přečtěte si autentické zkušenosti studentů různých věkových kategorií a profesí.";
+const items = testimonials.items || [];
+---
+
+<section id="reference" class="py-20 md:py-32 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="max-w-3xl mx-auto text-center space-y-4 mb-16 md:mb-20">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glow-badge text-xs font-semibold uppercase tracking-wider">
+        {badge}
+      </div>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
+        {title}
+      </h2>
+      <p class="text-slate-400 text-base sm:text-lg">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid md:grid-cols-2 gap-8">
+      {items.map((item, idx) => (
+        <div class="glass-card glass-card-hover rounded-3xl p-8 sm:p-10 flex flex-col justify-between border border-slate-700/60 relative group">
+          
+          <div class="space-y-6">
+            <!-- Top Row: Stars & Quote Icon -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1 text-amber-400 text-lg">
+                {[...Array(item.rating || 5)].map(() => (
+                  <span>★</span>
+                ))}
+              </div>
+              <div class="text-3xl text-brand-500/25 font-serif font-black">
+                “
+              </div>
+            </div>
+
+            <!-- Quote text -->
+            <p class="text-slate-200 text-base sm:text-lg leading-relaxed italic font-normal">
+              „{item.quote}“
+            </p>
+          </div>
+
+          <!-- Author Info footer -->
+          <div class="pt-6 mt-6 border-t border-slate-800 flex items-center gap-4">
+            <div class={`w-12 h-12 rounded-2xl flex items-center justify-center font-display font-bold text-sm text-white shadow-md ${
+              idx % 4 === 0 ? 'bg-gradient-to-br from-brand-500 to-amber-600' :
+              idx % 4 === 1 ? 'bg-gradient-to-br from-indigo-500 to-accent-700' :
+              idx % 4 === 2 ? 'bg-gradient-to-br from-emerald-500 to-teal-700' :
+              'bg-gradient-to-br from-rose-500 to-orange-600'
+            }`}>
+              {item.avatar || item.name.slice(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <h4 class="font-display font-bold text-base text-white">
+                {item.name}
+              </h4>
+              <p class="text-xs text-slate-400">
+                {item.role}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Google / Social rating summary pill -->
+    <div class="mt-12 text-center">
+      <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-900/90 border border-slate-800 text-xs sm:text-sm text-slate-300">
+        <span class="flex items-center text-amber-400 text-sm">★★★★★</span>
+        <span class="font-semibold text-white">4.9 / 5.0</span>
+        <span class="text-slate-500">•</span>
+        <span>Více než 150 studentů v ČR i v zahraničí</span>
+      </div>
+    </div>
+
+  </div>
+</section>

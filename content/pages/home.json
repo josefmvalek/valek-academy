@@ -1,0 +1,250 @@
+{
+  "title": "Mgr. Josef Válek | Moderní výuka a doučování angličtiny",
+  "hero": {
+    "badge": "🎯 Individuální & firemní výuka angličtiny | Online i osobně",
+    "title": "Rozmluvte se anglicky s lehkostí a bez strachu z chyb.",
+    "subtitle": "Přestaňte se učit poučky nazpaměť. Praktická angličtina šitá na míru vašim cílům – od každodenní konverzace a sebevědomí v práci až po úspěch u zkoušek a maturity.",
+    "ctaPrimaryText": "Nezávazná úvodní lekce zdarma",
+    "ctaPrimaryLink": "#kontakt",
+    "ctaSecondaryText": "Zobrazit ceník a balíčky",
+    "ctaSecondaryLink": "#cenik",
+    "stats": [
+      { "number": "10+ let", "label": "aktivní lektorské praxe" },
+      { "number": "150+", "label": "spokojených studentů" },
+      { "number": "4.9 / 5", "label": "průměrné hodnocení studentů" },
+      { "number": "98 %", "label": "úspěšnost u zkoušek a pohovorů" }
+    ]
+  },
+  "about": {
+    "badge": "O MNĚ A MÉ METODICE",
+    "title": "Angličtina pro reálný život – bez biflování a zbytečného stresu",
+    "teacherName": "Mgr. Josef Válek",
+    "role": "Certifikovaný lektor angličtiny s mezinárodní praxí",
+    "bio": "Jmenuji se Josef Válek a již více než 10 let pomáhám dospělým, studentům i manažerům překonávat jazykovou bariéru. Věřím, že naučit se mluvit cizím jazykem nemá být utrpení plné nudných gramatických cvičení ze zaprášených učebnic. Můj přístup staví na přirozené konverzaci, bezpečném přátelském prostředí a tématech, která vás skutečně zajímají a využijete je v praxi.",
+    "experienceYears": "10+ let",
+    "quote": "„Mým cílem není naučit vás odrecitovat předpřítomný čas, ale zajistit, abyste bez váhání zvládli objednat hotel, odprezentovat projekt nebo v klidu zavolat zahraničnímu klientovi.“",
+    "pillars": [
+      {
+        "icon": "MessageSquare",
+        "title": "80 % mluvení, 20 % teorie",
+        "description": "Žádné pasivní vyplňování cvičebnic. Každou minutu věnujeme aktivní konverzaci, praktickým dialogům a rozvíjení pohotovosti."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Bezpečné prostředí bez ostychu",
+        "description": "Bojíte se udělat chybu? U mě je chyba vítaným krokem k učení. Pomůžu vám zbourat vnitřní blok a získat pevnou sebedůvěru."
+      },
+      {
+        "icon": "Compass",
+        "title": "Materiály ze skutečného života",
+        "description": "Čerpáme z podcastů, autentických zahraničních článků, TED přednášek, firemních e-mailů a reálných rozhovorů."
+      },
+      {
+        "icon": "Laptop",
+        "title": "100% flexibilita a online komfort",
+        "description": "Učte se v pohodlí domova či kanceláře přes Google Meet / Zoom, nebo osobně. Termíny pružně přizpůsobíme vašemu rozvrhu."
+      }
+    ]
+  },
+  "services": {
+    "badge": "KURZY & SLUŽBY",
+    "title": "Vyberte si formát, který nejlépe odpovídá vašemu cíli",
+    "subtitle": "Ať už potřebujete získat novou práci, připravit se na zahraniční cestu, nebo složit certifikát – mám pro vás osvědčený plán.",
+    "items": [
+      {
+        "id": "individual",
+        "badge": "Nejžádanější",
+        "title": "Individuální výuka 1 na 1",
+        "description": "Maximální pozornost věnovaná jen vašemu pokroku. Tempo, témata i termíny jsou stoprocentně přizpůsobeny vašim potřebám.",
+        "features": [
+          "Úvodní diagnostika a plán na míru",
+          "Okamžitá individuální zpětná vazba",
+          "Vlastní tempo bez stresu a srovnávání",
+          "Sdílené studijní poznámky v cloudu"
+        ],
+        "ctaText": "Chci individuální lekce",
+        "ctaLink": "#kontakt"
+      },
+      {
+        "id": "conversation",
+        "badge": "Odbourání bloku",
+        "title": "Konverzace pro dospělé",
+        "description": "Rozumíte, ale když máte promluvit, v hlavě máte prázdno? Tyto lekce jsou zaměřeny čistě na plynulost a pohotové reakce.",
+        "features": [
+          "Témata z běžného života, cestování i kultury",
+          "Aktivní rozšiřování slovní zásoby a frází",
+          "Přirozené idiomy a obraty rodilých mluvčích",
+          "Trénink reakcí bez překládání v hlavě"
+        ],
+        "ctaText": "Chci se rozmluvit",
+        "ctaLink": "#kontakt"
+      },
+      {
+        "id": "business",
+        "badge": "Pro kariéru",
+        "title": "Byznys angličtina pro profesionály",
+        "description": "Příprava na pracovní pohovory v mezinárodních firmách, vedení meetingů, prezentace a profesionální e-mailová komunikace.",
+        "features": [
+          "Simulace pracovních pohovorů a otázek",
+          "Vedení porad a prezentování projektů",
+          "Vyjednávání a argumentace v angličtině",
+          "Správný firemní styl a e-mailová etiketa"
+        ],
+        "ctaText": "Posunout kariéru",
+        "ctaLink": "#kontakt"
+      },
+      {
+        "id": "exams",
+        "badge": "Zkoušky & Škola",
+        "title": "Příprava na certifikáty a maturitu",
+        "description": "Cílený a systematický dril na Cambridge zkoušky (FCE B2, CAE C1), IELTS i státní a profilovou maturitu s 98% úspěšností.",
+        "features": [
+          "Rozbor autentických testových zadání",
+          "Osvědčené strategie pro Listening a Reading",
+          "Příprava mluveného projevu i slohových útvarů",
+          "Měření pokroku a zkušební testy nanečisto"
+        ],
+        "ctaText": "Připravit se na zkoušku",
+        "ctaLink": "#kontakt"
+      }
+    ]
+  },
+  "pricing": {
+    "badge": "JASNÝ CENÍK",
+    "title": "Férové ceny bez skrytých poplatků a závazků",
+    "subtitle": "Začněte nezávaznou 20minutovou konzultací zdarma a sami se rozhodněte, jaký formát vám bude vyhovovat.",
+    "guarantee": "💡 Garance spokojenosti: Pokud po 1. placené lekci nebudete spokojeni, vrátím vám 100 % částky zpět.",
+    "tiers": [
+      {
+        "name": "Jednotlivá lekce",
+        "price": "650 Kč",
+        "period": "/ 60 minut",
+        "description": "Ideální pro jednorázovou konzultaci, zopakování před důležitou prezentací nebo nepravidelný rozvrh.",
+        "isPopular": false,
+        "badge": "Flexibilní volba",
+        "features": [
+          "60 minut intenzivní výuky 1 na 1",
+          "Zápis klíčové slovní zásoby z každé lekce",
+          "Všechny materiály a cvičení v ceně",
+          "Plánování termínů dle vašich možností",
+          "Osobní i online varianta"
+        ],
+        "ctaText": "Vybrat jednotlivou lekci",
+        "ctaLink": "#kontakt"
+      },
+      {
+        "name": "Balíček 10 lekcí",
+        "price": "5 850 Kč",
+        "period": "/ 10× 60 minut",
+        "description": "Nejpopulárnější volba pro viditelný a dlouhodobý posun. Získáte ucelený plán a ušetříte 10 % z ceny.",
+        "isPopular": true,
+        "badge": "Nejvýhodnější (Ušetříte 650 Kč)",
+        "features": [
+          "10× 60 minut systematické výuky",
+          "Zvýhodněná cena 585 Kč za lekci",
+          "Všechny prémiové studijní materiály zdarma",
+          "Asynchronní e-mailová podpora a korektury textů",
+          "Přednostní rezervace atraktivních časových slotů",
+          "Platnost balíčku plné 4 měsíce"
+        ],
+        "ctaText": "Zvolit balíček se slevou",
+        "ctaLink": "#kontakt"
+      },
+      {
+        "name": "Firemní & Týmová výuka",
+        "price": "Od 850 Kč",
+        "period": "/ lekce na míru",
+        "description": "Na míru pro firmy, týmy a manažery s požadavkem na fakturaci, docházku a měřitelný pokrok.",
+        "isPopular": false,
+        "badge": "Pro firmy",
+        "features": [
+          "Lekce pro jednotlivce i menší skupinky (do 5 lidí)",
+          "Sylabus přesně zaměřený na váš obor a business",
+          "Pravidelný měsíční reporting docházky a pokroku",
+          "Daňový doklad / faktura pro firemní náklady",
+          "Výuka online nebo přímo ve vašich prostorách"
+        ],
+        "ctaText": "Poptat firemní nabídku",
+        "ctaLink": "#kontakt"
+      }
+    ]
+  },
+  "testimonials": {
+    "badge": "HODNOCENÍ STUDENTŮ",
+    "title": "Co říkají ti, kteří už jazykovou bariéru překonali?",
+    "subtitle": "Přečtěte si autentické zkušenosti studentů různých věkových kategorií a profesí.",
+    "items": [
+      {
+        "name": "Ing. Petr Kovář",
+        "role": "Senior IT Project Manager, Brno",
+        "rating": 5,
+        "quote": "Před lekcemi s panem Válkem jsem v práci panikařil pokaždé, když měl proběhnout hovor se zahraničním týmem. Po 3 měsících intenzivních konverzací vedu týmové meetingy v angličtině zcela přirozeně a bez stresu. Skvělý lidský přístup!",
+        "avatar": "PK"
+      },
+      {
+        "name": "Lucie Malá",
+        "role": "Studentka VŠ, Praha",
+        "rating": 5,
+        "quote": "Měla jsem obrovský strach z maturity z angličtiny, hlavně ze speakingu. Josef mi ukázal jednoduché struktury a praktické tipy, díky kterým jsem odmaturovala za 1! Děkuji moc za trpělivost a skvělou energii v každé lekci.",
+        "avatar": "LM"
+      },
+      {
+        "name": "Tomáš Dvořák",
+        "role": "Obchodní ředitel, Ostrava",
+        "rating": 5,
+        "quote": "Oceňuji flexibilitu a zaměření na reálnou byznys terminologii. Žádné teoretické poučky, ale okamžitý trénink obchodních jednání a psaní nabídek. Výrazně to posunulo moji sebedůvěru před zahraničními klienty.",
+        "avatar": "TD"
+      },
+      {
+        "name": "Tereza Novotná",
+        "role": "HR Specialistka, Olomouc",
+        "rating": 5,
+        "quote": "Dlouhá léta jsem byla věčný začátečník. Vystřídala jsem několik jazykových škol, ale až individuální přístup Josefa mi konečně dodal odvahu mluvit. Poprvé v životě mě učení cizího jazyka opravdu baví a vidím reálný posun.",
+        "avatar": "TN"
+      }
+    ]
+  },
+  "faq": {
+    "badge": "ČASTÉ DOTAZY",
+    "title": "Vše, co potřebujete před začátkem vědět",
+    "subtitle": "Máte další otázku? Neváhejte mi kdykoliv napsat nebo zavolat.",
+    "items": [
+      {
+        "question": "Jak přesně probíhá nezávazná úvodní lekce zdarma?",
+        "answer": "Úvodní lekce trvá přibližně 20 až 30 minut a probíhá online (přes Google Meet nebo Zoom) nebo telefonicky. Nejde o žádný zkouškový test! Popovídáme si o vašich cílech, zjistíme vaši přibližnou úroveň a ukážeme si, jak by výuka vypadala. Společně zjistíme, zda si lidsky sedneme, a vy se pak v klidu rozhodnete."
+      },
+      {
+        "question": "Mám z mluvení obrovský blok a bojím se, že budu dělat chyby. Zvládnu to?",
+        "answer": "Naprosto určitě – většina mých studentů začínala s přesně stejným pocitem! Můj styl výuky je založený na empatii a podpoře. Nikdy vás nebudu kárat za chyby, naopak si ukážeme, že chyba je přirozená součást procesu. Během několika málo lekcí uvidíte, jak strach opadává a nastupuje radost z dorozumění."
+      },
+      {
+        "question": "Musím si kupovat drahé učebnice a cvičebnice?",
+        "answer": "Nemusíte! Všechny výukové materiály, interaktivní pracovní listy, články, audionahrávky a odkazy na praktická cvičení ode mě dostanete zdarma v rámci výuky. K materiálům máte trvalý přístup ve své sdílené složce v cloudu."
+      },
+      {
+        "question": "Co když budu muset domluvenou lekci zrušit nebo přesunout?",
+        "answer": "Život přináší nečekané situace. Pokud lekci omluvíte alespoň 24 hodin předem, bez jakéhokoliv poplatku ji přesuneme na jiný termín. Váš kredit z předplaceného balíčku tak nikdy nepropadne."
+      },
+      {
+        "question": "Je online výuka stejně efektivní jako osobní setkání?",
+        "answer": "Z mé dlouholeté zkušenosti je online výuka často ještě efektivnější! Šetříte čas dojížděním, učíte se v klidu svého domova či kanceláře a můžeme v reálném čase sdílet obrazovku, interaktivní dokumenty a psát si slovíčka rovnou do společného dokumentu."
+      },
+      {
+        "question": "Můžete vystavit fakturu pro mou firmu nebo v rámci benefitů?",
+        "answer": "Ano, samozřejmě. Na veškeré lekce i balíčky vystavuji řádný daňový doklad. Výuku lze snadno uplatnit jako firemní vzdělávání pro zaměstnance či v rámci firemních vzdělávacích rozpočtů."
+      }
+    ]
+  },
+  "contact": {
+    "badge": "PŮJDEME DO TOHO SPOLEČNĚ?",
+    "title": "Domluvte si nezávaznou úvodní konzultaci zdarma",
+    "subtitle": "Vyplňte krátký formulář níže nebo mi rovnou zavolejte či napište na WhatsApp. Odpovím vám obvykle do několika hodin.",
+    "email": "josef.valek@email.cz",
+    "phone": "+420 777 123 456",
+    "phoneFormatted": "+420 777 123 456",
+    "whatsapp": "https://wa.me/420777123456",
+    "location": "Online výuka (celá ČR a svět) & Osobně po dohodě",
+    "hours": "Pondělí – Pátek: 8:00 – 19:00",
+    "web3formsKey": ""
+  }
+}

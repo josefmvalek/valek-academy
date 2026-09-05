@@ -1,0 +1,75 @@
+---
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faq: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    items?: FaqItem[];
+  };
+}
+
+const { faq } = Astro.props;
+
+const badge = faq.badge || "ČASTÉ DOTAZY";
+const title = faq.title || "Vše, co potřebujete před začátkem vědět";
+const subtitle = faq.subtitle || "Máte další otázku? Neváhejte mi kdykoliv napsat nebo zavolat.";
+const items = faq.items || [];
+---
+
+<section id="faq" class="py-20 md:py-32 relative bg-navy-900/60 border-t border-slate-800/60">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="text-center space-y-4 mb-16 md:mb-20">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glow-badge text-xs font-semibold uppercase tracking-wider">
+        {badge}
+      </div>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
+        {title}
+      </h2>
+      <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Semantic & Accessible Accordion Group -->
+    <div class="space-y-4">
+      {items.map((item, index) => (
+        <details
+          name="faq-accordion"
+          class="group glass-card rounded-2xl border border-slate-700/60 overflow-hidden transition-colors data-[open]:border-brand-500/40"
+          open={index === 0}
+        >
+          <summary class="flex items-center justify-between p-6 cursor-pointer list-none text-left select-none text-white font-display font-bold text-lg hover:text-brand-400 transition-colors">
+            <span class="pr-6">{item.question}</span>
+            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0 text-slate-400 group-hover:text-brand-400 group-open:rotate-180 group-open:bg-brand-500/20 group-open:text-brand-400 transition-all duration-300">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </summary>
+
+          <div class="px-6 pb-6 pt-1 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-slate-800/60 mt-1">
+            <p>{item.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <!-- Bottom prompt -->
+    <div class="mt-12 text-center p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
+      <p class="text-slate-300 text-sm">
+        Máte specifický dotaz, který zde není uveden?
+        <a href="#kontakt" class="text-brand-400 font-semibold hover:text-brand-300 ml-1 underline">
+          Napište mi přímo do formuláře
+        </a>
+      </p>
+    </div>
+
+  </div>
+</section>

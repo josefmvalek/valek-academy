@@ -1,0 +1,100 @@
+---
+interface Props {
+  email?: string;
+  phone?: string;
+  phoneFormatted?: string;
+}
+
+const {
+  email = "josef.valek@email.cz",
+  phone = "+420777123456",
+  phoneFormatted = "+420 777 123 456"
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-navy-950 border-t border-slate-800/80 pt-16 pb-12 text-slate-400 text-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800/60">
+      
+      <!-- Column 1: Brand & Bio -->
+      <div class="md:col-span-5 space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 font-display font-bold text-lg">
+            JV
+          </div>
+          <div>
+            <span class="font-display font-bold text-lg text-white block">
+              Mgr. Josef Válek
+            </span>
+            <span class="text-xs text-slate-400">
+              Moderní výuka a doučování angličtiny
+            </span>
+          </div>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
+          Praktická výuka angličtiny zaměřená na přirozenou konverzaci, sebevědomí v práci a přípravu na zkoušky. Bez nudného memorování a bez zbytečného stresu.
+        </p>
+      </div>
+
+      <!-- Column 2: Navigation Links -->
+      <div class="md:col-span-3 space-y-3">
+        <div class="font-display font-bold text-xs uppercase tracking-wider text-slate-200">
+          Rychlá navigace
+        </div>
+        <ul class="space-y-2 text-xs sm:text-sm">
+          <li><a href="#o-mne" class="hover:text-white transition-colors">O lektorovi & metodika</a></li>
+          <li><a href="#kurzy" class="hover:text-white transition-colors">Služby a kurzy</a></li>
+          <li><a href="#cenik" class="hover:text-white transition-colors">Ceník & balíčky</a></li>
+          <li><a href="#reference" class="hover:text-white transition-colors">Hodnocení studentů</a></li>
+          <li><a href="#faq" class="hover:text-white transition-colors">Časté otázky (FAQ)</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact & Legal -->
+      <div class="md:col-span-4 space-y-3">
+        <div class="font-display font-bold text-xs uppercase tracking-wider text-slate-200">
+          Kontakt & Rezervace
+        </div>
+        <ul class="space-y-2 text-xs sm:text-sm">
+          <li>
+            <a href={`tel:${phone}`} class="hover:text-brand-400 transition-colors flex items-center gap-2">
+              <span>📞</span> <span>{phoneFormatted}</span>
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${email}`} class="hover:text-brand-400 transition-colors flex items-center gap-2">
+              <span>✉️</span> <span>{email}</span>
+            </a>
+          </li>
+          <li class="flex items-center gap-2 text-slate-400">
+            <span>📍</span> <span>Online (celá ČR & svět) / Osobně dle domluvy</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom copyright row -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>
+        © {currentYear} Mgr. Josef Válek. Všechna práva vyhrazena.
+      </p>
+
+      <div class="flex items-center gap-6">
+        <a href="#kontakt" class="hover:text-slate-300 transition-colors">Nezávazná lekce</a>
+        <span class="text-slate-700">•</span>
+        <!-- TinaCMS Admin Login Link -->
+        <a href="/admin" class="hover:text-brand-400 transition-colors flex items-center gap-1.5 font-medium text-slate-400">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <span>Přihlášení do TinaCMS</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</footer>

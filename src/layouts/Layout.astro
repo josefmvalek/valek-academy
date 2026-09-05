@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Mgr. Josef Válek | Doučování a výuka angličtiny",
+  description = "Moderní, efektivní a přátelská výuka angličtiny pro dospělé, studenty i firmy. Odbourejte strach z mluvení s certifikovaným lektorem s 10+ lety praxe. Lekce online i osobně.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="cs" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="cs_CZ" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="bg-navy-950 text-slate-100 antialiased selection:bg-brand-500 selection:text-navy-950 min-h-screen flex flex-col">
+    <slot />
+  </body>
+</html>

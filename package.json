@@ -1,0 +1,26 @@
+{
+  "name": "valek-academy",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "tinacms dev -c \"astro dev\"",
+    "dev:astro": "astro dev",
+    "build": "tinacms build --content=local -c \"astro build\"",
+    "build:local": "tinacms build --local --skip-cloud-checks -c \"astro build\"",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/vercel": "^8.0.7",
+    "@tinacms/astro": "^0.6.1",
+    "astro": "^5.4.2",
+    "lucide-astro": "^0.477.0",
+    "tailwindcss": "^3.4.17",
+    "tinacms": "^3.12.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@tinacms/cli": "^2.6.1"
+  }
+}

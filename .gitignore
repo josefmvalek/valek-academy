@@ -1,0 +1,14 @@
+# Build and dependency artifacts
+node_modules/
+dist/
+.astro/
+.vercel/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# TinaCMS generated files (built on dev/build)
+.tina/__generated__
+tina/__generated__
