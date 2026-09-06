@@ -8,6 +8,7 @@ import LessonTimeline from './LessonTimeline.astro';
 import About from './About.astro';
 import Testimonials from './Testimonials.astro';
 import GroupMatcher from './GroupMatcher.astro';
+import ScioSection from './ScioSection.astro';
 import FAQ from './FAQ.astro';
 import Contact from './Contact.astro';
 
@@ -24,6 +25,7 @@ const comparison = page.comparison || {};
 const testimonials = page.testimonials || {};
 const howItWorks = page.howItWorks || {};
 const timeline = page.timeline || {};
+const scio = page.scio || {};
 const locationInfo = page.location || {};
 const groupMatcher = page.groupMatcher || {};
 const faq = page.faq || {};
@@ -33,28 +35,31 @@ const contact = page.contact || {};
 <!-- 1. Hook & Introduction: Melbourne background, audio sample, dual badges, 1st lesson FREE CTA -->
 <Hero hero={hero} />
 
-<!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Online note + High School/SCIO waiting list -->
-<AudienceSegments audience={audience} />
+<!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Online note + High School waiting list -->
+{audience.enabled !== false && <AudienceSegments audience={audience} />}
 
 <!-- 3. Transparency & Value: 390 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
-<Pricing pricing={pricing} />
-<ComparisonTable comparison={comparison} />
+{pricing.enabled !== false && <Pricing pricing={pricing} />}
+{comparison.enabled !== false && <ComparisonTable comparison={comparison} />}
 
 <!-- 4. Methodology & Game Lesson Flow: Karak, Scrabble, Story Cubes, Dixit + 60-minute structured flow -->
-<HowGameLessonWorks howItWorks={howItWorks} />
-<LessonTimeline timeline={timeline} />
+{howItWorks.enabled !== false && <HowGameLessonWorks howItWorks={howItWorks} />}
+{timeline.enabled !== false && <LessonTimeline timeline={timeline} />}
 
 <!-- 5. The Teacher & Classroom: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
-<About about={about} locationInfo={locationInfo} />
+{about.enabled !== false && <About about={about} locationInfo={locationInfo} />}
 
 <!-- 6. Social Proof: Real local reviews from parents in Uherské Hradiště, Staré Město and Kunovice -->
-<Testimonials testimonials={testimonials} />
+{testimonials.enabled !== false && <Testimonials testimonials={testimonials} />}
 
 <!-- 7. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
-<GroupMatcher groupMatcher={groupMatcher} />
+{groupMatcher.enabled !== false && <GroupMatcher groupMatcher={groupMatcher} />}
+
+<!-- 7b. SCIO Prep (Disabled by default, toggleable in CMS) -->
+{scio.enabled === true && <ScioSection scio={scio} />}
 
 <!-- 8. Answers & Overcoming Objections: Semantic FAQ Accordion -->
-<FAQ faq={faq} />
+{faq.enabled !== false && <FAQ faq={faq} />}
 
 <!-- 9. Primary Conversion: Reservation form with format selector (Osobně v UH / Online) & Location Details -->
-<Contact contact={contact} locationInfo={locationInfo} />
+{contact.enabled !== false && <Contact contact={contact} locationInfo={locationInfo} />}

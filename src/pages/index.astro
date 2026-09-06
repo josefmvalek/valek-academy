@@ -40,7 +40,7 @@ const stickyCta = page.stickyCta || {};
     footer={footer}
   />
 
-  <MobileStickyCTA ctaLink="#kontakt" ctaText={stickyCta.text} stickyCta={stickyCta} />
+  {stickyCta.enabled !== false && <MobileStickyCTA ctaLink="#kontakt" ctaText={stickyCta.text} stickyCta={stickyCta} />}
   <WhatsAppFloating phone={contact.phone?.replace('+', '')} />
   {import.meta.env.DEV && <VisualEditor />}
 </Layout>

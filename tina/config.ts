@@ -85,6 +85,7 @@ export default defineConfig({
             name: "audience",
             label: "3 Cílové skupiny (ZŠ, SŠ, Dospělí)",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit sekci Programy & Hry na webu?" },
               { type: "string", name: "badge", label: "Odznáček sekce" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
@@ -150,6 +151,7 @@ export default defineConfig({
             name: "scio",
             label: "Sekce SCIO & Přijímačky na SŠ",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit sekci SCIO na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
               { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
@@ -164,6 +166,7 @@ export default defineConfig({
             name: "about",
             label: "Sekce O lektorovi & Metodika",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit sekci O lektorovi na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "teacherName", label: "Jméno lektora" },
@@ -191,6 +194,7 @@ export default defineConfig({
             name: "pricing",
             label: "Ceník a balíčky",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit sekci Ceník na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
@@ -222,6 +226,7 @@ export default defineConfig({
             name: "comparison",
             label: "Srovnávací tabulka (Škola vs Doučování vs Valek)",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit Srovnávací tabulku na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis srovnání" },
               { type: "string", name: "subtitle", label: "Podnadpis srovnání", ui: { component: "textarea" } },
@@ -255,6 +260,7 @@ export default defineConfig({
             name: "testimonials",
             label: "Reference a recenze",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit sekci Reference na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
@@ -285,6 +291,7 @@ export default defineConfig({
             name: "howItWorks",
             label: "Metodika & Hry",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit sekci Jak výuka hrou funguje na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
               { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
@@ -328,6 +335,7 @@ export default defineConfig({
             name: "timeline",
             label: "Časová osa lekce (60 minut)",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit Časovou osu 60 min lekce na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
               { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
@@ -398,6 +406,7 @@ export default defineConfig({
             name: "groupMatcher",
             label: "Rozřazovač do skupinek",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit Rozřazovač do skupinek na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
               { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
@@ -412,6 +421,7 @@ export default defineConfig({
             name: "faq",
             label: "Časté dotazy (FAQ)",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit sekci Časté dotazy (FAQ) na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
@@ -462,6 +472,7 @@ export default defineConfig({
             name: "stickyCta",
             label: "Mobilní plovoucí lišta",
             fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit mobilní plovoucí lištu?" },
               { type: "string", name: "text", label: "Text výzvy" },
               { type: "string", name: "buttonText", label: "Text tlačítka" },
             ],
