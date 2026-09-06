@@ -224,16 +224,20 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
           <form id="contact-form" class="space-y-4 sm:space-y-5" data-access-key={web3formsKey}>
             <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
 
-            <!-- Row 1: Segment Choice -->
-            <div>
-              <label for="segment-select" class="block text-xs font-black uppercase tracking-wider text-espresso-950 mb-2">
+            <!-- Row 1: Segment Choice (Custom Rich Dropdown) -->
+            <div class="relative custom-dropdown-container" id="custom-segment-dropdown">
+              <label id="segment-label" class="block text-xs font-black uppercase tracking-wider text-espresso-950 mb-2">
                 O jaký program máte zájem? <span class="text-red-500">*</span>
               </label>
+
+              <!-- Hidden native select for form submit, accessibility & Tina fallback -->
               <select
                 id="segment-select"
                 name="segment"
                 required
-                class="w-full px-4 py-3.5 rounded-xl bg-parchment-50 border border-parchment-300 text-espresso-950 font-bold focus:outline-none focus:border-amber-500 focus:bg-white transition-colors text-base sm:text-sm"
+                class="sr-only"
+                tabindex="-1"
+                aria-hidden="true"
               >
                 <option value="Děti na ZŠ (Výuka hrou v malé skupince 4–8 dětí) – 1. LEKCE ZDARMA" selected>
                   🎲 Děti na ZŠ (Skupinka 4–8 dětí hrou) – 1. LEKCE 100% ZDARMA [Otevřeno]
@@ -248,6 +252,165 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
                   📐 SCIO testy & Přijímačky na SŠ [Přednostní čekací listina]
                 </option>
               </select>
+
+              <!-- Custom Trigger Button -->
+              <button
+                type="button"
+                id="segment-trigger"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="segment-label segment-trigger-title"
+                class="w-full flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-parchment-50 hover:bg-white border-2 border-amber-300/80 hover:border-amber-500 focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-400/20 text-left transition-all cursor-pointer shadow-2xs group"
+              >
+                <div class="flex items-center gap-3 min-w-0">
+                  <div id="segment-trigger-icon" class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-300 to-amber-400 text-espresso-950 border border-amber-400/80 flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 transition-transform shadow-2xs font-bold">
+                    🎲
+                  </div>
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span id="segment-trigger-title" class="font-heading font-black text-sm sm:text-base text-espresso-950 truncate">
+                        Děti na ZŠ (Skupinka 4–8 dětí hrou)
+                      </span>
+                      <span id="segment-trigger-badge" class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs">
+                        🎁 1. lekce ZDARMA • Otevřeno
+                      </span>
+                    </div>
+                    <p id="segment-trigger-desc" class="text-[11px] sm:text-xs text-stone-600 font-normal truncate mt-0.5">
+                      Pro žáky 1.–9. třídy • Deskovky, aktivní mluvení a přirozený přízvuk
+                    </p>
+                  </div>
+                </div>
+
+                <div class="w-8 h-8 rounded-xl bg-parchment-200/80 group-hover:bg-amber-200/80 flex items-center justify-center flex-shrink-0 transition-all border border-parchment-300/80">
+                  <svg id="segment-chevron" class="dropdown-chevron w-4 h-4 text-espresso-950 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+
+              <!-- Custom Dropdown Menu Listbox -->
+              <div
+                id="segment-menu"
+                role="listbox"
+                tabindex="-1"
+                class="custom-dropdown-menu absolute left-0 right-0 top-[calc(100%+8px)] z-50 bg-white/95 backdrop-blur-xl border-2 border-amber-400 rounded-2xl shadow-2xl p-2 space-y-1.5 transition-all duration-200 origin-top opacity-0 scale-95 pointer-events-none"
+              >
+                <!-- Option 1: Děti ZŠ -->
+                <div
+                  role="option"
+                  aria-selected="true"
+                  data-value="Děti na ZŠ (Výuka hrou v malé skupince 4–8 dětí) – 1. LEKCE ZDARMA"
+                  data-icon="🎲"
+                  data-title="Děti na ZŠ (Skupinka 4–8 dětí hrou)"
+                  data-badge="🎁 1. lekce ZDARMA • Otevřeno"
+                  data-badge-class="bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs"
+                  data-desc="Pro žáky 1.–9. třídy • Deskovky, aktivní mluvení a přirozený přízvuk"
+                  class="segment-option p-3 rounded-xl border-2 border-amber-500 bg-amber-50/90 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt shadow-2xs"
+                >
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-300 to-amber-400 text-espresso-950 flex items-center justify-center text-lg flex-shrink-0 group-hover/opt:scale-110 transition-transform shadow-2xs font-bold border border-amber-400">
+                      🎲
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-heading font-black text-sm text-espresso-950">Děti na ZŠ (Skupinka 4–8 dětí hrou)</span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300">
+                          🎁 1. lekce ZDARMA • Otevřeno
+                        </span>
+                      </div>
+                      <p class="text-[11px] text-stone-600 font-normal truncate mt-0.5">Pro žáky 1.–9. třídy • Deskovky, aktivní mluvení a přirozený přízvuk</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-base text-amber-700 font-black flex-shrink-0">✓</span>
+                </div>
+
+                <!-- Option 2: Dospělí -->
+                <div
+                  role="option"
+                  aria-selected="false"
+                  data-value="Dospělí & Konverzace [Brzy – Čekací listina]"
+                  data-icon="💼"
+                  data-title="Angličtina pro dospělé & Konverzace"
+                  data-badge="⏳ Přednostní čekací listina"
+                  data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+                  data-desc="Mluvení bez stresu a ostychu, praktická slovní zásoba do práce i na cesty"
+                  class="segment-option p-3 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+                >
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="w-10 h-10 rounded-xl bg-parchment-200 text-espresso-950 flex items-center justify-center text-lg flex-shrink-0 group-hover/opt:scale-110 transition-transform shadow-2xs border border-parchment-300">
+                      💼
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-heading font-black text-sm text-espresso-950">Angličtina pro dospělé & Konverzace</span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">
+                          ⏳ Přednostní čekací listina
+                        </span>
+                      </div>
+                      <p class="text-[11px] text-stone-500 font-normal truncate mt-0.5">Mluvení bez stresu a ostychu, praktická slovní zásoba do práce i na cesty</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-base text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+                </div>
+
+                <!-- Option 3: Středoškoláci & Maturita -->
+                <div
+                  role="option"
+                  aria-selected="false"
+                  data-value="Středoškoláci & Maturita [Brzy – Čekací listina]"
+                  data-icon="🎓"
+                  data-title="Střední škola & Maturita"
+                  data-badge="⏳ Přednostní čekací listina"
+                  data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+                  data-desc="Příprava k maturitě (didaktické testy & ústní část), Cambridge zkoušky a konverzace"
+                  class="segment-option p-3 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+                >
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="w-10 h-10 rounded-xl bg-parchment-200 text-espresso-950 flex items-center justify-center text-lg flex-shrink-0 group-hover/opt:scale-110 transition-transform shadow-2xs border border-parchment-300">
+                      🎓
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-heading font-black text-sm text-espresso-950">Střední škola & Maturita</span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">
+                          ⏳ Přednostní čekací listina
+                        </span>
+                      </div>
+                      <p class="text-[11px] text-stone-500 font-normal truncate mt-0.5">Příprava k maturitě (didaktické testy & ústní část), Cambridge zkoušky a konverzace</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-base text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+                </div>
+
+                <!-- Option 4: SCIO testy -->
+                <div
+                  role="option"
+                  aria-selected="false"
+                  data-value="SCIO testy & Přijímačky na SŠ [Brzy – Čekací listina]"
+                  data-icon="📐"
+                  data-title="SCIO testy & Přijímačky na SŠ"
+                  data-badge="⏳ Přednostní čekací listina"
+                  data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+                  data-desc="Cílená příprava pro 5. a 9. třídy na jednotné přijímací zkoušky na gymnázia a SŠ"
+                  class="segment-option p-3 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+                >
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="w-10 h-10 rounded-xl bg-parchment-200 text-espresso-950 flex items-center justify-center text-lg flex-shrink-0 group-hover/opt:scale-110 transition-transform shadow-2xs border border-parchment-300">
+                      📐
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-heading font-black text-sm text-espresso-950">SCIO testy & Přijímačky na SŠ</span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">
+                          ⏳ Přednostní čekací listina
+                        </span>
+                      </div>
+                      <p class="text-[11px] text-stone-500 font-normal truncate mt-0.5">Cílená příprava pro 5. a 9. třídy na jednotné přijímací zkoušky na gymnázia a SŠ</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-base text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+                </div>
+              </div>
             </div>
 
             <!-- Row 1b: Teaching Format Selector (Osobně v doučovně vs. Online) -->
@@ -353,15 +516,19 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
               </div>
             </div>
 
-            <!-- Row 4: Grade Level -->
-            <div>
-              <label for="level" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
+            <!-- Row 4: Grade Level (Custom Rich Dropdown) -->
+            <div class="relative custom-dropdown-container" id="custom-level-dropdown">
+              <label id="level-label" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
                 Třída / Současná úroveň <span class="text-stone-400 text-[10px] font-normal">(pro výběr her a party vrstevníků)</span>
               </label>
+
+              <!-- Hidden native select for form submit, accessibility & fallback -->
               <select
                 id="level"
                 name="level"
-                class="w-full px-4 py-3 rounded-xl bg-parchment-50 border border-parchment-300 text-espresso-950 font-medium focus:outline-none focus:border-amber-500 focus:bg-white transition-colors text-base sm:text-sm"
+                class="sr-only"
+                tabindex="-1"
+                aria-hidden="true"
               >
                 <option value="ZŠ 1. stupeň (1.–3. třída)">ZŠ 1. stupeň (1.–3. třída) – Malí objevitelé & deskovky</option>
                 <option value="ZŠ 2. stupeň (4.–6. třída)" selected>ZŠ 2. stupeň (4.–6. třída) – Dobrodruzi & Karak</option>
@@ -370,6 +537,211 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
                 <option value="Dospělý začátečník / Konverzace">Dospělý / Konverzace [Přednostní čekací listina]</option>
                 <option value="SCIO přijímačky">SCIO přijímačky 5. / 9. třída [Přednostní čekací listina]</option>
               </select>
+
+              <!-- Custom Trigger Button for Level -->
+              <button
+                type="button"
+                id="level-trigger"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="level-label level-trigger-title"
+                class="w-full flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl bg-parchment-50 hover:bg-white border-2 border-parchment-300 hover:border-amber-400 focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-400/20 text-left transition-all cursor-pointer shadow-2xs group"
+              >
+                <div class="flex items-center gap-3 min-w-0">
+                  <div id="level-trigger-icon" class="w-10 h-10 rounded-xl bg-amber-100 text-espresso-950 border border-amber-300 flex items-center justify-center text-lg flex-shrink-0 group-hover:scale-105 transition-transform shadow-2xs font-bold">
+                    🐉
+                  </div>
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span id="level-trigger-title" class="font-heading font-black text-sm text-espresso-950 truncate">
+                        ZŠ 2. stupeň (4.–6. třída)
+                      </span>
+                      <span id="level-trigger-badge" class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300">
+                        ⭐ Nejpopulárnější • Karak
+                      </span>
+                    </div>
+                    <p id="level-trigger-desc" class="text-[11px] text-stone-500 font-normal truncate mt-0.5">
+                      Dobrodruzi & Karak • Deskovky, rozmluvení a sebevědomí do školy
+                    </p>
+                  </div>
+                </div>
+
+                <div class="w-8 h-8 rounded-lg bg-parchment-200/70 group-hover:bg-amber-100 flex items-center justify-center flex-shrink-0 transition-all border border-parchment-300/80">
+                  <svg id="level-chevron" class="dropdown-chevron w-4 h-4 text-espresso-950 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+
+              <!-- Custom Dropdown Menu Listbox for Level -->
+              <div
+                id="level-menu"
+                role="listbox"
+                tabindex="-1"
+                class="custom-dropdown-menu absolute left-0 right-0 top-[calc(100%+6px)] z-50 bg-white/95 backdrop-blur-xl border-2 border-amber-400 rounded-2xl shadow-2xl p-2 space-y-1 transition-all duration-200 origin-top opacity-0 scale-95 pointer-events-none max-h-80 overflow-y-auto"
+              >
+                <!-- Option 1: 1.-3. trida -->
+                <div
+                  role="option"
+                  aria-selected="false"
+                  data-value="ZŠ 1. stupeň (1.–3. třída)"
+                  data-icon="🎒"
+                  data-title="ZŠ 1. stupeň (1.–3. třída)"
+                  data-badge="🎲 Malí objevitelé"
+                  data-badge-class="bg-amber-100 text-amber-900 border border-amber-300"
+                  data-desc="Hravý Karak Junior, Dobble, obrázky a australská výslovnost od mala"
+                  class="level-option p-2.5 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-8 h-8 rounded-lg bg-amber-100 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
+                      🎒
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">ZŠ 1. stupeň (1.–3. třída)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Malí objevitelé</span>
+                      </div>
+                      <p class="text-[10px] text-stone-500 font-normal truncate">Karak Junior, Dobble, pexesa a výslovnost od mala</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-sm text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+                </div>
+
+                <!-- Option 2: 4.-6. trida (selected default) -->
+                <div
+                  role="option"
+                  aria-selected="true"
+                  data-value="ZŠ 2. stupeň (4.–6. třída)"
+                  data-icon="🐉"
+                  data-title="ZŠ 2. stupeň (4.–6. třída)"
+                  data-badge="⭐ Nejpopulárnější • Karak"
+                  data-badge-class="bg-emerald-100 text-emerald-900 border border-emerald-300"
+                  data-desc="Dobrodruzi & Karak • Deskovky, rozmluvení a sebevědomí do školy"
+                  class="level-option p-2.5 rounded-xl border-2 border-amber-500 bg-amber-50/90 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt shadow-2xs"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-8 h-8 rounded-lg bg-amber-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform font-bold">
+                      🐉
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">ZŠ 2. stupeň (4.–6. třída)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300">⭐ Nejpopulárnější • Karak</span>
+                      </div>
+                      <p class="text-[10px] text-stone-600 font-normal truncate">Dobrodruzi & Karak • Deskovky, rozmluvení a sebevědomí do školy</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-sm text-amber-700 font-black flex-shrink-0">✓</span>
+                </div>
+
+                <!-- Option 3: 7.-9. trida -->
+                <div
+                  role="option"
+                  aria-selected="false"
+                  data-value="ZŠ 2. stupeň (7.–9. třída)"
+                  data-icon="⚔️"
+                  data-title="ZŠ 2. stupeň (7.–9. třída)"
+                  data-badge="🏆 Mladí stratégové"
+                  data-badge-class="bg-amber-100 text-amber-900 border border-amber-300"
+                  data-desc="Mladí stratégové, Codenames, přirozený přízvuk a příprava na SŠ"
+                  class="level-option p-2.5 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-8 h-8 rounded-lg bg-amber-100 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
+                      ⚔️
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">ZŠ 2. stupeň (7.–9. třída)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Mladí stratégové</span>
+                      </div>
+                      <p class="text-[10px] text-stone-500 font-normal truncate">Codenames, plynulá konverzace a příprava na přijímačky</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-sm text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+                </div>
+
+                <!-- Option 4: SS -->
+                <div
+                  role="option"
+                  aria-selected="false"
+                  data-value="Střední škola / Maturita"
+                  data-icon="🎓"
+                  data-title="Střední škola / Maturita"
+                  data-badge="⏳ Čekací listina"
+                  data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+                  data-desc="Příprava na ústní maturitu i didaktické testy, Cambridge certifikáty"
+                  class="level-option p-2.5 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-8 h-8 rounded-lg bg-parchment-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
+                      🎓
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">Střední škola / Maturita</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Čekací listina</span>
+                      </div>
+                      <p class="text-[10px] text-stone-500 font-normal truncate">Ústní maturita, didaktické testy a konverzace</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-sm text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+                </div>
+
+                <!-- Option 5: Dospělí -->
+                <div
+                  role="option"
+                  aria-selected="false"
+                  data-value="Dospělý začátečník / Konverzace"
+                  data-icon="☕"
+                  data-title="Dospělý / Konverzace bez stresu"
+                  data-badge="⏳ Čekací listina"
+                  data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+                  data-desc="Rozmluvení bez strachu z chyb, praktická angličtina na cesty a do práce"
+                  class="level-option p-2.5 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-8 h-8 rounded-lg bg-parchment-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
+                      ☕
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">Dospělý / Konverzace</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Čekací listina</span>
+                      </div>
+                      <p class="text-[10px] text-stone-500 font-normal truncate">Mluvení bez stresu, cestování a práce</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-sm text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+                </div>
+
+                <!-- Option 6: SCIO -->
+                <div
+                  role="option"
+                  aria-selected="false"
+                  data-value="SCIO přijímačky"
+                  data-icon="📐"
+                  data-title="SCIO testy & Přijímačky"
+                  data-badge="⏳ Čekací listina"
+                  data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+                  data-desc="Příprava pro 5. a 9. třídy na jednotné přijímací zkoušky na gymnázia"
+                  class="level-option p-2.5 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-8 h-8 rounded-lg bg-parchment-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
+                      📐
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">SCIO testy & Přijímačky</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Čekací listina</span>
+                      </div>
+                      <p class="text-[10px] text-stone-500 font-normal truncate">Strategie řešení testů Cermat a Scio na gymnázia</p>
+                    </div>
+                  </div>
+                  <span class="option-check text-sm text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+                </div>
+              </div>
             </div>
 
             <!-- Row 4b: Preferred Days Multi-Select -->
@@ -533,6 +905,229 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
 
   segmentSelect?.addEventListener('change', updateButtonLabel);
   updateButtonLabel();
+
+  // --- Custom Rich Dropdowns Controller ---
+  function setupCustomDropdown(config: {
+    containerId: string;
+    triggerId: string;
+    menuId: string;
+    chevronId: string;
+    selectId: string;
+    iconId: string;
+    titleId: string;
+    badgeId?: string;
+    descId?: string;
+    optionClass: string;
+  }) {
+    const container = document.getElementById(config.containerId);
+    const trigger = document.getElementById(config.triggerId) as HTMLButtonElement | null;
+    const menu = document.getElementById(config.menuId);
+    const chevron = document.getElementById(config.chevronId);
+    const select = document.getElementById(config.selectId) as HTMLSelectElement | null;
+    const iconEl = document.getElementById(config.iconId);
+    const titleEl = document.getElementById(config.titleId);
+    const badgeEl = config.badgeId ? document.getElementById(config.badgeId) : null;
+    const descEl = config.descId ? document.getElementById(config.descId) : null;
+
+    if (!trigger || !menu || !select) return;
+    const triggerBtn: HTMLButtonElement = trigger;
+    const menuEl: HTMLElement = menu;
+    const selectEl: HTMLSelectElement = select;
+    const options: HTMLElement[] = container ? Array.from(container.querySelectorAll<HTMLElement>(`.${config.optionClass}`)) : [];
+
+    let isOpen = false;
+
+    function openMenu() {
+      // Close other custom dropdowns first
+      document.querySelectorAll<HTMLElement>('.custom-dropdown-menu.dropdown-open').forEach((m: HTMLElement) => {
+        if (m !== menuEl) {
+          m.classList.remove('dropdown-open', 'opacity-100', 'scale-100', 'pointer-events-auto');
+          m.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+          const p = m.closest('.custom-dropdown-container');
+          p?.querySelector('[aria-haspopup="listbox"]')?.setAttribute('aria-expanded', 'false');
+          p?.querySelector('.dropdown-chevron')?.classList.remove('rotate-180');
+        }
+      });
+
+      isOpen = true;
+      triggerBtn.setAttribute('aria-expanded', 'true');
+      menuEl.classList.add('dropdown-open', 'opacity-100', 'scale-100', 'pointer-events-auto');
+      menuEl.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+      if (chevron) chevron.classList.add('rotate-180');
+    }
+
+    function closeMenu() {
+      isOpen = false;
+      triggerBtn.setAttribute('aria-expanded', 'false');
+      menuEl.classList.remove('dropdown-open', 'opacity-100', 'scale-100', 'pointer-events-auto');
+      menuEl.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+      if (chevron) chevron.classList.remove('rotate-180');
+    }
+
+    triggerBtn.addEventListener('click', (e: MouseEvent) => {
+      e.stopPropagation();
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    function selectOption(opt: HTMLElement) {
+      const val = opt.dataset.value || '';
+      const icon = opt.dataset.icon || '';
+      const title = opt.dataset.title || '';
+      const badge = opt.dataset.badge || '';
+      const badgeClass = opt.dataset.badgeClass || '';
+      const desc = opt.dataset.desc || '';
+
+      // Update native select and trigger change
+      selectEl.value = val;
+      selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+
+      // Update trigger visual state
+      if (iconEl) iconEl.textContent = icon;
+      if (titleEl) titleEl.textContent = title;
+      if (badgeEl) {
+        if (badge) {
+          badgeEl.textContent = badge;
+          badgeEl.className = `px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${badgeClass}`;
+          badgeEl.style.display = 'inline-block';
+        } else {
+          badgeEl.style.display = 'none';
+        }
+      }
+      if (descEl) {
+        if (desc) {
+          descEl.textContent = desc;
+          descEl.style.display = 'block';
+        } else {
+          descEl.style.display = 'none';
+        }
+      }
+
+      // Update active styling in options list
+      options.forEach((o: HTMLElement) => {
+        const check = o.querySelector('.option-check');
+        if (o === opt) {
+          o.setAttribute('aria-selected', 'true');
+          o.classList.add('border-amber-500', 'bg-amber-50/90', 'shadow-2xs');
+          o.classList.remove('border-transparent');
+          if (check) check.classList.remove('hidden');
+        } else {
+          o.setAttribute('aria-selected', 'false');
+          o.classList.remove('border-amber-500', 'bg-amber-50/90', 'shadow-2xs');
+          o.classList.add('border-transparent');
+          if (check) check.classList.add('hidden');
+        }
+      });
+
+      closeMenu();
+    }
+
+    options.forEach((opt: HTMLElement) => {
+      opt.addEventListener('click', (e: MouseEvent) => {
+        e.stopPropagation();
+        selectOption(opt);
+      });
+    });
+
+    // Sync when select value changes externally (e.g. from GroupMatcher)
+    selectEl.addEventListener('change', () => {
+      const match = options.find((o: HTMLElement) => o.dataset.value === selectEl.value);
+      if (match) {
+        const icon = match.dataset.icon || '';
+        const title = match.dataset.title || '';
+        const badge = match.dataset.badge || '';
+        const badgeClass = match.dataset.badgeClass || '';
+        const desc = match.dataset.desc || '';
+
+        if (iconEl) iconEl.textContent = icon;
+        if (titleEl) titleEl.textContent = title;
+        if (badgeEl) {
+          if (badge) {
+            badgeEl.textContent = badge;
+            badgeEl.className = `px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${badgeClass}`;
+            badgeEl.style.display = 'inline-block';
+          } else {
+            badgeEl.style.display = 'none';
+          }
+        }
+        if (descEl) {
+          if (desc) {
+            descEl.textContent = desc;
+            descEl.style.display = 'block';
+          } else {
+            descEl.style.display = 'none';
+          }
+        }
+
+        options.forEach((o: HTMLElement) => {
+          const check = o.querySelector('.option-check');
+          if (o === match) {
+            o.setAttribute('aria-selected', 'true');
+            o.classList.add('border-amber-500', 'bg-amber-50/90', 'shadow-2xs');
+            o.classList.remove('border-transparent');
+            if (check) check.classList.remove('hidden');
+          } else {
+            o.setAttribute('aria-selected', 'false');
+            o.classList.remove('border-amber-500', 'bg-amber-50/90', 'shadow-2xs');
+            o.classList.add('border-transparent');
+            if (check) check.classList.add('hidden');
+          }
+        });
+      }
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e: MouseEvent) => {
+      if (isOpen && container && !container.contains(e.target as Node)) {
+        closeMenu();
+      }
+    });
+
+    // Keyboard support: Escape closes, Arrow keys navigate
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      if (e.key === 'Escape') {
+        closeMenu();
+        triggerBtn.focus();
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const currentSelected = options.findIndex((o: HTMLElement) => o.getAttribute('aria-selected') === 'true');
+        const nextIdx = e.key === 'ArrowDown'
+          ? (currentSelected + 1) % options.length
+          : (currentSelected - 1 + options.length) % options.length;
+        selectOption(options[nextIdx]);
+      }
+    });
+  }
+
+  setupCustomDropdown({
+    containerId: 'custom-segment-dropdown',
+    triggerId: 'segment-trigger',
+    menuId: 'segment-menu',
+    chevronId: 'segment-chevron',
+    selectId: 'segment-select',
+    iconId: 'segment-trigger-icon',
+    titleId: 'segment-trigger-title',
+    badgeId: 'segment-trigger-badge',
+    descId: 'segment-trigger-desc',
+    optionClass: 'segment-option'
+  });
+
+  setupCustomDropdown({
+    containerId: 'custom-level-dropdown',
+    triggerId: 'level-trigger',
+    menuId: 'level-menu',
+    chevronId: 'level-chevron',
+    selectId: 'level',
+    iconId: 'level-trigger-icon',
+    titleId: 'level-trigger-title',
+    badgeId: 'level-trigger-badge',
+    descId: 'level-trigger-desc',
+    optionClass: 'level-option'
+  });
 
   const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
   const phoneFeedback = document.getElementById('phone-feedback');

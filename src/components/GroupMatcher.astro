@@ -275,19 +275,19 @@ const goals = groupMatcher.goals || defaultGoals;
       title: "Skupinka Malých Objevitelů (1.–3. třída ZŠ)",
       desc: "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou australskou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
       games: ["🎲 Dobble & zvířata", "🧩 Scrabble Junior", "🃏 Karetní pexesa v AJ", "🏰 Jednoduché deskovky"],
-      levelValue: "ZŠ 1. stupeň"
+      levelValue: "ZŠ 1. stupeň (1.–3. třída)"
     },
     '4-6': {
       title: "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
       desc: "Ideální věk pro napínavé hry a skupinovou dynamiku. Děti komunikují v angličtině přímo během herních situací, rozmluví se a před písemkami ve škole mají náskok.",
       games: ["🐉 Karak & Hrdinové", "🗣️ Story Cubes (Věty)", "🧩 Slovní rébusy", "🃏 Exploding Kittens"],
-      levelValue: "ZŠ 2. stupeň"
+      levelValue: "ZŠ 2. stupeň (4.–6. třída)"
     },
     '7-9': {
       title: "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
       desc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým akcentem a připravujeme se na přijímačky na střední školy.",
       games: ["🏰 Carcassonne & Strategie", "🗣️ Debatní scénky z cest", "🎲 Codenames (Krycí jména)", "📐 Přijímačkové rébusy"],
-      levelValue: "ZŠ 2. stupeň"
+      levelValue: "ZŠ 2. stupeň (7.–9. třída)"
     },
     'ss': {
       title: "Přednostní skupina: Středoškoláci & Maturita",
@@ -339,10 +339,12 @@ const goals = groupMatcher.goals || defaultGoals;
           } else {
             formSelect.value = "Děti na ZŠ (Výuka hrou v malé skupince 4–8 dětí) – 1. LEKCE ZDARMA";
           }
+          formSelect.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
         if (levelSelect) {
           levelSelect.value = data.levelValue;
+          levelSelect.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
         const msgField = document.getElementById('message') as HTMLTextAreaElement | null;
