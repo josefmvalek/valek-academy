@@ -1,5 +1,6 @@
 ---
 import PassportBadge from './PassportBadge.astro';
+import { tinaField } from '@tinacms/astro/tina-field';
 
 interface Pillar {
   icon?: string;
@@ -28,16 +29,16 @@ interface Props {
   };
 }
 
-const { about, locationInfo = {} } = Astro.props;
+const { about = {}, locationInfo = {} } = Astro.props;
 
 const defaultGallery: GalleryItem[] = [
   {
-    image: "/images/doucovna-stul.jpg",
+    image: "/images/doucovna-stul.webp",
     title: "Útulný herní stůl pro 3–6 dětí",
     desc: "Prostorný stůl, kde se děti učí v uvolněné atmosféře plné her a bez pocitu školní lavice."
   },
   {
-    image: "/images/doucovna-hry.jpg",
+    image: "/images/doucovna-hry.webp",
     title: "Knihovnička a deskové hry",
     desc: "Karak, Scrabble, Dixit, Story Cubes a desítky dalších her pro všechny věkové kategorie."
   }
@@ -80,11 +81,11 @@ const pillars = about.pillars || [
     
     <!-- Section Header -->
     <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-14">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-edit-key="about.badge" data-edit-label="Štítek O lektorovi">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-tina-field={tinaField(about, 'badge')} data-edit-key="about.badge" data-edit-label="Štítek O lektorovi">
         <span class="w-2 h-2 rounded-full bg-amber-600"></span>
         <span>{badge}</span>
       </div>
-      <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="about.title" data-edit-label="Nadpis O lektorovi">
+      <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(about, 'title')} data-edit-key="about.title" data-edit-label="Nadpis O lektorovi">
         {title}
       </h2>
     </div>
@@ -94,21 +95,21 @@ const pillars = about.pillars || [
       
       <!-- Bio Text Column -->
       <div class="lg:col-span-7 space-y-5">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-espresso-950 text-xs font-extrabold" data-edit-key="about.role" data-edit-label="Role lektora">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-espresso-950 text-xs font-extrabold" data-tina-field={tinaField(about, 'role')} data-edit-key="about.role" data-edit-label="Role lektora">
           <span>🎓</span> <span>{role}</span>
         </div>
 
         <h3 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950">
-          Ahoj, jsem <span class="text-amber-800" data-edit-key="about.teacherName" data-edit-label="Jméno lektora">{teacherName}</span>
+          Ahoj, jsem <span class="text-amber-800" data-tina-field={tinaField(about, 'teacherName')} data-edit-key="about.teacherName" data-edit-label="Jméno lektora">{teacherName}</span>
         </h3>
 
-        <p class="text-espresso-800/90 text-base sm:text-lg leading-relaxed" data-edit-key="about.bio" data-edit-label="Životopis / Bio">
+        <p class="text-espresso-800/90 text-base sm:text-lg leading-relaxed" data-tina-field={tinaField(about, 'bio')} data-edit-key="about.bio" data-edit-label="Životopis / Bio">
           {bio}
         </p>
 
         <!-- Blockquote Callout -->
         <blockquote class="relative p-5 sm:p-7 rounded-2xl bg-parchment-50 border-l-4 border-amber-500 border-t border-r border-b border-parchment-300 shadow-xs text-espresso-900 italic">
-          <p class="relative z-10 text-espresso-900 text-base font-medium leading-relaxed" data-edit-key="about.quote" data-edit-label="Citát lektora">
+          <p class="relative z-10 text-espresso-900 text-base font-medium leading-relaxed" data-tina-field={tinaField(about, 'quote')} data-edit-key="about.quote" data-edit-label="Citát lektora">
             {quote}
           </p>
           <div class="mt-3 text-xs font-black text-amber-900 not-italic uppercase tracking-wider flex items-center gap-2">
@@ -134,9 +135,11 @@ const pillars = about.pillars || [
             <div class="flex items-center gap-3.5">
               <div class="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-500 shadow-sm flex-shrink-0">
                 <img
-                  src="/images/josef-valek.jpg"
+                  src="/images/josef-valek-thumb.webp"
                   alt="Mgr. Josef Válek"
                   class="w-full h-full object-cover"
+                  width="56"
+                  height="56"
                   loading="lazy"
                 />
               </div>

@@ -1,5 +1,8 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
+
 interface Tier {
+  [key: string]: any;
   name: string;
   price: string;
   period: string;
@@ -21,7 +24,7 @@ interface Props {
   };
 }
 
-const { pricing } = Astro.props;
+const { pricing = {} } = Astro.props;
 
 const badge = pricing.badge || "CENÍK & 1. LEKCE ZDARMA";
 const title = pricing.title || "Transparentní ceny – pro děti 1. lekce zcela zdarma";
@@ -40,13 +43,13 @@ const tiers: Tier[] = Array.isArray(rawTiers)
     
     <!-- Section Header -->
     <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-12">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-950" data-edit-key="pricing.badge" data-edit-label="Štítek ceníku">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(pricing, 'badge')} data-edit-key="pricing.badge" data-edit-label="Štítek ceníku">
         {badge}
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="pricing.title" data-edit-label="Nadpis ceníku">
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(pricing, 'title')} data-edit-key="pricing.title" data-edit-label="Nadpis ceníku">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-sm sm:text-lg" data-edit-key="pricing.subtitle" data-edit-label="Podnadpis ceníku">
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(pricing, 'subtitle')} data-edit-key="pricing.subtitle" data-edit-label="Podnadpis ceníku">
         {subtitle}
       </p>
     </div>
@@ -56,7 +59,9 @@ const tiers: Tier[] = Array.isArray(rawTiers)
       {tiers.map((tier, idx) => {
         const isPopular = tier.isPopular;
         return (
-          <div class={`rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-between relative transition-all duration-300 ${
+          <div
+            data-tina-field={tinaField(pricing, 'tiers', idx)}
+            class={`rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-between relative transition-all duration-300 ${
             isPopular
               ? 'bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-xl glow-amber lg:-translate-y-3 z-10'
               : 'bg-white border border-parchment-300 shadow-xs opacity-90 hover:opacity-100 hover:shadow-md'
@@ -65,7 +70,7 @@ const tiers: Tier[] = Array.isArray(rawTiers)
             <!-- Popular Ribbon / Badge -->
             {isPopular && (
               <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-md" data-edit-key={`pricing.tiers.${idx}.badge`} data-edit-label="Štítek karty">
+                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-md" data-tina-field={tinaField(tier, 'badge')} data-edit-key={`pricing.tiers.${idx}.badge`} data-edit-label="Štítek karty">
                   🎁 {tier.badge || "1. LEKCE ZDARMA"}
                 </span>
               </div>
@@ -75,24 +80,24 @@ const tiers: Tier[] = Array.isArray(rawTiers)
               <!-- Tier Top info -->
               <div>
                 {!isPopular && (
-                  <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-stone-600 bg-parchment-200 px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2 border border-parchment-300">
+                  <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-stone-600 bg-parchment-200 px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2 border border-parchment-300" data-tina-field={tinaField(tier, 'badge')}>
                     <span>⏳</span> <span>{tier.badge || "Připravujeme brzy"}</span>
                   </span>
                 )}
-                <h3 class="font-heading font-black text-2xl text-espresso-950" data-edit-key={`pricing.tiers.${idx}.name`} data-edit-label="Název programu">
+                <h3 class="font-heading font-black text-2xl text-espresso-950" data-tina-field={tinaField(tier, 'name')} data-edit-key={`pricing.tiers.${idx}.name`} data-edit-label="Název programu">
                   {tier.name}
                 </h3>
-                <p class="text-sm text-espresso-800/80 mt-2 min-h-[40px]" data-edit-key={`pricing.tiers.${idx}.description`} data-edit-label="Popis programu">
+                <p class="text-sm text-espresso-800/80 mt-2 min-h-[40px]" data-tina-field={tinaField(tier, 'description')} data-edit-key={`pricing.tiers.${idx}.description`} data-edit-label="Popis programu">
                   {tier.description}
                 </p>
               </div>
 
               <!-- Price Display -->
               <div class="pt-4 pb-2 border-y border-parchment-200 flex items-baseline gap-2">
-                <span class="font-heading font-black text-4xl sm:text-5xl text-espresso-950 tracking-tight" data-edit-key={`pricing.tiers.${idx}.price`} data-edit-label="Cena">
+                <span class="font-heading font-black text-4xl sm:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(tier, 'price')} data-edit-key={`pricing.tiers.${idx}.price`} data-edit-label="Cena">
                   {tier.price}
                 </span>
-                <span class="text-sm text-stone-500 font-medium" data-edit-key={`pricing.tiers.${idx}.period`} data-edit-label="Období">
+                <span class="text-sm text-stone-500 font-medium" data-tina-field={tinaField(tier, 'period')} data-edit-key={`pricing.tiers.${idx}.period`} data-edit-label="Období">
                   {tier.period}
                 </span>
               </div>
@@ -122,6 +127,7 @@ const tiers: Tier[] = Array.isArray(rawTiers)
                     ? 'btn-gold-pulse bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 text-espresso-950 border border-amber-500'
                     : 'bg-parchment-100 hover:bg-parchment-200 text-espresso-950 border border-parchment-300'
                 }`}
+                data-tina-field={tinaField(tier, 'ctaText')}
                 data-edit-key={`pricing.tiers.${idx}.ctaText`}
                 data-edit-label="Text tlačítka"
               >
@@ -134,10 +140,39 @@ const tiers: Tier[] = Array.isArray(rawTiers)
       })}
     </div>
 
-    <!-- Guarantee Banner -->
-    <div class="mt-8 sm:mt-12 max-w-3xl mx-auto text-center">
-      <div class="p-6 rounded-2xl bg-gradient-to-r from-amber-100 via-white to-amber-100 border-2 border-amber-300/80 text-espresso-950 text-sm sm:text-base leading-relaxed font-bold shadow-xs" data-edit-key="pricing.guarantee" data-edit-label="Garance ceníku">
-        {guarantee}
+    <!-- Fairness & Flexibility Pillars -->
+    <div class="mt-10 sm:mt-14 max-w-4xl mx-auto space-y-5">
+      <div class="grid sm:grid-cols-3 gap-3.5">
+        <div class="bg-white/90 rounded-2xl p-4 border border-amber-300/80 shadow-2xs text-center space-y-1.5 hover:border-amber-400 transition-colors">
+          <div class="text-2xl">🛡️</div>
+          <h4 class="font-heading font-black text-xs sm:text-sm text-espresso-950">Náhrady při nemoci</h4>
+          <p class="text-[11px] text-espresso-800/80 leading-snug">
+            Lekce vám nepropadne – možnost připojení online z domova nebo náhrada v paralelní skupince.
+          </p>
+        </div>
+
+        <div class="bg-white/90 rounded-2xl p-4 border border-amber-300/80 shadow-2xs text-center space-y-1.5 hover:border-amber-400 transition-colors">
+          <div class="text-2xl">📝</div>
+          <h4 class="font-heading font-black text-xs sm:text-sm text-espresso-950">Bez smluv na pololetí</h4>
+          <p class="text-[11px] text-espresso-800/80 leading-snug">
+            Žádné vázání na půl roku dopředu ani platby naslepo. Platíte flexibilně měsíčně až po 1. lekci.
+          </p>
+        </div>
+
+        <div class="bg-white/90 rounded-2xl p-4 border border-amber-300/80 shadow-2xs text-center space-y-1.5 hover:border-amber-400 transition-colors">
+          <div class="text-2xl">🎁</div>
+          <h4 class="font-heading font-black text-xs sm:text-sm text-espresso-950">1. lekce 100% zdarma</h4>
+          <p class="text-[11px] text-espresso-800/80 leading-snug">
+            Celých 60 minut hrou v malé skupince na vyzkoušení bez jakýchkoliv závazků.
+          </p>
+        </div>
+      </div>
+
+      <!-- Main Guarantee Callout -->
+      <div class="text-center">
+        <div class="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-100/90 via-white to-amber-100/90 border-2 border-amber-300/90 text-espresso-950 text-xs sm:text-sm md:text-base leading-relaxed font-bold shadow-xs" data-tina-field={tinaField(pricing, 'guarantee')} data-edit-key="pricing.guarantee" data-edit-label="Garance ceníku">
+          {guarantee}
+        </div>
       </div>
     </div>
 

@@ -1,5 +1,6 @@
 ---
 import ParrotLogo from './ParrotLogo.astro';
+import { tinaField } from '@tinacms/astro/tina-field';
 
 interface Props {
   email?: string;
@@ -44,10 +45,10 @@ const currentYear = new Date().getFullYear();
             </span>
           </div>
         </div>
-        <p class="text-xs sm:text-sm text-espresso-800/80 max-w-sm leading-relaxed" data-edit-key="footer.description" data-edit-label="Popis v patičce">
+        <p class="text-xs sm:text-sm text-espresso-800/80 max-w-sm leading-relaxed" data-tina-field={tinaField(footer, 'description')} data-edit-key="footer.description" data-edit-label="Popis v patičce">
           {description}
         </p>
-        <div class="inline-block text-xs font-bold text-amber-900 bg-amber-50 px-3 py-1 rounded-xl border border-amber-200" data-edit-key="footer.locationNote" data-edit-label="Poznámka k místu v patičce">
+        <div class="inline-block text-xs font-bold text-amber-900 bg-amber-50 px-3 py-1 rounded-xl border border-amber-200" data-tina-field={tinaField(footer, 'locationNote')} data-edit-key="footer.locationNote" data-edit-label="Poznámka k místu v patičce">
           {locationNote}
         </div>
       </div>
@@ -63,7 +64,7 @@ const currentYear = new Date().getFullYear();
           <li><a href="#metodika" class="hover:text-amber-800 transition-colors">⏱️ Průběh 60 min lekce</a></li>
           <li><a href="#o-mne" class="hover:text-amber-800 transition-colors">🇦🇺 O Josefovi (BBA Melbourne)</a></li>
           <li><a href="#cenik" class="hover:text-amber-800 transition-colors">🎁 Ceník & 1. lekce zdarma</a></li>
-          <li><a href="#scio" class="hover:text-amber-800 transition-colors">📐 SCIO & Přijímačky na SŠ</a></li>
+          <li><a href="#faq" class="hover:text-amber-800 transition-colors">❓ Časté dotazy (FAQ)</a></li>
         </ul>
       </div>
 
@@ -105,7 +106,7 @@ const currentYear = new Date().getFullYear();
     <!-- Bottom copyright row -->
     <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
       <p>
-        © {currentYear} <span data-edit-key="footer.copyright" data-edit-label="Copyright">{copyright}</span>
+        © {currentYear} <span data-tina-field={tinaField(footer, 'copyright')} data-edit-key="footer.copyright" data-edit-label="Copyright">{copyright}</span>
       </p>
 
       <div class="flex items-center gap-6">

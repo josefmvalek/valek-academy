@@ -1,6 +1,8 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
 
 interface Segment {
+  [key: string]: any;
   id: string;
   icon: string;
   title: string;
@@ -115,13 +117,13 @@ const waitingList = audience.waitingList || {
     
     <!-- Section Header -->
     <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-10">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-edit-key="audience.badge" data-edit-label="Štítek programů">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-tina-field={tinaField(audience, 'badge')} data-edit-key="audience.badge" data-edit-label="Štítek programů">
         <span>🎲</span> <span>{badge}</span>
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="audience.title" data-edit-label="Nadpis programů">
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(audience, 'title')} data-edit-key="audience.title" data-edit-label="Nadpis programů">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-sm sm:text-lg" data-edit-key="audience.subtitle" data-edit-label="Podnadpis programů">
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(audience, 'subtitle')} data-edit-key="audience.subtitle" data-edit-label="Podnadpis programů">
         {subtitle}
       </p>
     </div>
@@ -166,6 +168,7 @@ const waitingList = audience.waitingList || {
       {kidsPrograms.map((prog, idx) => (
         <div
           id={`program-${prog.id}`}
+          data-tina-field={tinaField(audience, 'kidsPrograms', idx)}
           class:list={[
             "cohort-card rounded-3xl p-6 sm:p-8 flex-col justify-between border-2 transition-all duration-300 relative group bg-white",
             idx === 0 ? "flex lg:flex" : "hidden lg:flex",
@@ -192,12 +195,13 @@ const waitingList = audience.waitingList || {
                     "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-black tracking-wide uppercase",
                     prog.id === 'zs-2' ? "bg-amber-400 text-espresso-950 shadow-2xs" : "bg-parchment-200 text-stone-700 border border-parchment-300"
                   ]}
+                  data-tina-field={tinaField(prog, 'badge')}
                   data-edit-key={`audience.kidsPrograms.${idx}.badge`}
                   data-edit-label="Štítek karty"
                 >
                   {prog.badge}
                 </span>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold tracking-wide bg-parchment-100 text-espresso-900 border border-parchment-300" data-edit-key={`audience.kidsPrograms.${idx}.age`} data-edit-label="Věk karty">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold tracking-wide bg-parchment-100 text-espresso-900 border border-parchment-300" data-tina-field={tinaField(prog, 'age')} data-edit-key={`audience.kidsPrograms.${idx}.age`} data-edit-label="Věk karty">
                   {prog.age}
                 </span>
               </div>
@@ -205,13 +209,13 @@ const waitingList = audience.waitingList || {
 
             <!-- Title & Highlight -->
             <div>
-              <h3 class="font-heading font-black text-2xl text-espresso-950 group-hover:text-amber-900 transition-colors" data-edit-key={`audience.kidsPrograms.${idx}.title`} data-edit-label="Název programu">
+              <h3 class="font-heading font-black text-2xl text-espresso-950 group-hover:text-amber-900 transition-colors" data-tina-field={tinaField(prog, 'title')} data-edit-key={`audience.kidsPrograms.${idx}.title`} data-edit-label="Název programu">
                 {prog.title}
               </h3>
-              <div class="inline-block mt-2 text-xs font-black uppercase tracking-wider text-amber-950 bg-amber-100 px-2.5 py-1 rounded-lg border border-amber-300" data-edit-key={`audience.kidsPrograms.${idx}.highlight`} data-edit-label="Tahák programu">
+              <div class="inline-block mt-2 text-xs font-black uppercase tracking-wider text-amber-950 bg-amber-100 px-2.5 py-1 rounded-lg border border-amber-300" data-tina-field={tinaField(prog, 'highlight')} data-edit-key={`audience.kidsPrograms.${idx}.highlight`} data-edit-label="Tahák programu">
                 {prog.highlight}
               </div>
-              <p class="text-espresso-800/90 text-sm mt-3 leading-relaxed font-normal" data-edit-key={`audience.kidsPrograms.${idx}.description`} data-edit-label="Popis programu">
+              <p class="text-espresso-800/90 text-sm mt-3 leading-relaxed font-normal" data-tina-field={tinaField(prog, 'description')} data-edit-key={`audience.kidsPrograms.${idx}.description`} data-edit-label="Popis programu">
                 {prog.description}
               </p>
             </div>
@@ -251,7 +255,7 @@ const waitingList = audience.waitingList || {
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                   </span>
-                  <span data-edit-key={`audience.kidsPrograms.${idx}.capacityNote`} data-edit-label="Stav volných míst">{prog.capacityNote.replace(/^[🟢⚡\s]+/, '')}</span>
+                  <span data-tina-field={tinaField(prog, 'capacityNote')} data-edit-key={`audience.kidsPrograms.${idx}.capacityNote`} data-edit-label="Stav volných míst">{prog.capacityNote.replace(/^[🟢⚡\s]+/, '')}</span>
                 </div>
               </div>
             )}
@@ -268,7 +272,7 @@ const waitingList = audience.waitingList || {
                   : "bg-parchment-100 hover:bg-amber-100 text-espresso-950 border border-parchment-300 hover:border-amber-400"
               ]}
             >
-              <span data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText}</span>
+              <span data-tina-field={tinaField(prog, 'ctaText')} data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText}</span>
               <span>→</span>
             </a>
             <div class="text-center mt-2 text-[11px] font-bold text-amber-900">
@@ -287,14 +291,14 @@ const waitingList = audience.waitingList || {
           🎓
         </div>
         <div class="space-y-1">
-          <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900" data-edit-key="audience.waitingList.badge" data-edit-label="Štítek čekací listiny">
+          <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900" data-tina-field={tinaField(waitingList, 'badge')} data-edit-key="audience.waitingList.badge" data-edit-label="Štítek čekací listiny">
             {waitingList.badge}
           </div>
-          <h3 class="font-heading font-black text-lg sm:text-xl text-espresso-950" data-edit-key="audience.waitingList.title" data-edit-label="Nadpis čekací listiny">
-            Hledáte přípravu k maturitě, SCIO přijímačky na SŠ nebo konverzaci pro dospělé?
+          <h3 class="font-heading font-black text-lg sm:text-xl text-espresso-950" data-tina-field={tinaField(waitingList, 'title')} data-edit-key="audience.waitingList.title" data-edit-label="Nadpis čekací listiny">
+            {waitingList.title || "Hledáte přípravu k maturitě, SCIO přijímačky na SŠ nebo konverzaci pro dospělé?"}
           </h3>
-          <p class="text-xs sm:text-sm text-stone-600 font-normal max-w-2xl" data-edit-key="audience.waitingList.description" data-edit-label="Popis čekací listiny">
-            Tyto specializace otevřeme v další vlně (včetně jednotných přijímaček z ČJ a M pro 5. a 9. třídy). Zapište se nezávazně na čekací listinu a dáme vám vědět přednostně.
+          <p class="text-xs sm:text-sm text-stone-600 font-normal max-w-2xl" data-tina-field={tinaField(waitingList, 'description')} data-edit-key="audience.waitingList.description" data-edit-label="Popis čekací listiny">
+            {waitingList.description || "Tyto specializace otevřeme v další vlně (včetně jednotných přijímaček z ČJ a M pro 5. a 9. třídy). Zapište se nezávazně na čekací listinu a dáme vám vědět přednostně."}
           </p>
         </div>
       </div>
@@ -303,7 +307,7 @@ const waitingList = audience.waitingList || {
         href="#kontakt"
         class="flex-shrink-0 px-6 py-3.5 rounded-2xl bg-white hover:bg-parchment-100 text-espresso-950 border-2 border-parchment-300 hover:border-amber-400 font-heading font-bold text-sm shadow-xs transition-all hover:scale-105 text-center"
       >
-        <span data-edit-key="audience.waitingList.ctaText" data-edit-label="Tlačítko čekací listiny">{waitingList.ctaText}</span>
+        <span data-tina-field={tinaField(waitingList, 'ctaText')} data-edit-key="audience.waitingList.ctaText" data-edit-label="Tlačítko čekací listiny">{waitingList.ctaText}</span>
       </a>
     </div>
 

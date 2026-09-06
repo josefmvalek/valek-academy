@@ -1,4 +1,6 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
+
 interface Props {
   className?: string;
   howItWorks?: {
@@ -58,7 +60,7 @@ const defaultSteps = [
     icon: "🎲",
     badge: "1. Krok: Začátek lekce (0–15 min)",
     title: "Zahřátí hrou & odbourání ostychu",
-    desc: "Dítě zapomene na školní stres a strach ze zkoušení. Společenská deskovka nebo rychlý kvíz navodí přirozenou pohodu a chuť komunikovat v partě kamarádů."
+    desc: "Rychlá deskovka nebo karetní hra na prolomení ledů. Děti okamžitě zapomenou na trému a začnou komunikovat."
   },
   {
     step: "2",
@@ -90,23 +92,25 @@ const steps = howItWorks.steps || defaultSteps;
   
   <!-- Header with Poster Quote -->
   <div class="text-center max-w-3xl mx-auto space-y-3">
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950" data-edit-key="howItWorks.badge" data-edit-label="Štítek metodiky">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950" data-tina-field={tinaField(howItWorks, 'badge')} data-edit-key="howItWorks.badge" data-edit-label="Štítek metodiky">
       <span>🎲</span> <span>{badge}</span>
     </div>
-    <h3 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-espresso-950 tracking-tight" data-edit-key="howItWorks.title" data-edit-label="Nadpis metodiky">
+    <h3 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-espresso-950 tracking-tight" data-tina-field={tinaField(howItWorks, 'title')} data-edit-key="howItWorks.title" data-edit-label="Nadpis metodiky">
       {title}
     </h3>
     <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed">
-      <strong data-edit-key="howItWorks.quote" data-edit-label="Motto metodiky">{quote}</strong> <span data-edit-key="howItWorks.subtitle" data-edit-label="Podnadpis metodiky">{subtitle}</span>
+      <strong data-tina-field={tinaField(howItWorks, 'quote')} data-edit-key="howItWorks.quote" data-edit-label="Motto metodiky">{quote}</strong> <span data-tina-field={tinaField(howItWorks, 'subtitle')} data-edit-key="howItWorks.subtitle" data-edit-label="Podnadpis metodiky">{subtitle}</span>
     </p>
   </div>
 
   <!-- Visual Showcase: The Real 3D Board Game Table Artwork with Glass Overlay -->
   <div class="relative rounded-3xl overflow-hidden border-2 border-amber-400 shadow-md group">
     <img
-      src="/images/board-games-3d.jpg"
+      src="/images/board-games-3d.webp"
       alt="Deskové hry pro výuku angličtiny ve Valek Academy"
       class="w-full h-64 sm:h-80 md:h-96 lg:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
+      width="1376"
+      height="768"
       loading="lazy"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/95 via-espresso-950/50 to-transparent flex flex-col justify-end p-6 sm:p-10">

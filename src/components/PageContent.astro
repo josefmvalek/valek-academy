@@ -4,6 +4,7 @@ import AudienceSegments from './AudienceSegments.astro';
 import Pricing from './Pricing.astro';
 import ComparisonTable from './ComparisonTable.astro';
 import HowGameLessonWorks from './HowGameLessonWorks.astro';
+import LessonTimeline from './LessonTimeline.astro';
 import About from './About.astro';
 import Testimonials from './Testimonials.astro';
 import GroupMatcher from './GroupMatcher.astro';
@@ -22,6 +23,7 @@ const pricing = page.pricing || {};
 const comparison = page.comparison || {};
 const testimonials = page.testimonials || {};
 const howItWorks = page.howItWorks || {};
+const timeline = page.timeline || {};
 const locationInfo = page.location || {};
 const groupMatcher = page.groupMatcher || {};
 const faq = page.faq || {};
@@ -40,6 +42,7 @@ const contact = page.contact || {};
 
 <!-- 4. Methodology & Game Lesson Flow: Karak, Scrabble, Story Cubes, Dixit + 60-minute structured flow -->
 <HowGameLessonWorks howItWorks={howItWorks} />
+<LessonTimeline timeline={timeline} />
 
 <!-- 5. The Teacher & Classroom: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
 <About about={about} locationInfo={locationInfo} />
@@ -50,6 +53,8 @@ const contact = page.contact || {};
 <!-- 7. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
 <GroupMatcher groupMatcher={groupMatcher} />
 
-<!-- 8. Conversion & Answers: Reservation form with format selector (Osobně v UH / Online) + FAQ -->
-<Contact contact={contact} locationInfo={locationInfo} />
+<!-- 8. Answers & Overcoming Objections: Semantic FAQ Accordion -->
 <FAQ faq={faq} />
+
+<!-- 9. Primary Conversion: Reservation form with format selector (Osobně v UH / Online) & Location Details -->
+<Contact contact={contact} locationInfo={locationInfo} />

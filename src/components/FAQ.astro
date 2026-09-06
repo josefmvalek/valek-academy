@@ -1,5 +1,8 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
+
 interface FaqItem {
+  [key: string]: any;
   question: string;
   answer: string;
 }
@@ -30,13 +33,13 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
     
     <!-- Header -->
     <div class="text-center space-y-3 mb-6 md:mb-12">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-amber-950" data-edit-key="faq.badge" data-edit-label="Štítek FAQ">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-amber-950" data-tina-field={tinaField(faq, 'badge')} data-edit-key="faq.badge" data-edit-label="Štítek FAQ">
         {badge}
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="faq.title" data-edit-label="Nadpis FAQ">
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(faq, 'title')} data-edit-key="faq.title" data-edit-label="Nadpis FAQ">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg max-w-2xl mx-auto" data-edit-key="faq.subtitle" data-edit-label="Podnadpis FAQ">
+      <p class="text-espresso-800/80 text-base sm:text-lg max-w-2xl mx-auto" data-tina-field={tinaField(faq, 'subtitle')} data-edit-key="faq.subtitle" data-edit-label="Podnadpis FAQ">
         {subtitle}
       </p>
     </div>
@@ -46,11 +49,12 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
       {items.map((item, index) => (
         <details
           name="faq-accordion"
+          data-tina-field={tinaField(faq, 'items', index)}
           class="group bg-white rounded-2xl border border-parchment-300 overflow-hidden transition-all data-[open]:border-amber-400 data-[open]:shadow-sm"
           open={index === 0}
         >
           <summary class="flex items-center justify-between p-5 sm:p-6 cursor-pointer list-none text-left select-none text-espresso-950 font-heading font-bold text-base sm:text-lg hover:text-amber-900 transition-colors">
-            <span class="pr-6" data-edit-key={`faq.items.${index}.question`} data-edit-label="Otázka">{item.question}</span>
+            <span class="pr-6" data-tina-field={tinaField(item, 'question')} data-edit-key={`faq.items.${index}.question`} data-edit-label="Otázka">{item.question}</span>
             <div class="w-8 h-8 rounded-full bg-parchment-200 flex items-center justify-center flex-shrink-0 text-espresso-800 group-open:rotate-180 group-open:bg-amber-200 group-open:text-amber-950 transition-all duration-300">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
@@ -59,7 +63,7 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
           </summary>
 
           <div class="px-6 pb-6 pt-1 text-espresso-800/90 text-sm sm:text-base leading-relaxed border-t border-parchment-200 mt-1 font-normal">
-            <p data-edit-key={`faq.items.${index}.answer`} data-edit-label="Odpověď">{item.answer}</p>
+            <p data-tina-field={tinaField(item, 'answer')} data-edit-key={`faq.items.${index}.answer`} data-edit-label="Odpověď">{item.answer}</p>
           </div>
         </details>
       ))}
@@ -68,8 +72,8 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
     <!-- Bottom prompt -->
     <div class="mt-12 text-center p-6 rounded-2xl bg-amber-100/60 border border-amber-300/80 text-espresso-950">
       <p class="text-sm font-medium">
-        <span data-edit-key="faq.contactPrompt" data-edit-label="Výzva FAQ">{contactPrompt}</span>
-        <a href="#kontakt" class="text-amber-900 font-bold underline hover:text-amber-700 ml-1" data-edit-key="faq.contactPromptLinkText" data-edit-label="Odkaz výzvy FAQ">
+        <span data-tina-field={tinaField(faq, 'contactPrompt')} data-edit-key="faq.contactPrompt" data-edit-label="Výzva FAQ">{contactPrompt}</span>
+        <a href="#kontakt" class="text-amber-900 font-bold underline hover:text-amber-700 ml-1" data-tina-field={tinaField(faq, 'contactPromptLinkText')} data-edit-key="faq.contactPromptLinkText" data-edit-label="Odkaz výzvy FAQ">
           {contactPromptLinkText}
         </a>
       </p>

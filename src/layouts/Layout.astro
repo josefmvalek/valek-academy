@@ -47,55 +47,145 @@ const {
     <meta name="geo.position" content="49.0708;17.4665" />
     <meta name="ICBM" content="49.0708, 17.4665" />
 
-    <!-- Schema.org Structured Data (JSON-LD) for Local Business & Education -->
+    <!-- Canonical Tag -->
+    <link rel="canonical" href="https://valekacademy.cz/" />
+
+    <!-- Google Fonts Optimized Loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Schema.org Structured Data (JSON-LD) for Local Business, Reviews, FAQ & Courses -->
     <script type="application/ld+json" is:inline>
       {
         "@context": "https://schema.org",
-        "@type": "EducationalOrganization",
-        "name": "VALEK ACADEMY",
-        "alternateName": "Doučování angličtiny Josef Válek",
-        "description": "Trpělivá a hravá výuka angličtiny pro žáky ZŠ a studenty v malých skupinkách (3–6 dětí) formou deskových her v Uherském Hradišti. Lektor Josef Válek (BBA RMIT Melbourne, 25+ let v ČR).",
-        "url": "https://valekacademy.cz",
-        "telephone": "+420792372642",
-        "email": "info@valekacademy.cz",
-        "image": "https://valekacademy.cz/images/og-valek-academy.jpg",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Růžová 1238",
-          "addressLocality": "Uherské Hradiště",
-          "postalCode": "686 01",
-          "addressCountry": "CZ"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 49.0708,
-          "longitude": 17.4665
-        },
-        "openingHoursSpecification": [
+        "@graph": [
           {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "08:00",
-            "closes": "19:00"
+            "@type": "EducationalOrganization",
+            "@id": "https://valekacademy.cz/#organization",
+            "name": "VALEK ACADEMY",
+            "alternateName": "Doučování angličtiny Josef Válek",
+            "description": "Trpělivá a hravá výuka angličtiny pro žáky ZŠ a studenty v malých skupinkách (3–6 dětí) formou deskových her v Uherském Hradišti. Lektor Josef Válek (BBA RMIT Melbourne, 25+ let v ČR).",
+            "url": "https://valekacademy.cz",
+            "telephone": "+420792372642",
+            "email": "info@valekacademy.cz",
+            "image": "https://valekacademy.cz/images/og-valek-academy.jpg",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Růžová 1238",
+              "addressLocality": "Uherské Hradiště",
+              "postalCode": "686 01",
+              "addressCountry": "CZ"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 49.0708,
+              "longitude": 17.4665
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:00",
+                "closes": "19:00"
+              }
+            ],
+            "priceRange": "390 Kč",
+            "areaServed": [
+              "Uherské Hradiště",
+              "Kunovice",
+              "Staré Město",
+              "Babice",
+              "Jalubí",
+              "Kněžpole",
+              "Ostrožská Nová Ves",
+              "Uherský Brod"
+            ],
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "5.0",
+              "bestRating": "5",
+              "worstRating": "1",
+              "ratingCount": "24",
+              "reviewCount": "24"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://valekacademy.cz/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Co když je dítě nemocné nebo nemůže dorazit? Propadne nám lekce?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "U nás vám lekce nikdy nepropadne. Pokud má dítě rýmu, může se připojit online přes Google Meet z domova. Pokud je nemocné více, v klidu si hodinu nahradí v paralelní skupince v jiný den."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Musíme se vázat smlouvou na celé pololetí dopředu?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Vůbec ne. U nás neplatíte nic naslepo. 1. lekce je 100% zdarma a následně si můžete zvolit flexibilní měsíční platbu nebo balíček lekcí bez jakýchkoliv smluvních sankcí."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Pro jak staré děti je doučování vhodné a jak velké jsou skupinky?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Doučování je primárně určeno pro žáky základních škol (1. až 9. třída), rozdělené do 3 věkových kategorií. Skupinky tvoří pouze 3 až 6 dětí, což zajišťuje maximální prostor pro každé dítě."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Jak probíhá 1. ukázková lekce zdarma?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "První 60minutová lekce je 100% nezávazná a zdarma. Dítě se seznámí s lektorem Josefem, zahraje si deskovku v angličtině a vyzkouší si atmosféru v doučovně v Růžové ulici v Uherském Hradišti."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Co když dítě neumí anglicky nebo se bojí mluvit?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Právě pro tyto děti jsou hry ideální. Během deskových her děti zapomenou na trému a začnou reagovat automaticky. Josef navíc mluví plynule česky, takže cokoliv v klidu dovysvětlí."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Kde přesně výuka probíhá a jaké jsou možnosti parkování?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Výuka probíhá v útulné doučovně na adrese Růžová 1238, Uherské Hradiště. Přímo před vchodem je bezplatné parkování. Nabízíme také online lekce pro studenty z celé ČR."
+                }
+              }
+            ]
+          },
+          {
+            "@type": "Course",
+            "@id": "https://valekacademy.cz/#course",
+            "name": "Hravá angličtina pro žáky ZŠ v malých skupinkách",
+            "description": "Výuka a doučování angličtiny pro děti hrou a deskovými hrami (Karak, Scrabble, Story Cubes) v malých skupinkách 3–6 dětí v Uherském Hradišti.",
+            "provider": {
+              "@type": "Organization",
+              "name": "VALEK ACADEMY",
+              "sameAs": "https://valekacademy.cz"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "390",
+              "priceCurrency": "CZK",
+              "category": "Doučování angličtiny pro žáky ZŠ",
+              "availability": "https://schema.org/InStock"
+            }
           }
-        ],
-        "priceRange": "390 Kč",
-        "areaServed": [
-          "Uherské Hradiště",
-          "Kunovice",
-          "Staré Město",
-          "Babice",
-          "Jalubí",
-          "Kněžpole",
-          "Ostrožská Nová Ves",
-          "Uherský Brod"
         ]
       }
     </script>
-
-    <!-- Google Fonts Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
   <body class="bg-[#FAF7F2] text-[#2A190F] antialiased selection:bg-amber-200 selection:text-[#2A190F] min-h-screen flex flex-col font-sans overflow-x-hidden w-full max-w-full relative">
     <slot />
   </body>

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /tina-island/
+
+Sitemap: https://valekacademy.cz/sitemap.xml

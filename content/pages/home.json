@@ -181,7 +181,9 @@
           "Malá skupinka 3 až 6 dětí pro maximální zapojení",
           "Učení formou deskových her, karet a kvízů",
           "Dovysvětlení látky ze školy a pomoc s úkoly",
-          "Všechny herní i výukové materiály v ceně"
+          "Všechny herní i výukové materiály v ceně",
+          "Férové náhrady: při nemoci online připojení či náhradní hodina",
+          "Bez smluv na pololetí: flexibilní měsíční platba až po 1. lekci"
         ],
         "ctaLink": "#kontakt"
       },
@@ -218,7 +220,7 @@
         "ctaLink": "#kontakt"
       }
     ],
-    "guarantee": "🎁 1. LEKCE 100% ZDARMA: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani skryté závazky."
+    "guarantee": "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani vázací smlouvy na celé pololetí. Pokud dítě onemocní, o lekci nepřijdete – nabízíme možnost připojit se online z domova nebo si hodinu nahradit v jiný den."
   },
   "comparison": {
     "badge": "PROČ ZVOLIT VALEK ACADEMY",
@@ -518,6 +520,14 @@
     "title": "Vše, co potřebujete vědět o výuce",
     "subtitle": "Máte jakýkoliv dotaz? Neváhejte mi kdykoliv zavolat nebo napsat zprávu.",
     "items": [
+      {
+        "question": "Co když je dítě nemocné nebo nemůže dorazit? Propadne nám lekce?",
+        "answer": "U nás vám zaplacená lekce nikdy nepropadne! Pokud má dítě jen lehkou rýmu nebo nechce zmeškat kamarády, může se pohodlně připojit online přes Google Meet přímo z pokojíčku. Pokud je nemocné více, v klidu si hodinu nahradí v paralelní skupince v jiný den v týdnu."
+      },
+      {
+        "question": "Musíme se vázat smlouvou na celé pololetí dopředu?",
+        "answer": "Vůbec ne. U nás neplatíte nic naslepo. První celá 60minutová lekce je 100% ZDARMA a nezávazná. Pokud se dítěti u nás bude líbit, sami si vyberete formu úhrady – můžete platit flexibilně měsíčně nebo po balíčcích lekcí s možností omluvy bez jakýchkoliv smluvních sankcí."
+      },
       {
         "question": "Je možné mít lekce i online, když nejsme z Uherského Hradiště?",
         "answer": "Ano, určitě! Josef učí děti osobně v příjemné doučovně v Uherském Hradišti (Růžová 1238) i online přes Google Meet pro děti z celé ČR. Online lekce využívají interaktivní digitální deskovky a kvízy a jsou také skvělou alternativou, když je dítě nachlazené a nemůže dorazit osobně."

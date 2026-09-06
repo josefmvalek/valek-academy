@@ -103,6 +103,8 @@ const { className = "" } = Astro.props;
       <span id="speech-czech-text" class="break-words min-w-0">„Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!“</span>
     </div>
   </div>
+  <!-- Hidden HTML5 Audio Element for real voice samples -->
+  <audio id="native-audio" preload="auto" class="hidden"></audio>
 </div>
 
 <script>
@@ -113,10 +115,11 @@ const { className = "" } = Astro.props;
   const timeDisplay = document.getElementById('audio-time');
   const subtitle = document.getElementById('audio-subtitle');
   const liveText = document.getElementById('speech-live-text');
+  const nativeAudio = document.getElementById('native-audio') as HTMLAudioElement | null;
 
   let isPlaying = false;
   let timerInterval: any = null;
-  let secondsRemaining = 12;
+  let secondsRemaining = 10;
   let synth: SpeechSynthesis | null = null;
   let audioCtx: AudioContext | null = null;
 
@@ -208,17 +211,15 @@ const { className = "" } = Astro.props;
     });
   });
 
-  // Speak with native SpeechSynthesis in Australian English accent
-  function speakGreeting() {
+  // Fallback speech synthesis in Australian English
+  function fallbackSpeech() {
     if (!synth) return;
-
-    synth.cancel(); // Stop any pending speech
+    synth.cancel();
 
     const data = phrases[activePhraseKey] || phrases.gday;
     const utter = new SpeechSynthesisUtterance(data.en);
     (window as any)._activeSpeechUtterance = utter;
 
-    // Pick Australian English voice if available, otherwise en-GB or en-US
     const voices = synth.getVoices();
     const auVoice = voices.find(v => v.lang === 'en-AU' || v.lang.startsWith('en-AU')) ||
                     voices.find(v => v.name.includes('Australia')) ||
@@ -228,7 +229,7 @@ const { className = "" } = Astro.props;
     if (auVoice) {
       utter.voice = auVoice;
     }
-    utter.rate = 0.95; // Friendly, clear pace
+    utter.rate = 0.95;
     utter.pitch = 1.0;
 
     utter.onstart = () => {
@@ -242,10 +243,57 @@ const { className = "" } = Astro.props;
     };
 
     utter.onerror = () => {
-      // If speech synthesis has an issue, audio fallback finishes countdown
+      stopAudio();
     };
 
     synth.speak(utter);
+  }
+
+  // Play audio file (MP3 / WAV) or fallback
+  function playAudioFile() {
+    if (nativeAudio) {
+      // Try mp3 first, then wav
+      nativeAudio.src = `/audio/${activePhraseKey}.mp3`;
+      
+      nativeAudio.oncanplay = () => {
+        if (!isPlaying) return;
+        nativeAudio.play().catch(() => {
+          playWarmChime();
+          fallbackSpeech();
+        });
+      };
+
+      nativeAudio.ontimeupdate = () => {
+        if (!nativeAudio.duration || isNaN(nativeAudio.duration)) return;
+        const remaining = Math.max(0, Math.ceil(nativeAudio.duration - nativeAudio.currentTime));
+        if (timeDisplay) {
+          timeDisplay.textContent = `0:${remaining.toString().padStart(2, '0')}`;
+        }
+      };
+
+      nativeAudio.onended = () => {
+        stopAudio();
+      };
+
+      nativeAudio.onerror = () => {
+        // If mp3 fails, try wav
+        if (nativeAudio.src.endsWith('.mp3')) {
+          nativeAudio.src = `/audio/${activePhraseKey}.wav`;
+          nativeAudio.play().catch(() => {
+            playWarmChime();
+            fallbackSpeech();
+          });
+        } else {
+          playWarmChime();
+          fallbackSpeech();
+        }
+      };
+
+      nativeAudio.load();
+    } else {
+      playWarmChime();
+      fallbackSpeech();
+    }
   }
 
   function setPlayingState(playing: boolean) {
@@ -263,15 +311,19 @@ const { className = "" } = Astro.props;
         bar.classList.add(waveClass);
       });
 
-      playWarmChime();
-      speakGreeting();
+      if (subtitle) {
+        subtitle.innerHTML = `<span class="text-emerald-400 font-bold animate-pulse">● Hraje:</span> <strong class="text-white">„${currentData.short}“</strong>`;
+      }
 
       secondsRemaining = currentData.duration;
       if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
 
-      // Countdown timer
+      playAudioFile();
+
+      // Countdown backup timer
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
+        if (nativeAudio && !nativeAudio.paused && nativeAudio.duration) return;
         secondsRemaining--;
         if (secondsRemaining <= 0) {
           stopAudio();
@@ -300,6 +352,10 @@ const { className = "" } = Astro.props;
       }
 
       clearInterval(timerInterval);
+      if (nativeAudio) {
+        nativeAudio.pause();
+        nativeAudio.currentTime = 0;
+      }
       if (synth) synth.cancel();
     }
   }
@@ -309,6 +365,10 @@ const { className = "" } = Astro.props;
     const currentData = phrases[activePhraseKey] || phrases.gday;
     secondsRemaining = currentData.duration;
     if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
+    if (nativeAudio) {
+      nativeAudio.pause();
+      nativeAudio.currentTime = 0;
+    }
     if (synth) synth.cancel();
   }
 

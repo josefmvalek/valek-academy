@@ -42,5 +42,5 @@ const stickyCta = page.stickyCta || {};
 
   <MobileStickyCTA ctaLink="#kontakt" ctaText={stickyCta.text} stickyCta={stickyCta} />
   <WhatsAppFloating phone={contact.phone?.replace('+', '')} />
-  <VisualEditor />
+  {import.meta.env.DEV && <VisualEditor />}
 </Layout>

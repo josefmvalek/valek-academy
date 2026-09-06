@@ -1,4 +1,6 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
+
 interface Props {
   className?: string;
   groupMatcher?: {
@@ -33,13 +35,13 @@ const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
     
     <!-- Section Header -->
     <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-12">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-edit-key="groupMatcher.badge" data-edit-label="Štítek rozřazovače">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-tina-field={tinaField(groupMatcher, 'badge')} data-edit-key="groupMatcher.badge" data-edit-label="Štítek rozřazovače">
         <span>🧭</span> <span>{badge}</span>
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="groupMatcher.title" data-edit-label="Nadpis rozřazovače">
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(groupMatcher, 'title')} data-edit-key="groupMatcher.title" data-edit-label="Nadpis rozřazovače">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg" data-edit-key="groupMatcher.subtitle" data-edit-label="Podnadpis rozřazovače">
+      <p class="text-espresso-800/80 text-base sm:text-lg" data-tina-field={tinaField(groupMatcher, 'subtitle')} data-edit-key="groupMatcher.subtitle" data-edit-label="Podnadpis rozřazovače">
         {subtitle}
       </p>
     </div>
