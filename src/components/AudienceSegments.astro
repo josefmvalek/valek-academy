@@ -54,7 +54,6 @@ const defaultKidsPrograms: Segment[] = [
       "Josef v klidu dovysvětlí cokoliv v češtině",
       "Pravidelný kontakt a zpětná vazba pro rodiče"
     ],
-    capacityNote: "🟢 Volná 3 místa ve středeční skupince",
     ctaText: "Přihlásit třeťáka / prvňáka zdarma",
     ctaLink: "#kontakt"
   },
@@ -63,7 +62,7 @@ const defaultKidsPrograms: Segment[] = [
     icon: "🐉",
     title: "4.–6. třída: Dobrodruzi & Karak",
     age: "Věk 10–12 let • Max 4–8 dětí",
-    badge: "NEJOBLÍBENĚJŠÍ",
+    badge: "DOBRODRUZI & KARAK",
     highlight: "Záchrana známek a vášeň pro deskovky",
     description: "Ideální věk pro strategické hry. Děti v týmu prozkoumávají kobky v Karaku, bojují s monstry a plánují tahy – vše přirozeně v angličtině. Ve škole se zlepší v gramatice i čtení.",
     games: ["Karak & Drak", "Scrabble Junior", "Karetní kvízy", "Příběhové kostky"],
@@ -73,7 +72,6 @@ const defaultKidsPrograms: Segment[] = [
       "Pomoc s látkou ze školy, testy a úkoly",
       "Příprava pevných základů pro druhý stupeň"
     ],
-    capacityNote: "⚡ Zbývají poslední 2 volná místa v odpolední skupince",
     ctaText: "Přihlásit školáka na 1. lekci zdarma",
     ctaLink: "#kontakt"
   },
@@ -92,7 +90,6 @@ const defaultKidsPrograms: Segment[] = [
       "Tipy a rozbory typových testů SCIO a CERMAT",
       "Příprava na přechod na gymnázium či SŠ"
     ],
-    capacityNote: "🟢 Otevřen nový páteční termín (volná 4 místa)",
     ctaText: "Vyzkoušet lekci pro starší žáky",
     ctaLink: "#kontakt"
   }
@@ -170,31 +167,20 @@ const waitingList = audience.waitingList || {
           id={`program-${prog.id}`}
           data-tina-field={tinaField(audience, 'kidsPrograms', idx)}
           class:list={[
-            "cohort-card rounded-3xl p-6 sm:p-8 flex-col justify-between border-2 transition-all duration-300 relative group bg-white",
-            idx === 0 ? "flex lg:flex" : "hidden lg:flex",
-            prog.id === 'zs-2'
-              ? "border-amber-400 shadow-card-lift ring-2 ring-amber-400/30 lg:-translate-y-2"
-              : "border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md hover:-translate-y-1"
+            "cohort-card rounded-3xl p-6 sm:p-8 flex-col justify-between border-2 border-parchment-300 hover:border-amber-400 hover:shadow-card-lift bg-white shadow-xs transition-all duration-300 relative group hover:-translate-y-1",
+            idx === 0 ? "flex lg:flex" : "hidden lg:flex"
           ]}
         >
           <div class="space-y-5">
             
             <!-- Top Card Header: Icon, Age & Badge -->
             <div class="flex items-center justify-between">
-              <div
-                class:list={[
-                  "w-14 h-14 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-2xs",
-                  prog.id === 'zs-2' ? "bg-amber-100 text-amber-950 border border-amber-300" : "bg-parchment-100 text-espresso-800 border border-parchment-200"
-                ]}
-              >
+              <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-2xs bg-amber-100/80 text-espresso-950 border border-amber-300/80">
                 {prog.icon}
               </div>
               <div class="flex flex-col items-end gap-1">
                 <span
-                  class:list={[
-                    "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-black tracking-wide uppercase",
-                    prog.id === 'zs-2' ? "bg-amber-400 text-espresso-950 shadow-2xs" : "bg-parchment-200 text-stone-700 border border-parchment-300"
-                  ]}
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-black tracking-wide uppercase bg-amber-100 text-amber-950 border border-amber-300 shadow-2xs"
                   data-tina-field={tinaField(prog, 'badge')}
                   data-edit-key={`audience.kidsPrograms.${idx}.badge`}
                   data-edit-label="Štítek karty"
@@ -246,19 +232,6 @@ const waitingList = audience.waitingList || {
                 ))}
               </ul>
             </div>
-
-            <!-- Capacity / Urgency indicator -->
-            {prog.capacityNote && (
-              <div class="pt-2">
-                <div class="px-3 py-2 rounded-xl bg-amber-50/90 border border-amber-300 flex items-center gap-2 text-xs font-bold text-espresso-950">
-                  <span class="relative flex h-2.5 w-2.5 flex-shrink-0">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                  </span>
-                  <span data-tina-field={tinaField(prog, 'capacityNote')} data-edit-key={`audience.kidsPrograms.${idx}.capacityNote`} data-edit-label="Stav volných míst">{prog.capacityNote.replace(/^[🟢⚡\s]+/, '')}</span>
-                </div>
-              </div>
-            )}
           </div>
 
           <!-- Bottom CTA with 1. lesson FREE -->
@@ -266,12 +239,7 @@ const waitingList = audience.waitingList || {
             <a
               href={prog.ctaLink || "#kontakt"}
               data-tina-field={tinaField(prog, 'ctaText')}
-              class:list={[
-                "w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-heading font-black text-sm transition-all text-center cursor-pointer",
-                prog.id === 'zs-2'
-                  ? "btn-gold-pulse bg-gradient-to-b from-amber-300 to-amber-500 text-espresso-950 border border-amber-500 shadow-md"
-                  : "bg-parchment-100 hover:bg-amber-100 text-espresso-950 border border-parchment-300 hover:border-amber-400"
-              ]}
+              class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-500 border border-amber-500 shadow-xs hover:shadow-md transition-all text-center cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
             >
               <span data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText}</span>
               <span>→</span>
