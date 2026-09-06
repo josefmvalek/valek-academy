@@ -222,19 +222,19 @@
     "tiers": [
       {
         "name": "Děti & Žáci ZŠ (Skupinky hrou)",
-        "price": "390 Kč / 60 min",
+        "price": "od 200 Kč / 60 min",
         "period": "/ lekce (1. lekce ZDARMA)",
         "description": "Hravá výuka v malých skupinkách plná deskovek, záchrana známek a rozvoj lásky k angličtině.",
         "isPopular": true,
         "badge": "🎁 1. LEKCE ZDARMA • OTEVŘENO",
         "features": [
           "1. ukázková lekce ve skupince ZDARMA",
-          "Malá skupinka 3 až 6 dětí pro maximální zapojení",
-          "Učení formou deskových her, karet a kvízů",
+          "Malá skupinka 4 až 8 dětí pro maximální zapojení",
+          "Učení formou deskových her, karet, kvízů a soutěží",
           "Dovysvětlení látky ze školy a pomoc s úkoly",
           "Všechny herní i výukové materiály v ceně",
-          "Férové náhrady: při nemoci online připojení či náhradní hodina",
-          "Bez smluv na pololetí: flexibilní měsíční platba až po 1. lekci"
+          "Férové náhrady: při nemoci formou náhradní hodiny",
+          "Slevy při "
         ],
         "ctaText": "Vyzkoušet 1. lekci zdarma",
         "ctaLink": "#kontakt"
