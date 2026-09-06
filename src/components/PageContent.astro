@@ -1,0 +1,55 @@
+---
+import Hero from './Hero.astro';
+import AudienceSegments from './AudienceSegments.astro';
+import Pricing from './Pricing.astro';
+import ComparisonTable from './ComparisonTable.astro';
+import HowGameLessonWorks from './HowGameLessonWorks.astro';
+import About from './About.astro';
+import Testimonials from './Testimonials.astro';
+import GroupMatcher from './GroupMatcher.astro';
+import FAQ from './FAQ.astro';
+import Contact from './Contact.astro';
+
+interface Props {
+  page?: any;
+}
+
+const { page = {} } = Astro.props;
+const hero = page.hero || {};
+const audience = page.audience || {};
+const about = page.about || {};
+const pricing = page.pricing || {};
+const comparison = page.comparison || {};
+const testimonials = page.testimonials || {};
+const howItWorks = page.howItWorks || {};
+const locationInfo = page.location || {};
+const groupMatcher = page.groupMatcher || {};
+const faq = page.faq || {};
+const contact = page.contact || {};
+---
+
+<!-- 1. Hook & Introduction: Melbourne background, audio sample, dual badges, 1st lesson FREE CTA -->
+<Hero hero={hero} />
+
+<!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Online note + High School/SCIO waiting list -->
+<AudienceSegments audience={audience} />
+
+<!-- 3. Transparency & Value: 390 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
+<Pricing pricing={pricing} />
+<ComparisonTable comparison={comparison} />
+
+<!-- 4. Methodology & Game Lesson Flow: Karak, Scrabble, Story Cubes, Dixit + 60-minute structured flow -->
+<HowGameLessonWorks howItWorks={howItWorks} />
+
+<!-- 5. The Teacher & Classroom: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
+<About about={about} locationInfo={locationInfo} />
+
+<!-- 6. Social Proof: Real local reviews from parents in Uherské Hradiště, Staré Město and Kunovice -->
+<Testimonials testimonials={testimonials} />
+
+<!-- 7. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
+<GroupMatcher groupMatcher={groupMatcher} />
+
+<!-- 8. Conversion & Answers: Reservation form with format selector (Osobně v UH / Online) + FAQ -->
+<Contact contact={contact} locationInfo={locationInfo} />
+<FAQ faq={faq} />

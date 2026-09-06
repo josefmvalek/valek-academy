@@ -1,34 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
-import AudienceSegments from '../components/AudienceSegments.astro';
-import Pricing from '../components/Pricing.astro';
-import ComparisonTable from '../components/ComparisonTable.astro';
-import HowGameLessonWorks from '../components/HowGameLessonWorks.astro';
-import About from '../components/About.astro';
-import Testimonials from '../components/Testimonials.astro';
-import GroupMatcher from '../components/GroupMatcher.astro';
-import FAQ from '../components/FAQ.astro';
-import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import VisualEditor from '../components/VisualEditor.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
-import { getHomePageData } from '../lib/data';
+import PageContent from '../components/PageContent.astro';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
+import { getHomePageDataQuery } from '../lib/data';
+import { islands } from '../lib/islands';
 
-const page = await getHomePageData();
+const queryResult = await getHomePageDataQuery();
+const page = queryResult.data?.page || {};
 const navbar = page.navbar || {};
 const hero = page.hero || {};
-const audience = page.audience || {};
-const about = page.about || {};
-const pricing = page.pricing || {};
-const comparison = page.comparison || {};
-const testimonials = page.testimonials || {};
-const howItWorks = page.howItWorks || {};
-const locationInfo = page.location || {};
-const groupMatcher = page.groupMatcher || {};
-const faq = page.faq || {};
 const contact = page.contact || {};
 const footer = page.footer || {};
 const stickyCta = page.stickyCta || {};
@@ -44,33 +29,9 @@ const stickyCta = page.stickyCta || {};
     navbar={navbar}
   />
 
-  <main class="flex-grow overflow-x-hidden w-full max-w-full min-w-0">
-    <!-- 1. Hook & Introduction: Melbourne background, audio sample, dual badges (UH doučovna + Online celá ČR), 1st lesson FREE CTA -->
-    <Hero hero={hero} />
-
-    <!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Online note + High School/SCIO waiting list -->
-    <AudienceSegments audience={audience} />
-
-    <!-- 3. Transparency & Value: 390 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
-    <Pricing pricing={pricing} />
-    <ComparisonTable comparison={comparison} />
-
-    <!-- 4. Methodology & Game Lesson Flow: Karak, Scrabble, Story Cubes, Dixit + 60-minute structured flow -->
-    <HowGameLessonWorks howItWorks={howItWorks} />
-
-    <!-- 5. The Teacher & Classroom: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
-    <About about={about} locationInfo={locationInfo} />
-
-    <!-- 6. Social Proof: Real local reviews from parents in Uherské Hradiště, Staré Město and Kunovice -->
-    <Testimonials testimonials={testimonials} />
-
-    <!-- 7. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
-    <GroupMatcher groupMatcher={groupMatcher} />
-
-    <!-- 8. Conversion & Answers: Reservation form with format selector (Osobně v UH / Online) + FAQ -->
-    <Contact contact={contact} locationInfo={locationInfo} />
-    <FAQ faq={faq} />
-  </main>
+  <TinaIsland name="page" wrapper={islands.page.wrapper} primary>
+    <PageContent page={page} />
+  </TinaIsland>
 
   <Footer
     email={contact.email}

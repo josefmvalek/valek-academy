@@ -5,7 +5,7 @@ import { tinaAdminDevRedirect } from '@tinacms/astro/vite';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  output: 'static',
+  output: 'server',
   adapter: vercel(),
   integrations: [
     tailwind({
