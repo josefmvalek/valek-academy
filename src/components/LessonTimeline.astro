@@ -1,4 +1,6 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
+
 interface Props {
   className?: string;
   timeline?: {
@@ -6,6 +8,7 @@ interface Props {
     title?: string;
     subtitle?: string;
     phases?: any[];
+    [key: string]: any;
   };
 }
 
@@ -57,13 +60,13 @@ const phases = timeline.phases || defaultPhases;
     
     <!-- Section Header -->
     <div class="max-w-3xl mx-auto text-center space-y-3 mb-10 md:mb-14">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-edit-key="timeline.badge" data-edit-label="Štítek časové osy">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-tina-field={tinaField(timeline, 'badge')} data-edit-key="timeline.badge" data-edit-label="Štítek časové osy">
         <span>⏱️</span> <span>{badge}</span>
       </div>
-      <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="timeline.title" data-edit-label="Nadpis časové osy">
+      <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(timeline, 'title')} data-edit-key="timeline.title" data-edit-label="Nadpis časové osy">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg" data-edit-key="timeline.subtitle" data-edit-label="Podnadpis časové osy">
+      <p class="text-espresso-800/80 text-base sm:text-lg" data-tina-field={tinaField(timeline, 'subtitle')} data-edit-key="timeline.subtitle" data-edit-label="Podnadpis časové osy">
         {subtitle}
       </p>
     </div>
@@ -71,12 +74,15 @@ const phases = timeline.phases || defaultPhases;
     <!-- 4 Phases Grid with Timeline Connectors -->
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
       {phases.map((phase, idx) => (
-        <div class="rounded-3xl p-6 sm:p-7 bg-parchment-50 border-2 border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between group relative">
+        <div
+          data-tina-field={tinaField(timeline, 'phases', idx)}
+          class="rounded-3xl p-6 sm:p-7 bg-parchment-50 border-2 border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between group relative"
+        >
           
           <!-- Top Row: Time Badge & Icon -->
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="font-mono text-xs font-black px-2.5 py-1 rounded-lg bg-amber-400 text-espresso-950 shadow-2xs" data-edit-key={`timeline.phases.${idx}.time`} data-edit-label="Čas fáze">
+              <span class="font-mono text-xs font-black px-2.5 py-1 rounded-lg bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(phase, 'time')} data-edit-key={`timeline.phases.${idx}.time`} data-edit-label="Čas fáze">
                 {phase.time}
               </span>
               <span class="w-12 h-12 rounded-2xl bg-white border border-parchment-300 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-2xs">
@@ -85,15 +91,15 @@ const phases = timeline.phases || defaultPhases;
             </div>
 
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-900 block mb-1" data-edit-key={`timeline.phases.${idx}.badge`} data-edit-label="Štítek fáze">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-900 block mb-1" data-tina-field={tinaField(phase, 'badge')} data-edit-key={`timeline.phases.${idx}.badge`} data-edit-label="Štítek fáze">
                 {phase.badge}
               </span>
-              <h3 class="font-heading font-bold text-lg text-espresso-950 leading-snug" data-edit-key={`timeline.phases.${idx}.title`} data-edit-label="Název fáze">
+              <h3 class="font-heading font-bold text-lg text-espresso-950 leading-snug" data-tina-field={tinaField(phase, 'title')} data-edit-key={`timeline.phases.${idx}.title`} data-edit-label="Název fáze">
                 {phase.title}
               </h3>
             </div>
 
-            <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed" data-edit-key={`timeline.phases.${idx}.desc`} data-edit-label="Popis fáze">
+            <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed" data-tina-field={tinaField(phase, 'desc')} data-edit-key={`timeline.phases.${idx}.desc`} data-edit-label="Popis fáze">
               {phase.desc}
             </p>
           </div>
@@ -102,7 +108,7 @@ const phases = timeline.phases || defaultPhases;
           <div class="pt-4 mt-5 border-t border-parchment-200">
             <div class="flex items-center gap-2 text-xs font-bold text-emerald-900">
               <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span data-edit-key={`timeline.phases.${idx}.highlight`} data-edit-label="Přínos fáze">{phase.highlight}</span>
+              <span data-tina-field={tinaField(phase, 'highlight')} data-edit-key={`timeline.phases.${idx}.highlight`} data-edit-label="Přínos fáze">{phase.highlight}</span>
             </div>
           </div>
 

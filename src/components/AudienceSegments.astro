@@ -221,7 +221,7 @@ const waitingList = audience.waitingList || {
             </div>
 
             <!-- Tailored Games for this age -->
-            <div class="pt-3 border-t border-parchment-200">
+            <div class="pt-3 border-t border-parchment-200" data-tina-field={tinaField(prog, 'games')}>
               <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-2">Hry v této skupince:</div>
               <div class="flex flex-wrap gap-1.5">
                 {(prog.games || []).map((g) => (
@@ -233,7 +233,7 @@ const waitingList = audience.waitingList || {
             </div>
 
             <!-- Bullet Points -->
-            <div class="pt-3 border-t border-parchment-200 space-y-2">
+            <div class="pt-3 border-t border-parchment-200 space-y-2" data-tina-field={tinaField(prog, 'points')}>
               <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-1">Co získáte:</div>
               <ul class="space-y-2">
                 {(prog.points || []).map((point, pIdx) => (
@@ -265,6 +265,7 @@ const waitingList = audience.waitingList || {
           <div class="pt-6 mt-6 border-t border-parchment-200">
             <a
               href={prog.ctaLink || "#kontakt"}
+              data-tina-field={tinaField(prog, 'ctaText')}
               class:list={[
                 "w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-heading font-black text-sm transition-all text-center cursor-pointer",
                 prog.id === 'zs-2'
@@ -272,7 +273,7 @@ const waitingList = audience.waitingList || {
                   : "bg-parchment-100 hover:bg-amber-100 text-espresso-950 border border-parchment-300 hover:border-amber-400"
               ]}
             >
-              <span data-tina-field={tinaField(prog, 'ctaText')} data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText}</span>
+              <span data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText}</span>
               <span>→</span>
             </a>
             <div class="text-center mt-2 text-[11px] font-bold text-amber-900">
@@ -305,9 +306,10 @@ const waitingList = audience.waitingList || {
 
       <a
         href="#kontakt"
+        data-tina-field={tinaField(waitingList, 'ctaText')}
         class="flex-shrink-0 px-6 py-3.5 rounded-2xl bg-white hover:bg-parchment-100 text-espresso-950 border-2 border-parchment-300 hover:border-amber-400 font-heading font-bold text-sm shadow-xs transition-all hover:scale-105 text-center"
       >
-        <span data-tina-field={tinaField(waitingList, 'ctaText')} data-edit-key="audience.waitingList.ctaText" data-edit-label="Tlačítko čekací listiny">{waitingList.ctaText}</span>
+        <span data-edit-key="audience.waitingList.ctaText" data-edit-label="Tlačítko čekací listiny">{waitingList.ctaText}</span>
       </a>
     </div>
 

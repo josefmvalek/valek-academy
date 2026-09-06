@@ -3,15 +3,26 @@ import PassportBadge from './PassportBadge.astro';
 import { tinaField } from '@tinacms/astro/tina-field';
 
 interface Pillar {
+  [key: string]: any;
   icon?: string;
   title: string;
   description: string;
 }
 
 interface GalleryItem {
+  [key: string]: any;
   image: string;
   title: string;
   desc: string;
+}
+
+interface Credentials {
+  [key: string]: any;
+  title?: string;
+  subtitle?: string;
+  points?: string[];
+  note?: string;
+  guarantee?: string;
 }
 
 interface Props {
@@ -23,9 +34,12 @@ interface Props {
     bio?: string;
     quote?: string;
     pillars?: Pillar[];
+    credentials?: Credentials;
+    [key: string]: any;
   };
   locationInfo?: {
     gallery?: GalleryItem[];
+    [key: string]: any;
   };
 }
 
@@ -74,6 +88,21 @@ const pillars = about.pillars || [
     description: "Přijďte si nezávazně vyzkoušet atmosféru. Dítě si zahraje deskovku a sami uvidíte, jak se mu to líbí."
   }
 ];
+
+const defaultCredentials: Credentials = {
+  title: "Proč se učit s Josefem?",
+  subtitle: "BBA, RMIT Univ., Melbourne • 25+ let v ČR",
+  points: [
+    "Vyrůstal v Melbourne: Přirozená výslovnost a živá slovní zásoba bez typického českého přízvuku.",
+    "25+ let v České republice: Žádná komunikační bariéra – složitou látku v klidu vysvětlí v češtině.",
+    "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 3–6 dětí, které odbourají strach ze známkování.",
+    "Vzdělání z Melbourne: Titul BBA z renomované RMIT University v Austrálii."
+  ],
+  note: "VALEK ACADEMY • Doučovna Uherské Hradiště",
+  guarantee: "🎁 1. ukázková lekce je 100% ZDARMA"
+};
+
+const credentials = about.credentials || defaultCredentials;
 ---
 
 <section id="o-mne" class="py-8 sm:py-12 md:py-16 relative bg-white border-t border-parchment-200 overflow-hidden">
@@ -130,7 +159,7 @@ const pillars = about.pillars || [
 
       <!-- Experience & Credentials Highlight Box -->
       <div class="lg:col-span-5">
-        <div class="bg-gradient-to-b from-[#FFFDF9] via-white to-parchment-50 rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-soft-lg space-y-5 relative overflow-hidden">
+        <div class="bg-gradient-to-b from-[#FFFDF9] via-white to-parchment-50 rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-soft-lg space-y-5 relative overflow-hidden" data-tina-field={tinaField(about, 'credentials')}>
           <div class="flex items-center justify-between pb-4 border-b border-parchment-200 gap-3">
             <div class="flex items-center gap-3.5">
               <div class="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-500 shadow-sm flex-shrink-0">
@@ -144,37 +173,39 @@ const pillars = about.pillars || [
                 />
               </div>
               <div>
-                <h4 class="font-heading font-black text-lg text-espresso-950 leading-tight">
-                  Proč se učit s Josefem?
+                <h4 class="font-heading font-black text-lg text-espresso-950 leading-tight" data-tina-field={tinaField(credentials, 'title')}>
+                  {credentials.title}
                 </h4>
-                <p class="text-xs text-amber-900 font-black">BBA, RMIT Univ., Melbourne • 25+ let v ČR</p>
+                <p class="text-xs text-amber-900 font-black" data-tina-field={tinaField(credentials, 'subtitle')}>{credentials.subtitle}</p>
               </div>
             </div>
             <PassportBadge className="w-18 h-18 -mr-2 hidden sm:inline-block flex-shrink-0" />
           </div>
 
-          <ul class="space-y-3.5 text-sm text-espresso-800">
-            <li class="flex items-start gap-3">
-              <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">✓</span>
-              <span><strong>Vyrůstal v Melbourne:</strong> Přirozená výslovnost a živá slovní zásoba bez typického českého přízvuku.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">✓</span>
-              <span><strong>25+ let v České republice:</strong> Žádná komunikační bariéra – složitou látku v klidu vysvětlí v češtině.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">✓</span>
-              <span><strong>Výuka hrou v malých skupinkách:</strong> Deskovky a karty ve skupince 3–6 dětí, které odbourají strach ze známkování.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">✓</span>
-              <span><strong>Vzdělání z Melbourne:</strong> Titul BBA z renomované RMIT University v Austrálii.</span>
-            </li>
+          <ul class="space-y-3.5 text-sm text-espresso-800" data-tina-field={tinaField(credentials, 'points')}>
+            {(credentials.points || []).map((point: string) => {
+              const colonIndex = point.indexOf(':');
+              return (
+                <li class="flex items-start gap-3">
+                  <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">✓</span>
+                  <span>
+                    {colonIndex !== -1 ? (
+                      <>
+                        <strong>{point.slice(0, colonIndex + 1)}</strong>
+                        {point.slice(colonIndex + 1)}
+                      </>
+                    ) : (
+                      point
+                    )}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
 
           <div class="p-4 rounded-2xl bg-amber-100/80 border border-amber-300 text-center">
-            <div class="text-xs font-bold text-amber-950">VALEK ACADEMY • Doučovna Uherské Hradiště</div>
-            <div class="text-sm sm:text-base font-heading font-black text-espresso-950 mt-0.5">🎁 1. ukázková lekce je 100% ZDARMA</div>
+            <div class="text-xs font-bold text-amber-950" data-tina-field={tinaField(credentials, 'note')}>{credentials.note}</div>
+            <div class="text-sm sm:text-base font-heading font-black text-espresso-950 mt-0.5" data-tina-field={tinaField(credentials, 'guarantee')}>{credentials.guarantee}</div>
           </div>
         </div>
       </div>
@@ -184,14 +215,17 @@ const pillars = about.pillars || [
     <!-- 4 Pillars Grid -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
       {pillars.map((pillar, idx) => (
-        <div class="bg-parchment-50 rounded-2xl p-5 sm:p-6 border border-parchment-300 shadow-xs hover:shadow-md hover:border-amber-400 transition-all space-y-2.5">
+        <div
+          data-tina-field={tinaField(about, 'pillars', idx)}
+          class="bg-parchment-50 rounded-2xl p-5 sm:p-6 border border-parchment-300 shadow-xs hover:shadow-md hover:border-amber-400 transition-all space-y-2.5"
+        >
           <div class="text-3xl">
             {pillar.icon}
           </div>
-          <h4 class="font-heading font-bold text-base sm:text-lg text-espresso-950" data-edit-key={`about.pillars.${idx}.title`} data-edit-label="Název pilíře">
+          <h4 class="font-heading font-bold text-base sm:text-lg text-espresso-950" data-tina-field={tinaField(pillar, 'title')} data-edit-key={`about.pillars.${idx}.title`} data-edit-label="Název pilíře">
             {pillar.title}
           </h4>
-          <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed font-normal" data-edit-key={`about.pillars.${idx}.description`} data-edit-label="Popis pilíře">
+          <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(pillar, 'description')} data-edit-key={`about.pillars.${idx}.description`} data-edit-label="Popis pilíře">
             {pillar.description}
           </p>
         </div>
@@ -214,11 +248,15 @@ const pillars = about.pillars || [
 
       <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
         {gallery.map((item, idx) => (
-          <div class="group rounded-3xl overflow-hidden border-2 border-parchment-300 hover:border-amber-400 bg-white shadow-xs hover:shadow-card-lift transition-all duration-300">
+          <div
+            data-tina-field={tinaField(locationInfo, 'gallery', idx)}
+            class="group rounded-3xl overflow-hidden border-2 border-parchment-300 hover:border-amber-400 bg-white shadow-xs hover:shadow-card-lift transition-all duration-300"
+          >
             <div class="relative overflow-hidden aspect-video">
               <img
                 src={item.image}
                 alt={item.title}
+                data-tina-field={tinaField(item, 'image')}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />
@@ -228,10 +266,10 @@ const pillars = about.pillars || [
               </span>
             </div>
             <div class="p-5 space-y-1.5">
-              <h4 class="font-heading font-black text-base text-espresso-950" data-edit-key={`location.gallery.${idx}.title`} data-edit-label="Název fotky">
+              <h4 class="font-heading font-black text-base text-espresso-950" data-tina-field={tinaField(item, 'title')} data-edit-key={`location.gallery.${idx}.title`} data-edit-label="Název fotky">
                 {item.title}
               </h4>
-              <p class="text-xs text-espresso-800/85 leading-relaxed font-normal" data-edit-key={`location.gallery.${idx}.desc`} data-edit-label="Popis fotky">
+              <p class="text-xs text-espresso-800/85 leading-relaxed font-normal" data-tina-field={tinaField(item, 'desc')} data-edit-key={`location.gallery.${idx}.desc`} data-edit-label="Popis fotky">
                 {item.desc}
               </p>
             </div>

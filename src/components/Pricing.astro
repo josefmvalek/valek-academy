@@ -14,6 +14,13 @@ interface Tier {
   ctaLink?: string;
 }
 
+interface Pillar {
+  [key: string]: any;
+  icon?: string;
+  title: string;
+  desc: string;
+}
+
 interface Props {
   pricing: {
     badge?: string;
@@ -21,6 +28,7 @@ interface Props {
     subtitle?: string;
     guarantee?: string;
     tiers?: Tier[] | Record<string, Tier>;
+    pillars?: Pillar[];
   };
 }
 
@@ -29,13 +37,33 @@ const { pricing = {} } = Astro.props;
 const badge = pricing.badge || "CENÍK & 1. LEKCE ZDARMA";
 const title = pricing.title || "Transparentní ceny – pro děti 1. lekce zcela zdarma";
 const subtitle = pricing.subtitle || "Pro děti na ZŠ je 1. celá lekce v malé skupince 100% ZDARMA. Ostatní programy otevřeme brzy (můžete se nezávazně zapsat na čekací listinu).";
-const guarantee = pricing.guarantee || "🎁 1. LEKCE 100% ZDARMA: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani skryté závazky.";
+const guarantee = pricing.guarantee || "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani skryté závazky.";
 const rawTiers = pricing.tiers;
 const tiers: Tier[] = Array.isArray(rawTiers)
   ? (rawTiers as Tier[])
   : rawTiers && typeof rawTiers === 'object'
     ? (Object.values(rawTiers) as Tier[])
     : [];
+
+const defaultPillars: Pillar[] = [
+  {
+    icon: "🛡️",
+    title: "Náhrady při nemoci",
+    desc: "Lekce vám nepropadne – možnost připojení online z domova nebo náhrada v paralelní skupince."
+  },
+  {
+    icon: "📝",
+    title: "Bez smluv na pololetí",
+    desc: "Žádné vázání na půl roku dopředu ani platby naslepo. Platíte flexibilně měsíčně až po 1. lekci."
+  },
+  {
+    icon: "🎁",
+    title: "1. lekce 100% zdarma",
+    desc: "Celých 60 minut hrou v malé skupince na vyzkoušení bez jakýchkoliv závazků."
+  }
+];
+
+const pillars = pricing.pillars || defaultPillars;
 ---
 
 <section id="cenik" class="py-8 sm:py-12 md:py-16 relative bg-[#FDFBF7] border-t border-parchment-300 overflow-hidden">
@@ -103,7 +131,7 @@ const tiers: Tier[] = Array.isArray(rawTiers)
               </div>
 
               <!-- Features list -->
-              <div class="space-y-3">
+              <div class="space-y-3" data-tina-field={tinaField(tier, 'features')}>
                 <div class="text-xs font-bold uppercase tracking-wider text-stone-400">Balíček obsahuje:</div>
                 <ul class="space-y-3">
                   {(tier.features || []).map((feat, fIdx) => (
@@ -143,29 +171,20 @@ const tiers: Tier[] = Array.isArray(rawTiers)
     <!-- Fairness & Flexibility Pillars -->
     <div class="mt-10 sm:mt-14 max-w-4xl mx-auto space-y-5">
       <div class="grid sm:grid-cols-3 gap-3.5">
-        <div class="bg-white/90 rounded-2xl p-4 border border-amber-300/80 shadow-2xs text-center space-y-1.5 hover:border-amber-400 transition-colors">
-          <div class="text-2xl">🛡️</div>
-          <h4 class="font-heading font-black text-xs sm:text-sm text-espresso-950">Náhrady při nemoci</h4>
-          <p class="text-[11px] text-espresso-800/80 leading-snug">
-            Lekce vám nepropadne – možnost připojení online z domova nebo náhrada v paralelní skupince.
-          </p>
-        </div>
-
-        <div class="bg-white/90 rounded-2xl p-4 border border-amber-300/80 shadow-2xs text-center space-y-1.5 hover:border-amber-400 transition-colors">
-          <div class="text-2xl">📝</div>
-          <h4 class="font-heading font-black text-xs sm:text-sm text-espresso-950">Bez smluv na pololetí</h4>
-          <p class="text-[11px] text-espresso-800/80 leading-snug">
-            Žádné vázání na půl roku dopředu ani platby naslepo. Platíte flexibilně měsíčně až po 1. lekci.
-          </p>
-        </div>
-
-        <div class="bg-white/90 rounded-2xl p-4 border border-amber-300/80 shadow-2xs text-center space-y-1.5 hover:border-amber-400 transition-colors">
-          <div class="text-2xl">🎁</div>
-          <h4 class="font-heading font-black text-xs sm:text-sm text-espresso-950">1. lekce 100% zdarma</h4>
-          <p class="text-[11px] text-espresso-800/80 leading-snug">
-            Celých 60 minut hrou v malé skupince na vyzkoušení bez jakýchkoliv závazků.
-          </p>
-        </div>
+        {pillars.map((pillar, pIdx) => (
+          <div
+            data-tina-field={tinaField(pricing, 'pillars', pIdx)}
+            class="bg-white/90 rounded-2xl p-4 border border-amber-300/80 shadow-2xs text-center space-y-1.5 hover:border-amber-400 transition-colors"
+          >
+            <div class="text-2xl">{pillar.icon}</div>
+            <h4 class="font-heading font-black text-xs sm:text-sm text-espresso-950" data-tina-field={tinaField(pillar, 'title')} data-edit-key={`pricing.pillars.${pIdx}.title`} data-edit-label="Název garance">
+              {pillar.title}
+            </h4>
+            <p class="text-[11px] text-espresso-800/80 leading-snug" data-tina-field={tinaField(pillar, 'desc')} data-edit-key={`pricing.pillars.${pIdx}.desc`} data-edit-label="Popis garance">
+              {pillar.desc}
+            </p>
+          </div>
+        ))}
       </div>
 
       <!-- Main Guarantee Callout -->

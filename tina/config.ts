@@ -233,6 +233,18 @@ export default defineConfig({
               { type: "string", name: "quote", label: "Citát / Motto", ui: { component: "textarea" } },
               {
                 type: "object",
+                name: "credentials",
+                label: "Karta zkušeností (Proč se učit s Josefem)",
+                fields: [
+                  { type: "string", name: "title", label: "Nadpis karty" },
+                  { type: "string", name: "subtitle", label: "Podtitul" },
+                  { type: "string", name: "points", label: "Body zkušeností", list: true },
+                  { type: "string", name: "note", label: "Spodní poznámka" },
+                  { type: "string", name: "guarantee", label: "Zvýrazněný text (1. lekce ZDARMA)" },
+                ],
+              },
+              {
+                type: "object",
                 name: "pillars",
                 label: "4 Pilíře výuky",
                 list: true,
@@ -275,6 +287,20 @@ export default defineConfig({
                   { type: "string", name: "features", label: "Položky v ceně", list: true },
                   { type: "string", name: "ctaText", label: "Text tlačítka" },
                   { type: "string", name: "ctaLink", label: "Odkaz tlačítka" },
+                ],
+              },
+              {
+                type: "object",
+                name: "pillars",
+                label: "3 Garance ceníku (dole)",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: item?.title || "Garance" }),
+                },
+                fields: [
+                  { type: "string", name: "icon", label: "Ikona (emoji)" },
+                  { type: "string", name: "title", label: "Název" },
+                  { type: "string", name: "desc", label: "Popis", ui: { component: "textarea" } },
                 ],
               },
             ],
@@ -384,6 +410,27 @@ export default defineConfig({
                   { type: "string", name: "badge", label: "Štítek kroku" },
                   { type: "string", name: "title", label: "Název kroku" },
                   { type: "string", name: "desc", label: "Popis kroku", ui: { component: "textarea" } },
+                ],
+              },
+              {
+                type: "object",
+                name: "poster",
+                label: "Obrázkový poster s deskovkami",
+                fields: [
+                  { type: "string", name: "tag", label: "Štítek (např. Atmosféra naší doučovny)" },
+                  { type: "string", name: "title", label: "Nadpis posteru" },
+                  { type: "string", name: "desc", label: "Popis posteru", ui: { component: "textarea" } },
+                ],
+              },
+              {
+                type: "object",
+                name: "bottomCta",
+                label: "Spodní výzva / banner lekce",
+                fields: [
+                  { type: "string", name: "title", label: "Nadpis výzvy" },
+                  { type: "string", name: "desc", label: "Popis výzvy" },
+                  { type: "string", name: "ctaText", label: "Text tlačítka" },
+                  { type: "string", name: "ctaLink", label: "Cíl odkazu" },
                 ],
               },
             ],

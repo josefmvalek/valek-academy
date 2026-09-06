@@ -158,7 +158,7 @@ const columns = comparison.columns || defaultColumns;
                 <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
                   <span>🗣️</span> <span>Mluvení a prostor pro řeč:</span>
                 </div>
-                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.speakingTime`} data-edit-label="Prostor pro řeč">
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'speakingTime')} data-edit-key={`comparison.columns.${idx}.speakingTime`} data-edit-label="Prostor pro řeč">
                   {col.speakingTime}
                 </p>
               </div>
@@ -168,7 +168,7 @@ const columns = comparison.columns || defaultColumns;
                 <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
                   <span>🧘</span> <span>Atmosféra & stres:</span>
                 </div>
-                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.atmosphere`} data-edit-label="Atmosféra">
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'atmosphere')} data-edit-key={`comparison.columns.${idx}.atmosphere`} data-edit-label="Atmosféra">
                   {col.atmosphere}
                 </p>
               </div>
@@ -178,7 +178,7 @@ const columns = comparison.columns || defaultColumns;
                 <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
                   <span>🎲</span> <span>Metodika výuky:</span>
                 </div>
-                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.method`} data-edit-label="Metodika">
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'method')} data-edit-key={`comparison.columns.${idx}.method`} data-edit-label="Metodika">
                   {col.method}
                 </p>
               </div>
@@ -188,7 +188,7 @@ const columns = comparison.columns || defaultColumns;
                 <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
                   <span>🇦🇺</span> <span>Přízvuk a lektor:</span>
                 </div>
-                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.accent`} data-edit-label="Přízvuk">
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'accent')} data-edit-key={`comparison.columns.${idx}.accent`} data-edit-label="Přízvuk">
                   {col.accent.replace(/^(🇦🇺\s*)+/, '')}
                 </p>
               </div>
@@ -198,7 +198,7 @@ const columns = comparison.columns || defaultColumns;
                 <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
                   <span>🚀</span> <span>Motivace dítěte:</span>
                 </div>
-                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.motivation`} data-edit-label="Motivace">
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'motivation')} data-edit-key={`comparison.columns.${idx}.motivation`} data-edit-label="Motivace">
                   {col.motivation}
                 </p>
               </div>

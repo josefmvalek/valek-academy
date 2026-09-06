@@ -10,6 +10,19 @@ interface Props {
     quote?: string;
     gameSpotlights?: any[];
     steps?: any[];
+    poster?: {
+      tag?: string;
+      title?: string;
+      desc?: string;
+      [key: string]: any;
+    };
+    bottomCta?: {
+      title?: string;
+      desc?: string;
+      ctaText?: string;
+      ctaLink?: string;
+      [key: string]: any;
+    };
   };
 }
 
@@ -84,6 +97,19 @@ const subtitle = howItWorks.subtitle || "V partě vrstevníků vzniká přirozen
 const quote = howItWorks.quote || "„Hodiny se dělí dle zájmových oblastí, každý si najde své.“";
 const gameSpotlights = howItWorks.gameSpotlights || defaultGameSpotlights;
 const steps = howItWorks.steps || defaultSteps;
+
+const poster = howItWorks.poster || {
+  tag: "Atmosféra naší doučovny v Uherském Hradišti",
+  title: "Karak, Scrabble, Story Cubes a desítky dalších her",
+  desc: "Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek."
+};
+
+const bottomCta = howItWorks.bottomCta || {
+  title: "Chcete si tento 60minutový herní zážitek vyzkoušet naživo?",
+  desc: "První lekce v malé skupince dětí (osobně v UH nebo online) je 100% ZDARMA a nezávazná.",
+  ctaText: "Vyzkoušet zdarma →",
+  ctaLink: "#kontakt"
+};
 ---
 
 <section id="hry" class="py-8 sm:py-12 md:py-20 relative bg-[#FAF7F2] border-b border-parchment-300 overflow-hidden">
@@ -114,15 +140,15 @@ const steps = howItWorks.steps || defaultSteps;
       loading="lazy"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/95 via-espresso-950/50 to-transparent flex flex-col justify-end p-6 sm:p-10">
-      <div class="space-y-2 max-w-2xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-espresso-950 text-xs font-black uppercase tracking-wider shadow-sm">
-          <span>✨</span> <span>Atmosféra naší doučovny v Uherském Hradišti</span>
+      <div class="space-y-2 max-w-2xl" data-tina-field={tinaField(howItWorks, 'poster')}>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-espresso-950 text-xs font-black uppercase tracking-wider shadow-sm" data-tina-field={tinaField(poster, 'tag')}>
+          <span>✨</span> <span>{poster.tag}</span>
         </div>
-        <h4 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-white leading-tight">
-          Karak, Scrabble, Story Cubes a desítky dalších her
+        <h4 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-white leading-tight" data-tina-field={tinaField(poster, 'title')}>
+          {poster.title}
         </h4>
-        <p class="text-xs sm:text-sm text-amber-100/90 leading-relaxed font-normal">
-          Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek.
+        <p class="text-xs sm:text-sm text-amber-100/90 leading-relaxed font-normal" data-tina-field={tinaField(poster, 'desc')}>
+          {poster.desc}
         </p>
       </div>
     </div>
@@ -141,26 +167,29 @@ const steps = howItWorks.steps || defaultSteps;
 
     <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
       {gameSpotlights.map((game, idx) => (
-        <div class={`p-5 sm:p-6 rounded-2xl border-2 bg-white ${game.accent} shadow-xs hover:shadow-md transition-all group flex flex-col justify-between`}>
+        <div
+          data-tina-field={tinaField(howItWorks, 'gameSpotlights', idx)}
+          class={`p-5 sm:p-6 rounded-2xl border-2 bg-white ${game.accent} shadow-xs hover:shadow-md transition-all group flex flex-col justify-between`}
+        >
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2.5">
                 <span class="text-3xl group-hover:scale-110 transition-transform">{game.icon}</span>
                 <div>
-                  <h5 class="font-heading font-black text-base sm:text-lg text-espresso-950" data-edit-key={`howItWorks.gameSpotlights.${idx}.title`} data-edit-label="Název hry">
+                  <h5 class="font-heading font-black text-base sm:text-lg text-espresso-950" data-tina-field={tinaField(game, 'title')} data-edit-key={`howItWorks.gameSpotlights.${idx}.title`} data-edit-label="Název hry">
                     {game.title}
                   </h5>
-                  <span class="text-[11px] font-bold text-amber-900 block" data-edit-key={`howItWorks.gameSpotlights.${idx}.tag`} data-edit-label="Zaměření hry">
+                  <span class="text-[11px] font-bold text-amber-900 block" data-tina-field={tinaField(game, 'tag')} data-edit-key={`howItWorks.gameSpotlights.${idx}.tag`} data-edit-label="Zaměření hry">
                     {game.tag}
                   </span>
                 </div>
               </div>
-              <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white border border-parchment-300 text-espresso-900 flex-shrink-0" data-edit-key={`howItWorks.gameSpotlights.${idx}.badge`} data-edit-label="Štítek hry">
+              <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white border border-parchment-300 text-espresso-900 flex-shrink-0" data-tina-field={tinaField(game, 'badge')} data-edit-key={`howItWorks.gameSpotlights.${idx}.badge`} data-edit-label="Štítek hry">
                 {game.badge}
               </span>
             </div>
 
-            <p class="text-xs sm:text-sm text-espresso-800/90 leading-relaxed font-normal" data-edit-key={`howItWorks.gameSpotlights.${idx}.desc`} data-edit-label="Popis hry">
+            <p class="text-xs sm:text-sm text-espresso-800/90 leading-relaxed font-normal" data-tina-field={tinaField(game, 'desc')} data-edit-key={`howItWorks.gameSpotlights.${idx}.desc`} data-edit-label="Popis hry">
               {game.desc}
             </p>
           </div>
@@ -170,7 +199,7 @@ const steps = howItWorks.steps || defaultSteps;
             <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 mb-1.5">
               🗣️ Reálné věty, které děti v zápalu hry používají:
             </div>
-            <div class="flex flex-wrap gap-1.5">
+            <div class="flex flex-wrap gap-1.5" data-tina-field={tinaField(game, 'phrases')}>
               {(game.phrases || []).map((phrase: string, pIdx: number) => (
                 <span class="px-2.5 py-0.5 rounded-lg bg-white/90 border border-parchment-300 text-[11px] font-semibold text-espresso-900 italic" data-edit-key={`howItWorks.gameSpotlights.${idx}.phrases.${pIdx}`} data-edit-label={`Fráze ${idx + 1}.${pIdx + 1}`}>
                   „{phrase}“
@@ -186,25 +215,27 @@ const steps = howItWorks.steps || defaultSteps;
   <!-- 3 Steps Breakdown -->
   <div class="grid md:grid-cols-3 gap-4 sm:gap-6 relative pt-4">
     {steps.map((item, idx) => (
-      <div class="bg-white rounded-2xl p-5 sm:p-6 border-2 border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all duration-300 relative group flex flex-col justify-between">
-        
+      <div
+        data-tina-field={tinaField(howItWorks, 'steps', idx)}
+        class="bg-white rounded-2xl p-5 sm:p-6 border-2 border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all duration-300 relative group flex flex-col justify-between"
+      >
         <div class="space-y-3.5">
           <!-- Step Badge & Icon -->
           <div class="flex items-center justify-between">
             <span class="w-12 h-12 rounded-xl bg-amber-100 text-amber-950 flex items-center justify-center text-2xl font-heading font-black group-hover:scale-110 transition-transform shadow-2xs">
               {item.icon}
             </span>
-            <span class="text-[11px] font-black uppercase tracking-wider text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full" data-edit-key={`howItWorks.steps.${idx}.badge`} data-edit-label="Štítek kroku">
+            <span class="text-[11px] font-black uppercase tracking-wider text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full" data-tina-field={tinaField(item, 'badge')} data-edit-key={`howItWorks.steps.${idx}.badge`} data-edit-label="Štítek kroku">
               {item.badge}
             </span>
           </div>
 
           <!-- Title & Description -->
           <div>
-            <h4 class="font-heading font-bold text-lg text-espresso-950 leading-snug" data-edit-key={`howItWorks.steps.${idx}.title`} data-edit-label="Název kroku">
+            <h4 class="font-heading font-bold text-lg text-espresso-950 leading-snug" data-tina-field={tinaField(item, 'title')} data-edit-key={`howItWorks.steps.${idx}.title`} data-edit-label="Název kroku">
               {item.title}
             </h4>
-            <p class="text-espresso-800/80 text-xs sm:text-sm mt-2 leading-relaxed font-normal" data-edit-key={`howItWorks.steps.${idx}.desc`} data-edit-label="Popis kroku">
+            <p class="text-espresso-800/80 text-xs sm:text-sm mt-2 leading-relaxed font-normal" data-tina-field={tinaField(item, 'desc')} data-edit-key={`howItWorks.steps.${idx}.desc`} data-edit-label="Popis kroku">
               {item.desc}
             </p>
           </div>
@@ -220,25 +251,26 @@ const steps = howItWorks.steps || defaultSteps;
   </div>
 
   <!-- Bottom Lesson Guarantee Banner -->
-  <div class="mt-8 p-5 sm:p-6 rounded-2xl bg-amber-100/70 border border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+  <div class="mt-8 p-5 sm:p-6 rounded-2xl bg-amber-100/70 border border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left" data-tina-field={tinaField(howItWorks, 'bottomCta')}>
     <div class="flex items-center gap-3.5">
       <div class="w-12 h-12 rounded-xl bg-amber-400 text-espresso-950 flex items-center justify-center text-2xl flex-shrink-0 font-bold shadow-xs">
         🎁
       </div>
       <div>
-        <h5 class="font-heading font-black text-sm sm:text-base text-espresso-950">
-          Chcete si tento 60minutový herní zážitek vyzkoušet naživo?
+        <h5 class="font-heading font-black text-sm sm:text-base text-espresso-950" data-tina-field={tinaField(bottomCta, 'title')}>
+          {bottomCta.title}
         </h5>
-        <p class="text-xs text-stone-700 mt-0.5">
-          První lekce v malé skupince dětí (osobně v UH nebo online) je <strong>100% ZDARMA</strong> a nezávazná.
+        <p class="text-xs text-stone-700 mt-0.5" data-tina-field={tinaField(bottomCta, 'desc')}>
+          {bottomCta.desc}
         </p>
       </div>
     </div>
     <a
-      href="#kontakt"
+      href={bottomCta.ctaLink || "#kontakt"}
+      data-tina-field={tinaField(bottomCta, 'ctaText')}
       class="btn-gold-pulse px-6 py-3 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-amber-400 border border-amber-500 shadow-xs flex-shrink-0 cursor-pointer"
     >
-      Vyzkoušet zdarma →
+      {bottomCta.ctaText}
     </a>
   </div>
 

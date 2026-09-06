@@ -264,7 +264,19 @@
         "title": "1. ukázková lekce ZDARMA",
         "description": "Přijďte si nezávazně vyzkoušet atmosféru. Dítě si zahraje deskovku a sami uvidíte, jak se mu to líbí."
       }
-    ]
+    ],
+    "credentials": {
+      "title": "Proč se učit s Josefem?",
+      "subtitle": "BBA, RMIT Univ., Melbourne • 25+ let v ČR",
+      "points": [
+        "Vyrůstal v Melbourne: Přirozená výslovnost a živá slovní zásoba bez typického českého přízvuku.",
+        "25+ let v České republice: Žádná komunikační bariéra – složitou látku v klidu vysvětlí v češtině.",
+        "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 3–6 dětí, které odbourají strach ze známkování.",
+        "Vzdělání z Melbourne: Titul BBA z renomované RMIT University v Austrálii."
+      ],
+      "note": "VALEK ACADEMY • Doučovna Uherské Hradiště",
+      "guarantee": "🎁 1. ukázková lekce je 100% ZDARMA"
+    }
   },
   "pricing": {
     "enabled": true,
@@ -323,6 +335,23 @@
         ],
         "ctaText": "Zapsat se na čekací listinu",
         "ctaLink": "#kontakt"
+      }
+    ],
+    "pillars": [
+      {
+        "icon": "🛡️",
+        "title": "Náhrady při nemoci",
+        "desc": "Lekce vám nepropadne – možnost připojení online z domova nebo náhrada v paralelní skupince."
+      },
+      {
+        "icon": "📝",
+        "title": "Bez smluv na pololetí",
+        "desc": "Žádné vázání na půl roku dopředu ani platby naslepo. Platíte flexibilně měsíčně až po 1. lekci."
+      },
+      {
+        "icon": "🎁",
+        "title": "1. lekce 100% zdarma",
+        "desc": "Celých 60 minut hrou v malé skupince na vyzkoušení bez jakýchkoliv závazků."
       }
     ]
   },
@@ -496,7 +525,18 @@
         "title": "Propojení se školou & jistota",
         "desc": "Co se ve škole zdálo složité, najednou dává smysl. Pomůžeme s úkoly, dovysvětlíme látku v češtině a dítě do školy odchází sebevědomé a s lepšími známkami."
       }
-    ]
+    ],
+    "poster": {
+      "tag": "Atmosféra naší doučovny v Uherském Hradišti",
+      "title": "Karak, Scrabble, Story Cubes a desítky dalších her",
+      "desc": "Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek."
+    },
+    "bottomCta": {
+      "title": "Chcete si tento 60minutový herní zážitek vyzkoušet naživo?",
+      "desc": "První lekce v malé skupince dětí (osobně v UH nebo online) je 100% ZDARMA a nezávazná.",
+      "ctaText": "Vyzkoušet zdarma →",
+      "ctaLink": "#kontakt"
+    }
   },
   "timeline": {
     "enabled": true,
