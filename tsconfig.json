@@ -4,5 +4,7 @@
     "strictNullChecks": true,
     "allowJs": true,
     "jsx": "preserve"
-  }
+  },
+  "include": ["src/**/*", "tina/**/*"],
+  "exclude": ["node_modules", "dist", ".vercel", "public"]
 }

@@ -17,7 +17,7 @@ interface Props {
     title?: string;
     subtitle?: string;
     guarantee?: string;
-    tiers?: Tier[];
+    tiers?: Tier[] | Record<string, Tier>;
   };
 }
 
@@ -27,40 +27,45 @@ const badge = pricing.badge || "CENÍK & 1. LEKCE ZDARMA";
 const title = pricing.title || "Transparentní ceny – pro děti 1. lekce zcela zdarma";
 const subtitle = pricing.subtitle || "Pro děti na ZŠ je 1. celá lekce v malé skupince 100% ZDARMA. Ostatní programy otevřeme brzy (můžete se nezávazně zapsat na čekací listinu).";
 const guarantee = pricing.guarantee || "🎁 1. LEKCE 100% ZDARMA: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani skryté závazky.";
-const tiers = pricing.tiers || [];
+const rawTiers = pricing.tiers;
+const tiers: Tier[] = Array.isArray(rawTiers)
+  ? (rawTiers as Tier[])
+  : rawTiers && typeof rawTiers === 'object'
+    ? (Object.values(rawTiers) as Tier[])
+    : [];
 ---
 
-<section id="cenik" class="py-12 md:py-16 relative bg-[#FDFBF7] border-t border-parchment-300">
+<section id="cenik" class="py-8 sm:py-12 md:py-16 relative bg-[#FDFBF7] border-t border-parchment-300 overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Section Header -->
-    <div class="max-w-3xl mx-auto text-center space-y-3 mb-8 md:mb-12">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-950">
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-12">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-950" data-edit-key="pricing.badge" data-edit-label="Štítek ceníku">
         {badge}
       </div>
-      <h2 class="font-academy font-bold text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight">
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="pricing.title" data-edit-label="Nadpis ceníku">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg">
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-edit-key="pricing.subtitle" data-edit-label="Podnadpis ceníku">
         {subtitle}
       </p>
     </div>
 
     <!-- Pricing Tiers Grid -->
-    <div class="grid lg:grid-cols-3 gap-8 items-stretch">
-      {tiers.map((tier) => {
+    <div class="grid lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+      {tiers.map((tier, idx) => {
         const isPopular = tier.isPopular;
         return (
-          <div class={`rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative transition-all duration-300 ${
+          <div class={`rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-between relative transition-all duration-300 ${
             isPopular
               ? 'bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-xl glow-amber lg:-translate-y-3 z-10'
-              : 'bg-parchment-50 border border-parchment-300 shadow-xs opacity-80 hover:opacity-100'
+              : 'bg-white border border-parchment-300 shadow-xs opacity-90 hover:opacity-100 hover:shadow-md'
           }`}>
             
             <!-- Popular Ribbon / Badge -->
             {isPopular && (
               <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-md">
+                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-md" data-edit-key={`pricing.tiers.${idx}.badge`} data-edit-label="Štítek karty">
                   🎁 {tier.badge || "1. LEKCE ZDARMA"}
                 </span>
               </div>
@@ -74,20 +79,20 @@ const tiers = pricing.tiers || [];
                     <span>⏳</span> <span>{tier.badge || "Připravujeme brzy"}</span>
                   </span>
                 )}
-                <h3 class="font-academy font-bold text-2xl text-espresso-950">
+                <h3 class="font-heading font-black text-2xl text-espresso-950" data-edit-key={`pricing.tiers.${idx}.name`} data-edit-label="Název programu">
                   {tier.name}
                 </h3>
-                <p class="text-sm text-espresso-800/80 mt-2 min-h-[40px]">
+                <p class="text-sm text-espresso-800/80 mt-2 min-h-[40px]" data-edit-key={`pricing.tiers.${idx}.description`} data-edit-label="Popis programu">
                   {tier.description}
                 </p>
               </div>
 
               <!-- Price Display -->
               <div class="pt-4 pb-2 border-y border-parchment-200 flex items-baseline gap-2">
-                <span class="font-academy font-black text-4xl sm:text-5xl text-espresso-950 tracking-tight">
+                <span class="font-heading font-black text-4xl sm:text-5xl text-espresso-950 tracking-tight" data-edit-key={`pricing.tiers.${idx}.price`} data-edit-label="Cena">
                   {tier.price}
                 </span>
-                <span class="text-sm text-stone-500 font-medium">
+                <span class="text-sm text-stone-500 font-medium" data-edit-key={`pricing.tiers.${idx}.period`} data-edit-label="Období">
                   {tier.period}
                 </span>
               </div>
@@ -96,12 +101,12 @@ const tiers = pricing.tiers || [];
               <div class="space-y-3">
                 <div class="text-xs font-bold uppercase tracking-wider text-stone-400">Balíček obsahuje:</div>
                 <ul class="space-y-3">
-                  {(tier.features || []).map((feat) => (
+                  {(tier.features || []).map((feat, fIdx) => (
                     <li class="flex items-start gap-3 text-sm text-espresso-800">
                       <svg class={`w-4 h-4 flex-shrink-0 mt-0.5 ${isPopular ? 'text-amber-600' : 'text-emerald-600'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                       </svg>
-                      <span>{feat}</span>
+                      <span data-edit-key={`pricing.tiers.${idx}.features.${fIdx}`} data-edit-label="Položka v ceně">{feat}</span>
                     </li>
                   ))}
                 </ul>
@@ -112,13 +117,15 @@ const tiers = pricing.tiers || [];
             <div class="pt-8 mt-8 border-t border-parchment-200">
               <a
                 href={tier.ctaLink || "#kontakt"}
-                class={`w-full inline-flex items-center justify-center py-4 px-6 rounded-2xl font-display font-bold text-base transition-all text-center ${
+                class={`w-full inline-flex items-center justify-center py-4 px-6 rounded-2xl font-heading font-black text-base transition-all text-center cursor-pointer ${
                   isPopular
-                    ? 'bg-gradient-to-b from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 text-espresso-950 shadow-md hover:scale-[1.02] active:scale-[0.98] border border-amber-500/60'
-                    : 'bg-parchment-100 hover:bg-parchment-200 text-espresso-800 border border-parchment-300'
+                    ? 'btn-gold-pulse bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 text-espresso-950 border border-amber-500'
+                    : 'bg-parchment-100 hover:bg-parchment-200 text-espresso-950 border border-parchment-300'
                 }`}
+                data-edit-key={`pricing.tiers.${idx}.ctaText`}
+                data-edit-label="Text tlačítka"
               >
-                {tier.ctaText || (isPopular ? "Vyzkoušet 1. lekci zdarma" : "Zapsat se na čekací listinu")}
+                {tier.ctaText || (isPopular ? "🎁 Vyzkoušet 1. lekci zdarma" : "Zapsat se na čekací listinu")}
               </a>
             </div>
 
@@ -128,8 +135,8 @@ const tiers = pricing.tiers || [];
     </div>
 
     <!-- Guarantee Banner -->
-    <div class="mt-8 sm:mt-10 max-w-3xl mx-auto text-center">
-      <div class="p-6 rounded-2xl vintage-ribbon text-espresso-950 text-sm sm:text-base leading-relaxed font-medium shadow-xs">
+    <div class="mt-8 sm:mt-12 max-w-3xl mx-auto text-center">
+      <div class="p-6 rounded-2xl bg-gradient-to-r from-amber-100 via-white to-amber-100 border-2 border-amber-300/80 text-espresso-950 text-sm sm:text-base leading-relaxed font-bold shadow-xs" data-edit-key="pricing.guarantee" data-edit-label="Garance ceníku">
         {guarantee}
       </div>
     </div>

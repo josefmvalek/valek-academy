@@ -1,87 +1,213 @@
 ---
 interface Props {
   className?: string;
+  howItWorks?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    quote?: string;
+    gameSpotlights?: any[];
+    steps?: any[];
+  };
 }
 
-const { className = "" } = Astro.props;
+const { className = "", howItWorks = {} } = Astro.props;
 
-const steps = [
+const defaultGameSpotlights = [
+  {
+    icon: "🐉",
+    title: "Karak & Fantasy dobrodružství",
+    tag: "Strategie & Slovní zásoba",
+    badge: "1.–6. třída ZŠ",
+    accent: "border-amber-400 bg-amber-50/60",
+    desc: "Každé dítě si vybere hrdinu (mág, válečník, zloděj). V kobkách objevují truhly, bojují s kostkami a v angličtině popisují zbraně, kouzla a tahy. Přirozená soutěživost a obrovský zápal!",
+    phrases: ["I roll the dice!", "I open the chest with a golden key.", "My wizard casts a fireball!"]
+  },
+  {
+    icon: "🔤",
+    title: "Scrabble & Slovní rébusy",
+    tag: "Pravopis & Paměť bez biflování",
+    badge: "Všechny věkové kategorie",
+    accent: "border-emerald-400 bg-emerald-50/60",
+    desc: "Z písmenkových kostek a karet skládáme nová slovíčka a křížovky. Děti si bleskově zapamatují pravopis a správnou stavbu anglických slov bez mechanického vypisování do sešitu.",
+    phrases: ["How many points is letter Z?", "Can I connect my word here?", "Triple word score!"]
+  },
+  {
+    icon: "🎲",
+    title: "Story Cubes & Vyprávění příběhů",
+    tag: "Tvorba vět & Plynulost řeči",
+    badge: "Ztráta ostychu",
+    accent: "border-blue-400 bg-blue-50/60",
+    desc: "9 obrázkových kostek vytvoří miliony příběhů. Děti se učí spojovat myšlenky do celých vět, reagovat na kamarády a mluvit bez zdlouhavého překládání z češtiny v hlavě.",
+    phrases: ["Once upon a time in Australia...", "Suddenly, an alien landed near the river.", "What happened next?"]
+  },
+  {
+    icon: "🎨",
+    title: "Dixit & Australské kvízy",
+    tag: "Představivost & Reálie",
+    badge: "Starší žáci & maturanti",
+    accent: "border-purple-400 bg-purple-50/60",
+    desc: "Krásně ilustrované karty rozvíjejí fantazii, metafory a barvité popisy. Prokládáme je reáliemi ze života v Melbourne, australskými zvířaty a typickým přátelským humorem.",
+    phrases: ["This picture looks like a dream.", "Koalas sleep twenty hours a day!", "I vote for card number three."]
+  }
+];
+
+const defaultSteps = [
   {
     step: "1",
     icon: "🎲",
-    badge: "1. Krok: Začátek lekce",
+    badge: "1. Krok: Začátek lekce (0–15 min)",
     title: "Zahřátí hrou & odbourání ostychu",
-    desc: "Dítě zapomene na školní stres a strach ze zkoušení. Společenská deskovka nebo karetní kvíz navodí přirozenou pohodu a chuť komunikovat v partě kamarádů."
+    desc: "Dítě zapomene na školní stres a strach ze zkoušení. Společenská deskovka nebo rychlý kvíz navodí přirozenou pohodu a chuť komunikovat v partě kamarádů."
   },
   {
     step: "2",
     icon: "🗣️",
-    badge: "2. Krok: Průběh",
+    badge: "2. Krok: Průběh (15–45 min)",
     title: "Živá konverzace & australský akcent",
     desc: "V zápalu hry dítě reaguje v angličtině automaticky. Osvojuje si přirozený rytmus řeči, správnou intonaci a výslovnost bez zbytečného přemýšlení o poučkách."
   },
   {
     step: "3",
     icon: "🎒",
-    badge: "3. Krok: Výsledek",
+    badge: "3. Krok: Výsledek (45–60 min)",
     title: "Propojení se školou & jistota",
     desc: "Co se ve škole zdálo složité, najednou dává smysl. Pomůžeme s úkoly, dovysvětlíme látku v češtině a dítě do školy odchází sebevědomé a s lepšími známkami."
   }
 ];
 
-const games = [
-  { name: "Scrabble & slovní rébusy", tag: "Pravopis & paměť" },
-  { name: "Story Cubes & příběhy", tag: "Tvorba vět" },
-  { name: "Karetní kvízy & tajenky", tag: "Slovní zásoba" },
-  { name: "Deskovky s hrdiny a draky", tag: "Zábavná strategie" },
-  { name: "Situační scénky z cestování", tag: "Pohotová reakce" }
-];
+const badge = howItWorks.badge || "Metodika výuky hrou v malých skupinkách";
+const title = howItWorks.title || "Jak deskovky a hry ve skupince pomáhají dětem mluvit anglicky?";
+const subtitle = howItWorks.subtitle || "V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí stejně přirozeně jako mateřštinu.";
+const quote = howItWorks.quote || "„Hodiny se dělí dle zájmových oblastí, každý si najde své.“";
+const gameSpotlights = howItWorks.gameSpotlights || defaultGameSpotlights;
+const steps = howItWorks.steps || defaultSteps;
 ---
 
-<div class={`bg-parchment-50 rounded-3xl p-4 sm:p-8 md:p-10 border-2 border-parchment-300 shadow-soft-lg space-y-5 sm:space-y-8 ${className}`}>
+<section id="hry" class="py-8 sm:py-12 md:py-20 relative bg-[#FAF7F2] border-b border-parchment-300 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class={`bg-gradient-to-b from-white via-parchment-50 to-white rounded-3xl p-4 sm:p-8 md:p-10 border-2 border-amber-300/80 shadow-soft-lg space-y-6 sm:space-y-12 ${className}`}>
   
   <!-- Header with Poster Quote -->
-  <div class="text-center max-w-2xl mx-auto space-y-2 sm:space-y-2.5">
-    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-amber-950">
-      <span>🎲</span> <span>Výuka v malých skupinkách (3–6 dětí)</span>
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950" data-edit-key="howItWorks.badge" data-edit-label="Štítek metodiky">
+      <span>🎲</span> <span>{badge}</span>
     </div>
-    <h3 class="font-academy font-bold text-2xl sm:text-3xl text-espresso-950 tracking-tight">
-      Jak deskovky a hry ve skupince pomáhají dětem mluvit anglicky?
+    <h3 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-espresso-950 tracking-tight" data-edit-key="howItWorks.title" data-edit-label="Nadpis metodiky">
+      {title}
     </h3>
     <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed">
-      <strong>„Hodiny se dělí dle zájmových oblastí, každý si najde své.“</strong> V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí stejně přirozeně jako mateřštinu.
+      <strong data-edit-key="howItWorks.quote" data-edit-label="Motto metodiky">{quote}</strong> <span data-edit-key="howItWorks.subtitle" data-edit-label="Podnadpis metodiky">{subtitle}</span>
     </p>
   </div>
 
-  <!-- 3 Steps Grid -->
-  <div class="grid md:grid-cols-3 gap-3.5 sm:gap-6 relative">
-    {steps.map((item) => (
-      <div class="bg-white rounded-2xl p-4 sm:p-6 border border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all duration-300 relative group flex flex-col justify-between">
+  <!-- Visual Showcase: The Real 3D Board Game Table Artwork with Glass Overlay -->
+  <div class="relative rounded-3xl overflow-hidden border-2 border-amber-400 shadow-md group">
+    <img
+      src="/images/board-games-3d.jpg"
+      alt="Deskové hry pro výuku angličtiny ve Valek Academy"
+      class="w-full h-64 sm:h-80 md:h-96 lg:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/95 via-espresso-950/50 to-transparent flex flex-col justify-end p-6 sm:p-10">
+      <div class="space-y-2 max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-espresso-950 text-xs font-black uppercase tracking-wider shadow-sm">
+          <span>✨</span> <span>Atmosféra naší doučovny v Uherském Hradišti</span>
+        </div>
+        <h4 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-white leading-tight">
+          Karak, Scrabble, Story Cubes a desítky dalších her
+        </h4>
+        <p class="text-xs sm:text-sm text-amber-100/90 leading-relaxed font-normal">
+          Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 Interactive Board Game Spotlight Cards -->
+  <div class="space-y-4">
+    <div class="text-center max-w-xl mx-auto">
+      <h4 class="font-heading font-black text-xl sm:text-2xl text-espresso-950">
+        Jaké hry s dětmi hrajeme a co rozvíjejí:
+      </h4>
+      <p class="text-xs sm:text-sm text-stone-600 mt-1">
+        Hry vybíráme individuálně podle věku dětí a jejich zájmů.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
+      {gameSpotlights.map((game, idx) => (
+        <div class={`p-5 sm:p-6 rounded-2xl border-2 bg-white ${game.accent} shadow-xs hover:shadow-md transition-all group flex flex-col justify-between`}>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-3xl group-hover:scale-110 transition-transform">{game.icon}</span>
+                <div>
+                  <h5 class="font-heading font-black text-base sm:text-lg text-espresso-950" data-edit-key={`howItWorks.gameSpotlights.${idx}.title`} data-edit-label="Název hry">
+                    {game.title}
+                  </h5>
+                  <span class="text-[11px] font-bold text-amber-900 block" data-edit-key={`howItWorks.gameSpotlights.${idx}.tag`} data-edit-label="Zaměření hry">
+                    {game.tag}
+                  </span>
+                </div>
+              </div>
+              <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white border border-parchment-300 text-espresso-900 flex-shrink-0" data-edit-key={`howItWorks.gameSpotlights.${idx}.badge`} data-edit-label="Štítek hry">
+                {game.badge}
+              </span>
+            </div>
+
+            <p class="text-xs sm:text-sm text-espresso-800/90 leading-relaxed font-normal" data-edit-key={`howItWorks.gameSpotlights.${idx}.desc`} data-edit-label="Popis hry">
+              {game.desc}
+            </p>
+          </div>
+
+          <!-- Sample In-Game English Phrases -->
+          <div class="pt-3 mt-3 border-t border-parchment-200/80">
+            <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 mb-1.5">
+              🗣️ Reálné věty, které děti v zápalu hry používají:
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              {(game.phrases || []).map((phrase: string, pIdx: number) => (
+                <span class="px-2.5 py-0.5 rounded-lg bg-white/90 border border-parchment-300 text-[11px] font-semibold text-espresso-900 italic" data-edit-key={`howItWorks.gameSpotlights.${idx}.phrases.${pIdx}`} data-edit-label={`Fráze ${idx + 1}.${pIdx + 1}`}>
+                  „{phrase}“
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- 3 Steps Breakdown -->
+  <div class="grid md:grid-cols-3 gap-4 sm:gap-6 relative pt-4">
+    {steps.map((item, idx) => (
+      <div class="bg-white rounded-2xl p-5 sm:p-6 border-2 border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all duration-300 relative group flex flex-col justify-between">
         
-        <div class="space-y-4">
+        <div class="space-y-3.5">
           <!-- Step Badge & Icon -->
           <div class="flex items-center justify-between">
-            <span class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center text-xl font-academy font-bold group-hover:scale-110 transition-transform">
+            <span class="w-12 h-12 rounded-xl bg-amber-100 text-amber-950 flex items-center justify-center text-2xl font-heading font-black group-hover:scale-110 transition-transform shadow-2xs">
               {item.icon}
             </span>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full">
+            <span class="text-[11px] font-black uppercase tracking-wider text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full" data-edit-key={`howItWorks.steps.${idx}.badge`} data-edit-label="Štítek kroku">
               {item.badge}
             </span>
           </div>
 
           <!-- Title & Description -->
           <div>
-            <h4 class="font-academy font-bold text-lg text-espresso-950 leading-snug">
+            <h4 class="font-heading font-bold text-lg text-espresso-950 leading-snug" data-edit-key={`howItWorks.steps.${idx}.title`} data-edit-label="Název kroku">
               {item.title}
             </h4>
-            <p class="text-espresso-800/80 text-xs sm:text-sm mt-2 leading-relaxed font-normal">
+            <p class="text-espresso-800/80 text-xs sm:text-sm mt-2 leading-relaxed font-normal" data-edit-key={`howItWorks.steps.${idx}.desc`} data-edit-label="Popis kroku">
               {item.desc}
             </p>
           </div>
         </div>
 
-        <div class="pt-4 mt-4 border-t border-parchment-200 text-xs font-semibold text-amber-900 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+        <div class="pt-4 mt-4 border-t border-parchment-200 text-xs font-bold text-amber-900 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
           <span>Žádné zkoušení u tabule</span>
         </div>
 
@@ -89,26 +215,29 @@ const games = [
     ))}
   </div>
 
-  <!-- Interactive Games Showcase -->
-  <div class="pt-4 border-t border-parchment-300">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div>
-        <span class="font-academy font-bold text-xs uppercase tracking-wider text-espresso-950 block">
-          Příklady používaných her a aktivit:
-        </span>
-        <span class="text-xs text-stone-600">Hry volíme podle věku a zájmů dětí</span>
+  <!-- Bottom Lesson Guarantee Banner -->
+  <div class="mt-8 p-5 sm:p-6 rounded-2xl bg-amber-100/70 border border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+    <div class="flex items-center gap-3.5">
+      <div class="w-12 h-12 rounded-xl bg-amber-400 text-espresso-950 flex items-center justify-center text-2xl flex-shrink-0 font-bold shadow-xs">
+        🎁
       </div>
-
-      <div class="flex flex-wrap items-center gap-2">
-        {games.map((g) => (
-          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-parchment-300 shadow-xs text-xs font-medium text-espresso-900 hover:border-amber-400 transition-colors">
-            <span class="text-amber-600 font-bold">•</span>
-            <span class="font-semibold">{g.name}</span>
-            <span class="text-[10px] text-stone-500 bg-parchment-100 px-1.5 py-0.2 rounded border border-parchment-200">({g.tag})</span>
-          </span>
-        ))}
+      <div>
+        <h5 class="font-heading font-black text-sm sm:text-base text-espresso-950">
+          Chcete si tento 60minutový herní zážitek vyzkoušet naživo?
+        </h5>
+        <p class="text-xs text-stone-700 mt-0.5">
+          První lekce v malé skupince dětí (osobně v UH nebo online) je <strong>100% ZDARMA</strong> a nezávazná.
+        </p>
       </div>
     </div>
+    <a
+      href="#kontakt"
+      class="btn-gold-pulse px-6 py-3 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-amber-400 border border-amber-500 shadow-xs flex-shrink-0 cursor-pointer"
+    >
+      Vyzkoušet zdarma →
+    </a>
   </div>
 
-</div>
+    </div>
+  </div>
+</section>

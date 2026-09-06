@@ -13,7 +13,7 @@ interface Props {
 
 const { scio } = Astro.props;
 
-const badge = scio.badge || "PŘIPRAVUJEME BRZY";
+const badge = scio.badge || "PŘIPRAVUJEME PRO DALŠÍ SEMESTR";
 const title = scio.title || "Příprava na přijímací zkoušky na SŠ a SCIO testy";
 const subtitle = scio.subtitle || "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.";
 const tagline = scio.tagline || "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.";
@@ -27,103 +27,108 @@ const ctaText = scio.ctaText || "Předběžně se zapsat na čekací listinu";
 const ctaLink = scio.ctaLink || "#kontakt";
 ---
 
-<section id="scio" class="py-10 md:py-14 relative bg-gradient-to-b from-parchment-50 via-parchment-100/50 to-parchment-50 border-y border-parchment-300">
+<section id="scio" class="py-12 md:py-16 relative bg-gradient-to-b from-white via-parchment-100/50 to-white border-y border-parchment-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <div class="bg-white rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-parchment-300 shadow-soft-lg relative overflow-hidden">
+    <div class="bg-gradient-to-br from-[#FFFDF9] via-white to-parchment-50 rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-amber-300/80 shadow-soft-lg relative overflow-hidden">
       
-      <!-- Subtle top-right decorative shape -->
-      <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-100/40 rounded-full blur-3xl pointer-events-none"></div>
+      <!-- Subtle ambient glow -->
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         
-        <!-- Left: Copy -->
-        <div class="lg:col-span-7 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-900">
+        <!-- Left: Copy & Bullet Points -->
+        <div class="lg:col-span-7 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-edit-key="scio.badge" data-edit-label="Štítek SCIO">
             <span>🎯</span> <span>{badge}</span>
           </div>
 
-          <h2 class="font-academy font-bold text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight leading-tight">
+          <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight leading-tight" data-edit-key="scio.title" data-edit-label="Nadpis SCIO">
             {title}
           </h2>
 
-          <p class="text-base sm:text-lg text-espresso-800/90 leading-relaxed">
+          <p class="text-base sm:text-lg text-espresso-800/90 leading-relaxed" data-edit-key="scio.subtitle" data-edit-label="Podnadpis SCIO">
             {subtitle}
           </p>
 
-          <div class="p-4 rounded-2xl bg-parchment-100 border border-parchment-300 text-espresso-950 font-medium text-sm">
-            💡 {tagline}
+          <div class="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-espresso-950 font-bold text-sm flex items-center gap-2.5">
+            <span class="text-lg">💡</span> <span data-edit-key="scio.tagline" data-edit-label="Slogan SCIO">{tagline}</span>
           </div>
 
           <!-- Feature Grid -->
-          <div class="grid sm:grid-cols-2 gap-4 pt-2">
+          <div class="grid sm:grid-cols-2 gap-3.5 pt-1">
             {features.map((feat, idx) => (
-              <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+              <div class="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-parchment-300 shadow-2xs">
+                <div class="w-7 h-7 rounded-lg bg-amber-400 text-espresso-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">
                   {idx + 1}
                 </div>
-                <p class="text-xs sm:text-sm text-slate-700 font-medium leading-snug">
+                <p class="text-xs sm:text-sm text-espresso-900 font-medium leading-snug" data-edit-key={`scio.features.${idx}`} data-edit-label="Bod přípravy">
                   {feat}
                 </p>
               </div>
             ))}
           </div>
 
-          <div class="pt-4">
+          <div class="pt-3 flex flex-wrap items-center gap-4">
             <a
               href={ctaLink}
-              class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-display font-bold text-base text-white bg-blue-700 hover:bg-blue-800 shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+              id="scio-cta"
+              class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-heading font-black text-base text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 hover:from-amber-200 hover:to-amber-400 border border-amber-600 shadow-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
-              <span>{ctaText}</span>
+              <span data-edit-key="scio.ctaText" data-edit-label="Tlačítko SCIO">{ctaText}</span>
               <span>→</span>
             </a>
-            <span class="block sm:inline sm:ml-4 text-xs text-slate-500 mt-2 sm:mt-0">
-              * Zápis na čekací listinu je zcela nezávazný
+            <span class="text-xs text-stone-500 font-medium">
+              * Zápis je 100% nezávazný, dáme vám vědět přednostně
             </span>
           </div>
 
         </div>
 
-        <!-- Right: Subjects Showcase Card -->
+        <!-- Right: Subjects Showcase Card in Elegant Vintage Navy & Amber -->
         <div class="lg:col-span-5">
-          <div class="bg-gradient-to-br from-oxford-900 to-oxford-950 text-white rounded-3xl p-8 sm:p-10 shadow-xl space-y-6">
+          <div class="bg-gradient-to-br from-[#1C2833] via-espresso-950 to-[#120A05] text-white rounded-3xl p-7 sm:p-9 shadow-xl border-2 border-amber-500/30 space-y-5">
             
             <div class="flex items-center justify-between pb-4 border-b border-white/10">
-              <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Přijímačky na SŠ</span>
-              <span class="text-xs bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2.5 py-1 rounded-full font-bold">Připravujeme brzy</span>
+              <span class="text-xs font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                <span>📐</span> <span>Přijímačky na SŠ (5. & 9. třída)</span>
+              </span>
+              <span class="text-[10px] bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2.5 py-0.5 rounded-full font-bold">
+                Čekací listina
+              </span>
             </div>
 
             <!-- Subject 1: Czech -->
-            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
               <div class="flex items-center gap-3">
                 <span class="text-2xl">📖</span>
                 <div>
-                  <h4 class="font-display font-bold text-base text-white">Český jazyk a literatura</h4>
-                  <p class="text-xs text-slate-300">Čtenářská gramotnost, pravopis a rozbor textu</p>
+                  <h4 class="font-heading font-black text-base text-white">Český jazyk a literatura</h4>
+                  <p class="text-xs text-amber-200/80">Čtenářská gramotnost, pravopis a rozbory vět</p>
                 </div>
               </div>
-              <p class="text-xs text-slate-400 pl-9">
-                Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět.
+              <p class="text-xs text-stone-300 pl-9 leading-relaxed">
+                Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět bez stresu.
               </p>
             </div>
 
             <!-- Subject 2: Math -->
-            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
               <div class="flex items-center gap-3">
                 <span class="text-2xl">📐</span>
                 <div>
-                  <h4 class="font-display font-bold text-base text-white">Matematika & Geometrie</h4>
-                  <p class="text-xs text-slate-300">Logické úlohy, zlomky, rovnice a konstrukce</p>
+                  <h4 class="font-heading font-black text-base text-white">Matematika & Geometrie</h4>
+                  <p class="text-xs text-amber-200/80">Logické úlohy, zlomky, rovnice a konstrukce</p>
                 </div>
               </div>
-              <p class="text-xs text-slate-400 pl-9">
+              <p class="text-xs text-stone-300 pl-9 leading-relaxed">
                 Srozumitelný postup krok za krokem. Žádné memorování vzorců bez pochopení souvislostí.
               </p>
             </div>
 
-            <div class="text-center pt-2">
-              <p class="text-xs text-slate-400">
-                Přípravu vede zkušený pedagog s trpělivým a povzbudivým přístupem.
+            <div class="text-center pt-2 border-t border-white/10">
+              <p class="text-xs text-stone-400">
+                Přípravu v Uherském Hradišti vede zkušený pedagog s klidným a trpělivým přístupem.
               </p>
             </div>
 
@@ -136,3 +141,14 @@ const ctaLink = scio.ctaLink || "#kontakt";
 
   </div>
 </section>
+
+<script>
+  const scioBtn = document.getElementById('scio-cta');
+  const segmentSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
+
+  scioBtn?.addEventListener('click', () => {
+    if (segmentSelect) {
+      segmentSelect.selectedIndex = 3; // SCIO testy
+    }
+  });
+</script>

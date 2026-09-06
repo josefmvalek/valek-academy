@@ -1,0 +1,264 @@
+---
+interface Props {
+  className?: string;
+  locationInfo?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    addressTitle?: string;
+    address?: string;
+    parkingInfo?: string;
+    hoursTitle?: string;
+    hours?: string;
+    perks?: {
+      icon: string;
+      title: string;
+      desc: string;
+    }[];
+    surroundingTowns?: string;
+    gallery?: {
+      image: string;
+      title: string;
+      desc: string;
+    }[];
+  };
+}
+
+const { className = "", locationInfo = {} } = Astro.props;
+
+const defaultPerks = [
+  {
+    icon: "🚗",
+    title: "Parkování bez stresu",
+    desc: "Pohodlné bezplatné parkování přímo před domem pro snadné vysazení či vyzvednutí dítěte."
+  },
+  {
+    icon: "🏡",
+    title: "Klidné rodinné prostředí",
+    desc: "Žádný hluk z ulice ani rušné chodby velkých škol. Tiché prostředí pro soustředění a hru."
+  },
+  {
+    icon: "🍵",
+    title: "Čaj, voda a odpočinek",
+    desc: "Pro děti je vždy připraven teplý čaj nebo voda, aby po celém dni ve škole načerpaly energii."
+  },
+  {
+    icon: "🚌",
+    title: "Skvělá dostupnost",
+    desc: "Rychlé spojení z centra Uherského Hradiště, Starého Města i Kunovic (autem i MHD)."
+  }
+];
+
+const defaultGallery = [
+  {
+    image: "/images/doucovna-stul.jpg",
+    title: "Útulný herní stůl pro 3–6 dětí",
+    desc: "Prostorný dřevěný stůl, kde se děti učí v uvolněné rodinné atmosféře bez pocitu školní lavice."
+  },
+  {
+    image: "/images/doucovna-hry.jpg",
+    title: "Knihovnička a deskové hry",
+    desc: "Karak, Scrabble, Dixit, Story Cubes a desítky dalších her pro všechny věkové kategorie."
+  }
+];
+
+const badge = locationInfo.badge || "Kde nás najdete";
+const title = locationInfo.title || "Příjemná doučovna v klidné části Uherského Hradiště";
+const subtitle = locationInfo.subtitle || "Učení v neosobních kancelářích nebo přecpaných učebnách děti zbytečně stresuje. U nás v Růžové 1238 najdete útulné, rodinné prostředí plné deskových her, kde se děti cítí bezpečně a uvolněně.";
+const address = locationInfo.address || "Růžová 1238, Uherské Hradiště";
+const parkingInfo = locationInfo.parkingInfo || "Bezplatné parkovací stání přímo před vchodem";
+const hours = locationInfo.hours || "Pondělí – Pátek: 13:00 – 19:00 (dle skupinek)";
+const perks = locationInfo.perks || defaultPerks;
+const surroundingTowns = locationInfo.surroundingTowns || "Pohodlné parkování přímo u doučovny. Rychlá dostupnost pro rodiny z Uherského Hradiště, Kunovic, Starého Města, Babic, Jalubí, Kněžpole i Ostrožské Nové Vsi.";
+const gallery = locationInfo.gallery || defaultGallery;
+---
+
+<section id="kde-ucime" class={`py-12 md:py-20 relative bg-white border-b border-parchment-300 overflow-hidden ${className}`}>
+  
+  <!-- Subtle ambient glow -->
+  <div class="absolute top-1/2 left-0 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-emerald-200/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid lg:grid-cols-12 gap-8 sm:gap-12 items-center">
+      
+      <!-- Left Column: Details & Benefits -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-edit-key="location.badge" data-edit-label="Štítek doučovny">
+          <span>📍</span> <span>{badge}</span>
+        </div>
+
+        <h2 class="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight leading-tight" data-edit-key="location.title" data-edit-label="Nadpis doučovny">
+          {title}
+        </h2>
+
+        <p class="text-espresso-800/90 text-base sm:text-lg leading-relaxed font-normal" data-edit-key="location.subtitle" data-edit-label="Popis doučovny">
+          {subtitle}
+        </p>
+
+        <!-- 4 Key Location Perks -->
+        <div class="grid sm:grid-cols-2 gap-4 pt-2">
+          {perks.map((perk, idx) => (
+            <div class="p-4 rounded-2xl bg-parchment-50 border border-parchment-300 shadow-2xs space-y-1.5 hover:border-amber-400 transition-colors">
+              <div class="flex items-center gap-2 text-espresso-950 font-heading font-black text-sm">
+                <span class="text-xl">{perk.icon}</span>
+                <span data-edit-key={`location.perks.${idx}.title`} data-edit-label="Název výhody">{perk.title}</span>
+              </div>
+              <p class="text-xs text-stone-600 leading-snug" data-edit-key={`location.perks.${idx}.desc`} data-edit-label="Popis výhody">
+                {perk.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a
+            href="https://maps.google.com/?q=R%C5%AF%C5%BEov%C3%A1+1238,+Uhersk%C3%A9+Hradi%C5%A1t%C4%9B"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-3 rounded-xl bg-white hover:bg-parchment-100 text-espresso-950 border-2 border-parchment-300 hover:border-amber-400 font-heading font-bold text-xs sm:text-sm shadow-xs flex items-center gap-2 transition-all"
+          >
+            <span>🗺️</span> <span>Otevřít v Google Mapách</span> <span>↗</span>
+          </a>
+
+          <a
+            href="https://mapy.cz/zakladni?q=R%C5%AF%C5%BEov%C3%A1%201238%2C%20Uhersk%C3%A9%20Hradi%C5%A1t%C4%9B"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-3 rounded-xl bg-white hover:bg-parchment-100 text-espresso-950 border-2 border-parchment-300 hover:border-amber-400 font-heading font-bold text-xs sm:text-sm shadow-xs flex items-center gap-2 transition-all"
+          >
+            <span>🇨🇿</span> <span>Otevřít na Mapy.cz</span> <span>↗</span>
+          </a>
+
+          <a
+            href="tel:+420792372642"
+            class="px-5 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border-2 border-emerald-300 font-heading font-bold text-xs sm:text-sm shadow-xs flex items-center gap-2 transition-all"
+          >
+            <span>📞</span> <span data-edit-key="contact.phoneFormatted" data-edit-label="Telefon">+420 792 372 642</span>
+          </a>
+        </div>
+
+        <!-- Surrounding towns note -->
+        <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs text-espresso-950 flex items-start gap-3">
+          <span class="text-xl flex-shrink-0">🏘️</span>
+          <div>
+            <strong class="font-heading font-bold text-espresso-950 block mb-0.5">Spádové obce v okolí Uherského Hradiště:</strong>
+            <span class="text-stone-700 leading-relaxed block" data-edit-key="location.surroundingTowns" data-edit-label="Spádové obce">{surroundingTowns}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Stylized Visual Location Card -->
+      <div class="lg:col-span-5">
+        <div class="rounded-3xl bg-gradient-to-b from-[#FFFDF9] via-white to-amber-50/50 p-6 sm:p-8 border-2 border-amber-300/90 shadow-card-lift space-y-6 relative overflow-hidden">
+          
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-black uppercase tracking-wider text-amber-900 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-300">
+                DOUČOVNA UHERSKÉ HRADIŠTĚ
+              </span>
+              <h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950 mt-1" data-edit-key="location.address" data-edit-label="Adresa doučovny">
+                {address}
+              </h3>
+              <p class="text-xs text-stone-500 font-medium">686 01 Uherské Hradiště</p>
+            </div>
+
+            <div class="w-14 h-14 rounded-2xl bg-amber-400 text-espresso-950 flex items-center justify-center text-3xl shadow-sm border border-amber-500">
+              🏡
+            </div>
+          </div>
+
+          <!-- Classroom Vibe preview card -->
+          <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/80 space-y-3">
+            <div class="font-heading font-bold text-xs text-espresso-950 uppercase tracking-wider">
+              ✨ Co na děti u Josefa čeká:
+            </div>
+            <ul class="space-y-2 text-xs text-espresso-900 font-medium">
+              <li class="flex items-center gap-2">
+                <span class="text-amber-600 font-bold">●</span>
+                <span>Velký stůl pro 3–6 dětí s deskovkami</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-amber-600 font-bold">●</span>
+                <span>Čaj, voda a odpočinková zóna po škole</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-amber-600 font-bold">●</span>
+                <span data-edit-key="location.parkingInfo" data-edit-label="Informace o parkování">{parkingInfo}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Hours & Contact info -->
+          <div class="space-y-2 pt-2 border-t border-parchment-200 text-xs">
+            <div class="flex items-center justify-between text-stone-600">
+              <span class="font-bold text-espresso-950">Výukové dny:</span>
+              <span data-edit-key="location.hours" data-edit-label="Otevírací doba">{hours}</span>
+            </div>
+            <div class="flex items-center justify-between text-stone-600">
+              <span class="font-bold text-espresso-950">Telefon na Josefa:</span>
+              <a href="tel:+420792372642" class="text-amber-900 font-bold hover:underline" data-edit-key="contact.phoneFormatted" data-edit-label="Telefon">+420 792 372 642</a>
+            </div>
+          </div>
+
+          <!-- Direct action inside card -->
+          <a
+            href="#kontakt"
+            class="btn-gold-pulse w-full py-3.5 px-4 rounded-xl font-heading font-black text-center text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs block text-xs sm:text-sm cursor-pointer"
+          >
+            🎁 Domluvit ukázkovou lekci v doučovně
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Classroom Photo Gallery -->
+    <div class="mt-12 sm:mt-16 pt-10 border-t border-parchment-200">
+      <div class="max-w-2xl mb-6">
+        <div class="text-[11px] font-black uppercase tracking-wider text-amber-900 mb-1 flex items-center gap-1.5 font-bold">
+          <span>📸</span> <span>Fotogalerie prostor</span>
+        </div>
+        <h3 class="font-heading font-black text-2xl text-espresso-950">
+          Nahlédněte do doučovny v Uherském Hradišti
+        </h3>
+        <p class="text-xs sm:text-sm text-stone-600 mt-1">
+          Klidné, čisté a rodinné prostředí v Růžové ulici s velkým stolem na deskovky a přirozenou konverzaci.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
+        {(gallery || []).map((item, idx) => (
+          <div class="group rounded-3xl overflow-hidden border-2 border-parchment-300 hover:border-amber-400 bg-white shadow-xs hover:shadow-card-lift transition-all duration-300">
+            <div class="relative overflow-hidden aspect-video">
+              <img
+                src={item.image}
+                alt={item.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+              <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-espresso-950/80 backdrop-blur-xs text-white text-[11px] font-bold border border-white/20">
+                📍 Růžová 1238, UH
+              </span>
+            </div>
+            <div class="p-5 space-y-1.5">
+              <h4 class="font-heading font-black text-base text-espresso-950" data-edit-key={`location.gallery.${idx}.title`} data-edit-label="Název fotky">
+                {item.title}
+              </h4>
+              <p class="text-xs text-espresso-800/85 leading-relaxed" data-edit-key={`location.gallery.${idx}.desc`} data-edit-label="Popis fotky">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

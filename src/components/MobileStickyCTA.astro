@@ -1,0 +1,75 @@
+---
+interface Props {
+  ctaLink?: string;
+  ctaText?: string;
+  stickyCta?: {
+    text?: string;
+    buttonText?: string;
+  };
+}
+
+const {
+  ctaLink = "#kontakt",
+  ctaText = "1. lekce zdarma pro děti",
+  stickyCta = {}
+} = Astro.props;
+
+const text = stickyCta.text || ctaText;
+const buttonText = stickyCta.buttonText || "Zarezervovat";
+---
+
+<div
+  id="mobile-sticky-cta"
+  class="md:hidden fixed bottom-0 inset-x-0 z-40 p-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom,0px))] bg-parchment-50/95 backdrop-blur-md border-t border-parchment-300 shadow-2xl transition-all duration-300 translate-y-full opacity-0 pointer-events-none"
+  aria-label="Rychlá rezervace 1. lekce zdarma"
+>
+  <div class="max-w-md mx-auto flex items-center gap-2">
+    <a
+      href={ctaLink}
+      class="w-full py-3 px-4 rounded-xl font-display font-extrabold text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 active:from-amber-400 active:to-amber-500 border border-amber-500 shadow-md flex items-center justify-between transition-transform active:scale-[0.98]"
+    >
+      <div class="flex items-center gap-2">
+        <span class="text-base">🎁</span>
+        <span data-edit-key="stickyCta.text" data-edit-label="Mobilní lišta text">{text}</span>
+      </div>
+      <div class="flex items-center gap-1 text-xs font-black uppercase tracking-wider bg-espresso-950 text-amber-300 px-2.5 py-1 rounded-lg">
+        <span data-edit-key="stickyCta.buttonText" data-edit-label="Mobilní lišta tlačítko">{buttonText}</span>
+        <span>→</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<script>
+  const stickyCta = document.getElementById('mobile-sticky-cta');
+  const contactSection = document.getElementById('kontakt');
+
+  function updateStickyVisibility() {
+    if (!stickyCta) return;
+    
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    // Show after scrolling past 350px
+    const shouldShow = scrollY > 350;
+
+    // If near the contact section, hide to avoid redundancy
+    let nearContact = false;
+    if (contactSection) {
+      const contactRect = contactSection.getBoundingClientRect();
+      if (contactRect.top < window.innerHeight && contactRect.bottom > 0) {
+        nearContact = true;
+      }
+    }
+
+    if (shouldShow && !nearContact) {
+      stickyCta.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
+      stickyCta.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    } else {
+      stickyCta.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
+      stickyCta.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    }
+  }
+
+  window.addEventListener('scroll', updateStickyVisibility, { passive: true });
+  // Initial check
+  updateStickyVisibility();
+</script>

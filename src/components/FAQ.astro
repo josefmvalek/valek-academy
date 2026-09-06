@@ -10,29 +10,33 @@ interface Props {
     title?: string;
     subtitle?: string;
     items?: FaqItem[];
+    contactPrompt?: string;
+    contactPromptLinkText?: string;
   };
 }
 
-const { faq } = Astro.props;
+const { faq = {} } = Astro.props;
 
 const badge = faq.badge || "ČASTÉ DOTAZY";
-const title = faq.title || "Vše, co potřebujete vědět před první lekcí";
-const subtitle = faq.subtitle || "Máte jakýkoliv další dotaz? Neváhejte mi zavolat nebo napsat zprávu.";
+const title = faq.title || "Vše, co potřebujete vědět o výuce";
+const subtitle = faq.subtitle || "Máte jakýkoliv dotaz? Neváhejte mi kdykoliv zavolat nebo napsat zprávu.";
 const items = faq.items || [];
+const contactPrompt = faq.contactPrompt || "Máte jakýkoliv další dotaz ohledně skupinek a výuky?";
+const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formuláře níže →";
 ---
 
-<section id="faq" class="py-12 md:py-16 relative bg-[#FDFBF7] border-t border-parchment-300">
+<section id="faq" class="py-8 sm:py-12 md:py-16 relative bg-[#FDFBF7] border-t border-parchment-300 overflow-hidden">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Header -->
-    <div class="text-center space-y-3 mb-8 md:mb-12">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-amber-950">
+    <div class="text-center space-y-3 mb-6 md:mb-12">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-amber-950" data-edit-key="faq.badge" data-edit-label="Štítek FAQ">
         {badge}
       </div>
-      <h2 class="font-academy font-bold text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight">
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="faq.title" data-edit-label="Nadpis FAQ">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg max-w-2xl mx-auto">
+      <p class="text-espresso-800/80 text-base sm:text-lg max-w-2xl mx-auto" data-edit-key="faq.subtitle" data-edit-label="Podnadpis FAQ">
         {subtitle}
       </p>
     </div>
@@ -42,11 +46,11 @@ const items = faq.items || [];
       {items.map((item, index) => (
         <details
           name="faq-accordion"
-          class="group bg-parchment-50 rounded-2xl border border-parchment-300 overflow-hidden transition-all data-[open]:bg-white data-[open]:border-amber-400 data-[open]:shadow-sm"
+          class="group bg-white rounded-2xl border border-parchment-300 overflow-hidden transition-all data-[open]:border-amber-400 data-[open]:shadow-sm"
           open={index === 0}
         >
-          <summary class="flex items-center justify-between p-6 cursor-pointer list-none text-left select-none text-espresso-950 font-academy font-bold text-lg hover:text-amber-900 transition-colors">
-            <span class="pr-6">{item.question}</span>
+          <summary class="flex items-center justify-between p-5 sm:p-6 cursor-pointer list-none text-left select-none text-espresso-950 font-heading font-bold text-base sm:text-lg hover:text-amber-900 transition-colors">
+            <span class="pr-6" data-edit-key={`faq.items.${index}.question`} data-edit-label="Otázka">{item.question}</span>
             <div class="w-8 h-8 rounded-full bg-parchment-200 flex items-center justify-center flex-shrink-0 text-espresso-800 group-open:rotate-180 group-open:bg-amber-200 group-open:text-amber-950 transition-all duration-300">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
@@ -55,7 +59,7 @@ const items = faq.items || [];
           </summary>
 
           <div class="px-6 pb-6 pt-1 text-espresso-800/90 text-sm sm:text-base leading-relaxed border-t border-parchment-200 mt-1 font-normal">
-            <p>{item.answer}</p>
+            <p data-edit-key={`faq.items.${index}.answer`} data-edit-label="Odpověď">{item.answer}</p>
           </div>
         </details>
       ))}
@@ -64,9 +68,9 @@ const items = faq.items || [];
     <!-- Bottom prompt -->
     <div class="mt-12 text-center p-6 rounded-2xl bg-amber-100/60 border border-amber-300/80 text-espresso-950">
       <p class="text-sm font-medium">
-        Máte jakýkoliv další dotaz ohledně skupinek a výuky?
-        <a href="#kontakt" class="text-amber-900 font-bold underline hover:text-amber-700 ml-1">
-          Napište mi do formuláře níže →
+        <span data-edit-key="faq.contactPrompt" data-edit-label="Výzva FAQ">{contactPrompt}</span>
+        <a href="#kontakt" class="text-amber-900 font-bold underline hover:text-amber-700 ml-1" data-edit-key="faq.contactPromptLinkText" data-edit-label="Odkaz výzvy FAQ">
+          {contactPromptLinkText}
         </a>
       </p>
     </div>

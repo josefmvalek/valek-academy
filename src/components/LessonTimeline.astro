@@ -1,0 +1,135 @@
+---
+interface Props {
+  className?: string;
+  timeline?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    phases?: any[];
+  };
+}
+
+const { className = "", timeline = {} } = Astro.props;
+
+const defaultPhases = [
+  {
+    time: "00–10 min",
+    icon: "☕",
+    badge: "1. Fáze: Zahřátí",
+    title: "G'day chat & vypnutí školního stresu",
+    desc: "Dítě přijde po celém dni ve škole. Žádné zkoušení ani testy – sedneme si do kruhu, dáme si čaj, zahrajeme 5minutovou postřehovou hru a přirozeně přepneme hlavu do angličtiny.",
+    highlight: "Odbourání ostychu hned od první minuty"
+  },
+  {
+    time: "10–35 min",
+    icon: "🎲",
+    badge: "2. Fáze: Hlavní hra",
+    title: "Deskovka v angličtině & rodilý akcent",
+    desc: "Srdce celé lekce. Hrajeme Scrabble, Story Cubes nebo Karak. Děti házejí kostkou, vymýšlejí strategie a v zápalu hry reagují v angličtině úplně automaticky a bez přemýšlení o poučkách.",
+    highlight: "Přirozený australský přízvuk a živá mluva"
+  },
+  {
+    time: "35–50 min",
+    icon: "🎒",
+    badge: "3. Fáze: Školní látka",
+    title: "Vysvětlení v češtině & pomoc s úkoly",
+    desc: "Co se ve škole zdálo složité, najednou dává smysl. Josef v klidu v rodné češtině dovysvětlí gramatiku, projde s dětmi problematická cvičení a připraví je na písemky.",
+    highlight: "Jistota do školy a lepší známky v žákovské"
+  },
+  {
+    time: "50–60 min",
+    icon: "🌟",
+    badge: "4. Fáze: Závěr",
+    title: "Minikvíz, pochvala a razítko do pasu",
+    desc: "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do australského cestovatelského pasu. Dítě odchází s úsměvem a těší se na příští týden.",
+    highlight: "Dítě odchází sebevědomé a motivované"
+  }
+];
+
+const badge = timeline.badge || "Jak probíhá každá hodina";
+const title = timeline.title || "60 minut v doučovně Josefa: Krok za krokem";
+const subtitle = timeline.subtitle || "Proč výuka hrou funguje lépe než sezení v lavici? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.";
+const phases = timeline.phases || defaultPhases;
+---
+
+<section id="metodika" class={`py-12 md:py-16 bg-white border-b border-parchment-200 relative overflow-hidden ${className}`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-10 md:mb-14">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-edit-key="timeline.badge" data-edit-label="Štítek časové osy">
+        <span>⏱️</span> <span>{badge}</span>
+      </div>
+      <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="timeline.title" data-edit-label="Nadpis časové osy">
+        {title}
+      </h2>
+      <p class="text-espresso-800/80 text-base sm:text-lg" data-edit-key="timeline.subtitle" data-edit-label="Podnadpis časové osy">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- 4 Phases Grid with Timeline Connectors -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+      {phases.map((phase, idx) => (
+        <div class="rounded-3xl p-6 sm:p-7 bg-parchment-50 border-2 border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between group relative">
+          
+          <!-- Top Row: Time Badge & Icon -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-black px-2.5 py-1 rounded-lg bg-amber-400 text-espresso-950 shadow-2xs" data-edit-key={`timeline.phases.${idx}.time`} data-edit-label="Čas fáze">
+                {phase.time}
+              </span>
+              <span class="w-12 h-12 rounded-2xl bg-white border border-parchment-300 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-2xs">
+                {phase.icon}
+              </span>
+            </div>
+
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-900 block mb-1" data-edit-key={`timeline.phases.${idx}.badge`} data-edit-label="Štítek fáze">
+                {phase.badge}
+              </span>
+              <h3 class="font-heading font-bold text-lg text-espresso-950 leading-snug" data-edit-key={`timeline.phases.${idx}.title`} data-edit-label="Název fáze">
+                {phase.title}
+              </h3>
+            </div>
+
+            <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed" data-edit-key={`timeline.phases.${idx}.desc`} data-edit-label="Popis fáze">
+              {phase.desc}
+            </p>
+          </div>
+
+          <!-- Bottom Benefit Highlight -->
+          <div class="pt-4 mt-5 border-t border-parchment-200">
+            <div class="flex items-center gap-2 text-xs font-bold text-emerald-900">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span data-edit-key={`timeline.phases.${idx}.highlight`} data-edit-label="Přínos fáze">{phase.highlight}</span>
+            </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom Guarantee Callout -->
+    <div class="mt-10 max-w-3xl mx-auto text-center p-5 sm:p-6 rounded-2xl bg-amber-50 border border-amber-300 shadow-xs flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div class="w-12 h-12 rounded-full bg-amber-400 text-espresso-950 flex items-center justify-center text-2xl flex-shrink-0 font-bold shadow-xs">
+        🎁
+      </div>
+      <div class="text-center sm:text-left">
+        <div class="font-heading font-extrabold text-sm sm:text-base text-espresso-950">
+          Chcete si tento 60minutový zážitek vyzkoušet naživo?
+        </div>
+        <p class="text-xs text-stone-600 mt-0.5">
+          První lekce v malé skupince dětí (Uherské Hradiště) je <strong>100% ZDARMA</strong> a nezávazná.
+        </p>
+      </div>
+      <a
+        href="#kontakt"
+        class="flex-shrink-0 px-5 py-2.5 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-amber-400 hover:bg-amber-300 border border-amber-500 shadow-xs transition-all"
+      >
+        Vyzkoušet zdarma →
+      </a>
+    </div>
+
+  </div>
+</section>

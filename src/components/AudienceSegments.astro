@@ -1,5 +1,4 @@
 ---
-import HowGameLessonWorks from './HowGameLessonWorks.astro';
 
 interface Segment {
   id: string;
@@ -9,227 +8,343 @@ interface Segment {
   badge?: string;
   highlight: string;
   description: string;
-  points?: string[];
+  games: string[];
+  points: string[];
+  capacityNote?: string;
   ctaText?: string;
   ctaLink?: string;
 }
 
 interface Props {
-  audience: {
+  audience?: {
     badge?: string;
     title?: string;
     subtitle?: string;
-    segments?: Segment[];
+    kidsPrograms?: Segment[];
+    waitingList?: {
+      badge?: string;
+      title?: string;
+      description?: string;
+      ctaText?: string;
+    };
   };
 }
 
-const { audience } = Astro.props;
+const { audience = {} } = Astro.props;
 
-const badge = audience.badge || "NABÍDKA DOUČOVÁNÍ";
-const title = audience.title || "Angličtina přizpůsobená na míru – hlavní fokus na děti a hry";
-const subtitle = audience.subtitle || "Každý věk potřebuje jiný přístup. Pro děti volíme zábavu a deskovky, pro dospělé a středoškoláky cílenou praxi:";
-const segments = audience.segments || [];
+const badge = audience.badge || "PROGRAMY DOUČOVÁNÍ PRO DĚTI";
+const title = audience.title || "Angličtina pro žáky ZŠ přizpůsobená věku a zájmům";
+const subtitle = audience.subtitle || "Děti rozdělujeme do malých skupinek podle věku a znalostí (3 až 6 dětí). Každý věk má své oblíbené deskovky a styl výuky:";
+
+const defaultKidsPrograms: Segment[] = [
+  {
+    id: "zs-1",
+    icon: "🧒",
+    title: "1.–3. třída: Malí objevitelé",
+    age: "Věk 6–9 let • Max 3–5 dětí",
+    badge: "HRAVÝ START",
+    highlight: "Konec strachu z cizího jazyka dřív, než začne",
+    description: "Pro nejmenší děti je angličtina čistá hra. Učí se barvy, zvířátka, základní otázky a reakce pomocí obrázkových karet, jednoduchých rébusů a písniček s rodilým akcentem.",
+    games: ["Story Cubes Junior", "Dobble English", "Zvířátková pexesa", "Obrázkové bingo"],
+    points: [
+      "1. ukázková lekce 100% ZDARMA",
+      "Maximální zapojení formou smíchu a her",
+      "Josef v klidu dovysvětlí cokoliv v češtině",
+      "Pravidelný kontakt a zpětná vazba pro rodiče"
+    ],
+    capacityNote: "🟢 Volná 3 místa ve středeční skupince",
+    ctaText: "Přihlásit třeťáka / prvňáka zdarma",
+    ctaLink: "#kontakt"
+  },
+  {
+    id: "zs-2",
+    icon: "🐉",
+    title: "4.–6. třída: Dobrodruzi & Karak",
+    age: "Věk 10–12 let • Max 3–6 dětí",
+    badge: "NEJOBLÍBENĚJŠÍ",
+    highlight: "Záchrana známek a vášeň pro deskovky",
+    description: "Ideální věk pro strategické hry. Děti v týmu prozkoumávají kobky v Karaku, bojují s monstry a plánují tahy – vše přirozeně v angličtině. Ve škole se zlepší v gramatice i čtení.",
+    games: ["Karak & Drak", "Scrabble Junior", "Karetní kvízy", "Příběhové kostky"],
+    points: [
+      "1. ukázková lekce 100% ZDARMA",
+      "Aktivní mluvení v zápalu hry bez ostychu",
+      "Pomoc s látkou ze školy, testy a úkoly",
+      "Příprava pevných základů pro druhý stupeň"
+    ],
+    capacityNote: "⚡ Zbývají poslední 2 volná místa v odpolední skupince",
+    ctaText: "Přihlásit školáka na 1. lekci zdarma",
+    ctaLink: "#kontakt"
+  },
+  {
+    id: "zs-3",
+    icon: "🚀",
+    title: "7.–9. třída: Mladí stratégové",
+    age: "Věk 13–15 let • Max 3–6 dětí",
+    badge: "PŘÍPRAVA NA SŠ",
+    highlight: "Plynulost, sebevědomí a přijímačky",
+    description: "Pro starší žáky volíme náročnější společenské hry, rébusy a debaty. Osvojí si pohotovou argumentaci bez českého tvrdého přízvuku a získají klid před přijímacími zkouškami na střední školy.",
+    games: ["Dixit (asociace)", "Krycí jména (Codenames)", "Bananagrams", "Situační scénky"],
+    points: [
+      "1. ukázková lekce 100% ZDARMA",
+      "Plynulá konverzace v reálných situacích",
+      "Tipy a rozbory typových testů SCIO a CERMAT",
+      "Příprava na přechod na gymnázium či SŠ"
+    ],
+    capacityNote: "🟢 Otevřen nový páteční termín (volná 4 místa)",
+    ctaText: "Vyzkoušet lekci pro starší žáky",
+    ctaLink: "#kontakt"
+  }
+];
+
+const kidsPrograms = audience.kidsPrograms || defaultKidsPrograms;
+const waitingList = audience.waitingList || {
+  badge: "Čekací listina • Dospělí & Maturita",
+  title: "Hledáte přípravu k maturitě nebo konverzaci pro dospělé?",
+  description: "Tyto programy otevřeme v další vlně. Zapište se nezávazně na čekací listinu – jakmile vypíšeme termíny, ozveme se vám přednostně.",
+  ctaText: "Zapsat se na čekací listinu →"
+};
 ---
 
-<section id="programy" class="py-10 md:py-16 relative bg-[#FDFBF7]">
+<section id="programy" class="py-8 sm:py-12 md:py-20 relative bg-gradient-to-b from-[#FAF7F2] via-[#FFFDF9] to-[#FAF7F2] border-b border-parchment-300 overflow-hidden">
+  
+  <!-- Decorative ambient lighting -->
+  <div class="absolute top-10 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-amber-300/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="absolute bottom-10 right-0 w-72 sm:w-96 h-72 sm:h-96 bg-emerald-200/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Section Header -->
-    <div class="max-w-3xl mx-auto text-center space-y-3 mb-8 md:mb-10">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-900">
-        {badge}
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-edit-key="audience.badge" data-edit-label="Štítek programů">
+        <span>🎲</span> <span>{badge}</span>
       </div>
-      <h2 class="font-academy font-bold text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight">
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="audience.title" data-edit-label="Nadpis programů">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg">
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-edit-key="audience.subtitle" data-edit-label="Podnadpis programů">
         {subtitle}
       </p>
     </div>
 
-    <!-- Feature 4: Interactive Switcher / Guide Tabs -->
-    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
-      <button
-        type="button"
-        data-filter="all"
-        class="program-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-espresso-900 text-white shadow-sm cursor-pointer"
-      >
-        Všechny programy
-      </button>
-      <button
-        type="button"
-        data-filter="zs"
-        class="program-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-200/90 hover:bg-amber-300 text-espresso-950 border border-amber-400 cursor-pointer flex items-center gap-1.5"
-      >
-        <span>🎲 Pro děti (Skupinky hrou)</span>
-        <span class="bg-amber-400 text-espresso-950 text-[10px] px-1.5 py-0.2 rounded font-extrabold">1. zdarma</span>
-      </button>
-      <button
-        type="button"
-        data-filter="dospeli"
-        class="program-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-parchment-100 hover:bg-parchment-200 text-espresso-800 border border-parchment-300 cursor-pointer flex items-center gap-1.5"
-      >
-        <span>💼 Pro dospělé</span>
-        <span class="text-[10px] text-stone-500 bg-white px-1.5 py-0.2 rounded border border-parchment-300">brzy</span>
-      </button>
-      <button
-        type="button"
-        data-filter="ss"
-        class="program-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-parchment-100 hover:bg-parchment-200 text-espresso-800 border border-parchment-300 cursor-pointer flex items-center gap-1.5"
-      >
-        <span>🎓 Středoškoláci & Maturita</span>
-        <span class="text-[10px] text-stone-500 bg-white px-1.5 py-0.2 rounded border border-parchment-300">brzy</span>
-      </button>
+    <!-- Dual-Mode Format Banner -->
+    <div class="mb-6 md:mb-8 max-w-2xl mx-auto p-3 sm:p-3.5 rounded-2xl bg-white/90 border border-amber-300 shadow-2xs flex items-center justify-center gap-2 sm:gap-3 text-xs text-espresso-950 font-medium text-center flex-wrap">
+      <span class="flex items-center gap-1.5 text-amber-950 font-bold">
+        <span>🏡</span> <span>Osobně v doučovně: Růžová 1238, Uherské Hradiště</span>
+      </span>
+      <span class="text-stone-300 hidden sm:inline">•</span>
+      <span class="flex items-center gap-1.5 text-emerald-950 font-bold">
+        <span>💻</span> <span>Online z domova: Přes Google Meet (celá ČR)</span>
+      </span>
     </div>
 
-    <!-- 3 Big Audience Cards -->
-    <div class="grid lg:grid-cols-3 gap-8 items-stretch" id="segments-grid">
-      {segments.map((seg) => (
+    <!-- Mobile Cohort Switcher Tabs (Cuts ~1,400px of scroll on phones!) -->
+    <div class="lg:hidden mb-6">
+      <div class="text-center text-[11px] font-black uppercase tracking-wider text-amber-950/80 mb-2">
+        Vyberte ročník vašeho dítěte:
+      </div>
+      <div class="grid grid-cols-3 gap-1.5 p-1.5 rounded-2xl bg-parchment-200 border border-parchment-300 shadow-2xs" id="cohort-tabs">
+        {kidsPrograms.map((prog, idx) => (
+          <button
+            type="button"
+            class:list={[
+              "cohort-tab-btn py-2.5 px-2 rounded-xl font-heading text-xs transition-all text-center flex flex-col items-center justify-center gap-0.5 cursor-pointer",
+              idx === 0
+                ? "bg-amber-400 text-espresso-950 shadow-xs border border-amber-500 font-black"
+                : "bg-transparent text-espresso-800 hover:text-espresso-950 font-bold border border-transparent"
+            ]}
+            data-target={`program-${prog.id}`}
+          >
+            <span class="text-base">{prog.icon}</span>
+            <span class="truncate font-black">{prog.title.split(':')[0]}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- 3 Kids Programs Cards (Side-by-side on desktop, single tab card on mobile) -->
+    <div class="grid lg:grid-cols-3 gap-6 sm:gap-8 items-stretch" id="segments-grid">
+      {kidsPrograms.map((prog, idx) => (
         <div
-          id={`program-${seg.id}`}
-          data-segment={seg.id}
+          id={`program-${prog.id}`}
           class:list={[
-            "segment-card rounded-3xl p-8 sm:p-10 flex flex-col justify-between border transition-all duration-300 relative group",
-            seg.id === 'zs'
-              ? "bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-md glow-amber lg:-translate-y-2 ring-1 ring-amber-400/30"
-              : "bg-parchment-50 border-parchment-300 shadow-xs opacity-80 hover:opacity-100 hover:shadow-md hover:border-parchment-400"
+            "cohort-card rounded-3xl p-6 sm:p-8 flex-col justify-between border-2 transition-all duration-300 relative group bg-white",
+            idx === 0 ? "flex lg:flex" : "hidden lg:flex",
+            prog.id === 'zs-2'
+              ? "border-amber-400 shadow-card-lift ring-2 ring-amber-400/30 lg:-translate-y-2"
+              : "border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md hover:-translate-y-1"
           ]}
         >
-          <div class="space-y-6">
+          <div class="space-y-5">
             
             <!-- Top Card Header: Icon, Age & Badge -->
             <div class="flex items-center justify-between">
               <div
                 class:list={[
-                  "w-14 h-14 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform",
-                  seg.id === 'zs' ? "bg-amber-100 text-amber-900 border border-amber-200" : "bg-parchment-200 text-espresso-800"
+                  "w-14 h-14 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-2xs",
+                  prog.id === 'zs-2' ? "bg-amber-100 text-amber-950 border border-amber-300" : "bg-parchment-100 text-espresso-800 border border-parchment-200"
                 ]}
               >
-                {seg.icon}
+                {prog.icon}
               </div>
               <div class="flex flex-col items-end gap-1">
-                {seg.badge && (
-                  <span
-                    class:list={[
-                      "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold tracking-wide uppercase",
-                      seg.id === 'zs' ? "bg-amber-400 text-espresso-950 shadow-xs" : "bg-parchment-200 text-stone-700 border border-parchment-300"
-                    ]}
-                  >
-                    {seg.badge}
-                  </span>
-                )}
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide bg-parchment-100 text-espresso-800 border border-parchment-300">
-                  {seg.age}
+                <span
+                  class:list={[
+                    "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-black tracking-wide uppercase",
+                    prog.id === 'zs-2' ? "bg-amber-400 text-espresso-950 shadow-2xs" : "bg-parchment-200 text-stone-700 border border-parchment-300"
+                  ]}
+                  data-edit-key={`audience.kidsPrograms.${idx}.badge`}
+                  data-edit-label="Štítek karty"
+                >
+                  {prog.badge}
+                </span>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold tracking-wide bg-parchment-100 text-espresso-900 border border-parchment-300" data-edit-key={`audience.kidsPrograms.${idx}.age`} data-edit-label="Věk karty">
+                  {prog.age}
                 </span>
               </div>
             </div>
 
             <!-- Title & Highlight -->
             <div>
-              <h3 class="font-academy font-bold text-2xl text-espresso-950 group-hover:text-amber-900 transition-colors">
-                {seg.title}
+              <h3 class="font-heading font-black text-2xl text-espresso-950 group-hover:text-amber-900 transition-colors" data-edit-key={`audience.kidsPrograms.${idx}.title`} data-edit-label="Název programu">
+                {prog.title}
               </h3>
-              <div class="inline-block mt-2 text-xs font-bold uppercase tracking-wider text-amber-900 bg-amber-100/70 px-2.5 py-1 rounded-md border border-amber-300">
-                {seg.highlight}
+              <div class="inline-block mt-2 text-xs font-black uppercase tracking-wider text-amber-950 bg-amber-100 px-2.5 py-1 rounded-lg border border-amber-300" data-edit-key={`audience.kidsPrograms.${idx}.highlight`} data-edit-label="Tahák programu">
+                {prog.highlight}
               </div>
-              <p class="text-espresso-800/80 text-sm sm:text-base mt-3 leading-relaxed">
-                {seg.description}
+              <p class="text-espresso-800/90 text-sm mt-3 leading-relaxed font-normal" data-edit-key={`audience.kidsPrograms.${idx}.description`} data-edit-label="Popis programu">
+                {prog.description}
               </p>
             </div>
 
+            <!-- Tailored Games for this age -->
+            <div class="pt-3 border-t border-parchment-200">
+              <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-2">Hry v této skupince:</div>
+              <div class="flex flex-wrap gap-1.5">
+                {(prog.games || []).map((g) => (
+                  <span class="px-2 py-0.5 rounded-md bg-parchment-100 border border-parchment-300 text-[11px] font-bold text-espresso-950">
+                    🎲 {g}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <!-- Bullet Points -->
-            <div class="pt-3 border-t border-slate-100 space-y-2.5">
-              <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Co získáte:</div>
-              <ul class="space-y-2.5">
-                {(seg.points || []).map((point) => (
-                  <li class="flex items-start gap-2.5 text-sm text-slate-700">
+            <div class="pt-3 border-t border-parchment-200 space-y-2">
+              <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-1">Co získáte:</div>
+              <ul class="space-y-2">
+                {(prog.points || []).map((point, pIdx) => (
+                  <li class="flex items-start gap-2.5 text-xs sm:text-sm text-espresso-900 font-medium">
                     <svg class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span>{point}</span>
+                    <span data-edit-key={`audience.kidsPrograms.${idx}.points.${pIdx}`} data-edit-label="Bod výhody">{point}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
+            <!-- Capacity / Urgency indicator -->
+            {prog.capacityNote && (
+              <div class="pt-2">
+                <div class="px-3 py-2 rounded-xl bg-amber-50/90 border border-amber-300 flex items-center gap-2 text-xs font-bold text-espresso-950">
+                  <span class="relative flex h-2.5 w-2.5 flex-shrink-0">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                  <span data-edit-key={`audience.kidsPrograms.${idx}.capacityNote`} data-edit-label="Stav volných míst">{prog.capacityNote.replace(/^[🟢⚡\s]+/, '')}</span>
+                </div>
+              </div>
+            )}
           </div>
 
-          <!-- Bottom CTA -->
-          <div class="pt-8 mt-8 border-t border-slate-100">
+          <!-- Bottom CTA with 1. lesson FREE -->
+          <div class="pt-6 mt-6 border-t border-parchment-200">
             <a
-              href={seg.ctaLink || "#kontakt"}
-              data-target-segment={seg.id}
+              href={prog.ctaLink || "#kontakt"}
               class:list={[
-                "segment-cta w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-display font-bold text-sm transition-all text-center",
-                seg.id === 'zs'
-                  ? "bg-amber-400 hover:bg-amber-300 text-oxford-950 shadow-md font-bold"
-                  : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                "w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-heading font-black text-sm transition-all text-center cursor-pointer",
+                prog.id === 'zs-2'
+                  ? "btn-gold-pulse bg-gradient-to-b from-amber-300 to-amber-500 text-espresso-950 border border-amber-500 shadow-md"
+                  : "bg-parchment-100 hover:bg-amber-100 text-espresso-950 border border-parchment-300 hover:border-amber-400"
               ]}
             >
-              <span>{seg.ctaText || "Mám zájem"}</span>
+              <span data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText}</span>
               <span>→</span>
             </a>
+            <div class="text-center mt-2 text-[11px] font-bold text-amber-900">
+              🎁 1. ukázková lekce 100% ZDARMA
+            </div>
           </div>
 
         </div>
       ))}
     </div>
 
-    <!-- Feature 1: Board Game Infographic for Kids -->
-    <div class="mt-14 sm:mt-16">
-      <HowGameLessonWorks />
+    <!-- Secondary Banner: High School, Adults & SCIO Waiting List -->
+    <div class="mt-8 sm:mt-10 p-5 sm:p-7 rounded-3xl bg-white border-2 border-parchment-300 shadow-xs flex flex-col md:flex-row items-center justify-between gap-5">
+      <div class="flex items-center gap-4 text-center md:text-left">
+        <div class="w-14 h-14 rounded-2xl bg-amber-100 border border-amber-300 flex items-center justify-center text-3xl flex-shrink-0 shadow-2xs">
+          🎓
+        </div>
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900" data-edit-key="audience.waitingList.badge" data-edit-label="Štítek čekací listiny">
+            {waitingList.badge}
+          </div>
+          <h3 class="font-heading font-black text-lg sm:text-xl text-espresso-950" data-edit-key="audience.waitingList.title" data-edit-label="Nadpis čekací listiny">
+            Hledáte přípravu k maturitě, SCIO přijímačky na SŠ nebo konverzaci pro dospělé?
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-600 font-normal max-w-2xl" data-edit-key="audience.waitingList.description" data-edit-label="Popis čekací listiny">
+            Tyto specializace otevřeme v další vlně (včetně jednotných přijímaček z ČJ a M pro 5. a 9. třídy). Zapište se nezávazně na čekací listinu a dáme vám vědět přednostně.
+          </p>
+        </div>
+      </div>
+
+      <a
+        href="#kontakt"
+        class="flex-shrink-0 px-6 py-3.5 rounded-2xl bg-white hover:bg-parchment-100 text-espresso-950 border-2 border-parchment-300 hover:border-amber-400 font-heading font-bold text-sm shadow-xs transition-all hover:scale-105 text-center"
+      >
+        <span data-edit-key="audience.waitingList.ctaText" data-edit-label="Tlačítko čekací listiny">{waitingList.ctaText}</span>
+      </a>
     </div>
 
   </div>
 </section>
 
 <script>
-  // Tab switcher logic
-  const tabs = document.querySelectorAll('.program-tab');
-  const cards = document.querySelectorAll('.segment-card');
-  const select = document.getElementById('segment-select') as HTMLSelectElement | null;
+  function initCohortTabs() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.cohort-tab-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.cohort-card');
 
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      const filter = tab.getAttribute('data-filter');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-target');
+        if (!targetId) return;
 
-      // Update tab styles
-      tabs.forEach((t) => {
-        t.classList.remove('bg-oxford-900', 'text-white', 'shadow-sm');
-        t.classList.add('bg-slate-100', 'text-slate-700');
-      });
-      tab.classList.remove('bg-slate-100', 'text-slate-700');
-      tab.classList.add('bg-oxford-900', 'text-white', 'shadow-sm');
+        // Reset all tabs
+        tabs.forEach(t => {
+          t.classList.remove('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+          t.classList.add('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
+        });
 
-      // Filter/Highlight cards
-      cards.forEach((card) => {
-        const segId = card.getAttribute('data-segment');
-        if (filter === 'all' || filter === segId) {
-          card.classList.remove('opacity-40', 'scale-95');
-          card.classList.add('opacity-100');
-          if (filter === segId) {
-            card.classList.add('ring-2', 'ring-amber-500', 'shadow-2xl');
+        // Activate clicked tab
+        tab.classList.remove('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
+        tab.classList.add('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+
+        // On mobile, toggle visibility of the cards
+        cards.forEach(card => {
+          if (card.id === targetId) {
+            card.classList.remove('hidden');
+            card.classList.add('flex');
           } else {
-            card.classList.remove('ring-2', 'ring-amber-500', 'shadow-2xl');
+            card.classList.remove('flex');
+            card.classList.add('hidden');
           }
-        } else {
-          card.classList.add('opacity-40', 'scale-95');
-          card.classList.remove('ring-2', 'ring-amber-500', 'shadow-2xl');
-        }
+        });
       });
     });
-  });
+  }
 
-  // When clicking segment CTA, auto-select corresponding item in form
-  const ctas = document.querySelectorAll('.segment-cta');
-  ctas.forEach((cta) => {
-    cta.addEventListener('click', () => {
-      const target = cta.getAttribute('data-target-segment');
-      if (select && target) {
-        if (target === 'zs') select.selectedIndex = 0;
-        if (target === 'dospeli') select.selectedIndex = 1;
-        if (target === 'ss') select.selectedIndex = 2;
-      }
-    });
-  });
+  document.addEventListener('DOMContentLoaded', initCohortTabs);
+  document.addEventListener('astro:page-load', initCohortTabs);
 </script>
+

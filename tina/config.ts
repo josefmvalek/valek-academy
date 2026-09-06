@@ -27,6 +27,14 @@ export default defineConfig({
         label: "Obsah webu",
         path: "content/pages",
         format: "json",
+        ui: {
+          router: ({ document }) => {
+            if (document._sys.filename === "home") {
+              return "/";
+            }
+            return undefined;
+          },
+        },
         fields: [
           {
             type: "string",
@@ -34,6 +42,16 @@ export default defineConfig({
             label: "Název stránky (SEO Titulek)",
             isTitle: true,
             required: true,
+          },
+          {
+            type: "object",
+            name: "navbar",
+            label: "Hlavička & Navigace",
+            fields: [
+              { type: "string", name: "brandName", label: "Název značky" },
+              { type: "string", name: "brandTagline", label: "Podtitul značky" },
+              { type: "string", name: "ctaText", label: "Text tlačítka v menu" },
+            ],
           },
           {
             type: "object",
@@ -89,6 +107,40 @@ export default defineConfig({
                   { type: "string", name: "points", label: "Výhody a body", list: true },
                   { type: "string", name: "ctaText", label: "Text tlačítka" },
                   { type: "string", name: "ctaLink", label: "Odkaz tlačítka" },
+                ],
+              },
+              {
+                type: "object",
+                name: "kidsPrograms",
+                label: "Programy pro žáky ZŠ",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: `${item?.title || "Program"} (${item?.age || ""})` }),
+                },
+                fields: [
+                  { type: "string", name: "id", label: "Identifikátor" },
+                  { type: "string", name: "icon", label: "Ikona / Emoji" },
+                  { type: "string", name: "title", label: "Název programu" },
+                  { type: "string", name: "age", label: "Věk a velikost skupinky" },
+                  { type: "string", name: "badge", label: "Štítek" },
+                  { type: "string", name: "highlight", label: "Hlavní tahák / přínos" },
+                  { type: "string", name: "description", label: "Popis programu", ui: { component: "textarea" } },
+                  { type: "string", name: "games", label: "Představené hry", list: true },
+                  { type: "string", name: "points", label: "Body výhod", list: true },
+                  { type: "string", name: "capacityNote", label: "Stav volných míst (např. 🟢 Volná 3 místa)" },
+                  { type: "string", name: "ctaText", label: "Text tlačítka" },
+                  { type: "string", name: "ctaLink", label: "Odkaz tlačítka" },
+                ],
+              },
+              {
+                type: "object",
+                name: "waitingList",
+                label: "Čekací listina pro SŠ a dospělé",
+                fields: [
+                  { type: "string", name: "badge", label: "Štítek" },
+                  { type: "string", name: "title", label: "Nadpis" },
+                  { type: "string", name: "description", label: "Popis", ui: { component: "textarea" } },
+                  { type: "string", name: "ctaText", label: "Text tlačítka" },
                 ],
               },
             ],
@@ -167,15 +219,50 @@ export default defineConfig({
           },
           {
             type: "object",
+            name: "comparison",
+            label: "Srovnávací tabulka (Škola vs Doučování vs Valek)",
+            fields: [
+              { type: "string", name: "badge", label: "Odznáček" },
+              { type: "string", name: "title", label: "Nadpis srovnání" },
+              { type: "string", name: "subtitle", label: "Podnadpis srovnání", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "columns",
+                label: "Srovnávací sloupce",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: item?.title || "Sloupec" }),
+                },
+                fields: [
+                  { type: "string", name: "type", label: "Typ (school, private, valek)" },
+                  { type: "string", name: "title", label: "Název" },
+                  { type: "string", name: "subtitle", label: "Podtitul (počet dětí)" },
+                  { type: "string", name: "badge", label: "Štítek" },
+                  { type: "string", name: "price", label: "Cena" },
+                  { type: "string", name: "priceNote", label: "Poznámka k ceně" },
+                  { type: "string", name: "speakingTime", label: "Prostor pro mluvení" },
+                  { type: "string", name: "atmosphere", label: "Atmosféra & stres" },
+                  { type: "string", name: "method", label: "Metodika & hry" },
+                  { type: "string", name: "accent", label: "Přízvuk lektora" },
+                  { type: "string", name: "motivation", label: "Motivace & výsledky" },
+                  { type: "boolean", name: "isWinner", label: "Je vítěz srovnání? (Zlaté zvýraznění)" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
             name: "testimonials",
             label: "Reference a recenze",
             fields: [
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              { type: "string", name: "ratingScore", label: "Skóre hodnocení" },
+              { type: "string", name: "ratingNote", label: "Poznámka k hodnocení" },
               {
                 type: "object",
-                name: "items",
+                name: "reviews",
                 label: "Recenze studentů a rodičů",
                 list: true,
                 ui: {
@@ -184,11 +271,140 @@ export default defineConfig({
                 fields: [
                   { type: "string", name: "name", label: "Jméno studenta / rodiče" },
                   { type: "string", name: "role", label: "Pozice / Role a město" },
+                  { type: "string", name: "location", label: "Město" },
                   { type: "number", name: "rating", label: "Počet hvězdiček (1-5)" },
+                  { type: "string", name: "highlight", label: "Hlavní přínos / Zvýraznění" },
                   { type: "string", name: "quote", label: "Citace / Zkušenost", ui: { component: "textarea" } },
-                  { type: "string", name: "avatar", label: "Iniciály" },
+                  { type: "string", name: "avatarText", label: "Iniciály" },
                 ],
               },
+            ],
+          },
+          {
+            type: "object",
+            name: "howItWorks",
+            label: "Metodika & Hry",
+            fields: [
+              { type: "string", name: "badge", label: "Odznáček" },
+              { type: "string", name: "title", label: "Hlavní nadpis" },
+              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "quote", label: "Citát / Zvýrazněná věta" },
+              {
+                type: "object",
+                name: "gameSpotlights",
+                label: "Představené deskovky",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: item?.title || "Deskovka" }),
+                },
+                fields: [
+                  { type: "string", name: "icon", label: "Ikona / Emoji" },
+                  { type: "string", name: "title", label: "Název hry" },
+                  { type: "string", name: "tag", label: "Zaměření" },
+                  { type: "string", name: "badge", label: "Štítek / Věk" },
+                  { type: "string", name: "accent", label: "Barevný akcent (CSS třída)" },
+                  { type: "string", name: "desc", label: "Popis přínosu", ui: { component: "textarea" } },
+                  { type: "string", name: "phrases", label: "Ukázky vět ze hry", list: true },
+                ],
+              },
+              {
+                type: "object",
+                name: "steps",
+                label: "3 Kroky lekce",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: item?.title || "Krok" }),
+                },
+                fields: [
+                  { type: "string", name: "badge", label: "Štítek kroku" },
+                  { type: "string", name: "title", label: "Název kroku" },
+                  { type: "string", name: "desc", label: "Popis kroku", ui: { component: "textarea" } },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "timeline",
+            label: "Časová osa lekce (60 minut)",
+            fields: [
+              { type: "string", name: "badge", label: "Odznáček" },
+              { type: "string", name: "title", label: "Hlavní nadpis" },
+              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "phases",
+                label: "4 Fáze lekce",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: `${item?.time || "Čas"} - ${item?.title || "Fáze"}` }),
+                },
+                fields: [
+                  { type: "string", name: "time", label: "Čas (např. 00–10 min)" },
+                  { type: "string", name: "badge", label: "Štítek" },
+                  { type: "string", name: "title", label: "Název fáze" },
+                  { type: "string", name: "desc", label: "Popis fáze", ui: { component: "textarea" } },
+                  { type: "string", name: "highlight", label: "Hlavní přínos" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "location",
+            label: "Kde učíme & Doučovna",
+            fields: [
+              { type: "string", name: "badge", label: "Odznáček" },
+              { type: "string", name: "title", label: "Hlavní nadpis" },
+              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "addressTitle", label: "Nadpis adresy" },
+              { type: "string", name: "address", label: "Adresa" },
+              { type: "string", name: "parkingInfo", label: "Informace o parkování" },
+              { type: "string", name: "hoursTitle", label: "Nadpis otevírací doby" },
+              { type: "string", name: "hours", label: "Otevírací doba" },
+              {
+                type: "object",
+                name: "perks",
+                label: "Výhody lokality",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: item?.title || "Výhoda" }),
+                },
+                fields: [
+                  { type: "string", name: "icon", label: "Ikona / Emoji" },
+                  { type: "string", name: "title", label: "Název" },
+                  { type: "string", name: "desc", label: "Popis", ui: { component: "textarea" } },
+                ],
+              },
+              { type: "string", name: "surroundingTowns", label: "Spádové obce v okolí", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "gallery",
+                label: "Fotogalerie doučovny",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: item?.title || "Fotografie" }),
+                },
+                fields: [
+                  { type: "image", name: "image", label: "Obrázek" },
+                  { type: "string", name: "title", label: "Název fotky" },
+                  { type: "string", name: "desc", label: "Popisek fotky" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "groupMatcher",
+            label: "Rozřazovač do skupinek",
+            fields: [
+              { type: "string", name: "badge", label: "Odznáček" },
+              { type: "string", name: "title", label: "Hlavní nadpis" },
+              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "step1Title", label: "Nadpis 1. kroku" },
+              { type: "string", name: "step2Title", label: "Nadpis 2. kroku" },
+              { type: "string", name: "step3Title", label: "Nadpis 3. kroku" },
+              { type: "string", name: "ctaText", label: "Text tlačítka" },
             ],
           },
           {
@@ -229,6 +445,25 @@ export default defineConfig({
               { type: "string", name: "location", label: "Místo výuky" },
               { type: "string", name: "hours", label: "Pracovní doba" },
               { type: "string", name: "web3formsKey", label: "Web3Forms Access Key" },
+            ],
+          },
+          {
+            type: "object",
+            name: "footer",
+            label: "Patička webu",
+            fields: [
+              { type: "string", name: "description", label: "Popis o akademii", ui: { component: "textarea" } },
+              { type: "string", name: "locationNote", label: "Poznámka s adresou" },
+              { type: "string", name: "copyright", label: "Copyright text" },
+            ],
+          },
+          {
+            type: "object",
+            name: "stickyCta",
+            label: "Mobilní plovoucí lišta",
+            fields: [
+              { type: "string", name: "text", label: "Text výzvy" },
+              { type: "string", name: "buttonText", label: "Text tlačítka" },
             ],
           },
         ],

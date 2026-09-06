@@ -6,90 +6,270 @@ interface Props {
 const { className = "" } = Astro.props;
 ---
 
-<div class={`bg-gradient-to-br from-espresso-950 to-[#1F120A] text-white rounded-2xl p-4 sm:p-5 shadow-md border border-amber-600/30 relative overflow-hidden group ${className}`}>
-  <!-- Subtle ambient glow -->
-  <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none"></div>
+<div class={`bg-gradient-to-br from-espresso-950 via-[#1F120A] to-[#140A05] text-white rounded-2xl p-3 sm:p-5 shadow-xl border-2 border-amber-500/40 relative overflow-hidden group w-full max-w-full min-w-0 ${className}`} id="audio-preview-box">
+  <!-- Warm ambient glow -->
+  <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-amber-500/20 rounded-full blur-2xl pointer-events-none"></div>
+  <div class="absolute top-0 left-1/4 w-28 h-28 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
 
-  <div class="flex items-center justify-between gap-3 mb-2">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400">
-        Hlasová ukázka výslovnosti
+  <!-- Header line -->
+  <div class="flex items-center justify-between gap-2 mb-2.5 min-w-0">
+    <div class="flex items-center gap-1.5 min-w-0 flex-1">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
+      <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-300 truncate">
+        🇦🇺 Poslech Josefa (Australský akcent)
       </span>
     </div>
-    <span class="text-[11px] font-mono text-slate-400 bg-white/10 px-2 py-0.5 rounded-md" id="audio-time">
-      0:15
+    <span class="text-[10px] sm:text-[11px] font-mono text-amber-200/90 bg-white/10 px-2 py-0.5 rounded-md border border-white/10 flex-shrink-0" id="audio-time">
+      0:10
     </span>
   </div>
 
-  <div class="flex items-center gap-3.5">
-    <!-- Play / Pause Button -->
+  <!-- Interactive Phrase Chips (Fast click to hear) -->
+  <div class="flex flex-wrap gap-1 sm:gap-1.5 mb-2.5 w-full" id="phrase-chips-container">
+    <button
+      type="button"
+      data-phrase="gday"
+      class="phrase-chip active px-2 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold bg-amber-400 text-espresso-950 border border-amber-300 hover:bg-amber-300 transition-all cursor-pointer shadow-xs whitespace-nowrap"
+    >
+      🦘 „G'day mate!“
+    </button>
+    <button
+      type="button"
+      data-phrase="dice"
+      class="phrase-chip px-2 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold bg-white/10 hover:bg-white/20 text-amber-100 border border-white/15 transition-all cursor-pointer whitespace-nowrap"
+    >
+      🎲 „Let's roll the dice!“
+    </button>
+    <button
+      type="button"
+      data-phrase="noworries"
+      class="phrase-chip px-2 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold bg-white/10 hover:bg-white/20 text-amber-100 border border-white/15 transition-all cursor-pointer whitespace-nowrap"
+    >
+      ✨ „No worries at all!“
+    </button>
+  </div>
+
+  <!-- Main interactive player row -->
+  <div class="flex items-center gap-2.5 sm:gap-3.5 bg-black/30 p-2 sm:p-2.5 rounded-xl border border-white/10 min-w-0">
+    <!-- Play / Stop Button -->
     <button
       id="audio-play-btn"
       type="button"
-      aria-label="Přehrát ukázku výslovnosti"
-      class="w-12 h-12 rounded-xl bg-amber-500 hover:bg-amber-400 text-oxford-950 flex items-center justify-center shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex-shrink-0 cursor-pointer"
+      aria-label="Přehrát mluvenou ukázku Josefa s australským akcentem"
+      class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-b from-amber-300 to-amber-500 hover:from-amber-200 hover:to-amber-400 text-espresso-950 flex items-center justify-center shadow-gold-glow transition-all duration-300 hover:scale-105 active:scale-95 flex-shrink-0 cursor-pointer border border-amber-300 group-hover:border-white/50"
     >
       <!-- Play Icon -->
-      <svg id="audio-play-icon" class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+      <svg id="audio-play-icon" class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24">
         <path d="M8 5v14l11-7z"/>
       </svg>
-      <!-- Pause Icon (hidden initially) -->
-      <svg id="audio-pause-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24">
+      <!-- Pause/Stop Icon (hidden initially) -->
+      <svg id="audio-pause-icon" class="w-5 h-5 hidden fill-current" viewBox="0 0 24 24">
         <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
       </svg>
     </button>
 
-    <!-- Visual Equalizer Waves & Quote -->
-    <div class="flex-grow space-y-1.5">
-      <div class="flex items-center gap-1.5 h-6">
-        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-2 transition-all"></span>
-        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-4 transition-all"></span>
-        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-3 transition-all"></span>
-        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-5 transition-all"></span>
-        <span class="sound-wave-bar w-1.5 rounded-full bg-amber-400 h-2 transition-all"></span>
-        <span class="sound-wave-bar w-1.5 rounded-full bg-slate-500 h-1.5 transition-all"></span>
-        <span class="sound-wave-bar w-1.5 rounded-full bg-slate-500 h-2 transition-all"></span>
-        <span class="sound-wave-bar w-1.5 rounded-full bg-slate-500 h-1.5 transition-all"></span>
+    <!-- Visual Equalizer Waves & Speech Subtitles -->
+    <div class="flex-grow min-w-0 space-y-0.5 sm:space-y-1">
+      <!-- Equalizer Bars -->
+      <div class="flex items-center gap-1 sm:gap-1.5 h-5 sm:h-6">
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-amber-400 h-2.5 transition-all"></span>
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-amber-400 h-5 transition-all"></span>
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-amber-400 h-3.5 transition-all"></span>
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-amber-400 h-6 transition-all"></span>
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-amber-400 h-2.5 transition-all"></span>
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-amber-400/50 h-4 transition-all"></span>
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-stone-600 h-2 transition-all"></span>
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-stone-600 h-1.5 transition-all"></span>
+        <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-stone-600 h-3 transition-all"></span>
       </div>
 
-      <p class="text-xs text-slate-300 leading-tight">
-        <strong class="text-white font-semibold">„G'day! Jsem Josef.“</strong> – Ukázka přirozeného australského akcentu
+      <!-- Spoken text subtitle -->
+      <p class="text-[11px] sm:text-xs text-amber-100 font-medium leading-tight truncate" id="audio-subtitle">
+        <strong class="text-amber-300">„G'day mate! I'm Josef.“</strong> – Klikněte pro přehrání
       </p>
     </div>
   </div>
 
-  <!-- Hidden HTML5 Audio element (plays audio/greeting.mp3 if present or synthesized web audio chime) -->
-  <audio id="tutor-audio" preload="none">
-    <source src="/audio/greeting.mp3" type="audio/mpeg" />
-  </audio>
+  <!-- Live Speech Translation Bubble -->
+  <div id="audio-speech-card" class="mt-2 pt-2 border-t border-white/10 text-xs space-y-1 transition-all min-w-0 overflow-hidden">
+    <div class="flex items-start gap-1.5 sm:gap-2 text-stone-300 leading-relaxed min-w-0">
+      <span class="text-amber-400 font-bold flex-shrink-0 text-[10px] sm:text-xs">🗣️ AJ:</span>
+      <span id="speech-live-text" class="text-white font-medium italic break-words min-w-0 text-[11px] sm:text-xs">
+        „G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English!“
+      </span>
+    </div>
+    <div class="flex items-start gap-1.5 sm:gap-2 text-stone-400 text-[10px] sm:text-[11px] min-w-0">
+      <span class="text-emerald-400 font-bold flex-shrink-0 text-[10px] sm:text-xs">🇨🇿 CZ:</span>
+      <span id="speech-czech-text" class="break-words min-w-0">„Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!“</span>
+    </div>
+  </div>
 </div>
 
 <script>
   const playBtn = document.getElementById('audio-play-btn');
   const playIcon = document.getElementById('audio-play-icon');
   const pauseIcon = document.getElementById('audio-pause-icon');
-  const audio = document.getElementById('tutor-audio') as HTMLAudioElement | null;
   const bars = document.querySelectorAll('.sound-wave-bar');
   const timeDisplay = document.getElementById('audio-time');
+  const subtitle = document.getElementById('audio-subtitle');
+  const liveText = document.getElementById('speech-live-text');
 
   let isPlaying = false;
   let timerInterval: any = null;
-  let secondsRemaining = 15;
+  let secondsRemaining = 12;
+  let synth: SpeechSynthesis | null = null;
+  let audioCtx: AudioContext | null = null;
+
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    synth = window.speechSynthesis;
+  }
+
+  // Play a cheerful chime chord using Web Audio API
+  function playWarmChime() {
+    try {
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) return;
+      audioCtx = audioCtx || new AudioContextClass();
+
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      // Friendly Australian welcome major chord (C4, E4, G4, C5)
+      const notes = [261.63, 329.63, 392.00, 523.25];
+      notes.forEach((freq, idx) => {
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.08);
+
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime + idx * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + idx * 0.08 + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.08 + 1.2);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(audioCtx.currentTime + idx * 0.08);
+        osc.stop(audioCtx.currentTime + idx * 0.08 + 1.3);
+      });
+    } catch (e) {
+      // Graceful fallback
+    }
+  }
+
+  const phrases: Record<string, { en: string; cz: string; short: string; duration: number }> = {
+    gday: {
+      en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
+      cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
+      short: "G'day mate! I'm Josef.",
+      duration: 10
+    },
+    dice: {
+      en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
+      cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
+      short: "Let's roll the dice!",
+      duration: 8
+    },
+    noworries: {
+      en: "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
+      cz: "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!",
+      short: "No worries at all!",
+      duration: 9
+    }
+  };
+
+  let activePhraseKey = 'gday';
+
+  const phraseChips = document.querySelectorAll<HTMLButtonElement>('.phrase-chip');
+  const liveTextCz = document.getElementById('speech-czech-text');
+
+  phraseChips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const key = chip.getAttribute('data-phrase') || 'gday';
+      activePhraseKey = key;
+
+      // Update active chip styles
+      phraseChips.forEach(c => {
+        c.classList.remove('bg-amber-400', 'text-espresso-950', 'border-amber-300', 'shadow-xs');
+        c.classList.add('bg-white/10', 'text-amber-100', 'border-white/15');
+      });
+      chip.classList.remove('bg-white/10', 'text-amber-100', 'border-white/15');
+      chip.classList.add('bg-amber-400', 'text-espresso-950', 'border-amber-300', 'shadow-xs');
+
+      const data = phrases[key];
+      if (liveText) liveText.textContent = `„${data.en}“`;
+      if (liveTextCz) liveTextCz.textContent = `„${data.cz}“`;
+      if (subtitle) subtitle.innerHTML = `<strong class="text-amber-300">„${data.short}“</strong> – Přehrává se`;
+
+      stopAudio();
+      setPlayingState(true);
+    });
+  });
+
+  // Speak with native SpeechSynthesis in Australian English accent
+  function speakGreeting() {
+    if (!synth) return;
+
+    synth.cancel(); // Stop any pending speech
+
+    const data = phrases[activePhraseKey] || phrases.gday;
+    const utter = new SpeechSynthesisUtterance(data.en);
+    (window as any)._activeSpeechUtterance = utter;
+
+    // Pick Australian English voice if available, otherwise en-GB or en-US
+    const voices = synth.getVoices();
+    const auVoice = voices.find(v => v.lang === 'en-AU' || v.lang.startsWith('en-AU')) ||
+                    voices.find(v => v.name.includes('Australia')) ||
+                    voices.find(v => v.lang === 'en-GB') ||
+                    voices.find(v => v.lang.startsWith('en'));
+
+    if (auVoice) {
+      utter.voice = auVoice;
+    }
+    utter.rate = 0.95; // Friendly, clear pace
+    utter.pitch = 1.0;
+
+    utter.onstart = () => {
+      if (subtitle) {
+        subtitle.innerHTML = `<span class="text-emerald-400 font-bold animate-pulse">● Hraje:</span> <strong class="text-white">„${data.short}“</strong>`;
+      }
+    };
+
+    utter.onend = () => {
+      stopAudio();
+    };
+
+    utter.onerror = () => {
+      // If speech synthesis has an issue, audio fallback finishes countdown
+    };
+
+    synth.speak(utter);
+  }
 
   function setPlayingState(playing: boolean) {
     isPlaying = playing;
+    const currentData = phrases[activePhraseKey] || phrases.gday;
+
     if (playing) {
       playIcon?.classList.add('hidden');
       pauseIcon?.classList.remove('hidden');
+
       bars.forEach((bar, index) => {
-        bar.classList.remove('h-2', 'h-4', 'h-3', 'h-5', 'h-1.5', 'bg-slate-500');
+        bar.classList.remove('h-2', 'h-4', 'h-3', 'h-5', 'h-1.5', 'bg-stone-600', 'bg-amber-400/50');
         bar.classList.add('bg-amber-400');
         const waveClass = `animate-wave-${(index % 4) + 1}`;
         bar.classList.add(waveClass);
       });
 
-      // Simple countdown
+      playWarmChime();
+      speakGreeting();
+
+      secondsRemaining = currentData.duration;
+      if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
+
+      // Countdown timer
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
         secondsRemaining--;
@@ -101,27 +281,35 @@ const { className = "" } = Astro.props;
           timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
         }
       }, 1000);
+
     } else {
       playIcon?.classList.remove('hidden');
       pauseIcon?.classList.add('hidden');
+
       bars.forEach((bar, index) => {
         bar.classList.remove('animate-wave-1', 'animate-wave-2', 'animate-wave-3', 'animate-wave-4');
-        if (index > 4) {
-          bar.classList.add('bg-slate-500');
+        if (index > 5) {
+          bar.classList.add('bg-stone-600');
+        } else {
+          bar.classList.add('bg-amber-400');
         }
       });
+
+      if (subtitle) {
+        subtitle.innerHTML = `<strong class="text-amber-300">„${currentData.short}“</strong> – Klikněte pro přehrání`;
+      }
+
       clearInterval(timerInterval);
+      if (synth) synth.cancel();
     }
   }
 
   function stopAudio() {
     setPlayingState(false);
-    secondsRemaining = 15;
-    if (timeDisplay) timeDisplay.textContent = '0:15';
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
-    }
+    const currentData = phrases[activePhraseKey] || phrases.gday;
+    secondsRemaining = currentData.duration;
+    if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
+    if (synth) synth.cancel();
   }
 
   playBtn?.addEventListener('click', () => {
@@ -129,15 +317,13 @@ const { className = "" } = Astro.props;
       stopAudio();
     } else {
       setPlayingState(true);
-      if (audio) {
-        audio.play().catch(() => {
-          // If no local mp3 file exists yet, the visual equalizer still demonstrates the feature beautifully!
-        });
-      }
     }
   });
 
-  audio?.addEventListener('ended', () => {
-    stopAudio();
-  });
+  // Preload voices
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+    };
+  }
 </script>

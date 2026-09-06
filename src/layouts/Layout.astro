@@ -13,10 +13,10 @@ const {
 ---
 
 <!doctype html>
-<html lang="cs" class="scroll-smooth">
+<html lang="cs" class="scroll-smooth overflow-x-hidden w-full max-w-full">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     
@@ -30,17 +30,73 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:image" content="/images/og-valek-academy.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="VALEK ACADEMY • Angličtina s Čechoaustralanem v Uherském Hradišti" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="/images/og-valek-academy.jpg" />
+
+    <!-- Local SEO Geo Meta Tags -->
+    <meta name="geo.region" content="CZ-ZL" />
+    <meta name="geo.placename" content="Uherské Hradiště" />
+    <meta name="geo.position" content="49.0708;17.4665" />
+    <meta name="ICBM" content="49.0708, 17.4665" />
+
+    <!-- Schema.org Structured Data (JSON-LD) for Local Business & Education -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "VALEK ACADEMY",
+        "alternateName": "Doučování angličtiny Josef Válek",
+        "description": "Trpělivá a hravá výuka angličtiny pro žáky ZŠ a studenty v malých skupinkách (3–6 dětí) formou deskových her v Uherském Hradišti. Lektor Josef Válek (BBA RMIT Melbourne, 25+ let v ČR).",
+        "url": "https://valekacademy.cz",
+        "telephone": "+420792372642",
+        "email": "info@valekacademy.cz",
+        "image": "https://valekacademy.cz/images/og-valek-academy.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Růžová 1238",
+          "addressLocality": "Uherské Hradiště",
+          "postalCode": "686 01",
+          "addressCountry": "CZ"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 49.0708,
+          "longitude": 17.4665
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "19:00"
+          }
+        ],
+        "priceRange": "390 Kč",
+        "areaServed": [
+          "Uherské Hradiště",
+          "Kunovice",
+          "Staré Město",
+          "Babice",
+          "Jalubí",
+          "Kněžpole",
+          "Ostrožská Nová Ves",
+          "Uherský Brod"
+        ]
+      }
+    </script>
 
     <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  </head>
-  <body class="bg-[#FDFBF7] text-[#2A190F] antialiased selection:bg-amber-200 selection:text-[#2A190F] min-h-screen flex flex-col font-sans">
+  <body class="bg-[#FAF7F2] text-[#2A190F] antialiased selection:bg-amber-200 selection:text-[#2A190F] min-h-screen flex flex-col font-sans overflow-x-hidden w-full max-w-full relative">
     <slot />
   </body>
 </html>

@@ -1,5 +1,4 @@
 ---
-import ParrotLogo from './ParrotLogo.astro';
 import AudioPreview from './AudioPreview.astro';
 
 interface Stat {
@@ -22,86 +21,50 @@ interface Props {
 
 const { hero } = Astro.props;
 
-const badge = hero.badge || "ANGLIČTINA S ČECHOAUSTRALANEM • HRY • DESKOVKY • KONVERZACE";
-const title = hero.title || "Hravá angličtina v malých skupinkách";
-const subtitle = hero.subtitle || "Konec nudného biflování gramatických pouček u tabule. Josef Válek vyrůstal v Austrálii a otevírá v Uherském Hradišti doučovnu pro děti v přátelských malých skupinkách plnou deskových her, karet a přirozené konverzace s autentickým přízvukem.";
+const title = hero.title || "Angličtina, která děti baví – hrou a v malých skupinkách";
+const subtitle = hero.subtitle || "Konec nudného biflování u tabule. Josef Válek vyrůstal v Melbourne a v Uherském Hradišti otevírá doučovnu pro děti v přátelských skupinkách (3–6 dětí) plnou deskových her a přirozené konverzace s autentickým rodilým přízvukem.";
 const ctaPrimaryText = hero.ctaPrimaryText || "Vyzkoušet 1. lekci zdarma";
 const ctaPrimaryLink = hero.ctaPrimaryLink || "#kontakt";
-const ctaSecondaryText = hero.ctaSecondaryText || "Jak výuka hrou funguje";
+const ctaSecondaryText = hero.ctaSecondaryText || "Jak výuka funguje";
 const ctaSecondaryLink = hero.ctaSecondaryLink || "#programy";
 const stats = hero.stats || [
   { number: "1. lekce", label: "100% ZDARMA na vyzkoušení" },
   { number: "3–6 dětí", label: "v malé přátelské skupince" },
-  { number: "Deskovky", label: "a hry dle zájmů dítěte" },
-  { number: "Austrálie", label: "kde Josef vyrůstal (rodilý akcent)" }
+  { number: "Deskovky", label: "a hry jako hlavní metoda výuky" },
+  { number: "Melbourne", label: "kde Josef vyrostl (rodilý akcent)" }
 ];
 ---
 
-<section class="relative pt-4 pb-6 sm:pt-8 sm:pb-10 md:pt-10 md:pb-12 overflow-hidden bg-gradient-to-b from-parchment-100/80 via-parchment-50 to-parchment-100/60 border-b border-parchment-200">
+<section class="relative pt-6 pb-8 sm:pt-10 sm:pb-12 md:pt-14 md:pb-16 overflow-hidden bg-gradient-to-b from-[#FAF5EC] via-[#FFFDF9] to-[#FAF7F2] border-b border-parchment-300 w-full max-w-full">
   
-  <!-- Subtle decorative ambient circles in warm vintage gold and sky navy -->
-  <div class="absolute top-0 right-1/4 w-96 h-96 bg-amber-200/25 rounded-full blur-3xl pointer-events-none -z-10"></div>
-  <div class="absolute top-1/3 left-10 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <!-- Subtle decorative ambient orbs -->
+  <div class="absolute -top-10 right-1/4 w-[320px] sm:w-[450px] h-[320px] sm:h-[450px] bg-gradient-to-br from-amber-300/20 to-amber-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="absolute top-1/3 -left-20 w-[280px] sm:w-[380px] h-[280px] sm:h-[380px] bg-gradient-to-tr from-emerald-200/20 to-amber-200/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full min-w-0">
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full min-w-0">
       
-      <!-- Left Column: Copy & Actions -->
-      <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
+      <!-- Left Column: High-Impact Copy & Direct CTAs -->
+      <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left w-full min-w-0">
 
-        <!-- Main Headline in Academy Serif Font -->
-        <h1 class="font-academy font-black text-3xl sm:text-5xl lg:text-6xl text-espresso-950 tracking-tight leading-[1.14]">
-          Hravá angličtina <br class="hidden sm:inline" />
-          <span class="text-amber-800">v malých skupinkách</span>
+        <!-- Main Headline (Bigger, bolder, authoritative on desktop) -->
+        <h1 class="font-heading font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4.25rem] text-espresso-950 tracking-tight leading-[1.12] break-words" data-edit-key="hero.title" data-edit-label="Hlavní nadpis">
+          {title}
         </h1>
 
-        <!-- Subtitle -->
-        <p class="text-base sm:text-lg text-espresso-800/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+        <!-- Crisp Subtitle -->
+        <p class="text-sm sm:text-base lg:text-xl xl:text-[21px] text-espresso-800/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal break-words" data-edit-key="hero.subtitle" data-edit-label="Podnadpis">
           {subtitle}
         </p>
 
-        <!-- Ornate Dark Banner Quote directly from the poster -->
-        <div class="vintage-banner-dark rounded-2xl p-3.5 sm:p-5 shadow-md flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center sm:text-left">
-          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-2xl flex-shrink-0 text-amber-300">
-            🎙️
-          </div>
-          <div class="space-y-1">
-            <p class="text-xs sm:text-sm text-amber-100 font-medium italic leading-snug">
-              „Vaše dítě či vnouče se pobaví, rozmluví, potlačí český přízvuk a získá plynulost a obratnost.“
-            </p>
-            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400">
-              ★ DOPŘEJTE SVÉMU DÍTĚTI VÝHODU! ★
-            </div>
-          </div>
-        </div>
-
-        <!-- Program Category Filter Buttons (without scrabble tiles) -->
-        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-0.5 text-xs">
-          <a href="#program-zs" class="px-3 py-1.5 rounded-lg bg-amber-200/90 text-espresso-950 border border-amber-400 font-bold transition-colors flex items-center gap-1.5 shadow-xs">
-            <span>🎲</span> <span>Děti ZŠ (Skupinky)</span>
-            <span class="bg-amber-400 text-espresso-950 text-[10px] px-1.5 py-0.2 rounded font-extrabold">1. zdarma</span>
-          </a>
-          <a href="#program-dospeli" class="px-3 py-1.5 rounded-lg bg-parchment-100 hover:bg-parchment-200 text-espresso-700 border border-parchment-300 font-medium transition-colors flex items-center gap-1.5">
-            <span>💼</span> <span>Dospělí</span>
-            <span class="text-[10px] text-stone-500 bg-white px-1.5 py-0.2 rounded border border-parchment-300">brzy</span>
-          </a>
-          <a href="#program-ss" class="px-3 py-1.5 rounded-lg bg-parchment-100 hover:bg-parchment-200 text-espresso-700 border border-parchment-300 font-medium transition-colors flex items-center gap-1.5">
-            <span>🎓</span> <span>Maturita</span>
-            <span class="text-[10px] text-stone-500 bg-white px-1.5 py-0.2 rounded border border-parchment-300">brzy</span>
-          </a>
-          <a href="#scio" class="px-3 py-1.5 rounded-lg bg-parchment-100 hover:bg-parchment-200 text-espresso-700 border border-parchment-300 font-medium transition-colors flex items-center gap-1.5">
-            <span>📐</span> <span>SCIO</span>
-            <span class="text-[10px] text-stone-500 bg-white px-1.5 py-0.2 rounded border border-parchment-300">brzy</span>
-          </a>
-        </div>
-
-        <!-- CTA Buttons Group -->
-        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1 sm:pt-2">
+        <!-- CTA Buttons Group (Prominent and punchy) -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-1 w-full">
           <a
             href={ctaPrimaryLink}
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 rounded-2xl font-display font-bold text-base text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 hover:from-amber-200 hover:to-amber-400 border border-amber-500 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 text-center"
+            class="btn-gold-pulse w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 sm:px-8 py-3.5 sm:py-4 rounded-2xl font-heading font-black text-sm sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md hover:shadow-lg text-center cursor-pointer transition-all hover:scale-[1.02]"
           >
-            <span>🎁 {ctaPrimaryText}</span>
+            <span>🎁</span>
+            <span data-edit-key="hero.ctaPrimaryText" data-edit-label="Text tlačítka">{ctaPrimaryText}</span>
             <svg class="w-5 h-5 text-espresso-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
@@ -109,92 +72,111 @@ const stats = hero.stats || [
 
           <a
             href={ctaSecondaryLink}
-            class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 sm:py-4 rounded-2xl font-display font-semibold text-base text-espresso-800 hover:text-espresso-950 bg-parchment-50 hover:bg-parchment-100 border border-parchment-300 shadow-xs transition-all hover:border-parchment-400 text-center"
+            class="w-full sm:w-auto inline-flex items-center justify-center px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl font-heading font-bold text-xs sm:text-base text-espresso-900 hover:text-espresso-950 bg-white hover:bg-parchment-50 border-2 border-parchment-300 shadow-2xs hover:border-amber-400 transition-all text-center"
+            data-edit-key="hero.ctaSecondaryText"
+            data-edit-label="Sekundární tlačítko"
           >
             {ctaSecondaryText}
           </a>
         </div>
 
-        <!-- Key Trust Badges -->
-        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-5 pt-1 text-xs sm:text-sm text-espresso-800 font-medium">
-          <div class="flex items-center gap-1.5">
-            <span class="text-amber-700 font-bold text-base">🎁</span>
-            <span class="font-bold text-espresso-950">1. lekce 100% ZDARMA</span>
+        <!-- Key Trust Badges (Clear and clean) -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs sm:text-sm text-espresso-900 font-semibold w-full">
+          <div class="inline-flex items-center gap-1.5 bg-white/95 px-3 py-1.5 sm:py-2 rounded-xl border border-amber-300 shadow-2xs">
+            <span class="text-amber-600 font-black">🎁</span>
+            <span class="font-bold text-espresso-950 text-[11px] sm:text-xs">1. ukázková lekce ZDARMA</span>
           </div>
-          <div class="flex items-center gap-1.5">
-            <span class="text-emerald-700 font-bold">✓</span>
-            <span>Malé skupinky 3 až 6 dětí</span>
+          <div class="inline-flex items-center gap-1.5 bg-amber-50/95 px-3 py-1.5 sm:py-2 rounded-xl border border-amber-300 shadow-2xs text-espresso-950 font-bold">
+            <span>🏡</span>
+            <span class="text-[11px] sm:text-xs">Osobně v UH</span>
+            <span class="text-stone-300">•</span>
+            <span>💻</span>
+            <span class="text-[11px] sm:text-xs">Online celá ČR</span>
           </div>
-          <div class="flex items-center gap-1.5">
+          <div class="inline-flex items-center gap-1.5 bg-white/95 px-3 py-1.5 sm:py-2 rounded-xl border border-parchment-300 shadow-2xs">
             <span class="text-emerald-700 font-bold">✓</span>
-            <span>Všechny deskovky v ceně</span>
+            <span class="text-[11px] sm:text-xs">Skupinky 3 až 6 dětí</span>
           </div>
         </div>
 
       </div>
 
-      <!-- Right Column: Interactive Academy Feature Card (clean, without poster preview) -->
-      <div class="lg:col-span-5 relative">
-        <div class="relative mx-auto max-w-md lg:max-w-none">
+      <!-- Right Column: 3D Josef Portrait & Voice Player Stage -->
+      <div class="lg:col-span-5 relative mt-4 lg:mt-0 w-full min-w-0">
+        <div class="relative mx-auto max-w-md lg:max-w-none w-full min-w-0">
           
-          <!-- Outer subtle warm golden aura -->
-          <div class="absolute -inset-1.5 rounded-3xl bg-gradient-to-br from-amber-300/40 via-amber-100/30 to-blue-300/30 blur-xl opacity-70"></div>
+          <!-- Outer glowing ambient aura -->
+          <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-amber-400/30 via-amber-200/20 to-emerald-300/20 blur-xl opacity-75 pointer-events-none"></div>
           
-          <!-- Main Academy Parchment Card -->
-          <div class="relative bg-parchment-50 rounded-3xl p-5 sm:p-6 lg:p-7 shadow-soft-lg border-2 border-parchment-300 space-y-4">
+          <!-- Main Stage Card -->
+          <div class="relative bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-card-lift border border-amber-300/80 space-y-3 sm:space-y-4 w-full min-w-0 overflow-hidden">
             
-            <!-- Instructor Profile Card Header -->
-            <div class="p-3.5 sm:p-4 rounded-2xl bg-white border border-parchment-200 shadow-xs flex items-center justify-between gap-3">
-              <div class="flex items-center gap-3">
-                <ParrotLogo className="w-12 h-12 flex-shrink-0" />
-                <div>
-                  <div class="flex items-center gap-2">
-                    <h3 class="font-academy font-bold text-base sm:text-lg text-espresso-950 leading-tight">
-                      Josef Válek
-                    </h3>
+            <!-- Instructor Profile Header -->
+            <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-parchment-50 via-white to-parchment-50 border border-amber-200 shadow-2xs flex items-center justify-between gap-2.5 relative overflow-hidden min-w-0">
+              
+              <div class="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-amber-500 shadow-sm flex-shrink-0">
+                  <img
+                    src="/images/josef-valek.jpg"
+                    alt="Mgr. Josef Válek – lektor angličtiny z Austrálie"
+                    class="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                  <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-espresso-950/90 to-transparent text-[10px] text-amber-300 font-bold text-center pb-0.5">
+                    Josef
                   </div>
-                  <p class="text-xs text-stone-600 font-medium mt-0.5">Vyrostl v Austrálii • 25+ let v ČR</p>
-                  <p class="text-[11px] text-amber-800 font-semibold mt-0.5 flex items-center gap-1">
-                    <span>🇦🇺</span> Autentický akcent & hravá výuka
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <h3 class="font-heading font-black text-base sm:text-xl text-espresso-950 leading-tight truncate">
+                    Josef Válek
+                  </h3>
+                  <p class="text-[10px] sm:text-xs text-stone-600 font-medium mt-0.5 truncate">BBA (Melbourne) • 25+ let v ČR</p>
+                  <p class="text-[10px] sm:text-[11px] text-amber-900 font-bold mt-0.5 flex items-center gap-1.5 truncate">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
+                    <span class="truncate">Australský přízvuk & výuka hrou</span>
                   </p>
                 </div>
               </div>
+
               <div class="flex-shrink-0">
-                <span class="text-[10px] uppercase font-bold bg-amber-100 text-amber-950 border border-amber-300 px-2 py-1 rounded-xl inline-block text-center shadow-2xs leading-tight">
-                  1. lekce<br/>zdarma
+                <span class="text-[9px] sm:text-[10px] uppercase font-black bg-gradient-to-b from-amber-300 to-amber-400 text-espresso-950 border border-amber-500 px-2 py-1 rounded-lg inline-block text-center shadow-2xs leading-tight">
+                  1. lekce<br/>ZDARMA
                 </span>
               </div>
             </div>
 
-            <!-- Audio Preview Widget -->
+            <!-- Voice Preview Player -->
             <AudioPreview />
 
-            <!-- Highlight Benefits Micro-Grid -->
-            <div class="grid grid-cols-2 gap-2.5 text-xs">
-              <div class="p-3 rounded-xl bg-white border border-parchment-200/90 shadow-2xs flex items-start gap-2.5">
-                <span class="text-lg leading-none">🎲</span>
-                <div>
-                  <div class="font-bold text-espresso-950">Výuka hrou</div>
-                  <div class="text-[11px] text-stone-500 mt-0.5">Deskovky, kvízy & karty</div>
+            <!-- Benefit Chips 2-Col Grid -->
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2 sm:p-3 rounded-xl bg-amber-50/80 border border-amber-200 flex items-center gap-1.5 sm:gap-2 min-w-0">
+                <span class="text-lg sm:text-xl leading-none flex-shrink-0">🎲</span>
+                <div class="min-w-0">
+                  <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate">Deskovky & karty</div>
+                  <div class="text-[9px] sm:text-[10px] text-stone-600 truncate">Karak, Scrabble, Dixit</div>
                 </div>
               </div>
-              <div class="p-3 rounded-xl bg-white border border-parchment-200/90 shadow-2xs flex items-start gap-2.5">
-                <span class="text-lg leading-none">👥</span>
-                <div>
-                  <div class="font-bold text-espresso-950">Skupinky 3–6</div>
-                  <div class="text-[11px] text-stone-500 mt-0.5">Žádný strach z mluvení</div>
+              <div class="p-2 sm:p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 flex items-center gap-1.5 sm:gap-2 min-w-0">
+                <span class="text-lg sm:text-xl leading-none flex-shrink-0">👥</span>
+                <div class="min-w-0">
+                  <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate">Skupinky 3–6 dětí</div>
+                  <div class="text-[9px] sm:text-[10px] text-stone-600 truncate">Konec strachu z chyb</div>
                 </div>
               </div>
             </div>
 
-            <!-- Availability banner -->
-            <div class="p-3 rounded-xl bg-emerald-50/90 border border-emerald-300/80 flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-ping"></span>
-                <span class="text-xs font-bold text-emerald-950">Otevřeno pro zápis dětí</span>
+            <!-- Location & Contact Strip -->
+            <div class="p-2 sm:p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between gap-1.5 sm:gap-2 text-xs min-w-0">
+              <div class="flex items-center gap-1 sm:gap-1.5 flex-wrap min-w-0">
+                <span class="text-amber-700 font-bold flex-shrink-0">📍</span>
+                <span class="font-bold text-espresso-950 text-[10px] sm:text-xs">Růžová 1238, UH</span>
+                <span class="text-stone-300">•</span>
+                <span class="text-stone-600 text-[10px] sm:text-[11px] font-medium">💻 i Online</span>
               </div>
-              <a href="#kontakt" class="text-xs font-bold text-emerald-800 hover:text-emerald-950 underline flex-shrink-0">
-                Vyzkoušet zdarma →
+              <a href="#kontakt" class="font-black text-amber-900 hover:text-amber-700 underline text-[10px] sm:text-[11px] flex-shrink-0">
+                Rezervovat →
               </a>
             </div>
 
@@ -205,15 +187,15 @@ const stats = hero.stats || [
 
     </div>
 
-    <!-- Social Proof Metrics Bar with Compact Mobile Spacing -->
-    <div class="mt-4 sm:mt-8 pt-4 sm:pt-6 border-t border-parchment-200/80">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6">
-        {stats.map((item) => (
-          <div class="bg-parchment-50 rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 text-center border border-parchment-200 shadow-xs hover:border-amber-400 hover:shadow-sm transition-all">
-            <div class="font-academy font-extrabold text-xl sm:text-2xl lg:text-3xl text-espresso-950 tracking-tight">
+    <!-- Quick Stats Bar -->
+    <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-parchment-300">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        {stats.map((item, idx) => (
+          <div class="bg-white rounded-2xl p-4 sm:p-5 text-center border border-parchment-300 shadow-2xs hover:border-amber-400 transition-all">
+            <div class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-espresso-950 tracking-tight" data-edit-key={`hero.stats.${idx}.number`} data-edit-label="Číslo statistiky">
               {item.number}
             </div>
-            <div class="text-xs sm:text-sm text-espresso-800/80 font-medium mt-0.5 sm:mt-1">
+            <div class="text-xs sm:text-sm text-espresso-800/80 font-medium mt-1" data-edit-key={`hero.stats.${idx}.label`} data-edit-label="Popis statistiky">
               {item.label}
             </div>
           </div>

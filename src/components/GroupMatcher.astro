@@ -1,0 +1,438 @@
+---
+interface Props {
+  className?: string;
+  groupMatcher?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    step1Title?: string;
+    step2Title?: string;
+    step3Title?: string;
+    ctaText?: string;
+  };
+}
+
+const { className = "", groupMatcher = {} } = Astro.props;
+
+const badge = groupMatcher.badge || "Rychlý 3krokový průvodce pro rodiče";
+const title = groupMatcher.title || "Jaká skupinka a deskovky budou vaše dítě bavit nejvíc?";
+const subtitle = groupMatcher.subtitle || "Každé dítě je jiné. Klikněte níže a za 20 vteřin zjistíte, do jaké skupinky vrstevníků skvěle zapadne a jaké hry pro něj vybereme.";
+const step1Title = groupMatcher.step1Title || "Do jaké třídy dítě chodí?";
+const step2Title = groupMatcher.step2Title || "Co dítě nejvíc baví?";
+const step3Title = groupMatcher.step3Title || "S čím potřebuje dítě pomoci nejvíce?";
+const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
+---
+
+<section id="rozrazovac" class={`py-8 sm:py-12 md:py-20 bg-gradient-to-b from-parchment-100/80 via-white to-parchment-100/60 border-y border-parchment-200 relative overflow-hidden ${className}`}>
+  
+  <!-- Ambient decorative glow -->
+  <div class="absolute top-0 right-1/4 w-96 h-96 bg-amber-300/15 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-10 w-80 h-80 bg-emerald-200/20 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    
+    <!-- Section Header -->
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-edit-key="groupMatcher.badge" data-edit-label="Štítek rozřazovače">
+        <span>🧭</span> <span>{badge}</span>
+      </div>
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="groupMatcher.title" data-edit-label="Nadpis rozřazovače">
+        {title}
+      </h2>
+      <p class="text-espresso-800/80 text-base sm:text-lg" data-edit-key="groupMatcher.subtitle" data-edit-label="Podnadpis rozřazovače">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Main Interactive Card Container -->
+    <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border-2 border-parchment-300 shadow-soft-lg space-y-8">
+      
+      <!-- Step 1: Grade / Age Selection -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900">
+          <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs shadow-2xs">1</span>
+          <span data-edit-key="groupMatcher.step1Title" data-edit-label="Krok 1 rozřazovače">{step1Title}</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3" id="matcher-grade-group">
+          <button
+            type="button"
+            data-grade="1-3"
+            class="grade-btn p-3.5 sm:p-4 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
+          >
+            <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">🧒</span>
+            <div class="font-extrabold text-sm text-espresso-950">1.–3. třída ZŠ</div>
+            <div class="text-[11px] text-stone-500 font-medium">Věk 6–9 let</div>
+          </button>
+
+          <button
+            type="button"
+            data-grade="4-6"
+            class="grade-btn p-3.5 sm:p-4 rounded-2xl border-2 border-amber-500 bg-amber-100 text-left shadow-xs transition-all cursor-pointer font-heading group ring-2 ring-amber-400/40"
+          >
+            <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">🎒</span>
+            <div class="font-extrabold text-sm text-espresso-950">4.–6. třída ZŠ</div>
+            <div class="text-[11px] text-stone-500 font-medium">Věk 10–12 let</div>
+          </button>
+
+          <button
+            type="button"
+            data-grade="7-9"
+            class="grade-btn p-3.5 sm:p-4 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
+          >
+            <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">🚀</span>
+            <div class="font-extrabold text-sm text-espresso-950">7.–9. třída ZŠ</div>
+            <div class="text-[11px] text-stone-500 font-medium">Věk 13–15 let</div>
+          </button>
+
+          <button
+            type="button"
+            data-grade="ss"
+            class="grade-btn p-3.5 sm:p-4 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
+          >
+            <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">🎓</span>
+            <div class="font-extrabold text-sm text-espresso-950">SŠ & Maturant</div>
+            <div class="text-[11px] text-stone-500 font-medium">Věk 15–19 let</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Hobbies & Interests -->
+      <div class="space-y-3 pt-2 border-t border-parchment-200">
+        <div class="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900">
+          <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs shadow-2xs">2</span>
+          <span data-edit-key="groupMatcher.step2Title" data-edit-label="Krok 2 rozřazovače">{step2Title}</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3" id="matcher-interest-group">
+          <button
+            type="button"
+            data-interest="fantasy"
+            class="interest-btn p-3 sm:p-3.5 rounded-2xl border-2 border-amber-500 bg-amber-100 text-left shadow-xs transition-all cursor-pointer font-heading group ring-2 ring-amber-400/40"
+          >
+            <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">🐉</span>
+            <div class="font-bold text-xs sm:text-sm text-espresso-950">Příběhy & Fantasy</div>
+            <div class="text-[10px] text-stone-500 mt-0.5">Karak, hrdinové, dobrodružství</div>
+          </button>
+
+          <button
+            type="button"
+            data-interest="words"
+            class="interest-btn p-3 sm:p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
+          >
+            <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">🧩</span>
+            <div class="font-bold text-xs sm:text-sm text-espresso-950">Slovní rébusy</div>
+            <div class="text-[10px] text-stone-500 mt-0.5">Scrabble, křížovky, karty</div>
+          </button>
+
+          <button
+            type="button"
+            data-interest="speed"
+            class="interest-btn p-3 sm:p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
+          >
+            <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">⚡</span>
+            <div class="font-bold text-xs sm:text-sm text-espresso-950">Postřeh & Akce</div>
+            <div class="text-[10px] text-stone-500 mt-0.5">Karetní hry, bleskové kvízy</div>
+          </button>
+
+          <button
+            type="button"
+            data-interest="strategy"
+            class="interest-btn p-3 sm:p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
+          >
+            <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">🏰</span>
+            <div class="font-bold text-xs sm:text-sm text-espresso-950">Stavění & Taktika</div>
+            <div class="text-[10px] text-stone-500 mt-0.5">Carcassonne, deskové světy</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: School Goal / Need -->
+      <div class="space-y-3 pt-2 border-t border-parchment-200">
+        <div class="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900">
+          <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs shadow-2xs">3</span>
+          <span data-edit-key="groupMatcher.step3Title" data-edit-label="Krok 3 nadpis">{step3Title}</span>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-2.5 sm:gap-3" id="matcher-goal-group">
+          <button
+            type="button"
+            data-goal="confidence"
+            class="goal-btn p-3.5 rounded-2xl border-2 border-amber-500 bg-amber-100 text-left shadow-xs transition-all cursor-pointer font-heading group ring-2 ring-amber-400/40"
+          >
+            <div class="flex items-center gap-2 font-bold text-xs sm:text-sm text-espresso-950">
+              <span class="text-lg">🗣️</span> <span>Odbourat strach z mluvení</span>
+            </div>
+            <p class="text-[11px] text-stone-600 mt-1 leading-snug">
+              Bojí se otevřít pusu, aby neudělalo chybu před celou třídou.
+            </p>
+          </button>
+
+          <button
+            type="button"
+            data-goal="grades"
+            class="goal-btn p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
+          >
+            <div class="flex items-center gap-2 font-bold text-xs sm:text-sm text-espresso-950">
+              <span class="text-lg">📝</span> <span>Zlepšit známky a testy</span>
+            </div>
+            <p class="text-[11px] text-stone-600 mt-1 leading-snug">
+              Pletou se mu časy a slovíčka, potřebuje záchranu před písemkami.
+            </p>
+          </button>
+
+          <button
+            type="button"
+            data-goal="fun"
+            class="goal-btn p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
+          >
+            <div class="flex items-center gap-2 font-bold text-xs sm:text-sm text-espresso-950">
+              <span class="text-lg">🌟</span> <span>Chce být napřed & bavit se</span>
+            </div>
+            <p class="text-[11px] text-stone-600 mt-1 leading-snug">
+              Ve škole se nudí a hledá partu kamarádů pro živou angličtinu.
+            </p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Result Recommendation: GOLDEN PASS DESIGN -->
+      <div id="matcher-result-card" class="mt-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#FFFDF9] via-white to-amber-50 border-2 border-amber-400 shadow-xl space-y-5 relative overflow-hidden">
+        
+        <!-- Top Golden Stamp Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-amber-200">
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-[10px] uppercase font-black tracking-wider bg-gradient-to-r from-amber-400 to-amber-500 text-espresso-950 px-3 py-1 rounded-full mb-1.5 shadow-xs">
+              <span>🎟️</span> <span>VAŠE ZLATÁ VSTUPENKA DO SKUPINKY</span>
+            </div>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950" id="res-group-title">
+              Skupinka Dobrodruhů (4.–6. třída ZŠ)
+            </h3>
+          </div>
+          <span class="text-xs font-black text-emerald-900 bg-emerald-100 border border-emerald-300 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 flex-shrink-0 shadow-2xs">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Volná místa pro zápis
+          </span>
+        </div>
+
+        <p class="text-xs sm:text-sm text-espresso-900 leading-relaxed font-normal" id="res-group-desc">
+          Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Lektor Josef vede celou hru uvolněně s australským akcentem a na závěr v klidu česky dovysvětlí látku ze školy.
+        </p>
+
+        <!-- Recommended games badges -->
+        <div class="space-y-2">
+          <div class="text-[11px] font-black uppercase tracking-wider text-amber-950">
+            🎮 Vybrané hry pro tuto skupinku:
+          </div>
+          <div class="flex flex-wrap items-center gap-2" id="res-games-list">
+            <span class="px-3 py-1 rounded-xl bg-white border border-amber-300 text-xs font-bold text-espresso-950 shadow-2xs">
+              🎲 Karak & Dračí doupě
+            </span>
+            <span class="px-3 py-1 rounded-xl bg-white border border-amber-300 text-xs font-bold text-espresso-950 shadow-2xs">
+              🗣️ Story Cubes (Tvorba vět)
+            </span>
+            <span class="px-3 py-1 rounded-xl bg-white border border-amber-300 text-xs font-bold text-espresso-950 shadow-2xs">
+              🧩 Scrabble Junior
+            </span>
+          </div>
+        </div>
+
+        <!-- Call to action button with Gold Pulse -->
+        <div class="pt-4 border-t border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="text-xs text-espresso-900 font-bold flex items-center gap-1.5">
+            <span class="text-amber-600 text-base">🎁</span>
+            <span>1. lekce v této skupince je <strong>100% ZDARMA</strong> (Růžová 1238, Uherské Hradiště)</span>
+          </div>
+          <a
+            href="#kontakt"
+            id="matcher-cta-btn"
+            class="btn-gold-pulse w-full sm:w-auto px-7 py-3.5 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 text-center cursor-pointer flex items-center justify-center gap-2"
+          >
+            <span data-edit-key="groupMatcher.ctaText" data-edit-label="Tlačítko rozřazovače">{ctaText}</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const gradeBtns = document.querySelectorAll<HTMLButtonElement>('.grade-btn');
+  const interestBtns = document.querySelectorAll<HTMLButtonElement>('.interest-btn');
+  const goalBtns = document.querySelectorAll<HTMLButtonElement>('.goal-btn');
+
+  const resTitle = document.getElementById('res-group-title');
+  const resDesc = document.getElementById('res-group-desc');
+  const resGames = document.getElementById('res-games-list');
+  const matcherCta = document.getElementById('matcher-cta-btn');
+  const formSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
+  const levelSelect = document.getElementById('level') as HTMLSelectElement | null;
+
+  let currentGrade = '4-6';
+  let currentInterest = 'fantasy';
+  let currentGoal = 'confidence';
+
+  let audioCtx: AudioContext | null = null;
+  function playClickPop() {
+    try {
+      const AudioCtxClass = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtxClass) return;
+      audioCtx = audioCtx || new AudioCtxClass();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(540, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(780, audioCtx.currentTime + 0.05);
+
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.07);
+    } catch(e) {}
+  }
+
+  const groupMatrix: Record<string, { title: string; desc: string; games: string[]; levelValue: string }> = {
+    '1-3': {
+      title: "Skupinka Malých Objevitelů (1.–3. třída ZŠ)",
+      desc: "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou australskou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
+      games: ["🎲 Dobble & zvířata", "🧩 Scrabble Junior", "🃏 Karetní pexesa v AJ", "🏰 Jednoduché deskovky"],
+      levelValue: "ZŠ 1. stupeň"
+    },
+    '4-6': {
+      title: "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
+      desc: "Ideální věk pro napínavé hry a skupinovou dynamiku. Děti komunikují v angličtině přímo během herních situací, rozmluví se a před písemkami ve škole mají náskok.",
+      games: ["🐉 Karak & Hrdinové", "🗣️ Story Cubes (Věty)", "🧩 Slovní rébusy", "🃏 Exploding Kittens"],
+      levelValue: "ZŠ 2. stupeň"
+    },
+    '7-9': {
+      title: "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
+      desc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým akcentem a připravujeme se na přijímačky na střední školy.",
+      games: ["🏰 Carcassonne & Strategie", "🗣️ Debatní scénky z cest", "🎲 Codenames (Krycí jména)", "📐 Přijímačkové rébusy"],
+      levelValue: "ZŠ 2. stupeň"
+    },
+    'ss': {
+      title: "Přednostní skupina: Středoškoláci & Maturita",
+      desc: "Cílená příprava k maturitě (ústní i písemná část), Cambridge certifikáty a příprava na vysokou školu. Odstranění ostychu z mluvení před komisí.",
+      games: ["🎓 Simulace maturitního speakingu", "🗣️ Byznys & reálie", "📝 Rozbor esejí a didaktických testů"],
+      levelValue: "Střední škola / Maturita"
+    }
+  };
+
+  function updateRecommendation() {
+    const data = groupMatrix[currentGrade] || groupMatrix['4-6'];
+
+    if (resTitle) resTitle.textContent = data.title;
+    if (resDesc) resDesc.textContent = data.desc;
+
+    if (resGames) {
+      resGames.innerHTML = '';
+      data.games.forEach((g) => {
+        const tag = document.createElement('span');
+        tag.className = 'px-3 py-1 rounded-xl bg-white border border-amber-300 text-xs font-bold text-espresso-950 shadow-2xs';
+        tag.textContent = g;
+        resGames.appendChild(tag);
+      });
+    }
+
+    if (matcherCta) {
+      matcherCta.onclick = () => {
+        const interestMap: Record<string, string> = {
+          fantasy: "fantasy a dobrodružné hry (Karak)",
+          words: "slovní rébusy a skládání slov (Scrabble)",
+          action: "postřehové a karetní hry",
+          strategy: "stavění a strategické deskovky"
+        };
+
+        const goalMap: Record<string, string> = {
+          confidence: "odbourat strach z mluvení před ostatními",
+          grades: "zlepšit známky a látku ze školy",
+          exams: "připravit se na přijímačky a testy"
+        };
+
+        const interestText = interestMap[currentInterest] || "deskové hry";
+        const goalText = goalMap[currentGoal] || "získat jistotu v angličtině";
+
+        if (formSelect) {
+          if (currentGrade === 'ss') {
+            formSelect.value = "Středoškoláci & Maturita [Brzy – Čekací listina]";
+          } else {
+            formSelect.value = "Děti na ZŠ (Výuka hrou v malé skupince 3–6 dětí) – 1. LEKCE ZDARMA";
+          }
+        }
+
+        if (levelSelect) {
+          levelSelect.value = data.levelValue;
+        }
+
+        const msgField = document.getElementById('message') as HTMLTextAreaElement | null;
+        if (msgField) {
+          msgField.value = `Dobrý den Josefe, rádi bychom vyzkoušeli 1. lekci zdarma v doučovně. Máme zájem o: ${data.title}.\nDítě baví: ${interestText}.\nPotřebujeme pomoci: ${goalText}.`;
+        }
+
+        // Highlight form card and focus name input
+        const formCard = document.getElementById('contact-form')?.parentElement;
+        if (formCard) {
+          formCard.classList.add('ring-4', 'ring-amber-400', 'border-amber-500');
+          setTimeout(() => {
+            formCard.classList.remove('ring-4', 'ring-amber-400', 'border-amber-500');
+          }, 2500);
+        }
+
+        const nameInput = document.getElementById('name') as HTMLInputElement | null;
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 300);
+        }
+      };
+    }
+  }
+
+  // Button Click Handlers
+  gradeBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      playClickPop();
+      gradeBtns.forEach(b => {
+        b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+        b.classList.add('border-parchment-300', 'bg-parchment-50');
+      });
+      btn.classList.remove('border-parchment-300', 'bg-parchment-50');
+      btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+      currentGrade = btn.getAttribute('data-grade') || '4-6';
+      updateRecommendation();
+    });
+  });
+
+  interestBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      playClickPop();
+      interestBtns.forEach(b => {
+        b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+        b.classList.add('border-parchment-300', 'bg-parchment-50');
+      });
+      btn.classList.remove('border-parchment-300', 'bg-parchment-50');
+      btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+      currentInterest = btn.getAttribute('data-interest') || 'fantasy';
+      updateRecommendation();
+    });
+  });
+
+  goalBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      playClickPop();
+      goalBtns.forEach(b => {
+        b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+        b.classList.add('border-parchment-300', 'bg-parchment-50');
+      });
+      btn.classList.remove('border-parchment-300', 'bg-parchment-50');
+      btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+      currentGoal = btn.getAttribute('data-goal') || 'confidence';
+      updateRecommendation();
+    });
+  });
+
+  updateRecommendation();
+</script>

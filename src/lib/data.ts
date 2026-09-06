@@ -15,7 +15,7 @@ export async function getHomePageData(): Promise<PageData> {
     if (tinaClient?.default?.queries?.page) {
       const res = await tinaClient.default.queries.page({ relativePath: 'home.json' });
       if (res?.data?.page) {
-        return res.data.page as PageData;
+        return res.data.page as unknown as PageData;
       }
     }
   } catch (e) {

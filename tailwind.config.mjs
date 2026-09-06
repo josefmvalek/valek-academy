@@ -53,19 +53,24 @@ export default {
         'vintage-red': '#A33B2B',
       },
       fontFamily: {
-        academy: ['Cinzel', 'Playfair Display', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Outfit', 'Plus Jakarta Sans', 'Inter', 'sans-serif'],
+        heading: ['Outfit', 'Plus Jakarta Sans', 'Inter', 'sans-serif'],
+        display: ['Outfit', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        academy: ['Outfit', 'Playfair Display', 'Cinzel', 'serif'],
+        vintage: ['Cinzel', 'Playfair Display', 'Georgia', 'serif'],
       },
       boxShadow: {
         'soft': '0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04)',
         'soft-lg': '0 10px 30px -5px rgba(15, 23, 42, 0.09), 0 4px 6px -2px rgba(15, 23, 42, 0.05)',
-        'gold-glow': '0 0 25px -4px rgba(245, 158, 11, 0.35)',
+        'gold-glow': '0 0 30px -3px rgba(245, 158, 11, 0.4)',
         'blue-glow': '0 0 25px -4px rgba(30, 58, 138, 0.25)',
+        'card-lift': '0 20px 40px -15px rgba(42, 25, 15, 0.12)',
+        'dice': '0 10px 25px -3px rgba(217, 119, 6, 0.35), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       },
       backgroundImage: {
         'light-radial': 'radial-gradient(circle at 50% 0%, rgba(219, 234, 254, 0.5) 0%, rgba(255, 255, 255, 0) 70%)',
         'subtle-grid': "radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px)",
+        'mesh-warm': "radial-gradient(at 0% 0%, rgba(254, 243, 199, 0.7) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(224, 235, 255, 0.6) 0px, transparent 50%)",
       }
     },
   },

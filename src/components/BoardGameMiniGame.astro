@@ -1,0 +1,798 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+
+// 6 Quest Steps on the Adventure Map
+const questSteps = [
+  {
+    step: 1,
+    icon: "🦘",
+    title: "Klokaní skok",
+    location: "Melbourne Bushland",
+    badge: "Australská zvířata",
+    question: "Jak se v angličtině jmenuje toto typické australské skákající zvíře s kapsou na břiše? 🦘",
+    options: [
+      { text: "Rabbit", isCorrect: false },
+      { text: "Kangaroo", isCorrect: true },
+      { text: "Koala Bear", isCorrect: false }
+    ],
+    explanation: "Správně! Je to Kangaroo. A víte, že v Austrálii se mláděti klokana říká Joey? Stejně jako lektoru Josefovi!",
+    funFact: "🦘 Josef vyrůstal v Melbourne, kde klokani žijí volně v rezervacích."
+  },
+  {
+    step: 2,
+    icon: "🗣️",
+    title: "Pozdrav v Melbourne",
+    location: "St Kilda Beach",
+    badge: "Přízvuk & živá řeč",
+    question: "Když Josef v Austrálii potká kamaráda a pozdraví ho slovy „G'day, mate!“, co to znamená?",
+    options: [
+      { text: "Ahoj / Dobrý den, kamaráde!", isCorrect: true },
+      { text: "Kolik je prosím hodin?", isCorrect: false },
+      { text: "Přeji ti dobrou noc!", isCorrect: false }
+    ],
+    explanation: "Přesně tak! „G'day, mate!“ je nejznámější australský pozdrav. Děti se ho v doučovně naučí hned na 1. lekci.",
+    funFact: "🇦🇺 V hodinách Josefa se mluví uvolněně a bez strachu z chyb."
+  },
+  {
+    step: 3,
+    icon: "🧩",
+    title: "Scrabble výzva",
+    location: "Herní stůl Valek Academy",
+    badge: "Pravopis & paměť",
+    question: "Složte z písmenek [P] [L] [A] [Y] slovo PLAY. Co to slovo znamená v češtině?",
+    options: [
+      { text: "Spát v posteli", isCorrect: false },
+      { text: "Hrát si / Hrát hru", isCorrect: true },
+      { text: "Jíst svačinu", isCorrect: false }
+    ],
+    explanation: "Výborně! „Let's play a board game!“ – právě hrou se děti učí angličtinu nejrychleji a nejraději.",
+    funFact: "🎲 Deskovky s písmenky pomáhají dětem zvládat i školní diktáty a testy bez stresu."
+  },
+  {
+    step: 4,
+    icon: "🍖",
+    title: "Aussie Slang & Barbie",
+    location: "Sydney Harbour Park",
+    badge: "Kultura & reálie",
+    question: "Australané milují venkovní grilování s rodinou a říkají mu „Barbie“. Jaké běžné anglické slovo to zkracuje?",
+    options: [
+      { text: "Breakfast", isCorrect: false },
+      { text: "Barbecue (BBQ)", isCorrect: true },
+      { text: "Banana cake", isCorrect: false }
+    ],
+    explanation: "Skvěle! Barbie = Barbecue. Australané rádi slova hravě zkracují, díky čemuž je jazyk melodický a zábavný.",
+    funFact: "🇦🇺 Josef žil v Austrálii od dětství do dospělosti, takže zná spoustu dalších vtipných výrazů!"
+  },
+  {
+    step: 5,
+    icon: "🎲",
+    title: "Story Cubes (Příběhy)",
+    location: "Kouzelný svět deskovek",
+    badge: "Tvorba vět",
+    question: "Jak poskládáme správně větu: „Mám rád deskové hry“?",
+    options: [
+      { text: "I like board games", isCorrect: true },
+      { text: "I sleep board games", isCorrect: false },
+      { text: "Games no like me", isCorrect: false }
+    ],
+    explanation: "Paráda! „I like board games.“ Pomocí kostek s obrázky děti skládají celé věty úplně samy a přirozeně.",
+    funFact: "🎒 Žádné suché poučky – ve skupince 3–6 dětí mluví každý bez ostychu."
+  },
+  {
+    step: 6,
+    icon: "🏆",
+    title: "Cíl: Doučovna Uherské Hradiště",
+    location: "Růžová 1238, Uherské Hradiště",
+    badge: "Zlatý certifikát",
+    question: "Když se v hodině udělá chyba a Josef s úsměvem řekne „No worries!“, znamená to:",
+    options: [
+      { text: "To je chyba, dostaneš pětku!", isCorrect: false },
+      { text: "Žádný problém, to je v pohodě!", isCorrect: true },
+      { text: "Rychle otevři učebnici na straně 40!", isCorrect: false }
+    ],
+    explanation: "Jasně! „No worries!“ znamená Žádný problém. U nás se za chyby netrestá – učíme se praxí, deskovkami a smíchem.",
+    funFact: "✨ Pozitivní atmosféra je důvod, proč se děti na doučování v Uherském Hradišti těší."
+  }
+];
+---
+
+<div class={`minigame-container relative bg-white rounded-3xl p-5 sm:p-7 md:p-9 border-2 border-amber-300/80 shadow-soft-lg ${className}`} id="boardgame-quest">
+  <!-- Subtle ambient decorative lighting -->
+  <div class="absolute -top-12 -right-12 w-64 h-64 bg-amber-200/30 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Header Banner -->
+  <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-6 border-b border-parchment-200">
+    <div class="text-center md:text-left space-y-1.5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-[11px] font-extrabold uppercase tracking-wider text-amber-950">
+        <span>🎲</span> <span>Interaktivní desková hra přímo na webu</span>
+      </div>
+      <h4 class="font-academy font-black text-2xl sm:text-3xl text-espresso-950">
+        Cesta do doučovny & Deskoherní výzva
+      </h4>
+      <p class="text-xs sm:text-sm text-espresso-800/80 max-w-xl">
+        Hoďte si kostkou, posuňte figurku po herním plánu a vyzkoušejte si, jak hravě a bez stresu učí Josef Válek děti angličtinu.
+      </p>
+    </div>
+
+    <!-- Live Progress & Trophy Badge -->
+    <div class="flex items-center gap-3 bg-parchment-50 px-4 py-2.5 rounded-2xl border border-amber-200 shadow-xs flex-shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-amber-400 text-espresso-950 flex items-center justify-center text-xl font-bold shadow-xs">
+        🏆
+      </div>
+      <div>
+        <div class="text-[10px] uppercase font-bold text-stone-500 tracking-wider">Postup ve hře:</div>
+        <div class="text-xs font-bold text-espresso-950">
+          <span id="quest-score-count" class="text-amber-800 text-sm font-extrabold">1</span> / 6 stanovišť
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Board Game Track (Visual 6-Step Map) -->
+  <div class="pt-6 pb-4">
+    <div class="text-[11px] uppercase font-extrabold tracking-wider text-stone-500 mb-3 flex items-center justify-between">
+      <span>🗺️ Herní plán: Postup z Austrálie do Uherského Hradiště</span>
+      <span class="text-amber-800 font-bold hidden sm:inline">Hod kostkou posouvá figurku →</span>
+    </div>
+
+    <!-- Track Grid -->
+    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 relative">
+      {questSteps.map((s) => (
+        <button
+          type="button"
+          data-step={s.step}
+          class:list={[
+            "quest-step-node p-2.5 sm:p-3 rounded-2xl border text-center transition-all cursor-pointer relative group flex flex-col items-center justify-between min-h-[92px]",
+            s.step === 1
+              ? "bg-amber-100/90 border-amber-500 shadow-md ring-2 ring-amber-400/50 quest-node-active"
+              : "bg-parchment-50/70 border-parchment-300 hover:bg-amber-50 hover:border-amber-300"
+          ]}
+        >
+          <!-- Active Pawn Indicator (shows on current step) -->
+          <div class={`pawn-indicator absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 ${s.step === 1 ? '' : 'hidden'}`}>
+            <span>📍</span> <span>Zde</span>
+          </div>
+
+          <div class="text-2xl sm:text-3xl my-0.5 group-hover:scale-110 transition-transform">
+            {s.icon}
+          </div>
+
+          <div>
+            <div class="text-[10px] font-bold text-espresso-950 leading-tight">
+              {s.step}. {s.title}
+            </div>
+            <div class="text-[9px] text-stone-500 hidden sm:block truncate mt-0.5">
+              {s.badge}
+            </div>
+          </div>
+
+          <!-- Solved Checkmark -->
+          <div class="step-check hidden absolute top-1 right-1 text-emerald-600 text-xs font-black">
+            ✓
+          </div>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Interactive Game Arena: 3D Dice + Active Question Card -->
+  <div class="mt-4 grid lg:grid-cols-12 gap-5 items-stretch">
+    
+    <!-- Left Column: Realistic 3D Interactive Dice -->
+    <div class="lg:col-span-4 rounded-2xl bg-gradient-to-b from-parchment-50 to-parchment-100/60 border-2 border-amber-200/80 p-5 sm:p-6 flex flex-col items-center justify-between text-center space-y-4 shadow-xs">
+      <div>
+        <span class="text-[11px] uppercase tracking-wider font-extrabold text-amber-900 bg-amber-100 px-3 py-1 rounded-full border border-amber-300">
+          Krok 1: Hodit kostkou
+        </span>
+        <p class="text-xs text-stone-600 mt-2">
+          Klikněte na kostku nebo tlačítko. Každý hod vás posune na novou herní výzvu.
+        </p>
+      </div>
+
+      <!-- 3D Realistic Dice Element with realistic dots -->
+      <div class="dice-holder py-2">
+        <button
+          type="button"
+          id="quest-dice-btn"
+          aria-label="Hodit hrací kostkou s autentickým zvukem"
+          class="relative w-22 h-22 rounded-3xl bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500 border-3 border-amber-600 shadow-dice flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-300/50 group"
+        >
+          <!-- Current Dice Face Dots -->
+          <div id="quest-dice-dots" class="w-14 h-14 relative flex items-center justify-center pointer-events-none">
+            <!-- 1 Dot initial face -->
+            <div class="grid grid-cols-3 grid-rows-3 w-12 h-12 gap-1.5 p-1 items-center justify-items-center">
+              <div></div><div></div><div></div>
+              <div></div><div class="w-4 h-4 rounded-full bg-espresso-950 shadow-inner"></div><div></div>
+              <div></div><div></div><div></div>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Roll Button with Sound Icon -->
+      <div class="w-full space-y-2">
+        <button
+          type="button"
+          id="quest-roll-btn"
+          class="w-full py-3 px-4 rounded-xl font-heading font-extrabold text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 hover:from-amber-200 hover:to-amber-400 border border-amber-600/50 shadow-sm transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2"
+        >
+          <span>🎲</span>
+          <span id="quest-btn-label">Hodit kostkou</span>
+        </button>
+
+        <div class="text-[11px] text-amber-900 font-semibold flex items-center justify-center gap-1">
+          <span>🔊</span> <span id="quest-status-hint">Se zvukovým efektem kostek</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Active Step Question Card -->
+    <div class="lg:col-span-8">
+      <div class="h-full rounded-2xl bg-white border-2 border-parchment-300 p-5 sm:p-7 shadow-xs flex flex-col justify-between relative min-h-[340px]" id="quest-card-box">
+        
+        <!-- Card Top Bar: Icon, Location, Badge -->
+        <div class="flex items-center justify-between gap-3 pb-3 border-b border-parchment-200">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl" id="q-card-icon">{questSteps[0].icon}</span>
+            <div>
+              <div class="font-heading font-extrabold text-base sm:text-lg text-espresso-950 leading-tight" id="q-card-title">
+                {questSteps[0].title}
+              </div>
+              <div class="text-[11px] text-amber-800 font-semibold flex items-center gap-1.5 mt-0.5">
+                <span>📍</span> <span id="q-card-location">{questSteps[0].location}</span>
+                <span class="text-stone-300">•</span>
+                <span id="q-card-badge" class="font-bold uppercase tracking-wider text-[10px] bg-amber-50 text-amber-900 px-2 py-0.2 rounded border border-amber-200">{questSteps[0].badge}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-3 py-1 rounded-xl bg-parchment-100 border border-parchment-300 text-xs font-bold text-espresso-900 flex-shrink-0">
+            Stanoviště <span class="text-amber-700 font-black" id="q-card-step-num">#1</span>
+          </div>
+        </div>
+
+        <!-- Question Body -->
+        <div class="py-4 space-y-4">
+          <h5 class="font-heading font-bold text-base sm:text-lg text-espresso-950 leading-snug" id="q-card-question">
+            {questSteps[0].question}
+          </h5>
+
+          <!-- 3 Interactive Options -->
+          <div class="grid sm:grid-cols-3 gap-2.5" id="q-options-container">
+            {questSteps[0].options.map((opt, idx) => (
+              <button
+                type="button"
+                data-index={idx}
+                data-correct={opt.isCorrect ? "true" : "false"}
+                class="q-opt-btn p-3.5 rounded-xl border border-parchment-300 bg-parchment-50/80 hover:bg-amber-100/70 hover:border-amber-400 text-xs font-bold text-espresso-900 text-left transition-all duration-200 flex items-center justify-between gap-2 cursor-pointer shadow-2xs group"
+              >
+                <span>{opt.text}</span>
+                <span class="q-opt-arrow text-stone-400 text-xs group-hover:text-amber-800 font-mono">→</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Dynamic Feedback Box -->
+        <div id="q-feedback-box" class="hidden p-4 rounded-xl border transition-all text-xs space-y-1 mt-2">
+          <div class="font-bold flex items-center gap-1.5" id="q-feedback-title"></div>
+          <p class="text-espresso-900" id="q-feedback-text"></p>
+          <p class="text-[11px] text-amber-900 font-medium italic pt-1 border-t border-amber-300/40" id="q-feedback-fact"></p>
+        </div>
+
+        <!-- Next Step / Unlock Golden Voucher CTA -->
+        <div id="q-action-footer" class="hidden pt-4 border-t border-parchment-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="flex items-center gap-2 text-xs font-bold text-emerald-950">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="q-footer-message">Skvěle vyřešeno! Hoďte kostkou pro další krok:</span>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              type="button"
+              id="q-next-step-btn"
+              class="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-parchment-100 hover:bg-parchment-200 text-espresso-950 border border-parchment-300 transition-colors cursor-pointer"
+            >
+              🎲 Další stanoviště →
+            </button>
+            <a
+              href="#kontakt"
+              class="flex-grow sm:flex-grow-0 px-5 py-2.5 rounded-xl text-xs font-extrabold bg-gradient-to-b from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 text-espresso-950 shadow-sm border border-amber-500 transition-all text-center cursor-pointer"
+            >
+              🎁 Vyzvednout 1. lekci zdarma
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Unlocked Golden Certificate Voucher Modal/Banner (Revealed upon completing quests) -->
+  <div id="golden-voucher-box" class="hidden mt-6 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#FFFBEB] via-[#FEF3C7] to-[#FDE68A] border-3 border-amber-500 shadow-xl relative overflow-hidden text-center sm:text-left">
+    <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-amber-400/30 rounded-full blur-2xl pointer-events-none"></div>
+
+    <div class="grid sm:grid-cols-12 gap-6 items-center">
+      <div class="sm:col-span-8 space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500 text-espresso-950 text-xs font-black uppercase tracking-wider shadow-xs">
+          <span>🌟</span> <span>GRATULUJEME! ZÍSKÁVÁTE ZLATÝ CERTIFIKÁT</span>
+        </div>
+        <h3 class="font-academy font-black text-2xl sm:text-3xl text-espresso-950">
+          1. Ukázková lekce ve skupince ZDARMA
+        </h3>
+        <p class="text-xs sm:text-sm text-espresso-900 leading-relaxed font-medium">
+          Dítě úspěšně prošlo herní výzvou. Přijďte si s ním nezávazně zahrát deskovky do doučovny v Uherském Hradišti (Růžová 1238).
+        </p>
+      </div>
+
+      <div class="sm:col-span-4 flex flex-col items-center sm:items-end justify-center gap-3">
+        <a
+          href="#kontakt"
+          class="w-full sm:w-auto px-6 py-4 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 border-2 border-amber-600 shadow-md transition-all hover:scale-105 active:scale-95 text-center cursor-pointer"
+        >
+          🎁 Využít certifikát na 1. lekci zdarma →
+        </a>
+        <span class="text-[11px] text-amber-950/80 font-bold">100% nezávazné • Žádné platby</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HTML5 Canvas Confetti -->
+  <canvas id="quest-confetti-canvas" class="absolute inset-0 pointer-events-none z-20 w-full h-full"></canvas>
+</div>
+
+<style>
+  @keyframes dice-roll-3d {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-40deg) scale(1.18) translateY(-8px); }
+    50% { transform: rotate(50deg) scale(0.9) translateY(6px); }
+    75% { transform: rotate(-30deg) scale(1.1) translateY(-4px); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+
+  .dice-rolling-active {
+    animation: dice-roll-3d 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+</style>
+
+<script>
+  const stepsData = [
+    {
+      step: 1,
+      icon: "🦘",
+      title: "Klokaní skok",
+      location: "Melbourne Bushland",
+      badge: "Australská zvířata",
+      question: "Jak se v angličtině jmenuje toto typické australské skákající zvíře s kapsou na břiše? 🦘",
+      options: [
+        { text: "Rabbit", isCorrect: false },
+        { text: "Kangaroo", isCorrect: true },
+        { text: "Koala Bear", isCorrect: false }
+      ],
+      explanation: "Správně! Je to Kangaroo. A víte, že v Austrálii se mláděti klokana říká Joey? Stejně jako lektoru Josefovi!",
+      funFact: "🦘 Josef vyrůstal v Melbourne, kde klokani žijí volně v rezervacích."
+    },
+    {
+      step: 2,
+      icon: "🗣️",
+      title: "Pozdrav v Melbourne",
+      location: "St Kilda Beach",
+      badge: "Přízvuk & živá řeč",
+      question: "Když Josef v Austrálii potká kamaráda a pozdraví ho slovy „G'day, mate!“, co to znamená?",
+      options: [
+        { text: "Ahoj / Dobrý den, kamaráde!", isCorrect: true },
+        { text: "Kolik je prosím hodin?", isCorrect: false },
+        { text: "Přeji ti dobrou noc!", isCorrect: false }
+      ],
+      explanation: "Přesně tak! „G'day, mate!“ je nejznámější australský pozdrav. Děti se ho v doučovně naučí hned na 1. lekci.",
+      funFact: "🇦🇺 V hodinách Josefa se mluví uvolněně a bez strachu z chyb."
+    },
+    {
+      step: 3,
+      icon: "🧩",
+      title: "Scrabble výzva",
+      location: "Herní stůl Valek Academy",
+      badge: "Pravopis & paměť",
+      question: "Složte z písmenek [P] [L] [A] [Y] slovo PLAY. Co to slovo znamená v češtině?",
+      options: [
+        { text: "Spát v posteli", isCorrect: false },
+        { text: "Hrát si / Hrát hru", isCorrect: true },
+        { text: "Jíst svačinu", isCorrect: false }
+      ],
+      explanation: "Výborně! „Let's play a board game!“ – právě hrou se děti učí angličtinu nejrychleji a nejraději.",
+      funFact: "🎲 Deskovky s písmenky pomáhají dětem zvládat i školní diktáty a testy bez stresu."
+    },
+    {
+      step: 4,
+      icon: "🍖",
+      title: "Aussie Slang & Barbie",
+      location: "Sydney Harbour Park",
+      badge: "Kultura & reálie",
+      question: "Australané milují venkovní grilování s rodinou a říkají mu „Barbie“. Jaké běžné anglické slovo to zkracuje?",
+      options: [
+        { text: "Breakfast", isCorrect: false },
+        { text: "Barbecue (BBQ)", isCorrect: true },
+        { text: "Banana cake", isCorrect: false }
+      ],
+      explanation: "Skvěle! Barbie = Barbecue. Australané rádi slova hravě zkracují, díky čemuž je jazyk melodický a zábavný.",
+      funFact: "🇦🇺 Josef žil v Austrálii od dětství do dospělosti, takže zná spoustu dalších vtipných výrazů!"
+    },
+    {
+      step: 5,
+      icon: "🎲",
+      title: "Story Cubes (Příběhy)",
+      location: "Kouzelný svět deskovek",
+      badge: "Tvorba vět",
+      question: "Jak poskládáme správně větu: „Mám rád deskové hry“?",
+      options: [
+        { text: "I like board games", isCorrect: true },
+        { text: "I sleep board games", isCorrect: false },
+        { text: "Games no like me", isCorrect: false }
+      ],
+      explanation: "Paráda! „I like board games.“ Pomocí kostek s obrázky děti skládají celé věty úplně samy a přirozeně.",
+      funFact: "🎒 Žádné suché poučky – ve skupince 3–6 dětí mluví každý bez ostychu."
+    },
+    {
+      step: 6,
+      icon: "🏆",
+      title: "Cíl: Doučovna Uherské Hradiště",
+      location: "Růžová 1238, Uherské Hradiště",
+      badge: "Zlatý certifikát",
+      question: "Když se v hodině udělá chyba a Josef s úsměvem řekne „No worries!“, znamená to:",
+      options: [
+        { text: "To je chyba, dostaneš pětku!", isCorrect: false },
+        { text: "Žádný problém, to je v pohodě!", isCorrect: true },
+        { text: "Rychle otevři učebnici na straně 40!", isCorrect: false }
+      ],
+      explanation: "Jasně! „No worries!“ znamená Žádný problém. U nás se za chyby netrestá – učíme se praxí, deskovkami a smíchem.",
+      funFact: "✨ Pozitivní atmosféra je důvod, proč se děti na doučování v Uherském Hradišti těší."
+    }
+  ];
+
+  const diceDotsMap: Record<number, number[]> = {
+    1: [4],
+    2: [0, 8],
+    3: [0, 4, 8],
+    4: [0, 2, 6, 8],
+    5: [0, 2, 4, 6, 8],
+    6: [0, 2, 3, 5, 6, 8]
+  };
+
+  const diceBtn = document.getElementById('quest-dice-btn');
+  const rollBtn = document.getElementById('quest-roll-btn');
+  const nextStepBtn = document.getElementById('q-next-step-btn');
+  const dotsContainer = document.getElementById('quest-dice-dots');
+  const btnLabel = document.getElementById('quest-btn-label');
+  const statusHint = document.getElementById('quest-status-hint');
+  const scoreCounter = document.getElementById('quest-score-count');
+
+  const cardIcon = document.getElementById('q-card-icon');
+  const cardTitle = document.getElementById('q-card-title');
+  const cardLocation = document.getElementById('q-card-location');
+  const cardBadge = document.getElementById('q-card-badge');
+  const cardStepNum = document.getElementById('q-card-step-num');
+  const cardQuestion = document.getElementById('q-card-question');
+  const optionsContainer = document.getElementById('q-options-container');
+
+  const feedbackBox = document.getElementById('q-feedback-box');
+  const feedbackTitle = document.getElementById('q-feedback-title');
+  const feedbackText = document.getElementById('q-feedback-text');
+  const feedbackFact = document.getElementById('q-feedback-fact');
+  const actionFooter = document.getElementById('q-action-footer');
+  const goldenVoucher = document.getElementById('golden-voucher-box');
+  const canvas = document.getElementById('quest-confetti-canvas') as HTMLCanvasElement | null;
+
+  const stepNodes = document.querySelectorAll<HTMLButtonElement>('.quest-step-node');
+
+  let currentStep = 1;
+  let isRolling = false;
+  let solvedSteps = new Set<number>();
+  let audioContext: AudioContext | null = null;
+
+  // Synthesize realistic wooden dice rolling rattle using Web Audio API
+  function playDiceSound() {
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      audioContext = audioContext || new AudioCtx();
+      if (audioContext.state === 'suspended') audioContext.resume();
+
+      // Series of 4 quick rattle clicks
+      for (let i = 0; i < 4; i++) {
+        const time = audioContext.currentTime + i * 0.08;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(320 + Math.random() * 200, time);
+
+        gain.gain.setValueAtTime(0.08, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
+
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+
+        osc.start(time);
+        osc.stop(time + 0.06);
+      }
+    } catch (e) {}
+  }
+
+  // Synthesize pleasant victory fanfare on correct answer
+  function playSuccessSound() {
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      audioContext = audioContext || new AudioCtx();
+      if (audioContext.state === 'suspended') audioContext.resume();
+
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      notes.forEach((freq, idx) => {
+        if (!audioContext) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioContext.currentTime + idx * 0.09);
+
+        gain.gain.setValueAtTime(0.001, audioContext.currentTime + idx * 0.09);
+        gain.gain.exponentialRampToValueAtTime(0.1, audioContext.currentTime + idx * 0.09 + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + idx * 0.09 + 0.5);
+
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+
+        osc.start(audioContext.currentTime + idx * 0.09);
+        osc.stop(audioContext.currentTime + idx * 0.09 + 0.55);
+      });
+    } catch (e) {}
+  }
+
+  function renderDiceDots(num: number) {
+    if (!dotsContainer) return;
+    const activeIndices = diceDotsMap[num] || [4];
+    let html = '<div class="grid grid-cols-3 grid-rows-3 w-12 h-12 gap-1.5 p-1 items-center justify-items-center">';
+    for (let i = 0; i < 9; i++) {
+      if (activeIndices.includes(i)) {
+        html += '<div class="w-3.5 h-3.5 rounded-full bg-espresso-950 shadow-inner"></div>';
+      } else {
+        html += '<div></div>';
+      }
+    }
+    html += '</div>';
+    dotsContainer.innerHTML = html;
+  }
+
+  function setActiveTrackNode(stepNum: number) {
+    stepNodes.forEach((node) => {
+      const nodeStep = Number(node.getAttribute('data-step'));
+      const pawn = node.querySelector('.pawn-indicator');
+
+      if (nodeStep === stepNum) {
+        node.classList.remove('bg-parchment-50/70', 'border-parchment-300');
+        node.classList.add('bg-amber-100/90', 'border-amber-500', 'shadow-md', 'ring-2', 'ring-amber-400/50', 'quest-node-active');
+        pawn?.classList.remove('hidden');
+      } else {
+        node.classList.remove('bg-amber-100/90', 'border-amber-500', 'shadow-md', 'ring-2', 'ring-amber-400/50', 'quest-node-active');
+        node.classList.add('bg-parchment-50/70', 'border-parchment-300');
+        pawn?.classList.add('hidden');
+      }
+
+      const check = node.querySelector('.step-check');
+      if (solvedSteps.has(nodeStep)) {
+        check?.classList.remove('hidden');
+      }
+    });
+  }
+
+  function displayStep(stepNum: number) {
+    currentStep = stepNum;
+    const data = stepsData[stepNum - 1];
+    if (!data) return;
+
+    setActiveTrackNode(stepNum);
+
+    if (cardIcon) cardIcon.textContent = data.icon;
+    if (cardTitle) cardTitle.textContent = data.title;
+    if (cardLocation) cardLocation.textContent = data.location;
+    if (cardBadge) cardBadge.textContent = data.badge;
+    if (cardStepNum) cardStepNum.textContent = `#${data.step}`;
+    if (cardQuestion) cardQuestion.textContent = data.question;
+
+    if (feedbackBox) feedbackBox.classList.add('hidden');
+    if (actionFooter) actionFooter.classList.add('hidden');
+
+    if (optionsContainer) {
+      optionsContainer.innerHTML = '';
+      data.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'q-opt-btn p-3.5 rounded-xl border border-parchment-300 bg-parchment-50/80 hover:bg-amber-100/70 hover:border-amber-400 text-xs font-bold text-espresso-900 text-left transition-all duration-200 flex items-center justify-between gap-2 cursor-pointer shadow-2xs group';
+        btn.innerHTML = `
+          <span>${opt.text}</span>
+          <span class="q-opt-arrow text-stone-400 text-xs group-hover:text-amber-800 font-mono">→</span>
+        `;
+        btn.addEventListener('click', () => handleOptionChoice(opt.isCorrect, btn, data));
+        optionsContainer.appendChild(btn);
+      });
+    }
+  }
+
+  function handleOptionChoice(isCorrect: boolean, clickedBtn: HTMLButtonElement, data: any) {
+    const allBtns = optionsContainer?.querySelectorAll<HTMLButtonElement>('.q-opt-btn');
+
+    if (isCorrect) {
+      allBtns?.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-amber-100/70', 'cursor-pointer');
+      });
+
+      clickedBtn.classList.remove('bg-parchment-50/80', 'border-parchment-300');
+      clickedBtn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-950', 'ring-2', 'ring-emerald-400');
+      
+      const arrow = clickedBtn.querySelector('.q-opt-arrow');
+      if (arrow) arrow.innerHTML = '✓';
+
+      playSuccessSound();
+
+      if (feedbackBox && feedbackTitle && feedbackText && feedbackFact) {
+        feedbackBox.className = 'p-4 rounded-xl border bg-emerald-50/95 border-emerald-300 text-xs space-y-1 mt-2';
+        feedbackTitle.innerHTML = '<span class="text-base text-emerald-700">🎉</span> <span class="text-emerald-950 font-black">Výborně! Správná odpověď</span>';
+        feedbackText.innerHTML = `<strong>${data.explanation}</strong>`;
+        feedbackFact.textContent = data.funFact;
+        feedbackBox.classList.remove('hidden');
+      }
+
+      if (actionFooter) {
+        actionFooter.classList.remove('hidden');
+      }
+
+      // Mark step solved
+      solvedSteps.add(data.step);
+      if (scoreCounter) scoreCounter.textContent = solvedSteps.size.toString();
+
+      // Show checkmark on node
+      const currentNode = document.querySelector(`.quest-step-node[data-step="${data.step}"]`);
+      const check = currentNode?.querySelector('.step-check');
+      check?.classList.remove('hidden');
+
+      // Trigger Confetti
+      triggerConfetti();
+
+      // If at least 3 or all 6 solved, reveal Golden Voucher banner!
+      if (solvedSteps.size >= 3 && goldenVoucher) {
+        goldenVoucher.classList.remove('hidden');
+      }
+
+    } else {
+      clickedBtn.classList.remove('bg-parchment-50/80', 'border-parchment-300');
+      clickedBtn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-900');
+      const arrow = clickedBtn.querySelector('.q-opt-arrow');
+      if (arrow) arrow.innerHTML = '✕';
+
+      if (feedbackBox && feedbackTitle && feedbackText && feedbackFact) {
+        feedbackBox.className = 'p-4 rounded-xl border bg-amber-50/90 border-amber-300 text-xs space-y-1 mt-2';
+        feedbackTitle.innerHTML = '<span class="text-base text-amber-700">💡</span> <span class="text-amber-950 font-black">Nevadí! Žádný strach, zkus to znovu.</span>';
+        feedbackText.textContent = 'V doučovně Josefa žádné špatné známky neexistují – učíme se praxí a smíchem.';
+        feedbackFact.textContent = '';
+        feedbackBox.classList.remove('hidden');
+      }
+    }
+  }
+
+  function rollDice() {
+    if (isRolling) return;
+    isRolling = true;
+
+    playDiceSound();
+    diceBtn?.classList.add('dice-rolling-active');
+    if (btnLabel) btnLabel.textContent = 'Kostka se točí...';
+    if (statusHint) statusHint.textContent = 'Hledáme stanoviště...';
+
+    // Rapid numbers animation
+    let rollInterval = setInterval(() => {
+      const rand = Math.floor(Math.random() * 6) + 1;
+      renderDiceDots(rand);
+    }, 70);
+
+    setTimeout(() => {
+      clearInterval(rollInterval);
+      diceBtn?.classList.remove('dice-rolling-active');
+      isRolling = false;
+
+      // Select next step logically: either unsolved or next in order
+      let nextStepNum = (currentStep % 6) + 1;
+      const unsolved = stepsData.filter(s => !solvedSteps.has(s.step));
+      if (unsolved.length > 0) {
+        nextStepNum = unsolved[0].step;
+      }
+
+      renderDiceDots(nextStepNum);
+      displayStep(nextStepNum);
+
+      if (btnLabel) btnLabel.textContent = `🎲 Hodit znovu (#${nextStepNum})`;
+      if (statusHint) statusHint.textContent = `Posun na: ${stepsData[nextStepNum - 1].title}`;
+    }, 550);
+  }
+
+  // Click on any track node to jump directly
+  stepNodes.forEach((node) => {
+    node.addEventListener('click', () => {
+      const step = Number(node.getAttribute('data-step'));
+      if (step && step >= 1 && step <= 6) {
+        renderDiceDots(step);
+        displayStep(step);
+      }
+    });
+  });
+
+  // Confetti Animation
+  function triggerConfetti() {
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = canvas.parentElement?.clientWidth || 600;
+    canvas.height = canvas.parentElement?.clientHeight || 400;
+
+    const particles: any[] = [];
+    const colors = ['#F59E0B', '#10B981', '#3B82F6', '#EF4444', '#8B5CF6', '#FBBF24'];
+
+    for (let i = 0; i < 40; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        r: Math.random() * 5 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: (Math.random() - 0.5) * 12,
+        vy: (Math.random() - 0.7) * 11,
+        alpha: 1
+      });
+    }
+
+    let startTime = performance.now();
+    function draw() {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const elapsed = performance.now() - startTime;
+      let hasAlive = false;
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.24;
+        p.alpha -= 0.015;
+
+        if (p.alpha > 0) {
+          hasAlive = true;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.fill();
+        }
+      });
+
+      if (hasAlive && elapsed < 2200) {
+        requestAnimationFrame(draw);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+    draw();
+  }
+
+  // Event Listeners
+  diceBtn?.addEventListener('click', rollDice);
+  rollBtn?.addEventListener('click', rollDice);
+  nextStepBtn?.addEventListener('click', rollDice);
+
+  // Initialize
+  renderDiceDots(1);
+  displayStep(1);
+</script>

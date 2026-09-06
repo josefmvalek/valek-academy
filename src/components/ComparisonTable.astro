@@ -1,0 +1,279 @@
+---
+interface ColumnItem {
+  type: string;
+  title: string;
+  subtitle: string;
+  badge: string;
+  price: string;
+  priceNote?: string;
+  speakingTime: string;
+  atmosphere: string;
+  method: string;
+  accent: string;
+  motivation: string;
+  isWinner?: boolean;
+}
+
+interface Props {
+  className?: string;
+  comparison?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    columns?: ColumnItem[];
+  };
+}
+
+const { className = "", comparison = {} } = Astro.props;
+
+const defaultColumns: ColumnItem[] = [
+  {
+    type: "school",
+    title: "Běžná výuka ve škole",
+    subtitle: "20–28 žáků ve třídě",
+    badge: "Klasická škola",
+    price: "Zdarma",
+    speakingTime: "Pouze 1–2 minuty na žáka za hodinu",
+    atmosphere: "Stres ze zkoušení u tabule a strach z chyb",
+    method: "Mechanické vyplňování pracovních sešitů a biflování",
+    accent: "Český pedagog, často tvrdý český přízvuk",
+    motivation: "Povinnost, nuda a obava ze špatných známek",
+    isWinner: false
+  },
+  {
+    type: "private",
+    title: "Individuální doučování 1 na 1",
+    subtitle: "1 dospělý učitel na 1 dítě",
+    badge: "Drahé řešení",
+    price: "600 – 900 Kč / hod",
+    speakingTime: "Větší prostor, ale konverzace s dospělým je nepřirozená",
+    atmosphere: "Tlak na výkon, doučování vnímáno jako trest za známky",
+    method: "Opět sezení nad papíry a testy, žádná zábava",
+    accent: "Záleží na lektorovi, rodilí mluvčí stojí 900+ Kč",
+    motivation: "Chybí vrstevníci pro hry, smích a týmové soutěže",
+    isWinner: false
+  },
+  {
+    type: "valek",
+    title: "VALEK ACADEMY",
+    subtitle: "Malá skupinka 3–6 dětí",
+    badge: "Vítěz srovnání • Doporučujeme",
+    price: "390 Kč / hod",
+    priceNote: "1. ukázková lekce 100% ZDARMA",
+    speakingTime: "Neustálé aktivní mluvení v zápalu hry celých 60 minut",
+    atmosphere: "Uvolněný smích, deskovky, čaj, bezpečné prostředí",
+    method: "Autentické hry (Karak, Scrabble, Story Cubes) + látka ze školy",
+    accent: "Přízvuk z Melbourne (25+ let praxe, RMIT University)",
+    motivation: "Dítě se na doučování těší a do školy jde se sebevědomím",
+    isWinner: true
+  }
+];
+
+const badge = comparison.badge || "PROČ ZVOLIT VALEK ACADEMY";
+const title = comparison.title || "Proč je výuka v malé skupince hrou pro děti nejlepší volbou?";
+const subtitle = comparison.subtitle || "Srovnání klasické školní třídy, drahého individuálního doučování a konceptu Valek Academy v Uherském Hradišti.";
+const columns = comparison.columns || defaultColumns;
+---
+
+<section id="srovnani" class={`py-8 sm:py-12 md:py-20 relative bg-gradient-to-b from-white via-parchment-50/80 to-white border-b border-parchment-300 overflow-hidden ${className}`}>
+  
+  <!-- Decorative background lighting -->
+  <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[350px] bg-amber-200/25 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-14">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-edit-key="comparison.badge" data-edit-label="Štítek srovnání">
+        <span>⚖️</span> <span>{badge}</span>
+      </div>
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-edit-key="comparison.title" data-edit-label="Nadpis srovnání">
+        {title}
+      </h2>
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-edit-key="comparison.subtitle" data-edit-label="Podnadpis srovnání">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Comparison Cards Grid (On mobile, winner is shown first, extras can be toggled) -->
+    <div class="flex flex-col lg:grid lg:grid-cols-3 gap-6 sm:gap-8 items-stretch" id="comparison-cards-container">
+      {columns.map((col, idx) => (
+        <div
+          class:list={[
+            "rounded-3xl p-6 sm:p-8 flex-col justify-between transition-all duration-300 relative",
+            col.isWinner
+              ? "order-1 lg:order-3 flex bg-gradient-to-b from-[#FFFDF8] via-amber-50/40 to-white border-2 border-amber-400 shadow-card-lift ring-2 ring-amber-400/40 lg:-translate-y-3"
+              : (idx === 0
+                  ? "order-3 lg:order-1 comparison-extra hidden lg:flex bg-white border-2 border-parchment-300 shadow-xs opacity-90 hover:opacity-100"
+                  : "order-4 lg:order-2 comparison-extra hidden lg:flex bg-white border-2 border-parchment-300 shadow-xs opacity-90 hover:opacity-100"
+                )
+          ]}
+        >
+          {col.isWinner && (
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-espresso-950 font-heading font-black text-[11px] uppercase tracking-wider shadow-md border border-amber-300 flex items-center gap-1.5 whitespace-nowrap">
+              <span>🏆</span>
+              <span data-edit-key={`comparison.columns.${idx}.badge`} data-edit-label="Štítek vítěze">{col.badge}</span>
+            </div>
+          )}
+
+          <div class="space-y-6">
+            <!-- Card Header -->
+            <div class="pb-5 border-b border-parchment-200">
+              {!col.isWinner && (
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-parchment-200 text-stone-700 mb-2" data-edit-key={`comparison.columns.${idx}.badge`} data-edit-label="Štítek možnosti">
+                  {col.badge}
+                </span>
+              )}
+              <h3 class="font-heading font-black text-2xl text-espresso-950" data-edit-key={`comparison.columns.${idx}.title`} data-edit-label="Název možnosti">
+                {col.title}
+              </h3>
+              <p class="text-xs text-stone-500 font-semibold mt-1" data-edit-key={`comparison.columns.${idx}.subtitle`} data-edit-label="Podtitul možnosti">
+                {col.subtitle}
+              </p>
+
+              <!-- Price Box -->
+              <div class="mt-4 pt-3 border-t border-parchment-200/60">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="font-heading font-black text-2xl sm:text-3xl text-espresso-950" data-edit-key={`comparison.columns.${idx}.price`} data-edit-label="Cena">
+                    {col.price}
+                  </span>
+                </div>
+                {col.priceNote && (
+                  <span class="text-xs font-bold text-amber-900 block mt-0.5" data-edit-key={`comparison.columns.${idx}.priceNote`} data-edit-label="Poznámka k ceně">
+                    🎁 {col.priceNote}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <!-- Detailed Criteria Rows -->
+            <div class="space-y-4 text-xs sm:text-sm">
+              
+              <!-- 1. Speaking Time -->
+              <div class="space-y-1">
+                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
+                  <span>🗣️</span> <span>Mluvení a prostor pro řeč:</span>
+                </div>
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.speakingTime`} data-edit-label="Prostor pro řeč">
+                  {col.speakingTime}
+                </p>
+              </div>
+
+              <!-- 2. Atmosphere -->
+              <div class="space-y-1">
+                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
+                  <span>🧘</span> <span>Atmosféra & stres:</span>
+                </div>
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.atmosphere`} data-edit-label="Atmosféra">
+                  {col.atmosphere}
+                </p>
+              </div>
+
+              <!-- 3. Method -->
+              <div class="space-y-1">
+                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
+                  <span>🎲</span> <span>Metodika výuky:</span>
+                </div>
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.method`} data-edit-label="Metodika">
+                  {col.method}
+                </p>
+              </div>
+
+              <!-- 4. Accent -->
+              <div class="space-y-1">
+                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
+                  <span>🇦🇺</span> <span>Přízvuk a lektor:</span>
+                </div>
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.accent`} data-edit-label="Přízvuk">
+                  {col.accent.replace(/^(🇦🇺\s*)+/, '')}
+                </p>
+              </div>
+
+              <!-- 5. Motivation -->
+              <div class="space-y-1">
+                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1">
+                  <span>🚀</span> <span>Motivace dítěte:</span>
+                </div>
+                <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-edit-key={`comparison.columns.${idx}.motivation`} data-edit-label="Motivace">
+                  {col.motivation}
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Bottom Action -->
+          <div class="pt-6 mt-6 border-t border-parchment-200">
+            {col.isWinner ? (
+              <a
+                href="#kontakt"
+                class="btn-gold-pulse w-full py-3.5 px-4 rounded-xl font-heading font-black text-center text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md flex items-center justify-center gap-2 transition-transform hover:scale-[1.02]"
+              >
+                <span>🎁 Vyzkoušet 1. lekci ZDARMA</span>
+                <span>→</span>
+              </a>
+            ) : (
+              <div class="text-center text-xs text-stone-500 font-semibold py-2">
+                {col.type === 'school' ? 'Ve škole se zkouší u tabule' : 'Často drahé a bez party vrstevníků'}
+              </div>
+            )}
+          </div>
+
+        </div>
+      ))}
+
+      <!-- Mobile Comparison Toggle Button (order-2 on mobile, sits directly beneath Valek Academy) -->
+      <div class="order-2 lg:hidden my-2">
+        <button
+          type="button"
+          id="toggle-comparison-btn"
+          class="w-full py-3 px-4 rounded-2xl bg-white hover:bg-parchment-100 border-2 border-parchment-300 font-heading font-black text-xs text-espresso-950 flex items-center justify-center gap-2 shadow-xs cursor-pointer transition-all active:scale-[0.98]"
+        >
+          <span>⚖️</span>
+          <span id="toggle-comparison-text">Zobrazit srovnání se školou a 1 na 1</span>
+          <span id="toggle-comparison-icon" class="text-amber-600 font-bold transition-transform">▼</span>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function initComparisonToggle() {
+    const btn = document.getElementById('toggle-comparison-btn');
+    const textSpan = document.getElementById('toggle-comparison-text');
+    const iconSpan = document.getElementById('toggle-comparison-icon');
+    const extras = document.querySelectorAll('.comparison-extra');
+
+    if (!btn || !textSpan || !iconSpan) return;
+
+    let expanded = false;
+
+    btn.addEventListener('click', () => {
+      expanded = !expanded;
+      extras.forEach(card => {
+        if (expanded) {
+          card.classList.remove('hidden');
+          card.classList.add('flex');
+        } else {
+          card.classList.remove('flex');
+          card.classList.add('hidden');
+        }
+      });
+
+      if (expanded) {
+        textSpan.textContent = 'Skrýt srovnání se školou a 1 na 1';
+        iconSpan.textContent = '▲';
+      } else {
+        textSpan.textContent = 'Zobrazit srovnání se školou a 1 na 1';
+        iconSpan.textContent = '▼';
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initComparisonToggle);
+  document.addEventListener('astro:page-load', initComparisonToggle);
+</script>
+
