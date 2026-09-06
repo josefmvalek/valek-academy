@@ -22,6 +22,7 @@ interface Props {
 
 const { hero } = Astro.props;
 
+const badge = hero.badge || "🇦🇺 Z MELBOURNE DO UHERSKÉHO HRADIŠTĚ • OSOBNĚ V DOUČOVNĚ I ONLINE • 1. LEKCE ZDARMA";
 const title = hero.title || "Angličtina, která děti baví – hrou a v malých skupinkách";
 const subtitle = hero.subtitle || "Konec nudného biflování u tabule. Josef Válek vyrůstal v Melbourne a v Uherském Hradišti otevírá doučovnu pro děti v přátelských skupinkách (3–6 dětí) plnou deskových her a přirozené konverzace s autentickým rodilým přízvukem.";
 const ctaPrimaryText = hero.ctaPrimaryText || "Vyzkoušet 1. lekci zdarma";
@@ -47,6 +48,13 @@ const stats = hero.stats || [
       
       <!-- Left Column: High-Impact Copy & Direct CTAs -->
       <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left w-full min-w-0">
+
+        <!-- Top Badge Tagline -->
+        {badge && (
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-[11px] sm:text-xs font-black uppercase tracking-wider text-amber-950 shadow-2xs" data-tina-field={tinaField(hero, 'badge')} data-edit-key="hero.badge" data-edit-label="Horní odznáček">
+            <span>🇦🇺</span> <span>{badge}</span>
+          </div>
+        )}
 
         <!-- Main Headline (Bigger, bolder, authoritative on desktop) -->
         <h1 class="font-heading font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4.25rem] text-espresso-950 tracking-tight leading-[1.12] break-words" data-tina-field={tinaField(hero, 'title')} data-edit-key="hero.title" data-edit-label="Hlavní nadpis">
