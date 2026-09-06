@@ -2,18 +2,27 @@
 import ParrotLogo from './ParrotLogo.astro';
 import { tinaField } from '@tinacms/astro/tina-field';
 
+interface NavLink {
+  label: string;
+  href: string;
+  badge?: string;
+}
+
 interface Props {
   navbar?: {
     brandName?: string;
     brandTagline?: string;
     ctaText?: string;
+    navLinks?: NavLink[];
   };
+  contact?: any;
   phone?: string;
   phoneFormatted?: string;
 }
 
 const {
   navbar = {},
+  contact = {},
   phone = "+420792372642",
   phoneFormatted = "+420 792 372 642"
 } = Astro.props;
@@ -21,9 +30,20 @@ const {
 const brandName = navbar.brandName || "VALEK ACADEMY";
 const brandTagline = navbar.brandTagline || "Uherské Hradiště • Výuka hrou";
 const ctaText = navbar.ctaText || "🎁 1. lekce zdarma";
+
+const defaultNavLinks: NavLink[] = [
+  { label: "Programy & Hry", href: "#programy" },
+  { label: "Ceník", href: "#cenik", badge: "1. zdarma" },
+  { label: "Reference", href: "#reference" },
+  { label: "O lektorovi", href: "#o-mne" },
+  { label: "Doučovna UH", href: "#kde-ucime" },
+  { label: "FAQ", href: "#faq" }
+];
+
+const navLinks = (navbar.navLinks && navbar.navLinks.length > 0) ? navbar.navLinks : defaultNavLinks;
 ---
 
-<header class="sticky top-0 z-50 w-full bg-[#FAF7F2]/95 backdrop-blur-md border-b border-stone-200/80 transition-all">
+<header class="sticky top-0 z-50 w-full bg-[#FAF7F2]/95 backdrop-blur-md border-b border-stone-200/80 transition-all" data-tina-field={tinaField(navbar, 'brandName')}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-20">
       
@@ -43,15 +63,18 @@ const ctaText = navbar.ctaText || "🎁 1. lekce zdarma";
 
       <!-- Clean, Unified Desktop Navigation Links -->
       <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-stone-700" aria-label="Hlavní navigace">
-        <a href="#programy" class="hover:text-amber-800 transition-colors">Programy & Hry</a>
-        <a href="#cenik" class="hover:text-amber-800 transition-colors font-bold text-espresso-950 flex items-center gap-1.5">
-          <span>Ceník</span>
-          <span class="text-[10px] font-black bg-amber-200/80 text-espresso-950 px-2 py-0.5 rounded-md border border-amber-300">1. zdarma</span>
-        </a>
-        <a href="#reference" class="hover:text-amber-800 transition-colors">Reference</a>
-        <a href="#o-mne" class="hover:text-amber-800 transition-colors">O lektorovi</a>
-        <a href="#kde-ucime" class="hover:text-amber-800 transition-colors">Doučovna UH</a>
-        <a href="#faq" class="hover:text-amber-800 transition-colors">FAQ</a>
+        {navLinks.map((link, idx) => (
+          <a
+            href={link.href}
+            class={`hover:text-amber-800 transition-colors ${link.badge ? 'font-bold text-espresso-950 flex items-center gap-1.5' : ''}`}
+            data-tina-field={navbar.navLinks ? tinaField(navbar, 'navLinks', idx) : undefined}
+          >
+            <span>{link.label}</span>
+            {link.badge && (
+              <span class="text-[10px] font-black bg-amber-200/80 text-espresso-950 px-2 py-0.5 rounded-md border border-amber-300">{link.badge}</span>
+            )}
+          </a>
+        ))}
       </nav>
 
       <!-- Right Action CTAs -->
@@ -60,6 +83,7 @@ const ctaText = navbar.ctaText || "🎁 1. lekce zdarma";
         <a
           href={`tel:${phone}`}
           class="hidden xl:inline-flex items-center gap-1.5 text-xs font-bold text-stone-700 hover:text-espresso-950 px-3 py-2 rounded-xl hover:bg-stone-200/50 transition-colors"
+          data-tina-field={contact ? tinaField(contact, 'phoneFormatted') : undefined}
         >
           <span>📞</span>
           <span data-edit-key="contact.phoneFormatted" data-edit-label="Telefon v menu">{phoneFormatted}</span>
@@ -93,28 +117,18 @@ const ctaText = navbar.ctaText || "🎁 1. lekce zdarma";
 
   <!-- Smooth Mobile Dropdown Menu -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-stone-200 bg-[#FAF7F2] shadow-xl px-5 pt-3 pb-6 space-y-1">
-    <a href="#programy" class="mobile-nav-link block py-2.5 text-sm font-bold text-espresso-950 border-b border-stone-100">
-      🎲 Programy pro děti & Deskovky
-    </a>
-    <a href="#cenik" class="mobile-nav-link block py-2.5 text-sm font-black text-amber-950 border-b border-stone-100 flex items-center justify-between">
-      <span>💰 Ceník lekcí</span>
-      <span class="text-[10px] bg-amber-300 px-2 py-0.5 rounded font-black text-espresso-950">1. ZDARMA</span>
-    </a>
-    <a href="#reference" class="mobile-nav-link block py-2.5 text-sm font-bold text-espresso-950 border-b border-stone-100">
-      ⭐ Reference rodičů z UH
-    </a>
-    <a href="#o-mne" class="mobile-nav-link block py-2.5 text-sm font-bold text-espresso-950 border-b border-stone-100">
-      🇦🇺 O Josefovi (Austrálie)
-    </a>
-    <a href="#kde-ucime" class="mobile-nav-link block py-2.5 text-sm font-bold text-espresso-950 border-b border-stone-100">
-      📍 Doučovna Růžová 1238 (Parkování)
-    </a>
-    <a href="#rozrazovac" class="mobile-nav-link block py-2.5 text-sm font-semibold text-stone-700 border-b border-stone-100">
-      🧭 Rozřazovač do skupinek
-    </a>
-    <a href="#faq" class="mobile-nav-link block py-2.5 text-sm font-semibold text-stone-700">
-      ❓ Časté dotazy (FAQ)
-    </a>
+    {navLinks.map((link, idx) => (
+      <a
+        href={link.href}
+        class="mobile-nav-link block py-2.5 text-sm font-bold text-espresso-950 border-b border-stone-100 flex items-center justify-between"
+        data-tina-field={navbar.navLinks ? tinaField(navbar, 'navLinks', idx) : undefined}
+      >
+        <span>{link.label}</span>
+        {link.badge && (
+          <span class="text-[10px] bg-amber-300 px-2 py-0.5 rounded font-black text-espresso-950">{link.badge}</span>
+        )}
+      </a>
+    ))}
 
     <div class="pt-4 space-y-2.5">
       <a

@@ -3,43 +3,65 @@
   "navbar": {
     "brandName": "VALEK ACADEMY",
     "brandTagline": "Uherské Hradiště • Výuka hrou",
-    "links": [
-      {
-        "label": "Programy & Hry",
-        "href": "#programy"
-      },
-      {
-        "label": "Ceník",
-        "href": "#cenik",
-        "badge": "1. zdarma"
-      },
-      {
-        "label": "Reference",
-        "href": "#reference"
-      },
-      {
-        "label": "O lektorovi",
-        "href": "#o-mne"
-      },
-      {
-        "label": "Doučovna UH",
-        "href": "#kde-ucime"
-      },
-      {
-        "label": "FAQ",
-        "href": "#faq"
-      }
-    ],
-    "ctaText": "🎁 1. lekce zdarma"
+    "ctaText": "🎁 1. lekce zdarma",
+    "navLinks": [
+      { "label": "Programy & Hry", "href": "#programy" },
+      { "label": "Ceník", "href": "#cenik", "badge": "1. zdarma" },
+      { "label": "Reference", "href": "#reference" },
+      { "label": "O lektorovi", "href": "#o-mne" },
+      { "label": "Doučovna UH", "href": "#kde-ucime" },
+      { "label": "FAQ", "href": "#faq" }
+    ]
   },
   "hero": {
     "badge": "🇦🇺 Z MELBOURNE DO UHERSKÉHO HRADIŠTĚ • OSOBNĚ V DOUČOVNĚ I ONLINE • 1. LEKCE ZDARMA",
     "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
     "subtitle": "Konec nudného biflování u tabule. Josef vyrůstal v Austrálii od dětství do dospělosti a otevírá doučovnu pro děti v malých skupinkách (3–6 dětí) plnou deskovek, karet a přirozené konverzace. Učíme osobně v Uherském Hradišti i online pro celou ČR.",
     "ctaPrimaryText": "Vyzkoušet 1. lekci zdarma",
-    "ctaSecondaryText": "Jak výuka hrou funguje",
     "ctaPrimaryLink": "#kontakt",
+    "ctaSecondaryText": "Jak výuka hrou funguje",
     "ctaSecondaryLink": "#programy",
+    "card": {
+      "teacherName": "Josef Válek",
+      "teacherRole": "BBA (Melbourne) • 25+ let v ČR",
+      "teacherTag": "Australský přízvuk & výuka hrou",
+      "badgeText": "1. lekce\nZDARMA",
+      "audio": {
+        "title": "Poslech Josefa (Australský akcent)",
+        "subtitlePrompt": "Klikněte pro přehrání",
+        "phrases": [
+          {
+            "id": "gday",
+            "buttonLabel": "🦘 „G'day mate!“",
+            "short": "G'day mate! I'm Josef.",
+            "en": "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
+            "cz": "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!"
+          },
+          {
+            "id": "dice",
+            "buttonLabel": "🎲 „Let's roll the dice!“",
+            "short": "Let's roll the dice!",
+            "en": "Let's roll the dice! It's your turn. What board game are we going to play today?",
+            "cz": "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?"
+          },
+          {
+            "id": "noworries",
+            "buttonLabel": "✨ „No worries at all!“",
+            "short": "No worries at all!",
+            "en": "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
+            "cz": "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!"
+          }
+        ]
+      },
+      "benefit1Title": "Deskovky & karty",
+      "benefit1Desc": "Karak, Scrabble, Dixit",
+      "benefit2Title": "Skupinky 3–6 dětí",
+      "benefit2Desc": "Konec strachu z chyb",
+      "locationNote": "Růžová 1238, UH",
+      "onlineNote": "💻 i Online",
+      "ctaText": "Rezervovat →",
+      "ctaLink": "#kontakt"
+    },
     "stats": [
       {
         "number": "1. lekce",
@@ -60,6 +82,7 @@
     ]
   },
   "audience": {
+    "enabled": true,
     "badge": "NABÍDKA VÝUKY",
     "title": "Hlavní zaměření: Výuka dětí hrou v malých skupinkách",
     "subtitle": "Aktuálně otevíráme registraci pro děti ZŠ na deskovky a hry. Ostatní programy pro dospělé a maturanty připravujeme brzy:",
@@ -195,22 +218,68 @@
       "title": "Hledáte přípravu k maturitě nebo konverzaci pro dospělé?",
       "description": "Tyto programy otevřeme v další vlně. Zapište se nezávazně na čekací listinu – jakmile vypíšeme termíny, ozveme se vám přednostně.",
       "ctaText": "Zapsat se na čekací listinu →"
-    },
-    "enabled": true
+    }
+  },
+  "scio": {
+    "enabled": false,
+    "badge": "PŘIPRAVUJEME BRZY",
+    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
+    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
+    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
+    "features": [
+      "Rozbor typových testových úloh z matematiky a češtiny",
+      "Osvědčené postupy pro zvládnutí časového limitu",
+      "Pravidelné testy nanečisto a rozbor každé chyby",
+      "Klidné a srozumitelné vysvětlení bez nervů a stresu"
+    ],
+    "ctaText": "Předběžně se zapsat na čekací listinu",
+    "ctaLink": "#kontakt"
+  },
+  "about": {
+    "enabled": true,
+    "badge": "PŘÍBĚH LEKTORA",
+    "title": "Čech, který vyrostl v Austrálii – a teď učí s úsměvem a trpělivostí",
+    "teacherName": "Josef Válek",
+    "role": "🎓 Dlouholetý překladatel a lektor angličtiny",
+    "bio": "Dobrý den! Jmenuji se Josef Válek. V Austrálii jsem žil od útlého dětství až do dospělosti, kde jsem chodil do školy a získal naprosto přirozený cit pro angličtinu a autentický přízvuk. V České republice však žiji již více než 25 let – mluvím tedy naprosto přirozeně česky a přesně vím, s čím Češi v angličtině bojují. Dlouhá léta jsem se živil jako překladatel a soukromý učitel angličtiny pro dospělé. Nyní otevírám svou novou doučovnu a zaměřuji se na to, co funguje nejlépe: učit děti angličtinu hravě v malých skupinkách plných deskovek a smíchu.",
+    "quote": "„Děti se nepotřebují biflovat gramatické poučky nazpaměť. Když k učení přistoupíme hravě – přes deskovky, karty a partu kamarádů – jazyk do nich vklouzne přirozeně a začnou se na každou hodinu těšit.“",
+    "pillars": [
+      {
+        "icon": "🎲",
+        "title": "Výuka v malých skupinkách",
+        "description": "Skupinky 3–6 dětí jsou ideální pro deskovky. Děti komunikují mezi sebou i s lektorem a učení je pro ně zábavou."
+      },
+      {
+        "icon": "🇦🇺",
+        "title": "Australský přízvuk & cit pro jazyk",
+        "description": "Díky vyrůstání v Austrálii předávám přirozenou intonaci a moderní živý jazyk bez českého tvrdého akcentu."
+      },
+      {
+        "icon": "🇨🇿",
+        "title": "25+ let v ČR & rodná čeština",
+        "description": "Žádná jazyková bariéra. Cokoliv složitějšího rád vysvětlím v češtině a s naprostým pochopením pro školní látku."
+      },
+      {
+        "icon": "🎁",
+        "title": "1. ukázková lekce ZDARMA",
+        "description": "Přijďte si nezávazně vyzkoušet atmosféru. Dítě si zahraje deskovku a sami uvidíte, jak se mu to líbí."
+      }
+    ]
   },
   "pricing": {
+    "enabled": true,
     "badge": "CENÍK & 1. LEKCE ZDARMA",
     "title": "Začněte 1. lekcí zdarma a bez závazků",
     "subtitle": "Každé dítě si může přijít celou lekci hrou nezávazně vyzkoušet. Pokud se mu to bude líbit, pokračujete dál.",
+    "guarantee": "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani vázací smlouvy na celé pololetí. Pokud dítě onemocní, o lekci nepřijdete – nabízíme možnost připojit se online z domova nebo si hodinu nahradit v jiný den.",
     "tiers": [
       {
-        "badge": "🎁 1. LEKCE ZDARMA • OTEVŘENO",
         "name": "Děti & Žáci ZŠ (Skupinky hrou)",
-        "description": "Hravá výuka v malých skupinkách plná deskovek, záchrana známek a rozvoj lásky k angličtině.",
         "price": "390 Kč",
         "period": "/ lekce (1. lekce ZDARMA)",
-        "ctaText": "Vyzkoušet 1. lekci zdarma",
+        "description": "Hravá výuka v malých skupinkách plná deskovek, záchrana známek a rozvoj lásky k angličtině.",
         "isPopular": true,
+        "badge": "🎁 1. LEKCE ZDARMA • OTEVŘENO",
         "features": [
           "1. ukázková lekce ve skupince ZDARMA",
           "Malá skupinka 3 až 6 dětí pro maximální zapojení",
@@ -220,14 +289,14 @@
           "Férové náhrady: při nemoci online připojení či náhradní hodina",
           "Bez smluv na pololetí: flexibilní měsíční platba až po 1. lekci"
         ],
+        "ctaText": "Vyzkoušet 1. lekci zdarma",
         "ctaLink": "#kontakt"
       },
       {
         "name": "Dospělí & Konverzace",
-        "description": "Odbourání ostychu, konverzace na míru, byznys témata a příprava na cesty i do práce.",
         "price": "Brzy",
         "period": "připravujeme",
-        "ctaText": "Zapsat se na čekací listinu",
+        "description": "Odbourání ostychu, konverzace na míru, byznys témata a příprava na cesty i do práce.",
         "isPopular": false,
         "badge": "Připravujeme brzy",
         "features": [
@@ -236,14 +305,14 @@
           "Odstranění ostychu z mluvení a chyb",
           "Zapište se nezávazně na čekací listinu"
         ],
+        "ctaText": "Zapsat se na čekací listinu",
         "ctaLink": "#kontakt"
       },
       {
         "name": "Středoškoláci & Maturita",
-        "description": "Cílená příprava k maturitě (didaktický test, esej, speaking) a odstranění nervozity.",
         "price": "Brzy",
         "period": "připravujeme",
-        "ctaText": "Zapsat se na čekací listinu",
+        "description": "Cílená příprava k maturitě (didaktický test, esej, speaking) a odstranění nervozity.",
         "isPopular": false,
         "badge": "Připravujeme brzy",
         "features": [
@@ -252,13 +321,13 @@
           "Materiály a podklady k tématům v ceně",
           "Zapište se nezávazně na čekací listinu"
         ],
+        "ctaText": "Zapsat se na čekací listinu",
         "ctaLink": "#kontakt"
       }
-    ],
-    "guarantee": "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani vázací smlouvy na celé pololetí. Pokud dítě onemocní, o lekci nepřijdete – nabízíme možnost připojit se online z domova nebo si hodinu nahradit v jiný den.",
-    "enabled": true
+    ]
   },
   "comparison": {
+    "enabled": true,
     "badge": "PROČ ZVOLIT VALEK ACADEMY",
     "title": "Proč je výuka v malé skupince hrou pro děti nejlepší volbou?",
     "subtitle": "Srovnání klasické školní třídy, drahého individuálního doučování a konceptu Valek Academy v Uherském Hradišti.",
@@ -303,10 +372,10 @@
         "motivation": "Dítě se na doučování těší a do školy jde se sebevědomím",
         "isWinner": true
       }
-    ],
-    "enabled": true
+    ]
   },
   "testimonials": {
+    "enabled": false,
     "badge": "Reference rodičů ze Slovácka",
     "title": "Co o doučování říkají rodiče z Uherského Hradiště a okolí?",
     "subtitle": "Skutečné zkušenosti maminek, tatínků i studentů, kterým Josef pomohl odbourat strach z angličtiny a získat sebevědomí.",
@@ -349,10 +418,10 @@
         "quote": "Josef mi pomohl nejen s mluvením bez českého tvrdého přízvuku, ale i s testy k přijímačkám na gympl. Všechno vysvětluje logicky a v pohodě, žádný stres ze známkování. Na lekcích jsme se vždycky nasmáli.",
         "avatarText": "DS"
       }
-    ],
-    "enabled": true
+    ]
   },
   "howItWorks": {
+    "enabled": true,
     "badge": "Metodika výuky hrou v malých skupinkách",
     "title": "Jak deskovky a hry ve skupince pomáhají dětem mluvit anglicky?",
     "subtitle": "V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí stejně přirozeně jako mateřštinu.",
@@ -413,34 +482,30 @@
     ],
     "steps": [
       {
-        "step": "1",
         "badge": "1. Krok: Začátek lekce (0–15 min)",
         "title": "Zahřátí hrou & odbourání ostychu",
         "desc": "Dítě zapomene na školní stres a strach ze zkoušení. Společenská deskovka nebo rychlý kvíz navodí přirozenou pohodu a chuť komunikovat v partě kamarádů."
       },
       {
-        "step": "2",
         "badge": "2. Krok: Průběh (15–45 min)",
         "title": "Živá konverzace & australský akcent",
         "desc": "V zápalu hry dítě reaguje v angličtině automaticky. Osvojuje si přirozený rytmus řeči, správnou intonaci a výslovnost bez zbytečného přemýšlení o poučkách."
       },
       {
-        "step": "3",
         "badge": "3. Krok: Výsledek (45–60 min)",
         "title": "Propojení se školou & jistota",
         "desc": "Co se ve škole zdálo složité, najednou dává smysl. Pomůžeme s úkoly, dovysvětlíme látku v češtině a dítě do školy odchází sebevědomé a s lepšími známkami."
       }
-    ],
-    "enabled": true
+    ]
   },
   "timeline": {
+    "enabled": true,
     "badge": "Jak probíhá každá hodina",
     "title": "60 minut v doučovně Josefa: Krok za krokem",
     "subtitle": "Proč výuka hrou funguje lépe než sezení v lavici? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.",
     "phases": [
       {
         "time": "00–10 min",
-        "icon": "☕",
         "badge": "1. Fáze: Zahřátí",
         "title": "G'day chat & vypnutí školního stresu",
         "desc": "Dítě přijde po celém dni ve škole. Žádné zkoušení ani testy – sedneme si do kruhu, dáme si čaj, zahrajeme 5minutovou postřehovou hru a přirozeně přepneme hlavu do angličtiny.",
@@ -448,7 +513,6 @@
       },
       {
         "time": "10–35 min",
-        "icon": "🎲",
         "badge": "2. Fáze: Hlavní hra",
         "title": "Deskovka v angličtině & rodilý akcent",
         "desc": "Srdce celé lekce. Hrajeme Scrabble, Story Cubes nebo Karak. Děti házejí kostkou, vymýšlejí strategie a v zápalu hry reagují v angličtině úplně automaticky a bez přemýšlení o poučkách.",
@@ -456,7 +520,6 @@
       },
       {
         "time": "35–50 min",
-        "icon": "🎒",
         "badge": "3. Fáze: Školní látka",
         "title": "Vysvětlení v češtině & pomoc s úkoly",
         "desc": "Co se ve škole zdálo složité, najednou dává smysl. Josef v klidu v rodné češtině dovysvětlí gramatiku, projde s dětmi problematická cvičení a připraví je na písemky.",
@@ -464,50 +527,22 @@
       },
       {
         "time": "50–60 min",
-        "icon": "🌟",
         "badge": "4. Fáze: Závěr",
         "title": "Minikvíz, pochvala a razítko do pasu",
         "desc": "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do australského cestovatelského pasu. Dítě odchází s úsměvem a těší se na příští týden.",
         "highlight": "Dítě odchází sebevědomé a motivované"
       }
-    ],
-    "enabled": true
-  },
-  "about": {
-    "badge": "PŘÍBĚH LEKTORA",
-    "title": "Čech, který vyrostl v Austrálii – a teď učí s úsměvem a trpělivostí",
-    "role": "🎓 Dlouholetý překladatel a lektor angličtiny",
-    "teacherName": "Josef Válek",
-    "bio": "Dobrý den! Jmenuji se Josef Válek. V Austrálii jsem žil od útlého dětství až do dospělosti, kde jsem chodil do školy a získal naprosto přirozený cit pro angličtinu a autentický přízvuk. V České republice však žiji již více než 25 let – mluvím tedy naprosto přirozeně česky a přesně vím, s čím Češi v angličtině bojují. Dlouhá léta jsem se živil jako překladatel a soukromý učitel angličtiny pro dospělé. Nyní otevírám svou novou doučovnu a zaměřuji se na to, co funguje nejlépe: učit děti angličtinu hravě v malých skupinkách plných deskovek a smíchu.",
-    "quote": "„Děti se nepotřebují biflovat gramatické poučky nazpaměť. Když k učení přistoupíme hravě – přes deskovky, karty a partu kamarádů – jazyk do nich vklouzne přirozeně a začnou se na každou hodinu těšit.“",
-    "pillars": [
-      {
-        "icon": "🎲",
-        "title": "Výuka v malých skupinkách",
-        "description": "Skupinky 3–6 dětí jsou ideální pro deskovky. Děti komunikují mezi sebou i s lektorem a učení je pro ně zábavou."
-      },
-      {
-        "icon": "🇦🇺",
-        "title": "Australský přízvuk & cit pro jazyk",
-        "description": "Díky vyrůstání v Austrálii předávám přirozenou intonaci a moderní živý jazyk bez českého tvrdého akcentu."
-      },
-      {
-        "icon": "🇨🇿",
-        "title": "25+ let v ČR & rodná čeština",
-        "description": "Žádná jazyková bariéra. Cokoliv složitějšího rád vysvětlím v češtině a s naprostým pochopením pro školní látku."
-      },
-      {
-        "icon": "🎁",
-        "title": "1. ukázková lekce ZDARMA",
-        "description": "Přijďte si nezávazně vyzkoušet atmosféru. Dítě si zahraje deskovku a sami uvidíte, jak se mu to líbí."
-      }
-    ],
-    "enabled": true
+    ]
   },
   "location": {
     "badge": "Kde nás najdete",
     "title": "Příjemná doučovna v klidné části Uherského Hradiště",
     "subtitle": "Učení v neosobních kancelářích nebo přecpaných učebnách děti zbytečně stresuje. U nás v Růžové 1238 najdete útulné, rodinné prostředí plné deskových her, kde se děti cítí bezpečně a uvolněně.",
+    "addressTitle": "Adresa doučovny",
+    "address": "Růžová 1238, Uherské Hradiště",
+    "parkingInfo": "Bezplatné parkovací stání přímo před vchodem",
+    "hoursTitle": "Výukové hodiny",
+    "hours": "Pondělí – Pátek: 13:00 – 19:00 (dle skupinek)",
     "perks": [
       {
         "icon": "🚗",
@@ -530,11 +565,6 @@
         "desc": "Rychlé spojení z centra Uherského Hradiště, Starého Města i Kunovic (autem i MHD)."
       }
     ],
-    "addressTitle": "Adresa doučovny",
-    "address": "Růžová 1238, Uherské Hradiště",
-    "parkingInfo": "Bezplatné parkovací stání přímo před vchodem",
-    "hoursTitle": "Výukové hodiny",
-    "hours": "Pondělí – Pátek: 13:00 – 19:00 (dle skupinek)",
     "surroundingTowns": "Pohodlné parkování přímo u doučovny. Rychlá dostupnost pro rodiny z Uherského Hradiště, Kunovic, Starého Města, Babic, Jalubí, Kněžpole i Ostrožské Nové Vsi.",
     "gallery": [
       {
@@ -550,31 +580,17 @@
     ]
   },
   "groupMatcher": {
+    "enabled": true,
     "badge": "Rychlý 3krokový průvodce pro rodiče",
     "title": "Jaká skupinka a deskovky budou vaše dítě bavit nejvíc?",
     "subtitle": "Každé dítě je jiné. Klikněte níže a za 20 vteřin zjistíte, do jaké skupinky vrstevníků skvěle zapadne a jaké hry pro něj vybereme.",
     "step1Title": "Do jaké třídy dítě chodí?",
     "step2Title": "Co dítě nejvíc baví?",
     "step3Title": "Doporučená skupinka & výběr her:",
-    "ctaText": "Přihlásit se do této skupinky →",
-    "enabled": true
-  },
-  "scio": {
-    "badge": "PŘIPRAVUJEME BRZY",
-    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
-    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
-    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
-    "features": [
-      "Rozbor typových testových úloh z matematiky a češtiny",
-      "Osvědčené postupy pro zvládnutí časového limitu",
-      "Pravidelné testy nanečisto a rozbor každé chyby",
-      "Klidné a srozumitelné vysvětlení bez nervů a stresu"
-    ],
-    "ctaText": "Předběžně se zapsat na čekací listinu",
-    "ctaLink": "#kontakt",
-    "enabled": false
+    "ctaText": "Přihlásit se do této skupinky →"
   },
   "faq": {
+    "enabled": true,
     "badge": "ČASTÉ DOTAZY",
     "title": "Vše, co potřebujete vědět o výuce",
     "subtitle": "Máte jakýkoliv dotaz? Neváhejte mi kdykoliv zavolat nebo napsat zprávu.",
@@ -623,10 +639,7 @@
         "question": "Budou mít děti domácí úkoly?",
         "answer": "Ne. Žádné nudné domácí úkoly nedáváme. Veškerou praxi, novou slovní zásobu a rozmluvení zvládneme v zápalu hry během společné lekce."
       }
-    ],
-    "contactPrompt": "Máte jakýkoliv další dotaz ohledně skupinek a výuky?",
-    "contactPromptLinkText": "Napište mi do formuláře níže →",
-    "enabled": true
+    ]
   },
   "contact": {
     "badge": "PŘIHLASTE DÍTĚ NA 1. LEKCI ZDARMA",
@@ -646,8 +659,8 @@
     "copyright": "VALEK ACADEMY • Mgr. Josef Válek. Všechna práva vyhrazena."
   },
   "stickyCta": {
+    "enabled": true,
     "text": "1. lekce zdarma pro děti",
-    "buttonText": "Zarezervovat",
-    "enabled": true
+    "buttonText": "Zarezervovat"
   }
 }

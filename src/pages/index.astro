@@ -1,7 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import VisualEditor from '../components/VisualEditor.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
@@ -12,10 +10,8 @@ import { islands } from '../lib/islands';
 
 const queryResult = await getHomePageDataQuery();
 const page = queryResult.data?.page || {};
-const navbar = page.navbar || {};
 const hero = page.hero || {};
 const contact = page.contact || {};
-const footer = page.footer || {};
 const stickyCta = page.stickyCta || {};
 ---
 
@@ -23,22 +19,9 @@ const stickyCta = page.stickyCta || {};
   title={page.title || "VALEK ACADEMY | Hravá angličtina s Čechoaustralanem v malých skupinkách"}
   description={hero.subtitle || "VALEK ACADEMY: Výuka angličtiny v malých skupinkách hrou a deskovkami. Josef Válek vyrostl v Austrálii, žije 25+ let v ČR a učí s autentickým přízvukem a úsměvem."}
 >
-  <Navbar
-    phone={contact.phone}
-    phoneFormatted={contact.phoneFormatted}
-    navbar={navbar}
-  />
-
   <TinaIsland name="page" wrapper={islands.page.wrapper} primary>
     <PageContent page={page} />
   </TinaIsland>
-
-  <Footer
-    email={contact.email}
-    phone={contact.phone}
-    phoneFormatted={contact.phoneFormatted}
-    footer={footer}
-  />
 
   {stickyCta.enabled !== false && <MobileStickyCTA ctaLink="#kontakt" ctaText={stickyCta.text} stickyCta={stickyCta} />}
   <WhatsAppFloating phone={contact.phone?.replace('+', '')} />

@@ -8,7 +8,7 @@ export const islands: IslandRegistry = {
   page: {
     fetch: () => getHomePageDataQuery(),
     component: PageContent,
-    wrapper: { tag: 'main', className: 'flex-grow overflow-x-hidden w-full max-w-full min-w-0' },
+    wrapper: { tag: 'div', className: 'flex flex-col flex-grow min-h-screen w-full max-w-full min-w-0' },
     propsFromData: (data) => ({
       page: (data as QueryResult<PageQuery>).data?.page,
     }),

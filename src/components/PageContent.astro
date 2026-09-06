@@ -1,4 +1,5 @@
 ---
+import Navbar from './Navbar.astro';
 import Hero from './Hero.astro';
 import AudienceSegments from './AudienceSegments.astro';
 import Pricing from './Pricing.astro';
@@ -11,12 +12,14 @@ import GroupMatcher from './GroupMatcher.astro';
 import ScioSection from './ScioSection.astro';
 import FAQ from './FAQ.astro';
 import Contact from './Contact.astro';
+import Footer from './Footer.astro';
 
 interface Props {
   page?: any;
 }
 
 const { page = {} } = Astro.props;
+const navbar = page.navbar || {};
 const hero = page.hero || {};
 const audience = page.audience || {};
 const about = page.about || {};
@@ -30,36 +33,56 @@ const locationInfo = page.location || {};
 const groupMatcher = page.groupMatcher || {};
 const faq = page.faq || {};
 const contact = page.contact || {};
+const footer = page.footer || {};
 ---
 
-<!-- 1. Hook & Introduction: Melbourne background, audio sample, dual badges, 1st lesson FREE CTA -->
-<Hero hero={hero} />
+<!-- Header & Main Navigation (Editable via TinaCMS) -->
+<Navbar
+  navbar={navbar}
+  contact={contact}
+  phone={contact.phone}
+  phoneFormatted={contact.phoneFormatted}
+/>
 
-<!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Online note + High School waiting list -->
-{audience.enabled !== false && <AudienceSegments audience={audience} />}
+<main class="flex-grow w-full max-w-full min-w-0">
+  <!-- 1. Hook & Introduction: Melbourne background, audio sample, dual badges, 1st lesson FREE CTA -->
+  <Hero hero={hero} />
 
-<!-- 3. Transparency & Value: 390 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
-{pricing.enabled !== false && <Pricing pricing={pricing} />}
-{comparison.enabled !== false && <ComparisonTable comparison={comparison} />}
+  <!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Online note + High School waiting list -->
+  {audience.enabled !== false && <AudienceSegments audience={audience} />}
 
-<!-- 4. Methodology & Game Lesson Flow: Karak, Scrabble, Story Cubes, Dixit + 60-minute structured flow -->
-{howItWorks.enabled !== false && <HowGameLessonWorks howItWorks={howItWorks} />}
-{timeline.enabled !== false && <LessonTimeline timeline={timeline} />}
+  <!-- 3. Transparency & Value: 390 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
+  {pricing.enabled !== false && <Pricing pricing={pricing} />}
+  {comparison.enabled !== false && <ComparisonTable comparison={comparison} />}
 
-<!-- 5. The Teacher & Classroom: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
-{about.enabled !== false && <About about={about} locationInfo={locationInfo} />}
+  <!-- 4. Methodology & Game Lesson Flow: Karak, Scrabble, Story Cubes, Dixit + 60-minute structured flow -->
+  {howItWorks.enabled !== false && <HowGameLessonWorks howItWorks={howItWorks} />}
+  {timeline.enabled !== false && <LessonTimeline timeline={timeline} />}
 
-<!-- 6. Social Proof: Real local reviews from parents in Uherské Hradiště, Staré Město and Kunovice -->
-{testimonials.enabled !== false && <Testimonials testimonials={testimonials} />}
+  <!-- 5. The Teacher & Classroom: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
+  {about.enabled !== false && <About about={about} locationInfo={locationInfo} />}
 
-<!-- 7. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
-{groupMatcher.enabled !== false && <GroupMatcher groupMatcher={groupMatcher} />}
+  <!-- 6. Social Proof: Real local reviews from parents in Uherské Hradiště, Staré Město and Kunovice -->
+  {testimonials.enabled !== false && <Testimonials testimonials={testimonials} />}
 
-<!-- 7b. SCIO Prep (Disabled by default, toggleable in CMS) -->
-{scio.enabled === true && <ScioSection scio={scio} />}
+  <!-- 7. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
+  {groupMatcher.enabled !== false && <GroupMatcher groupMatcher={groupMatcher} />}
 
-<!-- 8. Answers & Overcoming Objections: Semantic FAQ Accordion -->
-{faq.enabled !== false && <FAQ faq={faq} />}
+  <!-- 7b. SCIO Prep (Disabled by default, toggleable in CMS) -->
+  {scio.enabled === true && <ScioSection scio={scio} />}
 
-<!-- 9. Primary Conversion: Reservation form with format selector (Osobně v UH / Online) & Location Details -->
-{contact.enabled !== false && <Contact contact={contact} locationInfo={locationInfo} />}
+  <!-- 8. Answers & Overcoming Objections: Semantic FAQ Accordion -->
+  {faq.enabled !== false && <FAQ faq={faq} />}
+
+  <!-- 9. Primary Conversion: Reservation form with format selector (Osobně v UH / Online) & Location Details -->
+  {contact.enabled !== false && <Contact contact={contact} locationInfo={locationInfo} />}
+</main>
+
+<!-- Footer (Editable via TinaCMS) -->
+<Footer
+  footer={footer}
+  email={contact.email}
+  phone={contact.phone}
+  phoneFormatted={contact.phoneFormatted}
+/>
+

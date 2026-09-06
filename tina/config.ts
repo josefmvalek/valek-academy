@@ -51,6 +51,20 @@ export default defineConfig({
               { type: "string", name: "brandName", label: "Název značky" },
               { type: "string", name: "brandTagline", label: "Podtitul značky" },
               { type: "string", name: "ctaText", label: "Text tlačítka v menu" },
+              {
+                type: "object",
+                name: "navLinks",
+                label: "Odkazy v horním menu",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({ label: item?.label || "Odkaz" }),
+                },
+                fields: [
+                  { type: "string", name: "label", label: "Text odkazu" },
+                  { type: "string", name: "href", label: "Cíl odkazu (#sekce)" },
+                  { type: "string", name: "badge", label: "Štítek (např. 1. zdarma)" },
+                ],
+              },
             ],
           },
           {
@@ -65,6 +79,50 @@ export default defineConfig({
               { type: "string", name: "ctaPrimaryLink", label: "Odkaz primárního tlačítka" },
               { type: "string", name: "ctaSecondaryText", label: "Text sekundárního tlačítka" },
               { type: "string", name: "ctaSecondaryLink", label: "Odkaz sekundárního tlačítka" },
+              {
+                type: "object",
+                name: "card",
+                label: "Karta Josefa & Hlasová ukázka (vpravo)",
+                fields: [
+                  { type: "string", name: "teacherName", label: "Jméno lektora" },
+                  { type: "string", name: "teacherRole", label: "Podtitul / Vzdělání (např. BBA Melbourne • 25+ let v ČR)" },
+                  { type: "string", name: "teacherTag", label: "Specializace (např. Australský přízvuk & výuka hrou)" },
+                  { type: "string", name: "badgeText", label: "Odznáček na kartě (např. 1. lekce ZDARMA)" },
+                  {
+                    type: "object",
+                    name: "audio",
+                    label: "Hlasový přehrávač Josefa",
+                    fields: [
+                      { type: "string", name: "title", label: "Nadpis přehrávače zvuku" },
+                      { type: "string", name: "subtitlePrompt", label: "Výzva k přehrání (např. Klikněte pro přehrání)" },
+                      {
+                        type: "object",
+                        name: "phrases",
+                        label: "Zvukové fráze",
+                        list: true,
+                        ui: {
+                          itemProps: (item) => ({ label: `${item?.buttonLabel || item?.id || "Fráze"}` }),
+                        },
+                        fields: [
+                          { type: "string", name: "id", label: "Klíč zvuku (gday, dice, noworries)" },
+                          { type: "string", name: "buttonLabel", label: "Text na tlačítku" },
+                          { type: "string", name: "short", label: "Zkrácený text u vln" },
+                          { type: "string", name: "en", label: "Anglická věta", ui: { component: "textarea" } },
+                          { type: "string", name: "cz", label: "Český překlad věty", ui: { component: "textarea" } },
+                        ],
+                      },
+                    ],
+                  },
+                  { type: "string", name: "benefit1Title", label: "Výhoda 1 - Nadpis" },
+                  { type: "string", name: "benefit1Desc", label: "Výhoda 1 - Podtitul" },
+                  { type: "string", name: "benefit2Title", label: "Výhoda 2 - Nadpis" },
+                  { type: "string", name: "benefit2Desc", label: "Výhoda 2 - Podtitul" },
+                  { type: "string", name: "locationNote", label: "Adresa v kartě" },
+                  { type: "string", name: "onlineNote", label: "Online text v kartě" },
+                  { type: "string", name: "ctaText", label: "Text odkazu (např. Rezervovat →)" },
+                  { type: "string", name: "ctaLink", label: "Cíl odkazu" },
+                ],
+              },
               {
                 type: "object",
                 name: "stats",

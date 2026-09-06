@@ -1,12 +1,79 @@
 ---
-interface Props {
-  className?: string;
+import { tinaField } from '@tinacms/astro/tina-field';
+
+interface Phrase {
+  [key: string]: any;
+  id: string;
+  buttonLabel: string;
+  short: string;
+  en: string;
+  cz: string;
+  duration?: number;
 }
 
-const { className = "" } = Astro.props;
+interface Props {
+  className?: string;
+  audio?: {
+    [key: string]: any;
+    title?: string;
+    subtitlePrompt?: string;
+    phrases?: Phrase[];
+  };
+  card?: any;
+}
+
+const { className = "", audio = {}, card = {} } = Astro.props;
+
+const title = audio.title || "Poslech Josefa (Australský akcent)";
+const subtitlePrompt = audio.subtitlePrompt || "Klikněte pro přehrání";
+
+const defaultPhrases: Phrase[] = [
+  {
+    id: "gday",
+    buttonLabel: "🦘 „G'day mate!“",
+    short: "G'day mate! I'm Josef.",
+    en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
+    cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
+    duration: 10
+  },
+  {
+    id: "dice",
+    buttonLabel: "🎲 „Let's roll the dice!“",
+    short: "Let's roll the dice!",
+    en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
+    cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
+    duration: 8
+  },
+  {
+    id: "noworries",
+    buttonLabel: "✨ „No worries at all!“",
+    short: "No worries at all!",
+    en: "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
+    cz: "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!",
+    duration: 9
+  }
+];
+
+const phrases: Phrase[] = (audio.phrases && audio.phrases.length > 0) ? audio.phrases : defaultPhrases;
+const firstPhrase = phrases[0] || defaultPhrases[0];
+
+const phrasesMap: Record<string, { en: string; cz: string; short: string; duration: number }> = {};
+phrases.forEach((p) => {
+  phrasesMap[p.id] = {
+    en: p.en,
+    cz: p.cz,
+    short: p.short,
+    duration: p.duration || (p.id === 'dice' ? 8 : p.id === 'noworries' ? 9 : 10)
+  };
+});
 ---
 
-<div class={`bg-gradient-to-br from-espresso-950 via-[#1F120A] to-[#140A05] text-white rounded-2xl p-3 sm:p-5 shadow-xl border-2 border-amber-500/40 relative overflow-hidden group w-full max-w-full min-w-0 ${className}`} id="audio-preview-box">
+<div
+  class={`bg-gradient-to-br from-espresso-950 via-[#1F120A] to-[#140A05] text-white rounded-2xl p-3 sm:p-5 shadow-xl border-2 border-amber-500/40 relative overflow-hidden group w-full max-w-full min-w-0 ${className}`}
+  id="audio-preview-box"
+  data-phrases={JSON.stringify(phrasesMap)}
+  data-tina-field={card.audio ? tinaField(card, 'audio') : undefined}
+>
   <!-- Warm ambient glow -->
   <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-amber-500/20 rounded-full blur-2xl pointer-events-none"></div>
   <div class="absolute top-0 left-1/4 w-28 h-28 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
@@ -15,8 +82,8 @@ const { className = "" } = Astro.props;
   <div class="flex items-center justify-between gap-2 mb-2.5 min-w-0">
     <div class="flex items-center gap-1.5 min-w-0 flex-1">
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
-      <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-300 truncate">
-        🇦🇺 Poslech Josefa (Australský akcent)
+      <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-300 truncate" data-tina-field={audio.title ? tinaField(audio, 'title') : undefined} data-edit-key="hero.card.audio.title" data-edit-label="Nadpis zvuku">
+        🇦🇺 {title}
       </span>
     </div>
     <span class="text-[10px] sm:text-[11px] font-mono text-amber-200/90 bg-white/10 px-2 py-0.5 rounded-md border border-white/10 flex-shrink-0" id="audio-time">
@@ -26,27 +93,18 @@ const { className = "" } = Astro.props;
 
   <!-- Interactive Phrase Chips (Fast click to hear) -->
   <div class="flex flex-wrap gap-1 sm:gap-1.5 mb-2.5 w-full" id="phrase-chips-container">
-    <button
-      type="button"
-      data-phrase="gday"
-      class="phrase-chip active px-2 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold bg-amber-400 text-espresso-950 border border-amber-300 hover:bg-amber-300 transition-all cursor-pointer shadow-xs whitespace-nowrap"
-    >
-      🦘 „G'day mate!“
-    </button>
-    <button
-      type="button"
-      data-phrase="dice"
-      class="phrase-chip px-2 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold bg-white/10 hover:bg-white/20 text-amber-100 border border-white/15 transition-all cursor-pointer whitespace-nowrap"
-    >
-      🎲 „Let's roll the dice!“
-    </button>
-    <button
-      type="button"
-      data-phrase="noworries"
-      class="phrase-chip px-2 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold bg-white/10 hover:bg-white/20 text-amber-100 border border-white/15 transition-all cursor-pointer whitespace-nowrap"
-    >
-      ✨ „No worries at all!“
-    </button>
+    {phrases.map((phrase, idx) => (
+      <button
+        type="button"
+        data-phrase={phrase.id}
+        class={`phrase-chip ${idx === 0 ? 'active bg-amber-400 text-espresso-950 border-amber-300 hover:bg-amber-300 shadow-xs' : 'bg-white/10 hover:bg-white/20 text-amber-100 border-white/15'} px-2 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold border transition-all cursor-pointer whitespace-nowrap`}
+        data-tina-field={audio.phrases ? tinaField(audio, 'phrases', idx) : undefined}
+        data-edit-key={`hero.card.audio.phrases.${idx}.buttonLabel`}
+        data-edit-label={`Tlačítko ${idx + 1}`}
+      >
+        {phrase.buttonLabel}
+      </button>
+    ))}
   </div>
 
   <!-- Main interactive player row -->
@@ -84,8 +142,8 @@ const { className = "" } = Astro.props;
       </div>
 
       <!-- Spoken text subtitle -->
-      <p class="text-[11px] sm:text-xs text-amber-100 font-medium leading-tight truncate" id="audio-subtitle">
-        <strong class="text-amber-300">„G'day mate! I'm Josef.“</strong> – Klikněte pro přehrání
+      <p class="text-[11px] sm:text-xs text-amber-100 font-medium leading-tight truncate" id="audio-subtitle" data-tina-field={audio.subtitlePrompt ? tinaField(audio, 'subtitlePrompt') : undefined}>
+        <strong class="text-amber-300">„{firstPhrase.short}“</strong> – {subtitlePrompt}
       </p>
     </div>
   </div>
@@ -94,13 +152,15 @@ const { className = "" } = Astro.props;
   <div id="audio-speech-card" class="mt-2 pt-2 border-t border-white/10 text-xs space-y-1 transition-all min-w-0 overflow-hidden">
     <div class="flex items-start gap-1.5 sm:gap-2 text-stone-300 leading-relaxed min-w-0">
       <span class="text-amber-400 font-bold flex-shrink-0 text-[10px] sm:text-xs">🗣️ AJ:</span>
-      <span id="speech-live-text" class="text-white font-medium italic break-words min-w-0 text-[11px] sm:text-xs">
-        „G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English!“
+      <span id="speech-live-text" class="text-white font-medium italic break-words min-w-0 text-[11px] sm:text-xs" data-tina-field={firstPhrase ? tinaField(firstPhrase, 'en') : undefined} data-edit-key="hero.card.audio.phrases.0.en" data-edit-label="Anglická věta">
+        „{firstPhrase.en}“
       </span>
     </div>
     <div class="flex items-start gap-1.5 sm:gap-2 text-stone-400 text-[10px] sm:text-[11px] min-w-0">
       <span class="text-emerald-400 font-bold flex-shrink-0 text-[10px] sm:text-xs">🇨🇿 CZ:</span>
-      <span id="speech-czech-text" class="break-words min-w-0">„Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!“</span>
+      <span id="speech-czech-text" class="break-words min-w-0" data-tina-field={firstPhrase ? tinaField(firstPhrase, 'cz') : undefined} data-edit-key="hero.card.audio.phrases.0.cz" data-edit-label="Český překlad">
+        „{firstPhrase.cz}“
+      </span>
     </div>
   </div>
   <!-- Hidden HTML5 Audio Element for real voice samples -->
@@ -162,26 +222,34 @@ const { className = "" } = Astro.props;
     }
   }
 
-  const phrases: Record<string, { en: string; cz: string; short: string; duration: number }> = {
-    gday: {
-      en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
-      cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
-      short: "G'day mate! I'm Josef.",
-      duration: 10
-    },
-    dice: {
-      en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
-      cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
-      short: "Let's roll the dice!",
-      duration: 8
-    },
-    noworries: {
-      en: "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
-      cz: "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!",
-      short: "No worries at all!",
-      duration: 9
+    const previewBox = document.getElementById('audio-preview-box');
+    let phrases: Record<string, { en: string; cz: string; short: string; duration: number }> = {
+      gday: {
+        en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
+        cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
+        short: "G'day mate! I'm Josef.",
+        duration: 10
+      },
+      dice: {
+        en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
+        cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
+        short: "Let's roll the dice!",
+        duration: 8
+      },
+      noworries: {
+        en: "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
+        cz: "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!",
+        short: "No worries at all!",
+        duration: 9
+      }
+    };
+
+    if (previewBox?.dataset.phrases) {
+      try {
+        const parsed = JSON.parse(previewBox.dataset.phrases);
+        phrases = { ...phrases, ...parsed };
+      } catch (e) {}
     }
-  };
 
   let activePhraseKey = 'gday';
 

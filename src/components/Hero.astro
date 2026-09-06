@@ -7,6 +7,23 @@ interface Stat {
   label: string;
 }
 
+interface CardProps {
+  [key: string]: any;
+  teacherName?: string;
+  teacherRole?: string;
+  teacherTag?: string;
+  badgeText?: string;
+  audio?: any;
+  benefit1Title?: string;
+  benefit1Desc?: string;
+  benefit2Title?: string;
+  benefit2Desc?: string;
+  locationNote?: string;
+  onlineNote?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
 interface Props {
   hero: {
     badge?: string;
@@ -17,6 +34,7 @@ interface Props {
     ctaSecondaryText?: string;
     ctaSecondaryLink?: string;
     stats?: Stat[];
+    card?: CardProps;
   };
 }
 
@@ -35,6 +53,20 @@ const stats = hero.stats || [
   { number: "Deskovky", label: "a hry jako hlavní metoda výuky" },
   { number: "Melbourne", label: "kde Josef vyrostl (rodilý akcent)" }
 ];
+
+const card = hero.card || {};
+const teacherName = card.teacherName || "Josef Válek";
+const teacherRole = card.teacherRole || "BBA (Melbourne) • 25+ let v ČR";
+const teacherTag = card.teacherTag || "Australský přízvuk & výuka hrou";
+const cardBadge = card.badgeText || "1. lekce\nZDARMA";
+const benefit1Title = card.benefit1Title || "Deskovky & karty";
+const benefit1Desc = card.benefit1Desc || "Karak, Scrabble, Dixit";
+const benefit2Title = card.benefit2Title || "Skupinky 3–6 dětí";
+const benefit2Desc = card.benefit2Desc || "Konec strachu z chyb";
+const locationNote = card.locationNote || "Růžová 1238, UH";
+const onlineNote = card.onlineNote || "💻 i Online";
+const cardCtaText = card.ctaText || "Rezervovat →";
+const cardCtaLink = card.ctaLink || "#kontakt";
 ---
 
 <section class="relative pt-6 pb-8 sm:pt-10 sm:pb-12 md:pt-14 md:pb-16 overflow-hidden bg-gradient-to-b from-[#FAF5EC] via-[#FFFDF9] to-[#FAF7F2] border-b border-parchment-300 w-full max-w-full">
@@ -123,7 +155,7 @@ const stats = hero.stats || [
           <div class="relative bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-card-lift border border-amber-300/80 space-y-3 sm:space-y-4 w-full min-w-0 overflow-hidden">
             
             <!-- Instructor Profile Header -->
-            <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-parchment-50 via-white to-parchment-50 border border-amber-200 shadow-2xs flex items-center justify-between gap-2.5 relative overflow-hidden min-w-0">
+            <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-parchment-50 via-white to-parchment-50 border border-amber-200 shadow-2xs flex items-center justify-between gap-2.5 relative overflow-hidden min-w-0" data-tina-field={hero.card ? tinaField(hero, 'card') : undefined}>
               
               <div class="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                 <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-amber-500 shadow-sm flex-shrink-0">
@@ -141,55 +173,57 @@ const stats = hero.stats || [
                 </div>
 
                 <div class="min-w-0 flex-1">
-                  <h3 class="font-heading font-black text-base sm:text-xl text-espresso-950 leading-tight truncate">
-                    Josef Válek
+                  <h3 class="font-heading font-black text-base sm:text-xl text-espresso-950 leading-tight truncate" data-tina-field={hero.card ? tinaField(card, 'teacherName') : undefined} data-edit-key="hero.card.teacherName" data-edit-label="Jméno lektora">
+                    {teacherName}
                   </h3>
-                  <p class="text-[10px] sm:text-xs text-stone-600 font-medium mt-0.5 truncate">BBA (Melbourne) • 25+ let v ČR</p>
+                  <p class="text-[10px] sm:text-xs text-stone-600 font-medium mt-0.5 truncate" data-tina-field={hero.card ? tinaField(card, 'teacherRole') : undefined} data-edit-key="hero.card.teacherRole" data-edit-label="Vzdělání lektora">
+                    {teacherRole}
+                  </p>
                   <p class="text-[10px] sm:text-[11px] text-amber-900 font-bold mt-0.5 flex items-center gap-1.5 truncate">
                     <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
-                    <span class="truncate">Australský přízvuk & výuka hrou</span>
+                    <span class="truncate" data-tina-field={hero.card ? tinaField(card, 'teacherTag') : undefined} data-edit-key="hero.card.teacherTag" data-edit-label="Specializace lektora">{teacherTag}</span>
                   </p>
                 </div>
               </div>
 
               <div class="flex-shrink-0">
-                <span class="text-[9px] sm:text-[10px] uppercase font-black bg-gradient-to-b from-amber-300 to-amber-400 text-espresso-950 border border-amber-500 px-2 py-1 rounded-lg inline-block text-center shadow-2xs leading-tight">
-                  1. lekce<br/>ZDARMA
+                <span class="text-[9px] sm:text-[10px] uppercase font-black bg-gradient-to-b from-amber-300 to-amber-400 text-espresso-950 border border-amber-500 px-2 py-1 rounded-lg inline-block text-center shadow-2xs leading-tight whitespace-pre-line" data-tina-field={hero.card ? tinaField(card, 'badgeText') : undefined} data-edit-key="hero.card.badgeText" data-edit-label="Odznáček na kartě">
+                  {cardBadge}
                 </span>
               </div>
             </div>
 
             <!-- Voice Preview Player -->
-            <AudioPreview />
+            <AudioPreview audio={card.audio} card={card} />
 
             <!-- Benefit Chips 2-Col Grid -->
             <div class="grid grid-cols-2 gap-2 text-xs">
-              <div class="p-2 sm:p-3 rounded-xl bg-amber-50/80 border border-amber-200 flex items-center gap-1.5 sm:gap-2 min-w-0">
+              <div class="p-2 sm:p-3 rounded-xl bg-amber-50/80 border border-amber-200 flex items-center gap-1.5 sm:gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit1Title') : undefined}>
                 <span class="text-lg sm:text-xl leading-none flex-shrink-0">🎲</span>
                 <div class="min-w-0">
-                  <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate">Deskovky & karty</div>
-                  <div class="text-[9px] sm:text-[10px] text-stone-600 truncate">Karak, Scrabble, Dixit</div>
+                  <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate" data-edit-key="hero.card.benefit1Title" data-edit-label="Výhoda 1 nadpis">{benefit1Title}</div>
+                  <div class="text-[9px] sm:text-[10px] text-stone-600 truncate" data-tina-field={hero.card ? tinaField(card, 'benefit1Desc') : undefined} data-edit-key="hero.card.benefit1Desc" data-edit-label="Výhoda 1 popis">{benefit1Desc}</div>
                 </div>
               </div>
-              <div class="p-2 sm:p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 flex items-center gap-1.5 sm:gap-2 min-w-0">
+              <div class="p-2 sm:p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 flex items-center gap-1.5 sm:gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit2Title') : undefined}>
                 <span class="text-lg sm:text-xl leading-none flex-shrink-0">👥</span>
                 <div class="min-w-0">
-                  <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate">Skupinky 3–6 dětí</div>
-                  <div class="text-[9px] sm:text-[10px] text-stone-600 truncate">Konec strachu z chyb</div>
+                  <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate" data-edit-key="hero.card.benefit2Title" data-edit-label="Výhoda 2 nadpis">{benefit2Title}</div>
+                  <div class="text-[9px] sm:text-[10px] text-stone-600 truncate" data-tina-field={hero.card ? tinaField(card, 'benefit2Desc') : undefined} data-edit-key="hero.card.benefit2Desc" data-edit-label="Výhoda 2 popis">{benefit2Desc}</div>
                 </div>
               </div>
             </div>
 
             <!-- Location & Contact Strip -->
-            <div class="p-2 sm:p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between gap-1.5 sm:gap-2 text-xs min-w-0">
+            <div class="p-2 sm:p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between gap-1.5 sm:gap-2 text-xs min-w-0" data-tina-field={hero.card ? tinaField(card, 'locationNote') : undefined}>
               <div class="flex items-center gap-1 sm:gap-1.5 flex-wrap min-w-0">
                 <span class="text-amber-700 font-bold flex-shrink-0">📍</span>
-                <span class="font-bold text-espresso-950 text-[10px] sm:text-xs">Růžová 1238, UH</span>
+                <span class="font-bold text-espresso-950 text-[10px] sm:text-xs" data-edit-key="hero.card.locationNote" data-edit-label="Místo v kartě">{locationNote}</span>
                 <span class="text-stone-300">•</span>
-                <span class="text-stone-600 text-[10px] sm:text-[11px] font-medium">💻 i Online</span>
+                <span class="text-stone-600 text-[10px] sm:text-[11px] font-medium" data-tina-field={hero.card ? tinaField(card, 'onlineNote') : undefined} data-edit-key="hero.card.onlineNote" data-edit-label="Online v kartě">{onlineNote}</span>
               </div>
-              <a href="#kontakt" class="font-black text-amber-900 hover:text-amber-700 underline text-[10px] sm:text-[11px] flex-shrink-0">
-                Rezervovat →
+              <a href={cardCtaLink} class="font-black text-amber-900 hover:text-amber-700 underline text-[10px] sm:text-[11px] flex-shrink-0" data-tina-field={hero.card ? tinaField(card, 'ctaText') : undefined} data-edit-key="hero.card.ctaText" data-edit-label="Odkaz v kartě">
+                {cardCtaText}
               </a>
             </div>
 
