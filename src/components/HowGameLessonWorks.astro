@@ -103,13 +103,6 @@ const poster = howItWorks.poster || {
   title: "Karak, Scrabble, Story Cubes a desítky dalších her",
   desc: "Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek."
 };
-
-const bottomCta = howItWorks.bottomCta || {
-  title: "Chcete si tento 60minutový herní zážitek vyzkoušet naživo?",
-  desc: "První lekce v malé skupince dětí (osobně v UH nebo online) je 100% ZDARMA a nezávazná.",
-  ctaText: "Vyzkoušet zdarma →",
-  ctaLink: "#kontakt"
-};
 ---
 
 <section id="hry" class="py-8 sm:py-12 md:py-20 relative bg-[#FAF7F2] border-b border-parchment-300 overflow-hidden">
@@ -248,30 +241,6 @@ const bottomCta = howItWorks.bottomCta || {
 
       </div>
     ))}
-  </div>
-
-  <!-- Bottom Lesson Guarantee Banner -->
-  <div class="mt-8 p-5 sm:p-6 rounded-2xl bg-amber-100/70 border border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left" data-tina-field={tinaField(howItWorks, 'bottomCta')}>
-    <div class="flex items-center gap-3.5">
-      <div class="w-12 h-12 rounded-xl bg-amber-400 text-espresso-950 flex items-center justify-center text-2xl flex-shrink-0 font-bold shadow-xs">
-        🎁
-      </div>
-      <div>
-        <h5 class="font-heading font-black text-sm sm:text-base text-espresso-950" data-tina-field={tinaField(bottomCta, 'title')}>
-          {bottomCta.title}
-        </h5>
-        <p class="text-xs text-stone-700 mt-0.5" data-tina-field={tinaField(bottomCta, 'desc')}>
-          {bottomCta.desc}
-        </p>
-      </div>
-    </div>
-    <a
-      href={bottomCta.ctaLink || "#kontakt"}
-      data-tina-field={tinaField(bottomCta, 'ctaText')}
-      class="btn-gold-pulse px-6 py-3 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-amber-400 border border-amber-500 shadow-xs flex-shrink-0 cursor-pointer"
-    >
-      {bottomCta.ctaText}
-    </a>
   </div>
 
     </div>

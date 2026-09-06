@@ -9,6 +9,8 @@ interface Stat {
 
 interface CardProps {
   [key: string]: any;
+  enabled?: boolean;
+  showBenefits?: boolean;
   teacherName?: string;
   teacherRole?: string;
   teacherTag?: string;
@@ -42,26 +44,35 @@ const { hero } = Astro.props;
 
 const badge = hero.badge || "🇦🇺 Z MELBOURNE DO UHERSKÉHO HRADIŠTĚ • OSOBNĚ V DOUČOVNĚ I ONLINE • 1. LEKCE ZDARMA";
 const title = hero.title || "Angličtina, která děti baví – hrou a v malých skupinkách";
-const subtitle = hero.subtitle || "Konec nudného biflování u tabule. Josef Válek vyrůstal v Melbourne a v Uherském Hradišti otevírá doučovnu pro děti v přátelských skupinkách (3–6 dětí) plnou deskových her a přirozené konverzace s autentickým rodilým přízvukem.";
+const subtitle = hero.subtitle || "Konec nudného biflování u tabule. Josef Válek vyrůstal v Melbourne a v Uherském Hradišti otevírá doučovnu pro děti v přátelských skupinkách (4–8 dětí) plnou deskových her a přirozené konverzace s autentickým rodilým přízvukem.";
 const ctaPrimaryText = hero.ctaPrimaryText || "Vyzkoušet 1. lekci zdarma";
 const ctaPrimaryLink = hero.ctaPrimaryLink || "#kontakt";
 const ctaSecondaryText = hero.ctaSecondaryText || "Jak výuka funguje";
 const ctaSecondaryLink = hero.ctaSecondaryLink || "#programy";
 const stats = hero.stats || [
-  { number: "1. lekce", label: "100% ZDARMA na vyzkoušení" },
-  { number: "3–6 dětí", label: "v malé přátelské skupince" },
+  { number: "Uh. Hradiště", label: "osobně v doučovně i online" },
+  { number: "4–8 dětí", label: "v malé přátelské skupince" },
   { number: "Deskovky", label: "a hry jako hlavní metoda výuky" },
   { number: "Melbourne", label: "kde Josef vyrostl (rodilý akcent)" }
 ];
 
+const statMeta = [
+  { tag: "LOKALITA", icon: "📍", colorClass: "text-amber-800 bg-amber-100/90 border-amber-300" },
+  { tag: "KAPACITA", icon: "👥", colorClass: "text-emerald-800 bg-emerald-100/90 border-emerald-300" },
+  { tag: "METODA HROU", icon: "🎲", colorClass: "text-amber-900 bg-amber-100/90 border-amber-300" },
+  { tag: "RODILÝ AKCENT", icon: "🦘", colorClass: "text-orange-900 bg-orange-100/90 border-orange-300" },
+];
+
 const card = hero.card || {};
+const cardEnabled = card.enabled !== false;
+const showBenefits = card.showBenefits !== false;
 const teacherName = card.teacherName || "Josef Válek";
 const teacherRole = card.teacherRole || "BBA (Melbourne) • 25+ let v ČR";
 const teacherTag = card.teacherTag || "Australský přízvuk & výuka hrou";
 const cardBadge = card.badgeText || "1. lekce\nZDARMA";
 const benefit1Title = card.benefit1Title || "Deskovky & karty";
 const benefit1Desc = card.benefit1Desc || "Karak, Scrabble, Dixit";
-const benefit2Title = card.benefit2Title || "Skupinky 3–6 dětí";
+const benefit2Title = card.benefit2Title || "Skupinky 4–8 dětí";
 const benefit2Desc = card.benefit2Desc || "Konec strachu z chyb";
 const locationNote = card.locationNote || "Růžová 1238, UH";
 const onlineNote = card.onlineNote || "💻 i Online";
@@ -76,30 +87,40 @@ const cardCtaLink = card.ctaLink || "#kontakt";
   <div class="absolute top-1/3 -left-20 w-[280px] sm:w-[380px] h-[280px] sm:h-[380px] bg-gradient-to-tr from-emerald-200/20 to-amber-200/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full min-w-0">
-    <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full min-w-0">
+    <div class:list={["w-full min-w-0", cardEnabled ? "grid lg:grid-cols-12 gap-8 lg:gap-12 items-center" : "max-w-4xl mx-auto text-center space-y-6 sm:space-y-8"]}>
       
-      <!-- Left Column: High-Impact Copy & Direct CTAs -->
-      <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left w-full min-w-0">
+      <!-- Copy & Direct CTAs -->
+      <div class:list={["space-y-4 sm:space-y-6 w-full min-w-0", cardEnabled ? "lg:col-span-7 text-center lg:text-left" : "text-center"]}>
 
         <!-- Top Badge Tagline -->
         {badge && (
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-[11px] sm:text-xs font-black uppercase tracking-wider text-amber-950 shadow-2xs" data-tina-field={tinaField(hero, 'badge')} data-edit-key="hero.badge" data-edit-label="Horní odznáček">
-            <span>🇦🇺</span> <span>{badge}</span>
+            {!badge.includes('🇦🇺') && <span>🇦🇺</span>}
+            <span>{badge}</span>
           </div>
         )}
 
-        <!-- Main Headline (Bigger, bolder, authoritative on desktop) -->
-        <h1 class="font-heading font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4.25rem] text-espresso-950 tracking-tight leading-[1.12] break-words" data-tina-field={tinaField(hero, 'title')} data-edit-key="hero.title" data-edit-label="Hlavní nadpis">
-          {title}
+        <!-- Main Headline with warm gradient accent -->
+        <h1 class:list={["font-heading font-black text-2xl sm:text-4xl md:text-5xl tracking-tight leading-[1.14] break-words text-espresso-950", cardEnabled ? "lg:text-6xl xl:text-[4.25rem]" : "lg:text-6xl xl:text-[4rem] max-w-3xl mx-auto"]} data-tina-field={tinaField(hero, 'title')} data-edit-key="hero.title" data-edit-label="Hlavní nadpis">
+          {title.includes('–') ? (
+            <>
+              <span>{title.split('–')[0].trim()} – </span>
+              <span class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 bg-clip-text text-transparent underline decoration-amber-300/80 decoration-wavy decoration-2 underline-offset-4">
+                {title.split('–').slice(1).join('–').trim()}
+              </span>
+            </>
+          ) : (
+            title
+          )}
         </h1>
 
-        <!-- Crisp Subtitle -->
-        <p class="text-sm sm:text-base lg:text-xl xl:text-[21px] text-espresso-800/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal break-words" data-tina-field={tinaField(hero, 'subtitle')} data-edit-key="hero.subtitle" data-edit-label="Podnadpis">
+        <!-- Subtitle -->
+        <p class:list={["text-sm sm:text-base lg:text-xl xl:text-[21px] text-espresso-800/90 leading-relaxed font-normal break-words", cardEnabled ? "max-w-2xl mx-auto lg:mx-0" : "max-w-2xl mx-auto"]} data-tina-field={tinaField(hero, 'subtitle')} data-edit-key="hero.subtitle" data-edit-label="Podnadpis">
           {subtitle}
         </p>
 
-        <!-- CTA Buttons Group (Prominent and punchy) -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-1 w-full">
+        <!-- CTA Buttons Group -->
+        <div class:list={["flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 w-full", cardEnabled ? "justify-center lg:justify-start" : "justify-center"]}>
           <a
             href={ctaPrimaryLink}
             class="btn-gold-pulse w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 sm:px-8 py-3.5 sm:py-4 rounded-2xl font-heading font-black text-sm sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md hover:shadow-lg text-center cursor-pointer transition-all hover:scale-[1.02]"
@@ -123,130 +144,145 @@ const cardCtaLink = card.ctaLink || "#kontakt";
           </a>
         </div>
 
-        <!-- Key Trust Badges (Clear and clean) -->
-        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs sm:text-sm text-espresso-900 font-semibold w-full">
-          <div class="inline-flex items-center gap-1.5 bg-white/95 px-3 py-1.5 sm:py-2 rounded-xl border border-amber-300 shadow-2xs">
-            <span class="text-amber-600 font-black">🎁</span>
-            <span class="font-bold text-espresso-950 text-[11px] sm:text-xs">1. ukázková lekce ZDARMA</span>
-          </div>
-          <div class="inline-flex items-center gap-1.5 bg-amber-50/95 px-3 py-1.5 sm:py-2 rounded-xl border border-amber-300 shadow-2xs text-espresso-950 font-bold">
-            <span>🏡</span>
-            <span class="text-[11px] sm:text-xs">Osobně v UH</span>
-            <span class="text-stone-300">•</span>
-            <span>💻</span>
-            <span class="text-[11px] sm:text-xs">Online celá ČR</span>
-          </div>
-          <div class="inline-flex items-center gap-1.5 bg-white/95 px-3 py-1.5 sm:py-2 rounded-xl border border-parchment-300 shadow-2xs">
-            <span class="text-emerald-700 font-bold">✓</span>
-            <span class="text-[11px] sm:text-xs">Skupinky 3 až 6 dětí</span>
-          </div>
-        </div>
-
       </div>
 
-      <!-- Right Column: 3D Josef Portrait & Voice Player Stage -->
-      <div class="lg:col-span-5 relative mt-4 lg:mt-0 w-full min-w-0">
-        <div class="relative mx-auto max-w-md lg:max-w-none w-full min-w-0">
-          
-          <!-- Outer glowing ambient aura -->
-          <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-amber-400/30 via-amber-200/20 to-emerald-300/20 blur-xl opacity-75 pointer-events-none"></div>
-          
-          <!-- Main Stage Card -->
-          <div class="relative bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-card-lift border border-amber-300/80 space-y-3 sm:space-y-4 w-full min-w-0 overflow-hidden">
+      <!-- Right Column: 3D Josef Portrait & Voice Player Stage (Only if cardEnabled) -->
+      {cardEnabled && (
+        <div class="lg:col-span-5 relative mt-4 lg:mt-0 w-full min-w-0">
+          <div class="relative mx-auto max-w-md lg:max-w-none w-full min-w-0">
             
-            <!-- Instructor Profile Header -->
-            <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-parchment-50 via-white to-parchment-50 border border-amber-200 shadow-2xs flex items-center justify-between gap-2.5 relative overflow-hidden min-w-0" data-tina-field={hero.card ? tinaField(hero, 'card') : undefined}>
+            <!-- Outer glowing ambient aura -->
+            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-amber-400/30 via-amber-200/20 to-emerald-300/20 blur-xl opacity-75 pointer-events-none"></div>
+            
+            <!-- Main Stage Card -->
+            <div class="relative bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-card-lift border border-amber-300/80 space-y-3 sm:space-y-4 w-full min-w-0 overflow-hidden">
               
-              <div class="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-amber-500 shadow-sm flex-shrink-0">
-                  <img
-                    src="/images/josef-valek-thumb.webp"
-                    alt="Mgr. Josef Válek – lektor angličtiny z Austrálie"
-                    class="w-full h-full object-cover"
-                    width="64"
-                    height="64"
-                    loading="eager"
-                  />
-                  <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-espresso-950/90 to-transparent text-[10px] text-amber-300 font-bold text-center pb-0.5">
-                    Josef
+              <!-- Instructor Profile Header -->
+              <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-parchment-50 via-white to-parchment-50 border border-amber-200 shadow-2xs flex items-center justify-between gap-2.5 relative overflow-hidden min-w-0" data-tina-field={hero.card ? tinaField(hero, 'card') : undefined}>
+                
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                  <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-amber-500 shadow-sm flex-shrink-0">
+                    <img
+                      src="/images/josef-valek-thumb.webp"
+                      alt="Mgr. Josef Válek – lektor angličtiny z Austrálie"
+                      class="w-full h-full object-cover"
+                      width="64"
+                      height="64"
+                      loading="eager"
+                    />
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-espresso-950/90 to-transparent text-[10px] text-amber-300 font-bold text-center pb-0.5">
+                      Josef
+                    </div>
+                  </div>
+
+                  <div class="min-w-0 flex-1">
+                    <h3 class="font-heading font-black text-base sm:text-xl text-espresso-950 leading-tight truncate" data-tina-field={hero.card ? tinaField(card, 'teacherName') : undefined} data-edit-key="hero.card.teacherName" data-edit-label="Jméno lektora">
+                      {teacherName}
+                    </h3>
+                    <p class="text-[10px] sm:text-xs text-stone-600 font-medium mt-0.5 truncate" data-tina-field={hero.card ? tinaField(card, 'teacherRole') : undefined} data-edit-key="hero.card.teacherRole" data-edit-label="Vzdělání lektora">
+                      {teacherRole}
+                    </p>
+                    <p class="text-[10px] sm:text-[11px] text-amber-900 font-bold mt-0.5 flex items-center gap-1.5 truncate">
+                      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
+                      <span class="truncate" data-tina-field={hero.card ? tinaField(card, 'teacherTag') : undefined} data-edit-key="hero.card.teacherTag" data-edit-label="Specializace lektora">{teacherTag}</span>
+                    </p>
                   </div>
                 </div>
 
-                <div class="min-w-0 flex-1">
-                  <h3 class="font-heading font-black text-base sm:text-xl text-espresso-950 leading-tight truncate" data-tina-field={hero.card ? tinaField(card, 'teacherName') : undefined} data-edit-key="hero.card.teacherName" data-edit-label="Jméno lektora">
-                    {teacherName}
-                  </h3>
-                  <p class="text-[10px] sm:text-xs text-stone-600 font-medium mt-0.5 truncate" data-tina-field={hero.card ? tinaField(card, 'teacherRole') : undefined} data-edit-key="hero.card.teacherRole" data-edit-label="Vzdělání lektora">
-                    {teacherRole}
-                  </p>
-                  <p class="text-[10px] sm:text-[11px] text-amber-900 font-bold mt-0.5 flex items-center gap-1.5 truncate">
-                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
-                    <span class="truncate" data-tina-field={hero.card ? tinaField(card, 'teacherTag') : undefined} data-edit-key="hero.card.teacherTag" data-edit-label="Specializace lektora">{teacherTag}</span>
-                  </p>
+                <div class="flex-shrink-0">
+                  <span class="text-[9px] sm:text-[10px] uppercase font-black bg-gradient-to-b from-amber-300 to-amber-400 text-espresso-950 border border-amber-500 px-2 py-1 rounded-lg inline-block text-center shadow-2xs leading-tight whitespace-pre-line" data-tina-field={hero.card ? tinaField(card, 'badgeText') : undefined} data-edit-key="hero.card.badgeText" data-edit-label="Odznáček na kartě">
+                    {cardBadge}
+                  </span>
                 </div>
               </div>
 
-              <div class="flex-shrink-0">
-                <span class="text-[9px] sm:text-[10px] uppercase font-black bg-gradient-to-b from-amber-300 to-amber-400 text-espresso-950 border border-amber-500 px-2 py-1 rounded-lg inline-block text-center shadow-2xs leading-tight whitespace-pre-line" data-tina-field={hero.card ? tinaField(card, 'badgeText') : undefined} data-edit-key="hero.card.badgeText" data-edit-label="Odznáček na kartě">
-                  {cardBadge}
-                </span>
-              </div>
-            </div>
+              <!-- Voice Preview Player -->
+              <AudioPreview audio={card.audio} card={card} />
 
-            <!-- Voice Preview Player -->
-            <AudioPreview audio={card.audio} card={card} />
-
-            <!-- Benefit Chips 2-Col Grid -->
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <div class="p-2 sm:p-3 rounded-xl bg-amber-50/80 border border-amber-200 flex items-center gap-1.5 sm:gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit1Title') : undefined}>
-                <span class="text-lg sm:text-xl leading-none flex-shrink-0">🎲</span>
-                <div class="min-w-0">
-                  <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate" data-edit-key="hero.card.benefit1Title" data-edit-label="Výhoda 1 nadpis">{benefit1Title}</div>
-                  <div class="text-[9px] sm:text-[10px] text-stone-600 truncate" data-tina-field={hero.card ? tinaField(card, 'benefit1Desc') : undefined} data-edit-key="hero.card.benefit1Desc" data-edit-label="Výhoda 1 popis">{benefit1Desc}</div>
+              <!-- Benefit Chips 2-Col Grid -->
+              {showBenefits && (
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="p-2 sm:p-3 rounded-xl bg-amber-50/80 border border-amber-200 flex items-center gap-1.5 sm:gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit1Title') : undefined}>
+                    <span class="text-lg sm:text-xl leading-none flex-shrink-0">🎲</span>
+                    <div class="min-w-0">
+                      <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate" data-edit-key="hero.card.benefit1Title" data-edit-label="Výhoda 1 nadpis">{benefit1Title}</div>
+                      <div class="text-[9px] sm:text-[10px] text-stone-600 truncate" data-tina-field={hero.card ? tinaField(card, 'benefit1Desc') : undefined} data-edit-key="hero.card.benefit1Desc" data-edit-label="Výhoda 1 popis">{benefit1Desc}</div>
+                    </div>
+                  </div>
+                  <div class="p-2 sm:p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 flex items-center gap-1.5 sm:gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit2Title') : undefined}>
+                    <span class="text-lg sm:text-xl leading-none flex-shrink-0">👥</span>
+                    <div class="min-w-0">
+                      <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate" data-edit-key="hero.card.benefit2Title" data-edit-label="Výhoda 2 nadpis">{benefit2Title}</div>
+                      <div class="text-[9px] sm:text-[10px] text-stone-600 truncate" data-tina-field={hero.card ? tinaField(card, 'benefit2Desc') : undefined} data-edit-key="hero.card.benefit2Desc" data-edit-label="Výhoda 2 popis">{benefit2Desc}</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="p-2 sm:p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 flex items-center gap-1.5 sm:gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit2Title') : undefined}>
-                <span class="text-lg sm:text-xl leading-none flex-shrink-0">👥</span>
-                <div class="min-w-0">
-                  <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate" data-edit-key="hero.card.benefit2Title" data-edit-label="Výhoda 2 nadpis">{benefit2Title}</div>
-                  <div class="text-[9px] sm:text-[10px] text-stone-600 truncate" data-tina-field={hero.card ? tinaField(card, 'benefit2Desc') : undefined} data-edit-key="hero.card.benefit2Desc" data-edit-label="Výhoda 2 popis">{benefit2Desc}</div>
-                </div>
-              </div>
-            </div>
+              )}
 
-            <!-- Location & Contact Strip -->
-            <div class="p-2 sm:p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between gap-1.5 sm:gap-2 text-xs min-w-0" data-tina-field={hero.card ? tinaField(card, 'locationNote') : undefined}>
-              <div class="flex items-center gap-1 sm:gap-1.5 flex-wrap min-w-0">
-                <span class="text-amber-700 font-bold flex-shrink-0">📍</span>
-                <span class="font-bold text-espresso-950 text-[10px] sm:text-xs" data-edit-key="hero.card.locationNote" data-edit-label="Místo v kartě">{locationNote}</span>
-                <span class="text-stone-300">•</span>
-                <span class="text-stone-600 text-[10px] sm:text-[11px] font-medium" data-tina-field={hero.card ? tinaField(card, 'onlineNote') : undefined} data-edit-key="hero.card.onlineNote" data-edit-label="Online v kartě">{onlineNote}</span>
-              </div>
-              <a href={cardCtaLink} class="font-black text-amber-900 hover:text-amber-700 underline text-[10px] sm:text-[11px] flex-shrink-0" data-tina-field={hero.card ? tinaField(card, 'ctaText') : undefined} data-edit-key="hero.card.ctaText" data-edit-label="Odkaz v kartě">
-                {cardCtaText}
-              </a>
+              <!-- Location & Contact Strip -->
+              {showBenefits && (
+                <div class="p-2 sm:p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between gap-1.5 sm:gap-2 text-xs min-w-0" data-tina-field={hero.card ? tinaField(card, 'locationNote') : undefined}>
+                  <div class="flex items-center gap-1 sm:gap-1.5 flex-wrap min-w-0">
+                    <span class="text-amber-700 font-bold flex-shrink-0">📍</span>
+                    <span class="font-bold text-espresso-950 text-[10px] sm:text-xs" data-edit-key="hero.card.locationNote" data-edit-label="Místo v kartě">{locationNote}</span>
+                    <span class="text-stone-300">•</span>
+                    <span class="text-stone-600 text-[10px] sm:text-[11px] font-medium" data-tina-field={hero.card ? tinaField(card, 'onlineNote') : undefined} data-edit-key="hero.card.onlineNote" data-edit-label="Online v kartě">{onlineNote}</span>
+                  </div>
+                  <a href={cardCtaLink} class="font-black text-amber-900 hover:text-amber-700 underline text-[10px] sm:text-[11px] flex-shrink-0" data-tina-field={hero.card ? tinaField(card, 'ctaText') : undefined} data-edit-key="hero.card.ctaText" data-edit-label="Odkaz v kartě">
+                    {cardCtaText}
+                  </a>
+                </div>
+              )}
+
             </div>
 
           </div>
-
         </div>
-      </div>
+      )}
 
     </div>
 
-    <!-- Quick Stats Bar -->
+    <!-- Quick Stats Bar (Elevated Feature Cards) -->
     <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-parchment-300">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-        {stats.map((item, idx) => (
-          <div class="bg-white rounded-2xl p-4 sm:p-5 text-center border border-parchment-300 shadow-2xs hover:border-amber-400 transition-all" data-tina-field={tinaField(hero, 'stats', idx)}>
-            <div class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-espresso-950 tracking-tight" data-edit-key={`hero.stats.${idx}.number`} data-edit-label="Číslo statistiky">
-              {item.number}
+        {stats.map((item, idx) => {
+          const meta = statMeta[idx] || { tag: "VÝHODA", icon: "✨", colorClass: "text-amber-800 bg-amber-100/90 border-amber-300" };
+          return (
+            <div
+              class="group relative bg-white/95 hover:bg-white rounded-2xl p-4 sm:p-5 text-center border border-parchment-300 shadow-2xs hover:shadow-card-lift hover:border-amber-400/80 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between overflow-hidden"
+              data-tina-field={tinaField(hero, 'stats', idx)}
+            >
+              <!-- Ambient top shimmer on hover -->
+              <div class="absolute -top-10 inset-x-0 h-16 bg-gradient-to-b from-amber-300/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+              <!-- Top micro-tag with icon -->
+              <div class="flex items-center justify-center gap-1.5 mb-2.5">
+                <span class="text-base sm:text-lg leading-none">{meta.icon}</span>
+                <span class={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border shadow-2xs ${meta.colorClass}`}>
+                  {meta.tag}
+                </span>
+              </div>
+
+              <!-- Main Stat Number -->
+              <div
+                class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-espresso-950 tracking-tight group-hover:text-amber-950 transition-colors"
+                data-edit-key={`hero.stats.${idx}.number`}
+                data-edit-label="Číslo statistiky"
+              >
+                {item.number}
+              </div>
+
+              <!-- Description / Subtext -->
+              <div
+                class="text-xs sm:text-sm text-espresso-800/80 font-medium mt-1.5 leading-snug"
+                data-edit-key={`hero.stats.${idx}.label`}
+                data-edit-label="Popis statistiky"
+              >
+                {item.label}
+              </div>
             </div>
-            <div class="text-xs sm:text-sm text-espresso-800/80 font-medium mt-1" data-edit-key={`hero.stats.${idx}.label`} data-edit-label="Popis statistiky">
-              {item.label}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
 

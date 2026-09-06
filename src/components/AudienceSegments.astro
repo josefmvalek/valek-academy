@@ -36,14 +36,14 @@ const { audience = {} } = Astro.props;
 
 const badge = audience.badge || "PROGRAMY DOUČOVÁNÍ PRO DĚTI";
 const title = audience.title || "Angličtina pro žáky ZŠ přizpůsobená věku a zájmům";
-const subtitle = audience.subtitle || "Děti rozdělujeme do malých skupinek podle věku a znalostí (3 až 6 dětí). Každý věk má své oblíbené deskovky a styl výuky:";
+const subtitle = audience.subtitle || "Děti rozdělujeme do malých skupinek podle věku a znalostí (4 až 8 dětí). Každý věk má své oblíbené deskovky a styl výuky:";
 
 const defaultKidsPrograms: Segment[] = [
   {
     id: "zs-1",
     icon: "🧒",
     title: "1.–3. třída: Malí objevitelé",
-    age: "Věk 6–9 let • Max 3–5 dětí",
+    age: "Věk 6–9 let • Max 4–8 dětí",
     badge: "HRAVÝ START",
     highlight: "Konec strachu z cizího jazyka dřív, než začne",
     description: "Pro nejmenší děti je angličtina čistá hra. Učí se barvy, zvířátka, základní otázky a reakce pomocí obrázkových karet, jednoduchých rébusů a písniček s rodilým akcentem.",
@@ -62,7 +62,7 @@ const defaultKidsPrograms: Segment[] = [
     id: "zs-2",
     icon: "🐉",
     title: "4.–6. třída: Dobrodruzi & Karak",
-    age: "Věk 10–12 let • Max 3–6 dětí",
+    age: "Věk 10–12 let • Max 4–8 dětí",
     badge: "NEJOBLÍBENĚJŠÍ",
     highlight: "Záchrana známek a vášeň pro deskovky",
     description: "Ideální věk pro strategické hry. Děti v týmu prozkoumávají kobky v Karaku, bojují s monstry a plánují tahy – vše přirozeně v angličtině. Ve škole se zlepší v gramatice i čtení.",
@@ -81,7 +81,7 @@ const defaultKidsPrograms: Segment[] = [
     id: "zs-3",
     icon: "🚀",
     title: "7.–9. třída: Mladí stratégové",
-    age: "Věk 13–15 let • Max 3–6 dětí",
+    age: "Věk 13–15 let • Max 4–8 dětí",
     badge: "PŘÍPRAVA NA SŠ",
     highlight: "Plynulost, sebevědomí a přijímačky",
     description: "Pro starší žáky volíme náročnější společenské hry, rébusy a debaty. Osvojí si pohotovou argumentaci bez českého tvrdého přízvuku a získají klid před přijímacími zkouškami na střední školy.",

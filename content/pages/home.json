@@ -7,7 +7,6 @@
     "navLinks": [
       { "label": "Programy & Hry", "href": "#programy" },
       { "label": "Ceník", "href": "#cenik", "badge": "1. zdarma" },
-      { "label": "Reference", "href": "#reference" },
       { "label": "O lektorovi", "href": "#o-mne" },
       { "label": "Doučovna UH", "href": "#kde-ucime" },
       { "label": "FAQ", "href": "#faq" }
@@ -16,12 +15,14 @@
   "hero": {
     "badge": "🇦🇺 Z MELBOURNE DO UHERSKÉHO HRADIŠTĚ • OSOBNĚ V DOUČOVNĚ I ONLINE • 1. LEKCE ZDARMA",
     "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
-    "subtitle": "Konec nudného biflování u tabule. Josef vyrůstal v Austrálii od dětství do dospělosti a otevírá doučovnu pro děti v malých skupinkách (3–6 dětí) plnou deskovek, karet a přirozené konverzace. Učíme osobně v Uherském Hradišti i online pro celou ČR.",
+    "subtitle": "Konec nudného biflování u tabule. Josef vyrůstal v Austrálii od dětství do dospělosti a otevírá doučovnu pro děti v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učíme osobně v Uherském Hradišti i online pro celou ČR.",
     "ctaPrimaryText": "Vyzkoušet 1. lekci zdarma",
     "ctaPrimaryLink": "#kontakt",
     "ctaSecondaryText": "Jak výuka hrou funguje",
     "ctaSecondaryLink": "#programy",
     "card": {
+      "enabled": false,
+      "showBenefits": false,
       "teacherName": "Josef Válek",
       "teacherRole": "BBA (Melbourne) • 25+ let v ČR",
       "teacherTag": "Australský přízvuk & výuka hrou",
@@ -55,7 +56,7 @@
       },
       "benefit1Title": "Deskovky & karty",
       "benefit1Desc": "Karak, Scrabble, Dixit",
-      "benefit2Title": "Skupinky 3–6 dětí",
+      "benefit2Title": "Skupinky 4–8 dětí",
       "benefit2Desc": "Konec strachu z chyb",
       "locationNote": "Růžová 1238, UH",
       "onlineNote": "💻 i Online",
@@ -64,11 +65,11 @@
     },
     "stats": [
       {
-        "number": "1. lekce",
-        "label": "100% ZDARMA na vyzkoušení"
+        "number": "Uh. Hradiště",
+        "label": "osobně v doučovně i online"
       },
       {
-        "number": "3–6 dětí",
+        "number": "4–8 dětí",
         "label": "v malé přátelské skupince"
       },
       {
@@ -86,65 +87,12 @@
     "badge": "NABÍDKA VÝUKY",
     "title": "Hlavní zaměření: Výuka dětí hrou v malých skupinkách",
     "subtitle": "Aktuálně otevíráme registraci pro děti ZŠ na deskovky a hry. Ostatní programy pro dospělé a maturanty připravujeme brzy:",
-    "segments": [
-      {
-        "id": "zs",
-        "icon": "🎲",
-        "title": "Děti & Žáci ZŠ (Výuka hrou ve skupinkách)",
-        "age": "1. a 2. stupeň ZŠ (6–15 let)",
-        "badge": "OTEVŘENO K PŘIHLÁŠENÍ",
-        "highlight": "🎁 1. lekce ZDARMA • Malé skupinky 3–6 dětí",
-        "description": "Děti se jazyk učí nejlépe a nejrychleji, když si hrají v partě vrstevníků. Pomocí anglických společenských her, karet a zábavných aktivit se přirozeně rozmluví, ztratí ostych ze známkování ve škole a osvojí si správný australský přízvuk.",
-        "points": [
-          "První ukázková lekce ve skupince je zcela ZDARMA",
-          "Malé skupinky 3 až 6 dětí pro maximální zapojení všech",
-          "Učení formou deskových her, karet, kvízů a zábavy",
-          "Klidné dovysvětlení školní látky, pomoc s úkoly a jedničky"
-        ],
-        "ctaText": "Přihlásit dítě na 1. lekci zdarma",
-        "ctaLink": "#kontakt"
-      },
-      {
-        "id": "dospeli",
-        "icon": "💼",
-        "title": "Dospělí & Konverzace",
-        "age": "Dospělí všech úrovní (20+ let)",
-        "badge": "PŘIPRAVUJEME BRZY",
-        "highlight": "Čekací listina pro další semestr",
-        "description": "Josef má bohaté zkušenosti s doučováním dospělých a dlouholetou překladatelskou praxí. Tento program otevřeme v další vlně. Můžete se nezávazně zapsat na čekací listinu a dáme vám vědět přednostně.",
-        "points": [
-          "Aktivní konverzace pro práci, cestování i pohovory",
-          "Zkušenosti překladatele a dlouholetého lektora dospělých",
-          "Přednostní informování o otevření míst",
-          "Zápis je zcela nezávazný"
-        ],
-        "ctaText": "Zapsat se na čekací listinu",
-        "ctaLink": "#kontakt"
-      },
-      {
-        "id": "ss",
-        "icon": "🎓",
-        "title": "Středoškoláci & Maturita",
-        "age": "SŠ a Gymnázia (15–19 let)",
-        "badge": "PŘIPRAVUJEME BRZY",
-        "highlight": "Čekací listina pro maturanty",
-        "description": "Systematická příprava na státní i profilovou maturitu z angličtiny a Cambridge zkoušky. Otevření plánujeme brzy – zapište se na čekací listinu.",
-        "points": [
-          "Příprava na didaktický test, slohovou práci i speaking",
-          "Nácvik testů nanečisto s rozborem",
-          "Přednostní rezervace termínů po spuštění",
-          "Zápis je zcela nezávazný"
-        ],
-        "ctaText": "Zapsat se na čekací listinu",
-        "ctaLink": "#kontakt"
-      }
-    ],
     "kidsPrograms": [
       {
         "id": "zs-1",
         "icon": "🧒",
         "title": "1.–3. třída: Malí objevitelé",
-        "age": "Věk 6–9 let • Max 3–5 dětí",
+        "age": "Věk 6–9 let • Max 4–8 dětí",
         "badge": "HRAVÝ START",
         "highlight": "Konec strachu z cizího jazyka dřív, než začne",
         "description": "Pro nejmenší děti je angličtina čistá hra. Učí se barvy, zvířátka, základní otázky a reakce pomocí obrázkových karet, jednoduchých rébusů a písniček s rodilým akcentem.",
@@ -168,7 +116,7 @@
         "id": "zs-2",
         "icon": "🐉",
         "title": "4.–6. třída: Dobrodruzi & Karak",
-        "age": "Věk 10–12 let • Max 3–6 dětí",
+        "age": "Věk 10–12 let • Max 4–8 dětí",
         "badge": "NEJOBLÍBENĚJŠÍ",
         "highlight": "Záchrana známek a vášeň pro deskovky",
         "description": "Ideální věk pro strategické hry. Děti v týmu prozkoumávají kobky v Karaku, bojují s monstry a plánují tahy – vše přirozeně v angličtině. Ve škole se zlepší v gramatice i čtení.",
@@ -192,7 +140,7 @@
         "id": "zs-3",
         "icon": "🚀",
         "title": "7.–9. třída: Mladí stratégové",
-        "age": "Věk 13–15 let • Max 3–6 dětí",
+        "age": "Věk 13–15 let • Max 4–8 dětí",
         "badge": "PŘÍPRAVA NA SŠ",
         "highlight": "Plynulost, sebevědomí a přijímačky",
         "description": "Pro starší žáky volíme náročnější společenské hry, rébusy a debaty. Osvojí si pohotovou argumentaci bez českého tvrdého přízvuku a získají klid před přijímacími zkouškami na střední školy.",
@@ -250,7 +198,7 @@
       {
         "icon": "🎲",
         "title": "Výuka v malých skupinkách",
-        "description": "Skupinky 3–6 dětí jsou ideální pro deskovky. Děti komunikují mezi sebou i s lektorem a učení je pro ně zábavou."
+        "description": "Skupinky 4–8 dětí jsou ideální pro deskovky. Děti komunikují mezi sebou i s lektorem a učení je pro ně zábavou."
       },
       {
         "icon": "🇦🇺",
@@ -274,7 +222,7 @@
       "points": [
         "Vyrůstal v Melbourne: Přirozená výslovnost a živá slovní zásoba bez typického českého přízvuku.",
         "25+ let v České republice: Žádná komunikační bariéra – složitou látku v klidu vysvětlí v češtině.",
-        "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 3–6 dětí, které odbourají strach ze známkování.",
+        "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 4–8 dětí, které odbourají strach ze známkování.",
         "Vzdělání z Melbourne: Titul BBA z renomované RMIT University v Austrálii."
       ],
       "note": "VALEK ACADEMY • Doučovna Uherské Hradiště",
@@ -297,7 +245,7 @@
         "badge": "🎁 1. LEKCE ZDARMA • OTEVŘENO",
         "features": [
           "1. ukázková lekce ve skupince ZDARMA",
-          "Malá skupinka 3 až 6 dětí pro maximální zapojení",
+          "Malá skupinka 4 až 8 dětí pro maximální zapojení",
           "Učení formou deskových her, karet a kvízů",
           "Dovysvětlení látky ze školy a pomoc s úkoly",
           "Všechny herní i výukové materiály v ceně",
@@ -393,7 +341,7 @@
       {
         "type": "valek",
         "title": "VALEK ACADEMY",
-        "subtitle": "Malá skupinka 3–6 dětí",
+        "subtitle": "Malá skupinka 4–8 dětí",
         "badge": "Vítěz srovnání • Doporučujeme",
         "price": "390 Kč / hod",
         "priceNote": "1. ukázková lekce 100% ZDARMA",
@@ -612,7 +560,7 @@
     "gallery": [
       {
         "image": "/images/doucovna-stul.jpg",
-        "title": "Útulný herní stůl pro 3–6 dětí",
+        "title": "Útulný herní stůl pro 4–8 dětí",
         "desc": "Prostorný dřevěný stůl, kde se děti učí v uvolněné atmosféře a bez pocitu školní lavice."
       },
       {
@@ -728,7 +676,7 @@
       },
       {
         "question": "Proč je výuka v malých skupinkách a ne 1 na 1?",
-        "answer": "Deskovky a jazykové hry fungují nejlépe v partě vrstevníků! V malé skupince 3 až 6 dětí vzniká přirozená dynamika, smích a zdravá soutěživost. Děti ztrácejí ostych mnohem rychleji, když vidí, že i ostatní dělají chyby. Skupinka je přitom stále dostatečně malá na to, aby se Josef mohl věnovat každému dítěti individuálně."
+        "answer": "Deskovky a jazykové hry fungují nejlépe v partě vrstevníků! V malé skupince 4 až 8 dětí vzniká přirozená dynamika, smích a zdravá soutěživost. Děti ztrácejí ostych mnohem rychleji, když vidí, že i ostatní dělají chyby. Skupinka je přitom stále dostatečně malá na to, aby se Josef mohl věnovat každému dítěti individuálně."
       },
       {
         "question": "Jak probíhá první ukázková lekce zdarma?",
@@ -776,7 +724,7 @@
     "location": "Růžová 1238, Uherské Hradiště (pohodlné parkování přímo u doučovny)",
     "hours": "Pondělí – Pátek: 8:00 – 19:00",
     "guaranteeTitle": "1. ukázková lekce je 100% ZDARMA",
-    "guaranteeDesc": "Dítě si přijde nezávazně vyzkoušet deskovky a atmosféru v malé skupince (3–6 dětí). Žádné platby předem ani skryté závazky. Rozhodnete se až po lekci!",
+    "guaranteeDesc": "Dítě si přijde nezávazně vyzkoušet deskovky a atmosféru v malé skupince (4–8 dětí). Žádné platby předem ani skryté závazky. Rozhodnete se až po lekci!",
     "formBadge": "🎁 1. LEKCE 100% ZDARMA",
     "formBadgeNote": "Nezávazná přihláška",
     "formTitle": "Rezervace ukázkové lekce hrou",
@@ -805,7 +753,7 @@
         "href": "#metodika"
       },
       {
-        "label": "🇦🇺 O Josefovi (BBA Melbourne)",
+        "label": "🦘 O Josefovi (BBA Melbourne)",
         "href": "#o-mne"
       },
       {

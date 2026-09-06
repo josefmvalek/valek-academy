@@ -48,7 +48,7 @@ const { about = {}, locationInfo = {} } = Astro.props;
 const defaultGallery: GalleryItem[] = [
   {
     image: "/images/doucovna-stul.webp",
-    title: "Útulný herní stůl pro 3–6 dětí",
+    title: "Útulný herní stůl pro 4–8 dětí",
     desc: "Prostorný stůl, kde se děti učí v uvolněné atmosféře plné her a bez pocitu školní lavice."
   },
   {
@@ -73,7 +73,7 @@ const pillars = about.pillars || [
   {
     icon: "🎲",
     title: "Výuka v malých skupinkách",
-    description: "Skupinky 3–6 dětí jsou ideální pro deskovky. Děti komunikují mezi sebou i s lektorem a učení je pro ně zábavou."
+    description: "Skupinky 4–8 dětí jsou ideální pro deskovky. Děti komunikují mezi sebou i s lektorem a učení je pro ně zábavou."
   },
   {
     icon: "🇦🇺",
@@ -98,7 +98,7 @@ const defaultCredentials: Credentials = {
   points: [
     "Vyrůstal v Melbourne: Přirozená výslovnost a živá slovní zásoba bez typického českého přízvuku.",
     "25+ let v České republice: Žádná komunikační bariéra – složitou látku v klidu vysvětlí v češtině.",
-    "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 3–6 dětí, které odbourají strach ze známkování.",
+    "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 4–8 dětí, které odbourají strach ze známkování.",
     "Vzdělání z Melbourne: Titul BBA z renomované RMIT University v Austrálii."
   ],
   note: "VALEK ACADEMY • Doučovna Uherské Hradiště",
@@ -163,26 +163,29 @@ const credentials = about.credentials || defaultCredentials;
       <!-- Experience & Credentials Highlight Box -->
       <div class="lg:col-span-5">
         <div class="bg-gradient-to-b from-[#FFFDF9] via-white to-parchment-50 rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-soft-lg space-y-5 relative overflow-hidden" data-tina-field={tinaField(about, 'credentials')}>
-          <div class="flex items-center justify-between pb-4 border-b border-parchment-200 gap-3">
-            <div class="flex items-center gap-3.5">
-              <div class="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-500 shadow-sm flex-shrink-0">
+          <div class="flex items-center justify-between pb-5 border-b border-parchment-200 gap-4">
+            <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
+              <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-md flex-shrink-0 group">
                 <img
-                  src="/images/josef-valek-thumb.webp"
-                  alt="Mgr. Josef Válek"
-                  class="w-full h-full object-cover"
-                  width="56"
-                  height="56"
+                  src="/images/josef-valek.webp"
+                  alt="Josef Válek – Lektor Valek Academy"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  width="80"
+                  height="80"
                   loading="lazy"
                 />
+                <span class="absolute bottom-0 inset-x-0 bg-espresso-950/85 text-[8px] sm:text-[9px] text-amber-300 text-center py-0.5 font-black uppercase tracking-wider">
+                  Melbourne
+                </span>
               </div>
-              <div>
-                <h4 class="font-heading font-black text-lg text-espresso-950 leading-tight" data-tina-field={tinaField(credentials, 'title')}>
+              <div class="min-w-0">
+                <h4 class="font-heading font-black text-lg sm:text-xl text-espresso-950 leading-tight" data-tina-field={tinaField(credentials, 'title')}>
                   {credentials.title}
                 </h4>
-                <p class="text-xs text-amber-900 font-black" data-tina-field={tinaField(credentials, 'subtitle')}>{credentials.subtitle}</p>
+                <p class="text-xs text-amber-900 font-extrabold mt-1" data-tina-field={tinaField(credentials, 'subtitle')}>{credentials.subtitle}</p>
               </div>
             </div>
-            <PassportBadge className="w-18 h-18 -mr-2 hidden sm:inline-block flex-shrink-0" />
+            <PassportBadge className="w-16 h-16 -mr-1 hidden sm:inline-block flex-shrink-0" />
           </div>
 
           <ul class="space-y-3.5 text-sm text-espresso-800" data-tina-field={tinaField(credentials, 'points')}>

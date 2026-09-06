@@ -84,6 +84,8 @@ export default defineConfig({
                 name: "card",
                 label: "Karta Josefa & Hlasová ukázka (vpravo)",
                 fields: [
+                  { type: "boolean", name: "enabled", label: "Zobrazit kartu Josefa v Hero na webu?" },
+                  { type: "boolean", name: "showBenefits", label: "Zobrazit v kartě spodní minikarty výhod a adresu?" },
                   { type: "string", name: "teacherName", label: "Jméno lektora" },
                   { type: "string", name: "teacherRole", label: "Podtitul / Vzdělání (např. BBA Melbourne • 25+ let v ČR)" },
                   { type: "string", name: "teacherTag", label: "Specializace (např. Australský přízvuk & výuka hrou)" },
@@ -147,27 +149,6 @@ export default defineConfig({
               { type: "string", name: "badge", label: "Odznáček sekce" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
-              {
-                type: "object",
-                name: "segments",
-                label: "Karty cílových skupin",
-                list: true,
-                ui: {
-                  itemProps: (item) => ({ label: `${item?.title || "Skupina"} (${item?.age || ""})` }),
-                },
-                fields: [
-                  { type: "string", name: "id", label: "Identifikátor (zs, ss, dospeli)" },
-                  { type: "string", name: "icon", label: "Ikona (emoji např. 🎒, 🎓, 💼)" },
-                  { type: "string", name: "title", label: "Název skupiny" },
-                  { type: "string", name: "age", label: "Věková kategorie (např. 6–15 let)" },
-                  { type: "string", name: "badge", label: "Štítek" },
-                  { type: "string", name: "highlight", label: "Hlavní tahák / přínos" },
-                  { type: "string", name: "description", label: "Podrobný popis", ui: { component: "textarea" } },
-                  { type: "string", name: "points", label: "Výhody a body", list: true },
-                  { type: "string", name: "ctaText", label: "Text tlačítka" },
-                  { type: "string", name: "ctaLink", label: "Odkaz tlačítka" },
-                ],
-              },
               {
                 type: "object",
                 name: "kidsPrograms",

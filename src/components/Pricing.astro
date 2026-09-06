@@ -82,24 +82,53 @@ const pillars = pricing.pillars || defaultPillars;
       </p>
     </div>
 
+    <!-- Mobile Tier Switcher Tabs (Cuts scrolling on phones and lets users easily check upcoming programs) -->
+    <div class="lg:hidden mb-6">
+      <div class="text-center text-[11px] font-black uppercase tracking-wider text-amber-950/80 mb-2">
+        Vyberte kategorii ceníku:
+      </div>
+      <div class="grid grid-cols-3 gap-1.5 p-1.5 rounded-2xl bg-parchment-200 border border-parchment-300 shadow-2xs" id="pricing-tabs">
+        {tiers.map((_, idx) => (
+          <button
+            type="button"
+            class:list={[
+              "pricing-tab-btn py-2.5 px-1.5 rounded-xl font-heading text-xs transition-all text-center flex flex-col items-center justify-center gap-0.5 cursor-pointer",
+              idx === 0
+                ? "bg-amber-400 text-espresso-950 shadow-xs border border-amber-500 font-black"
+                : "bg-transparent text-espresso-800 hover:text-espresso-950 font-bold border border-transparent"
+            ]}
+            data-target={`pricing-tier-${idx}`}
+          >
+            <span class="text-base">{idx === 0 ? "🎒" : idx === 1 ? "💼" : "🎓"}</span>
+            <span class="truncate font-black text-[11px]">{idx === 0 ? "Děti ZŠ" : idx === 1 ? "Dospělí" : "Maturita"}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
     <!-- Pricing Tiers Grid -->
-    <div class="grid lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+    <div class="grid lg:grid-cols-3 gap-6 sm:gap-8 items-stretch" id="pricing-grid">
       {tiers.map((tier, idx) => {
         const isPopular = tier.isPopular;
         return (
           <div
+            id={`pricing-tier-${idx}`}
             data-tina-field={tinaField(pricing, 'tiers', idx)}
-            class={`rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-between relative transition-all duration-300 ${
-            isPopular
-              ? 'bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-xl glow-amber lg:-translate-y-3 z-10'
-              : 'bg-white border border-parchment-300 shadow-xs opacity-90 hover:opacity-100 hover:shadow-md'
-          }`}>
+            class:list={[
+              "pricing-card rounded-3xl p-6 sm:p-8 md:p-10 flex-col justify-between relative transition-all duration-300",
+              idx === 0 ? "flex lg:flex" : "hidden lg:flex",
+              isPopular
+                ? "bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-xl glow-amber lg:-translate-y-3 z-10"
+                : "bg-white border border-parchment-300 shadow-xs opacity-90 hover:opacity-100 hover:shadow-md"
+            ]}
+          >
             
             <!-- Popular Ribbon / Badge -->
             {isPopular && (
               <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
                 <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-md" data-tina-field={tinaField(tier, 'badge')} data-edit-key={`pricing.tiers.${idx}.badge`} data-edit-label="Štítek karty">
-                  🎁 {tier.badge || "1. LEKCE ZDARMA"}
+                  {!tier.badge?.includes('🎁') && <span>🎁</span>}
+                  <span>{tier.badge || "1. LEKCE ZDARMA"}</span>
                 </span>
               </div>
             )}
@@ -120,12 +149,12 @@ const pillars = pricing.pillars || defaultPillars;
                 </p>
               </div>
 
-              <!-- Price Display -->
-              <div class="pt-4 pb-2 border-y border-parchment-200 flex items-baseline gap-2">
-                <span class="font-heading font-black text-4xl sm:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(tier, 'price')} data-edit-key={`pricing.tiers.${idx}.price`} data-edit-label="Cena">
+              <!-- Price Display (Keeps 390 Kč strictly together on one line) -->
+              <div class="pt-4 pb-2 border-y border-parchment-200 flex flex-wrap sm:flex-nowrap items-baseline gap-x-3 gap-y-1">
+                <span class="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight whitespace-nowrap shrink-0" data-tina-field={tinaField(tier, 'price')} data-edit-key={`pricing.tiers.${idx}.price`} data-edit-label="Cena">
                   {tier.price}
                 </span>
-                <span class="text-sm text-stone-500 font-medium" data-tina-field={tinaField(tier, 'period')} data-edit-key={`pricing.tiers.${idx}.period`} data-edit-label="Období">
+                <span class="text-xs sm:text-sm text-stone-500 font-medium" data-tina-field={tinaField(tier, 'period')} data-edit-key={`pricing.tiers.${idx}.period`} data-edit-label="Období">
                   {tier.period}
                 </span>
               </div>
@@ -197,3 +226,42 @@ const pillars = pricing.pillars || defaultPillars;
 
   </div>
 </section>
+
+<script>
+  function initPricingTabs() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.pricing-tab-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.pricing-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-target');
+        if (!targetId) return;
+
+        // Reset all tabs
+        tabs.forEach(t => {
+          t.classList.remove('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+          t.classList.add('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
+        });
+
+        // Activate clicked tab
+        tab.classList.remove('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
+        tab.classList.add('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+
+        // Toggle card visibility on mobile
+        cards.forEach(card => {
+          if (card.id === targetId) {
+            card.classList.remove('hidden');
+            card.classList.add('flex');
+          } else {
+            card.classList.remove('flex');
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initPricingTabs);
+  document.addEventListener('astro:page-load', initPricingTabs);
+</script>
+
