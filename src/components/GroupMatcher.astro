@@ -10,7 +10,14 @@ interface Props {
     step1Title?: string;
     step2Title?: string;
     step3Title?: string;
+    ticketBadge?: string;
+    availabilityBadge?: string;
+    gamesLabel?: string;
+    guaranteeText?: string;
     ctaText?: string;
+    grades?: any[];
+    interests?: any[];
+    goals?: any[];
     [key: string]: any;
   };
 }
@@ -22,8 +29,36 @@ const title = groupMatcher.title || "Jaká skupinka a deskovky budou vaše dít�
 const subtitle = groupMatcher.subtitle || "Každé dítě je jiné. Klikněte níže a za 20 vteřin zjistíte, do jaké skupinky vrstevníků skvěle zapadne a jaké hry pro něj vybereme.";
 const step1Title = groupMatcher.step1Title || "Do jaké třídy dítě chodí?";
 const step2Title = groupMatcher.step2Title || "Co dítě nejvíc baví?";
-const step3Title = groupMatcher.step3Title || "S čím potřebuje dítě pomoci nejvíce?";
-const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
+const step3Title = groupMatcher.step3Title || "Doporučená skupinka & výběr her:";
+const ticketBadge = groupMatcher.ticketBadge || "VAŠE ZLATÁ VSTUPENKA DO SKUPINKY";
+const availabilityBadge = groupMatcher.availabilityBadge || "Volná místa pro zápis";
+const gamesLabel = groupMatcher.gamesLabel || "🎮 Vybrané hry pro tuto skupinku:";
+const guaranteeText = groupMatcher.guaranteeText || "1. lekce v této skupince je 100% ZDARMA (Růžová 1238, Uherské Hradiště)";
+const ctaText = groupMatcher.ctaText || "Přihlásit se do této skupinky →";
+
+const defaultGrades = [
+  { id: "1-3", icon: "🧒", title: "1.–3. třída ZŠ", age: "Věk 6–9 let" },
+  { id: "4-6", icon: "🎒", title: "4.–6. třída ZŠ", age: "Věk 10–12 let" },
+  { id: "7-9", icon: "🚀", title: "7.–9. třída ZŠ", age: "Věk 13–15 let" },
+  { id: "ss", icon: "🎓", title: "SŠ & Maturant", age: "Věk 15–19 let" }
+];
+
+const defaultInterests = [
+  { id: "fantasy", icon: "🐉", title: "Příběhy & Fantasy", desc: "Karak, hrdinové, dobrodružství" },
+  { id: "words", icon: "🧩", title: "Slovní rébusy", desc: "Scrabble, křížovky, karty" },
+  { id: "speed", icon: "⚡", title: "Postřeh & Akce", desc: "Karetní hry, bleskové kvízy" },
+  { id: "strategy", icon: "🏰", title: "Stavění & Taktika", desc: "Carcassonne, deskové světy" }
+];
+
+const defaultGoals = [
+  { id: "confidence", icon: "🗣️", title: "Odbourat strach z mluvení", desc: "Bojí se otevřít pusu, aby neudělalo chybu před celou třídou." },
+  { id: "grades", icon: "📝", title: "Zlepšit známky a testy", desc: "Pletou se mu časy a slovíčka, potřebuje záchranu před písemkami." },
+  { id: "fun", icon: "🌟", title: "Chce být napřed & bavit se", desc: "Ve škole se nudí a hledá partu kamarádů pro živou angličtinu." }
+];
+
+const grades = groupMatcher.grades || defaultGrades;
+const interests = groupMatcher.interests || defaultInterests;
+const goals = groupMatcher.goals || defaultGoals;
 ---
 
 <section id="rozrazovac" class={`py-8 sm:py-12 md:py-20 bg-gradient-to-b from-parchment-100/80 via-white to-parchment-100/60 border-y border-parchment-200 relative overflow-hidden ${className}`}>
@@ -57,45 +92,22 @@ const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
           <span data-tina-field={tinaField(groupMatcher, 'step1Title')} data-edit-key="groupMatcher.step1Title" data-edit-label="Krok 1 rozřazovače">{step1Title}</span>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3" id="matcher-grade-group">
-          <button
-            type="button"
-            data-grade="1-3"
-            class="grade-btn p-3.5 sm:p-4 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
-          >
-            <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">🧒</span>
-            <div class="font-extrabold text-sm text-espresso-950">1.–3. třída ZŠ</div>
-            <div class="text-[11px] text-stone-500 font-medium">Věk 6–9 let</div>
-          </button>
-
-          <button
-            type="button"
-            data-grade="4-6"
-            class="grade-btn p-3.5 sm:p-4 rounded-2xl border-2 border-amber-500 bg-amber-100 text-left shadow-xs transition-all cursor-pointer font-heading group ring-2 ring-amber-400/40"
-          >
-            <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">🎒</span>
-            <div class="font-extrabold text-sm text-espresso-950">4.–6. třída ZŠ</div>
-            <div class="text-[11px] text-stone-500 font-medium">Věk 10–12 let</div>
-          </button>
-
-          <button
-            type="button"
-            data-grade="7-9"
-            class="grade-btn p-3.5 sm:p-4 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
-          >
-            <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">🚀</span>
-            <div class="font-extrabold text-sm text-espresso-950">7.–9. třída ZŠ</div>
-            <div class="text-[11px] text-stone-500 font-medium">Věk 13–15 let</div>
-          </button>
-
-          <button
-            type="button"
-            data-grade="ss"
-            class="grade-btn p-3.5 sm:p-4 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
-          >
-            <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">🎓</span>
-            <div class="font-extrabold text-sm text-espresso-950">SŠ & Maturant</div>
-            <div class="text-[11px] text-stone-500 font-medium">Věk 15–19 let</div>
-          </button>
+          {grades.map((grade: any, idx: number) => (
+            <button
+              type="button"
+              data-grade={grade.id}
+              data-tina-field={tinaField(groupMatcher, 'grades', idx)}
+              class={`grade-btn p-3.5 sm:p-4 rounded-2xl border-2 text-left transition-all cursor-pointer font-heading group ${
+                grade.id === '4-6'
+                  ? 'border-amber-500 bg-amber-100 ring-2 ring-amber-400/40 shadow-xs'
+                  : 'border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50'
+              }`}
+            >
+              <span class="text-2xl block mb-1 group-hover:scale-110 transition-transform">{grade.icon}</span>
+              <div class="font-extrabold text-sm text-espresso-950" data-tina-field={tinaField(grade, 'title')}>{grade.title}</div>
+              <div class="text-[11px] text-stone-500 font-medium" data-tina-field={tinaField(grade, 'age')}>{grade.age}</div>
+            </button>
+          ))}
         </div>
       </div>
 
@@ -106,45 +118,22 @@ const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
           <span data-tina-field={tinaField(groupMatcher, 'step2Title')} data-edit-key="groupMatcher.step2Title" data-edit-label="Krok 2 rozřazovače">{step2Title}</span>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3" id="matcher-interest-group">
-          <button
-            type="button"
-            data-interest="fantasy"
-            class="interest-btn p-3 sm:p-3.5 rounded-2xl border-2 border-amber-500 bg-amber-100 text-left shadow-xs transition-all cursor-pointer font-heading group ring-2 ring-amber-400/40"
-          >
-            <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">🐉</span>
-            <div class="font-bold text-xs sm:text-sm text-espresso-950">Příběhy & Fantasy</div>
-            <div class="text-[10px] text-stone-500 mt-0.5">Karak, hrdinové, dobrodružství</div>
-          </button>
-
-          <button
-            type="button"
-            data-interest="words"
-            class="interest-btn p-3 sm:p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
-          >
-            <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">🧩</span>
-            <div class="font-bold text-xs sm:text-sm text-espresso-950">Slovní rébusy</div>
-            <div class="text-[10px] text-stone-500 mt-0.5">Scrabble, křížovky, karty</div>
-          </button>
-
-          <button
-            type="button"
-            data-interest="speed"
-            class="interest-btn p-3 sm:p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
-          >
-            <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">⚡</span>
-            <div class="font-bold text-xs sm:text-sm text-espresso-950">Postřeh & Akce</div>
-            <div class="text-[10px] text-stone-500 mt-0.5">Karetní hry, bleskové kvízy</div>
-          </button>
-
-          <button
-            type="button"
-            data-interest="strategy"
-            class="interest-btn p-3 sm:p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
-          >
-            <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">🏰</span>
-            <div class="font-bold text-xs sm:text-sm text-espresso-950">Stavění & Taktika</div>
-            <div class="text-[10px] text-stone-500 mt-0.5">Carcassonne, deskové světy</div>
-          </button>
+          {interests.map((interest: any, idx: number) => (
+            <button
+              type="button"
+              data-interest={interest.id}
+              data-tina-field={tinaField(groupMatcher, 'interests', idx)}
+              class={`interest-btn p-3 sm:p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer font-heading group ${
+                interest.id === 'fantasy'
+                  ? 'border-amber-500 bg-amber-100 ring-2 ring-amber-400/40 shadow-xs'
+                  : 'border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50'
+              }`}
+            >
+              <span class="text-xl block mb-1 group-hover:scale-110 transition-transform">{interest.icon}</span>
+              <div class="font-bold text-xs sm:text-sm text-espresso-950" data-tina-field={tinaField(interest, 'title')}>{interest.title}</div>
+              <div class="text-[10px] text-stone-500 mt-0.5" data-tina-field={tinaField(interest, 'desc')}>{interest.desc}</div>
+            </button>
+          ))}
         </div>
       </div>
 
@@ -155,44 +144,25 @@ const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
           <span data-tina-field={tinaField(groupMatcher, 'step3Title')} data-edit-key="groupMatcher.step3Title" data-edit-label="Krok 3 nadpis">{step3Title}</span>
         </div>
         <div class="grid sm:grid-cols-3 gap-2.5 sm:gap-3" id="matcher-goal-group">
-          <button
-            type="button"
-            data-goal="confidence"
-            class="goal-btn p-3.5 rounded-2xl border-2 border-amber-500 bg-amber-100 text-left shadow-xs transition-all cursor-pointer font-heading group ring-2 ring-amber-400/40"
-          >
-            <div class="flex items-center gap-2 font-bold text-xs sm:text-sm text-espresso-950">
-              <span class="text-lg">🗣️</span> <span>Odbourat strach z mluvení</span>
-            </div>
-            <p class="text-[11px] text-stone-600 mt-1 leading-snug">
-              Bojí se otevřít pusu, aby neudělalo chybu před celou třídou.
-            </p>
-          </button>
-
-          <button
-            type="button"
-            data-goal="grades"
-            class="goal-btn p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
-          >
-            <div class="flex items-center gap-2 font-bold text-xs sm:text-sm text-espresso-950">
-              <span class="text-lg">📝</span> <span>Zlepšit známky a testy</span>
-            </div>
-            <p class="text-[11px] text-stone-600 mt-1 leading-snug">
-              Pletou se mu časy a slovíčka, potřebuje záchranu před písemkami.
-            </p>
-          </button>
-
-          <button
-            type="button"
-            data-goal="fun"
-            class="goal-btn p-3.5 rounded-2xl border-2 border-parchment-300 bg-parchment-50 text-left hover:border-amber-400 hover:bg-amber-50/50 transition-all cursor-pointer font-heading group"
-          >
-            <div class="flex items-center gap-2 font-bold text-xs sm:text-sm text-espresso-950">
-              <span class="text-lg">🌟</span> <span>Chce být napřed & bavit se</span>
-            </div>
-            <p class="text-[11px] text-stone-600 mt-1 leading-snug">
-              Ve škole se nudí a hledá partu kamarádů pro živou angličtinu.
-            </p>
-          </button>
+          {goals.map((goal: any, idx: number) => (
+            <button
+              type="button"
+              data-goal={goal.id}
+              data-tina-field={tinaField(groupMatcher, 'goals', idx)}
+              class={`goal-btn p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer font-heading group ${
+                goal.id === 'confidence'
+                  ? 'border-amber-500 bg-amber-100 ring-2 ring-amber-400/40 shadow-xs'
+                  : 'border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50'
+              }`}
+            >
+              <div class="flex items-center gap-2 font-bold text-xs sm:text-sm text-espresso-950">
+                <span class="text-lg">{goal.icon}</span> <span data-tina-field={tinaField(goal, 'title')}>{goal.title}</span>
+              </div>
+              <p class="text-[11px] text-stone-600 mt-1 leading-snug" data-tina-field={tinaField(goal, 'desc')}>
+                {goal.desc}
+              </p>
+            </button>
+          ))}
         </div>
       </div>
 
@@ -202,16 +172,16 @@ const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
         <!-- Top Golden Stamp Header -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-amber-200">
           <div>
-            <div class="inline-flex items-center gap-1.5 text-[10px] uppercase font-black tracking-wider bg-gradient-to-r from-amber-400 to-amber-500 text-espresso-950 px-3 py-1 rounded-full mb-1.5 shadow-xs">
-              <span>🎟️</span> <span>VAŠE ZLATÁ VSTUPENKA DO SKUPINKY</span>
+            <div class="inline-flex items-center gap-1.5 text-[10px] uppercase font-black tracking-wider bg-gradient-to-r from-amber-400 to-amber-500 text-espresso-950 px-3 py-1 rounded-full mb-1.5 shadow-xs" data-tina-field={tinaField(groupMatcher, 'ticketBadge')} data-edit-key="groupMatcher.ticketBadge" data-edit-label="Zlatá vstupenka - štítek">
+              <span>🎟️</span> <span>{ticketBadge}</span>
             </div>
             <h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950" id="res-group-title">
               Skupinka Dobrodruhů (4.–6. třída ZŠ)
             </h3>
           </div>
-          <span class="text-xs font-black text-emerald-900 bg-emerald-100 border border-emerald-300 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 flex-shrink-0 shadow-2xs">
+          <span class="text-xs font-black text-emerald-900 bg-emerald-100 border border-emerald-300 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 flex-shrink-0 shadow-2xs" data-tina-field={tinaField(groupMatcher, 'availabilityBadge')} data-edit-key="groupMatcher.availabilityBadge" data-edit-label="Dostupnost míst">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            Volná místa pro zápis
+            {availabilityBadge}
           </span>
         </div>
 
@@ -221,8 +191,8 @@ const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
 
         <!-- Recommended games badges -->
         <div class="space-y-2">
-          <div class="text-[11px] font-black uppercase tracking-wider text-amber-950">
-            🎮 Vybrané hry pro tuto skupinku:
+          <div class="text-[11px] font-black uppercase tracking-wider text-amber-950" data-tina-field={tinaField(groupMatcher, 'gamesLabel')} data-edit-key="groupMatcher.gamesLabel" data-edit-label="Vybrané hry nadpis">
+            {gamesLabel}
           </div>
           <div class="flex flex-wrap items-center gap-2" id="res-games-list">
             <span class="px-3 py-1 rounded-xl bg-white border border-amber-300 text-xs font-bold text-espresso-950 shadow-2xs">
@@ -239,9 +209,9 @@ const ctaText = groupMatcher.ctaText || "Rezervovat místo pro dítě zdarma";
 
         <!-- Call to action button with Gold Pulse -->
         <div class="pt-4 border-t border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="text-xs text-espresso-900 font-bold flex items-center gap-1.5">
+          <div class="text-xs text-espresso-900 font-bold flex items-center gap-1.5" data-tina-field={tinaField(groupMatcher, 'guaranteeText')} data-edit-key="groupMatcher.guaranteeText" data-edit-label="Zlatá vstupenka garance">
             <span class="text-amber-600 text-base">🎁</span>
-            <span>1. lekce v této skupince je <strong>100% ZDARMA</strong> (Růžová 1238, Uherské Hradiště)</span>
+            <span>{guaranteeText}</span>
           </div>
           <a
             href="#kontakt"

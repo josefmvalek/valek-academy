@@ -6,10 +6,20 @@ interface Props {
   email?: string;
   phone?: string;
   phoneFormatted?: string;
+  contact?: any;
   footer?: {
+    brandName?: string;
+    brandTagline?: string;
     description?: string;
     locationNote?: string;
+    navTitle?: string;
+    navLinks?: Array<{ label: string; href: string }>;
+    contactTitle?: string;
+    commuteNote?: string;
+    bottomCtaText?: string;
+    adminLinkText?: string;
     copyright?: string;
+    [key: string]: any;
   };
 }
 
@@ -17,11 +27,28 @@ const {
   email = "info@valekacademy.cz",
   phone = "+420792372642",
   phoneFormatted = "+420 792 372 642",
+  contact = {},
   footer = {}
 } = Astro.props;
 
+const brandName = footer.brandName || "VALEK ACADEMY";
+const brandTagline = footer.brandTagline || "Angličtina s Čechoaustralanem";
 const description = footer.description || "Trpělivá výuka angličtiny v malých skupinkách formou deskových her a konverzace pro děti. Josef vyrostl v Melbourne, vystudoval BBA na RMIT University a učí s úsměvem a přirozeným přízvukem.";
 const locationNote = footer.locationNote || "📍 Doučovna: Růžová 1238, Uherské Hradiště";
+const navTitle = footer.navTitle || "Rychlá navigace";
+const defaultNavLinks = [
+  { label: "🎲 Děti & ZŠ (Skupinky hrou)", href: "#programy" },
+  { label: "🧭 Rozřazovač skupinek", href: "#rozrazovac" },
+  { label: "⏱️ Průběh 60 min lekce", href: "#metodika" },
+  { label: "🇦🇺 O Josefovi (BBA Melbourne)", href: "#o-mne" },
+  { label: "🎁 Ceník & 1. lekce zdarma", href: "#cenik" },
+  { label: "❓ Časté dotazy (FAQ)", href: "#faq" }
+];
+const navLinks = footer.navLinks || defaultNavLinks;
+const contactTitle = footer.contactTitle || "Kontakt & Doučovna";
+const commuteNote = footer.commuteNote || "🚗 Rychlé spojení i z Kunovic, Starého Města, Babic, Jalubí či Ostrožské Nové Vsi.";
+const bottomCtaText = footer.bottomCtaText || "1. lekce zdarma";
+const adminLinkText = footer.adminLinkText || "Správa webu (Admin)";
 const copyright = footer.copyright || "VALEK ACADEMY • Mgr. Josef Válek. Všechna práva vyhrazena.";
 
 const currentYear = new Date().getFullYear();
@@ -37,11 +64,11 @@ const currentYear = new Date().getFullYear();
         <div class="flex items-center gap-3">
           <ParrotLogo className="w-12 h-12 shadow-sm rounded-full" />
           <div>
-            <span class="font-heading font-black text-xl text-espresso-950 block leading-tight">
-              VALEK ACADEMY
+            <span class="font-heading font-black text-xl text-espresso-950 block leading-tight" data-tina-field={tinaField(footer, 'brandName')} data-edit-key="footer.brandName" data-edit-label="Název akademie">
+              {brandName}
             </span>
-            <span class="text-xs text-amber-900 font-bold">
-              Angličtina s Čechoaustralanem
+            <span class="text-xs text-amber-900 font-bold" data-tina-field={tinaField(footer, 'brandTagline')} data-edit-key="footer.brandTagline" data-edit-label="Slogan akademie">
+              {brandTagline}
             </span>
           </div>
         </div>
@@ -55,48 +82,49 @@ const currentYear = new Date().getFullYear();
 
       <!-- Column 2: Programs Links -->
       <div class="md:col-span-3 space-y-3">
-        <div class="font-heading font-bold text-xs uppercase tracking-wider text-espresso-950">
-          Rychlá navigace
+        <div class="font-heading font-bold text-xs uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(footer, 'navTitle')} data-edit-key="footer.navTitle" data-edit-label="Nadpis navigace">
+          {navTitle}
         </div>
         <ul class="space-y-2 text-xs sm:text-sm text-espresso-800 font-medium">
-          <li><a href="#programy" class="hover:text-amber-800 transition-colors">🎲 Děti & ZŠ (Skupinky hrou)</a></li>
-          <li><a href="#rozrazovac" class="hover:text-amber-800 transition-colors text-amber-900 font-bold">🧭 Rozřazovač skupinek</a></li>
-          <li><a href="#metodika" class="hover:text-amber-800 transition-colors">⏱️ Průběh 60 min lekce</a></li>
-          <li><a href="#o-mne" class="hover:text-amber-800 transition-colors">🇦🇺 O Josefovi (BBA Melbourne)</a></li>
-          <li><a href="#cenik" class="hover:text-amber-800 transition-colors">🎁 Ceník & 1. lekce zdarma</a></li>
-          <li><a href="#faq" class="hover:text-amber-800 transition-colors">❓ Časté dotazy (FAQ)</a></li>
+          {navLinks.map((link: any, idx: number) => (
+            <li data-tina-field={tinaField(footer, 'navLinks', idx)}>
+              <a href={link.href} class={`hover:text-amber-800 transition-colors ${link.href === '#rozrazovac' ? 'text-amber-900 font-bold' : ''}`} data-tina-field={tinaField(link, 'label')}>
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 
       <!-- Column 3: Contact & Hours -->
       <div class="md:col-span-4 space-y-3">
-        <div class="font-heading font-bold text-xs uppercase tracking-wider text-espresso-950">
-          Kontakt & Doučovna
+        <div class="font-heading font-bold text-xs uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(footer, 'contactTitle')} data-edit-key="footer.contactTitle" data-edit-label="Nadpis kontaktu">
+          {contactTitle}
         </div>
         <ul class="space-y-2.5 text-xs sm:text-sm text-espresso-800">
           <li>
             <a href={`tel:${phone}`} class="hover:text-amber-800 transition-colors flex items-center gap-2 font-bold text-espresso-950">
-              <span>📞</span> <span>{phoneFormatted}</span>
+              <span>📞</span> <span data-tina-field={tinaField(contact, 'phoneFormatted')}>{phoneFormatted}</span>
             </a>
           </li>
           <li>
             <a href="https://wa.me/420792372642" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-800 transition-colors flex items-center gap-2 font-bold text-emerald-800">
-              <span>💬</span> <span>WhatsApp zpráva</span>
+              <span>💬</span> <span data-tina-field={tinaField(contact, 'whatsappText')}>WhatsApp zpráva</span>
             </a>
           </li>
           <li>
             <a href={`mailto:${email}`} class="hover:text-amber-800 transition-colors flex items-center gap-2 font-medium">
-              <span>✉️</span> <span>{email}</span>
+              <span>✉️</span> <span data-tina-field={tinaField(contact, 'email')}>{email}</span>
             </a>
           </li>
           <li class="flex items-center gap-2 text-stone-600">
-            <span>📍</span> <span>Růžová 1238, Uherské Hradiště</span>
+            <span>📍</span> <span data-tina-field={tinaField(contact, 'location')}>Růžová 1238, Uherské Hradiště</span>
           </li>
           <li class="flex items-center gap-2 text-stone-600">
-            <span>🕒</span> <span>Pondělí – Pátek: 8:00 – 19:00</span>
+            <span>🕒</span> <span data-tina-field={tinaField(contact, 'hours')}>Pondělí – Pátek: 8:00 – 19:00</span>
           </li>
-          <li class="pt-1 text-[11px] text-stone-500 leading-snug">
-            🚗 Rychlé spojení i z Kunovic, Starého Města, Babic, Jalubí či Ostrožské Nové Vsi.
+          <li class="pt-1 text-[11px] text-stone-500 leading-snug" data-tina-field={tinaField(footer, 'commuteNote')} data-edit-key="footer.commuteNote" data-edit-label="Dostupnost obcí">
+            {commuteNote}
           </li>
         </ul>
       </div>
@@ -110,16 +138,17 @@ const currentYear = new Date().getFullYear();
       </p>
 
       <div class="flex items-center gap-6">
-        <a href="#kontakt" class="hover:text-espresso-900 transition-colors font-bold text-amber-900">1. lekce zdarma</a>
+        <a href="#kontakt" class="hover:text-espresso-900 transition-colors font-bold text-amber-900" data-tina-field={tinaField(footer, 'bottomCtaText')} data-edit-key="footer.bottomCtaText" data-edit-label="Spodní odkaz 1. lekce">{bottomCtaText}</a>
         <span class="text-stone-300">•</span>
         <a href="/admin" class="hover:text-espresso-900 transition-colors flex items-center gap-1.5 font-semibold text-stone-600">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
-          <span>Správa webu (Admin)</span>
+          <span data-tina-field={tinaField(footer, 'adminLinkText')} data-edit-key="footer.adminLinkText" data-edit-label="Spodní odkaz Admin">{adminLinkText}</span>
         </a>
       </div>
     </div>
 
   </div>
 </footer>
+

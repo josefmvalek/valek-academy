@@ -240,9 +240,12 @@
     "badge": "PŘÍBĚH LEKTORA",
     "title": "Čech, který vyrostl v Austrálii – a teď učí s úsměvem a trpělivostí",
     "teacherName": "Josef Válek",
-    "role": "🎓 Dlouholetý překladatel a lektor angličtiny",
+    "role": "Dlouholetý překladatel a lektor angličtiny",
     "bio": "Dobrý den! Jmenuji se Josef Válek. V Austrálii jsem žil od útlého dětství až do dospělosti, kde jsem chodil do školy a získal naprosto přirozený cit pro angličtinu a autentický přízvuk. V České republice však žiji již více než 25 let – mluvím tedy naprosto přirozeně česky a přesně vím, s čím Češi v angličtině bojují. Dlouhá léta jsem se živil jako překladatel a soukromý učitel angličtiny pro dospělé. Nyní otevírám svou novou doučovnu a zaměřuji se na to, co funguje nejlépe: učit děti angličtinu hravě v malých skupinkách plných deskovek a smíchu.",
     "quote": "„Děti se nepotřebují biflovat gramatické poučky nazpaměť. Když k učení přistoupíme hravě – přes deskovky, karty a partu kamarádů – jazyk do nich vklouzne přirozeně a začnou se na každou hodinu těšit.“",
+    "quoteAuthor": "— JOSEF VÁLEK, ZAKLADATEL VALEK ACADEMY",
+    "ctaText": "Vyzkoušet s dítětem 1. lekci zdarma",
+    "locationNote": "📍 Růžová 1238, Uherské Hradiště",
     "pillars": [
       {
         "icon": "🎲",
@@ -627,7 +630,83 @@
     "step1Title": "Do jaké třídy dítě chodí?",
     "step2Title": "Co dítě nejvíc baví?",
     "step3Title": "Doporučená skupinka & výběr her:",
-    "ctaText": "Přihlásit se do této skupinky →"
+    "ticketBadge": "VAŠE ZLATÁ VSTUPENKA DO SKUPINKY",
+    "availabilityBadge": "Volná místa pro zápis",
+    "gamesLabel": "🎮 Vybrané hry pro tuto skupinku:",
+    "guaranteeText": "1. lekce v této skupince je 100% ZDARMA (Růžová 1238, Uherské Hradiště)",
+    "ctaText": "Přihlásit se do této skupinky →",
+    "grades": [
+      {
+        "id": "1-3",
+        "icon": "🧒",
+        "title": "1.–3. třída ZŠ",
+        "age": "Věk 6–9 let"
+      },
+      {
+        "id": "4-6",
+        "icon": "🎒",
+        "title": "4.–6. třída ZŠ",
+        "age": "Věk 10–12 let"
+      },
+      {
+        "id": "7-9",
+        "icon": "🚀",
+        "title": "7.–9. třída ZŠ",
+        "age": "Věk 13–15 let"
+      },
+      {
+        "id": "ss",
+        "icon": "🎓",
+        "title": "SŠ & Maturant",
+        "age": "Věk 15–19 let"
+      }
+    ],
+    "interests": [
+      {
+        "id": "fantasy",
+        "icon": "🐉",
+        "title": "Příběhy & Fantasy",
+        "desc": "Karak, hrdinové, dobrodružství"
+      },
+      {
+        "id": "words",
+        "icon": "🧩",
+        "title": "Slovní rébusy",
+        "desc": "Scrabble, křížovky, karty"
+      },
+      {
+        "id": "speed",
+        "icon": "⚡",
+        "title": "Postřeh & Akce",
+        "desc": "Karetní hry, bleskové kvízy"
+      },
+      {
+        "id": "strategy",
+        "icon": "🏰",
+        "title": "Stavění & Taktika",
+        "desc": "Carcassonne, deskové světy"
+      }
+    ],
+    "goals": [
+      {
+        "id": "confidence",
+        "icon": "🗣️",
+        "title": "Odbourat strach z mluvení",
+        "desc": "Bojí se otevřít pusu, aby neudělalo chybu před celou třídou."
+      },
+      {
+        "id": "grades",
+        "icon": "📝",
+        "title": "Zlepšit známky a testy",
+        "desc": "Pletou se mu časy a slovíčka, potřebuje záchranu před písemkami."
+      },
+      {
+        "id": "fun",
+        "icon": "🌟",
+        "title": "Chce být napřed & bavit se",
+        "desc": "Ve škole se nudí a hledá partu kamarádů pro živou angličtinu."
+      }
+    ]
   },
   "faq": {
     "enabled": true,
@@ -685,17 +764,63 @@
     "badge": "PŘIHLASTE DÍTĚ NA 1. LEKCI ZDARMA",
     "title": "Rezervujte ukázkovou lekci hrou zdarma",
     "subtitle": "Vyberte termín a formu výuky (osobně v doučovně v Uherském Hradišti nebo online z domova). První lekce v malé skupince dětí je 100% ZDARMA a nezávazná.",
+    "tutorName": "Josef Válek",
+    "tutorCredentials": "BBA (RMIT Univ., Melbourne) • 25+ let v ČR",
+    "tutorRole": "Doučovna v Uherském Hradišti",
+    "introText": "Preferujete telefonickou domluvu nebo chat přes WhatsApp? Neváhejte mi kdykoliv zavolat či napsat kterýkoliv všední den.",
     "email": "info@valekacademy.cz",
     "phone": "+420792372642",
     "phoneFormatted": "+420 792 372 642",
     "whatsapp": "https://wa.me/420792372642",
+    "whatsappText": "Napsat Josefovi na WhatsApp →",
     "location": "Růžová 1238, Uherské Hradiště (pohodlné parkování přímo u doučovny)",
     "hours": "Pondělí – Pátek: 8:00 – 19:00",
+    "guaranteeTitle": "1. ukázková lekce je 100% ZDARMA",
+    "guaranteeDesc": "Dítě si přijde nezávazně vyzkoušet deskovky a atmosféru v malé skupince (3–6 dětí). Žádné platby předem ani skryté závazky. Rozhodnete se až po lekci!",
+    "formBadge": "🎁 1. LEKCE 100% ZDARMA",
+    "formBadgeNote": "Nezávazná přihláška",
+    "formTitle": "Rezervace ukázkové lekce hrou",
+    "formSubtitle": "Vyplňte krátký formulář a Josef se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.",
+    "submitButtonText": "🎁 Rezervovat 1. lekci ZDARMA",
+    "securityNote": "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí a slouží pouze k domluvě úvodní lekce.",
     "web3formsKey": ""
   },
   "footer": {
+    "brandName": "VALEK ACADEMY",
+    "brandTagline": "Angličtina s Čechoaustralanem",
     "description": "Trpělivá výuka angličtiny v malých skupinkách formou deskových her a konverzace pro děti. Josef vyrostl v Melbourne, vystudoval BBA na RMIT University a učí s úsměvem a přirozeným přízvukem.",
     "locationNote": "📍 Doučovna: Růžová 1238, Uherské Hradiště",
+    "navTitle": "Rychlá navigace",
+    "navLinks": [
+      {
+        "label": "🎲 Děti & ZŠ (Skupinky hrou)",
+        "href": "#programy"
+      },
+      {
+        "label": "🧭 Rozřazovač skupinek",
+        "href": "#rozrazovac"
+      },
+      {
+        "label": "⏱️ Průběh 60 min lekce",
+        "href": "#metodika"
+      },
+      {
+        "label": "🇦🇺 O Josefovi (BBA Melbourne)",
+        "href": "#o-mne"
+      },
+      {
+        "label": "🎁 Ceník & 1. lekce zdarma",
+        "href": "#cenik"
+      },
+      {
+        "label": "❓ Časté dotazy (FAQ)",
+        "href": "#faq"
+      }
+    ],
+    "contactTitle": "Kontakt & Doučovna",
+    "commuteNote": "🚗 Rychlé spojení i z Kunovic, Starého Města, Babic, Jalubí či Ostrožské Nové Vsi.",
+    "bottomCtaText": "1. lekce zdarma",
+    "adminLinkText": "Správa webu (Admin)",
     "copyright": "VALEK ACADEMY • Mgr. Josef Válek. Všechna práva vyhrazena."
   },
   "stickyCta": {

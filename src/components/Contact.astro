@@ -7,12 +7,25 @@ interface Props {
     badge?: string;
     title?: string;
     subtitle?: string;
+    tutorName?: string;
+    tutorCredentials?: string;
+    tutorRole?: string;
+    introText?: string;
     email?: string;
     phone?: string;
     phoneFormatted?: string;
     whatsapp?: string;
+    whatsappText?: string;
     location?: string;
     hours?: string;
+    guaranteeTitle?: string;
+    guaranteeDesc?: string;
+    formBadge?: string;
+    formBadgeNote?: string;
+    formTitle?: string;
+    formSubtitle?: string;
+    submitButtonText?: string;
+    securityNote?: string;
     web3formsKey?: string;
   };
   locationInfo?: {
@@ -27,14 +40,27 @@ const { contact = {}, locationInfo = {} } = Astro.props;
 const badge = contact.badge || "PŘIHLASTE DÍTĚ NA 1. LEKCI ZDARMA";
 const title = contact.title || "Rezervujte ukázkovou lekci v malé skupince zdarma";
 const subtitle = contact.subtitle || "Vyberte termín a formu výuky (osobně v UH nebo online). Pro žáky ZŠ je 1. lekce v malé skupince (3–6 dětí) 100% ZDARMA a nezávazná!";
+const tutorName = contact.tutorName || "Josef Válek";
+const tutorCredentials = contact.tutorCredentials || "BBA (RMIT Univ., Melbourne) • 25+ let v ČR";
+const tutorRole = contact.tutorRole || "Doučovna v Uherském Hradišti";
+const introText = contact.introText || "Preferujete telefonickou domluvu nebo chat přes WhatsApp? Neváhejte mi kdykoliv zavolat či napsat kterýkoliv všední den.";
 const email = contact.email || "info@valekacademy.cz";
 const phone = contact.phone || "+420792372642";
 const phoneFormatted = contact.phoneFormatted || "+420 792 372 642";
 const whatsapp = contact.whatsapp || "https://wa.me/420792372642?text=Dobr%C3%BD%20den%20Josefe%2C%20r%C3%A1d%2Fa%20bych%20se%20zeptal%2Fa%20na%20voln%C3%A9%20m%C3%ADsto%20ve%20skupince%20d%C4%9Bt%C3%AD%20na%201.%20lekci%20zdarma.";
+const whatsappText = contact.whatsappText || "Napsat Josefovi na WhatsApp →";
 const location = contact.location || "Růžová 1238, Uherské Hradiště";
 const parkingInfo = locationInfo.parkingInfo || "Bezplatné parkovací stání přímo před vchodem do doučovny";
 const surroundingTowns = locationInfo.surroundingTowns || "Pohodlná dostupnost pro rodiny z Uherského Hradiště, Starého Města, Kunovic a okolí • Online pro celou ČR.";
 const hours = contact.hours || "Pondělí – Pátek: 8:00 – 19:00";
+const guaranteeTitle = contact.guaranteeTitle || "1. ukázková lekce je 100% ZDARMA";
+const guaranteeDesc = contact.guaranteeDesc || "Dítě si přijde nezávazně vyzkoušet deskovky a atmosféru v malé skupince (3–6 dětí). Žádné platby předem ani skryté závazky. Rozhodnete se až po lekci!";
+const formBadge = contact.formBadge || "🎁 1. LEKCE 100% ZDARMA";
+const formBadgeNote = contact.formBadgeNote || "Nezávazná přihláška";
+const formTitle = contact.formTitle || "Rezervace ukázkové lekce hrou";
+const formSubtitle = contact.formSubtitle || "Vyplňte krátký formulář a Josef se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.";
+const submitButtonText = contact.submitButtonText || "🎁 Rezervovat 1. lekci ZDARMA";
+const securityNote = contact.securityNote || "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí a slouží pouze k domluvě úvodní lekce.";
 const web3formsKey = contact.web3formsKey || "";
 ---
 
@@ -64,16 +90,16 @@ const web3formsKey = contact.web3formsKey || "";
           <div class="flex items-center gap-3.5 pb-4 border-b border-parchment-200">
             <ParrotLogo className="w-13 h-13" />
             <div>
-              <h3 class="font-heading font-black text-xl text-espresso-950 leading-tight">
-                Josef Válek
+              <h3 class="font-heading font-black text-xl text-espresso-950 leading-tight" data-tina-field={tinaField(contact, 'tutorName')} data-edit-key="contact.tutorName" data-edit-label="Jméno lektora">
+                {tutorName}
               </h3>
-              <p class="text-xs text-stone-600 font-semibold">BBA (RMIT Univ., Melbourne) • 25+ let v ČR</p>
-              <p class="text-[11px] text-amber-800 font-bold">Doučovna v Uherském Hradišti</p>
+              <p class="text-xs text-stone-600 font-semibold" data-tina-field={tinaField(contact, 'tutorCredentials')} data-edit-key="contact.tutorCredentials" data-edit-label="Titul a zkušenosti">{tutorCredentials}</p>
+              <p class="text-[11px] text-amber-800 font-bold" data-tina-field={tinaField(contact, 'tutorRole')} data-edit-key="contact.tutorRole" data-edit-label="Doučovna">{tutorRole}</p>
             </div>
           </div>
 
-          <p class="text-sm text-espresso-800/90 leading-relaxed font-normal">
-            Preferujete telefonickou domluvu nebo chat přes WhatsApp? Neváhejte mi kdykoliv zavolat či napsat kterýkoliv všední den.
+          <p class="text-sm text-espresso-800/90 leading-relaxed font-normal" data-tina-field={tinaField(contact, 'introText')} data-edit-key="contact.introText" data-edit-label="Úvodní text">
+            {introText}
           </p>
 
           <div class="space-y-3 pt-1">
@@ -97,8 +123,8 @@ const web3formsKey = contact.web3formsKey || "";
               </div>
               <div>
                 <div class="text-[10px] text-emerald-800 font-bold uppercase tracking-wider">WhatsApp chat (Okamžitá odpověď)</div>
-                <div class="font-heading font-black text-base text-emerald-950 group-hover:underline">
-                  Napsat Josefovi na WhatsApp →
+                <div class="font-heading font-black text-base text-emerald-950 group-hover:underline" data-tina-field={tinaField(contact, 'whatsappText')} data-edit-key="contact.whatsappText" data-edit-label="WhatsApp text">
+                  {whatsappText}
                 </div>
               </div>
             </a>
@@ -157,7 +183,7 @@ const web3formsKey = contact.web3formsKey || "";
                   <span>↗</span>
                 </a>
               </div>
-              <div class="pt-2 border-t border-parchment-200 text-[11px] text-stone-600">
+              <div class="pt-2 border-t border-parchment-200 text-[11px] text-stone-600" data-tina-field={tinaField(locationInfo, 'surroundingTowns')}>
                 🏘️ {surroundingTowns}
               </div>
             </div>
@@ -169,9 +195,9 @@ const web3formsKey = contact.web3formsKey || "";
         <div class="p-5 rounded-2xl bg-amber-100/80 border border-amber-300 shadow-xs flex items-start gap-3.5">
           <span class="text-3xl">🎁</span>
           <div>
-            <h4 class="font-heading font-black text-sm text-espresso-950">1. ukázková lekce je 100% ZDARMA</h4>
-            <p class="text-xs text-espresso-900 mt-1 leading-relaxed">
-              Dítě si přijde nezávazně vyzkoušet deskovky a atmosféru v malé skupince (3–6 dětí). Žádné platby předem ani skryté závazky. Rozhodnete se až po lekci!
+            <h4 class="font-heading font-black text-sm text-espresso-950" data-tina-field={tinaField(contact, 'guaranteeTitle')} data-edit-key="contact.guaranteeTitle" data-edit-label="Garance nadpis">{guaranteeTitle}</h4>
+            <p class="text-xs text-espresso-900 mt-1 leading-relaxed" data-tina-field={tinaField(contact, 'guaranteeDesc')} data-edit-key="contact.guaranteeDesc" data-edit-label="Garance popis">
+              {guaranteeDesc}
             </p>
           </div>
         </div>
@@ -183,16 +209,16 @@ const web3formsKey = contact.web3formsKey || "";
         <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border-2 border-amber-300/80 shadow-soft-lg relative">
           
           <div class="flex items-center gap-2 mb-2">
-            <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400 text-espresso-950">
-              🎁 1. LEKCE 100% ZDARMA
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400 text-espresso-950" data-tina-field={tinaField(contact, 'formBadge')} data-edit-key="contact.formBadge" data-edit-label="Formulář - štítek">
+              {formBadge}
             </span>
-            <span class="text-xs text-stone-500 font-bold">Nezávazná přihláška</span>
+            <span class="text-xs text-stone-500 font-bold" data-tina-field={tinaField(contact, 'formBadgeNote')} data-edit-key="contact.formBadgeNote" data-edit-label="Formulář - poznámka ke štítku">{formBadgeNote}</span>
           </div>
-          <h3 class="font-academy font-black text-2xl sm:text-3xl text-espresso-950 mb-1">
-            Rezervace ukázkové lekce hrou
+          <h3 class="font-academy font-black text-2xl sm:text-3xl text-espresso-950 mb-1" data-tina-field={tinaField(contact, 'formTitle')} data-edit-key="contact.formTitle" data-edit-label="Formulář - nadpis">
+            {formTitle}
           </h3>
-          <p class="text-xs sm:text-sm text-stone-600 mb-6 font-normal">
-            Vyplňte krátký formulář a Josef se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.
+          <p class="text-xs sm:text-sm text-stone-600 mb-6 font-normal" data-tina-field={tinaField(contact, 'formSubtitle')} data-edit-key="contact.formSubtitle" data-edit-label="Formulář - podnadpis">
+            {formSubtitle}
           </p>
 
           <form id="contact-form" class="space-y-4 sm:space-y-5" data-access-key={web3formsKey}>
@@ -429,7 +455,7 @@ const web3formsKey = contact.web3formsKey || "";
               id="submit-button"
               class="btn-gold-pulse w-full inline-flex items-center justify-center gap-3 py-4 px-8 rounded-2xl font-heading font-black text-base text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 disabled:opacity-50 cursor-pointer"
             >
-              <span id="button-text">🎁 Rezervovat 1. lekci ZDARMA</span>
+              <span id="button-text" data-tina-field={tinaField(contact, 'submitButtonText')} data-edit-key="contact.submitButtonText" data-edit-label="Text tlačítka">{submitButtonText}</span>
               <svg id="button-icon" class="w-5 h-5 text-espresso-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
@@ -450,8 +476,8 @@ const web3formsKey = contact.web3formsKey || "";
               </div>
             </div>
 
-            <p class="text-[11px] text-stone-500 text-center font-medium">
-              🔒 Vaše kontaktní údaje jsou v naprostém bezpečí a slouží pouze k domluvě úvodní lekce.
+            <p class="text-[11px] text-stone-500 text-center font-medium" data-tina-field={tinaField(contact, 'securityNote')} data-edit-key="contact.securityNote" data-edit-label="Bezpečnostní poznámka">
+              {securityNote}
             </p>
 
           </form>

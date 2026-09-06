@@ -66,6 +66,9 @@ const teacherName = about.teacherName || "Josef Válek";
 const role = about.role || "BBA (RMIT Univ., Melbourne) • Překladatel a lektor";
 const bio = about.bio || "Dobrý den! Jmenuji se Josef Válek. V Austrálii jsem žil od útlého dětství až do dospělosti, kde jsem chodil do školy a získal naprosto přirozený cit pro angličtinu a autentický přízvuk. V České republice však žiji již více než 25 let – mluvím tedy naprosto přirozeně česky a přesně vím, s čím Češi v angličtině bojují. Dlouhá léta jsem se živil jako překladatel a soukromý učitel angličtiny. Nyní otevírám svou doučovnu v Uherském Hradišti a zaměřuji se na to, co funguje nejlépe: učit děti angličtinu hravě v malých skupinkách plných deskovek, smíchu a zdravé soutěživosti.";
 const quote = about.quote || "„Děti se nepotřebují biflovat gramatické poučky nazpaměť. Když k učení přistoupíme hravě – přes deskovky, karty a partu kamarádů ve skupince – jazyk do nich vklouzne přirozeně a začnou se na každou hodinu těšit.“";
+const quoteAuthor = about.quoteAuthor || "— JOSEF VÁLEK, ZAKLADATEL VALEK ACADEMY";
+const ctaText = about.ctaText || "Vyzkoušet s dítětem 1. lekci zdarma";
+const locationNote = about.locationNote || "📍 Růžová 1238, Uherské Hradiště";
 const pillars = about.pillars || [
   {
     icon: "🎲",
@@ -141,19 +144,19 @@ const credentials = about.credentials || defaultCredentials;
           <p class="relative z-10 text-espresso-900 text-base font-medium leading-relaxed" data-tina-field={tinaField(about, 'quote')} data-edit-key="about.quote" data-edit-label="Citát lektora">
             {quote}
           </p>
-          <div class="mt-3 text-xs font-black text-amber-900 not-italic uppercase tracking-wider flex items-center gap-2">
+          <div class="mt-3 text-xs font-black text-amber-900 not-italic uppercase tracking-wider flex items-center gap-2" data-tina-field={tinaField(about, 'quoteAuthor')} data-edit-key="about.quoteAuthor" data-edit-label="Autor citátu">
             <span>🎲</span>
-            <span>— {teacherName}, zakladatel VALEK ACADEMY</span>
+            <span>{quoteAuthor}</span>
           </div>
         </blockquote>
 
         <div class="pt-2 flex flex-wrap items-center gap-4">
-          <a href="#kontakt" class="inline-flex items-center gap-2 font-heading font-black text-amber-900 hover:text-amber-700 transition-colors group text-sm">
-            <span>Vyzkoušet s dítětem 1. lekci zdarma</span>
+          <a href="#kontakt" class="inline-flex items-center gap-2 font-heading font-black text-amber-900 hover:text-amber-700 transition-colors group text-sm" data-tina-field={tinaField(about, 'ctaText')} data-edit-key="about.ctaText" data-edit-label="Odkaz na 1. lekci">
+            <span>{ctaText}</span>
             <span class="group-hover:translate-x-1.5 transition-transform">→</span>
           </a>
           <span class="text-stone-300 hidden sm:inline">•</span>
-          <span class="text-xs text-stone-500 font-medium">📍 Růžová 1238, Uherské Hradiště</span>
+          <span class="text-xs text-stone-500 font-medium" data-tina-field={tinaField(about, 'locationNote')} data-edit-key="about.locationNote" data-edit-label="Poznámka s adresou">{locationNote}</span>
         </div>
       </div>
 
