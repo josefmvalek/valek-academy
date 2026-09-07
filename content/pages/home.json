@@ -770,7 +770,7 @@
         "href": "#metodika"
       },
       {
-        "label": "🦘 O Josefovi (BBA Melbourne)",
+        "label": "🦘 O Mr. Válek (RMIT Melbourne)",
         "href": "#o-mne"
       },
       {
@@ -782,11 +782,11 @@
         "href": "#faq"
       }
     ],
-    "contactTitle": "Kontakt & Doučovna",
+    "contactTitle": "Kontakt",
     "commuteNote": "🚗 Rychlé spojení i z Kunovic, Starého Města, Babic, Jalubí či Ostrožské Nové Vsi.",
     "bottomCtaText": "1. lekce zdarma",
     "adminLinkText": "Správa webu (Admin)",
-    "copyright": "VALEK ACADEMY • Mgr. Josef Válek. Všechna práva vyhrazena."
+    "copyright": "VALEK ACADEMY • Bc. Josef Válek. Všechna práva vyhrazena."
   },
   "stickyCta": {
     "enabled": true,
