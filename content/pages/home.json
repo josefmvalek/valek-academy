@@ -270,16 +270,16 @@
         "ctaLink": "#kontakt"
       },
       {
-        "name": "Dospělí & Konverzace",
+        "name": "Konverzace pro dospělé a odborná angličtina",
         "price": "Brzy",
         "period": "připravujeme",
-        "description": "Odbourání ostychu, konverzace na míru, byznys témata a příprava na cesty i do práce.",
+        "description": "Vypilování výslovnosti a přízvuku, odbourání ostychu, konverzace na míru, skupiny zaměřené na specifické povolání, dopolední a večerní termíny",
         "isPopular": false,
         "badge": "Připravujeme brzy",
         "features": [
           "Aktivní konverzace a nácvik reálných situací",
-          "Praxe od zkušeného překladatele a lektora",
-          "Odstranění ostychu z mluvení a chyb",
+          "Praxe od profesionálního překladatele a simultánního tlumočníka",
+          "Cvičení výslovnosti a motivace pro překonání ostychuchyb",
           "Zapište se nezávazně na čekací listinu"
         ],
         "ctaText": "Zapsat se na čekací listinu",
