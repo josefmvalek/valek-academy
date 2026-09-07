@@ -5,16 +5,32 @@
     "brandTagline": "Uherské Hradiště • Výuka hrou",
     "ctaText": "🎁 1. lekce zdarma",
     "navLinks": [
-      { "label": "Programy & Hry", "href": "#programy" },
-      { "label": "Ceník", "href": "#cenik", "badge": "1. zdarma" },
-      { "label": "O lektorovi", "href": "#o-mne" },
-      { "label": "Doučovna UH", "href": "#kde-ucime" },
-      { "label": "FAQ", "href": "#faq" }
+      {
+        "label": "Programy & Hry",
+        "href": "#programy"
+      },
+      {
+        "label": "Ceník",
+        "href": "#cenik",
+        "badge": "1. zdarma"
+      },
+      {
+        "label": "O lektorovi",
+        "href": "#o-mne"
+      },
+      {
+        "label": "Doučovna UH",
+        "href": "#kde-ucime"
+      },
+      {
+        "label": "FAQ",
+        "href": "#faq"
+      }
     ]
   },
   "hero": {
     "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
-    "subtitle": "Konec nudného biflování u tabule. Josef vyrůstal v Austrálii od dětství do dospělosti a otevírá doučovnu pro děti v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učíme osobně v Uherském Hradišti i online pro celou ČR.",
+    "subtitle": "Konec nudného biflování u tabule. Josef vyrůstal v Austrálii od dětství do dospělosti a otevírá doučovnu pro děti v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učíme osobně v Uherském Hradišti i online pro Paraguay.",
     "ctaPrimaryText": "Vyzkoušet 1. lekci zdarma",
     "ctaPrimaryLink": "#kontakt",
     "ctaSecondaryText": "Jak výuka hrou funguje",
@@ -190,6 +206,18 @@
     "quoteAuthor": "— JOSEF VÁLEK, ZAKLADATEL VALEK ACADEMY",
     "ctaText": "Vyzkoušet s dítětem 1. lekci zdarma",
     "locationNote": "📍 Růžová 1238, Uherské Hradiště",
+    "credentials": {
+      "title": "Proč se učit s Josefem?",
+      "subtitle": "BBA, RMIT Univ., Melbourne • 25+ let v ČR",
+      "points": [
+        "Vyrůstal v Melbourne: Přirozená výslovnost a živá slovní zásoba bez typického českého přízvuku.",
+        "25+ let v České republice: Žádná komunikační bariéra – složitou látku v klidu vysvětlí v češtině.",
+        "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 4–8 dětí, které odbourají strach ze známkování.",
+        "Vzdělání z Melbourne: Titul BBA z renomované RMIT University v Austrálii."
+      ],
+      "note": "VALEK ACADEMY • Doučovna Uherské Hradiště",
+      "guarantee": "🎁 1. ukázková lekce je 100% ZDARMA"
+    },
     "pillars": [
       {
         "icon": "🎲",
@@ -211,19 +239,7 @@
         "title": "1. ukázková lekce ZDARMA",
         "description": "Přijďte si nezávazně vyzkoušet atmosféru. Dítě si zahraje deskovku a sami uvidíte, jak se mu to líbí."
       }
-    ],
-    "credentials": {
-      "title": "Proč se učit s Josefem?",
-      "subtitle": "BBA, RMIT Univ., Melbourne • 25+ let v ČR",
-      "points": [
-        "Vyrůstal v Melbourne: Přirozená výslovnost a živá slovní zásoba bez typického českého přízvuku.",
-        "25+ let v České republice: Žádná komunikační bariéra – složitou látku v klidu vysvětlí v češtině.",
-        "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 4–8 dětí, které odbourají strach ze známkování.",
-        "Vzdělání z Melbourne: Titul BBA z renomované RMIT University v Austrálii."
-      ],
-      "note": "VALEK ACADEMY • Doučovna Uherské Hradiště",
-      "guarantee": "🎁 1. ukázková lekce je 100% ZDARMA"
-    }
+    ]
   },
   "pricing": {
     "enabled": true,
@@ -555,12 +571,12 @@
     "surroundingTowns": "Pohodlné parkování přímo u doučovny. Rychlá dostupnost pro rodiny z Uherského Hradiště, Kunovic, Starého Města, Babic, Jalubí, Kněžpole i Ostrožské Nové Vsi.",
     "gallery": [
       {
-        "image": "/images/doucovna-stul.jpg",
+        "image": "/uploads/images/doucovna-stul.jpg",
         "title": "Útulný herní stůl pro 4–8 dětí",
         "desc": "Prostorný dřevěný stůl, kde se děti učí v uvolněné atmosféře a bez pocitu školní lavice."
       },
       {
-        "image": "/images/doucovna-hry.jpg",
+        "image": "/uploads/images/doucovna-hry.jpg",
         "title": "Knihovnička a deskové hry",
         "desc": "Karak, Scrabble, Dixit, Story Cubes a desítky dalších her pro všechny věkové kategorie."
       }
