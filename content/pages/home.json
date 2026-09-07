@@ -332,14 +332,14 @@
       {
         "type": "school",
         "title": "Běžná výuka ve škole",
-        "subtitle": "20–28 žáků ve třídě",
-        "badge": "Klasická škola",
-        "price": "Zdarma",
-        "speakingTime": "Pouze 1–2 minuty na žáka za hodinu",
-        "atmosphere": "Stres ze zkoušení u tabule a strach z chyb",
+        "subtitle": "20–30 žáků ve třídě",
+        "badge": "Klasická škola / jazykovka",
+        "price": "Zdarma nebo téměř",
+        "speakingTime": "V průměru pouze 1–2 minuty na žáka za hodinu",
+        "atmosphere": "Stres ze zkoušení, ponížení u tabule a strach z chytáků",
         "method": "Mechanické vyplňování pracovních sešitů a biflování",
-        "accent": "Český pedagog, často tvrdý český přízvuk",
-        "motivation": "Povinnost, nuda a obava ze špatných známek",
+        "accent": "Často český pedagog schovávající se za učebnicí, běžný tvrdý český přízvuk",
+        "motivation": "Povinnost, nuda a obava ze špatných \"známek\", drcení sebejistoty",
         "isWinner": false
       },
       {
