@@ -5,6 +5,16 @@ import path from 'node:path';
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
+  if (!import.meta.env.DEV) {
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: 'Tento endpoint je dostupný pouze v lokálním vývojovém prostředí.' 
+    }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   try {
     const payload = await request.json();
     const filePath = path.join(process.cwd(), 'content', 'pages', 'home.json');

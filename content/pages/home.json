@@ -36,8 +36,9 @@
     "ctaSecondaryText": "Jak výuka hrou funguje",
     "ctaSecondaryLink": "#programy",
     "card": {
-      "enabled": false,
-      "showBenefits": false,
+      "enabled": true,
+      "showBenefits": true,
+      "image": "/images/josef-valek-thumb.webp",
       "teacherName": "Josef Válek",
       "teacherRole": "BBA, RMIT Melbourne • 25+ let v ČR",
       "teacherTag": "Rodilý přízvuk & výuka hrou",
