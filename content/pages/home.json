@@ -102,7 +102,7 @@
     "enabled": true,
     "badge": "NABÍDKA VÝUKY",
     "title": "Hlavní zaměření: Výuka dětí hrou a konverzací v malých skupinkách",
-    "subtitle": "Aktuálně otevíráme registraci pro děti ZŠ na deskovky a hry, doučování předmětů v angličtině, např. matematika pro příjimačky. \n\nOstatní programy pro dospělé a maturanty připravujeme brzy:",
+    "subtitle": "Aktuálně otevíráme registraci pro děti ZŠ na deskovky a hry, doučování předmětů v angličtině, např. matematika pro CERMAT příjimačky, přírodovědu-zeměpis. \n\nOstatní programy pro dospělé a maturanty připravujeme brzy.",
     "kidsPrograms": [
       {
         "id": "zs-1",
@@ -360,7 +360,7 @@
         "title": "VALEK ACADEMY",
         "subtitle": "Malá skupinka 4–8 dětí / studentů",
         "badge": "Vítěz srovnání • Doporučujeme",
-        "price": "340 Kč / hod",
+        "price": "320 Kč / hod",
         "priceNote": "1. ukázková lekce 100% ZDARMA",
         "speakingTime": "Studenti mluví, učitel vede - aktivní mluvení v zápalu hry celých 60 minut",
         "atmosphere": "Student se nenudí, ale také není zahlcený, těší se na Academy - uvolněný smích, deskovky, nápoj, bezpečné prostředí",
@@ -421,7 +421,7 @@
     "enabled": true,
     "badge": "Metodika výuky hrou v malých skupinkách",
     "title": "Jak deskovky a hry ve skupince pomáhají dětem mluvit anglicky?",
-    "subtitle": "V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí stejně přirozeně jako mateřštinu.",
+    "subtitle": "V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí podobně jako mateřštinu.",
     "quote": "„Hodiny se dělí dle zájmových oblastí, každý si najde své.“",
     "gameSpotlights": [
       {
@@ -496,8 +496,8 @@
     ],
     "poster": {
       "tag": "Atmosféra naší doučovny v Uherském Hradišti",
-      "title": "Karak, Scrabble, Story Cubes a desítky dalších her",
-      "desc": "Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek."
+      "title": "Doba kamenná, Scrabble, Story Cubes a mnoho dalších her",
+      "desc": "Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek. Valek Academy neprosazuje běžné autopilot učebnice známých zahraničních značek."
     },
     "bottomCta": {
       "title": "Chcete si tento 60minutový herní zážitek vyzkoušet naživo?",
