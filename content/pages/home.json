@@ -248,7 +248,7 @@
     "badge": "CENÍK & 1. LEKCE ZDARMA",
     "title": "Začněte 1. lekcí zdarma a bez závazků",
     "subtitle": "Každé dítě si může přijít celou lekci hrou nezávazně vyzkoušet. Pokud se mu to bude líbit, pokračujete dál.",
-    "guarantee": "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani vázací smlouvy na celé pololetí. Pokud dítě onemocní, o lekci nepřijdete – nabízíme možnost připojit se online z domova nebo si hodinu nahradit v jiný den.",
+    "guarantee": "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Pokud dítě onemocní, o lekci nepřijdete – nabízí se možnost si hodinu nahradit v jiný den v jiné skupině.  ",
     "tiers": [
       {
         "name": "Děti & Žáci ZŠ (Skupinky hrou)",
@@ -313,8 +313,8 @@
       },
       {
         "icon": "📝",
-        "title": "Bez smluv na pololetí",
-        "desc": "Žádné vázání na půl roku dopředu ani platby naslepo. Platíte flexibilně měsíčně až po 1. lekci."
+        "title": "Slevy podlé délky úvazku",
+        "desc": "Přijdte na jednu hodinu, vyzkoušejte různé skupiny a jakmile najdete to své, získejte slevu podle délku své přislíbené účasti"
       },
       {
         "icon": "🎁",
