@@ -48,11 +48,11 @@
         "subtitlePrompt": "Klikněte pro přehrání",
         "phrases": [
           {
-            "id": "gday",
+            "id": "Welcome!",
             "buttonLabel": "🦘 „G'day mate!“",
-            "short": "G'day mate! I'm Josef.",
-            "en": "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
-            "cz": "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!"
+            "short": "Hi there! Are you ready to speak like a champion?",
+            "en": "Welcome to Valek Academy. Let's roll the dice and enjoy speaking English together!",
+            "cz": "Vítejte na Valek Academy. Hoďme kostkou a pobavme se mluvením anglicky!"
           },
           {
             "id": "dice",
