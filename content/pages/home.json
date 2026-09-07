@@ -30,7 +30,7 @@
   },
   "hero": {
     "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
-    "subtitle": "Konec nudného biflování, zkoušek a hodin sezení v tichosti. Pan Válek vyrůstal v Austrálii od dětství do dospělosti a otevřel doučovnu pro děti v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učí osobně v Uherském Hradišti, tak že mladý student mluví co nejvíc.",
+    "subtitle": "Konec nudného biflování, zkoušek a hodin sezení v tichosti. Pan Válek vyrůstal v Austrálii od dětství do dospělosti a otevřel doučovnu pro děti v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učí se osobně v centru Uherského Hradiště, kde student mluví a učitel něžně nasměrovává.",
     "ctaPrimaryText": "Vyzkoušet 1. lekci zdarma",
     "ctaPrimaryLink": "#kontakt",
     "ctaSecondaryText": "Jak výuka hrou funguje",
@@ -81,7 +81,7 @@
     "stats": [
       {
         "number": "Uh. Hradiště",
-        "label": "osobně v doučovně i online"
+        "label": "osobně v doučovně v centru UH"
       },
       {
         "number": "4–8 dětí",
