@@ -258,13 +258,13 @@
         "isPopular": true,
         "badge": "🎁 1. LEKCE ZDARMA • OTEVŘENO",
         "features": [
-          "1. ukázková lekce ve skupince ZDARMA",
           "Malá skupinka 4 až 8 dětí pro maximální zapojení",
           "Učení formou deskových her, karet a kvízů",
           "Dovysvětlení látky ze školy a pomoc s úkoly",
           "Všechny herní i výukové materiály v ceně",
           "Férové náhrady: při nemoci online připojení či náhradní hodina",
-          "Bez smluv na pololetí: flexibilní měsíční platba až po 1. lekci"
+          "Bez smluv na pololetí: flexibilní měsíční platba až po 1. lekci",
+          "Rodič smí přijít na pozorování svého dítěte"
         ],
         "ctaText": "Vyzkoušet 1. lekci zdarma",
         "ctaLink": "#kontakt"
