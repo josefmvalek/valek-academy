@@ -426,15 +426,15 @@
     "gameSpotlights": [
       {
         "icon": "🐉",
-        "title": "Karak & Fantasy dobrodružství",
+        "title": "Catan, RPG & pohádkové dobrodružství",
         "tag": "Strategie & Slovní zásoba",
         "badge": "1.–6. třída ZŠ",
         "accent": "border-amber-400 bg-amber-50/60",
         "desc": "Každé dítě si vybere hrdinu (mág, válečník, zloděj). V kobkách objevují truhly, bojují s kostkami a v angličtině popisují zbraně, kouzla a tahy. Přirozená soutěživost a obrovský zápal!",
         "phrases": [
-          "I roll the dice!",
-          "I open the chest with a golden key.",
-          "My wizard casts a fireball!"
+          "I'll roll the dice now!",
+          "Try opening the chest with that golden key.",
+          "My wizard will casts a huge fireball!"
         ]
       },
       {
