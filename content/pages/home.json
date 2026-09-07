@@ -30,7 +30,7 @@
   },
   "hero": {
     "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
-    "subtitle": "Konec nudného biflování, zkoušek a hodin sezení v tichosti. Pan učitel vyrůstal v Austrálii od dětství do dospělosti a otevřel doučovnu pro děti v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učí se osobně v centru Uherského Hradiště, kde student mluví a učitel něžně nasměrovává.",
+    "subtitle": "Konec nudného biflování, zkoušek a hodin sezení v tichosti. Pan učitel vyrůstal v Austrálii od dětství do dospělosti a otevřel doučovnu pro děti v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učí se osobně v centru Uherského Hradiště, kde studenti mluví a učitel něžně nasměrovává.",
     "ctaPrimaryText": "Vyzkoušet 1. lekci zdarma",
     "ctaPrimaryLink": "#kontakt",
     "ctaSecondaryText": "Jak výuka hrou funguje",
@@ -38,7 +38,7 @@
     "card": {
       "enabled": true,
       "showBenefits": true,
-      "image": "/images/josef-valek-thumb.webp",
+      "image": "/uploads/images/josef-valek-thumb.webp",
       "teacherName": "Josef Válek",
       "teacherRole": "BBA, RMIT Melbourne • 25+ let v ČR",
       "teacherTag": "Rodilý přízvuk & výuka hrou",
