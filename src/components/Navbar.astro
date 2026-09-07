@@ -47,7 +47,7 @@ const navLinks = (navbar.navLinks && navbar.navLinks.length > 0) ? navbar.navLin
     <div class="flex items-center justify-between h-16 sm:h-20">
       
       <!-- Clean Brand Logo -->
-      <a href="#" class="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0">
+      <a href="/" class="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0">
         <ParrotLogo className="w-9 h-9 sm:w-11 sm:h-11 shadow-2xs rounded-full group-hover:scale-105 transition-transform" />
         <div class="flex flex-col">
           <span class="font-heading font-black text-base sm:text-xl text-espresso-950 tracking-tight leading-none group-hover:text-amber-800 transition-colors" data-tina-field={tinaField(navbar, 'brandName')} data-edit-key="navbar.brandName" data-edit-label="Název v hlavičce">
@@ -64,7 +64,7 @@ const navLinks = (navbar.navLinks && navbar.navLinks.length > 0) ? navbar.navLin
       <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-stone-700" aria-label="Hlavní navigace">
         {navLinks.map((link, idx) => (
           <a
-            href={link.href}
+            href={link.href.startsWith('#') ? `/${link.href}` : link.href}
             class={`hover:text-amber-800 transition-colors ${link.badge ? 'font-bold text-espresso-950 flex items-center gap-1.5' : ''}`}
             data-tina-field={navbar.navLinks ? tinaField(navbar, 'navLinks', idx) : undefined}
           >
@@ -90,7 +90,7 @@ const navLinks = (navbar.navLinks && navbar.navLinks.length > 0) ? navbar.navLin
 
         <!-- Primary CTA Button -->
         <a
-          href="#kontakt"
+          href="/#kontakt"
           class="btn-gold-pulse inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-transform"
         >
           <span data-tina-field={tinaField(navbar, 'ctaText')} data-edit-key="navbar.ctaText" data-edit-label="Text tlačítka v menu">{ctaText}</span>
@@ -118,7 +118,7 @@ const navLinks = (navbar.navLinks && navbar.navLinks.length > 0) ? navbar.navLin
   <div id="mobile-menu" class="hidden lg:hidden border-t border-stone-200 bg-[#FAF7F2] shadow-xl px-5 pt-3 pb-6 space-y-1">
     {navLinks.map((link, idx) => (
       <a
-        href={link.href}
+        href={link.href.startsWith('#') ? `/${link.href}` : link.href}
         class="mobile-nav-link block py-2.5 text-sm font-bold text-espresso-950 border-b border-stone-100 flex items-center justify-between"
         data-tina-field={navbar.navLinks ? tinaField(navbar, 'navLinks', idx) : undefined}
       >
@@ -131,7 +131,7 @@ const navLinks = (navbar.navLinks && navbar.navLinks.length > 0) ? navbar.navLin
 
     <div class="pt-4 space-y-2.5">
       <a
-        href="#kontakt"
+        href="/#kontakt"
         class="mobile-nav-link w-full py-3.5 rounded-xl font-heading font-black text-center text-espresso-950 bg-gradient-to-b from-amber-300 to-amber-500 border border-amber-500 shadow-md block"
       >
         <span data-edit-key="navbar.ctaText" data-edit-label="Text tlačítka v menu">{ctaText}</span>

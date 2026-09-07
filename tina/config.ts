@@ -86,6 +86,7 @@ export default defineConfig({
                 fields: [
                   { type: "boolean", name: "enabled", label: "Zobrazit kartu Josefa v Hero na webu?" },
                   { type: "boolean", name: "showBenefits", label: "Zobrazit v kartě spodní minikarty výhod a adresu?" },
+                  { type: "image", name: "image", label: "Fotka / Avatar lektora v Hero" },
                   { type: "string", name: "teacherName", label: "Jméno lektora" },
                   { type: "string", name: "teacherRole", label: "Podtitul / Vzdělání (např. BBA Melbourne • 25+ let v ČR)" },
                   { type: "string", name: "teacherTag", label: "Specializace (např. Australský přízvuk & výuka hrou)" },
@@ -160,6 +161,7 @@ export default defineConfig({
                 fields: [
                   { type: "string", name: "id", label: "Identifikátor" },
                   { type: "string", name: "icon", label: "Ikona / Emoji" },
+                  { type: "image", name: "image", label: "Obrázek programu (ilustrace / fotka)" },
                   { type: "string", name: "title", label: "Název programu" },
                   { type: "string", name: "age", label: "Věk a velikost skupinky" },
                   { type: "string", name: "badge", label: "Štítek" },
@@ -208,6 +210,7 @@ export default defineConfig({
               { type: "boolean", name: "enabled", label: "Zobrazit sekci O lektorovi na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
+              { type: "image", name: "image", label: "Hlavní fotka lektora Josefa" },
               { type: "string", name: "teacherName", label: "Jméno lektora" },
               { type: "string", name: "role", label: "Titul / Pozice" },
               { type: "string", name: "bio", label: "Životopis a přístup", ui: { component: "textarea" } },
@@ -401,6 +404,7 @@ export default defineConfig({
                 name: "poster",
                 label: "Obrázkový poster s deskovkami",
                 fields: [
+                  { type: "image", name: "image", label: "Obrázek deskových her / Doučovny" },
                   { type: "string", name: "tag", label: "Štítek (např. Atmosféra naší doučovny)" },
                   { type: "string", name: "title", label: "Nadpis posteru" },
                   { type: "string", name: "desc", label: "Popis posteru", ui: { component: "textarea" } },
@@ -580,6 +584,7 @@ export default defineConfig({
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              { type: "image", name: "tutorImage", label: "Fotka lektora u kontaktu" },
               { type: "string", name: "tutorName", label: "Jméno lektora na kartě" },
               { type: "string", name: "tutorCredentials", label: "Titul a zkušenosti" },
               { type: "string", name: "tutorRole", label: "Místo / Doučovna" },
@@ -638,6 +643,113 @@ export default defineConfig({
               { type: "boolean", name: "enabled", label: "Zobrazit mobilní plovoucí lištu?" },
               { type: "string", name: "text", label: "Text výzvy" },
               { type: "string", name: "buttonText", label: "Text tlačítka" },
+            ],
+          },
+        ],
+      },
+      {
+        name: "legal",
+        label: "Právní dokumenty (GDPR & VOP)",
+        path: "content/legal",
+        format: "json",
+        ui: {
+          router: ({ document }) => {
+            if (document._sys.filename === "privacy") {
+              return "/ochrana-osobnich-udaju";
+            }
+            if (document._sys.filename === "terms") {
+              return "/obchodni-podminky";
+            }
+            return undefined;
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Hlavní nadpis stránky",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "string",
+            name: "seoDescription",
+            label: "SEO Popis pro vyhledávače",
+            ui: { component: "textarea" },
+          },
+          {
+            type: "string",
+            name: "badge",
+            label: "Horní odznáček / Štítek",
+          },
+          {
+            type: "string",
+            name: "subtitle",
+            label: "Úvodní popis stránky",
+            ui: { component: "textarea" },
+          },
+          {
+            type: "string",
+            name: "effectiveDate",
+            label: "Datum účinnosti (např. 1. září 2025)",
+          },
+          {
+            type: "string",
+            name: "locationNote",
+            label: "Poznámka k místu",
+          },
+          {
+            type: "object",
+            name: "adminInfo",
+            label: "Údaje o správci (Zásady ochrany údajů)",
+            fields: [
+              { type: "string", name: "name", label: "Jméno a příjmení" },
+              { type: "string", name: "ico", label: "IČO" },
+              { type: "string", name: "address", label: "Sídlo a adresa" },
+              { type: "string", name: "registry", label: "Živnostenský zápis" },
+              { type: "string", name: "taxStatus", label: "Daňový status (např. Neplátce DPH)" },
+              { type: "string", name: "email", label: "Kontaktní e-mail" },
+              { type: "string", name: "phone", label: "Kontaktní telefon" },
+            ],
+          },
+          {
+            type: "object",
+            name: "providerInfo",
+            label: "Údaje o poskytovateli (Obchodní podmínky)",
+            fields: [
+              { type: "string", name: "name", label: "Jméno a příjmení" },
+              { type: "string", name: "ico", label: "IČO" },
+              { type: "string", name: "address", label: "Sídlo a adresa" },
+              { type: "string", name: "registry", label: "Živnostenský zápis" },
+              { type: "string", name: "taxStatus", label: "Daňový status" },
+              { type: "string", name: "email", label: "Kontaktní e-mail" },
+              { type: "string", name: "phone", label: "Kontaktní telefon" },
+            ],
+          },
+          {
+            type: "object",
+            name: "sections",
+            label: "Jednotlivé sekce a odstavce",
+            list: true,
+            ui: {
+              itemProps: (item) => ({
+                label: `${item?.number ? item.number + '. ' : ''}${item?.title || 'Sekce'}`,
+              }),
+            },
+            fields: [
+              { type: "string", name: "number", label: "Číslo sekce" },
+              { type: "string", name: "title", label: "Nadpis sekce", required: true },
+              { type: "string", name: "content", label: "Text sekce", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "bullets",
+                label: "Odrážky / Seznam (volitelné)",
+                list: true,
+                fields: [
+                  { type: "string", name: "label", label: "Tučný název odrážky" },
+                  { type: "string", name: "text", label: "Text odrážky", ui: { component: "textarea" } },
+                ],
+              },
             ],
           },
         ],

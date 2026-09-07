@@ -167,12 +167,16 @@ const credentials = about.credentials || defaultCredentials;
             <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
               <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-md flex-shrink-0 group">
                 <img
-                  src="/images/josef-valek.webp"
+                  src={about.image || "/images/josef-valek.webp"}
                   alt="Josef Válek – Lektor Valek Academy"
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   width="80"
                   height="80"
                   loading="lazy"
+                  data-tina-field={tinaField(about, 'image')}
+                  data-edit-key="about.image"
+                  data-edit-type="image"
+                  data-edit-label="Fotka lektora (O mně)"
                 />
                 <span class="absolute bottom-0 inset-x-0 bg-espresso-950/85 text-[8px] sm:text-[9px] text-amber-300 text-center py-0.5 font-black uppercase tracking-wider">
                   Melbourne
@@ -263,6 +267,9 @@ const credentials = about.credentials || defaultCredentials;
                 src={item.image}
                 alt={item.title}
                 data-tina-field={tinaField(item, 'image')}
+                data-edit-key={`location.gallery.${idx}.image`}
+                data-edit-type="image"
+                data-edit-label={`Fotka doučovny ${idx + 1}`}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />

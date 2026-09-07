@@ -1,0 +1,76 @@
+{
+  "title": "Zásady ochrany osobních údajů & používání cookies",
+  "seoDescription": "Informace o zpracování osobních údajů a používání cookies dle GDPR a platné české legislativy pro VALEK ACADEMY (Josef Válek, Uherské Hradiště).",
+  "badge": "100% v souladu s GDPR",
+  "subtitle": "Vaše soukromí a bezpečí vašich dětí bereme s maximální vážností. V tomto dokumentu najdete transparentní a srozumitelný přehled o tom, jaké údaje shromažďujeme, z jakého důvodu, jak s nimi nakládáme a jaká jsou vaše zákonná práva.",
+  "effectiveDate": "1. září 2025",
+  "locationNote": "Růžová 1238, Uherské Hradiště",
+  "adminInfo": {
+    "name": "Josef Válek (VALEK ACADEMY)",
+    "ico": "72419563",
+    "address": "Růžová 1238, 686 01 Uherské Hradiště, Česká republika",
+    "registry": "Fyzická osoba zapsaná v živnostenském rejstříku Městského úřadu Uherské Hradiště",
+    "taxStatus": "Neplátce DPH",
+    "email": "info@valekacademy.cz",
+    "phone": "+420 792 372 642"
+  },
+  "sections": [
+    {
+      "number": "1",
+      "title": "Kdo je správcem vašich osobních údajů?",
+      "content": "Správcem osobních údajů ve smyslu Nařízení Evropského parlamentu a Rady (EU) 2016/679 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů (tzv. GDPR) a zákona č. 110/2019 Sb., o zpracování osobních údajů, je výše uvedený provozovatel Josef Válek."
+    },
+    {
+      "number": "2",
+      "title": "Jaké osobní údaje zpracováváme?",
+      "content": "Zpracováváme pouze ty údaje, které nám sami dobrovolně poskytnete v rámci poptávkového formuláře na 1. ukázkovou lekci zdarma nebo při další komunikaci:",
+      "bullets": [
+        {
+          "label": "Identifikační údaje rodiče:",
+          "text": "Jméno a příjmení zákonného zástupce."
+        },
+        {
+          "label": "Kontaktní údaje:",
+          "text": "Telefonní číslo a e-mailová adresa (nutné pro domluvu termínu ukázkové lekce a komunikaci)."
+        },
+        {
+          "label": "Údaje o žákovi:",
+          "text": "Jméno a věk či navštěvovaný ročník (třída) dítěte – tyto údaje slouží výhradně k tomu, abychom dítě zařadili do věkově a jazykově kompatibilní skupinky 4–8 dětí."
+        },
+        {
+          "label": "Preference výuky:",
+          "text": "Zvolená forma (osobně v doučovně v UH vs. online), preferované dny v týdnu a dobrovolná doplňující poznámka."
+        },
+        {
+          "label": "V případě placené výuky:",
+          "text": "Fakturační a platební údaje nezbytné pro vystavení potvrzení o platbě dle zákona o účetnictví."
+        }
+      ]
+    },
+    {
+      "number": "3",
+      "title": "Účel zpracování a právní důvody",
+      "content": "Vaše osobní údaje zpracováváme výhradně pro tyto legitimní účely dle GDPR:\n\nA. Domluva a realizace 1. ukázkové lekce zdarma (Předsmluvní jednání dle čl. 6 odst. 1 písm. b GDPR)\nB. Poskytování vzdělávacích služeb a organizace lekcí (Plnění smlouvy dle čl. 6 odst. 1 písm. b GDPR)\nC. Plnění právních a daňových povinností (Zákonná povinnost dle čl. 6 odst. 1 písm. c GDPR)\nD. Ochrana oprávněných zájmů správce (Oprávněný zájem dle čl. 6 odst. 1 písm. f GDPR)"
+    },
+    {
+      "number": "4",
+      "title": "Jak dlouho vaše údaje uchováváme?",
+      "content": "Nezávazná poptávka / ukázková lekce: Pokud po absolvování 1. ukázkové lekce nedojde k zahájení pravidelné výuky, vaše kontaktní údaje vymažeme nejpozději do 6 měsíců od odeslání poptávky, pokud sami nepožádáte o zařazení na čekací listinu.\n\nPravidelní studenti: Údaje uchováváme po dobu trvání docházky dítěte do kurzů.\n\nÚčetní a daňové doklady: V případě placených služeb jsme ze zákona povinni uchovávat fakturační údaje po dobu 5 až 10 let dle zákona o účetnictví a daňového řádu."
+    },
+    {
+      "number": "5",
+      "title": "Kdo má k údajům přístup? (Zpracovatelé)",
+      "content": "Vaše osobní údaje neprodáváme, nepronajímáme ani nepředáváme třetím stranám za účelem marketingu. Přístup k nim má pouze lektor Josef Válek a prověření techničtí poskytovatelé nezbytní pro fungování webu a komunikace (Web3Forms pro bezpečné odeslání formuláře, poskytovatel hostingu a zabezpečené e-mailové schránky). Veškeré údaje jsou zpracovávány v rámci Evropské unie v souladu s GDPR."
+    },
+    {
+      "number": "6",
+      "title": "Používání souborů Cookies (Čistý web bez sledování)",
+      "content": "Web VALEK ACADEMY nepoužívá žádné sledovací, analytické ani reklamní cookies třetích stran (žádný Google Analytics, Meta Pixel ani reklamní trackery).\n\nWeb využívá výhradně nezbytná technická data / cookies nutná pro bezchybné zobrazení a bezpečnost stránek. Podle § 89 odst. 3 zákona č. 127/2005 Sb., o elektronických komunikacích, není pro tyto nezbytné funkce vyžadován aktivní souhlas uživatele. Proto vás na našem webu neobtěžujeme žádnou otravnou cookie lištou."
+    },
+    {
+      "number": "7",
+      "title": "Jaká jsou vaše zákonná práva?",
+      "content": "Dle nařízení GDPR máte právo na přístup k údajům (čl. 15), právo na opravu (čl. 16), právo na výmaz (čl. 17), právo na omezení zpracování (čl. 18) a právo na přenositelnost údajů (čl. 20).\n\nPokud se domníváte, že s vašimi údaji nakládáme v rozporu se zákonem, máte právo podat stížnost u dozorového orgánu: Úřad pro ochranu osobních údajů (ÚOOÚ), Pplk. Sochora 27, 170 00 Praha 7, www.uoou.cz."
+    }
+  ]
+}

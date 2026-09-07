@@ -125,12 +125,16 @@ const poster = howItWorks.poster || {
   <!-- Visual Showcase: The Real 3D Board Game Table Artwork with Glass Overlay -->
   <div class="relative rounded-3xl overflow-hidden border-2 border-amber-400 shadow-md group">
     <img
-      src="/images/board-games-3d.webp"
+      src={poster.image || "/images/board-games-3d.webp"}
       alt="Deskové hry pro výuku angličtiny ve Valek Academy"
       class="w-full h-64 sm:h-80 md:h-96 lg:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
       width="1376"
       height="768"
       loading="lazy"
+      data-tina-field={howItWorks.poster ? tinaField(poster, 'image') : undefined}
+      data-edit-key="howItWorks.poster.image"
+      data-edit-type="image"
+      data-edit-label="Obrázek deskových her"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/95 via-espresso-950/50 to-transparent flex flex-col justify-end p-6 sm:p-10">
       <div class="space-y-2 max-w-2xl" data-tina-field={tinaField(howItWorks, 'poster')}>

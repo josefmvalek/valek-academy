@@ -1,4 +1,4 @@
-# 🇬🇧 Mgr. Josef Válek – Moderní web pro výuku a doučování angličtiny
+# 🇬🇧 Josef Válek – Moderní web pro výuku a doučování angličtiny
 
 Profesionální, vysoce konverzní one-page prezentační web pro lektora angličtiny. Web je bleskově rychlý, plně responzivní pro mobily i počítače a vybavený vizuální administrací **TinaCMS** na adrese `/admin`, která umožňuje snadnou editaci všech textů, ceníků, referencí i kontaktů bez nutnosti sahat do kódu.
 

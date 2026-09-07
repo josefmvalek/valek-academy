@@ -4,11 +4,13 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
 }
 
 const {
   title = "Josef Válek | Angličtina hrou a bez stresu – pro děti i dospělé",
   description = "Výuka angličtiny a doučování přirozeně a hrou. Josef vyrostl v Austrálii, žije 25+ let v ČR a učí formou deskovek pro děti i konverzace pro dospělé.",
+  canonical = "https://valekacademy.cz/",
 } = Astro.props;
 ---
 
@@ -18,6 +20,8 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.jpg" />
     <meta name="generator" content={Astro.generator} />
     
     <!-- Primary Meta Tags -->
@@ -48,7 +52,7 @@ const {
     <meta name="ICBM" content="49.0708, 17.4665" />
 
     <!-- Canonical Tag -->
-    <link rel="canonical" href="https://valekacademy.cz/" />
+    <link rel="canonical" href={canonical} />
 
     <!-- Google Fonts Optimized Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,12 +68,15 @@ const {
             "@type": "EducationalOrganization",
             "@id": "https://valekacademy.cz/#organization",
             "name": "VALEK ACADEMY",
+            "legalName": "Josef Válek",
+            "identifier": "72419563",
             "alternateName": "Doučování angličtiny Josef Válek",
             "description": "Trpělivá a hravá výuka angličtiny pro žáky ZŠ a studenty v malých skupinkách (4–8 dětí) formou deskových her v Uherském Hradišti. Lektor Josef Válek (BBA RMIT Melbourne, 25+ let v ČR).",
             "url": "https://valekacademy.cz",
             "telephone": "+420792372642",
             "email": "info@valekacademy.cz",
             "image": "https://valekacademy.cz/images/og-valek-academy.jpg",
+            "logo": "https://valekacademy.cz/images/valek-academy-logo.jpg",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Růžová 1238",

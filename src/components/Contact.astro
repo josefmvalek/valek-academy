@@ -7,6 +7,7 @@ interface Props {
     badge?: string;
     title?: string;
     subtitle?: string;
+    tutorImage?: string;
     tutorName?: string;
     tutorCredentials?: string;
     tutorRole?: string;
@@ -60,7 +61,7 @@ const formBadgeNote = contact.formBadgeNote || "Nezávazná přihláška";
 const formTitle = contact.formTitle || "Rezervace ukázkové lekce hrou";
 const formSubtitle = contact.formSubtitle || "Vyplňte krátký formulář a Josef se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.";
 const submitButtonText = contact.submitButtonText || "🎁 Rezervovat 1. lekci ZDARMA";
-const securityNote = contact.securityNote || "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí a slouží pouze k domluvě úvodní lekce.";
+const securityNote = contact.securityNote || "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí. Odesláním berete na vědomí zpracování údajů pro domluvu lekce.";
 const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KEY || "f49fa95f-e8a5-4b5b-b462-11980de8d1bc";
 ---
 
@@ -88,7 +89,24 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
         
         <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300/80 shadow-soft-lg space-y-5">
           <div class="flex items-center gap-3.5 pb-4 border-b border-parchment-200">
-            <ParrotLogo className="w-13 h-13" />
+            {contact.tutorImage ? (
+              <div class="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-sm flex-shrink-0">
+                <img
+                  src={contact.tutorImage}
+                  alt={tutorName}
+                  class="w-full h-full object-cover"
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  data-tina-field={tinaField(contact, 'tutorImage')}
+                  data-edit-key="contact.tutorImage"
+                  data-edit-type="image"
+                  data-edit-label="Fotka lektora u kontaktu"
+                />
+              </div>
+            ) : (
+              <ParrotLogo className="w-13 h-13" />
+            )}
             <div>
               <h3 class="font-heading font-black text-xl text-espresso-950 leading-tight" data-tina-field={tinaField(contact, 'tutorName')} data-edit-key="contact.tutorName" data-edit-label="Jméno lektora">
                 {tutorName}
@@ -869,8 +887,9 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
               </div>
             </div>
 
-            <p class="text-[11px] text-stone-500 text-center font-medium" data-tina-field={tinaField(contact, 'securityNote')} data-edit-key="contact.securityNote" data-edit-label="Bezpečnostní poznámka">
-              {securityNote}
+            <p class="text-[11px] text-stone-500 text-center font-medium leading-relaxed" data-tina-field={tinaField(contact, 'securityNote')} data-edit-key="contact.securityNote" data-edit-label="Bezpečnostní poznámka">
+              <span>{securityNote}</span>
+              <a href="/ochrana-osobnich-udaju" class="underline hover:text-amber-800 transition-colors ml-1 font-semibold" target="_blank" rel="noopener">Více informací v Zásadách ochrany osobních údajů & cookies.</a>
             </p>
 
           </form>
