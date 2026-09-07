@@ -279,7 +279,7 @@
         "features": [
           "Aktivní konverzace a nácvik reálných situací",
           "Praxe od profesionálního překladatele a simultánního tlumočníka",
-          "Cvičení výslovnosti a motivace pro překonání ostychuchyb",
+          "Cvičení výslovnosti a motivace pro překonání ostychu z chyb",
           "Zapište se nezávazně na čekací listinu",
           "Skupiny pro doktory a sestřicky, inženýry, právníky, účetní, podnikatele, úředníky, ale i učitele angličtiny"
         ],
@@ -290,7 +290,7 @@
         "name": "Středoškoláci & Maturita",
         "price": "Brzy",
         "period": "/ připravujeme",
-        "description": "Cílená příprava k maturitě, zejména aktivace mluvení a rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
+        "description": "Cílená příprava k maturitě a vysokoškolskému studiu, zejména aktivace mluvení a rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
         "isPopular": false,
         "badge": "Připravujeme brzy",
         "features": [
@@ -298,6 +298,7 @@
           "Cvičení \"fluent presentation\" před komisí",
           "Materiály a podklady k tématům v ceně",
           "Troubleshooting opakovaných chyb",
+          "Přípravný kurs pro budoucí opér a studiu v zahraničí",
           "Zapište se nezávazně na čekací listinu"
         ],
         "ctaText": "Zapsat se na čekací listinu",
