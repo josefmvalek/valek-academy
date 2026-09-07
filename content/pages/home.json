@@ -289,14 +289,15 @@
       {
         "name": "Středoškoláci & Maturita",
         "price": "Brzy",
-        "period": "připravujeme",
-        "description": "Cílená příprava k maturitě (didaktický test, esej, speaking) a odstranění nervozity.",
+        "period": "/ připravujeme",
+        "description": "Cílená příprava k maturitě, zejména aktivace mluvení a rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
         "isPopular": false,
         "badge": "Připravujeme brzy",
         "features": [
           "Systematický trénink maturitních úloh",
-          "Nácvik plynulého speakingu před komisí",
+          "Cvičení \"fluent presentation\" před komisí",
           "Materiály a podklady k tématům v ceně",
+          "Troubleshooting opakovaných chyb",
           "Zapište se nezávazně na čekací listinu"
         ],
         "ctaText": "Zapsat se na čekací listinu",
