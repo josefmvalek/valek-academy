@@ -188,15 +188,15 @@
   },
   "scio": {
     "enabled": false,
-    "badge": "PŘIPRAVUJEME BRZY",
+    "badge": "PŘIPRAVUJEME PRO DALŠÍ SEMESTR",
     "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
-    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
+    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
     "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
     "features": [
       "Rozbor typových testových úloh z matematiky a češtiny",
-      "Osvědčené postupy pro zvládnutí časového limitu",
-      "Pravidelné testy nanečisto a rozbor každé chyby",
-      "Klidné a srozumitelné vysvětlení bez nervů a stresu"
+      "Osvědčené postupy a strategie pro zvládnutí časového limitu",
+      "Pravidelné testy nanečisto s detailním rozborem každé chyby",
+      "Trpělivé vysvětlení logiky úloh bez paniky a zbytečného tlaku"
     ],
     "ctaText": "Předběžně se zapsat na čekací listinu",
     "ctaLink": "#kontakt"
@@ -732,21 +732,6 @@
       }
     ],
     "whatsappText": "Napsat na WhatsApp"
-  },
-  "scio": {
-    "enabled": false,
-    "badge": "PŘIPRAVUJEME PRO DALŠÍ SEMESTR",
-    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
-    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
-    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
-    "features": [
-      "Rozbor typových testových úloh z matematiky a češtiny",
-      "Osvědčené postupy a strategie pro zvládnutí časového limitu",
-      "Pravidelné testy nanečisto s detailním rozborem každé chyby",
-      "Trpělivé vysvětlení logiky úloh bez paniky a zbytečného tlaku"
-    ],
-    "ctaText": "Předběžně se zapsat na čekací listinu",
-    "ctaLink": "#kontakt"
   },
   "faq": {
     "enabled": true,
