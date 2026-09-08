@@ -583,21 +583,6 @@ export default defineConfig({
           },
           {
             type: "object",
-            name: "scio",
-            label: "Příprava na SŠ & SCIO (Doplňkový program)",
-            fields: [
-              { type: "boolean", name: "enabled", label: "Zobrazit sekci SCIO přípravy na webu?" },
-              { type: "string", name: "badge", label: "Odznáček" },
-              { type: "string", name: "title", label: "Hlavní nadpis" },
-              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
-              { type: "string", name: "tagline", label: "Slogan / Zvýrazněná myšlenka" },
-              { type: "string", name: "features", label: "Body programu (odrážky)", list: true },
-              { type: "string", name: "ctaText", label: "Text tlačítka" },
-              { type: "string", name: "ctaLink", label: "Odkaz tlačítka" },
-            ],
-          },
-          {
-            type: "object",
             name: "faq",
             label: "Časté dotazy (FAQ)",
             fields: [
