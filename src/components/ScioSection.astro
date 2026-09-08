@@ -1,4 +1,6 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
+
 interface Props {
   scio: {
     badge?: string;
@@ -8,6 +10,7 @@ interface Props {
     features?: string[];
     ctaText?: string;
     ctaLink?: string;
+    [key: string]: any;
   };
 }
 
@@ -30,7 +33,7 @@ const ctaLink = scio.ctaLink || "#kontakt";
 <section id="scio" class="py-12 md:py-16 relative bg-gradient-to-b from-white via-parchment-100/50 to-white border-y border-parchment-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <div class="bg-gradient-to-br from-[#FFFDF9] via-white to-parchment-50 rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-amber-300/80 shadow-soft-lg relative overflow-hidden">
+    <div class="bg-gradient-to-br from-[#FFFDF9] via-white to-parchment-50 rounded-3xl p-6 sm:10 md:p-12 border-2 border-amber-300/80 shadow-soft-lg relative overflow-hidden">
       
       <!-- Subtle ambient glow -->
       <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -39,24 +42,24 @@ const ctaLink = scio.ctaLink || "#kontakt";
         
         <!-- Left: Copy & Bullet Points -->
         <div class="lg:col-span-7 space-y-5">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-edit-key="scio.badge" data-edit-label="Štítek SCIO">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-tina-field={tinaField(scio, 'badge')} data-edit-key="scio.badge" data-edit-label="Štítek SCIO">
             <span>🎯</span> <span>{badge}</span>
           </div>
 
-          <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight leading-tight" data-edit-key="scio.title" data-edit-label="Nadpis SCIO">
+          <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight leading-tight" data-tina-field={tinaField(scio, 'title')} data-edit-key="scio.title" data-edit-label="Nadpis SCIO">
             {title}
           </h2>
 
-          <p class="text-base sm:text-lg text-espresso-800/90 leading-relaxed" data-edit-key="scio.subtitle" data-edit-label="Podnadpis SCIO">
+          <p class="text-base sm:text-lg text-espresso-800/90 leading-relaxed" data-tina-field={tinaField(scio, 'subtitle')} data-edit-key="scio.subtitle" data-edit-label="Podnadpis SCIO">
             {subtitle}
           </p>
 
-          <div class="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-espresso-950 font-bold text-sm flex items-center gap-2.5">
+          <div class="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-espresso-950 font-bold text-sm flex items-center gap-2.5" data-tina-field={tinaField(scio, 'tagline')}>
             <span class="text-lg">💡</span> <span data-edit-key="scio.tagline" data-edit-label="Slogan SCIO">{tagline}</span>
           </div>
 
           <!-- Feature Grid -->
-          <div class="grid sm:grid-cols-2 gap-3.5 pt-1">
+          <div class="grid sm:grid-cols-2 gap-3.5 pt-1" data-tina-field={tinaField(scio, 'features')}>
             {features.map((feat, idx) => (
               <div class="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-parchment-300 shadow-2xs">
                 <div class="w-7 h-7 rounded-lg bg-amber-400 text-espresso-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">
@@ -75,7 +78,7 @@ const ctaLink = scio.ctaLink || "#kontakt";
               id="scio-cta"
               class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-heading font-black text-base text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 hover:from-amber-200 hover:to-amber-400 border border-amber-600 shadow-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
-              <span data-edit-key="scio.ctaText" data-edit-label="Tlačítko SCIO">{ctaText}</span>
+              <span data-tina-field={tinaField(scio, 'ctaText')} data-edit-key="scio.ctaText" data-edit-label="Tlačítko SCIO">{ctaText}</span>
               <span>→</span>
             </a>
             <span class="text-xs text-stone-500 font-medium">

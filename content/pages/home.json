@@ -103,6 +103,10 @@
     "badge": "NABÍDKA VÝUKY",
     "title": "Hlavní zaměření: Výuka dětí hrou a konverzací v malých skupinkách",
     "subtitle": "Aktuálně otevíráme registraci pro děti ZŠ na deskovky a hry, doučování předmětů v angličtině, např. matematika pro CERMAT příjimačky, přírodovědu-zeměpis. \n\nOstatní programy pro dospělé a maturanty připravujeme brzy.",
+    "cohortTabsLabel": "Vyberte ročník vašeho dítěte:",
+    "gamesLabel": "Hry v této skupince:",
+    "pointsLabel": "Co získáte:",
+    "guaranteeLabel": "🎁 1. ukázková lekce 100% ZDARMA",
     "kidsPrograms": [
       {
         "id": "zs-1",
@@ -250,6 +254,8 @@
     "badge": "CENÍK & 1. LEKCE ZDARMA",
     "title": "Začněte 1. lekcí zdarma a bez závazků",
     "subtitle": "Každé dítě si může přijít celou lekci hrou nezávazně vyzkoušet. Pokud se mu to bude líbit, pokračujete dál.",
+    "tabsLabel": "Vyberte kategorii ceníku:",
+    "featuresLabel": "Balíček obsahuje:",
     "guarantee": "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Pokud dítě onemocní, o lekci nepřijdete – nabízí se možnost si hodinu nahradit v jiný den v jiné skupině.  ",
     "tiers": [
       {
@@ -566,6 +572,9 @@
     "badge": "Kde nás najdete",
     "title": "Příjemná doučovna v klidné části Uherského Hradiště",
     "subtitle": "Učení v neosobních kancelářích nebo přecpaných učebnách děti zbytečně stresuje. U nás v Růžové 1238 najdete útulné, rodinné prostředí plné deskových her, kde se děti cítí bezpečně a uvolněně.",
+    "galleryBadge": "Fotogalerie prostor",
+    "galleryTitle": "Nahlédněte do doučovny v Uherském Hradišti",
+    "gallerySubtitle": "Klidné, čisté a rodinné prostředí v Růžové ulici s velkým stolem na deskovky a přirozenou konverzaci. Děti se tu cítí bezpečně a uvolněně.",
     "addressTitle": "Adresa doučovny",
     "address": "Růžová 1238, Uherské Hradiště",
     "parkingInfo": "Academie je v červené zóně. Pozor!",
@@ -724,11 +733,28 @@
     ],
     "whatsappText": "Napsat na WhatsApp"
   },
+  "scio": {
+    "enabled": false,
+    "badge": "PŘIPRAVUJEME PRO DALŠÍ SEMESTR",
+    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
+    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
+    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
+    "features": [
+      "Rozbor typových testových úloh z matematiky a češtiny",
+      "Osvědčené postupy a strategie pro zvládnutí časového limitu",
+      "Pravidelné testy nanečisto s detailním rozborem každé chyby",
+      "Trpělivé vysvětlení logiky úloh bez paniky a zbytečného tlaku"
+    ],
+    "ctaText": "Předběžně se zapsat na čekací listinu",
+    "ctaLink": "#kontakt"
+  },
   "faq": {
     "enabled": true,
     "badge": "ČASTÉ DOTAZY",
     "title": "Vše, co potřebujete vědět o výuce",
     "subtitle": "Máte jakýkoliv dotaz? Neváhejte mi kdykoliv zavolat nebo napsat zprávu.",
+    "contactPrompt": "Máte jakýkoliv další dotaz ohledně skupinek a výuky?",
+    "contactPromptLinkText": "Napište mi do formuláře níže →",
     "items": [
       {
         "question": "Co když je dítě nemocné nebo nemůže dorazit? Propadne nám lekce?",
@@ -789,6 +815,7 @@
     "phoneFormatted": "+420 792 372 642",
     "whatsapp": "https://wa.me/420792372642",
     "whatsappText": "Napsat Mr. Válkovi na WhatsApp →",
+    "whatsappMessage": "Dobrý den Josefe, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.",
     "location": "Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO - Hradební)",
     "hours": "Pondělí – Pátek: 9:00 – 19:00",
     "guaranteeTitle": "1. ukázková lekce je 100% ZDARMA",

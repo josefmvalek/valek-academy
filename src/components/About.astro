@@ -59,6 +59,9 @@ const defaultGallery: GalleryItem[] = [
 ];
 
 const gallery = locationInfo.gallery || defaultGallery;
+const galleryBadge = locationInfo.galleryBadge || "Fotogalerie prostor";
+const galleryTitle = locationInfo.galleryTitle || "Nahlédněte do doučovny v Uherském Hradišti";
+const gallerySubtitle = locationInfo.gallerySubtitle || "Klidné, čisté a rodinné prostředí v Růžové ulici s velkým stolem na deskovky a přirozenou konverzaci. Děti se tu cítí bezpečně a uvolněně.";
 
 const badge = about.badge || "PŘÍBĚH LEKTORA";
 const title = about.title || "Čech, který vyrostl v Austrálii – a teď učí s úsměvem a trpělivostí";
@@ -245,14 +248,14 @@ const credentials = about.credentials || defaultCredentials;
     <!-- Classroom Photo Gallery: Cozy Learning Environment -->
     <div id="kde-ucime" class="mt-12 sm:mt-16 pt-10 border-t border-parchment-200">
       <div class="max-w-2xl mb-6">
-        <div class="text-[11px] font-black uppercase tracking-wider text-amber-900 mb-1 flex items-center gap-1.5 font-bold">
-          <span>📸</span> <span>Fotogalerie prostor</span>
+        <div class="text-[11px] font-black uppercase tracking-wider text-amber-900 mb-1 flex items-center gap-1.5 font-bold" data-tina-field={tinaField(locationInfo, 'galleryBadge')} data-edit-key="location.galleryBadge" data-edit-label="Štítek fotogalerie">
+          <span>📸</span> <span>{galleryBadge}</span>
         </div>
-        <h3 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950">
-          Nahlédněte do doučovny v Uherském Hradišti
+        <h3 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950" data-tina-field={tinaField(locationInfo, 'galleryTitle')} data-edit-key="location.galleryTitle" data-edit-label="Nadpis fotogalerie">
+          {galleryTitle}
         </h3>
-        <p class="text-xs sm:text-sm text-stone-600 mt-1">
-          Klidné, čisté a rodinné prostředí v Růžové ulici s velkým stolem na deskovky a přirozenou konverzaci. Děti se tu cítí bezpečně a uvolněně.
+        <p class="text-xs sm:text-sm text-stone-600 mt-1" data-tina-field={tinaField(locationInfo, 'gallerySubtitle')} data-edit-key="location.gallerySubtitle" data-edit-label="Podnadpis fotogalerie">
+          {gallerySubtitle}
         </p>
       </div>
 

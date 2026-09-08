@@ -1,4 +1,6 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
+
 interface Props {
   ctaLink?: string;
   ctaText?: string;
@@ -30,10 +32,10 @@ const buttonText = stickyCta.buttonText || "Zarezervovat";
     >
       <div class="flex items-center gap-2">
         <span class="text-base">🎁</span>
-        <span data-edit-key="stickyCta.text" data-edit-label="Mobilní lišta text">{text}</span>
+        <span data-tina-field={tinaField(stickyCta, 'text')} data-edit-key="stickyCta.text" data-edit-label="Mobilní lišta text">{text}</span>
       </div>
       <div class="flex items-center gap-1 text-xs font-black uppercase tracking-wider bg-espresso-950 text-amber-300 px-2.5 py-1 rounded-lg">
-        <span data-edit-key="stickyCta.buttonText" data-edit-label="Mobilní lišta tlačítko">{buttonText}</span>
+        <span data-tina-field={tinaField(stickyCta, 'buttonText')} data-edit-key="stickyCta.buttonText" data-edit-label="Mobilní lišta tlačítko">{buttonText}</span>
         <span>→</span>
       </div>
     </a>

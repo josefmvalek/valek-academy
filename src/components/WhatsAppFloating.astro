@@ -1,12 +1,18 @@
 ---
+import { tinaField } from '@tinacms/astro/tina-field';
+
 interface Props {
   phone?: string;
   message?: string;
+  tooltipText?: string;
+  contact?: any;
 }
 
 const {
   phone = "420792372642",
-  message = "Dobrý den Josefe, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma."
+  message = "Dobrý den Josefe, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.",
+  tooltipText = "Napsat Josefovi na WhatsApp →",
+  contact = {}
 } = Astro.props;
 
 const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
@@ -24,7 +30,7 @@ const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
       class="hidden md:flex items-center gap-2 mr-3 px-3.5 py-2 rounded-2xl bg-espresso-950 text-white text-xs font-heading font-bold shadow-xl border border-amber-400/40 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap"
     >
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span id="floating-wa-text">Napsat Josefovi na WhatsApp →</span>
+      <span id="floating-wa-text" data-tina-field={contact ? tinaField(contact, 'whatsappText') : undefined}>{tooltipText}</span>
     </div>
 
     <!-- Main Circular Button -->

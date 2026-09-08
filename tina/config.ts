@@ -150,6 +150,10 @@ export default defineConfig({
               { type: "string", name: "badge", label: "Odznáček sekce" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "cohortTabsLabel", label: "Mobilní přepínač ročníků - nadpis" },
+              { type: "string", name: "gamesLabel", label: "Karta programu - nadpis her" },
+              { type: "string", name: "pointsLabel", label: "Karta programu - nadpis výhod" },
+              { type: "string", name: "guaranteeLabel", label: "Karta programu - spodní garance" },
               {
                 type: "object",
                 name: "kidsPrograms",
@@ -255,6 +259,8 @@ export default defineConfig({
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              { type: "string", name: "tabsLabel", label: "Mobilní přepínač ceníku - nadpis" },
+              { type: "string", name: "featuresLabel", label: "Karta ceníku - nadpis položek v ceně" },
               { type: "string", name: "guarantee", label: "Garance spokojenosti", ui: { component: "textarea" } },
               {
                 type: "object",
@@ -474,6 +480,9 @@ export default defineConfig({
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
               { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "galleryBadge", label: "Fotogalerie - odznáček" },
+              { type: "string", name: "galleryTitle", label: "Fotogalerie - nadpis" },
+              { type: "string", name: "gallerySubtitle", label: "Fotogalerie - podnadpis", ui: { component: "textarea" } },
               { type: "string", name: "addressTitle", label: "Nadpis adresy" },
               { type: "string", name: "address", label: "Adresa" },
               { type: "string", name: "parkingInfo", label: "Informace o parkování" },
@@ -574,6 +583,21 @@ export default defineConfig({
           },
           {
             type: "object",
+            name: "scio",
+            label: "Příprava na SŠ & SCIO (Doplňkový program)",
+            fields: [
+              { type: "boolean", name: "enabled", label: "Zobrazit sekci SCIO přípravy na webu?" },
+              { type: "string", name: "badge", label: "Odznáček" },
+              { type: "string", name: "title", label: "Hlavní nadpis" },
+              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "tagline", label: "Slogan / Zvýrazněná myšlenka" },
+              { type: "string", name: "features", label: "Body programu (odrážky)", list: true },
+              { type: "string", name: "ctaText", label: "Text tlačítka" },
+              { type: "string", name: "ctaLink", label: "Odkaz tlačítka" },
+            ],
+          },
+          {
+            type: "object",
             name: "faq",
             label: "Časté dotazy (FAQ)",
             fields: [
@@ -581,6 +605,8 @@ export default defineConfig({
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              { type: "string", name: "contactPrompt", label: "Spodní výzva FAQ (otázka)" },
+              { type: "string", name: "contactPromptLinkText", label: "Spodní výzva FAQ (text odkazu)" },
               {
                 type: "object",
                 name: "items",
@@ -614,6 +640,7 @@ export default defineConfig({
               { type: "string", name: "phoneFormatted", label: "Telefon (zobrazený formát)" },
               { type: "string", name: "whatsapp", label: "Odkaz na WhatsApp" },
               { type: "string", name: "whatsappText", label: "Text odkazu na WhatsApp" },
+              { type: "string", name: "whatsappMessage", label: "Předvyplněná zpráva pro WhatsApp", ui: { component: "textarea" } },
               { type: "string", name: "location", label: "Místo výuky" },
               { type: "string", name: "hours", label: "Pracovní doba" },
               { type: "string", name: "guaranteeTitle", label: "Karta garance - nadpis" },

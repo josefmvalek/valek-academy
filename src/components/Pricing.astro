@@ -23,9 +23,12 @@ interface Pillar {
 
 interface Props {
   pricing: {
+    [key: string]: any;
     badge?: string;
     title?: string;
     subtitle?: string;
+    tabsLabel?: string;
+    featuresLabel?: string;
     guarantee?: string;
     tiers?: Tier[] | Record<string, Tier>;
     pillars?: Pillar[];
@@ -37,6 +40,8 @@ const { pricing = {} } = Astro.props;
 const badge = pricing.badge || "CENÍK & 1. LEKCE ZDARMA";
 const title = pricing.title || "Transparentní ceny – pro děti 1. lekce zcela zdarma";
 const subtitle = pricing.subtitle || "Pro děti na ZŠ je 1. celá lekce v malé skupince 100% ZDARMA. Ostatní programy otevřeme brzy (můžete se nezávazně zapsat na čekací listinu).";
+const tabsLabel = pricing.tabsLabel || "Vyberte kategorii ceníku:";
+const featuresLabel = pricing.featuresLabel || "Balíček obsahuje:";
 const guarantee = pricing.guarantee || "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani skryté závazky.";
 const rawTiers = pricing.tiers;
 const tiers: Tier[] = Array.isArray(rawTiers)
@@ -84,11 +89,11 @@ const pillars = pricing.pillars || defaultPillars;
 
     <!-- Mobile Tier Switcher Tabs (Cuts scrolling on phones and lets users easily check upcoming programs) -->
     <div class="lg:hidden mb-6">
-      <div class="text-center text-[11px] font-black uppercase tracking-wider text-amber-950/80 mb-2">
-        Vyberte kategorii ceníku:
+      <div class="text-center text-[11px] font-black uppercase tracking-wider text-amber-950/80 mb-2" data-tina-field={tinaField(pricing as any, 'tabsLabel')} data-edit-key="pricing.tabsLabel" data-edit-label="Popisek přepínače ceníku">
+        {tabsLabel}
       </div>
       <div class="grid grid-cols-3 gap-1.5 p-1.5 rounded-2xl bg-parchment-200 border border-parchment-300 shadow-2xs" id="pricing-tabs">
-        {tiers.map((_, idx) => (
+        {tiers.map((t, idx) => (
           <button
             type="button"
             class:list={[
@@ -100,7 +105,7 @@ const pillars = pricing.pillars || defaultPillars;
             data-target={`pricing-tier-${idx}`}
           >
             <span class="text-base">{idx === 0 ? "🎒" : idx === 1 ? "💼" : "🎓"}</span>
-            <span class="truncate font-black text-[11px]">{idx === 0 ? "Děti ZŠ" : idx === 1 ? "Dospělí" : "Maturita"}</span>
+            <span class="truncate font-black text-[11px]">{t.name ? t.name.split(' ')[0] + ' ' + (t.name.split(' ')[1] || '') : (idx === 0 ? "Děti ZŠ" : idx === 1 ? "Dospělí" : "Maturita")}</span>
           </button>
         ))}
       </div>
@@ -161,7 +166,7 @@ const pillars = pricing.pillars || defaultPillars;
 
               <!-- Features list -->
               <div class="space-y-3" data-tina-field={tinaField(tier, 'features')}>
-                <div class="text-xs font-bold uppercase tracking-wider text-stone-400">Balíček obsahuje:</div>
+                <div class="text-xs font-bold uppercase tracking-wider text-stone-400" data-tina-field={tinaField(pricing as any, 'featuresLabel')} data-edit-key="pricing.featuresLabel" data-edit-label="Nadpis výhod balíčku">{featuresLabel}</div>
                 <ul class="space-y-3">
                   {(tier.features || []).map((feat, fIdx) => (
                     <li class="flex items-start gap-3 text-sm text-espresso-800">

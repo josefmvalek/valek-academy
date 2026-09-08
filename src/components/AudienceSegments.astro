@@ -20,11 +20,17 @@ interface Segment {
 
 interface Props {
   audience?: {
+    [key: string]: any;
     badge?: string;
     title?: string;
     subtitle?: string;
+    cohortTabsLabel?: string;
+    gamesLabel?: string;
+    pointsLabel?: string;
+    guaranteeLabel?: string;
     kidsPrograms?: Segment[];
     waitingList?: {
+      [key: string]: any;
       badge?: string;
       title?: string;
       description?: string;
@@ -38,6 +44,10 @@ const { audience = {} } = Astro.props;
 const badge = audience.badge || "PROGRAMY DOUČOVÁNÍ PRO DĚTI";
 const title = audience.title || "Angličtina pro žáky ZŠ přizpůsobená věku a zájmům";
 const subtitle = audience.subtitle || "Děti rozdělujeme do malých skupinek podle věku a znalostí (4 až 8 dětí). Každý věk má své oblíbené deskovky a styl výuky:";
+const cohortTabsLabel = audience.cohortTabsLabel || "Vyberte ročník vašeho dítěte:";
+const gamesLabel = audience.gamesLabel || "Hry v této skupince:";
+const pointsLabel = audience.pointsLabel || "Co získáte:";
+const guaranteeLabel = audience.guaranteeLabel || "🎁 1. ukázková lekce 100% ZDARMA";
 
 const defaultKidsPrograms: Segment[] = [
   {
@@ -142,8 +152,8 @@ const waitingList = audience.waitingList || {
 
     <!-- Mobile Cohort Switcher Tabs (Cuts ~1,400px of scroll on phones!) -->
     <div class="lg:hidden mb-6">
-      <div class="text-center text-[11px] font-black uppercase tracking-wider text-amber-950/80 mb-2">
-        Vyberte ročník vašeho dítěte:
+      <div class="text-center text-[11px] font-black uppercase tracking-wider text-amber-950/80 mb-2" data-tina-field={tinaField(audience as any, 'cohortTabsLabel')}>
+        {cohortTabsLabel}
       </div>
       <div class="grid grid-cols-3 gap-1.5 p-1.5 rounded-2xl bg-parchment-200 border border-parchment-300 shadow-2xs" id="cohort-tabs">
         {kidsPrograms.map((prog, idx) => (
@@ -227,9 +237,9 @@ const waitingList = audience.waitingList || {
             </div>
 
             <!-- Tailored Games for this age -->
-            <div class="pt-3 border-t border-parchment-200" data-tina-field={tinaField(prog, 'games')}>
-              <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-2">Hry v této skupince:</div>
-              <div class="flex flex-wrap gap-1.5">
+            <div class="pt-3 border-t border-parchment-200">
+              <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-2" data-tina-field={tinaField(audience as any, 'gamesLabel')}>{gamesLabel}</div>
+              <div class="flex flex-wrap gap-1.5" data-tina-field={tinaField(prog, 'games')}>
                 {(prog.games || []).map((g) => (
                   <span class="px-2 py-0.5 rounded-md bg-parchment-100 border border-parchment-300 text-[11px] font-bold text-espresso-950">
                     🎲 {g}
@@ -239,9 +249,9 @@ const waitingList = audience.waitingList || {
             </div>
 
             <!-- Bullet Points -->
-            <div class="pt-3 border-t border-parchment-200 space-y-2" data-tina-field={tinaField(prog, 'points')}>
-              <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-1">Co získáte:</div>
-              <ul class="space-y-2">
+            <div class="pt-3 border-t border-parchment-200 space-y-2">
+              <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-1" data-tina-field={tinaField(audience as any, 'pointsLabel')}>{pointsLabel}</div>
+              <ul class="space-y-2" data-tina-field={tinaField(prog, 'points')}>
                 {(prog.points || []).map((point, pIdx) => (
                   <li class="flex items-start gap-2.5 text-xs sm:text-sm text-espresso-900 font-medium">
                     <svg class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -264,8 +274,8 @@ const waitingList = audience.waitingList || {
               <span data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText}</span>
               <span>→</span>
             </a>
-            <div class="text-center mt-2 text-[11px] font-bold text-amber-900">
-              🎁 1. ukázková lekce 100% ZDARMA
+            <div class="text-center mt-2 text-[11px] font-bold text-amber-900" data-tina-field={tinaField(audience as any, 'guaranteeLabel')}>
+              {guaranteeLabel}
             </div>
           </div>
 

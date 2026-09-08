@@ -26,6 +26,11 @@ const stickyCta = page.stickyCta || {};
   </TinaIsland>
 
   {stickyCta.enabled !== false && <MobileStickyCTA ctaLink="#kontakt" ctaText={stickyCta.text} stickyCta={stickyCta} />}
-  <WhatsAppFloating phone={contact.phone?.replace('+', '')} />
+  <WhatsAppFloating
+    phone={contact.phone?.replace('+', '')}
+    message={contact.whatsappMessage}
+    tooltipText={contact.whatsappText}
+    contact={contact}
+  />
   {import.meta.env.DEV && <VisualEditor />}
 </Layout>
