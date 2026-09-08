@@ -1,10 +1,14 @@
 {
+  "backLinkText": "Zpět na hlavní stránku",
   "title": "Všeobecné obchodní podmínky (VOP)",
   "seoDescription": "Všeobecné obchodní podmínky pro poskytování výuky a doučování angličtiny ve VALEK ACADEMY (Josef Válek, Uherské Hradiště).",
   "badge": "Férová pravidla & garance",
   "subtitle": "Ve VALEK ACADEMY věříme v otevřenost, férovost a lidský přístup. Tyto podmínky upravují pravidla rezervací, ukázkové lekce zdarma, pravidelné výuky, plateb a náhradních hodin pro výuku angličtiny.",
   "effectiveDate": "1. září 2025",
   "locationNote": "Růžová 1238, Uherské Hradiště",
+  "clientNote": "Klientem (objednatelem) je zákonný zástupce nezletilého studenta nebo zletilý student, který si objednává vzdělávací služby.",
+  "contactBoxTitle": "Máte dotaz k výuce nebo podmínkám?",
+  "contactBoxSubtitle": "Rád vám jakékoliv otázky osobně zodpovím po telefonu nebo e-mailem:",
   "providerInfo": {
     "name": "Josef Válek (provozovatel VALEK ACADEMY)",
     "ico": "72419563",

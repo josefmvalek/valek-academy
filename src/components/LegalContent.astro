@@ -8,13 +8,17 @@ interface Props {
 
 const { legal = {}, type } = Astro.props;
 
-const title = legal.title || (type === 'privacy' ? "Zásady ochrany osobních údajů & používání cookies" : "Všeobecné obchodní podmínky (VOP)");
-const badge = legal.badge || (type === 'privacy' ? "100% v souladu s GDPR" : "Férová pravidla & garance");
+const isPrivacy = type === 'privacy';
+const backLinkText = legal.backLinkText || "Zpět na hlavní stránku";
+const title = legal.title || (isPrivacy ? "Zásady ochrany osobních údajů & používání cookies" : "Všeobecné obchodní podmínky (VOP)");
+const badge = legal.badge || (isPrivacy ? "100% v souladu s GDPR" : "Férová pravidla & garance");
 const subtitle = legal.subtitle || "";
 const effectiveDate = legal.effectiveDate || "1. září 2025";
 const locationNote = legal.locationNote || "Růžová 1238, Uherské Hradiště";
+const clientNote = legal.clientNote || "Klientem (objednatelem) je zákonný zástupce nezletilého studenta nebo zletilý student, který si objednává vzdělávací služby.";
+const contactBoxTitle = legal.contactBoxTitle || (isPrivacy ? 'Máte dotaz nebo chcete uplatnit svá práva?' : 'Máte dotaz k výuce nebo podmínkám?');
+const contactBoxSubtitle = legal.contactBoxSubtitle || (isPrivacy ? 'Kdykoliv se můžete obrátit přímo na lektora Josefa Válka:' : 'Rád vám jakékoliv otázky osobně zodpovím po telefonu nebo e-mailem:');
 
-const isPrivacy = type === 'privacy';
 const adminInfo = legal.adminInfo || {};
 const providerInfo = legal.providerInfo || {};
 const partyInfo = isPrivacy ? adminInfo : providerInfo;
@@ -32,7 +36,7 @@ const firstSection = sections[0] || {};
         href="/"
         class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-900 hover:text-espresso-950 transition-colors py-1.5 px-3 rounded-xl bg-amber-100/70 border border-amber-200"
       >
-        <span>←</span> <span>Zpět na hlavní stránku</span>
+        <span>←</span> <span data-tina-field={tinaField(legal, 'backLinkText')}>{backLinkText}</span>
       </a>
       <div class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${isPrivacy ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-amber-100 text-amber-950 border border-amber-300'}`}>
         <span>{isPrivacy ? '🔒' : '📜'}</span> <span data-tina-field={tinaField(legal, 'badge')}>{badge}</span>
@@ -80,8 +84,8 @@ const firstSection = sections[0] || {};
           <p><strong>{isPrivacy ? 'Telefon' : 'Kontaktní telefon'}:</strong> <a href={`tel:${(partyInfo.phone || '+420 792 372 642').replace(/\s+/g, '')}`} class="text-amber-800 underline" data-tina-field={tinaField(partyInfo, 'phone')}>{partyInfo.phone || '+420 792 372 642'}</a></p>
         </div>
         {!isPrivacy && (
-          <p class="text-xs text-stone-600">
-            <strong>Klientem (objednatelem)</strong> je zákonný zástupce nezletilého studenta nebo zletilý student, který si objednává vzdělávací služby.
+          <p class="text-xs text-stone-600" data-tina-field={tinaField(legal, 'clientNote')}>
+            {clientNote}
           </p>
         )}
       </section>
@@ -117,18 +121,18 @@ const firstSection = sections[0] || {};
 
       <!-- Contact Box -->
       <section class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-soft space-y-3">
-        <h3 class="font-heading font-black text-base sm:text-lg text-espresso-950">
-          {isPrivacy ? 'Máte dotaz nebo chcete uplatnit svá práva?' : 'Máte dotaz k výuce nebo podmínkám?'}
+        <h3 class="font-heading font-black text-base sm:text-lg text-espresso-950" data-tina-field={tinaField(legal, 'contactBoxTitle')}>
+          {contactBoxTitle}
         </h3>
-        <p class="text-xs sm:text-sm text-stone-700">
-          {isPrivacy ? 'Kdykoliv se můžete obrátit přímo na lektora Josefa Válka:' : 'Rád vám jakékoliv otázky osobně zodpovím po telefonu nebo e-mailem:'}
+        <p class="text-xs sm:text-sm text-stone-700" data-tina-field={tinaField(legal, 'contactBoxSubtitle')}>
+          {contactBoxSubtitle}
         </p>
         <div class="flex flex-wrap gap-4 pt-1">
           <a href={`mailto:${partyInfo.email || 'info@valekacademy.cz'}`} class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 text-espresso-950 font-bold text-xs sm:text-sm hover:bg-amber-300 transition-colors shadow-2xs">
-            <span>✉️</span> <span>{partyInfo.email || 'info@valekacademy.cz'}</span>
+            <span>✉️</span> <span data-tina-field={tinaField(partyInfo, 'email')}>{partyInfo.email || 'info@valekacademy.cz'}</span>
           </a>
           <a href={`tel:${(partyInfo.phone || '+420 792 372 642').replace(/\s+/g, '')}`} class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-parchment-100 border border-parchment-300 text-espresso-950 font-bold text-xs sm:text-sm hover:bg-parchment-200 transition-colors">
-            <span>📞</span> <span>{partyInfo.phone || '+420 792 372 642'}</span>
+            <span>📞</span> <span data-tina-field={tinaField(partyInfo, 'phone')}>{partyInfo.phone || '+420 792 372 642'}</span>
           </a>
         </div>
       </section>

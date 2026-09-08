@@ -46,10 +46,14 @@ const defaultNavLinks = [
 ];
 const navLinks = footer.navLinks || defaultNavLinks;
 const contactTitle = footer.contactTitle || "Kontakt & Doučovna";
+const icoInfo = footer.icoInfo || "IČO: 72419563 (Neplátce DPH)";
 const commuteNote = footer.commuteNote || "🚗 Rychlé spojení i z Kunovic, Starého Města, Babic, Jalubí či Ostrožské Nové Vsi.";
 const bottomCtaText = footer.bottomCtaText || "1. lekce zdarma";
 const adminLinkText = footer.adminLinkText || "Správa webu (Admin)";
 const copyright = footer.copyright || "VALEK ACADEMY • Josef Válek. Všechna práva vyhrazena.";
+const legalRegistryInfo = footer.legalRegistryInfo || "IČO: 72419563 • Fyzická osoba zapsaná v živnostenském rejstříku MÚ Uherské Hradiště • Neplátce DPH";
+const privacyLinkText = footer.privacyLinkText || "Ochrana údajů & cookies";
+const termsLinkText = footer.termsLinkText || "Obchodní podmínky";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -124,7 +128,7 @@ const currentYear = new Date().getFullYear();
             <span>🕒</span> <span data-tina-field={tinaField(contact, 'hours')}>Pondělí – Pátek: 8:00 – 19:00</span>
           </li>
           <li class="flex items-center gap-2 text-stone-600">
-            <span>⚖️</span> <span>IČO: 72419563 (Neplátce DPH)</span>
+            <span>⚖️</span> <span data-tina-field={tinaField(footer, 'icoInfo')}>{icoInfo}</span>
           </li>
           <li class="pt-1 text-[11px] text-stone-500 leading-snug" data-tina-field={tinaField(footer, 'commuteNote')} data-edit-key="footer.commuteNote" data-edit-label="Dostupnost obcí">
             {commuteNote}
@@ -140,15 +144,15 @@ const currentYear = new Date().getFullYear();
         <p>
           © {currentYear} <span data-tina-field={tinaField(footer, 'copyright')} data-edit-key="footer.copyright" data-edit-label="Copyright">{copyright}</span>
         </p>
-        <p class="text-[11px] text-stone-400">
-          IČO: 72419563 • Fyzická osoba zapsaná v živnostenském rejstříku MÚ Uherské Hradiště • Neplátce DPH
+        <p class="text-[11px] text-stone-400" data-tina-field={tinaField(footer, 'legalRegistryInfo')}>
+          {legalRegistryInfo}
         </p>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
-        <a href="/ochrana-osobnich-udaju" class="hover:text-amber-900 transition-colors font-medium">Ochrana údajů & cookies</a>
+        <a href="/ochrana-osobnich-udaju" class="hover:text-amber-900 transition-colors font-medium" data-tina-field={tinaField(footer, 'privacyLinkText')}>{privacyLinkText}</a>
         <span class="text-stone-300">•</span>
-        <a href="/obchodni-podminky" class="hover:text-amber-900 transition-colors font-medium">Obchodní podmínky</a>
+        <a href="/obchodni-podminky" class="hover:text-amber-900 transition-colors font-medium" data-tina-field={tinaField(footer, 'termsLinkText')}>{termsLinkText}</a>
         <span class="text-stone-300">•</span>
         <a href="/#kontakt" class="hover:text-espresso-900 transition-colors font-bold text-amber-900" data-tina-field={tinaField(footer, 'bottomCtaText')} data-edit-key="footer.bottomCtaText" data-edit-label="Spodní odkaz 1. lekce">{bottomCtaText}</a>
         <span class="text-stone-300">•</span>

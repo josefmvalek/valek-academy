@@ -671,10 +671,14 @@ export default defineConfig({
                 ],
               },
               { type: "string", name: "contactTitle", label: "Nadpis kontaktu v patičce" },
+              { type: "string", name: "icoInfo", label: "IČO informace (v kontaktu)" },
               { type: "string", name: "commuteNote", label: "Poznámka k dostupnosti obcí" },
               { type: "string", name: "bottomCtaText", label: "Spodní odkaz na 1. lekci" },
               { type: "string", name: "adminLinkText", label: "Spodní odkaz na Admin" },
               { type: "string", name: "copyright", label: "Copyright text" },
+              { type: "string", name: "legalRegistryInfo", label: "Zápis v rejstříku (spodní řádek)" },
+              { type: "string", name: "privacyLinkText", label: "Text odkazu Ochrana údajů" },
+              { type: "string", name: "termsLinkText", label: "Text odkazu Obchodní podmínky" },
             ],
           },
           {
@@ -708,6 +712,11 @@ export default defineConfig({
         fields: [
           {
             type: "string",
+            name: "backLinkText",
+            label: "Text tlačítka zpět na hlavní stránku",
+          },
+          {
+            type: "string",
             name: "title",
             label: "Hlavní nadpis stránky",
             isTitle: true,
@@ -739,6 +748,23 @@ export default defineConfig({
             type: "string",
             name: "locationNote",
             label: "Poznámka k místu",
+          },
+          {
+            type: "string",
+            name: "clientNote",
+            label: "Definice klienta (VOP sekce 1)",
+            ui: { component: "textarea" },
+          },
+          {
+            type: "string",
+            name: "contactBoxTitle",
+            label: "Spodní box - nadpis dotazu",
+          },
+          {
+            type: "string",
+            name: "contactBoxSubtitle",
+            label: "Spodní box - podnadpis dotazu",
+            ui: { component: "textarea" },
           },
           {
             type: "object",

@@ -856,10 +856,14 @@
       }
     ],
     "contactTitle": "Kontakt",
+    "icoInfo": "IČO: 72419563 (Neplátce DPH)",
     "commuteNote": "🚗 Rychlé spojení i z Kunovic, Starého Města, Babic, Jalubí či Ostrožské Nové Vsi.",
     "bottomCtaText": "1. lekce zdarma",
     "adminLinkText": "Správa webu (Admin)",
-    "copyright": "VALEK ACADEMY • Bc. Josef Válek. Všechna práva vyhrazena."
+    "copyright": "VALEK ACADEMY • Bc. Josef Válek. Všechna práva vyhrazena.",
+    "legalRegistryInfo": "IČO: 72419563 • Fyzická osoba zapsaná v živnostenském rejstříku MÚ Uherské Hradiště • Neplátce DPH",
+    "privacyLinkText": "Ochrana údajů & cookies",
+    "termsLinkText": "Obchodní podmínky"
   },
   "stickyCta": {
     "enabled": true,
