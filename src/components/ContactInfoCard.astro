@@ -1,0 +1,184 @@
+---
+import ParrotLogo from './ParrotLogo.astro';
+import { tinaField } from '@tinacms/astro/tina-field';
+
+interface Props {
+  contact?: {
+    tutorImage?: string;
+    tutorName?: string;
+    tutorCredentials?: string;
+    tutorRole?: string;
+    introText?: string;
+    email?: string;
+    phone?: string;
+    phoneFormatted?: string;
+    whatsapp?: string;
+    whatsappText?: string;
+    location?: string;
+    hours?: string;
+    guaranteeTitle?: string;
+    guaranteeDesc?: string;
+    [key: string]: any;
+  };
+  locationInfo?: {
+    parkingInfo?: string;
+    surroundingTowns?: string;
+    [key: string]: any;
+  };
+}
+
+const { contact = {}, locationInfo = {} } = Astro.props;
+
+const tutorName = contact.tutorName || "Josef Válek";
+const tutorCredentials = contact.tutorCredentials || "BBA (RMIT Univ., Melbourne) • 25+ let v ČR";
+const tutorRole = contact.tutorRole || "Doučovna v Uherském Hradišti";
+const introText = contact.introText || "Preferujete telefonickou domluvu nebo chat přes WhatsApp? Neváhejte mi kdykoliv zavolat či napsat kterýkoliv všední den.";
+const email = contact.email || "info@valekacademy.cz";
+const phone = contact.phone || "+420792372642";
+const phoneFormatted = contact.phoneFormatted || "+420 792 372 642";
+const whatsapp = contact.whatsapp || "https://wa.me/420792372642?text=Dobr%C3%BD%20den%20Josefe%2C%20r%C3%A1d%2Fa%20bych%20se%20zeptal%2Fa%20na%20voln%C3%A9%20m%C3%ADsto%20ve%20skupince%20d%C4%9Bt%C3%AD%20na%201.%20lekci%20zdarma.";
+const whatsappText = contact.whatsappText || "Napsat Josefovi na WhatsApp →";
+const location = contact.location || "Růžová 1238, Uherské Hradiště";
+const parkingInfo = locationInfo.parkingInfo || "Bezplatné parkovací stání přímo před vchodem do doučovny";
+const surroundingTowns = locationInfo.surroundingTowns || "Pohodlná dostupnost pro rodiny z Uherského Hradiště, Starého Města, Kunovic a okolí • Online pro celou ČR.";
+const hours = contact.hours || "Pondělí – Pátek: 8:00 – 19:00";
+const guaranteeTitle = contact.guaranteeTitle || "1. ukázková lekce je 100% ZDARMA";
+const guaranteeDesc = contact.guaranteeDesc || "Dítě si přijde nezávazně vyzkoušet deskovky a atmosféru v malé skupince (4–8 dětí). Žádné platby předem ani skryté závazky. Rozhodnete se až po lekci!";
+---
+
+<div class="lg:col-span-5 space-y-5">
+  
+  <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300/80 shadow-soft-lg space-y-5">
+    <div class="flex items-center gap-3.5 pb-4 border-b border-parchment-200">
+      {contact.tutorImage ? (
+        <div class="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-sm flex-shrink-0">
+          <img
+            src={contact.tutorImage}
+            alt={tutorName}
+            class="w-full h-full object-cover"
+            width="56"
+            height="56"
+            loading="lazy"
+            data-tina-field={tinaField(contact, 'tutorImage')}
+            data-edit-key="contact.tutorImage"
+            data-edit-type="image"
+            data-edit-label="Fotka lektora u kontaktu"
+          />
+        </div>
+      ) : (
+        <ParrotLogo className="w-13 h-13" />
+      )}
+      <div>
+        <h3 class="font-heading font-black text-xl text-espresso-950 leading-tight" data-tina-field={tinaField(contact, 'tutorName')} data-edit-key="contact.tutorName" data-edit-label="Jméno lektora">
+          {tutorName}
+        </h3>
+        <p class="text-xs text-stone-600 font-semibold" data-tina-field={tinaField(contact, 'tutorCredentials')} data-edit-key="contact.tutorCredentials" data-edit-label="Titul a zkušenosti">{tutorCredentials}</p>
+        <p class="text-[11px] text-amber-800 font-bold" data-tina-field={tinaField(contact, 'tutorRole')} data-edit-key="contact.tutorRole" data-edit-label="Doučovna">{tutorRole}</p>
+      </div>
+    </div>
+
+    <p class="text-sm text-espresso-800/90 leading-relaxed font-normal" data-tina-field={tinaField(contact, 'introText')} data-edit-key="contact.introText" data-edit-label="Úvodní text">
+      {introText}
+    </p>
+
+    <div class="space-y-3 pt-1">
+      <!-- Phone / SMS -->
+      <a href={`tel:${phone}`} class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-parchment-50 border border-parchment-300 hover:border-amber-400 hover:bg-amber-50/50 transition-all group">
+        <div class="w-11 h-11 rounded-xl bg-amber-400 text-espresso-950 flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+          📞
+        </div>
+        <div>
+          <div class="text-[10px] text-stone-500 font-bold uppercase tracking-wider">Telefon / SMS</div>
+          <div class="font-heading font-black text-base text-espresso-950 group-hover:text-amber-800 transition-colors" data-tina-field={tinaField(contact, 'phoneFormatted')} data-edit-key="contact.phoneFormatted" data-edit-label="Telefonní číslo">
+            {phoneFormatted}
+          </div>
+        </div>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 hover:border-emerald-400 hover:bg-emerald-100/60 transition-all group">
+        <div class="w-11 h-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+          💬
+        </div>
+        <div>
+          <div class="text-[10px] text-emerald-800 font-bold uppercase tracking-wider">WhatsApp chat (Okamžitá odpověď)</div>
+          <div class="font-heading font-black text-base text-emerald-950 group-hover:underline" data-tina-field={tinaField(contact, 'whatsappText')} data-edit-key="contact.whatsappText" data-edit-label="WhatsApp text">
+            {whatsappText}
+          </div>
+        </div>
+      </a>
+
+      <!-- E-mail -->
+      <a href={`mailto:${email}`} class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-parchment-50 border border-parchment-300 hover:border-amber-400 hover:bg-amber-50/50 transition-all group">
+        <div class="w-11 h-11 rounded-xl bg-parchment-200 text-espresso-950 flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+          ✉️
+        </div>
+        <div>
+          <div class="text-[10px] text-stone-500 font-bold uppercase tracking-wider">E-mailová adresa</div>
+          <div class="font-heading font-bold text-sm sm:text-base text-espresso-950 group-hover:text-amber-800 transition-colors break-all" data-tina-field={tinaField(contact, 'email')} data-edit-key="contact.email" data-edit-label="E-mail">
+            {email}
+          </div>
+        </div>
+      </a>
+
+      <!-- Physical Location in Uherské Hradiště -->
+      <div class="p-4 rounded-2xl bg-parchment-50 border border-parchment-300 space-y-2.5 text-xs text-espresso-900">
+        <div class="flex items-start gap-2.5">
+          <span class="text-base flex-shrink-0">📍</span>
+          <div>
+            <strong>Místo doučovny:</strong> <span data-tina-field={tinaField(contact, 'location')} data-edit-key="contact.location" data-edit-label="Místo doučovny">{location}</span>
+          </div>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="text-base flex-shrink-0">🚗</span>
+          <div>
+            <strong>Parkování:</strong> <span data-tina-field={tinaField(locationInfo, 'parkingInfo')}>{parkingInfo}</span>
+          </div>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="text-base flex-shrink-0">🕒</span>
+          <div>
+            <strong>Otevírací doba:</strong> <span data-tina-field={tinaField(contact, 'hours')} data-edit-key="contact.hours" data-edit-label="Otevírací doba">{hours}</span>
+          </div>
+        </div>
+        <div class="pt-1.5 pl-6 flex flex-wrap gap-3">
+          <a
+            href="https://maps.google.com/?q=R%C5%AF%C5%BEov%C3%A1+1238,+Uhersk%C3%A9+Hradi%C5%A1t%C4%9B"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-amber-900 hover:text-amber-700 font-black underline flex items-center gap-1"
+          >
+            <span>Google Mapy</span>
+            <span>↗</span>
+          </a>
+          <span class="text-stone-300">•</span>
+          <a
+            href="https://mapy.cz/zakladni?q=R%C5%AF%C5%BEov%C3%A1%201238%2C%20Uhersk%C3%A9%20Hradi%C5%A1t%C4%9B"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-amber-900 hover:text-amber-700 font-black underline flex items-center gap-1"
+          >
+            <span>Mapy.cz</span>
+            <span>↗</span>
+          </a>
+        </div>
+        <div class="pt-2 border-t border-parchment-200 text-[11px] text-stone-600" data-tina-field={tinaField(locationInfo, 'surroundingTowns')}>
+          🏘️ {surroundingTowns}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 100% Free Lesson Guarantee Card -->
+  <div class="p-5 rounded-2xl bg-amber-100/80 border border-amber-300 shadow-xs flex items-start gap-3.5">
+    <span class="text-3xl">🎁</span>
+    <div>
+      <h4 class="font-heading font-black text-sm text-espresso-950" data-tina-field={tinaField(contact, 'guaranteeTitle')} data-edit-key="contact.guaranteeTitle" data-edit-label="Garance nadpis">{guaranteeTitle}</h4>
+      <p class="text-xs text-espresso-900 mt-1 leading-relaxed" data-tina-field={tinaField(contact, 'guaranteeDesc')} data-edit-key="contact.guaranteeDesc" data-edit-label="Garance popis">
+        {guaranteeDesc}
+      </p>
+    </div>
+  </div>
+
+</div>

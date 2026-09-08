@@ -66,7 +66,7 @@ const footer = page.footer || {};
   {testimonials.enabled !== false && <Testimonials testimonials={testimonials} />}
 
   <!-- 7. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
-  {groupMatcher.enabled !== false && <GroupMatcher groupMatcher={groupMatcher} />}
+  {groupMatcher.enabled !== false && <GroupMatcher groupMatcher={groupMatcher} phone={contact.phone?.replace('+', '') || '420792372642'} />}
 
   <!-- 7b. SCIO Prep (Disabled by default, toggleable in CMS) -->
   {scio.enabled === true && <ScioSection scio={scio} />}

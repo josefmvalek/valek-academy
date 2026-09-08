@@ -44,32 +44,41 @@ const buttonText = stickyCta.buttonText || "Zarezervovat";
   const stickyCta = document.getElementById('mobile-sticky-cta');
   const contactSection = document.getElementById('kontakt');
 
-  function updateStickyVisibility() {
+  let isContactVisible = false;
+  let isTicking = false;
+
+  if (contactSection && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isContactVisible = entry.isIntersecting;
+        scheduleUpdate();
+      });
+    }, { threshold: 0.05 });
+    observer.observe(contactSection);
+  }
+
+  function applyVisibility() {
     if (!stickyCta) return;
-    
     const scrollY = window.scrollY || document.documentElement.scrollTop;
-    // Show after scrolling past 350px
-    const shouldShow = scrollY > 350;
+    const shouldShow = scrollY > 350 && !isContactVisible;
 
-    // If near the contact section, hide to avoid redundancy
-    let nearContact = false;
-    if (contactSection) {
-      const contactRect = contactSection.getBoundingClientRect();
-      if (contactRect.top < window.innerHeight && contactRect.bottom > 0) {
-        nearContact = true;
-      }
-    }
-
-    if (shouldShow && !nearContact) {
+    if (shouldShow) {
       stickyCta.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
       stickyCta.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
     } else {
       stickyCta.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
       stickyCta.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
     }
+    isTicking = false;
   }
 
-  window.addEventListener('scroll', updateStickyVisibility, { passive: true });
-  // Initial check
-  updateStickyVisibility();
+  function scheduleUpdate() {
+    if (!isTicking) {
+      isTicking = true;
+      requestAnimationFrame(applyVisibility);
+    }
+  }
+
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  scheduleUpdate();
 </script>

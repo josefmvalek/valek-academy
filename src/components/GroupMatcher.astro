@@ -3,6 +3,7 @@ import { tinaField } from '@tinacms/astro/tina-field';
 
 interface Props {
   className?: string;
+  phone?: string;
   groupMatcher?: {
     badge?: string;
     title?: string;
@@ -22,7 +23,7 @@ interface Props {
   };
 }
 
-const { className = "", groupMatcher = {} } = Astro.props;
+const { className = "", groupMatcher = {}, phone = "420792372642" } = Astro.props;
 
 const badge = groupMatcher.badge || "Rychlý 3krokový průvodce pro rodiče";
 const title = groupMatcher.title || "Jaká skupinka a deskovky budou vaše dítě bavit nejvíc?";
@@ -61,7 +62,7 @@ const interests = groupMatcher.interests || defaultInterests;
 const goals = groupMatcher.goals || defaultGoals;
 ---
 
-<section id="rozrazovac" class={`py-8 sm:py-12 md:py-20 bg-gradient-to-b from-parchment-100/80 via-white to-parchment-100/60 border-y border-parchment-200 relative overflow-hidden ${className}`}>
+<section id="rozrazovac" data-phone={phone} class={`py-8 sm:py-12 md:py-20 bg-gradient-to-b from-parchment-100/80 via-white to-parchment-100/60 border-y border-parchment-200 relative overflow-hidden ${className}`}>
   
   <!-- Ambient decorative glow -->
   <div class="absolute top-0 right-1/4 w-96 h-96 bg-amber-300/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -207,21 +208,34 @@ const goals = groupMatcher.goals || defaultGoals;
           </div>
         </div>
 
-        <!-- Call to action button with Gold Pulse -->
-        <div class="pt-4 border-t border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <!-- Call to action buttons with Gold Pulse & WhatsApp -->
+        <div class="pt-4 border-t border-amber-200 flex flex-col md:flex-row items-center justify-between gap-4">
           <div class="text-xs text-espresso-900 font-bold flex items-center gap-1.5" data-tina-field={tinaField(groupMatcher, 'guaranteeText')} data-edit-key="groupMatcher.guaranteeText" data-edit-label="Zlatá vstupenka garance">
             <span class="text-amber-600 text-base">🎁</span>
             <span>{guaranteeText}</span>
           </div>
-          <a
-            href="#kontakt"
-            id="matcher-cta-btn"
-            data-tina-field={tinaField(groupMatcher, 'ctaText')}
-            class="btn-gold-pulse w-full sm:w-auto px-7 py-3.5 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 text-center cursor-pointer flex items-center justify-center gap-2"
-          >
-            <span data-edit-key="groupMatcher.ctaText" data-edit-label="Tlačítko rozřazovače">{ctaText}</span>
-            <span>→</span>
-          </a>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
+            <a
+              href={`https://wa.me/${phone}?text=${encodeURIComponent("Dobrý den Josefe, rádi bychom se zeptali na volná místa ve skupince na 1. lekci zdarma.")}`}
+              id="matcher-wa-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-heading font-black text-xs sm:text-sm text-emerald-950 bg-emerald-100 hover:bg-emerald-200 border-2 border-emerald-400 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              title="Zeptat se na tuto skupinku přímo na WhatsAppu"
+            >
+              <span class="text-base">💬</span>
+              <span>Napsat na WhatsApp</span>
+            </a>
+            <a
+              href="#kontakt"
+              id="matcher-cta-btn"
+              data-tina-field={tinaField(groupMatcher, 'ctaText')}
+              class="btn-gold-pulse w-full sm:w-auto px-6 py-3.5 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 text-center cursor-pointer flex items-center justify-center gap-2"
+            >
+              <span data-edit-key="groupMatcher.ctaText" data-edit-label="Tlačítko rozřazovače">{ctaText}</span>
+              <span>→</span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -239,8 +253,11 @@ const goals = groupMatcher.goals || defaultGoals;
   const resDesc = document.getElementById('res-group-desc');
   const resGames = document.getElementById('res-games-list');
   const matcherCta = document.getElementById('matcher-cta-btn');
+  const matcherWaBtn = document.getElementById('matcher-wa-btn') as HTMLAnchorElement | null;
   const formSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
   const levelSelect = document.getElementById('level') as HTMLSelectElement | null;
+  const matcherSection = document.getElementById('rozrazovac');
+  const phoneNum = matcherSection?.getAttribute('data-phone') || '420792372642';
 
   let currentGrade = '4-6';
   let currentInterest = 'fantasy';
@@ -311,6 +328,43 @@ const goals = groupMatcher.goals || defaultGoals;
         tag.textContent = g;
         resGames.appendChild(tag);
       });
+    }
+
+    const interestMap: Record<string, string> = {
+      fantasy: "fantasy a dobrodružné hry (Karak)",
+      words: "slovní rébusy a skládání slov (Scrabble)",
+      speed: "postřehové a akční bleskové hry",
+      action: "postřehové a karetní hry",
+      strategy: "stavění a strategické deskovky"
+    };
+
+    const goalMap: Record<string, string> = {
+      confidence: "odbourat strach z mluvení před ostatními",
+      grades: "zlepšit známky a látku ze školy",
+      fun: "být napřed, bavit se a najít partu vrstevníků",
+      exams: "připravit se na přijímačky a testy"
+    };
+
+    const interestText = interestMap[currentInterest] || "deskové hry";
+    const goalText = goalMap[currentGoal] || "získat jistotu v angličtině";
+
+    // Dynamic WhatsApp message with quiz answers
+    const waMessage = `Dobrý den Josefe, v průvodci na webu Valek Academy nám pro dítě vyšla skupinka: ${data.title}. Dítě nejvíce baví ${interestText} a rádi bychom pomohli: ${goalText}. Máte v této skupince volné místo na 1. ukázkovou lekci zdarma?`;
+    const waUrl = `https://wa.me/${phoneNum}?text=${encodeURIComponent(waMessage)}`;
+
+    if (matcherWaBtn) {
+      matcherWaBtn.href = waUrl;
+    }
+
+    // Update global floating WhatsApp widget if present
+    const floatingWaLink = document.getElementById('floating-wa-link') as HTMLAnchorElement | null;
+    const floatingWaText = document.getElementById('floating-wa-text');
+    if (floatingWaLink) {
+      floatingWaLink.href = waUrl;
+    }
+    if (floatingWaText) {
+      const shortTitle = data.title.split('(')[0].replace('Skupinka ', '').trim();
+      floatingWaText.textContent = `Poptat ${shortTitle} na WhatsApp →`;
     }
 
     if (matcherCta) {
