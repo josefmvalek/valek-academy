@@ -198,5 +198,27 @@ const {
   </head>
   <body class="bg-[#FAF7F2] text-[#2A190F] antialiased selection:bg-amber-200 selection:text-[#2A190F] min-h-screen flex flex-col font-sans overflow-x-hidden w-full max-w-full relative">
     <slot />
+
+    <!-- Dynamic Tab Title on Page Inactivity / Tab Switch -->
+    <script is:inline>
+      (function () {
+        let originalTitle = document.title;
+        const awayTitle = "🎁 1. lekce angličtiny pro děti je zdarma – VALEK ACADEMY";
+        let returnTimer = null;
+
+        document.addEventListener("visibilitychange", function () {
+          if (document.hidden) {
+            originalTitle = document.title;
+            document.title = awayTitle;
+          } else {
+            if (returnTimer) clearTimeout(returnTimer);
+            document.title = "👋 Vítejte zpět! | VALEK ACADEMY";
+            returnTimer = setTimeout(function () {
+              document.title = originalTitle;
+            }, 2000);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
