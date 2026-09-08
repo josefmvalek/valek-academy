@@ -11,6 +11,28 @@ interface Props {
     securityNote?: string;
     web3formsKey?: string;
     phoneFormatted?: string;
+    programLabel?: string;
+    formatLabel?: string;
+    formatInPersonTitle?: string;
+    formatInPersonNote?: string;
+    formatOnlineTitle?: string;
+    formatOnlineNote?: string;
+    formatUndecidedTitle?: string;
+    formatUndecidedNote?: string;
+    parentNameLabel?: string;
+    childNameLabel?: string;
+    phoneLabel?: string;
+    emailLabel?: string;
+    levelLabel?: string;
+    levelLabelNote?: string;
+    daysLabel?: string;
+    daysNote?: string;
+    daysTimeNote?: string;
+    messageLabel?: string;
+    stepsTitle?: string;
+    step1Text?: string;
+    step2Text?: string;
+    step3Text?: string;
     [key: string]: any;
   };
 }
@@ -25,6 +47,29 @@ const submitButtonText = contact.submitButtonText || "🎁 Rezervovat 1. lekci Z
 const securityNote = contact.securityNote || "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí. Odesláním berete na vědomí zpracování údajů pro domluvu lekce.";
 const phoneFormatted = contact.phoneFormatted || "+420 792 372 642";
 const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KEY || "f49fa95f-e8a5-4b5b-b462-11980de8d1bc";
+
+const programLabel = contact.programLabel || "O jaký program máte zájem?";
+const formatLabel = contact.formatLabel || "Kde chcete, aby výuka probíhala?";
+const formatInPersonTitle = contact.formatInPersonTitle || "🏡 Osobně v UH";
+const formatInPersonNote = contact.formatInPersonNote || "Růžová 1238";
+const formatOnlineTitle = contact.formatOnlineTitle || "💻 Online";
+const formatOnlineNote = contact.formatOnlineNote || "Z domova (celá ČR)";
+const formatUndecidedTitle = contact.formatUndecidedTitle || "🔄 Ještě nevím";
+const formatUndecidedNote = contact.formatUndecidedNote || "Poradím se s Josefem";
+const parentNameLabel = contact.parentNameLabel || "Jméno rodiče";
+const childNameLabel = contact.childNameLabel || "Jméno a věk dítěte";
+const phoneLabel = contact.phoneLabel || "Telefonní číslo";
+const emailLabel = contact.emailLabel || "E-mailová adresa";
+const levelLabel = contact.levelLabel || "Třída / Současná úroveň";
+const levelLabelNote = contact.levelLabelNote || "(pro výběr her a party vrstevníků)";
+const daysLabel = contact.daysLabel || "Které dny se vám nejvíc hodí?";
+const daysNote = contact.daysNote || "(lze vybrat i více dnů)";
+const daysTimeNote = contact.daysTimeNote || "Čas 14:00–18:00 přizpůsobujeme skupince";
+const messageLabel = contact.messageLabel || "Poznámka / S čím potřebujete pomoci?";
+const stepsTitle = contact.stepsTitle || "Co se stane po odeslání?";
+const step1Text = contact.step1Text || "Odešlete nezávaznou poptávku (1 min)";
+const step2Text = contact.step2Text || "Josef se vám do 24 h ozve s volnými časy";
+const step3Text = contact.step3Text || "Dítě si přijde nezávazně zahrát 1. lekci zdarma";
 ---
 
 <div class="lg:col-span-7">
@@ -49,7 +94,7 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
       <!-- Row 1: Segment Choice (Custom Rich Dropdown) -->
       <div class="relative custom-dropdown-container" id="custom-segment-dropdown">
         <label id="segment-label" class="block text-xs font-black uppercase tracking-wider text-espresso-950 mb-2">
-          O jaký program máte zájem? <span class="text-red-500">*</span>
+          <span data-tina-field={tinaField(contact, 'programLabel')}>{programLabel}</span> <span class="text-red-500">*</span>
         </label>
 
         <!-- Hidden native select for form submit, accessibility & Tina fallback -->
@@ -238,30 +283,30 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
       <!-- Row 1b: Teaching Format Selector (Osobně v doučovně vs. Online) -->
       <div>
         <label class="block text-xs font-black uppercase tracking-wider text-espresso-950 mb-2">
-          Kde chcete, aby výuka probíhala? <span class="text-red-500">*</span>
+          <span data-tina-field={tinaField(contact, 'formatLabel')}>{formatLabel}</span> <span class="text-red-500">*</span>
         </label>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5" id="forma-radios">
           <label class="forma-option relative flex items-center gap-2.5 p-3 rounded-xl border-2 border-amber-500 bg-amber-50 cursor-pointer transition-all shadow-2xs">
             <input type="radio" name="forma" value="Osobně v doučovně (Uherské Hradiště)" checked class="text-amber-600 focus:ring-amber-400" />
             <div class="text-left">
-              <div class="font-heading font-black text-xs text-espresso-950">🏡 Osobně v UH</div>
-              <div class="text-[10px] text-stone-600">Růžová 1238</div>
+              <div class="font-heading font-black text-xs text-espresso-950" data-tina-field={tinaField(contact, 'formatInPersonTitle')}>{formatInPersonTitle}</div>
+              <div class="text-[10px] text-stone-600" data-tina-field={tinaField(contact, 'formatInPersonNote')}>{formatInPersonNote}</div>
             </div>
           </label>
 
           <label class="forma-option relative flex items-center gap-2.5 p-3 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/40 cursor-pointer transition-all">
             <input type="radio" name="forma" value="Online z domova (Google Meet)" class="text-amber-600 focus:ring-amber-400" />
             <div class="text-left">
-              <div class="font-heading font-black text-xs text-espresso-950">💻 Online</div>
-              <div class="text-[10px] text-stone-600">Z domova (celá ČR)</div>
+              <div class="font-heading font-black text-xs text-espresso-950" data-tina-field={tinaField(contact, 'formatOnlineTitle')}>{formatOnlineTitle}</div>
+              <div class="text-[10px] text-stone-600" data-tina-field={tinaField(contact, 'formatOnlineNote')}>{formatOnlineNote}</div>
             </div>
           </label>
 
           <label class="forma-option relative flex items-center gap-2.5 p-3 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/40 cursor-pointer transition-all">
             <input type="radio" name="forma" value="Ještě nevím / Nechám si poradit" class="text-amber-600 focus:ring-amber-400" />
             <div class="text-left">
-              <div class="font-heading font-black text-xs text-espresso-950">🔄 Ještě nevím</div>
-              <div class="text-[10px] text-stone-600">Poradím se s Josefem</div>
+              <div class="font-heading font-black text-xs text-espresso-950" data-tina-field={tinaField(contact, 'formatUndecidedTitle')}>{formatUndecidedTitle}</div>
+              <div class="text-[10px] text-stone-600" data-tina-field={tinaField(contact, 'formatUndecidedNote')}>{formatUndecidedNote}</div>
             </div>
           </label>
         </div>
@@ -271,7 +316,7 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
           <label for="name" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            Jméno rodiče <span class="text-red-500">*</span>
+            <span data-tina-field={tinaField(contact, 'parentNameLabel')}>{parentNameLabel}</span> <span class="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -285,7 +330,7 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
 
         <div>
           <label for="child-name" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            Jméno a věk dítěte <span class="text-stone-400 text-[10px]">(např. Tomáš, 10 let)</span>
+            <span data-tina-field={tinaField(contact, 'childNameLabel')}>{childNameLabel}</span> <span class="text-stone-400 text-[10px]">(např. Tomáš, 10 let)</span>
           </label>
           <input
             type="text"
@@ -301,7 +346,7 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
           <label for="phone" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            Telefonní číslo <span class="text-red-500">*</span>
+            <span data-tina-field={tinaField(contact, 'phoneLabel')}>{phoneLabel}</span> <span class="text-red-500">*</span>
           </label>
           <div class="relative">
             <input
@@ -320,7 +365,7 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
 
         <div>
           <label for="email" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            E-mailová adresa <span class="text-red-500">*</span>
+            <span data-tina-field={tinaField(contact, 'emailLabel')}>{emailLabel}</span> <span class="text-red-500">*</span>
           </label>
           <div class="relative">
             <input
@@ -341,7 +386,7 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
       <!-- Row 4: Grade Level (Custom Rich Dropdown) -->
       <div class="relative custom-dropdown-container" id="custom-level-dropdown">
         <label id="level-label" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-          Třída / Současná úroveň <span class="text-stone-400 text-[10px] font-normal">(pro výběr her a party vrstevníků)</span>
+          <span data-tina-field={tinaField(contact, 'levelLabel')}>{levelLabel}</span> <span class="text-stone-400 text-[10px] font-normal" data-tina-field={tinaField(contact, 'levelLabelNote')}>{levelLabelNote}</span>
         </label>
 
         <!-- Hidden native select for form submit, accessibility & fallback -->
@@ -570,9 +615,9 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
       <div>
         <div class="flex flex-wrap items-baseline justify-between gap-1 mb-2">
           <label class="block text-xs font-bold uppercase tracking-wider text-espresso-950">
-            Které dny se vám nejvíc hodí? <span class="text-amber-800 text-[11px] font-semibold lowercase">(lze vybrat i více dnů)</span>
+            <span data-tina-field={tinaField(contact, 'daysLabel')}>{daysLabel}</span> <span class="text-amber-800 text-[11px] font-semibold lowercase" data-tina-field={tinaField(contact, 'daysNote')}>{daysNote}</span>
           </label>
-          <span class="text-[11px] text-stone-500">Čas 14:00–18:00 přizpůsobujeme skupince</span>
+          <span class="text-[11px] text-stone-500" data-tina-field={tinaField(contact, 'daysTimeNote')}>{daysTimeNote}</span>
         </div>
 
         <!-- Interactive Days Selector -->
@@ -631,8 +676,8 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
 
       <!-- Row 5: Message -->
       <div>
-        <label for="message" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-          Poznámka / S čím potřebujete pomoci?
+        <label for="message" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5" data-tina-field={tinaField(contact, 'messageLabel')}>
+          {messageLabel}
         </label>
         <textarea
           id="message"
@@ -646,20 +691,20 @@ const web3formsKey = contact.web3formsKey || import.meta.env.PUBLIC_WEB3FORMS_KE
       <!-- Reassuring 3-Step Micro-Timeline -->
       <div class="p-3 sm:p-3.5 rounded-2xl bg-parchment-100/90 border border-parchment-300/80 space-y-1.5 text-espresso-950">
         <div class="text-[10px] font-black uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
-          <span>⏱️</span> <span>Co se stane po odeslání?</span>
+          <span>⏱️</span> <span data-tina-field={tinaField(contact, 'stepsTitle')}>{stepsTitle}</span>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
           <div class="flex items-start gap-1.5">
             <span class="w-4 h-4 rounded-full bg-amber-300 text-espresso-950 flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">1</span>
-            <span class="text-stone-700 text-[11px] leading-tight">Odešlete nezávaznou poptávku (1 min)</span>
+            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step1Text')}>{step1Text}</span>
           </div>
           <div class="flex items-start gap-1.5">
             <span class="w-4 h-4 rounded-full bg-amber-300 text-espresso-950 flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">2</span>
-            <span class="text-stone-700 text-[11px] leading-tight">Josef se vám do 24 h ozve s volnými časy</span>
+            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step2Text')}>{step2Text}</span>
           </div>
           <div class="flex items-start gap-1.5">
             <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">3</span>
-            <span class="text-stone-700 text-[11px] leading-tight">Dítě si přijde nezávazně zahrát 1. lekci zdarma</span>
+            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step3Text')}>{step3Text}</span>
           </div>
         </div>
       </div>

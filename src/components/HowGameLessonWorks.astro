@@ -8,6 +8,9 @@ interface Props {
     title?: string;
     subtitle?: string;
     quote?: string;
+    gamesTitle?: string;
+    gamesSubtitle?: string;
+    phrasesLabel?: string;
     gameSpotlights?: any[];
     steps?: any[];
     poster?: {
@@ -23,6 +26,7 @@ interface Props {
       ctaLink?: string;
       [key: string]: any;
     };
+    [key: string]: any;
   };
 }
 
@@ -95,6 +99,9 @@ const badge = howItWorks.badge || "Metodika výuky hrou v malých skupinkách";
 const title = howItWorks.title || "Jak deskovky a hry ve skupince pomáhají dětem mluvit anglicky?";
 const subtitle = howItWorks.subtitle || "V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí stejně přirozeně jako mateřštinu.";
 const quote = howItWorks.quote || "„Hodiny se dělí dle zájmových oblastí, každý si najde své.“";
+const gamesTitle = howItWorks.gamesTitle || "Jaké hry s dětmi hrajeme a co rozvíjejí:";
+const gamesSubtitle = howItWorks.gamesSubtitle || "Hry vybíráme individuálně podle věku dětí a jejich zájmů.";
+const phrasesLabel = howItWorks.phrasesLabel || "Reálné věty, které děti v zápalu hry používají:";
 const gameSpotlights = howItWorks.gameSpotlights || defaultGameSpotlights;
 const steps = howItWorks.steps || defaultSteps;
 
@@ -154,11 +161,11 @@ const poster = howItWorks.poster || {
   <!-- 4 Interactive Board Game Spotlight Cards -->
   <div class="space-y-4">
     <div class="text-center max-w-xl mx-auto">
-      <h4 class="font-heading font-black text-xl sm:text-2xl text-espresso-950">
-        Jaké hry s dětmi hrajeme a co rozvíjejí:
+      <h4 class="font-heading font-black text-xl sm:text-2xl text-espresso-950" data-tina-field={tinaField(howItWorks, 'gamesTitle')} data-edit-key="howItWorks.gamesTitle" data-edit-label="Nadpis her">
+        {gamesTitle}
       </h4>
-      <p class="text-xs sm:text-sm text-stone-600 mt-1">
-        Hry vybíráme individuálně podle věku dětí a jejich zájmů.
+      <p class="text-xs sm:text-sm text-stone-600 mt-1" data-tina-field={tinaField(howItWorks, 'gamesSubtitle')} data-edit-key="howItWorks.gamesSubtitle" data-edit-label="Podnadpis her">
+        {gamesSubtitle}
       </p>
     </div>
 
@@ -193,8 +200,8 @@ const poster = howItWorks.poster || {
 
           <!-- Sample In-Game English Phrases -->
           <div class="pt-3 mt-3 border-t border-parchment-200/80">
-            <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 mb-1.5">
-              🗣️ Reálné věty, které děti v zápalu hry používají:
+            <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 mb-1.5" data-tina-field={tinaField(howItWorks, 'phrasesLabel')} data-edit-key="howItWorks.phrasesLabel" data-edit-label="Popisek vět">
+              🗣️ {phrasesLabel}
             </div>
             <div class="flex flex-wrap gap-1.5" data-tina-field={tinaField(game, 'phrases')}>
               {(game.phrases || []).map((phrase: string, pIdx: number) => (

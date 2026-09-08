@@ -342,7 +342,8 @@
         "method": "Mechanické vyplňování pracovních sešitů a biflování",
         "accent": "Často český pedagog schovávající se za učebnicí, běžný tvrdý český přízvuk",
         "motivation": "Povinnost, nuda a obava ze špatných \"známek\", drcení sebejistoty",
-        "isWinner": false
+        "isWinner": false,
+        "footerNote": "Ve škole se zkouší u tabule"
       },
       {
         "type": "private",
@@ -355,7 +356,8 @@
         "method": "Může být velmi účinné, ale většinou není nutné, plus je to bez sociální interakce ",
         "accent": "Záleží na lektorovi, rodilí mluvčí stojí 900-1000 Kč/hod",
         "motivation": "Chybí vrstevníci pro hry, smích a týmové soutěže",
-        "isWinner": false
+        "isWinner": false,
+        "footerNote": "Často drahé a bez party vrstevníků"
       },
       {
         "type": "valek",
@@ -369,9 +371,18 @@
         "method": "Autentické hry (Catan, Scrabble, Story Cubes)+ látka ze školy",
         "accent": "Čistý neutrální přízvuk + načí fonetickou abecedu (25+ let real-world praxe, australský \"hantec\" nepoužívá",
         "motivation": "Dítě/student se na doučování těší a do školy vstupuje se sebevědomím",
-        "isWinner": true
+        "isWinner": true,
+        "footerNote": ""
       }
-    ]
+    ],
+    "ctaText": "Vyzkoušet 1. lekci ZDARMA",
+    "ctaLink": "#kontakt",
+    "toggleButtonText": "Zobrazit srovnání se školou a 1 na 1",
+    "labelSpeakingTime": "Mluvení a prostor pro řeč:",
+    "labelAtmosphere": "Atmosféra & stres:",
+    "labelMethod": "Metodika výuky:",
+    "labelAccent": "Přízvuk a lektor:",
+    "labelMotivation": "Motivace dítěte:"
   },
   "testimonials": {
     "enabled": false,
@@ -506,7 +517,10 @@
       "desc": "První lekce v malé skupince dětí (osobně v UH nebo online) je 100% ZDARMA a nezávazná.",
       "ctaText": "Vyzkoušet zdarma →",
       "ctaLink": "#kontakt"
-    }
+    },
+    "gamesTitle": "Jaké hry s dětmi hrajeme a co rozvíjejí:",
+    "gamesSubtitle": "Hry vybíráme individuálně podle věku dětí a jejich zájmů.",
+    "phrasesLabel": "Reálné věty, které děti v zápalu hry používají:"
   },
   "timeline": {
     "enabled": true,
@@ -542,7 +556,11 @@
         "desc": "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do australského cestovatelského pasu. Dítě odchází s úsměvem a těší se na příští týden.",
         "highlight": "Dítě odchází sebevědomé a motivované"
       }
-    ]
+    ],
+    "calloutTitle": "Chcete si tento 60minutový zážitek vyzkoušet naživo?",
+    "calloutDesc": "První lekce v malé skupince dětí (Uherské Hradiště) je 100% ZDARMA a nezávazná.",
+    "calloutCtaText": "Vyzkoušet zdarma →",
+    "calloutCtaLink": "#kontakt"
   },
   "location": {
     "badge": "Kde nás najdete",
@@ -607,25 +625,55 @@
         "id": "1-3",
         "icon": "🧒",
         "title": "1.–3. třída ZŠ",
-        "age": "Věk 6–9 let"
+        "age": "Věk 6–9 let",
+        "recommendedTitle": "Skupinka Malých Objevitelů (1.–3. třída ZŠ)",
+        "recommendedDesc": "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou australskou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
+        "recommendedGames": [
+          "🎲 Dobble & zvířata",
+          "🧩 Scrabble Junior",
+          "🃏 Karetní pexesa v AJ",
+          "🏰 Jednoduché deskovky"
+        ]
       },
       {
         "id": "4-6",
         "icon": "🎒",
         "title": "4.–6. třída ZŠ",
-        "age": "Věk 10–12 let"
+        "age": "Věk 10–12 let",
+        "recommendedTitle": "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
+        "recommendedDesc": "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Lektor Josef vede celou hru uvolněně s australským akcentem a na závěr v klidu česky dovysvětlí látku ze školy.",
+        "recommendedGames": [
+          "🎲 Karak & Dračí doupě",
+          "🗣️ Story Cubes (Tvorba vět)",
+          "🧩 Scrabble Junior"
+        ]
       },
       {
         "id": "7-9",
         "icon": "🚀",
         "title": "7.–9. třída ZŠ",
-        "age": "Věk 13–15 let"
+        "age": "Věk 13–15 let",
+        "recommendedTitle": "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
+        "recommendedDesc": "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým akcentem a připravujeme se na přijímačky na střední školy.",
+        "recommendedGames": [
+          "🏰 Carcassonne & Strategie",
+          "🗣️ Debatní scénky z cest",
+          "🎲 Codenames (Krycí jména)",
+          "📐 Přijímačkové rébusy"
+        ]
       },
       {
         "id": "ss",
         "icon": "🎓",
         "title": "SŠ & Maturant",
-        "age": "Věk 15–19 let"
+        "age": "Věk 15–19 let",
+        "recommendedTitle": "Přednostní skupina: Středoškoláci & Maturita",
+        "recommendedDesc": "Cílená příprava k maturitě (ústní i písemná část), Cambridge certifikáty a příprava na vysokou školu. Odstranění ostychu z mluvení před komisí.",
+        "recommendedGames": [
+          "🎓 Simulace maturitního speakingu",
+          "🗣️ Byznys & reálie",
+          "📝 Rozbor esejí a didaktických testů"
+        ]
       }
     ],
     "interests": [
@@ -673,7 +721,8 @@
         "title": "Chce být napřed & bavit se",
         "desc": "Ve škole se nudí a hledá partu kamarádů pro živou angličtinu."
       }
-    ]
+    ],
+    "whatsappText": "Napsat na WhatsApp"
   },
   "faq": {
     "enabled": true,
@@ -750,7 +799,29 @@
     "formSubtitle": "Vyplňte krátký formulář a Mr. Válek se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.",
     "submitButtonText": "🎁 Rezervovat 1. lekci ZDARMA",
     "securityNote": "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí a slouží pouze k domluvě úvodní lekce.",
-    "web3formsKey": "f49fa95f-e8a5-4b5b-b462-11980de8d1bc"
+    "web3formsKey": "f49fa95f-e8a5-4b5b-b462-11980de8d1bc",
+    "programLabel": "O jaký program máte zájem?",
+    "formatLabel": "Kde chcete, aby výuka probíhala?",
+    "formatInPersonTitle": "🏡 Osobně v UH",
+    "formatInPersonNote": "Růžová 1238",
+    "formatOnlineTitle": "💻 Online",
+    "formatOnlineNote": "Z domova (celá ČR)",
+    "formatUndecidedTitle": "🔄 Ještě nevím",
+    "formatUndecidedNote": "Poradím se s Josefem",
+    "parentNameLabel": "Jméno rodiče",
+    "childNameLabel": "Jméno a věk dítěte",
+    "phoneLabel": "Telefonní číslo",
+    "emailLabel": "E-mailová adresa",
+    "levelLabel": "Třída / Současná úroveň",
+    "levelLabelNote": "(pro výběr her a party vrstevníků)",
+    "daysLabel": "Které dny se vám nejvíc hodí?",
+    "daysNote": "(lze vybrat i více dnů)",
+    "daysTimeNote": "Čas 14:00–18:00 přizpůsobujeme skupince",
+    "messageLabel": "Poznámka / S čím potřebujete pomoci?",
+    "stepsTitle": "Co se stane po odeslání?",
+    "step1Text": "Odešlete nezávaznou poptávku (1 min)",
+    "step2Text": "Josef se vám do 24 h ozve s volnými časy",
+    "step3Text": "Dítě si přijde nezávazně zahrát 1. lekci zdarma"
   },
   "footer": {
     "brandName": "VALEK ACADEMY",

@@ -53,6 +53,10 @@ const badge = timeline.badge || "Jak probíhá každá hodina";
 const title = timeline.title || "60 minut v doučovně Josefa: Krok za krokem";
 const subtitle = timeline.subtitle || "Proč výuka hrou funguje lépe než sezení v lavici? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.";
 const phases = timeline.phases || defaultPhases;
+const calloutTitle = timeline.calloutTitle || "Chcete si tento 60minutový zážitek vyzkoušet naživo?";
+const calloutDesc = timeline.calloutDesc || "První lekce v malé skupince dětí (Uherské Hradiště) je 100% ZDARMA a nezávazná.";
+const calloutCtaText = timeline.calloutCtaText || "Vyzkoušet zdarma →";
+const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
 ---
 
 <section id="metodika" class={`py-12 md:py-16 bg-white border-b border-parchment-200 relative overflow-hidden ${className}`}>
@@ -122,18 +126,21 @@ const phases = timeline.phases || defaultPhases;
         🎁
       </div>
       <div class="text-center sm:text-left">
-        <div class="font-heading font-extrabold text-sm sm:text-base text-espresso-950">
-          Chcete si tento 60minutový zážitek vyzkoušet naživo?
+        <div class="font-heading font-extrabold text-sm sm:text-base text-espresso-950" data-tina-field={tinaField(timeline, 'calloutTitle')} data-edit-key="timeline.calloutTitle" data-edit-label="Výzva nadpis">
+          {calloutTitle}
         </div>
-        <p class="text-xs text-stone-600 mt-0.5">
-          První lekce v malé skupince dětí (Uherské Hradiště) je <strong>100% ZDARMA</strong> a nezávazná.
+        <p class="text-xs text-stone-600 mt-0.5" data-tina-field={tinaField(timeline, 'calloutDesc')} data-edit-key="timeline.calloutDesc" data-edit-label="Výzva popis">
+          {calloutDesc}
         </p>
       </div>
       <a
-        href="#kontakt"
+        href={calloutCtaLink}
         class="flex-shrink-0 px-5 py-2.5 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-amber-400 hover:bg-amber-300 border border-amber-500 shadow-xs transition-all"
+        data-tina-field={tinaField(timeline, 'calloutCtaText')}
+        data-edit-key="timeline.calloutCtaText"
+        data-edit-label="Výzva tlačítko"
       >
-        Vyzkoušet zdarma →
+        {calloutCtaText}
       </a>
     </div>
 

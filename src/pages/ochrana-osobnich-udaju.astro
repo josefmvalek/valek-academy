@@ -4,32 +4,21 @@ export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { getHomePageData } from '../lib/data';
-import privacyData from '../../content/legal/privacy.json';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
+import LegalContent from '../components/LegalContent.astro';
+import VisualEditor from '../components/VisualEditor.astro';
+import { getHomePageData, getLegalPageDataQuery } from '../lib/data';
+import { islands } from '../lib/islands';
 
 const page = await getHomePageData();
 const navbar = page?.navbar || {};
 const footer = page?.footer || {};
 const contact = page?.contact || {};
 
-const {
-  title = "Zásady ochrany osobních údajů & používání cookies",
-  seoDescription = "Informace o zpracování osobních údajů a používání cookies dle GDPR a platné české legislativy pro VALEK ACADEMY (Josef Válek, Uherské Hradiště).",
-  badge = "100% v souladu s GDPR",
-  subtitle = "Vaše soukromí a bezpečí vašich dětí bereme s maximální vážností. V tomto dokumentu najdete transparentní a srozumitelný přehled o tom, jaké údaje shromažďujeme, z jakého důvodu, jak s nimi nakládáme a jaká jsou vaše zákonná práva.",
-  effectiveDate = "1. září 2025",
-  locationNote = "Růžová 1238, Uherské Hradiště",
-  adminInfo = {
-    name: "Josef Válek (VALEK ACADEMY)",
-    ico: "72419563",
-    address: "Růžová 1238, 686 01 Uherské Hradiště, Česká republika",
-    registry: "Fyzická osoba zapsaná v živnostenském rejstříku Městského úřadu Uherské Hradiště",
-    taxStatus: "Neplátce DPH",
-    email: "info@valekacademy.cz",
-    phone: "+420 792 372 642"
-  },
-  sections = []
-} = privacyData;
+const queryResult = await getLegalPageDataQuery('privacy.json');
+const legal = queryResult.data?.legal || {};
+const title = legal.title || "Zásady ochrany osobních údajů & používání cookies";
+const seoDescription = legal.seoDescription || "Informace o zpracování osobních údajů a používání cookies dle GDPR a platné české legislativy pro VALEK ACADEMY (Josef Válek, Uherské Hradiště).";
 ---
 
 <Layout
@@ -44,111 +33,9 @@ const {
     phoneFormatted={contact.phoneFormatted}
   />
 
-  <main class="flex-grow w-full max-w-full bg-[#FAF7F2] py-10 sm:py-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Back Link & Badge -->
-      <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
-        <a
-          href="/"
-          class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-900 hover:text-espresso-950 transition-colors py-1.5 px-3 rounded-xl bg-amber-100/70 border border-amber-200"
-        >
-          <span>←</span> <span>Zpět na hlavní stránku</span>
-        </a>
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-bold">
-          <span>🔒</span> <span>{badge}</span>
-        </div>
-      </div>
-
-      <!-- Header Card -->
-      <div class="bg-white rounded-3xl p-6 sm:p-10 border-2 border-amber-200/80 shadow-soft-lg mb-8">
-        <h1 class="font-academy font-black text-2xl sm:text-4xl text-espresso-950 tracking-tight mb-3">
-          {title}
-        </h1>
-        <p class="text-sm sm:text-base text-espresso-800/85 leading-relaxed font-normal mb-4">
-          {subtitle}
-        </p>
-        <div class="flex flex-wrap items-center gap-4 text-xs text-stone-500 pt-3 border-t border-parchment-200">
-          <span>📅 Účinnost od: {effectiveDate}</span>
-          <span>•</span>
-          <span>📍 Provozovna: {locationNote}</span>
-        </div>
-      </div>
-
-      <!-- Legal Content Sections -->
-      <div class="space-y-6 text-espresso-900 text-sm sm:text-base leading-relaxed">
-        
-        <!-- Administrator Info Card -->
-        <section class="bg-white rounded-3xl p-6 sm:p-8 border border-parchment-300 shadow-xs space-y-3">
-          <div class="flex items-center gap-2.5 text-espresso-950 font-heading font-black text-lg sm:text-xl">
-            <span class="w-8 h-8 rounded-xl bg-amber-100 text-espresso-950 flex items-center justify-center text-sm font-bold">1</span>
-            <h2>Kdo je správcem vašich osobních údajů?</h2>
-          </div>
-          <p>
-            Správcem osobních údajů ve smyslu Nařízení Evropského parlamentu a Rady (EU) 2016/679 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů (tzv. <strong>GDPR</strong>) a zákona č. 110/2019 Sb., o zpracování osobních údajů, je:
-          </p>
-          <div class="p-4 rounded-2xl bg-parchment-50 border border-parchment-300 space-y-1.5 text-xs sm:text-sm font-medium">
-            <p><strong>Jméno a příjmení:</strong> {adminInfo.name}</p>
-            <p><strong>IČO:</strong> {adminInfo.ico}</p>
-            <p><strong>Sídlo a adresa doučovny:</strong> {adminInfo.address}</p>
-            <p><strong>Zápis v evidenci:</strong> {adminInfo.registry}</p>
-            <p><strong>Daňový status:</strong> {adminInfo.taxStatus}</p>
-            <p><strong>E-mail:</strong> <a href={`mailto:${adminInfo.email}`} class="text-amber-800 underline">{adminInfo.email}</a></p>
-            <p><strong>Telefon:</strong> <a href={`tel:${adminInfo.phone.replace(/\s+/g, '')}`} class="text-amber-800 underline">{adminInfo.phone}</a></p>
-          </div>
-        </section>
-
-        <!-- Dynamic Sections from CMS -->
-        {sections.slice(1).map((sec: any) => (
-          <section class={`rounded-3xl p-6 sm:p-8 border shadow-xs space-y-3 ${sec.number === '6' ? 'bg-amber-50/70 border-2 border-amber-300' : 'bg-white border-parchment-300'}`}>
-            <div class="flex items-center gap-2.5 text-espresso-950 font-heading font-black text-lg sm:text-xl">
-              <span class={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${sec.number === '6' ? 'bg-amber-400 text-espresso-950' : 'bg-amber-100 text-espresso-950'}`}>
-                {sec.number}
-              </span>
-              <h2>{sec.title}</h2>
-            </div>
-
-            {sec.content && (
-              <div class="space-y-2 whitespace-pre-line text-xs sm:text-sm text-stone-700 leading-relaxed">
-                {sec.content}
-              </div>
-            )}
-
-            {sec.bullets && sec.bullets.length > 0 && (
-              <ul class="list-disc pl-5 space-y-1.5 text-stone-700 text-xs sm:text-sm pt-1">
-                {sec.bullets.map((b: any) => (
-                  <li>
-                    {b.label && <strong>{b.label} </strong>}
-                    <span>{b.text}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        ))}
-
-        <!-- Contact Box -->
-        <section class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-soft space-y-3">
-          <h3 class="font-heading font-black text-base sm:text-lg text-espresso-950">
-            Máte dotaz nebo chcete uplatnit svá práva?
-          </h3>
-          <p class="text-xs sm:text-sm text-stone-700">
-            Kdykoliv se můžete obrátit přímo na lektora Josefa Válka:
-          </p>
-          <div class="flex flex-wrap gap-4 pt-1">
-            <a href={`mailto:${adminInfo.email}`} class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 text-espresso-950 font-bold text-xs sm:text-sm hover:bg-amber-300 transition-colors shadow-2xs">
-              <span>✉️</span> <span>{adminInfo.email}</span>
-            </a>
-            <a href={`tel:${adminInfo.phone.replace(/\s+/g, '')}`} class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-parchment-100 border border-parchment-300 text-espresso-950 font-bold text-xs sm:text-sm hover:bg-parchment-200 transition-colors">
-              <span>📞</span> <span>{adminInfo.phone}</span>
-            </a>
-          </div>
-        </section>
-
-      </div>
-
-    </div>
-  </main>
+  <TinaIsland name="privacy" wrapper={islands.privacy.wrapper} primary>
+    <LegalContent legal={legal} type="privacy" />
+  </TinaIsland>
 
   <Footer
     footer={footer}
@@ -157,4 +44,5 @@ const {
     phone={contact.phone}
     phoneFormatted={contact.phoneFormatted}
   />
+  {import.meta.env.DEV && <VisualEditor />}
 </Layout>
