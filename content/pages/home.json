@@ -71,11 +71,11 @@
         ]
       },
       "benefit1Title": "Deskovky & karty",
-      "benefit1Desc": "Karak, Scrabble, Dixit",
+      "benefit1Desc": "Catan, Scrabble, Dixit",
       "benefit2Title": "Skupinky 4–8 dětí",
       "benefit2Desc": "Konec strachu z chyb",
       "locationNote": "Růžová 1238, UH",
-      "onlineNote": "💻 i Online",
+      "onlineNote": "(naprotí ZŠ UNESCO - Hradební)",
       "ctaText": "Rezervovat →",
       "ctaLink": "#kontakt"
     },
@@ -336,6 +336,14 @@
     "badge": "PROČ ZVOLIT VALEK ACADEMY",
     "title": "Proč je výuka v malé skupince pro děti (i dospělé) tou nejlepší volbou?",
     "subtitle": "Srovnání klasické školní třídy či jazykovky, individuálního one-on-one a malých skupin na Valek Academy v Uherském Hradišti.",
+    "ctaText": "Vyzkoušet 1. lekci ZDARMA",
+    "ctaLink": "#kontakt",
+    "toggleButtonText": "Zobrazit srovnání se školou a 1 na 1",
+    "labelSpeakingTime": "Mluvení a prostor pro řeč:",
+    "labelAtmosphere": "Atmosféra & stres:",
+    "labelMethod": "Metodika výuky:",
+    "labelAccent": "Přízvuk a lektor:",
+    "labelMotivation": "Motivace dítěte:",
     "columns": [
       {
         "type": "school",
@@ -348,8 +356,8 @@
         "method": "Mechanické vyplňování pracovních sešitů a biflování",
         "accent": "Často český pedagog schovávající se za učebnicí, běžný tvrdý český přízvuk",
         "motivation": "Povinnost, nuda a obava ze špatných \"známek\", drcení sebejistoty",
-        "isWinner": false,
-        "footerNote": "Ve škole se zkouší u tabule"
+        "footerNote": "Ve škole se zkouší u tabule",
+        "isWinner": false
       },
       {
         "type": "private",
@@ -362,8 +370,8 @@
         "method": "Může být velmi účinné, ale většinou není nutné, plus je to bez sociální interakce ",
         "accent": "Záleží na lektorovi, rodilí mluvčí stojí 900-1000 Kč/hod",
         "motivation": "Chybí vrstevníci pro hry, smích a týmové soutěže",
-        "isWinner": false,
-        "footerNote": "Často drahé a bez party vrstevníků"
+        "footerNote": "Často drahé a bez party vrstevníků",
+        "isWinner": false
       },
       {
         "type": "valek",
@@ -377,18 +385,10 @@
         "method": "Autentické hry (Catan, Scrabble, Story Cubes)+ látka ze školy",
         "accent": "Čistý neutrální přízvuk + načí fonetickou abecedu (25+ let real-world praxe, australský \"hantec\" nepoužívá",
         "motivation": "Dítě/student se na doučování těší a do školy vstupuje se sebevědomím",
-        "isWinner": true,
-        "footerNote": ""
+        "footerNote": "",
+        "isWinner": true
       }
-    ],
-    "ctaText": "Vyzkoušet 1. lekci ZDARMA",
-    "ctaLink": "#kontakt",
-    "toggleButtonText": "Zobrazit srovnání se školou a 1 na 1",
-    "labelSpeakingTime": "Mluvení a prostor pro řeč:",
-    "labelAtmosphere": "Atmosféra & stres:",
-    "labelMethod": "Metodika výuky:",
-    "labelAccent": "Přízvuk a lektor:",
-    "labelMotivation": "Motivace dítěte:"
+    ]
   },
   "testimonials": {
     "enabled": false,
@@ -442,6 +442,9 @@
     "title": "Jak deskovky a hry ve skupince pomáhají dětem mluvit anglicky?",
     "subtitle": "V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí podobně jako mateřštinu.",
     "quote": "„Hodiny se dělí dle zájmových oblastí, každý si najde své.“",
+    "gamesTitle": "Jaké hry s dětmi hrajeme a co rozvíjejí:",
+    "gamesSubtitle": "Hry vybíráme individuálně podle věku dětí a jejich zájmů.",
+    "phrasesLabel": "Reálné věty, které děti v zápalu hry používají:",
     "gameSpotlights": [
       {
         "icon": "🐉",
@@ -523,16 +526,17 @@
       "desc": "První lekce v malé skupince dětí (osobně v UH nebo online) je 100% ZDARMA a nezávazná.",
       "ctaText": "Vyzkoušet zdarma →",
       "ctaLink": "#kontakt"
-    },
-    "gamesTitle": "Jaké hry s dětmi hrajeme a co rozvíjejí:",
-    "gamesSubtitle": "Hry vybíráme individuálně podle věku dětí a jejich zájmů.",
-    "phrasesLabel": "Reálné věty, které děti v zápalu hry používají:"
+    }
   },
   "timeline": {
     "enabled": true,
     "badge": "Jak probíhá každá hodina",
     "title": "60 minut v doučovně Josefa: Krok za krokem",
     "subtitle": "Proč výuka hrou funguje lépe než sezení v lavici? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.",
+    "calloutTitle": "Chcete si tento 60minutový zážitek vyzkoušet naživo?",
+    "calloutDesc": "První lekce v malé skupince dětí (Uherské Hradiště) je 100% ZDARMA a nezávazná.",
+    "calloutCtaText": "Vyzkoušet zdarma →",
+    "calloutCtaLink": "#kontakt",
     "phases": [
       {
         "time": "00–10 min",
@@ -562,11 +566,7 @@
         "desc": "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do australského cestovatelského pasu. Dítě odchází s úsměvem a těší se na příští týden.",
         "highlight": "Dítě odchází sebevědomé a motivované"
       }
-    ],
-    "calloutTitle": "Chcete si tento 60minutový zážitek vyzkoušet naživo?",
-    "calloutDesc": "První lekce v malé skupince dětí (Uherské Hradiště) je 100% ZDARMA a nezávazná.",
-    "calloutCtaText": "Vyzkoušet zdarma →",
-    "calloutCtaLink": "#kontakt"
+    ]
   },
   "location": {
     "badge": "Kde nás najdete",
@@ -628,6 +628,7 @@
     "availabilityBadge": "Volná místa pro zápis",
     "gamesLabel": "🎮 Vybrané hry pro tuto skupinku:",
     "guaranteeText": "1. lekce v této skupince je 100% ZDARMA (Růžová 1238, Uherské Hradiště)",
+    "whatsappText": "Napsat na WhatsApp",
     "ctaText": "Přihlásit se do této skupinky →",
     "grades": [
       {
@@ -730,8 +731,7 @@
         "title": "Chce být napřed & bavit se",
         "desc": "Ve škole se nudí a hledá partu kamarádů pro živou angličtinu."
       }
-    ],
-    "whatsappText": "Napsat na WhatsApp"
+    ]
   },
   "faq": {
     "enabled": true,
@@ -809,9 +809,6 @@
     "formBadgeNote": "Nezávazná přihláška",
     "formTitle": "Rezervace ukázkové lekce hrou",
     "formSubtitle": "Vyplňte krátký formulář a Mr. Válek se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.",
-    "submitButtonText": "🎁 Rezervovat 1. lekci ZDARMA",
-    "securityNote": "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí a slouží pouze k domluvě úvodní lekce.",
-    "web3formsKey": "f49fa95f-e8a5-4b5b-b462-11980de8d1bc",
     "programLabel": "O jaký program máte zájem?",
     "formatLabel": "Kde chcete, aby výuka probíhala?",
     "formatInPersonTitle": "🏡 Osobně v UH",
@@ -833,7 +830,10 @@
     "stepsTitle": "Co se stane po odeslání?",
     "step1Text": "Odešlete nezávaznou poptávku (1 min)",
     "step2Text": "Josef se vám do 24 h ozve s volnými časy",
-    "step3Text": "Dítě si přijde nezávazně zahrát 1. lekci zdarma"
+    "step3Text": "Dítě si přijde nezávazně zahrát 1. lekci zdarma",
+    "submitButtonText": "🎁 Rezervovat 1. lekci ZDARMA",
+    "securityNote": "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí a slouží pouze k domluvě úvodní lekce.",
+    "web3formsKey": "f49fa95f-e8a5-4b5b-b462-11980de8d1bc"
   },
   "footer": {
     "brandName": "VALEK ACADEMY",
