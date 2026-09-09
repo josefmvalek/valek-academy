@@ -531,9 +531,9 @@
   "timeline": {
     "enabled": true,
     "badge": "Jak probíhá každá hodina",
-    "title": "60 minut v doučovně Josefa: Krok za krokem",
-    "subtitle": "Proč výuka hrou funguje lépe než sezení v lavici? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.",
-    "calloutTitle": "Chcete si tento 60minutový zážitek vyzkoušet naživo?",
+    "title": "60 minut v učebně Valek Academy: Krok za krokem",
+    "subtitle": "Proč výuka hrou funguje lépe než pasivní poslouchání učitele? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.",
+    "calloutTitle": "Chcete si tento 60-minutový zážitek vyzkoušet naživo?",
     "calloutDesc": "První lekce v malé skupince dětí (Uherské Hradiště) je 100% ZDARMA a nezávazná.",
     "calloutCtaText": "Vyzkoušet zdarma →",
     "calloutCtaLink": "#kontakt",
