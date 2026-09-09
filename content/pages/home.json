@@ -251,7 +251,7 @@
   },
   "pricing": {
     "enabled": true,
-    "badge": "CENÍK & 1. LEKCE ZDARMA",
+    "badge": "CENÍK",
     "title": "Začněte 1. lekcí zdarma a bez závazků",
     "subtitle": "Každé dítě si může přijít celou lekci hrou nezávazně vyzkoušet. Pokud se mu to bude líbit, pokračujete dál.",
     "tabsLabel": "Vyberte kategorii ceníku:",
@@ -296,7 +296,7 @@
       },
       {
         "name": "Středoškoláci & Maturita",
-        "price": "Brzy",
+        "price": "320",
         "period": "/ připravujeme",
         "description": "Cílená příprava k maturitě a vysokoškolskému studiu, zejména aktivace mluvení a rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
         "isPopular": false,
