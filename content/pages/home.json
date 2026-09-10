@@ -532,7 +532,7 @@
     "enabled": true,
     "badge": "Jak probíhá každá hodina",
     "title": "60 minut v učebně Valek Academy: Krok za krokem",
-    "subtitle": "Proč výuka hrou funguje lépe než pasivní poslouchání učitele? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.",
+    "subtitle": "Proč výuka hrou funguje lépe než pasivní poslouchání učebnicového učitele? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.",
     "calloutTitle": "Chcete si tento 60-minutový zážitek vyzkoušet naživo?",
     "calloutDesc": "První lekce v malé skupince dětí (Uherské Hradiště) je 100% ZDARMA a nezávazná.",
     "calloutCtaText": "Vyzkoušet zdarma →",
@@ -541,8 +541,8 @@
       {
         "time": "00–10 min",
         "badge": "1. Fáze: Zahřátí",
-        "title": "G'day chat & vypnutí školního stresu",
-        "desc": "Dítě přijde po celém dni ve škole. Žádné zkoušení ani testy – sedneme si do kruhu, dáme si čaj, zahrajeme 5minutovou postřehovou hru a přirozeně přepneme hlavu do angličtiny.",
+        "title": "Chit-chat & vypnutí školního stresu",
+        "desc": "Dítě přijde po celém dni ve škole. Žádné zkoušení ani testy – sedneme si do kruhu, dáme si čaj, popovídáme si o událostech dne a přirozeně přepneme hlavu do angličtiny.",
         "highlight": "Odbourání ostychu hned od první minuty"
       },
       {
