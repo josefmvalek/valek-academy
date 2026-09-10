@@ -253,7 +253,7 @@
     "enabled": true,
     "badge": "CENÍK",
     "title": "Začněte 1. lekcí zdarma a bez závazků",
-    "subtitle": "Každé dítě si může přijít celou lekci hrou nezávazně vyzkoušet. Pokud se mu to bude líbit, pokračujete dál.",
+    "subtitle": "Každé dítě/student si může přijít celou lekci hrou nezávazně vyzkoušet. Pokud se mu to bude líbit, pokračujete dál.",
     "tabsLabel": "Vyberte kategorii ceníku:",
     "featuresLabel": "Balíček obsahuje:",
     "guarantee": "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Pokud dítě onemocní, o lekci nepřijdete – nabízí se možnost si hodinu nahradit v jiný den v jiné skupině.  ",
@@ -322,7 +322,7 @@
       {
         "icon": "📝",
         "title": "Slevy podlé délky úvazku",
-        "desc": "Přijdte na jednu hodinu, vyzkoušejte různé skupiny a jakmile najdete to své, získejte slevu podle délku své přislíbené účasti"
+        "desc": "Přijdte na jednu hodinu, vyzkoušejte různé skupiny a jakmile najdete to své, získejte slevu podle délky své přislíbené účasti"
       },
       {
         "icon": "🎁",
