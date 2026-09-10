@@ -30,10 +30,10 @@
   },
   "hero": {
     "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
-    "subtitle": "Konec nudného biflování, zkoušek a hodin sezení v tichosti. Mr. Válek vyrůstal v Austrálii od dětství do dospělosti a nyní otevřel učebnu pro děti v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učí se osobně v centru Uherského Hradiště, kde studenti mluví a učitel něžně nasměrovává.",
+    "subtitle": "Konec nudného biflování, zkoušek a hodin sezení v tichosti. Mr. Válek vyrůstal v Austrálii od dětství do dospělosti a nyní otevřel učebnu pro děti a studenty v malých skupinkách (4–8 dětí) plnou deskovek, karet a přirozené konverzace. Učí se osobně v centru Uherského Hradiště, kde studenti mluví a učitel něžně nasměřuje.",
     "ctaPrimaryText": "Vyzkoušet 1. lekci zdarma",
     "ctaPrimaryLink": "#kontakt",
-    "ctaSecondaryText": "Jak výuka hrou funguje",
+    "ctaSecondaryText": "Jak výuka hrou a povídáním funguje",
     "ctaSecondaryLink": "#programy",
     "card": {
       "enabled": false,
