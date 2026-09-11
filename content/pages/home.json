@@ -260,7 +260,7 @@
     "tiers": [
       {
         "name": "Děti & Žáci ZŠ (Skupinky hrou)",
-        "price": "330 Kč",
+        "price": "290 Kč",
         "period": "/ 60 min. (1. lekce ZDARMA)",
         "description": "Hravá výuka v malých skupinkách plná deskovek, hlavolamů a rozvoj lásky k angličtině.",
         "isPopular": true,
@@ -279,7 +279,7 @@
       },
       {
         "name": "Konverzace pro dospělé a odborná angličtina",
-        "price": "480 Kč",
+        "price": "495 Kč",
         "period": "/ 90 min. (1. lekce ZDARMA)",
         "description": "Vypilování výslovnosti a přízvuku, odbourání ostychu, konverzace na míru, skupiny zaměřené na specifické povolání, dopolední a večerní termíny",
         "isPopular": false,
@@ -296,7 +296,7 @@
       },
       {
         "name": "Středoškoláci & Maturita",
-        "price": "430 Kč",
+        "price": "495 Kč",
         "period": "/ 90 min (1. lekce ZDARMA)",
         "description": "Cílená příprava k maturitě a vysokoškolskému studiu, zejména aktivace mluvení a rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
         "isPopular": false,
