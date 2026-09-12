@@ -1,0 +1,581 @@
+---
+import { tinaField } from '@tinacms/astro/tina-field';
+import { formatRichText } from '../lib/richText';
+
+interface GroupItem {
+  id: string;
+  day: string;
+  time: string;
+  animal: string;
+  emoji: string;
+  cohort: string;
+  cohortBadge?: string;
+  occupiedSeats?: number;
+  maxSeats?: number;
+  waitingListSeats?: number;
+  statusOverride?: string;
+  description?: string;
+}
+
+interface Props {
+  schedule?: {
+    enabled?: boolean;
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    rollingSystemBadge?: string;
+    rollingSystemTitle?: string;
+    rollingSystemText?: string;
+    ctaText?: string;
+    groups?: GroupItem[];
+    [key: string]: any;
+  };
+}
+
+const { schedule = {} } = Astro.props;
+
+const enabled = schedule.enabled !== false;
+const badge = schedule.badge || "PŘEHLEDNÝ ČASOVÝ ROZVRH & REZERVACE";
+const title = schedule.title || "Pravidelný týdenní rozvrh: Vyberte si svou zvířecí skupinku";
+const subtitle = schedule.subtitle || "Výuka probíhá 100% osobně v doučovně v Uherském Hradišti (Růžová 1238). Žádné sezení u monitoru přes internet – deskovky, karty a přirozená konverzace naživo.";
+const rollingSystemBadge = schedule.rollingSystemBadge || "🔄 PLYNULÝ CELOROČNÍ SYSTÉM";
+const rollingSystemTitle = schedule.rollingSystemTitle || "Žádný začátek ani konec – do party se můžete přidat kdykoliv";
+const rollingSystemText = schedule.rollingSystemText || "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Josef si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!";
+const ctaText = schedule.ctaText || "Vybrat skupinku a rezervovat 1. lekci zdarma →";
+
+const whyInPersonIcon = schedule.whyInPersonIcon || "🎲";
+const whyInPersonTitle = schedule.whyInPersonTitle || "Proč učíme 100% naživo v doučovně a ne přes internet?";
+const whyInPersonText = schedule.whyInPersonText || "Děti i studenti tráví u monitorů hodiny denně. Jazyk hrou funguje nejlépe při živém očním kontaktu, házení kostkou, smíchu a týmových deskovkách. U obrazovky takové zapojení nevznikne.";
+
+const pillar1Number = schedule.pillar1Number || "8";
+const pillar1Title = schedule.pillar1Title || "Optimální kapacita 8 míst";
+const pillar1Desc = schedule.pillar1Desc || "Ideální pro deskovky, karty a každé dítě se dostane ke slovu.";
+
+const pillar2Number = schedule.pillar2Number || "4";
+const pillar2Title = schedule.pillar2Title || "Waiting list 4 místa";
+const pillar2Desc = schedule.pillar2Desc || "Přednostní čekací listina pro případ uvolnění místa v partě.";
+
+const pillar3Icon = schedule.pillar3Icon || "🔒";
+const pillar3Title = schedule.pillar3Title || "Garance stálé ceny";
+const pillar3Desc = schedule.pillar3Desc || "Stávající studenti si drží svou původní příznivou sazbu natrvalo.";
+
+const filterAllLabel = schedule.filterAllLabel || "🌟 Všechny skupinky (15)";
+const filterGrade13Label = schedule.filterGrade13Label || "🎒 1.–3. třída (12:30–13:30 • 60 min)";
+const filterGrade46Label = schedule.filterGrade46Label || "🚀 4.–6. třída (13:30–14:30 • 60 min)";
+const filterGrade713Label = schedule.filterGrade713Label || "🎓 7.–13. třída & Maturita (14:30–16:00 • 90 min)";
+
+const legendOpen = schedule.legendOpen || "Volno (do 8 dětí)";
+const legendWaitingList = schedule.legendWaitingList || "Čekací listina (8–11 dětí)";
+const legendFull = schedule.legendFull || "We're full! (12 dětí)";
+
+const adultsBlock = schedule.adultsBlock || {};
+const individualBlock = schedule.individualBlock || {};
+
+// Fallback 15 Australian animal groups if not provided
+const defaultGroups: GroupItem[] = [
+  // 12:30 - 13:30 (1.-3. třída)
+  { id: "kangaroos", day: "Pondělí", time: "12:30 – 13:30", animal: "Kangaroos", emoji: "🦘", cohort: "1.–3. třída", cohortBadge: "Družina & První krůčky hrou", occupiedSeats: 5, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka, barvy, čísla a zvířata formou karet a deskovek." },
+  { id: "koalas", day: "Úterý", time: "12:30 – 13:30", animal: "Koalas", emoji: "🐨", cohort: "1.–3. třída", cohortBadge: "Pohodová parta & Dobble", occupiedSeats: 7, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Klidná a trpělivá skupinka pro odbourání ostychu z mluvení. Obrázkové karty a australská výslovnost od malička." },
+  { id: "wombats", day: "Středa", time: "12:30 – 13:30", animal: "Wombats", emoji: "🐻", cohort: "1.–3. třída", cohortBadge: "Karak Junior & Karty", occupiedSeats: 8, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Základní kapacita 8 dětí je plná. Přijímáme přihlášky na přednostní čekací listinu pro případ uvolnění místa." },
+  { id: "wallabies", day: "Čtvrtek", time: "12:30 – 13:30", animal: "Wallabies", emoji: "🦘", cohort: "1.–3. třída", cohortBadge: "Pohyb & Rychlá reakce", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Skupinka plná energie, házení kostkou a veselých konverzačních her. Ideální pro živější děti po škole." },
+  { id: "tasmanian-devils", day: "Pátek", time: "12:30 – 13:30", animal: "Tasmanian devils", emoji: "😈", cohort: "1.–3. třída", cohortBadge: "Páteční herní klub", occupiedSeats: 6, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Páteční odměna za celý týden. Žádné učebnice, čistá radost ze hry a spontánní mluvení v angličtině." },
+
+  // 13:30 - 14:30 (4.-6. třída)
+  { id: "rabbits", day: "Pondělí", time: "13:30 – 14:30", animal: "Rabbits", emoji: "🐇", cohort: "4.–6. třída", cohortBadge: "Karak & Slovní zásoba", occupiedSeats: 6, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Propojení školního učiva s populárními deskovkami. Rozšiřování slovní zásoby a tvoření celých vět bez váhání." },
+  { id: "foxes", day: "Úterý", time: "13:30 – 14:30", animal: "Foxes", emoji: "🦊", cohort: "4.–6. třída", cohortBadge: "Strategie & Codenames", occupiedSeats: 7, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Bystrá parta mladých stratégů. Asociační hry, dedukce a přirozené domlouvání pravidel v angličtině." },
+  { id: "brumbies", day: "Středa", time: "13:30 – 14:30", animal: "Brumbies", emoji: "🐎", cohort: "4.–6. třída", cohortBadge: "Plynulost & Sebevědomí", occupiedSeats: 5, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Svoboda vyjadřování bez strachu z gramatických chyb. Lektor trpělivě navádí na správnou větnou stavbu." },
+  { id: "camels", day: "Čtvrtek", time: "13:30 – 14:30", animal: "Camels", emoji: "🐪", cohort: "4.–6. třída", cohortBadge: "Vytrvalost & Hloubka", occupiedSeats: 9, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Velmi žádaný čtvrteční slot. Základních 8 míst je obsazeno, přijímáme zájemce na čekací listinu (zbývají 3 místa)." },
+  { id: "cane-toads", day: "Pátek", time: "13:30 – 14:30", animal: "Cane toads", emoji: "🐸", cohort: "4.–6. třída", cohortBadge: "Páteční výzva & Smích", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Legendární australské ropuchy přinášejí pořádnou porci humoru, blafovacích karetních her a uvolněné zábavy." },
+
+  // 14:30 - 16:00 (7.-13. třída)
+  { id: "crocodiles", day: "Pondělí", time: "14:30 – 16:00", animal: "Crocodiles", emoji: "🐊", cohort: "7.–13. třída", cohortBadge: "Maturita & Pokročilá konverzace", occupiedSeats: 6, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Intenzivní 90minutový ponor. Společenská témata, argumentace, simulace ústní zkoušky a australský idiom." },
+  { id: "sharks", day: "Úterý", time: "14:30 – 16:00", animal: "Sharks", emoji: "🦈", cohort: "7.–13. třída", cohortBadge: "Příprava na SŠ & SCIO testy", occupiedSeats: 7, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Pohotovost a přesnost. Trénink typových úloh na přijímačky, práce s textem a poslech rodilého mluvčího." },
+  { id: "snakes", day: "Středa", time: "14:30 – 16:00", animal: "Snakes", emoji: "🐍", cohort: "7.–13. třída", cohortBadge: "Debatní klub & Reálie", occupiedSeats: 12, maxSeats: 8, waitingListSeats: 4, statusOverride: "full", description: "Tato skupinka dosáhla maximální kapacity včetně waiting listu (12/12). Pro zájemce doporučujeme čtvrtek či pátek." },
+  { id: "spiders", day: "Čtvrtek", time: "14:30 – 16:00", animal: "Spiders", emoji: "🕷️", cohort: "7.–13. třída", cohortBadge: "Maturitní témata & Eseje", occupiedSeats: 5, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Jeden ze 2 specializovaných bloků zaměřených na maturitní didaktické testy, rozbor článků a mluvený projev." },
+  { id: "buffalos", day: "Pátek", time: "14:30 – 16:00", animal: "Buffalos", emoji: "🐃", cohort: "7.–13. třída", cohortBadge: "Pohodový závěr týdne", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Páteční 90minutovka pro středoškoláky. Společenské hry v angličtině (Secret Hitler, Codenames) a diskuze o filmech a hudbě." }
+];
+
+const groups = (schedule.groups && schedule.groups.length > 0) ? schedule.groups : defaultGroups;
+
+// Helper to compute capacity state
+function getCapacityInfo(group: GroupItem) {
+  const maxSeats = group.maxSeats || 8;
+  const wlSeats = group.waitingListSeats || 4;
+  const occupied = group.occupiedSeats ?? 0;
+  const totalMax = maxSeats + wlSeats; // 12
+
+  if (group.statusOverride === 'full' || occupied >= totalMax) {
+    return {
+      status: 'full',
+      badgeText: "We're full! (12/12)",
+      badgeClass: "bg-red-100 text-red-900 border-red-300",
+      indicatorColor: "bg-red-500",
+      ctaText: "Plně obsazeno (zkuste jiný den)",
+      ctaDisabled: true,
+      percentage: 100,
+      occupiedCount: totalMax,
+      maxCount: totalMax,
+      availableInBase: 0,
+      availableInWl: 0
+    };
+  }
+
+  if (group.statusOverride === 'waiting_list' || occupied >= maxSeats) {
+    const wlOccupied = Math.max(1, occupied - maxSeats);
+    const wlAvailable = Math.max(0, wlSeats - wlOccupied);
+    return {
+      status: 'waiting_list',
+      badgeText: `Čekací listina: ${wlOccupied}/${wlSeats}`,
+      badgeClass: "bg-amber-100 text-amber-950 border-amber-300",
+      indicatorColor: "bg-amber-500",
+      ctaText: `Zapsat na waiting list (zbývají ${wlAvailable}) →`,
+      ctaDisabled: false,
+      percentage: Math.min(100, Math.round(((maxSeats + wlOccupied) / totalMax) * 100)),
+      occupiedCount: maxSeats + wlOccupied,
+      maxCount: totalMax,
+      availableInBase: 0,
+      availableInWl: wlAvailable
+    };
+  }
+
+  const freeSeats = Math.max(1, maxSeats - occupied);
+  return {
+    status: 'open',
+    badgeText: `🟢 Volno: zbývá ${freeSeats} ${freeSeats === 1 ? 'místo' : freeSeats < 5 ? 'místa' : 'míst'}`,
+    badgeClass: "bg-emerald-100 text-emerald-950 border-emerald-300",
+    indicatorColor: "bg-emerald-500",
+    ctaText: "Vybrat tuto skupinku →",
+    ctaDisabled: false,
+    percentage: Math.min(100, Math.round((occupied / maxSeats) * 100)),
+    occupiedCount: occupied,
+    maxCount: maxSeats,
+    availableInBase: freeSeats,
+    availableInWl: wlSeats
+  };
+}
+---
+
+{enabled && (
+  <section id="harmonogram" class="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#FFFDF9] via-[#FAF7F2] to-[#FFFDF9] border-b border-parchment-300 relative overflow-hidden">
+    
+    <!-- Subtle decorative ambient blobs -->
+    <div class="absolute top-0 right-10 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 left-10 w-96 h-96 bg-emerald-200/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl mx-auto text-center space-y-3 mb-8 sm:mb-10">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'badge')}>
+          <span>⏰</span>
+          <span>{badge}</span>
+        </div>
+        <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight" data-tina-field={tinaField(schedule, 'title')} set:html={formatRichText(title)}>
+        </h2>
+        <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed" data-tina-field={tinaField(schedule, 'subtitle')} set:html={formatRichText(subtitle)}>
+        </p>
+      </div>
+
+      <!-- Rolling Enrollment System Highlight Banner -->
+      <div class="max-w-5xl mx-auto mb-10 p-5 sm:p-7 rounded-3xl bg-amber-50/90 border-2 border-amber-300/90 shadow-soft-sm relative overflow-hidden">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div class="space-y-3 flex-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-200/80 border border-amber-400 text-espresso-950 text-[11px] font-black uppercase tracking-wider" data-tina-field={tinaField(schedule, 'rollingSystemBadge')}>
+              <span>{rollingSystemBadge}</span>
+            </div>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950 leading-snug" data-tina-field={tinaField(schedule, 'rollingSystemTitle')}>
+              {rollingSystemTitle}
+            </h3>
+            <p class="text-xs sm:text-sm text-espresso-900/85 leading-relaxed font-normal" data-tina-field={tinaField(schedule, 'rollingSystemText')} set:html={formatRichText(rollingSystemText)}>
+            </p>
+          </div>
+
+          <!-- 3 Quick Pillars of Rolling Intake -->
+          <div class="w-full lg:w-80 flex-shrink-0 grid grid-cols-1 gap-2.5">
+            <div class="p-3 rounded-2xl bg-white/90 border border-amber-200 flex items-center gap-3 shadow-2xs">
+              <span class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar1Number')}>{pillar1Number}</span>
+              <div class="text-xs">
+                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar1Title')}>{pillar1Title}</strong>
+                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar1Desc')}>{pillar1Desc}</span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-white/90 border border-amber-200 flex items-center gap-3 shadow-2xs">
+              <span class="w-9 h-9 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar2Number')}>{pillar2Number}</span>
+              <div class="text-xs">
+                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar2Title')}>{pillar2Title}</strong>
+                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar2Desc')}>{pillar2Desc}</span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-white/90 border border-amber-200 flex items-center gap-3 shadow-2xs">
+              <span class="w-9 h-9 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar3Icon')}>{pillar3Icon}</span>
+              <div class="text-xs">
+                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar3Title')}>{pillar3Title}</strong>
+                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar3Desc')}>{pillar3Desc}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why In-Person Callout Banner -->
+      <div class="max-w-5xl mx-auto mb-10 p-4 sm:p-5 rounded-2xl bg-emerald-50/80 border border-emerald-300/80 flex flex-col sm:flex-row items-center gap-4 shadow-2xs">
+        <span class="text-3xl flex-shrink-0" data-tina-field={tinaField(schedule, 'whyInPersonIcon')}>{whyInPersonIcon}</span>
+        <div class="space-y-1 text-center sm:text-left flex-1">
+          <h4 class="font-heading font-black text-sm sm:text-base text-emerald-950" data-tina-field={tinaField(schedule, 'whyInPersonTitle')}>{whyInPersonTitle}</h4>
+          <p class="text-xs text-emerald-900/80 leading-relaxed font-normal" data-tina-field={tinaField(schedule, 'whyInPersonText')}>{whyInPersonText}</p>
+        </div>
+      </div>
+
+      <!-- Filter Controls: Cohort Switcher Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8" id="schedule-cohort-filters">
+        <button
+          type="button"
+          data-cohort="all"
+          class="schedule-filter-btn px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer bg-espresso-950 text-amber-300 shadow-sm border border-espresso-950"
+          data-tina-field={tinaField(schedule, 'filterAllLabel')}
+        >
+          {filterAllLabel}
+        </button>
+        <button
+          type="button"
+          data-cohort="1.–3. třída"
+          class="schedule-filter-btn px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer bg-white text-espresso-900 hover:bg-amber-50 border border-parchment-300 hover:border-amber-400"
+          data-tina-field={tinaField(schedule, 'filterGrade13Label')}
+        >
+          {filterGrade13Label}
+        </button>
+        <button
+          type="button"
+          data-cohort="4.–6. třída"
+          class="schedule-filter-btn px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer bg-white text-espresso-900 hover:bg-amber-50 border border-parchment-300 hover:border-amber-400"
+          data-tina-field={tinaField(schedule, 'filterGrade46Label')}
+        >
+          {filterGrade46Label}
+        </button>
+        <button
+          type="button"
+          data-cohort="7.–13. třída"
+          class="schedule-filter-btn px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer bg-white text-espresso-900 hover:bg-amber-50 border border-parchment-300 hover:border-amber-400"
+          data-tina-field={tinaField(schedule, 'filterGrade713Label')}
+        >
+          {filterGrade713Label}
+        </button>
+      </div>
+
+      <!-- Capacity Legend Strip -->
+      <div class="max-w-xl mx-auto flex items-center justify-center gap-4 sm:gap-6 text-[11px] font-bold text-stone-600 mb-8 flex-wrap">
+        <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendOpen')}>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span>{legendOpen}</span>
+        </div>
+        <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendWaitingList')}>
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+          <span>{legendWaitingList}</span>
+        </div>
+        <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendFull')}>
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+          <span>{legendFull}</span>
+        </div>
+      </div>
+
+      <!-- 15 Australian Animal Groups Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="schedule-groups-grid">
+        {groups.map((group, idx) => {
+          const cap = getCapacityInfo(group);
+          return (
+            <div
+              data-tina-field={tinaField(schedule, 'groups', idx)}
+              data-group-id={group.id}
+              data-cohort={group.cohort}
+              data-animal={group.animal}
+              data-emoji={group.emoji}
+              data-day={group.day}
+              data-time={group.time}
+              class="schedule-group-card bg-white rounded-3xl p-5 sm:p-6 border-2 border-parchment-300 hover:border-amber-400 shadow-xs hover:shadow-card-lift transition-all duration-300 flex flex-col justify-between group"
+            >
+              <div class="space-y-3.5">
+                <!-- Top Badge: Day, Time and Capacity Status -->
+                <div class="flex items-start justify-between gap-2 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-xl bg-espresso-950 text-white font-black text-xs">
+                      {group.day}
+                    </span>
+                    <span class="text-xs font-black text-amber-950">
+                      ⏱️ {group.time}
+                    </span>
+                  </div>
+
+                  <span class:list={[
+                    "px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider border shadow-2xs",
+                    cap.badgeClass
+                  ]}>
+                    {cap.badgeText}
+                  </span>
+                </div>
+
+                <!-- Animal Header -->
+                <div class="flex items-center gap-3 pt-1">
+                  <div class="w-13 h-13 rounded-2xl bg-amber-100/80 border border-amber-300 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:rotate-3 transition-transform shadow-2xs flex-shrink-0">
+                    {group.emoji}
+                  </div>
+                  <div>
+                    <div class="flex items-baseline gap-2">
+                      <h3 class="font-heading font-black text-xl text-espresso-950 group-hover:text-amber-800 transition-colors">
+                        {group.animal}
+                      </h3>
+                      <span class="text-xs font-bold text-stone-500">
+                        ({group.cohort})
+                      </span>
+                    </div>
+                    {group.cohortBadge && (
+                      <div class="text-[11px] font-extrabold text-amber-900 mt-0.5">
+                        {group.cohortBadge}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <p class="text-xs text-espresso-800/80 leading-relaxed font-normal min-h-[38px]">
+                  {group.description}
+                </p>
+
+                <!-- Capacity Visual Meter Bar -->
+                <div class="space-y-1.5 pt-2 border-t border-parchment-200">
+                  <div class="flex items-center justify-between text-[11px]">
+                    <span class="font-bold text-espresso-950">
+                      Obsazenost: <span class="text-amber-900 font-black">{group.occupiedSeats ?? 0}/8</span>
+                      {((group.occupiedSeats ?? 0) > 8) && (
+                        <span class="text-amber-700 font-extrabold"> (+{((group.occupiedSeats ?? 0) - 8)} na čekačce)</span>
+                      )}
+                    </span>
+                    <span class="text-[10px] font-bold text-stone-500">
+                      {cap.status === 'open' ? `${cap.availableInBase} volno` : cap.status === 'waiting_list' ? 'Čekací listina' : 'We\'re full!'}
+                    </span>
+                  </div>
+
+                  <!-- Multi-segmented Progress Bar -->
+                  <div class="w-full h-2 rounded-full bg-parchment-200 overflow-hidden flex">
+                    <div
+                      class:list={["h-full transition-all duration-500", cap.indicatorColor]}
+                      style={`width: ${cap.percentage}%;`}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom CTA Button for Direct Booking -->
+              <div class="pt-4 mt-4 border-t border-parchment-200 flex items-center justify-between gap-2">
+                <button
+                  type="button"
+                  data-select-group={group.id}
+                  data-group-name={`${group.emoji} ${group.day} ${group.time} • ${group.animal} (${group.cohort})`}
+                  data-group-day={group.day}
+                  data-group-time={group.time}
+                  data-group-cohort={group.cohort}
+                  data-group-animal={group.animal}
+                  data-group-emoji={group.emoji}
+                  data-group-status={cap.status}
+                  disabled={cap.ctaDisabled}
+                  class:list={[
+                    "w-full py-2.5 px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-center transition-all cursor-pointer shadow-2xs flex items-center justify-center gap-2",
+                    cap.status === 'open'
+                      ? "bg-amber-400 hover:bg-amber-300 text-espresso-950 border border-amber-500 hover:shadow-xs active:scale-98"
+                      : cap.status === 'waiting_list'
+                      ? "bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 active:scale-98"
+                      : "bg-parchment-200 text-stone-500 cursor-not-allowed border border-parchment-300 opacity-80"
+                  ]}
+                >
+                  <span>{cap.ctaText}</span>
+                </button>
+              </div>
+
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- Additional Special Cohorts: Adults & 1-on-1 -->
+      <div class="mt-12 pt-10 border-t border-parchment-200 grid md:grid-cols-2 gap-6">
+        
+        <!-- Adult Professional Groups Card -->
+        {adultsBlock.enabled !== false && (
+          <div data-tina-field={tinaField(schedule, 'adultsBlock')} class="bg-parchment-50 rounded-3xl p-6 sm:p-7 border border-parchment-300 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-1 rounded-xl bg-blue-100 border border-blue-300 text-blue-950 text-xs font-black" data-tina-field={tinaField(adultsBlock, 'timeBadge')}>
+                  {adultsBlock.timeBadge || "Po – Čt 17:00 – 18:30"}
+                </span>
+                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(adultsBlock, 'timeNote')}>{adultsBlock.timeNote || "90 minut • 5 bloků týdně"}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-3xl" data-tina-field={tinaField(adultsBlock, 'icon')}>{adultsBlock.icon || "💼"}</span>
+                <div>
+                  <h4 class="font-heading font-black text-lg text-espresso-950" data-tina-field={tinaField(adultsBlock, 'title')}>{adultsBlock.title || "Dospělí & Odborné profesní skupiny"}</h4>
+                  <p class="text-xs text-stone-600" data-tina-field={tinaField(adultsBlock, 'subtitle')}>{adultsBlock.subtitle || "4 obory: Medici 🩺, Právníci ⚖️, Technici ⚙️, Obchod 📊"}</p>
+                </div>
+              </div>
+              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(adultsBlock, 'desc')}>
+                {adultsBlock.desc || "Intenzivní podvečerní skupiny pro pracující a studenty VŠ. Žádné biflování gramatiky ze základky, ale moderní odborná mluva, prezentace a přirozený přízvuk."}
+              </p>
+            </div>
+
+            <a
+              href="#kontakt"
+              data-select-special={adultsBlock.title || "Dospělí & Odborné profesní skupiny (Po–Čt 17:00–18:30)"}
+              class="special-slot-btn inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-heading font-black text-xs text-espresso-950 bg-white hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 transition-colors shadow-2xs"
+            >
+              <span data-tina-field={tinaField(adultsBlock, 'ctaText')}>{adultsBlock.ctaText || "Rezervovat profesní skupinu →"}</span>
+            </a>
+          </div>
+        )}
+
+        <!-- 1-on-1 Individual Card -->
+        {individualBlock.enabled !== false && (
+          <div data-tina-field={tinaField(schedule, 'individualBlock')} class="bg-parchment-50 rounded-3xl p-6 sm:p-7 border border-parchment-300 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-1 rounded-xl bg-purple-100 border border-purple-300 text-purple-950 text-xs font-black" data-tina-field={tinaField(individualBlock, 'timeBadge')}>
+                  {individualBlock.timeBadge || "Dopoledne dle domluvy"}
+                </span>
+                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(individualBlock, 'timeNote')}>{individualBlock.timeNote || "Individuální tempo"}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-3xl" data-tina-field={tinaField(individualBlock, 'icon')}>{individualBlock.icon || "👤"}</span>
+                <div>
+                  <h4 class="font-heading font-black text-lg text-espresso-950" data-tina-field={tinaField(individualBlock, 'title')}>{individualBlock.title || "Individuální výuka 1 na 1"}</h4>
+                  <p class="text-xs text-stone-600" data-tina-field={tinaField(individualBlock, 'subtitle')}>{individualBlock.subtitle || "Maximální flexibilita pro náročné cíle"}</p>
+                </div>
+              </div>
+              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(individualBlock, 'desc')}>
+                {individualBlock.desc || "Probíhá výhradně v dopoledních hodinách v klidu doučovny v Uherském Hradišti. Příprava na mezinárodní konference, pohovory v zahraničí nebo specifické požadavky."}
+              </p>
+            </div>
+
+            <a
+              href="#kontakt"
+              data-select-special={individualBlock.title || "Individuální výuka 1 na 1 (Dopolední hodiny)"}
+              class="special-slot-btn inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-heading font-black text-xs text-espresso-950 bg-white hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 transition-colors shadow-2xs"
+            >
+              <span data-tina-field={tinaField(individualBlock, 'ctaText')}>{individualBlock.ctaText || "Poptat individuální výuku 1 na 1 →"}</span>
+            </a>
+          </div>
+        )}
+
+      </div>
+
+      <!-- Bottom Global Actions: Dedicated /rozvrh page & Instant Booking -->
+      <div class="mt-12 text-center max-w-2xl mx-auto space-y-3">
+        <a
+          href="/rozvrh"
+          class="btn-gold-pulse group w-full sm:w-auto inline-flex items-center justify-center gap-3 py-4 sm:py-5 px-6 sm:px-10 rounded-2xl font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border-2 border-amber-500 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+        >
+          <span class="text-2xl group-hover:scale-110 transition-transform">📅</span>
+          <span>Otevřít velký rozvrh hodin & online rezervaci skupinek</span>
+          <span class="group-hover:translate-x-1.5 transition-transform font-black">→</span>
+        </a>
+        <div class="flex items-center justify-center gap-4 text-xs text-stone-500 font-medium flex-wrap">
+          <span>15 zvířecích skupinek</span>
+          <span>•</span>
+          <span>Přímé objednání 1. lekce zdarma</span>
+          <span>•</span>
+          <a href="#kontakt" class="underline hover:text-amber-900 font-bold">Rychlá rezervace dole na stránce ↓</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+)}
+
+<!-- Client-side script for interactive filtering and smooth booking connection -->
+<script>
+  function setupScheduleInteraction() {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.schedule-filter-btn');
+    const groupCards = document.querySelectorAll<HTMLElement>('.schedule-group-card');
+    const selectButtons = document.querySelectorAll<HTMLButtonElement>('[data-select-group]');
+    const specialButtons = document.querySelectorAll<HTMLAnchorElement>('.special-slot-btn');
+
+    // Filter by cohort
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const cohort = btn.getAttribute('data-cohort') || 'all';
+
+        // Update active buttons style
+        filterButtons.forEach((b) => {
+          b.classList.remove('bg-espresso-950', 'text-amber-300', 'border-espresso-950');
+          b.classList.add('bg-white', 'text-espresso-900', 'border-parchment-300');
+        });
+        btn.classList.remove('bg-white', 'text-espresso-900', 'border-parchment-300');
+        btn.classList.add('bg-espresso-950', 'text-amber-300', 'border-espresso-950');
+
+        // Filter cards
+        groupCards.forEach((card) => {
+          const cardCohort = card.getAttribute('data-cohort');
+          if (cohort === 'all' || cardCohort === cohort) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Select group handler
+    selectButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-select-group');
+        const name = btn.getAttribute('data-group-name');
+        const day = btn.getAttribute('data-group-day');
+        const time = btn.getAttribute('data-group-time');
+        const cohort = btn.getAttribute('data-group-cohort');
+        const animal = btn.getAttribute('data-group-animal');
+        const emoji = btn.getAttribute('data-group-emoji');
+        const status = btn.getAttribute('data-group-status');
+
+        if (status === 'full') return;
+
+        // Dispatch custom event for contact form
+        window.dispatchEvent(new CustomEvent('valek:select-group', {
+          detail: { id, name, day, time, cohort, animal, emoji, status }
+        }));
+
+        // Scroll smoothly to contact section
+        const contactSection = document.getElementById('kontakt');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Special slots (Adults / 1-on-1)
+    specialButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const slotName = btn.getAttribute('data-select-special');
+        if (!slotName) return;
+
+        window.dispatchEvent(new CustomEvent('valek:select-group', {
+          detail: {
+            id: 'special',
+            name: slotName,
+            day: 'Dle domluvy',
+            time: 'Flexibilní',
+            cohort: slotName.includes('Dospělí') ? 'Dospělí & Profese' : 'Individuální 1 na 1',
+            animal: slotName,
+            emoji: slotName.includes('Dospělí') ? '💼' : '👤',
+            status: 'open'
+          }
+        }));
+      });
+    });
+  }
+
+  // Setup on page load and view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupScheduleInteraction);
+  } else {
+    setupScheduleInteraction();
+  }
+  document.addEventListener('astro:page-load', setupScheduleInteraction);
+</script>

@@ -1,5 +1,6 @@
 ---
 import { tinaField } from '@tinacms/astro/tina-field';
+import { formatRichText } from '../lib/richText';
 
 interface ColumnItem {
   [key: string]: any;
@@ -110,11 +111,9 @@ const columns = comparison.columns || defaultColumns;
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-tina-field={tinaField(comparison, 'badge')} data-edit-key="comparison.badge" data-edit-label="Štítek srovnání">
         <span>⚖️</span> <span>{badge}</span>
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(comparison, 'title')} data-edit-key="comparison.title" data-edit-label="Nadpis srovnání">
-        {title}
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(comparison, 'title')} data-edit-key="comparison.title" data-edit-label="Nadpis srovnání" set:html={formatRichText(title)}>
       </h2>
-      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(comparison, 'subtitle')} data-edit-key="comparison.subtitle" data-edit-label="Podnadpis srovnání">
-        {subtitle}
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(comparison, 'subtitle')} data-edit-key="comparison.subtitle" data-edit-label="Podnadpis srovnání" set:html={formatRichText(subtitle)}>
       </p>
     </div>
 

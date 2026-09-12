@@ -1,5 +1,7 @@
 ---
 import { tinaField } from '@tinacms/astro/tina-field';
+import { formatRichText } from '../lib/richText';
+import PackageCalculator from './PackageCalculator.astro';
 
 interface Tier {
   [key: string]: any;
@@ -32,10 +34,12 @@ interface Props {
     guarantee?: string;
     tiers?: Tier[] | Record<string, Tier>;
     pillars?: Pillar[];
+    calculator?: any;
   };
+  phone?: string;
 }
 
-const { pricing = {} } = Astro.props;
+const { pricing = {}, phone = "420792372642" } = Astro.props;
 
 const badge = pricing.badge || "CENÍK & 1. LEKCE ZDARMA";
 const title = pricing.title || "Transparentní ceny – pro děti 1. lekce zcela zdarma";
@@ -54,7 +58,7 @@ const defaultPillars: Pillar[] = [
   {
     icon: "🛡️",
     title: "Náhrady při nemoci",
-    desc: "Lekce vám nepropadne – možnost připojení online z domova nebo náhrada v paralelní skupince."
+    desc: "Lekce vám nepropadne – při omluvě bezplatná náhrada v paralelní prezenční skupince v jiný den."
   },
   {
     icon: "📝",
@@ -79,11 +83,9 @@ const pillars = pricing.pillars || defaultPillars;
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(pricing, 'badge')} data-edit-key="pricing.badge" data-edit-label="Štítek ceníku">
         {badge}
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(pricing, 'title')} data-edit-key="pricing.title" data-edit-label="Nadpis ceníku">
-        {title}
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(pricing, 'title')} data-edit-key="pricing.title" data-edit-label="Nadpis ceníku" set:html={formatRichText(title)}>
       </h2>
-      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(pricing, 'subtitle')} data-edit-key="pricing.subtitle" data-edit-label="Podnadpis ceníku">
-        {subtitle}
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(pricing, 'subtitle')} data-edit-key="pricing.subtitle" data-edit-label="Podnadpis ceníku" set:html={formatRichText(subtitle)}>
       </p>
     </div>
 
@@ -104,8 +106,8 @@ const pillars = pricing.pillars || defaultPillars;
             ]}
             data-target={`pricing-tier-${idx}`}
           >
-            <span class="text-base">{idx === 0 ? "🎒" : idx === 1 ? "💼" : "🎓"}</span>
-            <span class="truncate font-black text-[11px]">{t.name ? t.name.split(' ')[0] + ' ' + (t.name.split(' ')[1] || '') : (idx === 0 ? "Děti ZŠ" : idx === 1 ? "Dospělí" : "Maturita")}</span>
+            <span class="text-base">{idx === 0 ? "🎒" : idx === 1 ? "🎓" : "💼"}</span>
+            <span class="truncate font-black text-[11px]">{t.name ? t.name.split(' ')[0] + ' ' + (t.name.split(' ')[1] || '') : (idx === 0 ? "Děti ZŠ" : idx === 1 ? "Maturita" : "Dospělí")}</span>
           </button>
         ))}
       </div>
@@ -149,8 +151,7 @@ const pillars = pricing.pillars || defaultPillars;
                 <h3 class="font-heading font-black text-2xl text-espresso-950" data-tina-field={tinaField(tier, 'name')} data-edit-key={`pricing.tiers.${idx}.name`} data-edit-label="Název programu">
                   {tier.name}
                 </h3>
-                <p class="text-sm text-espresso-800/80 mt-2 min-h-[40px]" data-tina-field={tinaField(tier, 'description')} data-edit-key={`pricing.tiers.${idx}.description`} data-edit-label="Popis programu">
-                  {tier.description}
+                <p class="text-sm text-espresso-800/80 mt-2 min-h-[40px]" data-tina-field={tinaField(tier, 'description')} data-edit-key={`pricing.tiers.${idx}.description`} data-edit-label="Popis programu" set:html={formatRichText(tier.description)}>
                 </p>
               </div>
 
@@ -173,7 +174,7 @@ const pillars = pricing.pillars || defaultPillars;
                       <svg class={`w-4 h-4 flex-shrink-0 mt-0.5 ${isPopular ? 'text-amber-600' : 'text-emerald-600'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                       </svg>
-                      <span data-edit-key={`pricing.tiers.${idx}.features.${fIdx}`} data-edit-label="Položka v ceně">{feat}</span>
+                      <span data-edit-key={`pricing.tiers.${idx}.features.${fIdx}`} data-edit-label="Položka v ceně" set:html={formatRichText(feat)}></span>
                     </li>
                   ))}
                 </ul>
@@ -202,6 +203,9 @@ const pillars = pricing.pillars || defaultPillars;
       })}
     </div>
 
+    <!-- Interactive Package & Discount Calculator -->
+    <PackageCalculator calculator={pricing.calculator} phone={phone} />
+
     <!-- Fairness & Flexibility Pillars -->
     <div class="mt-10 sm:mt-14 max-w-4xl mx-auto space-y-5">
       <div class="grid sm:grid-cols-3 gap-3.5">
@@ -223,10 +227,24 @@ const pillars = pricing.pillars || defaultPillars;
 
       <!-- Main Guarantee Callout -->
       <div class="text-center">
-        <div class="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-100/90 via-white to-amber-100/90 border-2 border-amber-300/90 text-espresso-950 text-xs sm:text-sm md:text-base leading-relaxed font-bold shadow-xs" data-tina-field={tinaField(pricing, 'guarantee')} data-edit-key="pricing.guarantee" data-edit-label="Garance ceníku">
-          {guarantee}
+        <div class="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-100/90 via-white to-amber-100/90 border-2 border-amber-300/90 text-espresso-950 text-xs sm:text-sm md:text-base leading-relaxed font-bold shadow-xs" data-tina-field={tinaField(pricing, 'guarantee')} data-edit-key="pricing.guarantee" data-edit-label="Garance ceníku" set:html={formatRichText(guarantee)}>
         </div>
       </div>
+    </div>
+
+    <!-- Large Prominent Button linking to Dedicated /cenik page -->
+    <div class="mt-10 sm:mt-12 text-center max-w-2xl mx-auto">
+      <a
+        href="/cenik"
+        class="btn-gold-pulse group w-full sm:w-auto inline-flex items-center justify-center gap-3 py-4 sm:py-5 px-6 sm:px-10 rounded-2xl font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border-2 border-amber-500 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+      >
+        <span class="text-2xl group-hover:scale-110 transition-transform">🏷️</span>
+        <span>Otevřít podrobný a kompletní ceník všech programů & slev</span>
+        <span class="group-hover:translate-x-1.5 transition-transform font-black">→</span>
+      </a>
+      <p class="text-xs text-stone-500 mt-2 font-medium">
+        Samostatná stránka s detailním rozpadem cen pro 1. i 2. stupeň, dospělé, kalkulátorem a platebními podmínkami.
+      </p>
     </div>
 
   </div>

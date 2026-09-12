@@ -1,0 +1,106 @@
+{
+  "title": "Fotogalerie doučovny a her | VALEK ACADEMY Uherské Hradiště",
+  "badge": "FOTOGALERIE DOUČOVNY & HER",
+  "heading": "Nahlédněte do naší doučovny v Uherském Hradišti",
+  "subtitle": "Žádné školní lavice, zkoušení u tabule ani pasivní koukání do monitoru. Prohlédněte si, jak to u nás vypadá – velký stůl pro deskovky, desítky originálních her a přátelská rodinná atmosféra přímo v centru UH.",
+  "categories": [
+    {
+      "id": "ucebna",
+      "name": "Prostory & Učebna",
+      "icon": "🏠",
+      "description": "Příjemné rodinné prostředí na adrese Růžová 1238 v Uherském Hradišti (naproti ZŠ UNESCO).",
+      "photos": [
+        {
+          "image": "/images/doucovna-stul.webp",
+          "title": "Hlavní herní stůl v doučovně",
+          "description": "Zde se odehrávají všechny napínavé partie. Děti sedí společně u stolu, komunikují tváří v tvář a přirozeně reagují v angličtině."
+        },
+        {
+          "image": "/images/classroom-interior-sunlit.jpg",
+          "title": "Slunná učebna v historickém centru UH",
+          "description": "Klidné a bezpečné zázemí s klenutými okny s výhledem na město. Místo, kde se nikdo nebojí udělat chybu."
+        },
+        {
+          "image": "/images/classroom-library.jpg",
+          "title": "Knihovna a studijní zázemí",
+          "description": "Poličky plné originálních anglických knížek, australských map a populárních deskovek pro děti i dospívající."
+        }
+      ]
+    },
+    {
+      "id": "deskovky",
+      "name": "Deskové hry & karty",
+      "icon": "🎲",
+      "description": "Naše hlavní zbraň proti nudě: Karak, Scrabble, Dixit, Catan, Dobble a bleskové kvízy.",
+      "photos": [
+        {
+          "image": "/images/board-games-closeup.jpg",
+          "title": "Herní stůl připravený na lekci",
+          "description": "Otevřený Karak, Scrabble a kartičky. Děti se nemohou dočkat, až hodí kostkou a začnou tvořit první anglické věty."
+        },
+        {
+          "image": "/images/dobble-cards-hands.jpg",
+          "title": "Bleskové postřehovky Dobble & písmena",
+          "description": "Rychlé hledání symbolů a skládání slov. Trénink reflexů a okamžitého anglického pojmenování bez překládání v hlavě."
+        },
+        {
+          "image": "/images/doucovna-hry.webp",
+          "title": "Kolekce originálních anglických her",
+          "description": "Hry pečlivě vybíráme podle věku – od jednoduchého Dobble pro 1. třídu až po strategický Carcassonne a Codenames."
+        }
+      ]
+    },
+    {
+      "id": "vyuka",
+      "name": "Výuka & Atmosféra",
+      "icon": "🎒",
+      "description": "Malé skupinky 4–8 dětí, kde každý dostane prostor mluvit celých 60 minut.",
+      "photos": [
+        {
+          "image": "/images/kids-boardgame-fun.jpg",
+          "title": "Smích, soutěživost a radost z výhry",
+          "description": "V partě vrstevníků mizí ostych i strach ze špatných známek. Děti se navzájem podporují a učí se přirozenou konverzací."
+        },
+        {
+          "image": "/images/maturita-study-session.jpg",
+          "title": "Příprava na maturitu a CERMAT testy",
+          "description": "Intenzivní 90minutové bloky pro starší studenty: didaktické testy, esejistika, ústní témata a plynulá argumentace bez trémy."
+        },
+        {
+          "image": "/images/adults-conversation-group.jpg",
+          "title": "Večerní klub pro dospělé a profesní skupiny",
+          "description": "Medici, právníci, inženýři i milovníci cestování u šálku čaje v přátelské debatě s rodilým akcentem Josefa."
+        }
+      ]
+    },
+    {
+      "id": "materialy",
+      "name": "Knihovna & Reálie",
+      "icon": "📚",
+      "description": "Autentické australské knihy, reálie z Melbourne, fonetické pomůcky a didaktické materiály.",
+      "photos": [
+        {
+          "image": "/images/australian-library-corner.jpg",
+          "title": "Australský čtenářský koutek s koalou",
+          "description": "Knížky pro děti v originále (Roald Dahl, Australian Wildlife), plyšový koala a útulné křeslo se světýlky pro chvíle klidného čtení."
+        },
+        {
+          "image": "/images/classroom-games.jpg",
+          "title": "Zapojení všech smyslů do učení",
+          "description": "Vizuální karty, figurky a herní plány pomáhají zafixovat slovíčka lépe než pouhé vyplňování pracovních sešitů."
+        },
+        {
+          "image": "/images/board-games-3d.webp",
+          "title": "Didaktické modely & 3D reálie",
+          "description": "Prostorové herní komponenty a kartičky motivují děti ke spontánnímu popisování světa v angličtině."
+        }
+      ]
+    }
+  ],
+  "ctaBanner": {
+    "title": "Líbí se vám naše doučovna a přátelská atmosféra?",
+    "subtitle": "Přijďte si s dítětem nezávazně zahrát deskovku a vyzkoušet atmosféru v malé skupince. První celá lekce je 100% ZDARMA a k ničemu vás nezavazuje.",
+    "buttonText": "🎁 Vyzkoušet 1. lekci ZDARMA",
+    "buttonLink": "/rozvrh#kontakt"
+  }
+}

@@ -6,27 +6,33 @@
     "ctaText": "🎁 1. lekce zdarma",
     "navLinks": [
       {
-        "label": "Programy & Hry",
-        "href": "#programy"
+        "label": "Rozvrh hodin",
+        "href": "/rozvrh"
       },
       {
         "label": "Ceník",
-        "href": "#cenik",
-        "badge": "1. zdarma"
+        "href": "/cenik"
+      },
+      {
+        "label": "Fotogalerie",
+        "href": "/galerie"
       },
       {
         "label": "O lektorovi",
-        "href": "#o-mne"
+        "href": "/#o-mne"
       },
       {
         "label": "Doučovna UH",
-        "href": "#kde-ucime"
+        "href": "/#kde-ucime"
       },
       {
         "label": "FAQ",
-        "href": "#faq"
+        "href": "/#faq"
       }
-    ]
+    ],
+    "logoImage": "",
+    "ctaLink": "#kontakt",
+    "mobileMenuTitle": "VALEK ACADEMY • Menu"
   },
   "hero": {
     "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
@@ -75,26 +81,35 @@
       "benefit2Title": "Skupinky 4–8 dětí",
       "benefit2Desc": "Konec strachu z chyb",
       "locationNote": "Růžová 1238, UH",
-      "onlineNote": "💻 i Online",
+      "onlineNote": "🎲 100% naživo v UH",
       "ctaText": "Rezervovat →",
-      "ctaLink": "#kontakt"
+      "ctaLink": "#kontakt",
+      "melbourneTag": "Melbourne"
     },
     "stats": [
       {
         "number": "Uh. Hradiště",
-        "label": "osobně ve studovně v centru UH"
+        "label": "osobně ve studovně v centru UH",
+        "tag": "LOKALITA",
+        "icon": "📍"
       },
       {
         "number": "4–8 dětí",
-        "label": "v malé přátelské skupince"
+        "label": "v malé přátelské skupince",
+        "tag": "KAPACITA",
+        "icon": "👥"
       },
       {
         "number": "Hry a mluvení",
-        "label": "zajímavé aktivity jako hlavní metoda výuky"
+        "label": "zajímavé aktivity jako hlavní metoda výuky",
+        "tag": "METODA",
+        "icon": "🎲"
       },
       {
         "number": "Austrálie",
-        "label": "zde pan Válek vyrůstal (rodilý přizvuk)"
+        "label": "zde pan Válek vyrůstal (rodilý přizvuk)",
+        "tag": "PŘÍZVUK",
+        "icon": "🇦🇺"
       }
     ]
   },
@@ -180,9 +195,9 @@
       }
     ],
     "waitingList": {
-      "badge": "Čekací listina • Dospělí & Maturita",
-      "title": "Hledáte přípravu k maturitě, konverzaci pro dospělé nebo angličtinu z oborů?",
-      "description": "Tyto programy otevřeme v další vlně. Zapište se nezávazně na čekací listinu – jakmile vypíšeme termíny, ozveme se vám přednostně.",
+      "badge": "Čekací listina • SŠ, Maturita & Dospělí",
+      "title": "Hledáte přípravu k maturitě, konverzaci pro dospělé nebo odbornou angličtinu?",
+      "description": "Odpolední bloky 14:30–16:00 (2. stupeň a SŠ včetně 2 bloků na maturitu), odborné skupiny pro mediky, právníky, techniky a obchod Po–Čt 17:00–18:30. Dopoledne vyhrazeno pro individuální doučování 1 na 1. Zapište se nezávazně na čekací listinu.",
       "ctaText": "Zapsat se na čekací listinu →"
     }
   },
@@ -247,7 +262,269 @@
         "title": "1. ukázková lekce ZDARMA",
         "description": "Přijďte si nezávazně vyzkoušet atmosféru. Dítě si zahraje deskovku a sami uvidíte, jak se mu to líbí."
       }
-    ]
+    ],
+    "melbourneTag": "Melbourne"
+  },
+  "schedule": {
+    "enabled": true,
+    "badge": "PŘEHLEDNÝ ČASOVÝ ROZVRH & REZERVACE",
+    "title": "Pravidelný týdenní rozvrh: Vyberte si svou zvířecí skupinku",
+    "subtitle": "Výuka probíhá 100% osobně v doučovně v Uherském Hradišti (Růžová 1238). Žádné sezení u monitoru přes internet – deskovky, karty a přirozená konverzace naživo.",
+    "rollingSystemBadge": "🔄 PLYNULÝ CELOROČNÍ SYSTÉM",
+    "rollingSystemTitle": "Žádný začátek ani konec – do party se můžete přidat kdykoliv",
+    "rollingSystemText": "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Josef si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!",
+    "ctaText": "Vybrat skupinku a rezervovat 1. lekci zdarma →",
+    "groups": [
+      {
+        "id": "kangaroos",
+        "day": "Pondělí",
+        "time": "12:30 – 13:30",
+        "animal": "Kangaroos",
+        "emoji": "🦘",
+        "cohort": "1.–3. třída",
+        "cohortBadge": "Družina & První krůčky hrou",
+        "occupiedSeats": 5,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka, barvy, čísla a zvířata formou karet a deskovek."
+      },
+      {
+        "id": "koalas",
+        "day": "Úterý",
+        "time": "12:30 – 13:30",
+        "animal": "Koalas",
+        "emoji": "🐨",
+        "cohort": "1.–3. třída",
+        "cohortBadge": "Pohodová parta & Dobble",
+        "occupiedSeats": 7,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Klidná a trpělivá skupinka pro odbourání ostychu z mluvení. Obrázkové karty a australská výslovnost od malička."
+      },
+      {
+        "id": "wombats",
+        "day": "Středa",
+        "time": "12:30 – 13:30",
+        "animal": "Wombats",
+        "emoji": "🐻",
+        "cohort": "1.–3. třída",
+        "cohortBadge": "Karak Junior & Karty",
+        "occupiedSeats": 8,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Základní kapacita 8 dětí je plná. Přijímáme přihlášky na přednostní čekací listinu pro případ uvolnění místa."
+      },
+      {
+        "id": "wallabies",
+        "day": "Čtvrtek",
+        "time": "12:30 – 13:30",
+        "animal": "Wallabies",
+        "emoji": "🦘",
+        "cohort": "1.–3. třída",
+        "cohortBadge": "Pohyb & Rychlá reakce",
+        "occupiedSeats": 4,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Skupinka plná energie, házení kostkou a veselých konverzačních her. Ideální pro živější děti po škole."
+      },
+      {
+        "id": "tasmanian-devils",
+        "day": "Pátek",
+        "time": "12:30 – 13:30",
+        "animal": "Tasmanian devils",
+        "emoji": "😈",
+        "cohort": "1.–3. třída",
+        "cohortBadge": "Páteční herní klub",
+        "occupiedSeats": 6,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Páteční odměna za celý týden. Žádné učebnice, čistá radost ze hry a spontánní mluvení v angličtině."
+      },
+      {
+        "id": "rabbits",
+        "day": "Pondělí",
+        "time": "13:30 – 14:30",
+        "animal": "Rabbits",
+        "emoji": "🐇",
+        "cohort": "4.–6. třída",
+        "cohortBadge": "Karak & Slovní zásoba",
+        "occupiedSeats": 6,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Propojení školního učiva s populárními deskovkami. Rozšiřování slovní zásoby a tvoření celých vět bez váhání."
+      },
+      {
+        "id": "foxes",
+        "day": "Úterý",
+        "time": "13:30 – 14:30",
+        "animal": "Foxes",
+        "emoji": "🦊",
+        "cohort": "4.–6. třída",
+        "cohortBadge": "Strategie & Codenames",
+        "occupiedSeats": 7,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Bystrá parta mladých stratégů. Asociační hry, dedukce a přirozené domlouvání pravidel v angličtině."
+      },
+      {
+        "id": "brumbies",
+        "day": "Středa",
+        "time": "13:30 – 14:30",
+        "animal": "Brumbies",
+        "emoji": "🐎",
+        "cohort": "4.–6. třída",
+        "cohortBadge": "Plynulost & Sebevědomí",
+        "occupiedSeats": 5,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Svoboda vyjadřování bez strachu z gramatických chyb. Lektor trpělivě navádí na správnou větnou stavbu."
+      },
+      {
+        "id": "camels",
+        "day": "Čtvrtek",
+        "time": "13:30 – 14:30",
+        "animal": "Camels",
+        "emoji": "🐪",
+        "cohort": "4.–6. třída",
+        "cohortBadge": "Vytrvalost & Hloubka",
+        "occupiedSeats": 9,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Velmi žádaný čtvrteční slot. Základních 8 míst je obsazeno, přijímáme zájemce na čekací listinu (zbývají 3 místa)."
+      },
+      {
+        "id": "cane-toads",
+        "day": "Pátek",
+        "time": "13:30 – 14:30",
+        "animal": "Cane toads",
+        "emoji": "🐸",
+        "cohort": "4.–6. třída",
+        "cohortBadge": "Páteční výzva & Smích",
+        "occupiedSeats": 4,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Legendární australské ropuchy přinášejí pořádnou porci humoru, blafovacích karetních her a uvolněné zábavy."
+      },
+      {
+        "id": "crocodiles",
+        "day": "Pondělí",
+        "time": "14:30 – 16:00",
+        "animal": "Crocodiles",
+        "emoji": "🐊",
+        "cohort": "7.–13. třída",
+        "cohortBadge": "Maturita & Pokročilá konverzace",
+        "occupiedSeats": 6,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Intenzivní 90minutový ponor. Společenská témata, argumentace, simulace ústní zkoušky a australský idiom."
+      },
+      {
+        "id": "sharks",
+        "day": "Úterý",
+        "time": "14:30 – 16:00",
+        "animal": "Sharks",
+        "emoji": "🦈",
+        "cohort": "7.–13. třída",
+        "cohortBadge": "Příprava na SŠ & SCIO testy",
+        "occupiedSeats": 7,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Pohotovost a přesnost. Trénink typových úloh na přijímačky, práce s textem a poslech rodilého mluvčího."
+      },
+      {
+        "id": "snakes",
+        "day": "Středa",
+        "time": "14:30 – 16:00",
+        "animal": "Snakes",
+        "emoji": "🐍",
+        "cohort": "7.–13. třída",
+        "cohortBadge": "Debatní klub & Reálie",
+        "occupiedSeats": 12,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "full",
+        "description": "Tato skupinka dosáhla maximální kapacity včetně waiting listu (12/12). Pro zájemce doporučujeme čtvrtek či pátek."
+      },
+      {
+        "id": "spiders",
+        "day": "Čtvrtek",
+        "time": "14:30 – 16:00",
+        "animal": "Spiders",
+        "emoji": "🕷️",
+        "cohort": "7.–13. třída",
+        "cohortBadge": "Maturitní témata & Eseje",
+        "occupiedSeats": 5,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Jeden ze 2 specializovaných bloků zaměřených na maturitní didaktické testy, rozbor článků a mluvený projev."
+      },
+      {
+        "id": "buffalos",
+        "day": "Pátek",
+        "time": "14:30 – 16:00",
+        "animal": "Buffalos",
+        "emoji": "🐃",
+        "cohort": "7.–13. třída",
+        "cohortBadge": "Pohodový závěr týdne",
+        "occupiedSeats": 4,
+        "maxSeats": 8,
+        "waitingListSeats": 4,
+        "statusOverride": "auto",
+        "description": "Páteční 90minutovka pro středoškoláky. Společenské hry v angličtině (Secret Hitler, Codenames) a diskuze o filmech a hudbě."
+      }
+    ],
+    "whyInPersonIcon": "🎲",
+    "whyInPersonTitle": "Proč učíme 100% naživo v doučovně a ne přes internet?",
+    "whyInPersonText": "Děti i studenti tráví u monitorů hodiny denně. Jazyk hrou funguje nejlépe při živém očním kontaktu, házení kostkou, smíchu a týmových deskovkách. U obrazovky takové zapojení nevznikne.",
+    "pillar1Number": "8",
+    "pillar1Title": "Optimální kapacita 8 míst",
+    "pillar1Desc": "Ideální pro deskovky, karty a každé dítě se dostane ke slovu.",
+    "pillar2Number": "4",
+    "pillar2Title": "Waiting list 4 místa",
+    "pillar2Desc": "Přednostní čekací listina pro případ uvolnění místa v partě.",
+    "pillar3Icon": "🔒",
+    "pillar3Title": "Garance stálé ceny",
+    "pillar3Desc": "Stávající studenti si drží svou původní příznivou sazbu natrvalo.",
+    "filterAllLabel": "🌟 Všechny skupinky (15)",
+    "filterGrade13Label": "🎒 1.–3. třída (12:30–13:30 • 60 min)",
+    "filterGrade46Label": "🚀 4.–6. třída (13:30–14:30 • 60 min)",
+    "filterGrade713Label": "🎓 7.–13. třída & Maturita (14:30–16:00 • 90 min)",
+    "legendOpen": "Volno (do 8 dětí)",
+    "legendWaitingList": "Čekací listina (8–11 dětí)",
+    "legendFull": "We're full! (12 dětí)",
+    "adultsBlock": {
+      "enabled": true,
+      "timeBadge": "Po – Čt 17:00 – 18:30",
+      "timeNote": "90 minut • 5 bloků týdně",
+      "icon": "💼",
+      "title": "Dospělí & Odborné profesní skupiny",
+      "subtitle": "4 obory: Medici 🩺, Právníci ⚖️, Technici ⚙️, Obchod 📊",
+      "desc": "Intenzivní podvečerní skupiny pro pracující a studenty VŠ. Žádné biflování gramatiky ze základky, ale moderní odborná mluva, prezentace a přirozený přízvuk.",
+      "ctaText": "Rezervovat profesní skupinu →"
+    },
+    "individualBlock": {
+      "enabled": true,
+      "timeBadge": "Dopoledne dle domluvy",
+      "timeNote": "Individuální tempo",
+      "icon": "👤",
+      "title": "Individuální výuka 1 na 1",
+      "subtitle": "Maximální flexibilita pro náročné cíle",
+      "desc": "Probíhá výhradně v dopoledních hodinách v klidu doučovny v Uherském Hradišti. Příprava na mezinárodní konference, pohovory v zahraničí nebo specifické požadavky.",
+      "ctaText": "Poptat individuální výuku 1 na 1 →"
+    }
   },
   "pricing": {
     "enabled": true,
@@ -261,56 +538,60 @@
       {
         "name": "Děti & Žáci ZŠ (Skupinky hrou)",
         "price": "320 Kč",
-        "period": "/ lekce (1. lekce ZDARMA)",
-        "description": "Hravá výuka v malých skupinkách plná deskovek, hlavolamů a rozvoj lásky k angličtině.",
+        "period": "/ 60 min (od 220 Kč v balíčku, 1. lekce ZDARMA)",
+        "description": "Hravá výuka v malých skupinkách (max 8 dětí) plná deskovek a hlavolamů. 60minutové bloky 12:30–13:30 a 13:30–14:30 (navazuje na školu i družinu).",
         "isPopular": true,
         "badge": "🎁 1. LEKCE ZDARMA • OTEVŘENO",
         "features": [
-          "Malá skupinka 4 až 8 dětí pro maximální zapojení",
-          "Učení formou deskových her, karet a kvízů",
-          "Dovysvětlení látky ze školy a pomoc s úkoly",
-          "Všechny herní i výukové materiály v ceně",
-          "Férové náhrady: při nemoci online připojení či náhradní hodina",
-          "Bez smluv na pololetí: flexibilní měsíční platba až po 1. lekci",
-          "Rodič smí přijít na pozorování svého dítěte"
+          "Malá skupinka 4 až 8 dětí pro maximální zapojení a mluvení",
+          "Časové bloky 12:30–13:30 a 13:30–14:30 (1.–6. třída ZŠ)",
+          "Učení formou deskových her (Karak, Dobble, Scrabble, karty)",
+          "Pololetní balíček: 250 Kč / lekci (jen cca 1 000 Kč měsíčně)",
+          "Roční balíček nebo 2× týdně: pouhých 220 Kč / hodina",
+          "Férové náhrady: při nemoci bezplatná náhradní lekce v jiné skupince",
+          "Bez smluv na pololetí: flexibilní platba až po 1. lekci",
+          "Garance stálé ceny: po naplnění třídy držíte svou výhodnou sazbu"
         ],
         "ctaText": "Vyzkoušet 1. lekci zdarma",
         "ctaLink": "#kontakt"
       },
       {
-        "name": "Konverzace pro dospělé a odborná angličtina",
-        "price": "Brzy",
-        "period": "připravujeme, každý si najde své",
-        "description": "Vypilování výslovnosti a přízvuku, odbourání ostychu, konverzace na míru, skupiny zaměřené na specifické povolání, dopolední a večerní termíny",
+        "name": "Středoškoláci & Maturita",
+        "price": "480 Kč",
+        "period": "/ 90 min (= 320 Kč/h, od 330 Kč v balíčku)",
+        "description": "Cílená příprava k maturitě CERMAT, SCIO přijímačkám na gymnázia a VŠ studium. 90minutové bloky 14:30–16:00 (včetně 2 bloků čistě na maturitu).",
         "isPopular": false,
-        "badge": "Připravujeme brzy",
+        "badge": "OTEVŘENO • 1. LEKCE ZDARMA",
         "features": [
-          "Aktivní konverzace a nácvik reálných situací",
-          "Praxe od profesionálního překladatele a simultánního tlumočníka",
-          "Cvičení výslovnosti a motivace pro překonání ostychu z chyb",
-          "Zapište se nezávazně na čekací listinu",
-          "Skupiny pro doktory a sestřicky, inženýry, právníky, účetní, podnikatele, úředníky, ale i učitele angličtiny"
+          "90minutové bloky 14:30–16:00 (7.–13. třída ZŠ & SŠ)",
+          "2 bloky týdně zaměřené čistě na didaktické testy CERMAT a ústní zkoušku",
+          "Pololetní balíček: 360 Kč / 90 min (7 200 Kč za celé pololetí)",
+          "Roční předplatné: od 330 Kč / 90 min (úspora až 31 %)",
+          "1. lekce 100% ZDARMA na vyzkoušení stylu lektora",
+          "Společenské strategické hry v angličtině (Secret Hitler, Codenames)",
+          "Zázemí doučovny v UH, rodilý australský akcent a praxe"
         ],
-        "ctaText": "Zapsat se na čekací listinu",
-        "ctaLink": "#kontakt"
+        "ctaText": "Vybrat maturitní termín →",
+        "ctaLink": "/rozvrh"
       },
       {
-        "name": "Středoškoláci & Maturita",
-        "price": "Brzy",
-        "period": "/ připravujeme",
-        "description": "Cílená příprava k maturitě a vysokoškolskému studiu, zejména aktivace mluvení a rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
+        "name": "Konverzace pro dospělé a odborná angličtina",
+        "price": "480 Kč",
+        "period": "/ 90 min (od 420 Kč v balíčku pro firmy)",
+        "description": "Vypilování výslovnosti a přízvuku, odbourání ostychu, odborná angličtina pro praxi. Odborné skupiny pro mediky, právníky, inženýry, obchod (Po–Čt 17:00–18:30).",
         "isPopular": false,
-        "badge": "Připravujeme brzy",
+        "badge": "MEDICI • PRÁVNÍCI • TECHNICI",
         "features": [
-          "Systematický trénink maturitních úloh",
-          "Cvičení \"fluent presentation\" před komisí",
-          "Materiály a podklady k tématům v ceně",
-          "Troubleshooting opakovaných chyb",
-          "Přípravný kurs pro budoucí opér a na studium v zahraničí",
-          "Zapište se nezávazně na čekací listinu"
+          "90minutové bloky pondělí až čtvrtek 17:00–18:30 (5 bloků týdně)",
+          "Skupiny: Medici 🩺, Právníci ⚖️, Technici & Inženýři ⚙️, Obchod 📊",
+          "Pololetní balíček: 420 Kč / 90 min na osobu",
+          "Fakturace pro firmy / možnost uplatnění v nákladech nebo fondu FKSP",
+          "Josef Válek: BBA z RMIT University Melbourne & 25+ let praxe",
+          "Individuální výuka 1 na 1 v dopoledních hodinách (650 Kč/h)",
+          "Přátelské prostředí bez stresu ze zkoušení v centru UH"
         ],
-        "ctaText": "Zapsat se na čekací listinu",
-        "ctaLink": "#kontakt"
+        "ctaText": "Poptat profesní skupinu",
+        "ctaLink": "/cenik"
       }
     ],
     "pillars": [
@@ -321,15 +602,94 @@
       },
       {
         "icon": "📝",
-        "title": "Slevy podlé délky úvazku",
-        "desc": "Přijdte na jednu hodinu, vyzkoušejte různé skupiny a jakmile najdete to své, získejte slevu podle délku své přislíbené účasti"
+        "title": "Slevy podle délky úvazku",
+        "desc": "Přijďte na 1. hodinu zdarma, vyzkoušejte skupinku a získejte sazbu od 220 do 250 Kč za hodinu podle balíčku."
       },
       {
         "icon": "🎁",
         "title": "1. lekce 100% zdarma",
         "desc": "Celých 60 minut hrou v malé skupince na vyzkoušení bez jakýchkoliv závazků."
       }
-    ]
+    ],
+    "calculator": {
+      "enabled": true,
+      "badge": "CHYTRÝ KALKULÁTOR BALÍČKŮ",
+      "title": "Spočítejte si slevu za předplatné a frekvenci",
+      "subtitle": "Čím delší období a čím častěji dítě chodí, tím nižší je cena za lekci. Využijte pololetní balíček za 250 Kč/hod (jen cca 1 000 Kč měsíčně) nebo roční předplatné za pouhých 220 Kč/hod.",
+      "basePrice": 320,
+      "ctaText": "Vyzkoušet 1. lekci zdarma s touto slevou →",
+      "note": "🎁 1. ukázková lekce je vždy 100% ZDARMA. Platbu řešíte až po první hodině, když je dítě spokojené.",
+      "step1Title": "Vyberte délku období (balíček):",
+      "step1Badge": "až -31 % sleva (od 220 Kč/h)",
+      "step2Title": "Jak často chcete, aby dítě chodilo:",
+      "step2Badge": "extra bonus za frekvenci",
+      "resultBadge": "VÝSLEDNÁ KALKULACE S BALÍČKOVOU SLEVOU",
+      "savingsBadge": "Vaše úspora",
+      "durations": [
+        {
+          "weeks": 4,
+          "label": "1 měsíc",
+          "periodDesc": "4 týdny výuky",
+          "badge": "300 Kč / h (1 200 Kč)",
+          "baseDiscount": 6,
+          "popular": false,
+          "bestValue": false
+        },
+        {
+          "weeks": 12,
+          "label": "3 měsíce",
+          "periodDesc": "12 týdnů (čtvrtletí)",
+          "badge": "280 Kč / h (3 360 Kč)",
+          "baseDiscount": 12,
+          "popular": false,
+          "bestValue": false
+        },
+        {
+          "weeks": 20,
+          "label": "Pololetí",
+          "periodDesc": "20 týdnů (půl roku)",
+          "badge": "250 Kč / h (5 000 Kč)",
+          "baseDiscount": 22,
+          "popular": true,
+          "bestValue": false
+        },
+        {
+          "weeks": 40,
+          "label": "Celý rok",
+          "periodDesc": "40 týdnů (školní rok)",
+          "badge": "220 Kč / h (8 800 Kč)",
+          "baseDiscount": 31,
+          "popular": false,
+          "bestValue": true
+        }
+      ],
+      "frequencies": [
+        {
+          "freq": 1,
+          "label": "1× týdně",
+          "desc": "Standardní tempo hrou",
+          "bonus": 0,
+          "badge": "Standardní",
+          "recommended": false
+        },
+        {
+          "freq": 2,
+          "label": "2× týdně",
+          "desc": "Rychlý pokrok & sazba 220 Kč",
+          "bonus": 5,
+          "badge": "Doporučeno (220 Kč/h)",
+          "recommended": true
+        },
+        {
+          "freq": 3,
+          "label": "3× týdně",
+          "desc": "Intenzivní příprava & testy",
+          "bonus": 10,
+          "badge": "Max. intenzita",
+          "recommended": false
+        }
+      ]
+    }
   },
   "comparison": {
     "enabled": true,
@@ -539,28 +899,32 @@
         "badge": "1. Fáze: Zahřátí",
         "title": "G'day chat & vypnutí školního stresu",
         "desc": "Dítě přijde po celém dni ve škole. Žádné zkoušení ani testy – sedneme si do kruhu, dáme si čaj, zahrajeme 5minutovou postřehovou hru a přirozeně přepneme hlavu do angličtiny.",
-        "highlight": "Odbourání ostychu hned od první minuty"
+        "highlight": "Odbourání ostychu hned od první minuty",
+        "icon": "☕"
       },
       {
         "time": "10–35 min",
         "badge": "2. Fáze: Hlavní hra",
         "title": "Deskovka v angličtině & rodilý akcent",
         "desc": "Srdce celé lekce. Hrajeme Scrabble, Story Cubes nebo Karak. Děti házejí kostkou, vymýšlejí strategie a v zápalu hry reagují v angličtině úplně automaticky a bez přemýšlení o poučkách.",
-        "highlight": "Přirozený australský přízvuk a živá mluva"
+        "highlight": "Přirozený australský přízvuk a živá mluva",
+        "icon": "🎲"
       },
       {
         "time": "35–50 min",
         "badge": "3. Fáze: Školní látka",
         "title": "Vysvětlení v češtině & pomoc s úkoly",
         "desc": "Co se ve škole zdálo složité, najednou dává smysl. Josef v klidu v rodné češtině dovysvětlí gramatiku, projde s dětmi problematická cvičení a připraví je na písemky.",
-        "highlight": "Jistota do školy a lepší známky v žákovské"
+        "highlight": "Jistota do školy a lepší známky v žákovské",
+        "icon": "🎒"
       },
       {
         "time": "50–60 min",
         "badge": "4. Fáze: Závěr",
         "title": "Minikvíz, pochvala a razítko do pasu",
         "desc": "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do australského cestovatelského pasu. Dítě odchází s úsměvem a těší se na příští týden.",
-        "highlight": "Dítě odchází sebevědomé a motivované"
+        "highlight": "Dítě odchází sebevědomé a motivované",
+        "icon": "🌟"
       }
     ],
     "calloutTitle": "Chcete si tento 60minutový zážitek vyzkoušet naživo?",
@@ -605,16 +969,20 @@
     "surroundingTowns": "Parkování se nachází v červené zóně a za 60 minut přispějete 10,- Kč na provoz města. Centrální dostupnost ve školním epicentru města pro studenty ZŠ UNESCO, Obchodní Academie, ZŠ Sportovní, ZŠ Za alejí a Gymnázia. Odložte své dítě na Válek Academy a užijte si hodinku klidu. Autobusové a vlakové nádraží v blízkosti zpřístupňují Academy celému okresu. ",
     "gallery": [
       {
-        "image": "/uploads/images/doucovna-stul.jpg",
+        "image": "/images/doucovna-stul.webp",
         "title": "Útulný herní stůl pro 4–8 dětí",
         "desc": "Prostorný dřevěný stůl, kde se děti učí v uvolněné atmosféře a bez pocitu školní lavice."
       },
       {
-        "image": "/uploads/images/doucovna-hry.jpg",
-        "title": "Knihovnička a deskové hry",
-        "desc": "Karak, Scrabble, Dixit, Story Cubes a desítky dalších her pro všechny věkové kategorie."
+        "image": "/images/board-games-closeup.jpg",
+        "title": "Karak, Dobble, Scrabble a desítky her",
+        "desc": "Otevřený herní stůl, didaktické karty a deskovky pro všechny věkové kategorie v ranním slunci."
       }
-    ]
+    ],
+    "fullGalleryButtonText": "📸 Celá fotogalerie →",
+    "galleryCtaBannerTitle": "Chcete vidět více z naší herny, výuky a deskových her?",
+    "galleryCtaBannerDesc": "Prozkoumejte velkou fotogalerii s detailními kategoriemi a popisky.",
+    "galleryCtaBannerButton": "Otevřít velkou fotogalerii →"
   },
   "groupMatcher": {
     "enabled": true,
@@ -743,7 +1111,7 @@
     "items": [
       {
         "question": "Co když je dítě nemocné nebo nemůže dorazit? Propadne nám lekce?",
-        "answer": "U nás vám zaplacená lekce nikdy nepropadne! Pokud má dítě jen lehkou rýmu nebo nechce zmeškat kamarády, může se pohodlně připojit online přes Google Meet přímo z pokojíčku. Pokud je nemocné více, v klidu si hodinu nahradí v paralelní skupince v jiný den v týdnu."
+        "answer": "U nás vám zaplacená lekce nikdy nepropadne! Pokud dítě onemocní nebo má školní výlet, při včasné omluvě (přes SMS či WhatsApp) si lekci v klidu bezplatně nahradí v paralelní prezenční skupince v jiný den v týdnu."
       },
       {
         "question": "Musíme se vázat smlouvou na celé pololetí dopředu?",
@@ -751,7 +1119,7 @@
       },
       {
         "question": "Je možné mít lekce i online, když nejsme z Uherského Hradiště?",
-        "answer": "Ano, určitě! Josef učí děti osobně v příjemné doučovně v Uherském Hradišti (Růžová 1238) i online přes Google Meet pro děti z celé ČR. Online lekce využívají interaktivní digitální deskovky a kvízy a jsou také skvělou alternativou, když je dítě nachlazené a nemůže dorazit osobně."
+        "answer": "Mr. Josef Válek se plně věnuje výhradně osobní prezenční výuce v doučovně v Uherském Hradišti (Růžová 1238), kde je živá výuka hrou a deskovkami nejúčinnější. Pro studenty z jiných měst, kteří nemohou dojíždět osobně do UH, nabízíme online doučování zajišťované naším partnerským lektorským týmem (Eliška, Jožka, Jirka...)."
       },
       {
         "question": "Proč je výuka v malých skupinkách a ne 1 na 1?",
@@ -815,9 +1183,9 @@
     "programLabel": "O jaký program máte zájem?",
     "formatLabel": "Kde chcete, aby výuka probíhala?",
     "formatInPersonTitle": "🏡 Osobně v UH",
-    "formatInPersonNote": "Růžová 1238",
-    "formatOnlineTitle": "💻 Online",
-    "formatOnlineNote": "Z domova (celá ČR)",
+    "formatInPersonNote": "Josef Válek (Růžová 1238)",
+    "formatOnlineTitle": "💻 Online výuka",
+    "formatOnlineNote": "Lektorský tým (z domova)",
     "formatUndecidedTitle": "🔄 Ještě nevím",
     "formatUndecidedNote": "Poradím se s Josefem",
     "parentNameLabel": "Jméno rodiče",
@@ -833,7 +1201,27 @@
     "stepsTitle": "Co se stane po odeslání?",
     "step1Text": "Odešlete nezávaznou poptávku (1 min)",
     "step2Text": "Josef se vám do 24 h ozve s volnými časy",
-    "step3Text": "Dítě si přijde nezávazně zahrát 1. lekci zdarma"
+    "step3Text": "Dítě si přijde nezávazně zahrát 1. lekci zdarma",
+    "selectedGroupCalloutTitle": "🎯 Vybraná zvířecí skupinka z rozvrhu",
+    "selectedGroupClearText": "✕ Změnit",
+    "formSuccessTitle": "Děkuji za zprávu!",
+    "formSuccessText": "Požadavek jsem přijal a ozvu se vám co nejdříve s návrhem termínu ukázkové lekce zdarma v Uherském Hradišti.",
+    "formErrorTitle": "Něco se nepovedlo",
+    "formErrorText": "Formulář se nepodařilo odeslat. Zkuste to prosím znovu nebo mi zavolejte přímo.",
+    "programOptions": [
+      "🎲 Děti na ZŠ (Skupinka 4–8 dětí hrou) – 1. LEKCE 100% ZDARMA",
+      "💼 Angličtina pro dospělé [Přednostní čekací listina]",
+      "🎓 Střední škola a maturita [Přednostní čekací listina]",
+      "📐 SCIO testy & Přijímačky na SŠ [Přednostní čekací listina]"
+    ],
+    "levelOptions": [
+      "ZŠ 1. stupeň (1.–3. třída) – Malí objevitelé & deskovky",
+      "ZŠ 2. stupeň (4.–6. třída) – Dobrodruzi & Karak",
+      "ZŠ 2. stupeň (7.–9. třída) – Mladí stratégové & Příprava na SŠ",
+      "Střední škola / Maturita [Přednostní čekací listina]",
+      "Dospělý / Konverzace [Přednostní čekací listina]",
+      "SCIO přijímačky [Přednostní čekací listina]"
+    ]
   },
   "footer": {
     "brandName": "VALEK ACADEMY",
@@ -843,28 +1231,28 @@
     "navTitle": "Rychlá navigace",
     "navLinks": [
       {
+        "label": "📅 Rozvrh 15 skupin & rezervace",
+        "href": "/rozvrh"
+      },
+      {
+        "label": "🏷️ Podrobný ceník & kalkulátor",
+        "href": "/cenik"
+      },
+      {
+        "label": "📸 Velká fotogalerie herny",
+        "href": "/galerie"
+      },
+      {
         "label": "🎲 Děti & ZŠ (Skupinky hrou)",
-        "href": "#programy"
-      },
-      {
-        "label": "🧭 Rozřazovač skupinek",
-        "href": "#rozrazovac"
-      },
-      {
-        "label": "⏱️ Průběh 60 min lekce",
-        "href": "#metodika"
+        "href": "/#programy"
       },
       {
         "label": "🦘 O Mr. Válek (RMIT Melbourne)",
-        "href": "#o-mne"
-      },
-      {
-        "label": "🎁 Ceník & 1. lekce zdarma",
-        "href": "#cenik"
+        "href": "/#o-mne"
       },
       {
         "label": "❓ Časté dotazy (FAQ)",
-        "href": "#faq"
+        "href": "/#faq"
       }
     ],
     "contactTitle": "Kontakt",
@@ -880,6 +1268,21 @@
   "stickyCta": {
     "enabled": true,
     "text": "1. lekce zdarma pro děti",
-    "buttonText": "Zarezervovat"
+    "buttonText": "Zarezervovat",
+    "link": "#kontakt"
+  },
+  "seo": {
+    "metaTitle": "Josef Válek | Angličtina pro děti hrou ve skupinkách - 1. lekce ZDARMA",
+    "metaDescription": "Trpělivá výuka angličtiny v malých skupinkách (4–8 dětí) formou deskových her a konverzace. Lektor vyrostl v Melbourne a učí s autentickým rodilým přízvukem v centru Uherského Hradiště.",
+    "ogImage": "https://valekacademy.cz/images/og-valek-academy.jpg",
+    "canonicalUrl": "https://valekacademy.cz/",
+    "keywords": "doučování angličtiny Uherské Hradiště, angličtina pro děti, angličtina hrou, deskové hry, Josef Válek, rodilý mluvčí"
+  },
+  "whatsappWidget": {
+    "enabled": true,
+    "phone": "420792372642",
+    "tooltipText": "Napsat Josefovi na WhatsApp →",
+    "message": "Dobrý den Josefe, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.",
+    "badgeNotificationText": "1"
   }
 }

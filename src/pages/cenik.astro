@@ -1,0 +1,563 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloating from '../components/WhatsAppFloating.astro';
+import PackageCalculator from '../components/PackageCalculator.astro';
+import VisualEditor from '../components/VisualEditor.astro';
+import { getHomePageData } from '../lib/data';
+
+const page = await getHomePageData();
+const navbar = page?.navbar || {};
+const footer = page?.footer || {};
+const contact = page?.contact || {};
+const pricing = page?.pricing || {};
+const calculator = pricing?.calculator || {};
+
+const seoTitle = "Podrobný ceník výuky angličtiny, balíčky slev & kalkulátor | VALEK ACADEMY Uherské Hradiště";
+const seoDesc = "Kompletní ceník kurzů angličtiny pro děti i dospělé v Uherském Hradišti. 1. ukázková lekce 100% ZDARMA, slevy až 30 % za balíčky a frekvenci. Žádné platby předem.";
+---
+
+<Layout
+  title={seoTitle}
+  description={seoDesc}
+  canonical="https://valekacademy.cz/cenik"
+>
+  <Navbar
+    navbar={navbar}
+    contact={contact}
+    phone={contact.phone}
+    phoneFormatted={contact.phoneFormatted}
+  />
+
+  <main class="flex-grow w-full max-w-full min-w-0 bg-gradient-to-b from-[#FAF7F2] via-[#FFFDF9] to-[#FAF7F2] py-8 sm:py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top Breadcrumb -->
+      <div class="mb-6 sm:mb-8">
+        <a href="/" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-stone-600 hover:text-amber-900 transition-colors group">
+          <span class="group-hover:-translate-x-1 transition-transform">←</span>
+          <span>Zpět na hlavní stránku</span>
+        </a>
+      </div>
+
+      <!-- Header -->
+      <div class="max-w-4xl mx-auto text-center space-y-3 mb-10 sm:mb-14">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950 shadow-xs">
+          <span>🏷️</span>
+          <span>KOMPLETNÍ & TRANSPARENTNÍ CENÍK</span>
+        </div>
+        <h1 class="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight">
+          Podrobný ceník všech programů, slevové balíčky & férové podmínky
+        </h1>
+        <p class="text-espresso-800/85 text-sm sm:text-lg leading-relaxed max-w-3xl mx-auto">
+          U nás neplatíte nic naslepo a nevážete se dlouhými smlouvami. Každý student začíná <strong>1. lekcí 100% ZDARMA</strong>. Teprve když je dítě nadšené, vyberete si výhodný balíček s motivační slevou až 30 %.
+        </p>
+      </div>
+
+      <!-- 4 Core Programs Detailed Pricing Cards -->
+      <div class="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-14 sm:mb-18">
+        
+        <!-- 1. Děti ZŠ (1.-6. třída) -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-400 shadow-md flex flex-col justify-between relative group">
+          <div class="absolute -top-3.5 right-4 sm:right-6 bg-amber-400 text-espresso-950 text-[10px] sm:text-xs font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-xs border border-amber-500/70 z-10">
+            ⭐ Nejoblíbenější • 1. lekce ZDARMA
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="w-12 h-12 rounded-2xl bg-amber-100 border border-amber-300 text-2xl flex items-center justify-center flex-shrink-0">
+                🎲
+              </span>
+              <div>
+                <span class="text-[11px] font-black uppercase tracking-wider text-amber-900 block">1.–6. třída ZŠ • 60 minut</span>
+                <h2 class="font-heading font-black text-xl sm:text-2xl text-espresso-950">Děti & Žáci ZŠ (Skupinky hrou)</h2>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-espresso-800/85 leading-relaxed font-normal">
+              Trpělivá a zábavná výuka v partě 4–8 dětí. Využíváme deskovky (Karak, Dobble, Scrabble), obrázkové karty a spontánní mluvení bez strachu ze špatných známek.
+            </p>
+
+            <!-- Pricing Details -->
+            <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/90 space-y-2">
+              <div class="flex items-baseline justify-between">
+                <span class="text-xs text-stone-600 font-medium">Základní sazba za lekci:</span>
+                <span class="font-heading font-black text-xl text-espresso-950">320 Kč <span class="text-xs text-stone-500 font-normal">/ 60 min</span></span>
+              </div>
+              <div class="flex items-baseline justify-between text-amber-950">
+                <span class="text-xs font-bold">Pololetní balíček (20 lekcí):</span>
+                <span class="font-heading font-black text-lg text-amber-900">250 Kč <span class="text-xs font-normal">/ h (jen cca 1 000 Kč/měsíc)</span></span>
+              </div>
+              <div class="flex items-baseline justify-between text-emerald-800">
+                <span class="text-xs font-bold">Při 2× týdně nebo celý rok:</span>
+                <span class="font-heading font-black text-lg">od 220 Kč <span class="text-xs font-normal">/ hodina (sleva až 31 %)</span></span>
+              </div>
+              <div class="text-[11px] text-stone-600 border-t border-amber-200/60 pt-1.5 flex items-center gap-1.5 font-medium">
+                <span>⏰ Časové sloty:</span>
+                <strong>Po–Pá 12:30–13:30 (1.–3. tř.) a 13:30–14:30 (4.–6. tř.)</strong>
+              </div>
+            </div>
+
+            <!-- Features List -->
+            <ul class="text-xs text-espresso-800 space-y-2 pt-1">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span><strong>1. ukázková lekce 100% ZDARMA</strong> (vyzkoušíte nezávazně bez platby)</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Veškeré deskové hry, výukové karty a materiály v ceně kurzu</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span><strong>Garance stálé ceny:</strong> Po naplnění třídy držíte svou výhodnou sazbu napořád</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Možnost bezplatné náhrady hodiny v paralelní skupince při omluvě nemoci</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-parchment-200 flex flex-col sm:flex-row items-center gap-3">
+            <a
+              href="/rozvrh"
+              class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-heading font-black text-xs text-espresso-950 bg-amber-400 hover:bg-amber-300 border border-amber-500 shadow-xs transition-all"
+            >
+              <span>Vybrat zvířecí skupinku v rozvrhu →</span>
+            </a>
+            <a
+              href="#kalkulator-balicku"
+              class="w-full sm:w-auto inline-flex items-center justify-center py-3 px-4 rounded-xl font-bold text-xs text-espresso-800 bg-parchment-100 hover:bg-parchment-200 border border-parchment-300 transition-colors"
+            >
+              <span>Spočítat slevu</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Druhý stupeň & Středoškoláci (7.-13. třída) -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-parchment-300 hover:border-amber-300 shadow-sm flex flex-col justify-between relative overflow-hidden group">
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="w-12 h-12 rounded-2xl bg-purple-100 border border-purple-300 text-2xl flex items-center justify-center flex-shrink-0">
+                🎓
+              </span>
+              <div>
+                <span class="text-[11px] font-black uppercase tracking-wider text-purple-900 block">7.–13. třída • 90 minut</span>
+                <h2 class="font-heading font-black text-xl sm:text-2xl text-espresso-950">Maturita, Přijímačky & Konverzace</h2>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-espresso-800/85 leading-relaxed font-normal">
+              Intenzivní 90minutové bloky zaměřené na didaktické testy CERMAT, SCIO přijímačky na gymnázia, ústní maturitní zkoušku, esejistiku a plynulou argumentaci.
+            </p>
+
+            <!-- Pricing Details -->
+            <div class="p-4 rounded-2xl bg-purple-50/70 border border-purple-200/80 space-y-2">
+              <div class="flex items-baseline justify-between">
+                <span class="text-xs text-stone-600 font-medium">Základní sazba za 90 min:</span>
+                <span class="font-heading font-black text-xl text-espresso-950">480 Kč <span class="text-xs text-stone-500 font-normal">(= 320 Kč/h)</span></span>
+              </div>
+              <div class="flex items-baseline justify-between text-purple-950">
+                <span class="text-xs font-bold">Pololetí (20 lekcí po 90 min):</span>
+                <span class="font-heading font-black text-lg text-purple-900">360 Kč <span class="text-xs font-normal">/ 90 min (= 240 Kč/h, celkem 7 200 Kč)</span></span>
+              </div>
+              <div class="flex items-baseline justify-between text-emerald-800">
+                <span class="text-xs font-bold">S ročním balíčkem:</span>
+                <span class="font-heading font-black text-lg">od 330 Kč <span class="text-xs font-normal">/ 90 min (= 220 Kč/h)</span></span>
+              </div>
+              <div class="text-[11px] text-stone-600 border-t border-purple-200/60 pt-1.5 flex items-center gap-1.5 font-medium">
+                <span>⏰ Časové sloty:</span>
+                <strong>Po–Pá 14:30–16:00 (včetně 2 specializovaných maturitních bloků)</strong>
+              </div>
+            </div>
+
+            <!-- Features List -->
+            <ul class="text-xs text-espresso-800 space-y-2 pt-1">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span><strong>1. lekce 100% ZDARMA</strong> pro vyzkoušení stylu lektora</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Trénink reálných maturitních otázek s rodilým akcentem z Melbourne</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Společenské strategické hry v angličtině (Secret Hitler, Codenames)</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Zázemí doučovny v UH, klidné prostředí bez stresu ze zkoušení</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-parchment-200">
+            <a
+              href="/rozvrh"
+              class="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-heading font-black text-xs text-espresso-950 bg-parchment-100 hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 transition-colors"
+            >
+              <span>Zobrazit termíny v rozvrhu (Crocodiles, Sharks...) →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Dospělí & Odborné profesní skupiny -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-parchment-300 hover:border-amber-300 shadow-sm flex flex-col justify-between relative overflow-hidden group">
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="w-12 h-12 rounded-2xl bg-blue-100 border border-blue-300 text-2xl flex items-center justify-center flex-shrink-0">
+                💼
+              </span>
+              <div>
+                <span class="text-[11px] font-black uppercase tracking-wider text-blue-900 block">Dospělí & VŠ • 90 minut</span>
+                <h2 class="font-heading font-black text-xl sm:text-2xl text-espresso-950">Odborné profesní skupiny</h2>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-espresso-800/85 leading-relaxed font-normal">
+              Specializované skupiny pro 4 profese: <strong>Medici 🩺, Právníci ⚖️, Technici & Inženýři ⚙️, Obchod & Účetnictví 📊</strong>. Cílem je odbourat ostych, zvládnout prezentace a osvojit si odbornou terminologii.
+            </p>
+
+            <!-- Pricing Details -->
+            <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200/80 space-y-2">
+              <div class="flex items-baseline justify-between">
+                <span class="text-xs text-stone-600 font-medium">Sazba za 90 minut:</span>
+                <span class="font-heading font-black text-xl text-espresso-950">480 Kč <span class="text-xs text-stone-500 font-normal">/ 90 min</span></span>
+              </div>
+              <div class="flex items-baseline justify-between text-blue-950">
+                <span class="text-xs font-bold">Pololetní balíček pro firmy:</span>
+                <span class="font-heading font-black text-lg text-blue-900">420 Kč <span class="text-xs font-normal">/ 90 min na osobu</span></span>
+              </div>
+              <div class="flex items-baseline justify-between text-blue-900">
+                <span class="text-xs font-bold">Fakturace pro firmy:</span>
+                <span class="font-heading font-bold text-xs">Možnost platby přes zaměstnanecké benefity / FKSP</span>
+              </div>
+              <div class="text-[11px] text-stone-600 border-t border-blue-200/60 pt-1.5 flex items-center gap-1.5 font-medium">
+                <span>⏰ Časové sloty:</span>
+                <strong>Pondělí až Čtvrtek 17:00–18:30 (5 bloků týdně)</strong>
+              </div>
+            </div>
+
+            <!-- Features List -->
+            <ul class="text-xs text-espresso-800 space-y-2 pt-1">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Praktická konverzace ze světa práce, žádná nudná gramatika ze školních lavic</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Lektor Josef Válek vystudoval BBA na prestižní RMIT University v Melbourne</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Vystavení daňového dokladu (faktury) pro uplatnění ve firemních nákladech</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-parchment-200">
+            <a
+              href="/#kontakt"
+              class="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-heading font-black text-xs text-espresso-950 bg-parchment-100 hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 transition-colors"
+            >
+              <span>Poptat profesní skupinu →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Individuální výuka 1 na 1 -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-parchment-300 hover:border-amber-300 shadow-sm flex flex-col justify-between relative overflow-hidden group">
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="w-12 h-12 rounded-2xl bg-emerald-100 border border-emerald-300 text-2xl flex items-center justify-center flex-shrink-0">
+                👤
+              </span>
+              <div>
+                <span class="text-[11px] font-black uppercase tracking-wider text-emerald-900 block">Individuální tempo • 60 minut</span>
+                <h2 class="font-heading font-black text-xl sm:text-2xl text-espresso-950">Individuální výuka 1 na 1</h2>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-espresso-800/85 leading-relaxed font-normal">
+              100% soustředěná pozornost lektora výhradně pro vás. Příprava na pracovní pohovory v zahraničních korporacích, mezinárodní certifikáty nebo rychlé doučení školní látky.
+            </p>
+
+            <!-- Pricing Details -->
+            <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-2">
+              <div class="flex items-baseline justify-between">
+                <span class="text-xs text-stone-600 font-medium">Sazba za hodinu:</span>
+                <span class="font-heading font-black text-xl text-espresso-950">650 Kč <span class="text-xs text-stone-500 font-normal">/ 60 min</span></span>
+              </div>
+              <div class="flex items-baseline justify-between text-emerald-900">
+                <span class="text-xs font-bold">Flexibilita:</span>
+                <span class="text-xs font-semibold">Témata i tempo zcela podle vašich cílů</span>
+              </div>
+              <div class="text-[11px] text-stone-600 border-t border-emerald-200/60 pt-1.5 flex items-center gap-1.5 font-medium">
+                <span>⏰ Časové sloty:</span>
+                <strong>Výhradně dopolední hodiny (po dohodě s Josefem)</strong>
+              </div>
+            </div>
+
+            <!-- Features List -->
+            <ul class="text-xs text-espresso-800 space-y-2 pt-1">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Klidné prostředí doučovny v Uherském Hradišti (Růžová 1238)</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Možnost detailního rozboru vašich konkrétních materiálů a prezentací</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-black">✓</span>
+                <span>Flexibilní plánování termínů dle domluvy</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-parchment-200">
+            <a
+              href="/#kontakt"
+              class="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-heading font-black text-xs text-espresso-950 bg-parchment-100 hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 transition-colors"
+            >
+              <span>Poptat individuální lekce 1 na 1 →</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Embedded Package Calculator Section -->
+      <div class="mb-14 sm:mb-18">
+        <PackageCalculator calculator={calculator} phone={contact.phone?.replace('+', '')} />
+      </div>
+
+      <!-- Srovnávací tabulka slev a balíčků -->
+      <div class="mb-14 sm:mb-18 bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-parchment-300 shadow-soft-sm">
+        <div class="max-w-3xl mb-6">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-900 block mb-1">📊 PŘEHLEDNÉ SROVNÁNÍ BALÍČKŮ</span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950">
+            Kolik přesně ušetříte při předplatném výuky?
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-600 mt-1">
+            Platí pro skupinky dětí a žáků ZŠ (základní sazba 320 Kč/hodina). Čím delší období a čím častější docházka, tím vyšší sleva.
+          </p>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead>
+              <tr class="border-b-2 border-parchment-300 text-espresso-950 font-heading">
+                <th class="py-3 px-3">Období balíčku</th>
+                <th class="py-3 px-3">Frekvence</th>
+                <th class="py-3 px-3">Celkem lekcí</th>
+                <th class="py-3 px-3">Základní cena</th>
+                <th class="py-3 px-3">Sleva</th>
+                <th class="py-3 px-3">Cena za 1 lekci</th>
+                <th class="py-3 px-3 text-right">Celková cena balíčku</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-parchment-200 text-espresso-900">
+              <tr class="hover:bg-amber-50/50 transition-colors">
+                <td class="py-3 px-3 font-bold">1 měsíc (4 týdny)</td>
+                <td class="py-3 px-3">1× týdně</td>
+                <td class="py-3 px-3">4 lekce</td>
+                <td class="py-3 px-3 line-through text-stone-400">1 280 Kč</td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold text-xs">-6 %</span></td>
+                <td class="py-3 px-3 font-bold text-espresso-950">300 Kč</td>
+                <td class="py-3 px-3 font-heading font-black text-right text-espresso-950">1 200 Kč</td>
+              </tr>
+              <tr class="hover:bg-amber-50/50 transition-colors">
+                <td class="py-3 px-3 font-bold">3 měsíce (12 týdnů)</td>
+                <td class="py-3 px-3">1× týdně</td>
+                <td class="py-3 px-3">12 lekcí</td>
+                <td class="py-3 px-3 line-through text-stone-400">3 840 Kč</td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold text-xs">-12,5 %</span></td>
+                <td class="py-3 px-3 font-bold text-espresso-950">280 Kč</td>
+                <td class="py-3 px-3 font-heading font-black text-right text-espresso-950">3 360 Kč</td>
+              </tr>
+              <tr class="hover:bg-amber-50/50 transition-colors bg-amber-50/40">
+                <td class="py-3 px-3 font-bold flex items-center gap-1.5">
+                  <span>Pololetí (20 týdnů)</span>
+                  <span class="text-[9px] font-black uppercase px-1.5 py-0.5 rounded-sm bg-amber-400 text-espresso-950">Nejoblíbenější</span>
+                </td>
+                <td class="py-3 px-3 font-bold text-amber-950">1× týdně</td>
+                <td class="py-3 px-3 font-bold">20 lekcí</td>
+                <td class="py-3 px-3 line-through text-stone-400">6 400 Kč</td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full bg-amber-200 text-espresso-950 font-black text-xs">-22 %</span></td>
+                <td class="py-3 px-3 font-black text-amber-900 text-base">250 Kč <span class="text-[11px] font-normal text-stone-600">(~1 000 Kč/měsíc)</span></td>
+                <td class="py-3 px-3 font-heading font-black text-right text-espresso-950 text-base">5 000 Kč</td>
+              </tr>
+              <tr class="hover:bg-amber-50/50 transition-colors bg-amber-100/30">
+                <td class="py-3 px-3 font-bold flex items-center gap-1.5">
+                  <span>Pololetí (20 týdnů)</span>
+                  <span class="text-[9px] font-black uppercase px-1.5 py-0.5 rounded-sm bg-amber-400 text-espresso-950">Doporučeno</span>
+                </td>
+                <td class="py-3 px-3 font-bold text-amber-950">2× týdně</td>
+                <td class="py-3 px-3 font-bold">40 lekcí</td>
+                <td class="py-3 px-3 line-through text-stone-400">12 800 Kč</td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-black text-xs">-31 % (sazba celého roku)</span></td>
+                <td class="py-3 px-3 font-black text-emerald-800 text-base">220 Kč</td>
+                <td class="py-3 px-3 font-heading font-black text-right text-espresso-950 text-base">8 800 Kč</td>
+              </tr>
+              <tr class="hover:bg-amber-50/50 transition-colors bg-emerald-50/30">
+                <td class="py-3 px-3 font-bold flex items-center gap-1.5">
+                  <span>Celý rok (40 týdnů)</span>
+                  <span class="text-[9px] font-black uppercase px-1.5 py-0.5 rounded-sm bg-emerald-600 text-white">Max. úspora</span>
+                </td>
+                <td class="py-3 px-3 font-bold text-emerald-950">1× týdně</td>
+                <td class="py-3 px-3 font-bold">40 lekcí</td>
+                <td class="py-3 px-3 line-through text-stone-400">12 800 Kč</td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-black text-xs">-31 %</span></td>
+                <td class="py-3 px-3 font-black text-emerald-800 text-base">220 Kč</td>
+                <td class="py-3 px-3 font-heading font-black text-right text-espresso-950 text-base">8 800 Kč</td>
+              </tr>
+              <tr class="hover:bg-amber-50/50 transition-colors">
+                <td class="py-3 px-3 font-bold">Celý rok (40 týdnů)</td>
+                <td class="py-3 px-3 font-bold">2× týdně</td>
+                <td class="py-3 px-3">80 lekcí</td>
+                <td class="py-3 px-3 line-through text-stone-400">25 600 Kč</td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-black text-xs">-31 % (MAX)</span></td>
+                <td class="py-3 px-3 font-black text-emerald-800 text-base">220 Kč</td>
+                <td class="py-3 px-3 font-heading font-black text-right text-espresso-950 text-base">17 600 Kč</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Férová pravidla & Platební podmínky (4 pillars) -->
+      <div class="mb-14 sm:mb-18">
+        <div class="max-w-3xl mb-8">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-900 block mb-1">🛡️ JASNÁ PRAVIDLA & JISTOTY</span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950">
+            Férové platební podmínky a záruky pro rodiče
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-600 mt-1">
+            Věříme v otevřenost. Zde jsou odpovědi na to, jak fungují platby, omluvy a záruky spokojenosti.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div class="p-6 rounded-3xl bg-white border border-parchment-300 shadow-xs space-y-2.5">
+            <span class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 text-xl flex items-center justify-center font-bold">🎁</span>
+            <h3 class="font-heading font-black text-base text-espresso-950">1. lekce 100% zdarma</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Dítě si přijde nezávazně zahrát plnohodnotnou 60minutovou lekci. Žádné platby předem. Teprve po hodině se rozhodnete, zda budete pokračovat.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-white border border-parchment-300 shadow-xs space-y-2.5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-900 text-xl flex items-center justify-center font-bold">💳</span>
+            <h3 class="font-heading font-black text-base text-espresso-950">Platba po 1. hodině</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Platbu řešíte až po úspěšné ukázkové lekci. Hradit lze bankovním převodem na účet, QR kódem nebo fakturou pro zaměstnavatele či fond FKSP.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-white border border-parchment-300 shadow-xs space-y-2.5">
+            <span class="w-10 h-10 rounded-xl bg-blue-100 text-blue-900 text-xl flex items-center justify-center font-bold">🔄</span>
+            <h3 class="font-heading font-black text-base text-espresso-950">Náhrady při nemoci</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              O lekci nepřijdete. Pokud se dítě včas omluví (stačí SMS či WhatsApp zpráva), může si hodinu bezplatně nahradit v paralelní skupince v jiný den v týdnu.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-white border border-parchment-300 shadow-xs space-y-2.5">
+            <span class="w-10 h-10 rounded-xl bg-purple-100 text-purple-900 text-xl flex items-center justify-center font-bold">🔒</span>
+            <h3 class="font-heading font-black text-base text-espresso-950">Garance stálé ceny</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Jakmile se kapacita třídy naplní na 8 dětí, nově příchozím se cena mírně zvedá. Stávající studenti si však svou původní příznivou cenu drží napořád.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ sekce ke ceníku -->
+      <div class="mb-14 sm:mb-18 bg-parchment-100/70 rounded-3xl p-6 sm:p-8 md:p-10 border border-parchment-300">
+        <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950 mb-6 text-center">
+          Časté dotazy ke ceníku a platbám
+        </h2>
+        <div class="grid md:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto">
+          <div class="p-5 rounded-2xl bg-white border border-parchment-300 shadow-2xs space-y-1.5">
+            <h3 class="font-heading font-bold text-sm text-espresso-950">Poskytujete sourozeneckou slevu?</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Ano! Pokud k nám přihlásíte dva a více sourozenců, druhý a každý další sourozenec získává automaticky <strong>dodatečnou slevu 10 %</strong> na veškeré balíčky.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white border border-parchment-300 shadow-2xs space-y-1.5">
+            <h3 class="font-heading font-bold text-sm text-espresso-950">Může kurz proplatit zaměstnavatel (FKSP)?</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Určitě. Rádi vystavíme daňový doklad / fakturu s přesnými údaji vašeho zaměstnavatele, odborové organizace či fondu kulturních a sociálních potřeb.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white border border-parchment-300 shadow-2xs space-y-1.5">
+            <h3 class="font-heading font-bold text-sm text-espresso-950">Co když dítěti nesedne vybraný den nebo parta?</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Díky 15 paralelním zvířecím skupinkám můžeme dítě kdykoliv flexibilně přeřadit do jiné skupinky, kde si lépe sedne s vrstevníky nebo vyhovuje jiný čas.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white border border-parchment-300 shadow-2xs space-y-1.5">
+            <h3 class="font-heading font-bold text-sm text-espresso-950">Platí se za deskovky a karty něco navíc?</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Vůbec nic. Veškeré hry (Karak, Scrabble, Dixit, Codenames), výukové kartičky, pracovní listy i čaj pro děti jsou kompletně zahrnuty v ceně.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Global Action Callout Banner -->
+      <div class="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-espresso-950 via-espresso-900 to-espresso-950 text-white shadow-xl text-center space-y-5 relative overflow-hidden">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-espresso-950 text-xs font-black uppercase tracking-wider">
+          <span>🎁 1. LEKCE JE VŽDY ZDARMA</span>
+        </div>
+        <h2 class="font-heading font-black text-2xl sm:text-4xl text-amber-300 tracking-tight max-w-2xl mx-auto">
+          Vyzkoušejte si atmosféru doučovny nezávazně a bez rizika
+        </h2>
+        <p class="text-stone-300 text-xs sm:text-base max-w-xl mx-auto leading-relaxed">
+          Vyberte si v rozvrhu svou zvířecí skupinku podle věku dítěte a přijďte se podívat do doučovny v Uherském Hradišti.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <a
+            href="/rozvrh"
+            class="btn-gold-pulse inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md hover:scale-105 transition-transform"
+          >
+            <span>📅 Zobrazit rozvrh hodin & vybrat skupinku →</span>
+          </a>
+          <a
+            href="/#kontakt"
+            class="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl font-heading font-bold text-sm text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-colors"
+          >
+            <span>Napsat Josefovi zprávu</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <WhatsAppFloating
+    phone={contact.phone?.replace('+', '')}
+    message="Dobrý den Josefe, rád/a bych se zeptal/a na ceník a volná místa ve skupince na 1. lekci zdarma."
+    tooltipText={contact.whatsappText}
+    contact={contact}
+  />
+
+  <Footer
+    footer={footer}
+    contact={contact}
+    email={contact.email}
+    phone={contact.phone}
+    phoneFormatted={contact.phoneFormatted}
+  />
+
+  {import.meta.env.DEV && <VisualEditor />}
+</Layout>

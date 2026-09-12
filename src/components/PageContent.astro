@@ -2,6 +2,7 @@
 import Navbar from './Navbar.astro';
 import Hero from './Hero.astro';
 import AudienceSegments from './AudienceSegments.astro';
+import ScheduleBlocks from './ScheduleBlocks.astro';
 import Pricing from './Pricing.astro';
 import ComparisonTable from './ComparisonTable.astro';
 import HowGameLessonWorks from './HowGameLessonWorks.astro';
@@ -48,11 +49,12 @@ const footer = page.footer || {};
   <!-- 1. Hook & Introduction: Melbourne background, audio sample, dual badges, 1st lesson FREE CTA -->
   <Hero hero={hero} />
 
-  <!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Online note + High School waiting list -->
+  <!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Schedule Blocks -->
   {audience.enabled !== false && <AudienceSegments audience={audience} />}
+  <ScheduleBlocks schedule={page.schedule} />
 
-  <!-- 3. Transparency & Value: 390 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
-  {pricing.enabled !== false && <Pricing pricing={pricing} />}
+  <!-- 3. Transparency & Value: 320 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
+  {pricing.enabled !== false && <Pricing pricing={pricing} phone={contact.phone?.replace('+', '') || '420792372642'} />}
   {comparison.enabled !== false && <ComparisonTable comparison={comparison} />}
 
   <!-- 4. Methodology & Game Lesson Flow: Karak, Scrabble, Story Cubes, Dixit + 60-minute structured flow -->

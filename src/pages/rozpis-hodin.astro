@@ -1,0 +1,23 @@
+---
+export const prerender = true;
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0;url=/rozvrh" />
+    <title>Přesměrování na rozvrh hodin | VALEK ACADEMY</title>
+    <link rel="canonical" href="https://valekacademy.cz/rozvrh" />
+    <script is:inline>
+      window.location.href = '/rozvrh';
+    </script>
+  </head>
+  <body class="bg-[#FAF7F2] flex items-center justify-center min-h-screen font-sans text-center p-4">
+    <div class="space-y-4">
+      <div class="text-3xl">⏰</div>
+      <h1 class="text-xl font-bold text-stone-900">Přesměrování na rozvrh hodin...</h1>
+      <p class="text-sm text-stone-600">Pokud nedojde k přesměrování do několika sekund, <a href="/rozvrh" class="text-amber-800 underline font-bold">klikněte prosím zde</a>.</p>
+    </div>
+  </body>
+</html>

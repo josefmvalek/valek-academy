@@ -5,12 +5,24 @@ interface Props {
   title?: string;
   description?: string;
   canonical?: string;
+  ogImage?: string;
+  keywords?: string;
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    canonicalUrl?: string;
+    ogImage?: string;
+    keywords?: string;
+  };
 }
 
 const {
-  title = "Josef Válek | Angličtina hrou a bez stresu – pro děti i dospělé",
-  description = "Výuka angličtiny a doučování přirozeně a hrou. Josef vyrostl v Austrálii, žije 25+ let v ČR a učí formou deskovek pro děti i konverzace pro dospělé.",
-  canonical = "https://valekacademy.cz/",
+  seo,
+  title = seo?.metaTitle || "Josef Válek | Angličtina hrou a bez stresu – pro děti i dospělé",
+  description = seo?.metaDescription || "Výuka angličtiny a doučování přirozeně a hrou. Josef vyrostl v Austrálii, žije 25+ let v ČR a učí formou deskovek pro děti i konverzace pro dospělé.",
+  canonical = seo?.canonicalUrl || "https://valekacademy.cz/",
+  ogImage = seo?.ogImage || "https://valekacademy.cz/images/og-valek-academy.jpg",
+  keywords = seo?.keywords || "výuka angličtiny, doučování angličtiny, Uherské Hradiště, angličtina hrou, Josef Válek",
 } = Astro.props;
 ---
 
@@ -28,6 +40,7 @@ const {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -35,7 +48,7 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="cs_CZ" />
-    <meta property="og:image" content="https://valekacademy.cz/images/og-valek-academy.jpg" />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="VALEK ACADEMY • Angličtina s Čechoaustralanem v Uherském Hradišti" />
@@ -45,7 +58,7 @@ const {
     <meta property="twitter:url" content={canonical} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://valekacademy.cz/images/og-valek-academy.jpg" />
+    <meta property="twitter:image" content={ogImage} />
 
     <!-- Local SEO Geo Meta Tags -->
     <meta name="geo.region" content="CZ-ZL" />

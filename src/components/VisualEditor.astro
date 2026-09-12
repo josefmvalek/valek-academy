@@ -183,6 +183,48 @@
     <span class="text-lg">✅</span>
     <span id="ve-toast-msg">Změny byly úspěšně uloženy do souboru!</span>
   </div>
+
+  <!-- Floating Rich Text Formatting Toolbar -->
+  <div
+    id="ve-floating-toolbar"
+    class="fixed z-[10005] hidden items-center gap-1 px-2.5 py-1.5 rounded-2xl bg-espresso-950/95 border border-amber-400/80 shadow-2xl backdrop-blur-md text-stone-200 select-none transition-all duration-150"
+    role="toolbar"
+    aria-label="Formátování textu"
+  >
+    <button
+      type="button"
+      id="ve-fmt-bold"
+      class="w-8 h-8 rounded-xl font-black text-sm flex items-center justify-center hover:bg-stone-800 text-stone-200 transition-colors cursor-pointer"
+      title="Tučné (Ctrl+B)"
+    >
+      <strong>B</strong>
+    </button>
+    <button
+      type="button"
+      id="ve-fmt-italic"
+      class="w-8 h-8 rounded-xl font-serif italic text-sm flex items-center justify-center hover:bg-stone-800 text-stone-200 transition-colors cursor-pointer"
+      title="Kurzíva (Ctrl+I)"
+    >
+      <em>I</em>
+    </button>
+    <button
+      type="button"
+      id="ve-fmt-underline"
+      class="w-8 h-8 rounded-xl underline font-bold text-sm flex items-center justify-center hover:bg-stone-800 text-stone-200 transition-colors cursor-pointer"
+      title="Podtržené (Ctrl+U)"
+    >
+      <u>U</u>
+    </button>
+    <div class="w-px h-5 bg-stone-700 mx-0.5"></div>
+    <button
+      type="button"
+      id="ve-fmt-clear"
+      class="w-8 h-8 rounded-xl text-xs flex items-center justify-center hover:bg-stone-800 hover:text-red-300 text-stone-300 transition-colors cursor-pointer"
+      title="Vymazat formátování"
+    >
+      🧹
+    </button>
+  </div>
 </aside>
 
 <style is:global>
@@ -257,6 +299,13 @@
     white-space: nowrap;
     box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.4);
   }
+
+  /* Active button in floating formatting toolbar */
+  .ve-fmt-active {
+    background-color: #f59e0b !important;
+    color: #1c1917 !important;
+    font-weight: 900 !important;
+  }
 </style>
 
 <script>
@@ -288,6 +337,161 @@
   const uploadSpinner = document.getElementById('ve-upload-spinner');
   const urlInput = document.getElementById('ve-url-input') as HTMLInputElement;
   const urlApplyBtn = document.getElementById('ve-url-apply-btn');
+
+  // Floating formatting toolbar elements
+  const floatingToolbar = document.getElementById('ve-floating-toolbar');
+  const fmtBoldBtn = document.getElementById('ve-fmt-bold');
+  const fmtItalicBtn = document.getElementById('ve-fmt-italic');
+  const fmtUnderlineBtn = document.getElementById('ve-fmt-underline');
+  const fmtClearBtn = document.getElementById('ve-fmt-clear');
+
+  // Clean rich HTML to keep ONLY safe formatting tags (b, i, u, br) and strip unwanted classes/wrappers
+  function cleanRichContent(el: HTMLElement): string {
+    const clone = el.cloneNode(true) as HTMLElement;
+
+    function cleanNode(node: Node): Node | null {
+      if (node.nodeType === Node.TEXT_NODE) {
+        return node.cloneNode(true);
+      }
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const elem = node as HTMLElement;
+        const tag = elem.tagName.toLowerCase();
+
+        if (tag === 'b' || tag === 'strong') {
+          const b = document.createElement('b');
+          Array.from(elem.childNodes).forEach((child) => {
+            const cleaned = cleanNode(child);
+            if (cleaned) b.appendChild(cleaned);
+          });
+          return b.childNodes.length > 0 ? b : null;
+        }
+
+        if (tag === 'i' || tag === 'em') {
+          const i = document.createElement('i');
+          Array.from(elem.childNodes).forEach((child) => {
+            const cleaned = cleanNode(child);
+            if (cleaned) i.appendChild(cleaned);
+          });
+          return i.childNodes.length > 0 ? i : null;
+        }
+
+        if (tag === 'u') {
+          const u = document.createElement('u');
+          Array.from(elem.childNodes).forEach((child) => {
+            const cleaned = cleanNode(child);
+            if (cleaned) u.appendChild(cleaned);
+          });
+          return u.childNodes.length > 0 ? u : null;
+        }
+
+        if (tag === 'br') {
+          return document.createElement('br');
+        }
+
+        // Unwrap any other tags (span, div, p, font, etc.) to discard unwanted classes
+        const fragment = document.createDocumentFragment();
+        Array.from(elem.childNodes).forEach((child) => {
+          const cleaned = cleanNode(child);
+          if (cleaned) fragment.appendChild(cleaned);
+        });
+        return fragment;
+      }
+      return null;
+    }
+
+    const container = document.createElement('div');
+    Array.from(clone.childNodes).forEach((child) => {
+      const cleaned = cleanNode(child);
+      if (cleaned) container.appendChild(cleaned);
+    });
+
+    const hasFormatting = container.querySelector('b, i, u, br');
+    if (!hasFormatting) {
+      return (container.textContent || '').trim();
+    }
+
+    return container.innerHTML.trim();
+  }
+
+  function handlePaste(e: ClipboardEvent) {
+    e.preventDefault();
+    const text = e.clipboardData?.getData('text/plain') || '';
+    document.execCommand('insertText', false, text);
+  }
+
+  function hideFloatingToolbar() {
+    if (!floatingToolbar) return;
+    floatingToolbar.classList.add('hidden');
+    floatingToolbar.classList.remove('flex');
+  }
+
+  function updateToolbarActiveStates() {
+    if (!floatingToolbar || floatingToolbar.classList.contains('hidden')) return;
+    try {
+      const isBold = document.queryCommandState('bold');
+      const isItalic = document.queryCommandState('italic');
+      const isUnderline = document.queryCommandState('underline');
+
+      fmtBoldBtn?.classList.toggle('ve-fmt-active', isBold);
+      fmtItalicBtn?.classList.toggle('ve-fmt-active', isItalic);
+      fmtUnderlineBtn?.classList.toggle('ve-fmt-active', isUnderline);
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  function handleSelectionChange() {
+    if (!isEditing || !floatingToolbar) {
+      hideFloatingToolbar();
+      return;
+    }
+
+    const selection = window.getSelection();
+    if (!selection || selection.isCollapsed || !selection.rangeCount) {
+      hideFloatingToolbar();
+      return;
+    }
+
+    const text = selection.toString().trim();
+    if (!text) {
+      hideFloatingToolbar();
+      return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const container = range.commonAncestorContainer;
+    const targetElement = container.nodeType === Node.ELEMENT_NODE ? (container as HTMLElement) : container.parentElement;
+    const editableEl = targetElement?.closest<HTMLElement>('[data-edit-key]:not([data-edit-type="image"])');
+    if (!editableEl) {
+      hideFloatingToolbar();
+      return;
+    }
+
+    const rect = range.getBoundingClientRect();
+    if (rect.width === 0 && rect.height === 0) {
+      hideFloatingToolbar();
+      return;
+    }
+
+    floatingToolbar.classList.remove('hidden');
+    floatingToolbar.classList.add('flex');
+    updateToolbarActiveStates();
+
+    const toolbarWidth = floatingToolbar.offsetWidth || 160;
+    const toolbarHeight = floatingToolbar.offsetHeight || 44;
+
+    let top = rect.top - toolbarHeight - 10;
+    let left = rect.left + (rect.width / 2) - (toolbarWidth / 2);
+
+    if (top < 55) {
+      top = rect.bottom + 10;
+    }
+
+    left = Math.max(12, Math.min(window.innerWidth - toolbarWidth - 12, left));
+
+    floatingToolbar.style.top = `${Math.round(top)}px`;
+    floatingToolbar.style.left = `${Math.round(left)}px`;
+  }
 
   function showToast(message: string, isError = false) {
     if (!toast || !toastMsg) return;
@@ -322,13 +526,14 @@
             const imgEl = el.tagName === 'IMG' ? (el as HTMLImageElement) : el.querySelector('img');
             originalValues[key] = imgEl ? (imgEl.getAttribute('src') || '') : '';
           } else {
-            originalValues[key] = el.innerText.trim();
+            originalValues[key] = cleanRichContent(el);
           }
         }
 
         if (!isImage) {
           el.setAttribute('contenteditable', 'true');
           el.setAttribute('spellcheck', 'false');
+          el.addEventListener('paste', handlePaste);
         } else {
           el.removeAttribute('contenteditable');
           el.addEventListener('click', handleImageClick);
@@ -340,7 +545,7 @@
         link.addEventListener('click', handleLinkClick);
       });
 
-      showToast("Režim úprav zapnut! Klikněte na jakýkoliv text k přepsání, nebo na obrázek k výměně.");
+      showToast("Režim úprav zapnut! Pro tučné/kurzívu/podtržení označte text myší nebo použijte Ctrl+B / Ctrl+I / Ctrl+U.");
     } else {
       document.body.classList.remove('ve-active');
       topbar?.classList.add('-translate-y-full');
@@ -350,6 +555,7 @@
       // Disable contenteditable and image handlers
       document.querySelectorAll<HTMLElement>('[data-edit-key]').forEach((el) => {
         el.removeAttribute('contenteditable');
+        el.removeEventListener('paste', handlePaste);
         el.removeEventListener('click', handleImageClick);
       });
 
@@ -359,6 +565,7 @@
       });
 
       closeImageModal();
+      hideFloatingToolbar();
     }
   }
 
@@ -486,7 +693,7 @@
             originalValues[key] = value;
           }
         } else {
-          const value = el.innerText.trim();
+          const value = cleanRichContent(el);
           setDeepValue(payload, key, value);
           originalValues[key] = value;
         }
@@ -529,12 +736,59 @@
             imgEl.src = originalValues[key];
           }
         } else {
-          el.innerText = originalValues[key];
+          el.innerHTML = originalValues[key];
         }
       });
       showToast("Úpravy byly zrušeny.");
     }
   }
+
+  // Floating toolbar button event listeners
+  [fmtBoldBtn, fmtItalicBtn, fmtUnderlineBtn, fmtClearBtn].forEach((btn) => {
+    btn?.addEventListener('mousedown', (e) => {
+      e.preventDefault(); // Prevents selection blur
+    });
+  });
+
+  fmtBoldBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.execCommand('bold', false);
+    updateToolbarActiveStates();
+  });
+
+  fmtItalicBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.execCommand('italic', false);
+    updateToolbarActiveStates();
+  });
+
+  fmtUnderlineBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.execCommand('underline', false);
+    updateToolbarActiveStates();
+  });
+
+  fmtClearBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.execCommand('removeFormat', false);
+    updateToolbarActiveStates();
+  });
+
+  // Global listeners for selection and formatting state
+  document.addEventListener('selectionchange', handleSelectionChange);
+  document.addEventListener('keyup', (e) => {
+    if (isEditing) {
+      handleSelectionChange();
+      if ((e.ctrlKey || e.metaKey) && ['b', 'i', 'u'].includes(e.key.toLowerCase())) {
+        setTimeout(updateToolbarActiveStates, 20);
+      }
+    }
+  });
+  document.addEventListener('mouseup', () => {
+    if (isEditing) {
+      setTimeout(handleSelectionChange, 10);
+    }
+  });
 
   // Event Listeners
   toggleBtn?.addEventListener('click', () => toggleEditMode());

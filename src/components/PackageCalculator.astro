@@ -1,0 +1,513 @@
+---
+import { tinaField } from '@tinacms/astro/tina-field';
+import { formatRichText } from '../lib/richText';
+
+interface Props {
+  calculator?: {
+    enabled?: boolean;
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    basePrice?: number;
+    ctaText?: string;
+    note?: string;
+    [key: string]: any;
+  };
+  phone?: string;
+}
+
+const { calculator = {}, phone = "420792372642" } = Astro.props;
+
+const enabled = calculator.enabled !== false;
+const badge = calculator.badge || "CHYTRÝ KALKULÁTOR BALÍČKŮ";
+const title = calculator.title || "Spočítejte si slevu za předplatné a frekvenci";
+const subtitle = calculator.subtitle || "Čím delší období a čím častěji dítě chodí, tím nižší je cena za lekci. Využijte pololetní balíček za 250 Kč/hod (jen cca 1 000 Kč měsíčně) nebo roční předplatné za pouhých 220 Kč/hod.";
+const basePrice = calculator.basePrice || 320;
+const ctaText = calculator.ctaText || "Vyzkoušet 1. lekci zdarma s touto slevou →";
+const note = calculator.note || "🎁 1. ukázková lekce je vždy 100% ZDARMA. Platbu řešíte až po první hodině, když je dítě spokojené.";
+
+const step1Title = calculator.step1Title || "Vyberte délku období (balíček):";
+const step1Badge = calculator.step1Badge || "až -31 % sleva (od 220 Kč/h)";
+const step2Title = calculator.step2Title || "Kolikrát týdně chcete chodit?";
+const step2Badge = calculator.step2Badge || "extra bonus za frekvenci";
+const resultBadge = calculator.resultBadge || "Váš kalkulovaný balíček:";
+const savingsBadge = calculator.savingsBadge || "Ušetříte";
+
+// Default duration presets if not configured
+const defaultDurations = [
+  { weeks: 4, label: "1 měsíc", periodDesc: "4 týdny výuky", badge: "300 Kč/h (1 200 Kč)", baseDiscount: 6 },
+  { weeks: 12, label: "3 měsíce", periodDesc: "12 týdnů (čtvrtletí)", badge: "280 Kč/h (3 360 Kč)", baseDiscount: 12 },
+  { weeks: 20, label: "Pololetí", periodDesc: "20 týdnů (půl roku)", badge: "250 Kč/h (5 000 Kč)", popular: true, baseDiscount: 22 },
+  { weeks: 40, label: "Celý rok", periodDesc: "40 týdnů (školní rok)", badge: "220 Kč/h (8 800 Kč)", bestValue: true, baseDiscount: 31 },
+];
+
+// Default frequency presets if not configured
+const defaultFrequencies = [
+  { freq: 1, label: "1× týdně", desc: "Standardní tempo hrou", bonus: 0, badge: "Standardní" },
+  { freq: 2, label: "2× týdně", desc: "Rychlý pokrok & sazba 220 Kč", bonus: 5, badge: "Doporučeno (220 Kč/h)", recommended: true },
+  { freq: 3, label: "3× týdně", desc: "Intenzivní příprava & testy", bonus: 10, badge: "Max. intenzita" },
+];
+
+const durations = (calculator.durations && calculator.durations.length > 0) ? calculator.durations : defaultDurations;
+const frequencies = (calculator.frequencies && calculator.frequencies.length > 0) ? calculator.frequencies : defaultFrequencies;
+---
+
+{enabled && (
+  <div id="kalkulator-balicku" data-base-price={basePrice} data-phone={phone} class="mt-12 sm:mt-16 bg-gradient-to-br from-[#FFFDF9] via-white to-[#FDF8EE] rounded-3xl p-5 sm:p-8 md:p-10 border-2 border-amber-300 shadow-xl relative overflow-hidden">
+    
+    <!-- Background subtle aura -->
+    <div class="absolute -right-24 -top-24 w-80 h-80 bg-amber-200/30 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-24 -bottom-24 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-10 relative z-10">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950 mb-3" data-tina-field={tinaField(calculator, 'badge')}>
+        <span>🧮</span>
+        <span>{badge}</span>
+      </div>
+      <h3 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight" data-tina-field={tinaField(calculator, 'title')} set:html={formatRichText(title)}>
+      </h3>
+      <p class="text-espresso-800/80 text-xs sm:text-base mt-2" data-tina-field={tinaField(calculator, 'subtitle')} set:html={formatRichText(subtitle)}>
+      </p>
+    </div>
+
+    <!-- Main Grid: Controls (Left) & Result (Right) -->
+    <div class="grid lg:grid-cols-12 gap-8 items-stretch relative z-10">
+      
+      <!-- Interactive Selectors (Left 7 Cols) -->
+      <div class="lg:col-span-7 space-y-6 sm:space-y-7 flex flex-col justify-between">
+        
+        <!-- Step 1: Duration (Weeks) -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-heading font-black text-xs sm:text-sm uppercase tracking-wider text-espresso-950 flex items-center gap-1.5" data-tina-field={tinaField(calculator, 'step1Title')}>
+              <span class="w-5 h-5 rounded-full bg-amber-400 text-espresso-950 font-black text-xs flex items-center justify-center">1</span>
+              <span>{step1Title}</span>
+            </span>
+            <span class="text-[11px] font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-full" data-tina-field={tinaField(calculator, 'step1Badge')}>
+              {step1Badge}
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" role="radiogroup" aria-label="Délka období výuky">
+            {durations.map((d, idx) => (
+              <button
+                type="button"
+                data-tina-field={tinaField(calculator, 'durations', idx)}
+                data-weeks={d.weeks}
+                data-base-discount={d.baseDiscount}
+                class:list={[
+                  "calc-duration-btn p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer focus:outline-hidden",
+                  d.weeks === 20
+                    ? "bg-amber-100/90 border-amber-500 ring-2 ring-amber-400 shadow-sm"
+                    : "bg-white/90 border-parchment-300 hover:border-amber-300 hover:bg-parchment-100/60"
+                ]}
+                aria-checked={d.weeks === 20 ? "true" : "false"}
+              >
+                {d.popular && (
+                  <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-400 text-espresso-950 shadow-2xs">
+                    Populární
+                  </span>
+                )}
+                {d.bestValue && (
+                  <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-600 text-white shadow-2xs">
+                    Nejvýhodnější
+                  </span>
+                )}
+                <div>
+                  <div class="font-heading font-black text-sm sm:text-base text-espresso-950">{d.label}</div>
+                  <div class="text-[11px] text-espresso-800/70">{d.periodDesc}</div>
+                </div>
+                <div class="mt-2 pt-1 border-t border-parchment-200 text-xs font-extrabold text-amber-900">
+                  {d.badge}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Step 2: Frequency (Lessons per week) -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-heading font-black text-xs sm:text-sm uppercase tracking-wider text-espresso-950 flex items-center gap-1.5" data-tina-field={tinaField(calculator, 'step2Title')}>
+              <span class="w-5 h-5 rounded-full bg-amber-400 text-espresso-950 font-black text-xs flex items-center justify-center">2</span>
+              <span>{step2Title}</span>
+            </span>
+            <span class="text-[11px] font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-full" data-tina-field={tinaField(calculator, 'step2Badge')}>
+              {step2Badge}
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" role="radiogroup" aria-label="Frekvence výuky týdně">
+            {frequencies.map((f, idx) => (
+              <button
+                type="button"
+                data-tina-field={tinaField(calculator, 'frequencies', idx)}
+                data-freq={f.freq}
+                data-bonus={f.bonus}
+                class:list={[
+                  "calc-freq-btn p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer focus:outline-hidden",
+                  f.freq === 2
+                    ? "bg-amber-100/90 border-amber-500 ring-2 ring-amber-400 shadow-sm"
+                    : "bg-white/90 border-parchment-300 hover:border-amber-300 hover:bg-parchment-100/60"
+                ]}
+                aria-checked={f.freq === 2 ? "true" : "false"}
+              >
+                {f.recommended && (
+                  <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-400 text-espresso-950 shadow-2xs">
+                    Doporučeno
+                  </span>
+                )}
+                <div>
+                  <div class="font-heading font-black text-sm sm:text-base text-espresso-950">{f.label}</div>
+                  <div class="text-[11px] text-espresso-800/70">{f.desc}</div>
+                </div>
+                <div class="mt-2 pt-1 border-t border-parchment-200 text-xs font-extrabold text-amber-900">
+                  {f.badge}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Explanatory note -->
+        <div class="p-3.5 rounded-xl bg-parchment-100/80 border border-parchment-300/80 text-[11px] sm:text-xs text-espresso-800 leading-relaxed">
+          <span class="font-bold text-espresso-950">💡 Jak slevy fungují:</span> Slevy se odvíjí od délky balíčku a frekvence: měsíční zkušební (<strong>300 Kč/h</strong>), čtvrtletní (<strong>280 Kč/h</strong>), nejoblíbenější pololetní (<strong>250 Kč/h</strong> = jen cca 1 000 Kč měsíčně) a roční či při docházce 2× týdně pouhých <strong>220 Kč/h</strong> (úspora až 31 %).
+        </div>
+
+      </div>
+
+      <!-- Result Card (Right 5 Cols) -->
+      <div class="lg:col-span-5 bg-gradient-to-b from-white via-[#FFFDF9] to-amber-50/50 rounded-3xl p-6 sm:p-7 border-2 border-amber-400 shadow-lg flex flex-col justify-between relative">
+        
+        <!-- Top Badge -->
+        <div class="flex items-center justify-between gap-2 border-b border-parchment-200 pb-3 mb-4">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-950" data-tina-field={tinaField(calculator, 'resultBadge')}>
+            {resultBadge}
+          </span>
+          <span id="calc-total-discount-badge" class="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+            -22 % SLEVA
+          </span>
+        </div>
+
+        <!-- Details list -->
+        <div class="space-y-4 mb-6">
+          
+          <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600">
+            <span>Délka období:</span>
+            <span id="calc-period-display" class="font-bold text-espresso-950">Pololetí (20 týdnů)</span>
+          </div>
+
+          <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600">
+            <span>Frekvence:</span>
+            <span id="calc-freq-display" class="font-bold text-espresso-950">1× týdně</span>
+          </div>
+
+          <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600">
+            <span>Celkem lekcí v balíčku:</span>
+            <span id="calc-lessons-display" class="font-bold text-espresso-950">20 lekcí</span>
+          </div>
+
+          <div class="pt-2 border-t border-parchment-200">
+            <span id="calc-breakdown-pill" class="inline-block text-[11px] font-bold text-amber-900 bg-amber-100/70 px-2.5 py-1 rounded-lg">
+              Pololetní balíček 250 Kč/h (cca 1 000 Kč měsíčně)
+            </span>
+          </div>
+
+          <!-- Unit price comparison -->
+          <div class="p-3.5 rounded-2xl bg-white border border-amber-200/90 space-y-1">
+            <div class="flex items-baseline justify-between">
+              <span class="text-xs text-stone-600 font-medium">Přepočtená cena za 1 hodinu:</span>
+              <div class="text-right">
+                <span id="calc-unit-price" class="font-heading font-black text-xl sm:text-2xl text-espresso-950">250 Kč</span>
+                <span class="text-xs text-stone-500 font-normal"> / 60 min</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-stone-500 pt-1 border-t border-parchment-100">
+              <span>Běžná základní cena: <span id="calc-original-unit" class="line-through">320 Kč</span></span>
+              <span class="text-emerald-700 font-bold">Ušetříte <span id="calc-unit-saving">70 Kč</span> / lekce</span>
+            </div>
+          </div>
+
+          <!-- Total price -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 text-espresso-950 shadow-md">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider block opacity-90">Celková cena balíčku</span>
+                <span id="calc-total-price" class="font-heading font-black text-2xl sm:text-3xl tracking-tight">5 000 Kč</span>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] font-bold uppercase block opacity-80" data-tina-field={tinaField(calculator, 'savingsBadge')}>{savingsBadge}</span>
+                <span id="calc-total-savings" class="font-heading font-black text-lg text-emerald-950 bg-white/40 px-2 py-0.5 rounded-lg">1 400 Kč</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Action buttons -->
+        <div class="space-y-2.5">
+          <button
+            type="button"
+            id="calc-cta-btn"
+            class="btn-gold-pulse w-full py-3.5 px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-white hover:bg-amber-100 border-2 border-amber-500 shadow-sm transition-all cursor-pointer text-center"
+            data-tina-field={tinaField(calculator, 'ctaText')}
+          >
+            <span>{ctaText}</span>
+          </button>
+
+          <a
+            id="calc-wa-btn"
+            href={`https://wa.me/${phone}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-bold text-xs text-stone-700 hover:text-espresso-950 bg-white/70 hover:bg-white border border-parchment-300 transition-colors"
+          >
+            <span>💬</span>
+            <span>Odeslat tuto kalkulaci přímo na WhatsApp</span>
+          </a>
+
+          <p class="text-[10px] text-stone-500 text-center leading-tight pt-1" data-tina-field={tinaField(calculator, 'note')}>
+            {note}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
+
+<script>
+  function initPackageCalculator() {
+    const calc = document.getElementById('kalkulator-balicku');
+    if (!calc) return;
+
+    const basePrice = parseInt(calc.getAttribute('data-base-price') || '320', 10);
+    const phone = calc.getAttribute('data-phone') || '420792372642';
+
+    const durationBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-duration-btn');
+    const freqBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-freq-btn');
+
+    const totalDiscountBadge = document.getElementById('calc-total-discount-badge');
+    const periodDisplay = document.getElementById('calc-period-display');
+    const freqDisplay = document.getElementById('calc-freq-display');
+    const lessonsDisplay = document.getElementById('calc-lessons-display');
+    const breakdownPill = document.getElementById('calc-breakdown-pill');
+    const unitPrice = document.getElementById('calc-unit-price');
+    const originalUnit = document.getElementById('calc-original-unit');
+    const unitSaving = document.getElementById('calc-unit-saving');
+    const totalPrice = document.getElementById('calc-total-price');
+    const totalSavings = document.getElementById('calc-total-savings');
+    const ctaBtn = document.getElementById('calc-cta-btn');
+    const waBtn = document.getElementById('calc-wa-btn') as HTMLAnchorElement | null;
+
+    let selectedWeeks = 20;
+    let selectedFreq = 1;
+
+    // Subtle audio pop
+    let audioCtx: AudioContext | null = null;
+    function playClickPop() {
+      try {
+        const AudioCtxClass = window.AudioContext || (window as any).webkitAudioContext;
+        if (!AudioCtxClass) return;
+        audioCtx = audioCtx || new AudioCtxClass();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(560, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(840, audioCtx.currentTime + 0.05);
+
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.07);
+      } catch(e) {}
+    }
+
+    const durationLabels: Record<number, string> = {
+      4: "1 měsíc (4 týdny)",
+      12: "3 měsíce (12 týdnů)",
+      20: "Pololetí (20 týdnů)",
+      40: "Celý školní rok (40 týdnů)"
+    };
+
+    function recalculate() {
+      const totalLessons = selectedWeeks * selectedFreq;
+
+      let discountedPricePerLesson = basePrice;
+      let totalDiscount = 0;
+      let tierExplanation = "";
+
+      if (totalLessons >= 40) {
+        discountedPricePerLesson = 220;
+        totalDiscount = 31;
+        tierExplanation = selectedFreq >= 2
+          ? "Zvýhodněná sazba 220 Kč/h (intenzita 2× týdně)"
+          : "Maximální sleva 31 % (sazba 220 Kč/h za celý rok)";
+      } else if (totalLessons >= 20) {
+        if (selectedFreq >= 2) {
+          discountedPricePerLesson = 220;
+          totalDiscount = 31;
+          tierExplanation = "Zvýhodněná sazba 220 Kč/h za docházku 2× týdně";
+        } else {
+          discountedPricePerLesson = 250;
+          totalDiscount = 22;
+          tierExplanation = "Pololetní balíček 250 Kč/h (jen cca 1 000 Kč měsíčně)";
+        }
+      } else if (totalLessons >= 12) {
+        discountedPricePerLesson = 280;
+        totalDiscount = 12.5;
+        tierExplanation = "Čtvrtletní balíček 280 Kč/h (sleva 12,5 %)";
+      } else if (totalLessons >= 4) {
+        if (selectedFreq >= 2) {
+          discountedPricePerLesson = 280;
+          totalDiscount = 12.5;
+          tierExplanation = "Měsíční balíček 2× týdně (280 Kč/h)";
+        } else {
+          discountedPricePerLesson = 300;
+          totalDiscount = 6;
+          tierExplanation = "Zkušební měsíční balíček 300 Kč/h (sleva 6 %)";
+        }
+      } else {
+        discountedPricePerLesson = 320;
+        totalDiscount = 0;
+        tierExplanation = "Základní sazba bez předplatného";
+      }
+
+      const savingPerLesson = basePrice - discountedPricePerLesson;
+      const totalOriginalCost = totalLessons * basePrice;
+      const totalDiscountedCost = totalLessons * discountedPricePerLesson;
+      const allSavings = totalOriginalCost - totalDiscountedCost;
+
+      // Update UI elements
+      if (totalDiscountBadge) {
+        totalDiscountBadge.textContent = totalDiscount > 0 ? `-${totalDiscount} % SLEVA` : `ZÁKLADNÍ CENA`;
+      }
+      if (periodDisplay) {
+        periodDisplay.textContent = durationLabels[selectedWeeks] || `${selectedWeeks} týdnů`;
+      }
+      if (freqDisplay) {
+        freqDisplay.textContent = `${selectedFreq}× týdně`;
+      }
+      if (lessonsDisplay) {
+        lessonsDisplay.textContent = `${totalLessons} lekcí (${selectedWeeks} týdnů × ${selectedFreq}× týdně)`;
+      }
+      if (breakdownPill) {
+        breakdownPill.textContent = tierExplanation;
+      }
+      if (unitPrice) {
+        unitPrice.textContent = `${discountedPricePerLesson} Kč`;
+      }
+      if (originalUnit) {
+        originalUnit.textContent = `${basePrice} Kč`;
+      }
+      if (unitSaving) {
+        unitSaving.textContent = `${savingPerLesson} Kč`;
+      }
+      if (totalPrice) {
+        totalPrice.textContent = `${totalDiscountedCost.toLocaleString('cs-CZ')} Kč`;
+      }
+      if (totalSavings) {
+        totalSavings.textContent = `${allSavings.toLocaleString('cs-CZ')} Kč`;
+      }
+
+      // Dynamic WhatsApp link
+      const periodName = durationLabels[selectedWeeks] || `${selectedWeeks} týdnů`;
+      const waMsg = `Dobrý den Josefe, v kalkulátoru na webu Valek Academy jsem si spočítal(a) balíček: ${periodName}, ${selectedFreq}× týdně (celkem ${totalLessons} lekcí se slevou ${totalDiscount} %, ${discountedPricePerLesson} Kč/lekce, celkem ${totalDiscountedCost.toLocaleString('cs-CZ')} Kč). Rádi bychom si domluvili 1. ukázkovou lekci zdarma.`;
+      if (waBtn) {
+        waBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(waMsg)}`;
+      }
+
+      // Update CTA button action: scroll to #kontakt and prefill form
+      if (ctaBtn) {
+        ctaBtn.onclick = () => {
+          playClickPop();
+
+          const formSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
+          if (formSelect) {
+            formSelect.value = "Děti na ZŠ (Výuka hrou v malé skupince 4–8 dětí) – 1. LEKCE ZDARMA";
+            formSelect.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+
+          const msgField = document.getElementById('message') as HTMLTextAreaElement | null;
+          if (msgField) {
+            msgField.value = `Dobrý den Josefe, máme zájem o balíček z kalkulátoru:\n• Období: ${periodName}\n• Frekvence: ${selectedFreq}× týdně (celkem ${totalLessons} lekcí)\n• Zvýhodněná cena: ${discountedPricePerLesson} Kč/lekce (sleva ${totalDiscount} %, celkem ${totalDiscountedCost.toLocaleString('cs-CZ')} Kč)\n\nRádi bychom nejprve nezávazně vyzkoušeli 1. lekci 100% zdarma.`;
+          }
+
+          const contactSection = document.getElementById('kontakt');
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+          }
+
+          const formCard = document.getElementById('contact-form')?.parentElement;
+          if (formCard) {
+            formCard.classList.add('ring-4', 'ring-amber-400', 'border-amber-500');
+            setTimeout(() => {
+              formCard.classList.remove('ring-4', 'ring-amber-400', 'border-amber-500');
+            }, 2500);
+          }
+
+          const nameInput = document.getElementById('name') as HTMLInputElement | null;
+          if (nameInput) {
+            setTimeout(() => nameInput.focus(), 600);
+          }
+        };
+      }
+    }
+
+    // Attach click listeners to duration buttons
+    durationBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        playClickPop();
+        const weeks = parseInt(btn.getAttribute('data-weeks') || '20', 10);
+        selectedWeeks = weeks;
+
+        durationBtns.forEach(b => {
+          b.classList.remove('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
+          b.classList.add('bg-white/90', 'border-parchment-300');
+          b.setAttribute('aria-checked', 'false');
+        });
+
+        btn.classList.remove('bg-white/90', 'border-parchment-300');
+        btn.classList.add('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
+        btn.setAttribute('aria-checked', 'true');
+
+        recalculate();
+      });
+    });
+
+    // Attach click listeners to frequency buttons
+    freqBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        playClickPop();
+        const freq = parseInt(btn.getAttribute('data-freq') || '2', 10);
+        selectedFreq = freq;
+
+        freqBtns.forEach(b => {
+          b.classList.remove('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
+          b.classList.add('bg-white/90', 'border-parchment-300');
+          b.setAttribute('aria-checked', 'false');
+        });
+
+        btn.classList.remove('bg-white/90', 'border-parchment-300');
+        btn.classList.add('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
+        btn.setAttribute('aria-checked', 'true');
+
+        recalculate();
+      });
+    });
+
+    // Initial calculation on page load
+    recalculate();
+  }
+
+  document.addEventListener('DOMContentLoaded', initPackageCalculator);
+  document.addEventListener('astro:page-load', initPackageCalculator);
+</script>

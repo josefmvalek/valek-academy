@@ -33,18 +33,50 @@ const brandName = navbar.brandName || "VALEK ACADEMY";
 const brandTagline = navbar.brandTagline || "Uherské Hradiště • Výuka hrou";
 const ctaText = navbar.ctaText || "🎁 1. lekce zdarma";
 
-const defaultNavLinks: NavLink[] = [
-  { label: "Programy & Hry", href: "#programy" },
-  { label: "Ceník", href: "#cenik", badge: "1. zdarma" },
-  { label: "O lektorovi", href: "#o-mne" },
-  { label: "Doučovna UH", href: "#kde-ucime" },
-  { label: "FAQ", href: "#faq" }
+// Primary standalone top links
+const primaryNavLinks = [
+  { label: "Rozvrh hodin", href: "/rozvrh", icon: "📅" },
+  { label: "Ceník", href: "/cenik", icon: "🏷️" },
+  { label: "Fotogalerie", href: "/galerie", icon: "📸" }
 ];
 
-const navLinks = (navbar.navLinks && navbar.navLinks.length > 0) ? navbar.navLinks : defaultNavLinks;
+interface DrawerItem {
+  label: string;
+  href: string;
+  desc: string;
+  icon: string;
+  badge?: string;
+}
+
+interface DrawerCategory {
+  category: string;
+  items: DrawerItem[];
+}
+
+// All website sections for the slide-over sidebar drawer
+const drawerSections: DrawerCategory[] = [
+  {
+    category: "Hlavní stránky",
+    items: [
+      { label: "Rozvrh hodin & Rezervace", href: "/rozvrh", desc: "15 zvířecích skupinek, volná místa", icon: "📅" },
+      { label: "Podrobný ceník & Kalkulátor", href: "/cenik", desc: "Slevy až 30 %, balíčky a platby", icon: "🏷️" },
+      { label: "Velká fotogalerie", href: "/galerie", desc: "16 snímků doučovny a her v centru UH", icon: "📸" }
+    ]
+  },
+  {
+    category: "Sekce na webu",
+    items: [
+      { label: "Programy & Hry pro žáky ZŠ", href: "/#programy", desc: "Karak, Scrabble, Dobble a konverzace", icon: "🎲" },
+      { label: "Průběh 60 min lekce", href: "/#metodika", desc: "3 fáze: naladění, hra a rekapitulace", icon: "⏱️" },
+      { label: "O lektorovi Josefovi", href: "/#o-mne", desc: "Čechoaustralan, RMIT Univ. Melbourne", icon: "🦘" },
+      { label: "Kde učíme (Doučovna UH)", href: "/#kde-ucime", desc: "Růžová 1238, naproti ZŠ UNESCO", icon: "📍" },
+      { label: "Časté dotazy rodičů (FAQ)", href: "/#faq", desc: "Odpovědi na vše, co vás zajímá", icon: "❓" }
+    ]
+  }
+];
 ---
 
-<header class="sticky top-0 z-50 w-full bg-[#FAF7F2]/95 backdrop-blur-md border-b border-stone-200/80 transition-all" data-tina-field={tinaField(navbar, 'brandName')}>
+<header class="sticky top-0 z-40 w-full bg-[#FAF7F2]/95 backdrop-blur-md border-b border-stone-200/80 transition-all select-none" data-tina-field={tinaField(navbar, 'brandName')}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-20">
       
@@ -52,131 +84,226 @@ const navLinks = (navbar.navLinks && navbar.navLinks.length > 0) ? navbar.navLin
       <a href="/" class="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0">
         <ParrotLogo className="w-9 h-9 sm:w-11 sm:h-11 shadow-2xs rounded-full group-hover:scale-105 transition-transform" />
         <div class="flex flex-col">
-          <span class="font-heading font-black text-base sm:text-xl text-espresso-950 tracking-tight leading-none group-hover:text-amber-800 transition-colors" data-tina-field={tinaField(navbar, 'brandName')} data-edit-key="navbar.brandName" data-edit-label="Název v hlavičce">
+          <span class="font-heading font-black text-base sm:text-lg lg:text-xl text-espresso-950 tracking-tight leading-none group-hover:text-amber-800 transition-colors whitespace-nowrap" data-tina-field={tinaField(navbar, 'brandName')} data-edit-key="navbar.brandName" data-edit-label="Název v hlavičce">
             {brandName}
           </span>
-          <span class="text-[10px] sm:text-xs text-amber-900 font-bold tracking-wide mt-1 flex items-center gap-1.5 leading-none">
+          <span class="text-[10px] sm:text-xs text-amber-900 font-bold tracking-wide mt-1 flex items-center gap-1.5 leading-none whitespace-nowrap">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
             <span data-tina-field={tinaField(navbar, 'brandTagline')} data-edit-key="navbar.brandTagline" data-edit-label="Podtitul v hlavičce">{brandTagline}</span>
           </span>
         </div>
       </a>
 
-      <!-- Clean, Unified Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-stone-700" aria-label="Hlavní navigace">
-        {navLinks.map((link, idx) => (
+      <!-- Clean, Uncrowded Primary Desktop Navigation (Only 3 top destinations) -->
+      <nav class="hidden md:flex items-center gap-5 lg:gap-8 text-sm font-bold text-stone-700" aria-label="Hlavní navigace">
+        {primaryNavLinks.map((link) => (
           <a
-            href={link.href.startsWith('#') ? `/${link.href}` : link.href}
-            class={`hover:text-amber-800 transition-colors ${link.badge ? 'font-bold text-espresso-950 flex items-center gap-1.5' : ''}`}
-            data-tina-field={navbar.navLinks ? tinaField(navbar, 'navLinks', idx) : undefined}
+            href={link.href}
+            class="hover:text-amber-900 transition-colors whitespace-nowrap py-1.5 px-3 rounded-lg hover:bg-amber-100/50 text-stone-800"
           >
             <span>{link.label}</span>
-            {link.badge && (
-              <span class="text-[10px] font-black bg-amber-200/80 text-espresso-950 px-2 py-0.5 rounded-md border border-amber-300" data-tina-field={tinaField(link as any, 'badge')}>{link.badge}</span>
-            )}
           </a>
         ))}
       </nav>
 
-      <!-- Right Action CTAs -->
-      <div class="hidden sm:flex items-center gap-3">
-        <!-- Phone number -->
+      <!-- Right Action Area (Drawer Trigger + Phone + Gold CTA) -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        
+        <!-- Direct Phone Link (Desktop XL only) -->
         <a
           href={`tel:${phone}`}
-          class="hidden xl:inline-flex items-center gap-1.5 text-xs font-bold text-stone-700 hover:text-espresso-950 px-3 py-2 rounded-xl hover:bg-stone-200/50 transition-colors"
+          class="hidden xl:inline-flex items-center gap-1.5 text-xs font-bold text-stone-700 hover:text-espresso-950 px-3 py-2 rounded-xl hover:bg-stone-200/50 transition-colors whitespace-nowrap"
           data-tina-field={contact ? tinaField(contact, 'phoneFormatted') : undefined}
         >
           <span>📞</span>
           <span data-edit-key="contact.phoneFormatted" data-edit-label="Telefon v menu">{phoneFormatted}</span>
         </a>
 
-        <!-- Primary CTA Button -->
+        <!-- Slide-over Sidebar Drawer Trigger (Visible on all screens) -->
+        <button
+          type="button"
+          data-open-drawer
+          class="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-heading font-black text-espresso-950 bg-white hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 shadow-2xs transition-all cursor-pointer whitespace-nowrap"
+          aria-label="Otevřít kompletní menu a rozcestník sekcí"
+        >
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 text-espresso-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <span class="hidden sm:inline">Sekce & Více</span>
+          <span class="sm:hidden">Menu</span>
+        </button>
+
+        <!-- Primary CTA Button (Gold Pulse, compact & clean) -->
         <a
-          href="/#kontakt"
-          class="btn-gold-pulse inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-transform"
+          href="/rozvrh#kontakt"
+          class="btn-gold-pulse inline-flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-transform whitespace-nowrap flex-shrink-0"
         >
           <span data-tina-field={tinaField(navbar, 'ctaText')} data-edit-key="navbar.ctaText" data-edit-label="Text tlačítka v menu">{ctaText}</span>
         </a>
+
       </div>
 
-      <!-- Minimalist Mobile Menu Button -->
-      <button
-        id="mobile-menu-button"
-        type="button"
-        class="lg:hidden p-2 rounded-xl text-espresso-900 hover:bg-stone-200/60 transition-colors focus:outline-none"
-        aria-label="Otevřít menu"
-        aria-expanded="false"
-      >
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path id="menu-icon-bars" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-    </div>
-  </div>
-
-  <!-- Smooth Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="hidden lg:hidden border-t border-stone-200 bg-[#FAF7F2] shadow-xl px-5 pt-3 pb-6 space-y-1">
-    {navLinks.map((link, idx) => (
-      <a
-        href={link.href.startsWith('#') ? `/${link.href}` : link.href}
-        class="mobile-nav-link block py-2.5 text-sm font-bold text-espresso-950 border-b border-stone-100 flex items-center justify-between"
-        data-tina-field={navbar.navLinks ? tinaField(navbar, 'navLinks', idx) : undefined}
-      >
-        <span>{link.label}</span>
-        {link.badge && (
-          <span class="text-[10px] bg-amber-300 px-2 py-0.5 rounded font-black text-espresso-950" data-tina-field={tinaField(link as any, 'badge')}>{link.badge}</span>
-        )}
-      </a>
-    ))}
-
-    <div class="pt-4 space-y-2.5">
-      <a
-        href="/#kontakt"
-        class="mobile-nav-link w-full py-3.5 rounded-xl font-heading font-black text-center text-espresso-950 bg-gradient-to-b from-amber-300 to-amber-500 border border-amber-500 shadow-md block"
-      >
-        <span data-tina-field={tinaField(navbar, 'ctaText')} data-edit-key="navbar.ctaText" data-edit-label="Text tlačítka v menu">{ctaText}</span>
-      </a>
-      <a
-        href={`tel:${phone}`}
-        class="w-full py-2.5 text-center text-xs font-bold text-stone-700 border border-stone-300 rounded-xl bg-white block"
-        data-tina-field={contact ? tinaField(contact, 'phoneFormatted') : undefined}
-      >
-        📞 Zavolat: {phoneFormatted}
-      </a>
     </div>
   </div>
 </header>
 
+<!-- Slide-over Sidebar Drawer Backdrop Overlay -->
+<div
+  id="drawer-backdrop"
+  data-close-drawer
+  class="fixed inset-0 bg-espresso-950/60 backdrop-blur-xs z-50 transition-opacity duration-300 opacity-0 pointer-events-none"
+  aria-hidden="true"
+></div>
+
+<!-- Slide-over Sidebar Drawer Panel -->
+<aside
+  id="drawer-panel"
+  class="fixed top-0 right-0 bottom-0 w-full sm:w-[420px] max-w-[92vw] bg-[#FAF7F2] border-l border-parchment-300 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Kompletní navigace a sekce webu"
+>
+  
+  <!-- Drawer Header -->
+  <div class="p-5 sm:p-6 border-b border-parchment-300 bg-white/90 flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
+    <div class="flex items-center gap-2.5">
+      <ParrotLogo className="w-8 h-8 rounded-full shadow-2xs" />
+      <div>
+        <div class="font-heading font-black text-sm text-espresso-950 leading-tight">{brandName}</div>
+        <div class="text-[10px] text-amber-900 font-bold leading-tight">Rozcestník & Navigace</div>
+      </div>
+    </div>
+    <button
+      type="button"
+      data-close-drawer
+      class="p-2 rounded-xl text-stone-500 hover:text-espresso-950 hover:bg-parchment-200 transition-colors cursor-pointer text-xs font-bold flex items-center gap-1"
+      aria-label="Zavřít menu"
+    >
+      <span>✕</span>
+      <span class="hidden sm:inline">Zavřít</span>
+    </button>
+  </div>
+
+  <!-- Drawer Body Navigation Links -->
+  <div class="p-5 sm:p-6 space-y-6 flex-grow">
+    
+    {drawerSections.map((sec) => (
+      <div class="space-y-2.5">
+        <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 px-1">
+          {sec.category}
+        </div>
+        <div class="space-y-1.5">
+          {sec.items.map((item) => (
+            <a
+              href={item.href}
+              data-drawer-link
+              class="group p-3 rounded-2xl bg-white hover:bg-amber-50 border border-parchment-300 hover:border-amber-400 shadow-2xs transition-all flex items-center justify-between gap-3 cursor-pointer"
+            >
+              <div class="flex items-center gap-3 min-w-0">
+                <span class="text-xl flex-shrink-0 group-hover:scale-110 transition-transform">{item.icon}</span>
+                <div class="min-w-0">
+                  <div class="font-heading font-black text-xs sm:text-sm text-espresso-950 truncate group-hover:text-amber-950">
+                    {item.label}
+                  </div>
+                  <div class="text-[11px] text-stone-500 truncate font-medium">
+                    {item.desc}
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 flex-shrink-0">
+                {item.badge && (
+                  <span class="text-[9px] font-black bg-amber-200 text-espresso-950 px-2 py-0.5 rounded-full border border-amber-300 whitespace-nowrap">
+                    {item.badge}
+                  </span>
+                )}
+                <span class="text-stone-400 group-hover:translate-x-1 group-hover:text-amber-700 transition-all font-bold">→</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+
+  </div>
+
+  <!-- Drawer Footer: Quick Contact & Booking CTA -->
+  <div class="p-5 sm:p-6 border-t border-parchment-300 bg-white/95 space-y-3 sticky bottom-0 z-10 backdrop-blur-md">
+    
+    <a
+      href="/rozvrh#kontakt"
+      data-drawer-link
+      class="btn-gold-pulse w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs text-center"
+    >
+      <span>🎁 Rezervovat 1. lekci ZDARMA</span>
+      <span>→</span>
+    </a>
+
+    <div class="grid grid-cols-2 gap-2 pt-1">
+      <a
+        href={`tel:${phone}`}
+        class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-parchment-100 hover:bg-parchment-200 border border-parchment-300 text-xs font-bold text-espresso-950 transition-colors text-center"
+      >
+        <span>📞</span>
+        <span class="truncate">{phoneFormatted}</span>
+      </a>
+      <a
+        href={`https://wa.me/${phone.replace('+', '')}?text=${encodeURIComponent('Dobrý den Josefe, rád/a bych se zeptal/a na volná místa v doučovně na 1. lekci zdarma.')}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-xs font-bold text-emerald-950 transition-colors text-center"
+      >
+        <span>💬</span>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+
+    <div class="text-[10px] text-center text-stone-500 pt-1">
+      📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO)
+    </div>
+
+  </div>
+
+</aside>
+
+<!-- Client-side script for Slide-over Drawer behavior -->
 <script>
-  const btn = document.getElementById('mobile-menu-button');
-  const menu = document.getElementById('mobile-menu');
-  const iconBars = document.getElementById('menu-icon-bars');
-  const iconClose = document.getElementById('menu-icon-close');
-  const links = document.querySelectorAll('.mobile-nav-link');
+  function setupNavDrawer() {
+    const openBtns = document.querySelectorAll('[data-open-drawer]');
+    const closeBtns = document.querySelectorAll('[data-close-drawer]');
+    const drawerLinks = document.querySelectorAll('[data-drawer-link]');
+    const backdrop = document.getElementById('drawer-backdrop');
+    const panel = document.getElementById('drawer-panel');
 
-  btn?.addEventListener('click', () => {
-    const isHidden = menu?.classList.contains('hidden');
-    if (isHidden) {
-      menu?.classList.remove('hidden');
-      iconBars?.classList.add('hidden');
-      iconClose?.classList.remove('hidden');
-      btn.setAttribute('aria-expanded', 'true');
-    } else {
-      menu?.classList.add('hidden');
-      iconBars?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
-      btn.setAttribute('aria-expanded', 'false');
+    function openDrawer() {
+      if (!backdrop || !panel) return;
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100', 'pointer-events-auto');
+      panel.classList.remove('translate-x-full');
+      panel.classList.add('translate-x-0');
+      document.body.classList.add('overflow-hidden');
     }
-  });
 
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      menu?.classList.add('hidden');
-      iconBars?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
-      btn?.setAttribute('aria-expanded', 'false');
+    function closeDrawer() {
+      if (!backdrop || !panel) return;
+      backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      panel.classList.remove('translate-x-0');
+      panel.classList.add('translate-x-full');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    openBtns.forEach((btn) => btn.addEventListener('click', openDrawer));
+    closeBtns.forEach((btn) => btn.addEventListener('click', closeDrawer));
+    drawerLinks.forEach((link) => link.addEventListener('click', closeDrawer));
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDrawer();
+      }
     });
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupNavDrawer);
+  document.addEventListener('astro:page-load', setupNavDrawer);
 </script>

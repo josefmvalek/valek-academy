@@ -5,17 +5,26 @@ interface Props {
   phone?: string;
   message?: string;
   tooltipText?: string;
+  badgeNotificationText?: string;
   contact?: any;
+  whatsappWidget?: any;
 }
 
 const {
   phone = "420792372642",
   message = "Dobrý den Josefe, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.",
   tooltipText = "Napsat Josefovi na WhatsApp →",
-  contact = {}
+  badgeNotificationText = "1",
+  contact = {},
+  whatsappWidget = {}
 } = Astro.props;
 
-const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+const targetPhone = whatsappWidget?.phone || phone;
+const targetMessage = whatsappWidget?.message || message;
+const targetTooltip = whatsappWidget?.tooltipText || tooltipText;
+const badgeText = whatsappWidget?.badgeNotificationText || badgeNotificationText;
+
+const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(targetMessage)}`;
 ---
 
 <!-- Floating WhatsApp Quick Connect Button -->
@@ -30,7 +39,7 @@ const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
       class="hidden md:flex items-center gap-2 mr-3 px-3.5 py-2 rounded-2xl bg-espresso-950 text-white text-xs font-heading font-bold shadow-xl border border-amber-400/40 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap"
     >
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span id="floating-wa-text" data-tina-field={contact ? tinaField(contact, 'whatsappText') : undefined}>{tooltipText}</span>
+      <span id="floating-wa-text" data-tina-field={whatsappWidget?.tooltipText ? tinaField(whatsappWidget, 'tooltipText') : (contact ? tinaField(contact, 'whatsappText') : undefined)}>{targetTooltip}</span>
     </div>
 
     <!-- Main Circular Button -->
@@ -53,7 +62,7 @@ const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
 
       <!-- Mini notification badge -->
       <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 border-2 border-white flex items-center justify-center text-[9px] font-black text-espresso-950">
-        1
+        {badgeText}
       </span>
     </a>
   </div>

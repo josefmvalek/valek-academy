@@ -1,5 +1,6 @@
 ---
 import { tinaField } from '@tinacms/astro/tina-field';
+import { formatRichText } from '../lib/richText';
 
 interface Props {
   scio: {
@@ -46,16 +47,14 @@ const ctaLink = scio.ctaLink || "#kontakt";
             <span>🎯</span> <span>{badge}</span>
           </div>
 
-          <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight leading-tight" data-tina-field={tinaField(scio, 'title')} data-edit-key="scio.title" data-edit-label="Nadpis SCIO">
-            {title}
+          <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight leading-tight" data-tina-field={tinaField(scio, 'title')} data-edit-key="scio.title" data-edit-label="Nadpis SCIO" set:html={formatRichText(title)}>
           </h2>
 
-          <p class="text-base sm:text-lg text-espresso-800/90 leading-relaxed" data-tina-field={tinaField(scio, 'subtitle')} data-edit-key="scio.subtitle" data-edit-label="Podnadpis SCIO">
-            {subtitle}
+          <p class="text-base sm:text-lg text-espresso-800/90 leading-relaxed" data-tina-field={tinaField(scio, 'subtitle')} data-edit-key="scio.subtitle" data-edit-label="Podnadpis SCIO" set:html={formatRichText(subtitle)}>
           </p>
 
           <div class="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-espresso-950 font-bold text-sm flex items-center gap-2.5" data-tina-field={tinaField(scio, 'tagline')}>
-            <span class="text-lg">💡</span> <span data-edit-key="scio.tagline" data-edit-label="Slogan SCIO">{tagline}</span>
+            <span class="text-lg">💡</span> <span data-edit-key="scio.tagline" data-edit-label="Slogan SCIO" set:html={formatRichText(tagline)}></span>
           </div>
 
           <!-- Feature Grid -->
@@ -65,8 +64,7 @@ const ctaLink = scio.ctaLink || "#kontakt";
                 <div class="w-7 h-7 rounded-lg bg-amber-400 text-espresso-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">
                   {idx + 1}
                 </div>
-                <p class="text-xs sm:text-sm text-espresso-900 font-medium leading-snug" data-edit-key={`scio.features.${idx}`} data-edit-label="Bod přípravy">
-                  {feat}
+                <p class="text-xs sm:text-sm text-espresso-900 font-medium leading-snug" data-edit-key={`scio.features.${idx}`} data-edit-label="Bod přípravy" set:html={formatRichText(feat)}>
                 </p>
               </div>
             ))}

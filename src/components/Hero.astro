@@ -1,6 +1,7 @@
 ---
 import AudioPreview from './AudioPreview.astro';
 import { tinaField } from '@tinacms/astro/tina-field';
+import { formatRichText } from '../lib/richText';
 
 interface Stat {
   number: string;
@@ -96,19 +97,16 @@ const cardCtaLink = card.ctaLink || "#kontakt";
         <h1 class:list={["font-heading font-black text-2xl sm:text-4xl md:text-5xl tracking-tight leading-[1.14] break-words text-espresso-950", cardEnabled ? "lg:text-6xl xl:text-[4.25rem]" : "lg:text-6xl xl:text-[4rem] max-w-3xl mx-auto"]} data-tina-field={tinaField(hero, 'title')} data-edit-key="hero.title" data-edit-label="Hlavní nadpis">
           {title.includes('–') ? (
             <>
-              <span>{title.split('–')[0].trim()} – </span>
-              <span class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 bg-clip-text text-transparent underline decoration-amber-300/80 decoration-wavy decoration-2 underline-offset-4">
-                {title.split('–').slice(1).join('–').trim()}
-              </span>
+              <span set:html={formatRichText(title.split('–')[0].trim())} /> <span>–</span>{' '}
+              <span class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 bg-clip-text text-transparent underline decoration-amber-300/80 decoration-wavy decoration-2 underline-offset-4" set:html={formatRichText(title.split('–').slice(1).join('–').trim())} />
             </>
           ) : (
-            title
+            <Fragment set:html={formatRichText(title)} />
           )}
         </h1>
 
         <!-- Subtitle -->
-        <p class:list={["text-sm sm:text-base lg:text-xl xl:text-[21px] text-espresso-800/90 leading-relaxed font-normal break-words", cardEnabled ? "max-w-2xl mx-auto lg:mx-0" : "max-w-2xl mx-auto"]} data-tina-field={tinaField(hero, 'subtitle')} data-edit-key="hero.subtitle" data-edit-label="Podnadpis">
-          {subtitle}
+        <p class:list={["text-sm sm:text-base lg:text-xl xl:text-[21px] text-espresso-800/90 leading-relaxed font-normal break-words", cardEnabled ? "max-w-2xl mx-auto lg:mx-0" : "max-w-2xl mx-auto"]} data-tina-field={tinaField(hero, 'subtitle')} data-edit-key="hero.subtitle" data-edit-label="Podnadpis" set:html={formatRichText(subtitle)}>
         </p>
 
         <!-- CTA Buttons Group -->

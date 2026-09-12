@@ -52,8 +52,19 @@
     background: #D7C49C;
     border-radius: 4px;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #BF9E68;
+  /* Rich text formatting elements */
+  b, strong {
+    font-weight: 800;
+  }
+
+  i, em {
+    font-style: italic;
+  }
+
+  u {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
   }
 }
 

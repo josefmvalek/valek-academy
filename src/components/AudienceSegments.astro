@@ -1,5 +1,6 @@
 ---
 import { tinaField } from '@tinacms/astro/tina-field';
+import { formatRichText } from '../lib/richText';
 
 interface Segment {
   [key: string]: any;
@@ -131,22 +132,20 @@ const waitingList = audience.waitingList || {
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-tina-field={tinaField(audience, 'badge')} data-edit-key="audience.badge" data-edit-label="Štítek programů">
         <span>🎲</span> <span>{badge}</span>
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(audience, 'title')} data-edit-key="audience.title" data-edit-label="Nadpis programů">
-        {title}
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(audience, 'title')} data-edit-key="audience.title" data-edit-label="Nadpis programů" set:html={formatRichText(title)}>
       </h2>
-      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(audience, 'subtitle')} data-edit-key="audience.subtitle" data-edit-label="Podnadpis programů">
-        {subtitle}
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(audience, 'subtitle')} data-edit-key="audience.subtitle" data-edit-label="Podnadpis programů" set:html={formatRichText(subtitle)}>
       </p>
     </div>
 
     <!-- Dual-Mode Format Banner -->
     <div class="mb-6 md:mb-8 max-w-2xl mx-auto p-3 sm:p-3.5 rounded-2xl bg-white/90 border border-amber-300 shadow-2xs flex items-center justify-center gap-2 sm:gap-3 text-xs text-espresso-950 font-medium text-center flex-wrap">
       <span class="flex items-center gap-1.5 text-amber-950 font-bold">
-        <span>🏡</span> <span>Osobně v doučovně: Růžová 1238, Uherské Hradiště</span>
+        <span>🏡</span> <span>Osobně v doučovně: Josef Válek (Růžová 1238, Uherské Hradiště)</span>
       </span>
       <span class="text-stone-300 hidden sm:inline">•</span>
       <span class="flex items-center gap-1.5 text-emerald-950 font-bold">
-        <span>💻</span> <span>Online z domova: Přes Google Meet (celá ČR)</span>
+        <span>💻</span> <span>Online doučování pro ČR: Lektorský tým (Eliška, Jožka, Jirka)</span>
       </span>
     </div>
 

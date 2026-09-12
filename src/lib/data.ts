@@ -3,9 +3,11 @@ import client from '../../tina/__generated__/client';
 import homeContent from '../../content/pages/home.json';
 import privacyContent from '../../content/legal/privacy.json';
 import termsContent from '../../content/legal/terms.json';
+import galleryContent from '../../content/gallery/gallery.json';
 
 export type PageData = typeof homeContent;
 export type LegalData = typeof privacyContent;
+export type GalleryData = typeof galleryContent;
 
 /**
  * Načte data domovské stránky pomocí Tina clienta zabaleného do requestWithMetadata.
@@ -61,5 +63,29 @@ export async function getLegalPageData(relativePath: 'privacy.json' | 'terms.jso
   const result = await getLegalPageDataQuery(relativePath);
   const fallback = relativePath === 'privacy.json' ? privacyContent : termsContent;
   return (result?.data?.legal || fallback) as typeof fallback;
+}
+
+/**
+ * Načte data fotogalerie pomocí Tina clienta zabaleného do requestWithMetadata.
+ */
+export async function getGalleryDataQuery() {
+  try {
+    return await requestWithMetadata(
+      (client.queries as any).gallery({ relativePath: 'gallery.json' }),
+      { priority: 'primary' }
+    );
+  } catch (e) {
+    return {
+      data: { gallery: galleryContent as any },
+      query: '',
+      variables: { relativePath: 'gallery.json' },
+      id: 'gallery',
+    };
+  }
+}
+
+export async function getGalleryData(): Promise<GalleryData> {
+  const result = await getGalleryDataQuery();
+  return ((result?.data as any)?.gallery || galleryContent) as GalleryData;
 }
 

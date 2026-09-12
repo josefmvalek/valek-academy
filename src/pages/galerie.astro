@@ -1,0 +1,56 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import GalleryView from '../components/GalleryView.astro';
+import WhatsAppFloating from '../components/WhatsAppFloating.astro';
+import VisualEditor from '../components/VisualEditor.astro';
+import { getHomePageData, getGalleryDataQuery } from '../lib/data';
+
+const page = await getHomePageData();
+const navbar = page?.navbar || {};
+const footer = page?.footer || {};
+const contact = page?.contact || {};
+
+const galleryQuery = await getGalleryDataQuery();
+const gallery = (galleryQuery.data as any)?.gallery || {};
+
+const title = gallery.title || "Fotogalerie doučovny a her | VALEK ACADEMY Uherské Hradiště";
+const description = gallery.subtitle || "Nahlédněte do doučovny Josefa Válka v Uherském Hradišti. Živá výuka angličtiny hrou, deskovky, karty a přátelské malé skupinky dětí.";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical="https://valekacademy.cz/galerie"
+>
+  <Navbar
+    navbar={navbar}
+    contact={contact}
+    phone={contact.phone}
+    phoneFormatted={contact.phoneFormatted}
+  />
+
+  <main class="flex-grow w-full max-w-full min-w-0">
+    <GalleryView gallery={gallery} />
+  </main>
+
+  <WhatsAppFloating
+    phone={contact.phone?.replace('+', '')}
+    message="Dobrý den Josefe, prohlížím si vaši fotogalerii doučovny a rád/a bych se zeptal/a na volná místa ve skupince na 1. ukázkovou lekci zdarma."
+    tooltipText={contact.whatsappText}
+    contact={contact}
+  />
+
+  <Footer
+    footer={footer}
+    contact={contact}
+    email={contact.email}
+    phone={contact.phone}
+    phoneFormatted={contact.phoneFormatted}
+  />
+
+  {import.meta.env.DEV && <VisualEditor />}
+</Layout>

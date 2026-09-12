@@ -1,5 +1,6 @@
 ---
 import { tinaField } from '@tinacms/astro/tina-field';
+import { formatRichText } from '../lib/richText';
 
 interface Testimonial {
   [key: string]: any;
@@ -86,11 +87,9 @@ const reviews = testimonials.reviews || defaultReviews;
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-tina-field={tinaField(testimonials, 'badge')} data-edit-key="testimonials.badge" data-edit-label="Štítek referencí">
         <span>⭐</span> <span>{badge}</span>
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(testimonials, 'title')} data-edit-key="testimonials.title" data-edit-label="Nadpis referencí">
-        {title}
+      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(testimonials, 'title')} data-edit-key="testimonials.title" data-edit-label="Nadpis referencí" set:html={formatRichText(title)}>
       </h2>
-      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(testimonials, 'subtitle')} data-edit-key="testimonials.subtitle" data-edit-label="Podnadpis referencí">
-        {subtitle}
+      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(testimonials, 'subtitle')} data-edit-key="testimonials.subtitle" data-edit-label="Podnadpis referencí" set:html={formatRichText(subtitle)}>
       </p>
 
       <!-- Aggregated Rating Pill -->
@@ -120,14 +119,13 @@ const reviews = testimonials.reviews || defaultReviews;
                   <span>★</span>
                 ))}
               </div>
-              <span class="text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg bg-amber-100/80 text-amber-950 border border-amber-300" data-tina-field={tinaField(rev, 'highlight')} data-edit-key={`testimonials.reviews.${idx}.highlight`} data-edit-label="Tahák recenze">
-                {rev.highlight}
+              <span class="text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg bg-amber-100/80 text-amber-950 border border-amber-300" data-tina-field={tinaField(rev, 'highlight')} data-edit-key={`testimonials.reviews.${idx}.highlight`} data-edit-label="Tahák recenze" set:html={formatRichText(rev.highlight)}>
               </span>
             </div>
 
             <!-- Quote Text -->
             <p class="text-espresso-900 text-sm sm:text-base leading-relaxed italic font-normal" data-tina-field={tinaField(rev, 'quote')} data-edit-key={`testimonials.reviews.${idx}.quote`} data-edit-label="Citace recenze">
-              „{rev.quote}“
+              „<span set:html={formatRichText(rev.quote)} />“
             </p>
           </div>
 

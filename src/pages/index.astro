@@ -15,22 +15,29 @@ const page = queryResult.data?.page || {};
 const hero = page.hero || {};
 const contact = page.contact || {};
 const stickyCta = page.stickyCta || {};
+const seo = page.seo || {};
+const whatsappWidget = page.whatsappWidget || {};
 ---
 
 <Layout
-  title={page.title || "VALEK ACADEMY | Hravá angličtina s Čechoaustralanem v malých skupinkách"}
-  description={hero.subtitle || "VALEK ACADEMY: Výuka angličtiny v malých skupinkách hrou a deskovkami. Josef Válek vyrostl v Austrálii, žije 25+ let v ČR a učí s autentickým přízvukem a úsměvem."}
+  seo={seo}
+  title={seo.metaTitle || page.title || "VALEK ACADEMY | Hravá angličtina s Čechoaustralanem v malých skupinkách"}
+  description={seo.metaDescription || hero.subtitle || "VALEK ACADEMY: Výuka angličtiny v malých skupinkách hrou a deskovkami. Josef Válek vyrostl v Austrálii, žije 25+ let v ČR a učí s autentickým přízvukem a úsměvem."}
 >
   <TinaIsland name="page" wrapper={islands.page.wrapper} primary>
     <PageContent page={page} />
   </TinaIsland>
 
-  {stickyCta.enabled !== false && <MobileStickyCTA ctaLink="#kontakt" ctaText={stickyCta.text} stickyCta={stickyCta} />}
-  <WhatsAppFloating
-    phone={contact.phone?.replace('+', '')}
-    message={contact.whatsappMessage}
-    tooltipText={contact.whatsappText}
-    contact={contact}
-  />
+  {stickyCta.enabled !== false && <MobileStickyCTA ctaLink={stickyCta.link || "#kontakt"} ctaText={stickyCta.text} stickyCta={stickyCta} />}
+  {whatsappWidget.enabled !== false && (
+    <WhatsAppFloating
+      phone={whatsappWidget.phone || contact.phone?.replace('+', '')}
+      message={whatsappWidget.message || contact.whatsappMessage}
+      tooltipText={whatsappWidget.tooltipText || contact.whatsappText}
+      badgeNotificationText={whatsappWidget.badgeNotificationText}
+      contact={contact}
+      whatsappWidget={whatsappWidget}
+    />
+  )}
   {import.meta.env.DEV && <VisualEditor />}
 </Layout>
