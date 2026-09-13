@@ -54,7 +54,7 @@ const defaultGrades = [
     title: "4.–6. třída ZŠ",
     age: "Věk 10–12 let",
     recommendedTitle: "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
-    recommendedDesc: "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Lektor Josef vede celou hru uvolněně s australským akcentem a na závěr v klidu česky dovysvětlí látku ze školy.",
+    recommendedDesc: "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Lektor Josef vede celou hru uvolněně s australským přízvukem a na závěr v klidu česky dovysvětlí látku ze školy.",
     recommendedGames: ["🎲 Karak & Dračí doupě", "🗣️ Story Cubes (Tvorba vět)", "🧩 Scrabble Junior"]
   },
   {
@@ -63,7 +63,7 @@ const defaultGrades = [
     title: "7.–9. třída ZŠ",
     age: "Věk 13–15 let",
     recommendedTitle: "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
-    recommendedDesc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým akcentem a připravujeme se na přijímačky na střední školy.",
+    recommendedDesc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým přízvukem a připravujeme se na přijímačky na střední školy.",
     recommendedGames: ["🏰 Carcassonne & Strategie", "🗣️ Debatní scénky z cest", "🎲 Codenames (Krycí jména)", "📐 Přijímačkové rébusy"]
   },
   {
@@ -222,7 +222,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
         </div>
 
         <p class="text-xs sm:text-sm text-espresso-900 leading-relaxed font-normal" id="res-group-desc" data-tina-field={defaultSelectedGrade ? tinaField(defaultSelectedGrade, 'recommendedDesc') : undefined} data-edit-key="groupMatcher.grades.1.recommendedDesc" data-edit-label="Doporučená skupinka popis">
-          {defaultSelectedGrade?.recommendedDesc || "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Lektor Josef vede celou hru uvolněně s australským akcentem a na závěr v klidu česky dovysvětlí látku ze školy."}
+          {defaultSelectedGrade?.recommendedDesc || "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Lektor Josef vede celou hru uvolněně s australským přízvukem a na závěr v klidu česky dovysvětlí látku ze školy."}
         </p>
 
         <!-- Recommended games badges -->
@@ -338,7 +338,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
     },
     '7-9': {
       title: "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
-      desc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým akcentem a připravujeme se na přijímačky na střední školy.",
+      desc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým přízvukem a připravujeme se na přijímačky na střední školy.",
       games: ["🏰 Carcassonne & Strategie", "🗣️ Debatní scénky z cest", "🎲 Codenames (Krycí jména)", "📐 Přijímačkové rébusy"],
       levelValue: "ZŠ 2. stupeň (7.–9. třída)"
     },
