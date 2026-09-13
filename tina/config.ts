@@ -1087,10 +1087,11 @@ export default defineConfig({
                 list: true,
                 ui: {
                   itemProps: (item) => ({
-                    label: item?.title || "Fotografie",
+                    label: `${item?.hidden ? '🚫 [SKRYTO] ' : '📸 '}${item?.title || "Fotografie"}`,
                   }),
                 },
                 fields: [
+                  { type: "boolean", name: "hidden", label: "🚫 Skrýt tento obrázek na webu?" },
                   { type: "image", name: "image", label: "Fotografie (soubor)", required: true },
                   { type: "string", name: "title", label: "Název / popisek fotky", required: true },
                   { type: "string", name: "description", label: "Podrobnější text / poznámka k fotce", ui: { component: "textarea" } },
