@@ -47,13 +47,13 @@
       "teacherTag": "Rodilý přízvuk & výuka hrou",
       "badgeText": "1. lekce\nZDARMA",
       "audio": {
-        "title": "Poslech Josefa (Australský přízvuk)",
+        "title": "Poslech pana Válka (Australský přízvuk)",
         "subtitlePrompt": "Klikněte pro přehrání",
         "phrases": [
           {
             "id": "gday",
             "buttonLabel": "🦘 „G'day mate!“",
-            "short": "G'day mate! I'm Josef.",
+            "short": "G'day mate! I'm Mr. Valek.",
             "en": "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
             "cz": "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!"
           },
@@ -106,7 +106,7 @@
     "enabled": true,
     "badge": "NABÍDKA VÝUKY",
     "title": "Hlavní zaměření: Výuka dětí hrou a konverzací v malých skupinkách",
-    "subtitle": "Aktuálně otevíráme registraci pro děti ZŠ na lekce angličtiny přímou konverzační metodou plnou deskovek, her a aktivit, a taktéž doučování předmětů v angličtině, např. matematika pro CERMAT přijímačky, přírodovědu-zeměpis, atp. \n\nOstatní programy pro středoškoláky a dospělé se připravují.",
+    "subtitle": "Aktuálně otevíráme registraci pro děti ZŠ na lekce angličtiny přímou konverzační metodou plnou deskovek, her a aktivit v malých skupinkách.\n\nOstatní programy pro středoškoláky a dospělé se připravují.",
     "cohortTabsLabel": "Vyberte ročník vašeho dítěte:",
     "gamesLabel": "Hry v této skupince:",
     "pointsLabel": "Co získáte:",
@@ -154,7 +154,7 @@
           "Aktivní mluvení v zápalu hry bez ostychu",
           "Příprava pevných základů pro druhý stupeň",
           "Pomoc s látkou ze školy, s testy a úkoly",
-          "Příprava na CERMAT přijímačky z matematiky na gymnázium"
+          "Příprava angličtiny pro přijímací zkoušky na víceletá gymnázia"
         ],
         "ctaText": "Přihlásit školáka na 1. lekci zdarma",
         "ctaLink": "#kontakt"
@@ -261,7 +261,7 @@
     "subtitle": "Výuka probíhá 100% osobně v doučovně v Uherském Hradišti (Růžová 1238). Žádné sezení u monitoru přes internet – deskovky, karty a přirozená konverzace naživo.",
     "rollingSystemBadge": "🔄 PLYNULÝ CELOROČNÍ SYSTÉM",
     "rollingSystemTitle": "Žádný začátek ani konec – do party se můžete přidat kdykoliv",
-    "rollingSystemText": "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Josef si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!",
+    "rollingSystemText": "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Pan Válek si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!",
     "ctaText": "Vybrat skupinku a rezervovat 1. lekci zdarma →",
     "groups": [
       {
@@ -507,10 +507,10 @@
     "individualBlock": {
       "enabled": true,
       "timeBadge": "Dopoledne dle domluvy",
-      "timeNote": "Individuální tempo",
+      "timeNote": "950 Kč / 60 min",
       "icon": "👤",
       "title": "Individuální výuka 1 na 1",
-      "subtitle": "Maximální flexibilita pro náročné cíle",
+      "subtitle": "950 Kč / 60 min • Maximální flexibilita pro náročné cíle",
       "desc": "Probíhá výhradně v dopoledních hodinách v klidu doučovny v Uherském Hradišti. Příprava na mezinárodní konference, pohovory v zahraničí nebo specifické požadavky.",
       "ctaText": "Poptat individuální výuku 1 na 1 →"
     }
@@ -545,7 +545,7 @@
       },
       {
         "name": "Konverzace pro dospělé a odborná angličtina",
-        "price": "450 Kč",
+        "price": "480 Kč",
         "period": "/ 90 min.",
         "description": "Vypilování výslovnosti a přízvuku, odbourání ostychu, konverzace na míru, skupiny zaměřené na specifické povolání, dopolední a večerní termíny",
         "isPopular": false,
@@ -562,7 +562,7 @@
       },
       {
         "name": "Středoškoláci & Maturita",
-        "price": "450 Kč",
+        "price": "480 Kč",
         "period": "/ 90 min.",
         "description": "Cílená příprava k maturitě a vysokoškolskému studiu, zejména aktivace mluvení a rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
         "isPopular": false,
@@ -602,6 +602,7 @@
       "title": "Spočítejte si slevu za předplatné a frekvenci",
       "subtitle": "Čím delší období a čím častěji dítě chodí, tím nižší je cena za lekci. Využijte pololetní balíček za 250 Kč/hod (jen cca 1 000 Kč měsíčně) nebo roční předplatné za pouhých 220 Kč/hod.",
       "basePrice": 320,
+      "basePriceTeens": 480,
       "ctaText": "Vyzkoušet 1. lekci zdarma s touto slevou →",
       "note": "🎁 1. ukázková lekce je vždy 100% ZDARMA. Platbu řešíte až po první hodině, když je dítě spokojené.",
       "step1Title": "Vyberte délku období (balíček):",
@@ -625,7 +626,7 @@
           "label": "3 měsíce",
           "periodDesc": "12 týdnů (čtvrtletí)",
           "badge": "280 Kč / h (3 360 Kč)",
-          "baseDiscount": 12,
+          "baseDiscount": 12.5,
           "popular": false,
           "bestValue": false
         },
@@ -661,7 +662,7 @@
           "freq": 2,
           "label": "2× týdně",
           "desc": "Rychlý pokrok & sazba 220 Kč",
-          "bonus": 5,
+          "bonus": 9,
           "badge": "Doporučeno (220 Kč/h)",
           "recommended": true
         },
@@ -669,7 +670,7 @@
           "freq": 3,
           "label": "3× týdně",
           "desc": "Intenzivní příprava & testy",
-          "bonus": 10,
+          "bonus": 9,
           "badge": "Max. intenzita",
           "recommended": false
         }
@@ -739,7 +740,7 @@
     "enabled": false,
     "badge": "Reference rodičů ze Slovácka",
     "title": "Co o doučování říkají rodiče z Uherského Hradiště a okolí?",
-    "subtitle": "Skutečné zkušenosti maminek, tatínků i studentů, kterým Josef pomohl odbourat strach z angličtiny a získat sebevědomí.",
+    "subtitle": "Skutečné zkušenosti maminek, tatínků i studentů, kterým pan Válek pomohl odbourat strach z angličtiny a získat sebevědomí.",
     "ratingScore": "5.0 / 5.0",
     "ratingNote": "25+ let lektorské praxe a 250+ spokojených dětí",
     "reviews": [
@@ -758,7 +759,7 @@
         "location": "Kunovice",
         "rating": 5,
         "highlight": "Konečně doučování, které není za trest",
-        "quote": "Hledali jsme doučování, které pro kluka nebude dalším sezením v lavici. Josefův australský přízvuk a výuka přes deskovky Karak a Scrabble je geniální koncept. Syn se na každé úterý vyloženě těší a z angličtiny je najednou jeho nejoblíbenější předmět.",
+        "quote": "Hledali jsme doučování, které pro kluka nebude dalším sezením v lavici. Australský přízvuk pana Válka a výuka přes deskovky Karak a Scrabble je geniální koncept. Syn se na každé úterý vyloženě těší a z angličtiny je najednou jeho nejoblíbenější předmět.",
         "avatarText": "MK"
       },
       {
@@ -767,7 +768,7 @@
         "location": "Staré Město",
         "rating": 5,
         "highlight": "Klidné vysvětlení látky v češtině & rodinná doučovna",
-        "quote": "Oceňuji přátelskou atmosféru v doučovně v Růžové ulici, malé skupinky po 4 dětech a klidný lidský přístup. Když syn něčemu ve škole nerozumí, Josef mu to trpělivě česky dovysvětlí. První ukázková hodina zdarma nás okamžitě přesvědčila.",
+        "quote": "Oceňuji přátelskou atmosféru v doučovně v Růžové ulici, malé skupinky po 4 dětech a klidný lidský přístup. Když syn něčemu ve škole nerozumí, pan Válek mu to trpělivě česky dovysvětlí. První ukázková hodina zdarma nás okamžitě přesvědčila.",
         "avatarText": "LV"
       },
       {
@@ -776,7 +777,7 @@
         "location": "Uherské Hradiště",
         "rating": 5,
         "highlight": "Úspěšné zvládnutí přijímacích zkoušek",
-        "quote": "Josef mi pomohl nejen s mluvením bez českého tvrdého přízvuku, ale i s testy k přijímačkám na gympl. Všechno vysvětluje logicky a v pohodě, žádný stres ze známkování. Na lekcích jsme se vždycky nasmáli.",
+        "quote": "Pan Válek mi pomohl nejen s mluvením bez českého tvrdého přízvuku, ale i s testy k přijímačkám na gympl. Všechno vysvětluje logicky a v pohodě, žádný stres ze známkování. Na lekcích jsme se vždycky nasmáli.",
         "avatarText": "DS"
       }
     ]
@@ -1207,7 +1208,7 @@
   "footer": {
     "brandName": "VALEK ACADEMY",
     "brandTagline": "Angličtina s Čechoaustralanem",
-    "description": "Trpělivá výuka angličtiny v malých skupinkách formou konverzací, deskových her a zajímavých aktivit. Josef vyrostl v Australii, vystudoval Business Administration & Marketing na RMIT University v Melbourne a učí s úsměvem a přirozeným přízvukem.",
+    "description": "Trpělivá výuka angličtiny v malých skupinkách formou konverzací, deskových her a zajímavých aktivit. Pan Válek vyrostl v Austrálii, vystudoval Business Administration & Marketing na RMIT University v Melbourne a učí s úsměvem a přirozeným přízvukem.",
     "locationNote": "📍 Valek Academy: Růžová 1238, Uherské Hradiště",
     "navTitle": "Rychlá navigace",
     "navLinks": [
@@ -1224,7 +1225,7 @@
         "href": "#metodika"
       },
       {
-        "label": "🦘 O Mr. Válek (RMIT Melbourne)",
+        "label": "🦘 O panu Válkovi (Mr. Válek, Melbourne)",
         "href": "#o-mne"
       },
       {
@@ -1262,8 +1263,8 @@
   "whatsappWidget": {
     "enabled": true,
     "phone": "420792372642",
-    "tooltipText": "Napsat Josefovi na WhatsApp →",
-    "message": "Dobrý den Josefe, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.",
+    "tooltipText": "Napsat panu Válkovi na WhatsApp →",
+    "message": "Dobrý den pane Válku, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.",
     "badgeNotificationText": "1"
   }
 }

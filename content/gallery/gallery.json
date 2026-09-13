@@ -11,18 +11,28 @@
       "description": "Příjemné rodinné prostředí na adrese Růžová 1238 v Uherském Hradišti (naproti ZŠ UNESCO).",
       "photos": [
         {
+          "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.02.jpeg",
+          "title": "Útulný herní stůl pro 4–8 dětí v doučovně na Růžové",
+          "description": "Prostorný dřevěný stůl u okna v naší učebně naproti ZŠ UNESCO v Uherském Hradišti. Děti se učí v uvolněné atmosféře u deskových her a bez pocitu školní lavice."
+        },
+        {
+          "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.58.jpeg",
+          "title": "Lektor Josef Válek u tabule a herní knihovny",
+          "description": "Pan Válek s didaktickými kartičkami a bohatou knihovnou originálních anglických deskovek v učebně v Uherském Hradišti."
+        },
+        {
           "image": "/images/doucovna-stul.webp",
-          "title": "Hlavní herní stůl v doučovně",
+          "title": "Hlavní herní stůl pro deskovky",
           "description": "Zde se odehrávají všechny napínavé partie. Děti sedí společně u stolu, komunikují tváří v tvář a přirozeně reagují v angličtině."
         },
         {
           "image": "/images/classroom-interior-sunlit.jpg",
           "title": "Slunná učebna v historickém centru UH",
-          "description": "Klidné a bezpečné zázemí s klenutými okny s výhledem na město. Místo, kde se nikdo nebojí udělat chybu."
+          "description": "Klidné a bezpečné zázemí s výhledem na město. Místo v centru Uherského Hradiště, kde se nikdo nebojí udělat chybu."
         },
         {
           "image": "/images/classroom-library.jpg",
-          "title": "Knihovna a studijní zázemí",
+          "title": "Knihovna a studijní zázemí v Uherském Hradišti",
           "description": "Poličky plné originálních anglických knížek, australských map a populárních deskovek pro děti i dospívající."
         }
       ]
@@ -69,7 +79,7 @@
         {
           "image": "/images/adults-conversation-group.jpg",
           "title": "Večerní klub pro dospělé a profesní skupiny",
-          "description": "Medici, právníci, inženýři i milovníci cestování u šálku čaje v přátelské debatě s rodilým přízvukem Josefa."
+          "description": "Medici, právníci, inženýři i milovníci cestování u šálku čaje v přátelské debatě s rodilým přízvukem pana Válka."
         }
       ]
     },

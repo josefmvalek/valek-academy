@@ -203,8 +203,28 @@ const pillars = pricing.pillars || defaultPillars;
       })}
     </div>
 
-    <!-- Interactive Package & Discount Calculator -->
-    <PackageCalculator calculator={pricing.calculator} phone={phone} />
+    <!-- Collapsible Interactive Package & Discount Calculator -->
+    <div class="mt-8 max-w-4xl mx-auto" id="pricing-calculator-wrapper">
+      <div class="text-center">
+        <button
+          type="button"
+          id="toggle-calculator-btn"
+          aria-expanded="false"
+          aria-controls="collapsible-calculator"
+          class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl font-heading font-black text-xs sm:text-sm bg-amber-100/90 hover:bg-amber-200 text-espresso-950 border-2 border-amber-400 shadow-2xs hover:shadow-md transition-all cursor-pointer group"
+        >
+          <span class="text-lg">🧮</span>
+          <span id="calculator-btn-text">Spočítat přesnou slevu pro vaše dítě v interaktivním kalkulátoru</span>
+          <span id="calculator-btn-icon" class="w-6 h-6 rounded-full bg-amber-300 group-hover:bg-amber-400 flex items-center justify-center font-bold text-xs transition-transform duration-300">
+            ▼
+          </span>
+        </button>
+      </div>
+
+      <div id="collapsible-calculator" class="hidden mt-6 transition-all duration-300">
+        <PackageCalculator calculator={pricing.calculator} phone={phone} />
+      </div>
+    </div>
 
     <!-- Fairness & Flexibility Pillars -->
     <div class="mt-10 sm:mt-14 max-w-4xl mx-auto space-y-5">
@@ -282,6 +302,29 @@ const pillars = pricing.pillars || defaultPillars;
         });
       });
     });
+    // Toggle Collapsible Calculator
+    const toggleBtn = document.getElementById('toggle-calculator-btn');
+    const calcContainer = document.getElementById('collapsible-calculator');
+    const btnText = document.getElementById('calculator-btn-text');
+    const btnIcon = document.getElementById('calculator-btn-icon');
+
+    if (toggleBtn && calcContainer) {
+      toggleBtn.addEventListener('click', () => {
+        const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          calcContainer.classList.add('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          if (btnText) btnText.textContent = 'Spočítat přesnou slevu pro vaše dítě v interaktivním kalkulátoru';
+          if (btnIcon) btnIcon.style.transform = 'rotate(0deg)';
+        } else {
+          calcContainer.classList.remove('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'true');
+          if (btnText) btnText.textContent = 'Skrýt kalkulátor slev';
+          if (btnIcon) btnIcon.style.transform = 'rotate(180deg)';
+          calcContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    }
   }
 
   document.addEventListener('DOMContentLoaded', initPricingTabs);

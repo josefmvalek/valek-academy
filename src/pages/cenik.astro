@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
+import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import PackageCalculator from '../components/PackageCalculator.astro';
 import VisualEditor from '../components/VisualEditor.astro';
 import { getHomePageData } from '../lib/data';
@@ -291,7 +292,7 @@ const seoDesc = "Kompletní ceník kurzů angličtiny pro děti i dospělé v Uh
             <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-2">
               <div class="flex items-baseline justify-between">
                 <span class="text-xs text-stone-600 font-medium">Sazba za hodinu:</span>
-                <span class="font-heading font-black text-xl text-espresso-950">650 Kč <span class="text-xs text-stone-500 font-normal">/ 60 min</span></span>
+                <span class="font-heading font-black text-xl text-espresso-950">950 Kč <span class="text-xs text-stone-500 font-normal">/ 60 min</span></span>
               </div>
               <div class="flex items-baseline justify-between text-emerald-900">
                 <span class="text-xs font-bold">Flexibilita:</span>
@@ -299,7 +300,7 @@ const seoDesc = "Kompletní ceník kurzů angličtiny pro děti i dospělé v Uh
               </div>
               <div class="text-[11px] text-stone-600 border-t border-emerald-200/60 pt-1.5 flex items-center gap-1.5 font-medium">
                 <span>⏰ Časové sloty:</span>
-                <strong>Výhradně dopolední hodiny (po dohodě s Josefem)</strong>
+                <strong>Výhradně dopolední hodiny (po dohodě s panem Válkem)</strong>
               </div>
             </div>
 
@@ -536,7 +537,7 @@ const seoDesc = "Kompletní ceník kurzů angličtiny pro děti i dospělé v Uh
             href="/#kontakt"
             class="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl font-heading font-bold text-sm text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-colors"
           >
-            <span>Napsat Josefovi zprávu</span>
+            <span>Napsat panu Válkovi zprávu</span>
           </a>
         </div>
       </div>
@@ -544,9 +545,10 @@ const seoDesc = "Kompletní ceník kurzů angličtiny pro děti i dospělé v Uh
     </div>
   </main>
 
+  <MobileStickyCTA ctaLink="/rozvrh#kontakt" ctaText="🎁 1. lekce 100% ZDARMA" />
   <WhatsAppFloating
     phone={contact.phone?.replace('+', '')}
-    message="Dobrý den Josefe, rád/a bych se zeptal/a na ceník a volná místa ve skupince na 1. lekci zdarma."
+    message="Dobrý den pane Válku, rád/a bych se zeptal/a na ceník a volná místa ve skupince na 1. lekci zdarma."
     tooltipText={contact.whatsappText}
     contact={contact}
   />

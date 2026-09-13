@@ -54,7 +54,7 @@ const defaultGrades = [
     title: "4.–6. třída ZŠ",
     age: "Věk 10–12 let",
     recommendedTitle: "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
-    recommendedDesc: "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Lektor Josef vede celou hru uvolněně s australským přízvukem a na závěr v klidu česky dovysvětlí látku ze školy.",
+    recommendedDesc: "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Pan Válek (Mr. Válek) vede celou hru uvolněně s australským přízvukem a na závěr v klidu česky dovysvětlí látku ze školy.",
     recommendedGames: ["🎲 Karak & Dračí doupě", "🗣️ Story Cubes (Tvorba vět)", "🧩 Scrabble Junior"]
   },
   {
@@ -222,7 +222,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
         </div>
 
         <p class="text-xs sm:text-sm text-espresso-900 leading-relaxed font-normal" id="res-group-desc" data-tina-field={defaultSelectedGrade ? tinaField(defaultSelectedGrade, 'recommendedDesc') : undefined} data-edit-key="groupMatcher.grades.1.recommendedDesc" data-edit-label="Doporučená skupinka popis">
-          {defaultSelectedGrade?.recommendedDesc || "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Lektor Josef vede celou hru uvolněně s australským přízvukem a na závěr v klidu česky dovysvětlí látku ze školy."}
+          {defaultSelectedGrade?.recommendedDesc || "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Pan Válek (Mr. Válek) vede celou hru uvolněně s australským přízvukem a na závěr v klidu česky dovysvětlí látku ze školy."}
         </p>
 
         <!-- Recommended games badges -->
@@ -247,7 +247,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
           </div>
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
             <a
-              href={`https://wa.me/${phone}?text=${encodeURIComponent("Dobrý den Josefe, rádi bychom se zeptali na volná místa ve skupince na 1. lekci zdarma.")}`}
+              href={`https://wa.me/${phone}?text=${encodeURIComponent("Dobrý den pane Válku, rádi bychom se zeptali na volná místa ve skupince na 1. lekci zdarma.")}`}
               id="matcher-wa-btn"
               target="_blank"
               rel="noopener noreferrer"
@@ -401,7 +401,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
     const goalText = goalMap[currentGoal] || "získat jistotu v angličtině";
 
     // Dynamic WhatsApp message with quiz answers
-    const waMessage = `Dobrý den Josefe, v průvodci na webu Valek Academy nám pro dítě vyšla skupinka: ${data.title}. Dítě nejvíce baví ${interestText} a rádi bychom pomohli: ${goalText}. Máte v této skupince volné místo na 1. ukázkovou lekci zdarma?`;
+    const waMessage = `Dobrý den pane Válku, v průvodci na webu Valek Academy nám pro dítě vyšla skupinka: ${data.title}. Dítě nejvíce baví ${interestText} a rádi bychom pomohli: ${goalText}. Máte v této skupince volné místo na 1. ukázkovou lekci zdarma?`;
     const waUrl = `https://wa.me/${phoneNum}?text=${encodeURIComponent(waMessage)}`;
 
     if (matcherWaBtn) {
@@ -455,7 +455,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
 
         const msgField = document.getElementById('message') as HTMLTextAreaElement | null;
         if (msgField) {
-          msgField.value = `Dobrý den Josefe, rádi bychom vyzkoušeli 1. lekci zdarma v doučovně. Máme zájem o: ${data.title}.\nDítě baví: ${interestText}.\nPotřebujeme pomoci: ${goalText}.`;
+          msgField.value = `Dobrý den pane Válku, rádi bychom vyzkoušeli 1. lekci zdarma v doučovně. Máme zájem o: ${data.title}.\nDítě baví: ${interestText}.\nPotřebujeme pomoci: ${goalText}.`;
         }
 
         // Highlight form card and focus name input

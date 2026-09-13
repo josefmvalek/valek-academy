@@ -24,14 +24,14 @@ interface Props {
 
 const { className = "", audio = {}, card = {} } = Astro.props;
 
-const title = audio.title || "Poslech Josefa (Australský přízvuk)";
+const title = audio.title || "Poslech pana Válka (Australský přízvuk)";
 const subtitlePrompt = audio.subtitlePrompt || "Klikněte pro přehrání";
 
 const defaultPhrases: Phrase[] = [
   {
     id: "gday",
     buttonLabel: "🦘 „G'day mate!“",
-    short: "G'day mate! I'm Josef.",
+    short: "G'day mate! I'm Mr. Valek.",
     en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
     cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
     duration: 10
@@ -113,7 +113,7 @@ phrases.forEach((p) => {
     <button
       id="audio-play-btn"
       type="button"
-      aria-label="Přehrát mluvenou ukázku Josefa s australským přízvukem"
+      aria-label="Přehrát mluvenou ukázku pana Válka s australským přízvukem"
       class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-b from-amber-300 to-amber-500 hover:from-amber-200 hover:to-amber-400 text-espresso-950 flex items-center justify-center shadow-gold-glow transition-all duration-300 hover:scale-105 active:scale-95 flex-shrink-0 cursor-pointer border border-amber-300 group-hover:border-white/50"
     >
       <!-- Play Icon -->
@@ -186,7 +186,7 @@ phrases.forEach((p) => {
     gday: {
       en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
       cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
-      short: "G'day mate! I'm Josef.",
+      short: "G'day mate! I'm Mr. Valek.",
       duration: 10
     },
     dice: {

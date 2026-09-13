@@ -40,7 +40,7 @@ const title = schedule.title || "Pravidelný týdenní rozvrh: Vyberte si svou z
 const subtitle = schedule.subtitle || "Výuka probíhá 100% osobně v doučovně v Uherském Hradišti (Růžová 1238). Žádné sezení u monitoru přes internet – deskovky, karty a přirozená konverzace naživo.";
 const rollingSystemBadge = schedule.rollingSystemBadge || "🔄 PLYNULÝ CELOROČNÍ SYSTÉM";
 const rollingSystemTitle = schedule.rollingSystemTitle || "Žádný začátek ani konec – do party se můžete přidat kdykoliv";
-const rollingSystemText = schedule.rollingSystemText || "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Josef si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!";
+const rollingSystemText = schedule.rollingSystemText || "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Pan Válek si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!";
 
 const whyInPersonIcon = schedule.whyInPersonIcon || "🎲";
 const whyInPersonTitle = schedule.whyInPersonTitle || "Proč učíme 100% naživo v doučovně a ne přes internet?";
@@ -489,7 +489,7 @@ function getCapacityInfo(group: GroupItem) {
                 <span class="px-2.5 py-1 rounded-xl bg-purple-100 border border-purple-300 text-purple-950 text-xs font-black" data-tina-field={tinaField(individualBlock, 'timeBadge')}>
                   {individualBlock.timeBadge || "Dopoledne dle domluvy"}
                 </span>
-                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(individualBlock, 'timeNote')}>{individualBlock.timeNote || "Individuální tempo"}</span>
+                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(individualBlock, 'timeNote')}>{individualBlock.timeNote || "950 Kč / 60 min"}</span>
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-3xl" data-tina-field={tinaField(individualBlock, 'icon')}>{individualBlock.icon || "👤"}</span>

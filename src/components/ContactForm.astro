@@ -42,7 +42,7 @@ const { contact = {} } = Astro.props;
 const formBadge = contact.formBadge || "🎁 1. LEKCE 100% ZDARMA";
 const formBadgeNote = contact.formBadgeNote || "Nezávazná přihláška";
 const formTitle = contact.formTitle || "Rezervace ukázkové lekce hrou";
-const formSubtitle = contact.formSubtitle || "Vyplňte krátký formulář a Josef se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.";
+const formSubtitle = contact.formSubtitle || "Vyplňte krátký formulář a pan Válek se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.";
 const submitButtonText = contact.submitButtonText || "🎁 Rezervovat 1. lekci ZDARMA";
 const securityNote = contact.securityNote || "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí. Odesláním berete na vědomí zpracování údajů pro domluvu lekce.";
 const phoneFormatted = contact.phoneFormatted || "+420 792 372 642";
@@ -61,7 +61,7 @@ const daysTimeNote = contact.daysTimeNote || "Čas 14:00–18:00 přizpůsobujem
 const messageLabel = contact.messageLabel || "Poznámka / S čím potřebujete pomoci?";
 const stepsTitle = contact.stepsTitle || "Co se stane po odeslání?";
 const step1Text = contact.step1Text || "Odešlete nezávaznou poptávku (1 min)";
-const step2Text = contact.step2Text || "Josef se vám do 24 h ozve s volnými časy";
+const step2Text = contact.step2Text || "Pan Válek se vám do 24 h ozve s volnými časy";
 const step3Text = contact.step3Text || "Dítě si přijde nezávazně zahrát 1. lekci zdarma";
 
 const selectedGroupCalloutTitle = contact.selectedGroupCalloutTitle || "🎯 Vybraná zvířecí skupinka z rozvrhu";
@@ -314,15 +314,15 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
 
       <!-- Místo výuky: 100% osobně v UH -->
       <input type="hidden" name="forma" value="Osobně v doučovně (Uherské Hradiště, Růžová 1238)" />
-      <div class="p-3.5 sm:p-4 rounded-2xl bg-amber-50/90 border-2 border-amber-300 shadow-2xs flex items-center justify-between gap-3 text-xs">
+      <div class="p-3.5 sm:p-4 rounded-2xl bg-amber-50/90 border-2 border-amber-300 shadow-2xs flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 sm:gap-3 text-xs">
         <div class="flex items-center gap-2.5 text-espresso-950 font-bold min-w-0">
           <span class="w-8 h-8 rounded-xl bg-amber-200 text-espresso-950 flex items-center justify-center text-lg flex-shrink-0 border border-amber-300">🏡</span>
           <div class="min-w-0">
             <span class="block text-[10px] font-black uppercase tracking-wider text-amber-900">Místo výuky</span>
-            <span class="text-xs sm:text-sm text-espresso-950 truncate">Osobně v doučovně (Růžová 1238, Uherské Hradiště – naproti ZŠ UNESCO)</span>
+            <span class="text-xs sm:text-sm text-espresso-950 font-bold">Doučovna Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO)</span>
           </div>
         </div>
-        <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs flex-shrink-0">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs flex-shrink-0 whitespace-nowrap">
           100% naživo
         </span>
       </div>
@@ -901,6 +901,47 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       });
     });
 
+    // Sync custom dropdown when select value is changed externally (e.g. from GroupMatcher or Schedule)
+    selectEl.addEventListener('change', () => {
+      const currentVal = selectEl.value;
+      const matchedOpt = Array.from(options).find(o => o.dataset.value === currentVal);
+      if (matchedOpt) {
+        const icon = matchedOpt.dataset.icon || '';
+        const title = matchedOpt.dataset.title || '';
+        const badge = matchedOpt.dataset.badge || '';
+        const badgeClass = matchedOpt.dataset.badgeClass || '';
+        const desc = matchedOpt.dataset.desc || '';
+
+        if (iconEl) iconEl.textContent = icon;
+        if (titleEl) titleEl.textContent = title;
+        if (badgeEl) {
+          if (badge) {
+            badgeEl.textContent = badge;
+            badgeEl.className = `px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${badgeClass}`;
+            badgeEl.classList.remove('hidden');
+          } else {
+            badgeEl.classList.add('hidden');
+          }
+        }
+        if (descEl) descEl.textContent = desc;
+
+        options.forEach((o: HTMLElement) => {
+          const isMatch = o === matchedOpt;
+          o.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+          const check = o.querySelector('.option-check');
+          if (isMatch) {
+            o.classList.add('border-amber-500', 'bg-amber-50/90', 'shadow-2xs');
+            o.classList.remove('border-transparent');
+            check?.classList.remove('hidden');
+          } else {
+            o.classList.remove('border-amber-500', 'bg-amber-50/90', 'shadow-2xs');
+            o.classList.add('border-transparent');
+            check?.classList.add('hidden');
+          }
+        });
+      }
+    });
+
     document.addEventListener('click', (e: MouseEvent) => {
       if (isOpen && !container?.contains(e.target as Node)) {
         closeMenu();
@@ -1151,6 +1192,28 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       selectedDays.clear();
       selectedDays.add(detail.day);
       updateDaysState();
+    }
+
+    // Automatically synchronize corresponding grade level in Level dropdown
+    if (detail.cohort) {
+      let targetLevel = '';
+      if (detail.cohort.includes('1.–3') || detail.cohort.includes('1-3')) {
+        targetLevel = 'ZŠ 1. stupeň (1.–3. třída)';
+      } else if (detail.cohort.includes('4.–6') || detail.cohort.includes('4-6')) {
+        targetLevel = 'ZŠ 2. stupeň (4.–6. třída)';
+      } else if (detail.cohort.includes('7.–9') || detail.cohort.includes('7-9')) {
+        targetLevel = 'ZŠ 2. stupeň (7.–9. třída)';
+      } else if (detail.cohort.includes('13') || detail.cohort.includes('Maturita') || detail.cohort.includes('7.–13')) {
+        targetLevel = 'Střední škola / Maturita';
+      }
+
+      if (targetLevel) {
+        const levelSelect = document.getElementById('level') as HTMLSelectElement | null;
+        if (levelSelect) {
+          levelSelect.value = targetLevel;
+          levelSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
     }
 
     // Update CTA button text if waiting list
