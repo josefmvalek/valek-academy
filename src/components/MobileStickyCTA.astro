@@ -2,85 +2,76 @@
 import { tinaField } from '@tinacms/astro/tina-field';
 
 interface Props {
-  ctaLink?: string;
   ctaText?: string;
-  stickyCta?: {
-    text?: string;
-    buttonText?: string;
-  };
+  ctaLink?: string;
+  stickyCta?: any;
 }
 
 const {
+  ctaText = "🎁 1. ukázková lekce 100% ZDARMA",
   ctaLink = "#kontakt",
-  ctaText = "1. lekce zdarma pro děti",
   stickyCta = {}
 } = Astro.props;
 
-const text = stickyCta.text || ctaText;
-const buttonText = stickyCta.buttonText || "Zarezervovat";
+const text = stickyCta.text || ctaText || "🎁 1. ukázková lekce 100% ZDARMA";
+const link = stickyCta.link || ctaLink || "#kontakt";
 ---
 
-<div
+<!-- Floating Bottom Bar for Mobile Devices -->
+<aside
   id="mobile-sticky-cta"
-  class="md:hidden fixed bottom-0 inset-x-0 z-40 p-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom,0px))] bg-parchment-50/95 backdrop-blur-md border-t border-parchment-300 shadow-2xl transition-all duration-300 translate-y-full opacity-0 pointer-events-none"
-  aria-label="Rychlá rezervace 1. lekce zdarma"
+  class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#FAF7F2]/95 backdrop-blur-md border-t border-parchment-300 shadow-card-lift px-4 py-3 transition-transform duration-300 translate-y-0"
+  aria-label="Rychlá akce: Rezervace lekce zdarma"
 >
-  <div class="max-w-md mx-auto flex items-center gap-2">
+  <div class="max-w-md mx-auto flex items-center justify-between gap-3">
     <a
-      href={ctaLink}
-      class="w-full py-3 px-4 rounded-xl font-display font-extrabold text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 active:from-amber-400 active:to-amber-500 border border-amber-500 shadow-md flex items-center justify-between transition-transform active:scale-[0.98]"
+      href={link}
+      id="mobile-sticky-cta-btn"
+      class="btn-gold-pulse w-full py-3 px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md flex items-center justify-center gap-2 text-center active:scale-[0.98] transition-transform"
+      data-tina-field={stickyCta ? tinaField(stickyCta, 'text') : undefined}
     >
-      <div class="flex items-center gap-2">
-        <span class="text-base">🎁</span>
-        <span data-tina-field={tinaField(stickyCta, 'text')} data-edit-key="stickyCta.text" data-edit-label="Mobilní lišta text">{text}</span>
-      </div>
-      <div class="flex items-center gap-1 text-xs font-black uppercase tracking-wider bg-espresso-950 text-amber-300 px-2.5 py-1 rounded-lg">
-        <span data-tina-field={tinaField(stickyCta, 'buttonText')} data-edit-key="stickyCta.buttonText" data-edit-label="Mobilní lišta tlačítko">{buttonText}</span>
-        <span>→</span>
-      </div>
+      <span data-edit-key="stickyCta.text" data-edit-label="Mobilní lišta text">{text}</span>
+      <span class="font-black text-espresso-950">→</span>
     </a>
   </div>
-</div>
+</aside>
 
 <script>
-  const stickyCta = document.getElementById('mobile-sticky-cta');
-  const contactSection = document.getElementById('kontakt');
+  function initMobileStickyCta() {
+    const bar = document.getElementById('mobile-sticky-cta');
+    const contactSection = document.getElementById('kontakt');
 
-  let isContactVisible = false;
-  let isTicking = false;
+    if (!bar || !contactSection) return;
 
-  if (contactSection && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        isContactVisible = entry.isIntersecting;
-        scheduleUpdate();
+    // Smooth scroll handler
+    const btn = document.getElementById('mobile-sticky-cta-btn');
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        const href = btn.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
       });
-    }, { threshold: 0.05 });
+    }
+
+    // Auto-hide when user is already at the contact form
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          bar.classList.add('translate-y-full');
+        } else {
+          bar.classList.remove('translate-y-full');
+        }
+      });
+    }, { threshold: 0.15 });
+
     observer.observe(contactSection);
   }
 
-  function applyVisibility() {
-    if (!stickyCta) return;
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-    const shouldShow = scrollY > 350 && !isContactVisible;
-
-    if (shouldShow) {
-      stickyCta.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
-      stickyCta.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
-    } else {
-      stickyCta.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
-      stickyCta.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
-    }
-    isTicking = false;
-  }
-
-  function scheduleUpdate() {
-    if (!isTicking) {
-      isTicking = true;
-      requestAnimationFrame(applyVisibility);
-    }
-  }
-
-  window.addEventListener('scroll', scheduleUpdate, { passive: true });
-  scheduleUpdate();
+  document.addEventListener('DOMContentLoaded', initMobileStickyCta);
+  document.addEventListener('astro:page-load', initMobileStickyCta);
 </script>

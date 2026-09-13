@@ -66,7 +66,7 @@ const gallerySubtitle = locationInfo.gallerySubtitle || "Klidné, čisté a rodi
 const fullGalleryButtonText = locationInfo.fullGalleryButtonText || "📸 Celá fotogalerie →";
 const galleryCtaBannerTitle = locationInfo.galleryCtaBannerTitle || "Chcete vidět více z naší herny, výuky a deskových her?";
 const galleryCtaBannerDesc = locationInfo.galleryCtaBannerDesc || "Prozkoumejte velkou fotogalerii s detailními kategoriemi a popisky.";
-const galleryCtaBannerButton = locationInfo.galleryCtaBannerButton || "Otevřít velkou fotogalerii →";
+const galleryCtaBannerButton = locationInfo.galleryCtaBannerButton || "Otevřít velkou fotogalerii";
 const melbourneTag = about.melbourneTag || "Vyrůstal v Melbourne, Austrálie 🇦🇺";
 
 const badge = about.badge || "PŘÍBĚH LEKTORA";
@@ -328,7 +328,7 @@ const credentials = about.credentials || defaultCredentials;
           class="btn-gold-pulse inline-flex items-center justify-center gap-2.5 py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 text-espresso-950 font-heading font-black text-sm sm:text-base border border-amber-500 shadow-md hover:scale-105 transition-all whitespace-nowrap flex-shrink-0"
           data-tina-field={tinaField(locationInfo, 'galleryCtaBannerButton')}
         >
-          <span>{galleryCtaBannerButton}</span>
+          <span>{galleryCtaBannerButton.replace(/→\s*$/, '').trim()}</span>
           <span class="font-black">→</span>
         </a>
       </div>

@@ -49,34 +49,38 @@ const footer = page.footer || {};
   <!-- 1. Hook & Introduction: Melbourne background, audio sample, dual badges, 1st lesson FREE CTA -->
   <Hero hero={hero} />
 
-  <!-- 2. Cohorts & Programs: 3 tailored primary school cohorts + Schedule Blocks -->
+  <!-- 2. Cohorts & Programs: 3 tailored primary school cohorts -->
   {audience.enabled !== false && <AudienceSegments audience={audience} />}
-  <ScheduleBlocks schedule={page.schedule} />
 
-  <!-- 3. Transparency & Value: 320 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
+  <!-- 3. Methodology & Game Lesson: Karak, Scrabble, Story Cubes, Dixit & live phrases -->
+  {howItWorks.enabled !== false && <HowGameLessonWorks howItWorks={howItWorks} />}
+
+  <!-- 4. 60-Minute Lesson Timeline: 4 phases from warm-up to school homework -->
+  {timeline.enabled !== false && <LessonTimeline timeline={timeline} />}
+
+  <!-- 5. The Teacher & Doučovna: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
+  {about.enabled !== false && <About about={about} locationInfo={locationInfo} />}
+
+  <!-- 6. Transparency & Value: 320 Kč pricing + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
   {pricing.enabled !== false && <Pricing pricing={pricing} phone={contact.phone?.replace('+', '') || '420792372642'} />}
   {comparison.enabled !== false && <ComparisonTable comparison={comparison} />}
 
-  <!-- 4. Methodology & Game Lesson Flow: Karak, Scrabble, Story Cubes, Dixit + 60-minute structured flow -->
-  {howItWorks.enabled !== false && <HowGameLessonWorks howItWorks={howItWorks} />}
-  {timeline.enabled !== false && <LessonTimeline timeline={timeline} />}
+  <!-- 7. Weekly Schedule: Animal groups timetable with cohort quick-filter -->
+  <ScheduleBlocks schedule={page.schedule} />
 
-  <!-- 5. The Teacher & Classroom: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
-  {about.enabled !== false && <About about={about} locationInfo={locationInfo} />}
-
-  <!-- 6. Social Proof: Real local reviews from parents in Uherské Hradiště, Staré Město and Kunovice -->
+  <!-- 8. Social Proof (Disabled by default, toggleable in CMS) -->
   {testimonials.enabled !== false && <Testimonials testimonials={testimonials} />}
 
-  <!-- 7. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
+  <!-- 9. Interactive 3-Step Matcher: Recommends the ideal group and auto-fills the contact reservation form -->
   {groupMatcher.enabled !== false && <GroupMatcher groupMatcher={groupMatcher} phone={contact.phone?.replace('+', '') || '420792372642'} />}
 
-  <!-- 7b. SCIO Prep (Disabled by default, toggleable in CMS) -->
+  <!-- 9b. SCIO Prep (Disabled by default, toggleable in CMS) -->
   {scio.enabled === true && <ScioSection scio={scio} />}
 
-  <!-- 8. Answers & Overcoming Objections: Semantic FAQ Accordion -->
+  <!-- 10. Answers & Overcoming Objections: Semantic FAQ Accordion -->
   {faq.enabled !== false && <FAQ faq={faq} />}
 
-  <!-- 9. Primary Conversion: Reservation form with format selector (Osobně v UH / Online) & Location Details -->
+  <!-- 11. Primary Conversion: Reservation form & Location Details -->
   {contact.enabled !== false && <Contact contact={contact} locationInfo={locationInfo} />}
 </main>
 

@@ -13,7 +13,6 @@ interface Props {
     gamesSubtitle?: string;
     phrasesLabel?: string;
     gameSpotlights?: any[];
-    steps?: any[];
     poster?: {
       tag?: string;
       title?: string;
@@ -72,30 +71,6 @@ const defaultGameSpotlights = [
   }
 ];
 
-const defaultSteps = [
-  {
-    step: "1",
-    icon: "🎲",
-    badge: "1. Krok: Začátek lekce (0–15 min)",
-    title: "Zahřátí hrou & odbourání ostychu",
-    desc: "Rychlá deskovka nebo karetní hra na prolomení ledů. Děti okamžitě zapomenou na trému a začnou komunikovat."
-  },
-  {
-    step: "2",
-    icon: "🗣️",
-    badge: "2. Krok: Průběh (15–45 min)",
-    title: "Živá konverzace & australský akcent",
-    desc: "V zápalu hry dítě reaguje v angličtině automaticky. Osvojuje si přirozený rytmus řeči, správnou intonaci a výslovnost bez zbytečného přemýšlení o poučkách."
-  },
-  {
-    step: "3",
-    icon: "🎒",
-    badge: "3. Krok: Výsledek (45–60 min)",
-    title: "Propojení se školou & jistota",
-    desc: "Co se ve škole zdálo složité, najednou dává smysl. Pomůžeme s úkoly, dovysvětlíme látku v češtině a dítě do školy odchází sebevědomé a s lepšími známkami."
-  }
-];
-
 const badge = howItWorks.badge || "Metodika výuky hrou v malých skupinkách";
 const title = howItWorks.title || "Jak deskovky a hry ve skupince pomáhají dětem mluvit anglicky?";
 const subtitle = howItWorks.subtitle || "V partě vrstevníků vzniká přirozená soutěživost a smích. Dítě ztrácí ostych a jazyk si osvojí stejně přirozeně jako mateřštinu.";
@@ -104,7 +79,6 @@ const gamesTitle = howItWorks.gamesTitle || "Jaké hry s dětmi hrajeme a co roz
 const gamesSubtitle = howItWorks.gamesSubtitle || "Hry vybíráme individuálně podle věku dětí a jejich zájmů.";
 const phrasesLabel = howItWorks.phrasesLabel || "Reálné věty, které děti v zápalu hry používají:";
 const gameSpotlights = howItWorks.gameSpotlights || defaultGameSpotlights;
-const steps = howItWorks.steps || defaultSteps;
 
 const poster = howItWorks.poster || {
   tag: "Atmosféra naší doučovny v Uherském Hradišti",
@@ -214,44 +188,6 @@ const poster = howItWorks.poster || {
         </div>
       ))}
     </div>
-  </div>
-
-  <!-- 3 Steps Breakdown -->
-  <div class="grid md:grid-cols-3 gap-4 sm:gap-6 relative pt-4">
-    {steps.map((item, idx) => (
-      <div
-        data-tina-field={tinaField(howItWorks, 'steps', idx)}
-        class="bg-white rounded-2xl p-5 sm:p-6 border-2 border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all duration-300 relative group flex flex-col justify-between"
-      >
-        <div class="space-y-3.5">
-          <!-- Step Badge & Icon -->
-          <div class="flex items-center justify-between">
-            <span class="w-12 h-12 rounded-xl bg-amber-100 text-amber-950 flex items-center justify-center text-2xl font-heading font-black group-hover:scale-110 transition-transform shadow-2xs">
-              {item.icon}
-            </span>
-            <span class="text-[11px] font-black uppercase tracking-wider text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full" data-tina-field={tinaField(item, 'badge')} data-edit-key={`howItWorks.steps.${idx}.badge`} data-edit-label="Štítek kroku">
-              {item.badge}
-            </span>
-          </div>
-
-          <!-- Title & Description -->
-          <div>
-            <h4 class="font-heading font-bold text-lg text-espresso-950 leading-snug" data-tina-field={tinaField(item, 'title')} data-edit-key={`howItWorks.steps.${idx}.title`} data-edit-label="Název kroku">
-              {item.title}
-            </h4>
-            <p class="text-espresso-800/80 text-xs sm:text-sm mt-2 leading-relaxed font-normal" data-tina-field={tinaField(item, 'desc')} data-edit-key={`howItWorks.steps.${idx}.desc`} data-edit-label="Popis kroku">
-              {item.desc}
-            </p>
-          </div>
-        </div>
-
-        <div class="pt-4 mt-4 border-t border-parchment-200 text-xs font-bold text-amber-900 flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-          <span>Žádné zkoušení u tabule</span>
-        </div>
-
-      </div>
-    ))}
   </div>
 
     </div>
