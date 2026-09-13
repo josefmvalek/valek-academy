@@ -1034,7 +1034,12 @@ export default defineConfig({
         path: "content/gallery",
         format: "json",
         ui: {
-          router: () => "/galerie",
+          router: ({ document }) => {
+            if (document._sys.filename === "gallery") {
+              return "/galerie";
+            }
+            return undefined;
+          },
         },
         fields: [
           {

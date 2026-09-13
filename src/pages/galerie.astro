@@ -7,7 +7,9 @@ import Footer from '../components/Footer.astro';
 import GalleryView from '../components/GalleryView.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
 import VisualEditor from '../components/VisualEditor.astro';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import { getHomePageData, getGalleryDataQuery } from '../lib/data';
+import { islands } from '../lib/islands';
 
 const page = await getHomePageData();
 const navbar = page?.navbar || {};
@@ -34,7 +36,9 @@ const description = gallery.subtitle || "Nahlédněte do doučovny Josefa Válka
   />
 
   <main class="flex-grow w-full max-w-full min-w-0">
-    <GalleryView gallery={gallery} />
+    <TinaIsland name="gallery" wrapper={islands.gallery.wrapper} primary>
+      <GalleryView gallery={gallery} />
+    </TinaIsland>
   </main>
 
   <WhatsAppFloating

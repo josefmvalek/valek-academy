@@ -1,9 +1,10 @@
 import type { IslandRegistry } from '@tinacms/astro/experimental';
 import type { QueryResult } from '@tinacms/astro/data';
-import type { PageQuery, LegalQuery } from '../../tina/__generated__/types';
+import type { PageQuery, LegalQuery, GalleryQuery } from '../../tina/__generated__/types';
 import PageContent from '../components/PageContent.astro';
 import LegalContent from '../components/LegalContent.astro';
-import { getHomePageDataQuery, getLegalPageDataQuery } from './data';
+import GalleryView from '../components/GalleryView.astro';
+import { getHomePageDataQuery, getLegalPageDataQuery, getGalleryDataQuery } from './data';
 
 export const islands: IslandRegistry = {
   page: {
@@ -12,6 +13,14 @@ export const islands: IslandRegistry = {
     wrapper: { tag: 'div', className: 'flex flex-col flex-grow min-h-screen w-full max-w-full min-w-0' },
     propsFromData: (data) => ({
       page: (data as QueryResult<PageQuery>).data?.page,
+    }),
+  },
+  gallery: {
+    fetch: () => getGalleryDataQuery(),
+    component: GalleryView,
+    wrapper: { tag: 'div', className: 'flex flex-col flex-grow w-full max-w-full min-w-0' },
+    propsFromData: (data) => ({
+      gallery: (data as QueryResult<GalleryQuery>).data?.gallery,
     }),
   },
   privacy: {
