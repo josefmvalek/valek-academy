@@ -41,7 +41,6 @@ const subtitle = schedule.subtitle || "Výuka probíhá 100% osobně v doučovn�
 const rollingSystemBadge = schedule.rollingSystemBadge || "🔄 PLYNULÝ CELOROČNÍ SYSTÉM";
 const rollingSystemTitle = schedule.rollingSystemTitle || "Žádný začátek ani konec – do party se můžete přidat kdykoliv";
 const rollingSystemText = schedule.rollingSystemText || "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Josef si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!";
-const ctaText = schedule.ctaText || "Vybrat skupinku a rezervovat 1. lekci zdarma →";
 
 const whyInPersonIcon = schedule.whyInPersonIcon || "🎲";
 const whyInPersonTitle = schedule.whyInPersonTitle || "Proč učíme 100% naživo v doučovně a ne přes internet?";
@@ -473,7 +472,7 @@ function getCapacityInfo(group: GroupItem) {
           class="btn-gold-pulse group w-full sm:w-auto inline-flex items-center justify-center gap-3 py-4 sm:py-5 px-6 sm:px-10 rounded-2xl font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border-2 border-amber-500 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
           <span class="text-2xl group-hover:scale-110 transition-transform">📅</span>
-          <span>Otevřít velký rozvrh hodin & online rezervaci skupinek</span>
+          <span>Otevřít velký rozvrh hodin & rezervaci místa ve skupince</span>
           <span class="group-hover:translate-x-1.5 transition-transform font-black">→</span>
         </a>
         <div class="flex items-center justify-center gap-4 text-xs text-stone-500 font-medium flex-wrap">
@@ -567,6 +566,11 @@ function getCapacityInfo(group: GroupItem) {
             status: 'open'
           }
         }));
+
+        const contactSection = document.getElementById('kontakt');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
   }
