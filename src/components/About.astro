@@ -165,7 +165,7 @@ const credentials = about.credentials || defaultCredentials;
 
         <div class="pt-2 flex flex-wrap items-center gap-4">
           <a href="#kontakt" class="inline-flex items-center gap-2 font-heading font-black text-amber-900 hover:text-amber-700 transition-colors group text-sm" data-tina-field={tinaField(about, 'ctaText')} data-edit-key="about.ctaText" data-edit-label="Odkaz na 1. lekci">
-            <span>{ctaText}</span>
+            <span>{ctaText.replace(/→\s*$/, '').trim()}</span>
             <span class="group-hover:translate-x-1.5 transition-transform">→</span>
           </a>
           <span class="text-stone-300 hidden sm:inline">•</span>

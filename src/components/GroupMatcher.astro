@@ -36,7 +36,7 @@ const availabilityBadge = groupMatcher.availabilityBadge || "Volná místa pro z
 const gamesLabel = groupMatcher.gamesLabel || "🎮 Vybrané hry pro tuto skupinku:";
 const guaranteeText = groupMatcher.guaranteeText || "1. lekce v této skupince je 100% ZDARMA (Růžová 1238, Uherské Hradiště)";
 const whatsappText = groupMatcher.whatsappText || "Napsat na WhatsApp";
-const ctaText = groupMatcher.ctaText || "Přihlásit se do této skupinky →";
+const ctaText = groupMatcher.ctaText || "Přihlásit se do této skupinky";
 
 const defaultGrades = [
   {
@@ -266,10 +266,10 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
               data-tina-field={tinaField(groupMatcher, 'ctaText')}
               data-edit-key="groupMatcher.ctaText"
               data-edit-label="Tlačítko rozřazovače"
-              class="btn-gold-pulse w-full sm:w-auto px-6 py-3.5 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 text-center cursor-pointer flex items-center justify-center gap-2"
+              class="btn-gold-pulse w-full sm:w-auto px-6 py-3.5 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 text-center cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap"
             >
-              <span>{ctaText}</span>
-              <span>→</span>
+              <span>{ctaText.replace(/→\s*$/, '').trim()}</span>
+              <span class="font-black">→</span>
             </a>
           </div>
         </div>

@@ -270,7 +270,7 @@ const waitingList = audience.waitingList || {
               data-tina-field={tinaField(prog, 'ctaText')}
               class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-500 border border-amber-500 shadow-xs hover:shadow-md transition-all text-center cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText}</span>
+              <span data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText?.replace(/→\s*$/, '').trim()}</span>
               <span>→</span>
             </a>
             <div class="text-center mt-2 text-[11px] font-bold text-amber-900" data-tina-field={tinaField(audience as any, 'guaranteeLabel')}>
