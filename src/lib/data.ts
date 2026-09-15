@@ -5,11 +5,13 @@ import privacyContent from '../../content/legal/privacy.json';
 import termsContent from '../../content/legal/terms.json';
 import galleryContent from '../../content/gallery/gallery.json';
 import cenikContent from '../../content/pricing/cenik.json';
+import rozvrhContent from '../../content/schedule/rozvrh.json';
 
 export type PageData = typeof homeContent;
 export type LegalData = typeof privacyContent;
 export type GalleryData = typeof galleryContent;
 export type CenikData = typeof cenikContent;
+export type SchedulePageData = typeof rozvrhContent;
 
 /**
  * Načte data domovské stránky pomocí Tina clienta zabaleného do requestWithMetadata.
@@ -114,5 +116,30 @@ export async function getPricingPageData(): Promise<CenikData> {
   const result = await getPricingPageDataQuery();
   return ((result?.data as any)?.cenik || cenikContent) as CenikData;
 }
+
+/**
+ * Načte data stránky rozvrhu pomocí Tina clienta zabaleného do requestWithMetadata.
+ */
+export async function getSchedulePageDataQuery() {
+  try {
+    return await requestWithMetadata(
+      (client.queries as any).rozvrh({ relativePath: 'rozvrh.json' }),
+      { priority: 'primary' }
+    );
+  } catch (e) {
+    return {
+      data: { rozvrh: rozvrhContent as any },
+      query: '',
+      variables: { relativePath: 'rozvrh.json' },
+      id: 'rozvrh',
+    };
+  }
+}
+
+export async function getSchedulePageData(): Promise<SchedulePageData> {
+  const result = await getSchedulePageDataQuery();
+  return ((result?.data as any)?.rozvrh || rozvrhContent) as SchedulePageData;
+}
+
 
 

@@ -1,0 +1,65 @@
+---
+import { tinaField } from '@tinacms/astro/tina-field';
+import ScheduleBlocks from './ScheduleBlocks.astro';
+import ContactForm from './ContactForm.astro';
+import ContactInfoCard from './ContactInfoCard.astro';
+
+interface Props {
+  rozvrh?: {
+    title?: string;
+    backLinkText?: string;
+    schedule?: any;
+    reservation?: {
+      badge?: string;
+      title?: string;
+      subtitle?: string;
+    };
+    [key: string]: any;
+  };
+  contact?: any;
+}
+
+const { rozvrh = {}, contact = {} } = Astro.props;
+
+const backLinkText = rozvrh.backLinkText || "Zpět na hlavní stránku";
+const schedule = rozvrh.schedule || {};
+const reservation = rozvrh.reservation || {};
+---
+
+<div>
+  <!-- Top Breadcrumb Bar -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+    <a href="/" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-stone-600 hover:text-amber-900 transition-colors group">
+      <span class="group-hover:-translate-x-1 transition-transform">←</span>
+      <span data-tina-field={tinaField(rozvrh, 'backLinkText')}>{backLinkText}</span>
+    </a>
+  </div>
+
+  <!-- Main Schedule Component -->
+  <ScheduleBlocks schedule={schedule} />
+
+  <!-- Dedicated Reservation Section on the same page -->
+  <section id="kontakt" class="py-12 sm:py-16 bg-white border-t border-parchment-300 relative" data-tina-field={tinaField(rozvrh, 'reservation')}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mx-auto text-center space-y-2 mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(reservation, 'badge')}>
+          <span>📝</span>
+          <span>{reservation.badge || "OBJEDNÁNÍ & REZERVACE LEKCE"}</span>
+        </div>
+        <h2 class="font-heading font-black text-2xl sm:text-4xl text-espresso-950" data-tina-field={tinaField(reservation, 'title')}>
+          {reservation.title || "Přihláška na 1. ukázkovou lekci ZDARMA"}
+        </h2>
+        <p class="text-xs sm:text-base text-espresso-800/80 font-normal" data-tina-field={tinaField(reservation, 'subtitle')}>
+          {reservation.subtitle || "Vybrali jste si skupinku v rozvrhu výše? Zde vyplňte krátký kontakt a pan Válek se vám ozve s potvrzením termínu."}
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <ContactForm contact={contact} />
+        <ContactInfoCard contact={contact} />
+      </div>
+
+    </div>
+  </section>
+</div>

@@ -5,7 +5,8 @@ import PageContent from '../components/PageContent.astro';
 import LegalContent from '../components/LegalContent.astro';
 import GalleryView from '../components/GalleryView.astro';
 import CenikContent from '../components/CenikContent.astro';
-import { getHomePageDataQuery, getLegalPageDataQuery, getGalleryDataQuery, getPricingPageDataQuery } from './data';
+import RozvrhContent from '../components/RozvrhContent.astro';
+import { getHomePageDataQuery, getLegalPageDataQuery, getGalleryDataQuery, getPricingPageDataQuery, getSchedulePageDataQuery } from './data';
 
 export const islands: IslandRegistry = {
   page: {
@@ -30,6 +31,14 @@ export const islands: IslandRegistry = {
     wrapper: { tag: 'div', className: 'flex flex-col flex-grow w-full max-w-full min-w-0' },
     propsFromData: (data) => ({
       cenik: (data as any).data?.cenik,
+    }),
+  },
+  rozvrh: {
+    fetch: () => getSchedulePageDataQuery(),
+    component: RozvrhContent,
+    wrapper: { tag: 'div', className: 'flex flex-col flex-grow w-full max-w-full min-w-0' },
+    propsFromData: (data) => ({
+      rozvrh: (data as any).data?.rozvrh,
     }),
   },
   privacy: {

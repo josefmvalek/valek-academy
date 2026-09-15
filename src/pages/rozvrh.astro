@@ -6,26 +6,29 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
-import ScheduleBlocks from '../components/ScheduleBlocks.astro';
-import ContactForm from '../components/ContactForm.astro';
-import ContactInfoCard from '../components/ContactInfoCard.astro';
 import VisualEditor from '../components/VisualEditor.astro';
-import { getHomePageData } from '../lib/data';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
+import RozvrhContent from '../components/RozvrhContent.astro';
+import { getHomePageData, getSchedulePageDataQuery } from '../lib/data';
+import { islands } from '../lib/islands';
 
 const page = await getHomePageData();
 const navbar = page?.navbar || {};
 const footer = page?.footer || {};
 const contact = page?.contact || {};
-const schedule = page?.schedule || {};
 
-const seoTitle = "Rozvrh hodin & rezervace zvířecí skupinky | VALEK ACADEMY Uherské Hradiště";
-const seoDesc = "Kompletní týdenní rozvrh 15 zvířecích skupin výuky angličtiny hrou v Uherském Hradišti. 1.–3. třída, 4.–6. třída, 7.–13. třída i dospělí. Rezervace 1. lekce zdarma.";
+const rozvrhQuery = await getSchedulePageDataQuery();
+const rozvrh = (rozvrhQuery.data as any)?.rozvrh || {};
+
+const seoTitle = rozvrh?.seo?.metaTitle || rozvrh?.title || "Rozvrh hodin & rezervace zvířecí skupinky | VALEK ACADEMY Uherské Hradiště";
+const seoDesc = rozvrh?.seo?.metaDescription || "Kompletní týdenní rozvrh 15 zvířecích skupin výuky angličtiny hrou v Uherském Hradišti. 1.–3. třída, 4.–6. třída, 7.–13. třída i dospělí. Rezervace 1. lekce zdarma.";
+const canonical = rozvrh?.seo?.canonicalUrl || "https://valekacademy.cz/rozvrh";
 ---
 
 <Layout
   title={seoTitle}
   description={seoDesc}
-  canonical="https://valekacademy.cz/rozvrh"
+  canonical={canonical}
 >
   <Navbar
     navbar={navbar}
@@ -35,43 +38,12 @@ const seoDesc = "Kompletní týdenní rozvrh 15 zvířecích skupin výuky angli
   />
 
   <main class="flex-grow w-full max-w-full min-w-0 bg-gradient-to-b from-[#FAF7F2] via-[#FFFDF9] to-[#FAF7F2]">
-    
-    <!-- Top Breadcrumb Bar -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
-      <a href="/" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-stone-600 hover:text-amber-900 transition-colors group">
-        <span class="group-hover:-translate-x-1 transition-transform">←</span>
-        <span>Zpět na hlavní stránku</span>
-      </a>
-    </div>
-
-    <!-- Main Schedule Component -->
-    <ScheduleBlocks schedule={schedule} />
-
-    <!-- Dedicated Reservation Section on the same page -->
-    <section id="kontakt" class="py-12 sm:py-16 bg-white border-t border-parchment-300 relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="max-w-3xl mx-auto text-center space-y-2 mb-10">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950">
-            <span>📝</span>
-            <span>OBJEDNÁNÍ & REZERVACE LEKCE</span>
-          </div>
-          <h2 class="font-heading font-black text-2xl sm:text-4xl text-espresso-950">
-            Přihláška na 1. ukázkovou lekci ZDARMA
-          </h2>
-          <p class="text-xs sm:text-base text-espresso-800/80">
-            Vybrali jste si skupinku v rozvrhu výše? Zde vyplňte krátký kontakt a pan Válek se vám ozve s potvrzením termínu.
-          </p>
-        </div>
-
-        <div class="grid lg:grid-cols-12 gap-8 items-start">
-          <ContactForm contact={contact} />
-          <ContactInfoCard contact={contact} />
-        </div>
-
-      </div>
-    </section>
-
+    <TinaIsland name="rozvrh" wrapper={islands.rozvrh.wrapper} primary>
+      <RozvrhContent
+        rozvrh={rozvrh}
+        contact={contact}
+      />
+    </TinaIsland>
   </main>
 
   <MobileStickyCTA ctaLink="#kontakt" ctaText="🎁 1. lekce 100% ZDARMA" />
