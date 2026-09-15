@@ -20,14 +20,14 @@ const link = stickyCta.link || ctaLink || "#kontakt";
 <!-- Floating Bottom Bar for Mobile Devices -->
 <aside
   id="mobile-sticky-cta"
-  class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#FAF7F2]/95 backdrop-blur-md border-t border-parchment-300 shadow-card-lift px-4 py-3 transition-transform duration-300 translate-y-0"
+  class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-surface-base/95 backdrop-blur-md border-t border-surface-border shadow-card-lift px-4 py-3 transition-transform duration-300 translate-y-0"
   aria-label="Rychlá akce: Rezervace lekce zdarma"
 >
   <div class="max-w-md mx-auto flex items-center justify-between gap-3">
     <a
       href={link}
       id="mobile-sticky-cta-btn"
-      class="btn-gold-pulse w-full py-3 px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md flex items-center justify-center gap-2 text-center active:scale-[0.98] transition-transform"
+      class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active w-full py-3.5 px-4 rounded-card-md font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 flex items-center justify-center gap-2 text-center cursor-pointer transition-transform"
       data-tina-field={stickyCta ? tinaField(stickyCta, 'text') : undefined}
     >
       <span data-edit-key="stickyCta.text" data-edit-label="Mobilní lišta text">{text}</span>

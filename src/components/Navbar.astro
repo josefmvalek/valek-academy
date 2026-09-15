@@ -83,7 +83,7 @@ const drawerSections: DrawerCategory[] = [
 ];
 ---
 
-<header class="sticky top-0 z-40 w-full bg-[#FAF7F2]/95 backdrop-blur-md border-b border-stone-200/80 transition-all select-none" data-tina-field={tinaField(navbar, 'brandName')}>
+<header class="sticky top-0 z-40 w-full bg-surface-base/95 backdrop-blur-md border-b border-surface-border transition-all select-none" data-tina-field={tinaField(navbar, 'brandName')}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-20">
       
@@ -94,7 +94,7 @@ const drawerSections: DrawerCategory[] = [
           <span class="font-heading font-black text-base sm:text-lg lg:text-xl text-espresso-950 tracking-tight leading-none group-hover:text-amber-800 transition-colors whitespace-nowrap" data-tina-field={tinaField(navbar, 'brandName')} data-edit-key="navbar.brandName" data-edit-label="Název v hlavičce">
             {brandName}
           </span>
-          <span class="text-[10px] sm:text-xs text-amber-900 font-bold tracking-wide mt-1 flex items-center gap-1.5 leading-none whitespace-nowrap">
+          <span class="text-[11px] sm:text-xs text-amber-900 font-bold tracking-wide mt-1 flex items-center gap-1.5 leading-none whitespace-nowrap">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
             <span data-tina-field={tinaField(navbar, 'brandTagline')} data-edit-key="navbar.brandTagline" data-edit-label="Podtitul v hlavičce">{brandTagline}</span>
           </span>
@@ -106,7 +106,7 @@ const drawerSections: DrawerCategory[] = [
         {primaryNavLinks.map((link) => (
           <a
             href={link.href}
-            class="hover:text-amber-900 transition-colors whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl hover:bg-amber-100/60 text-stone-800 font-extrabold"
+            class="hover:text-amber-900 transition-colors whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-card-sm hover:bg-amber-100/60 text-stone-800 font-extrabold"
           >
             <span>{link.label}</span>
           </a>
@@ -119,7 +119,7 @@ const drawerSections: DrawerCategory[] = [
         <!-- Direct Phone Link (Desktop XL only) -->
         <a
           href={`tel:${phone}`}
-          class="hidden xl:inline-flex items-center gap-1.5 text-xs font-bold text-stone-700 hover:text-espresso-950 px-3 py-2 rounded-xl hover:bg-stone-200/50 transition-colors whitespace-nowrap"
+          class="hidden xl:inline-flex items-center gap-1.5 text-xs font-bold text-stone-700 hover:text-espresso-950 px-3 py-2 rounded-card-sm hover:bg-stone-200/50 transition-colors whitespace-nowrap"
           data-tina-field={contact ? tinaField(contact, 'phoneFormatted') : undefined}
         >
           <span>📞</span>
@@ -130,7 +130,7 @@ const drawerSections: DrawerCategory[] = [
         <button
           type="button"
           data-open-drawer
-          class="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-heading font-black text-espresso-950 bg-white hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 shadow-2xs transition-all cursor-pointer whitespace-nowrap lg:hidden"
+          class="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2 rounded-card-sm text-xs sm:text-sm font-heading font-black text-espresso-950 bg-white hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 shadow-2xs transition-all cursor-pointer whitespace-nowrap lg:hidden"
           aria-label="Otevřít kompletní menu a rozcestník sekcí"
         >
           <svg class="w-4 h-4 sm:w-5 sm:h-5 text-espresso-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -139,10 +139,10 @@ const drawerSections: DrawerCategory[] = [
           <span class="hidden sm:inline">Menu</span>
         </button>
 
-        <!-- Primary CTA Button (Gold Pulse, compact & clean) -->
+        <!-- Primary CTA Button (Gold Pulse with 3D haptic shadow) -->
         <a
           href={ctaDestination}
-          class="btn-gold-pulse inline-flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-transform whitespace-nowrap flex-shrink-0"
+          class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active inline-flex items-center justify-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-card-md font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 cursor-pointer transition-transform whitespace-nowrap flex-shrink-0"
         >
           <span data-tina-field={tinaField(navbar, 'ctaText')} data-edit-key="navbar.ctaText" data-edit-label="Text tlačítka v menu">{ctaText}</span>
         </a>

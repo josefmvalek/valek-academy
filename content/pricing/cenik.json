@@ -1,0 +1,235 @@
+{
+  "title": "Podrobný ceník výuky angličtiny, balíčky slev & kalkulátor | VALEK ACADEMY Uherské Hradiště",
+  "seo": {
+    "metaTitle": "Podrobný ceník výuky angličtiny, balíčky slev & kalkulátor | VALEK ACADEMY Uherské Hradiště",
+    "metaDescription": "Kompletní ceník kurzů angličtiny pro děti i dospělé v Uherském Hradišti. 1. ukázková lekce 100% ZDARMA, slevy až 30 % za balíčky a frekvenci. Žádné platby předem.",
+    "canonicalUrl": "https://valekacademy.cz/cenik"
+  },
+  "backLinkText": "Zpět na hlavní stránku",
+  "header": {
+    "badge": "🏷️ KOMPLETNÍ & TRANSPARENTNÍ CENÍK",
+    "title": "Podrobný ceník všech programů, slevové balíčky & férové podmínky",
+    "subtitle": "U nás neplatíte nic naslepo a nevážete se dlouhými smlouvami. Každý student začíná **1. lekcí 100% ZDARMA**. Teprve když je dítě nadšené, vyberete si výhodný balíček s motivační slevou až 30 %."
+  },
+  "programs": [
+    {
+      "id": "kids",
+      "icon": "🎲",
+      "cohortBadge": "1.–6. třída ZŠ • 60 minut",
+      "popularBadge": "⭐ Nejoblíbenější • 1. lekce ZDARMA",
+      "title": "Děti & Žáci ZŠ (Skupinky hrou)",
+      "description": "Trpělivá a zábavná výuka v partě 4–8 dětí. Využíváme deskovky (Karak, Dobble, Scrabble), obrázkové karty a spontánní mluvení bez strachu ze špatných známek.",
+      "baseRate": "320 Kč",
+      "baseRateNote": "/ 60 min",
+      "packageRate": "250 Kč",
+      "packageRateNote": "/ h (jen cca 1 000 Kč/měsíc)",
+      "fullYearRate": "od 220 Kč",
+      "fullYearRateNote": "/ hodina (sleva až 31 %)",
+      "timeSlots": "Po–Pá 12:30–13:30 (1.–3. tř.) a 13:30–14:30 (4.–6. tř.)",
+      "features": [
+        "1. ukázková lekce 100% ZDARMA (vyzkoušíte nezávazně bez platby)",
+        "Veškeré deskové hry, výukové karty a materiály v ceně kurzu",
+        "Garance stálé ceny: Po naplnění třídy držíte svou výhodnou sazbu napořád",
+        "Možnost bezplatné náhrady hodiny v paralelní skupince při omluvě nemoci"
+      ],
+      "ctaPrimaryText": "Vybrat zvířecí skupinku v rozvrhu →",
+      "ctaPrimaryLink": "/rozvrh",
+      "ctaSecondaryText": "Spočítat slevu",
+      "ctaSecondaryLink": "#kalkulator-balicku"
+    },
+    {
+      "id": "teens",
+      "icon": "🎓",
+      "cohortBadge": "7.–13. třída • 90 minut",
+      "popularBadge": "",
+      "title": "Maturita, Přijímačky & Konverzace",
+      "description": "Intenzivní 90minutové bloky zaměřené na didaktické testy CERMAT, SCIO přijímačky na gymnázia, ústní maturitní zkoušku, esejistiku a plynulou argumentaci.",
+      "baseRate": "480 Kč",
+      "baseRateNote": "(= 320 Kč/h)",
+      "packageRate": "360 Kč",
+      "packageRateNote": "/ 90 min (= 240 Kč/h, celkem 7 200 Kč)",
+      "fullYearRate": "od 330 Kč",
+      "fullYearRateNote": "/ 90 min (= 220 Kč/h)",
+      "timeSlots": "Po–Pá 14:30–16:00 (včetně 2 specializovaných maturitních bloků)",
+      "features": [
+        "1. lekce 100% ZDARMA pro vyzkoušení stylu lektora",
+        "Trénink reálných maturitních otázek s rodilým přízvukem z Melbourne",
+        "Společenské strategické hry v angličtině (Secret Hitler, Codenames)",
+        "Zázemí doučovny v UH, klidné prostředí bez stresu ze zkoušení"
+      ],
+      "ctaPrimaryText": "Zobrazit termíny v rozvrhu (Crocodiles, Sharks...) →",
+      "ctaPrimaryLink": "/rozvrh",
+      "ctaSecondaryText": "",
+      "ctaSecondaryLink": ""
+    },
+    {
+      "id": "adults",
+      "icon": "💼",
+      "cohortBadge": "Dospělí & VŠ • 90 minut",
+      "popularBadge": "",
+      "title": "Odborné profesní skupiny",
+      "description": "Specializované skupiny pro 4 profese: Medici 🩺, Právníci ⚖️, Technici & Inženýři ⚙️, Obchod & Účetnictví 📊. Cílem je odbourat ostych, zvládnout prezentace a osvojit si odbornou terminologii.",
+      "baseRate": "480 Kč",
+      "baseRateNote": "/ 90 min",
+      "packageRate": "420 Kč",
+      "packageRateNote": "/ 90 min na osobu",
+      "fullYearRate": "Možnost platby přes zaměstnanecké benefity / FKSP",
+      "fullYearRateNote": "",
+      "timeSlots": "Pondělí až Čtvrtek 17:00–18:30 (5 bloků týdně)",
+      "features": [
+        "Praktická konverzace ze světa práce, žádná nudná gramatika ze školních lavic",
+        "Lektor Josef Válek vystudoval BBA na prestižní RMIT University v Melbourne",
+        "Vystavení daňového dokladu (faktury) pro uplatnění ve firemních nákladech"
+      ],
+      "ctaPrimaryText": "Poptat profesní skupinu →",
+      "ctaPrimaryLink": "/#kontakt",
+      "ctaSecondaryText": "",
+      "ctaSecondaryLink": ""
+    },
+    {
+      "id": "individual",
+      "icon": "👤",
+      "cohortBadge": "Individuální tempo • 60 minut",
+      "popularBadge": "",
+      "title": "Individuální výuka 1 na 1",
+      "description": "100% soustředěná pozornost lektora výhradně pro vás. Příprava na pracovní pohovory v zahraničních korporacích, mezinárodní certifikáty nebo rychlé doučení školní látky.",
+      "baseRate": "950 Kč",
+      "baseRateNote": "/ 60 min",
+      "packageRate": "Témata i tempo zcela podle vašich cílů",
+      "packageRateNote": "",
+      "fullYearRate": "",
+      "fullYearRateNote": "",
+      "timeSlots": "Výhradně dopolední hodiny (po dohodě s panem Válkem)",
+      "features": [
+        "Klidné prostředí doučovny v Uherském Hradišti (Růžová 1238)",
+        "Možnost detailního rozboru vašich konkrétních materiálů a prezentací",
+        "Flexibilní plánování termínů dle domluvy"
+      ],
+      "ctaPrimaryText": "Poptat individuální lekce 1 na 1 →",
+      "ctaPrimaryLink": "/#kontakt",
+      "ctaSecondaryText": "",
+      "ctaSecondaryLink": ""
+    }
+  ],
+  "comparisonTable": {
+    "badge": "📊 PŘEHLEDNÉ SROVNÁNÍ BALÍČKŮ",
+    "title": "Kolik přesně ušetříte při předplatném výuky?",
+    "subtitle": "Platí pro skupinky dětí a žáků ZŠ (základní sazba 320 Kč/hodina). Čím delší období a čím častější docházka, tím vyšší sleva.",
+    "rows": [
+      {
+        "period": "1 měsíc (4 týdny)",
+        "frequency": "1× týdně",
+        "lessons": "4 lekce",
+        "basePrice": "1 280 Kč",
+        "discount": "-6 %",
+        "unitPrice": "300 Kč",
+        "totalPrice": "1 200 Kč"
+      },
+      {
+        "period": "3 měsíce (12 týdnů)",
+        "frequency": "1× týdně",
+        "lessons": "12 lekcí",
+        "basePrice": "3 840 Kč",
+        "discount": "-12,5 %",
+        "unitPrice": "280 Kč",
+        "totalPrice": "3 360 Kč"
+      },
+      {
+        "period": "Pololetí (20 týdnů)",
+        "tag": "Nejoblíbenější",
+        "frequency": "1× týdně",
+        "lessons": "20 lekcí",
+        "basePrice": "6 400 Kč",
+        "discount": "-22 %",
+        "unitPrice": "250 Kč (~1 000 Kč/měsíc)",
+        "totalPrice": "5 000 Kč"
+      },
+      {
+        "period": "Pololetí (20 týdnů)",
+        "tag": "Doporučeno",
+        "frequency": "2× týdně",
+        "lessons": "40 lekcí",
+        "basePrice": "12 800 Kč",
+        "discount": "-31 % (sazba celého roku)",
+        "unitPrice": "220 Kč",
+        "totalPrice": "8 800 Kč"
+      },
+      {
+        "period": "Celý rok (40 týdnů)",
+        "tag": "Max. úspora",
+        "frequency": "1× týdně",
+        "lessons": "40 lekcí",
+        "basePrice": "12 800 Kč",
+        "discount": "-31 %",
+        "unitPrice": "220 Kč",
+        "totalPrice": "8 800 Kč"
+      },
+      {
+        "period": "Celý rok (40 týdnů)",
+        "frequency": "2× týdně",
+        "lessons": "80 lekcí",
+        "basePrice": "25 600 Kč",
+        "discount": "-31 % (MAX)",
+        "unitPrice": "220 Kč",
+        "totalPrice": "17 600 Kč"
+      }
+    ]
+  },
+  "guarantees": {
+    "badge": "🛡️ JASNÁ PRAVIDLA & JISTOTY",
+    "title": "Férové platební podmínky a záruky pro rodiče",
+    "subtitle": "Věříme v otevřenost. Zde jsou odpovědi na to, jak fungují platby, omluvy a záruky spokojenosti.",
+    "items": [
+      {
+        "icon": "🎁",
+        "title": "1. lekce 100% zdarma",
+        "text": "Dítě si přijde nezávazně zahrát plnohodnotnou 60minutovou lekci. Žádné platby předem. Teprve po hodině se rozhodnete, zda budete pokračovat."
+      },
+      {
+        "icon": "💳",
+        "title": "Platba po 1. hodině",
+        "text": "Platbu řešíte až po úspěšné ukázkové lekci. Hradit lze bankovním převodem na účet, QR kódem nebo fakturou pro zaměstnavatele či fond FKSP."
+      },
+      {
+        "icon": "🔄",
+        "title": "Náhrady při nemoci",
+        "text": "O lekci nepřijdete. Pokud se dítě včas omluví (stačí SMS či WhatsApp zpráva), může si hodinu bezplatně nahradit v paralelní skupince v jiný den v týdnu."
+      },
+      {
+        "icon": "🔒",
+        "title": "Garance stálé ceny",
+        "text": "Jakmile se kapacita třídy naplní na 8 dětí, nově příchozím se cena mírně zvedá. Stávající studenti si však svou původní příznivou cenu drží napořád."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Časté dotazy ke ceníku a platbám",
+    "items": [
+      {
+        "question": "Poskytujete sourozeneckou slevu?",
+        "answer": "Ano! Pokud k nám přihlásíte dva a více sourozenců, druhý a každý další sourozenec získává automaticky <strong>dodatečnou slevu 10 %</strong> na veškeré balíčky."
+      },
+      {
+        "question": "Může kurz proplatit zaměstnavatel (FKSP)?",
+        "answer": "Určitě. Rádi vystavíme daňový doklad / fakturu s přesnými údaji vašeho zaměstnavatele, odborové organizace či fondu kulturních a sociálních potřeb."
+      },
+      {
+        "question": "Co když dítěti nesedne vybraný den nebo parta?",
+        "answer": "Díky 15 paralelním zvířecím skupinkám můžeme dítě kdykoliv flexibilně přeřadit do jiné skupinky, kde si lépe sedne s vrstevníky nebo vyhovuje jiný čas."
+      },
+      {
+        "question": "Platí se za deskovky a karty něco navíc?",
+        "answer": "Vůbec nic. Veškeré hry (Karak, Scrabble, Dixit, Codenames), výukové kartičky, pracovní listy i čaj pro děti jsou kompletně zahrnuty v ceně."
+      }
+    ]
+  },
+  "ctaBanner": {
+    "badge": "🎁 1. LEKCE JE VŽDY ZDARMA",
+    "title": "Vyzkoušejte si atmosféru doučovny nezávazně a bez rizika",
+    "subtitle": "Vyberte si v rozvrhu svou zvířecí skupinku podle věku dítěte a přijďte se podívat do doučovny v Uherském Hradišti.",
+    "primaryBtnText": "📅 Zobrazit rozvrh hodin & vybrat skupinku →",
+    "primaryBtnLink": "/rozvrh",
+    "secondaryBtnText": "Napsat panu Válkovi zprávu",
+    "secondaryBtnLink": "/#kontakt"
+  }
+}

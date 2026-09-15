@@ -60,7 +60,7 @@ const calloutCtaText = timeline.calloutCtaText || "Vyzkoušet zdarma →";
 const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
 ---
 
-<section id="metodika" class={`py-12 md:py-16 bg-white border-b border-parchment-200 relative overflow-hidden ${className}`}>
+<section id="metodika" class={`py-12 md:py-16 bg-surface-base border-b border-parchment-200 relative overflow-hidden ${className}`}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Section Header -->
@@ -68,9 +68,9 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-tina-field={tinaField(timeline, 'badge')} data-edit-key="timeline.badge" data-edit-label="Štítek časové osy">
         <span>⏱️</span> <span>{badge}</span>
       </div>
-      <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(timeline, 'title')} data-edit-key="timeline.title" data-edit-label="Nadpis časové osy" set:html={formatRichText(title)}>
+      <h2 class="font-heading font-black text-fluid-h2 text-espresso-950 tracking-tight" data-tina-field={tinaField(timeline, 'title')} data-edit-key="timeline.title" data-edit-label="Nadpis časové osy" set:html={formatRichText(title)}>
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg" data-tina-field={tinaField(timeline, 'subtitle')} data-edit-key="timeline.subtitle" data-edit-label="Podnadpis časové osy" set:html={formatRichText(subtitle)}>
+      <p class="text-espresso-800/85 text-fluid-body" data-tina-field={tinaField(timeline, 'subtitle')} data-edit-key="timeline.subtitle" data-edit-label="Podnadpis časové osy" set:html={formatRichText(subtitle)}>
       </p>
     </div>
 
@@ -79,25 +79,25 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
       {phases.map((phase, idx) => (
         <div
           data-tina-field={tinaField(timeline, 'phases', idx)}
-          class="rounded-3xl p-6 sm:p-7 bg-parchment-50 border-2 border-parchment-300 shadow-xs hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between group relative"
+          class="rounded-card-lg p-6 sm:p-7 bg-surface-card border-2 border-parchment-300 shadow-tile hover:border-amber-400 hover:shadow-card-lift transition-all flex flex-col justify-between group relative"
         >
           
           <!-- Top Row: Time Badge & Icon -->
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="font-mono text-xs font-black px-2.5 py-1 rounded-lg bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(phase, 'time')} data-edit-key={`timeline.phases.${idx}.time`} data-edit-label="Čas fáze">
+              <span class="font-mono text-xs font-black px-2.5 py-1 rounded-card-sm bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(phase, 'time')} data-edit-key={`timeline.phases.${idx}.time`} data-edit-label="Čas fáze">
                 {phase.time}
               </span>
-              <span class="w-12 h-12 rounded-2xl bg-white border border-parchment-300 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-2xs">
+              <span class="w-12 h-12 rounded-card-md bg-white border border-parchment-300 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-2xs">
                 {phase.icon}
               </span>
             </div>
 
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-900 block mb-1" data-tina-field={tinaField(phase, 'badge')} data-edit-key={`timeline.phases.${idx}.badge`} data-edit-label="Štítek fáze">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-900 block mb-1" data-tina-field={tinaField(phase, 'badge')} data-edit-key={`timeline.phases.${idx}.badge`} data-edit-label="Štítek fáze">
                 {phase.badge}
               </span>
-              <h3 class="font-heading font-bold text-lg text-espresso-950 leading-snug" data-tina-field={tinaField(phase, 'title')} data-edit-key={`timeline.phases.${idx}.title`} data-edit-label="Název fáze">
+              <h3 class="font-heading font-black text-lg text-espresso-950 leading-snug" data-tina-field={tinaField(phase, 'title')} data-edit-key={`timeline.phases.${idx}.title`} data-edit-label="Název fáze">
                 {phase.title}
               </h3>
             </div>
@@ -110,7 +110,7 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
           <!-- Bottom Benefit Highlight -->
           <div class="pt-4 mt-5 border-t border-parchment-200">
             <div class="flex items-center gap-2 text-xs font-bold text-emerald-900">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
               <span data-tina-field={tinaField(phase, 'highlight')} data-edit-key={`timeline.phases.${idx}.highlight`} data-edit-label="Přínos fáze">{phase.highlight}</span>
             </div>
           </div>
@@ -120,12 +120,12 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
     </div>
 
     <!-- Bottom Guarantee Callout -->
-    <div class="mt-10 max-w-3xl mx-auto text-center p-5 sm:p-6 rounded-2xl bg-amber-50 border border-amber-300 shadow-xs flex flex-col sm:flex-row items-center justify-center gap-4">
-      <div class="w-12 h-12 rounded-full bg-amber-400 text-espresso-950 flex items-center justify-center text-2xl flex-shrink-0 font-bold shadow-xs">
+    <div class="mt-10 max-w-3xl mx-auto text-center p-5 sm:p-6 rounded-card-xl bg-amber-50/90 border-2 border-amber-300 shadow-card flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div class="w-12 h-12 rounded-card-md bg-amber-400 text-espresso-950 flex items-center justify-center text-2xl flex-shrink-0 font-bold shadow-xs">
         🎁
       </div>
       <div class="text-center sm:text-left">
-        <div class="font-heading font-extrabold text-sm sm:text-base text-espresso-950" data-tina-field={tinaField(timeline, 'calloutTitle')} data-edit-key="timeline.calloutTitle" data-edit-label="Výzva nadpis">
+        <div class="font-heading font-black text-sm sm:text-base text-espresso-950" data-tina-field={tinaField(timeline, 'calloutTitle')} data-edit-key="timeline.calloutTitle" data-edit-label="Výzva nadpis">
           {calloutTitle}
         </div>
         <p class="text-xs text-stone-600 mt-0.5" data-tina-field={tinaField(timeline, 'calloutDesc')} data-edit-key="timeline.calloutDesc" data-edit-label="Výzva popis">
@@ -134,7 +134,7 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
       </div>
       <a
         href={calloutCtaLink}
-        class="flex-shrink-0 px-5 py-2.5 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-amber-400 hover:bg-amber-300 border border-amber-500 shadow-xs transition-all"
+        class="flex-shrink-0 px-6 py-3 rounded-card-md font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-dice-btn active:shadow-dice-btn-active btn-gold-pulse transition-all cursor-pointer"
         data-tina-field={tinaField(timeline, 'calloutCtaText')}
         data-edit-key="timeline.calloutCtaText"
         data-edit-label="Výzva tlačítko"

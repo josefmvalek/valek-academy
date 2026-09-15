@@ -117,7 +117,7 @@ const defaultCredentials: Credentials = {
 const credentials = about.credentials || defaultCredentials;
 ---
 
-<section id="o-mne" class="py-8 sm:py-12 md:py-16 relative bg-white border-t border-parchment-200 overflow-hidden">
+<section id="o-mne" class="py-8 sm:py-12 md:py-16 relative bg-surface-base border-t border-parchment-200 overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Section Header -->
@@ -126,7 +126,7 @@ const credentials = about.credentials || defaultCredentials;
         <span class="w-2 h-2 rounded-full bg-amber-600"></span>
         <span>{badge}</span>
       </div>
-      <h2 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(about, 'title')} data-edit-key="about.title" data-edit-label="Nadpis O lektorovi" set:html={formatRichText(title)}>
+      <h2 class="font-heading font-black text-fluid-h2 text-espresso-950 tracking-tight" data-tina-field={tinaField(about, 'title')} data-edit-key="about.title" data-edit-label="Nadpis O lektorovi" set:html={formatRichText(title)}>
       </h2>
     </div>
 
@@ -136,11 +136,11 @@ const credentials = about.credentials || defaultCredentials;
       <!-- Bio Text Column -->
       <div class="lg:col-span-7 space-y-5">
         <div class="flex items-center gap-2 flex-wrap">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-espresso-950 text-xs font-extrabold" data-tina-field={tinaField(about, 'role')} data-edit-key="about.role" data-edit-label="Role lektora">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-card-sm bg-amber-100 border border-amber-300 text-espresso-950 text-xs font-extrabold" data-tina-field={tinaField(about, 'role')} data-edit-key="about.role" data-edit-label="Role lektora">
             <span>🎓</span> <span>{role}</span>
           </div>
           {melbourneTag && (
-            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-950 text-xs font-bold" data-tina-field={tinaField(about, 'melbourneTag')}>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-card-sm bg-emerald-100 border border-emerald-300 text-emerald-950 text-xs font-bold" data-tina-field={tinaField(about, 'melbourneTag')}>
               <span>🇦🇺</span> <span>{melbourneTag}</span>
             </div>
           )}
@@ -150,11 +150,11 @@ const credentials = about.credentials || defaultCredentials;
           Ahoj, jsem <span class="text-amber-800" data-tina-field={tinaField(about, 'teacherName')} data-edit-key="about.teacherName" data-edit-label="Jméno lektora">{teacherName}</span>
         </h3>
 
-        <p class="text-espresso-800/90 text-base sm:text-lg leading-relaxed" data-tina-field={tinaField(about, 'bio')} data-edit-key="about.bio" data-edit-label="Životopis / Bio" set:html={formatRichText(bio)}>
+        <p class="text-espresso-800/90 text-fluid-body leading-relaxed" data-tina-field={tinaField(about, 'bio')} data-edit-key="about.bio" data-edit-label="Životopis / Bio" set:html={formatRichText(bio)}>
         </p>
 
         <!-- Blockquote Callout -->
-        <blockquote class="relative p-5 sm:p-7 rounded-2xl bg-parchment-50 border-l-4 border-amber-500 border-t border-r border-b border-parchment-300 shadow-xs text-espresso-900 italic">
+        <blockquote class="relative p-5 sm:p-7 rounded-card-lg bg-surface-sunken border-l-4 border-amber-500 border-t border-r border-b border-parchment-300 shadow-2xs text-espresso-900 italic">
           <p class="relative z-10 text-espresso-900 text-base font-medium leading-relaxed" data-tina-field={tinaField(about, 'quote')} data-edit-key="about.quote" data-edit-label="Citát lektora" set:html={formatRichText(quote)}>
           </p>
           <div class="mt-3 text-xs font-black text-amber-900 not-italic uppercase tracking-wider flex items-center gap-2" data-tina-field={tinaField(about, 'quoteAuthor')} data-edit-key="about.quoteAuthor" data-edit-label="Autor citátu">
@@ -175,10 +175,10 @@ const credentials = about.credentials || defaultCredentials;
 
       <!-- Experience & Credentials Highlight Box -->
       <div class="lg:col-span-5">
-        <div class="bg-gradient-to-b from-[#FFFDF9] via-white to-parchment-50 rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-soft-lg space-y-5 relative overflow-hidden" data-tina-field={tinaField(about, 'credentials')}>
+        <div class="bg-surface-card rounded-card-xl p-6 sm:p-8 border-2 border-amber-300 shadow-card space-y-5 relative overflow-hidden" data-tina-field={tinaField(about, 'credentials')}>
           <div class="flex items-center justify-between pb-5 border-b border-parchment-200 gap-4">
             <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
-              <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-md flex-shrink-0 group">
+              <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-card-md overflow-hidden border-2 border-amber-400 shadow-2xs flex-shrink-0 group">
                 <img
                   src={about.image || "/images/josef-valek.webp"}
                   alt="Josef Válek – Lektor Valek Academy"
@@ -191,7 +191,7 @@ const credentials = about.credentials || defaultCredentials;
                   data-edit-type="image"
                   data-edit-label="Fotka lektora (O mně)"
                 />
-                <span class="absolute bottom-0 inset-x-0 bg-espresso-950/85 text-[8px] sm:text-[9px] text-amber-300 text-center py-0.5 font-black uppercase tracking-wider">
+                <span class="absolute bottom-0 inset-x-0 bg-espresso-950/90 text-[10px] sm:text-[11px] text-amber-300 text-center py-0.5 font-black uppercase tracking-wider">
                   Melbourne
                 </span>
               </div>
@@ -226,7 +226,7 @@ const credentials = about.credentials || defaultCredentials;
             })}
           </ul>
 
-          <div class="p-4 rounded-2xl bg-amber-100/80 border border-amber-300 text-center">
+          <div class="p-4 rounded-card-md bg-amber-100/90 border border-amber-300 text-center">
             <div class="text-xs font-bold text-amber-950" data-tina-field={tinaField(credentials, 'note')}>{credentials.note}</div>
             <div class="text-sm sm:text-base font-heading font-black text-espresso-950 mt-0.5" data-tina-field={tinaField(credentials, 'guarantee')}>{credentials.guarantee}</div>
           </div>
@@ -240,15 +240,15 @@ const credentials = about.credentials || defaultCredentials;
       {pillars.map((pillar, idx) => (
         <div
           data-tina-field={tinaField(about, 'pillars', idx)}
-          class="bg-parchment-50 rounded-2xl p-5 sm:p-6 border border-parchment-300 shadow-xs hover:shadow-md hover:border-amber-400 transition-all space-y-2.5"
+          class="bg-surface-card rounded-card-lg p-5 sm:p-6 border-2 border-parchment-300 shadow-tile hover:shadow-card-lift hover:border-amber-400 transition-all space-y-2.5"
         >
           <div class="text-3xl">
             {pillar.icon}
           </div>
-          <h4 class="font-heading font-bold text-base sm:text-lg text-espresso-950" data-tina-field={tinaField(pillar, 'title')} data-edit-key={`about.pillars.${idx}.title`} data-edit-label="Název pilíře">
+          <h4 class="font-heading font-black text-base sm:text-lg text-espresso-950" data-tina-field={tinaField(pillar, 'title')} data-edit-key={`about.pillars.${idx}.title`} data-edit-label="Název pilíře">
             {pillar.title}
           </h4>
-          <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(pillar, 'description')} data-edit-key={`about.pillars.${idx}.description`} data-edit-label="Popis pilíře">
+          <p class="text-xs sm:text-sm text-espresso-800/85 leading-relaxed font-normal" data-tina-field={tinaField(pillar, 'description')} data-edit-key={`about.pillars.${idx}.description`} data-edit-label="Popis pilíře">
             {pillar.description}
           </p>
         </div>
@@ -259,10 +259,10 @@ const credentials = about.credentials || defaultCredentials;
     <div id="kde-ucime" class="mt-12 sm:mt-16 pt-10 border-t border-parchment-200">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
         <div class="max-w-2xl">
-          <div class="text-[11px] font-black uppercase tracking-wider text-amber-900 mb-1 flex items-center gap-1.5 font-bold" data-tina-field={tinaField(locationInfo, 'galleryBadge')} data-edit-key="location.galleryBadge" data-edit-label="Štítek fotogalerie">
+          <div class="text-[11px] font-black uppercase tracking-wider text-amber-900 mb-1 flex items-center gap-1.5" data-tina-field={tinaField(locationInfo, 'galleryBadge')} data-edit-key="location.galleryBadge" data-edit-label="Štítek fotogalerie">
             <span>📸</span> <span>{galleryBadge}</span>
           </div>
-          <h3 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950" data-tina-field={tinaField(locationInfo, 'galleryTitle')} data-edit-key="location.galleryTitle" data-edit-label="Nadpis fotogalerie">
+          <h3 class="font-heading font-black text-fluid-h3 text-espresso-950" data-tina-field={tinaField(locationInfo, 'galleryTitle')} data-edit-key="location.galleryTitle" data-edit-label="Nadpis fotogalerie">
             {galleryTitle}
           </h3>
           <p class="text-xs sm:text-sm text-stone-600 mt-1" data-tina-field={tinaField(locationInfo, 'gallerySubtitle')} data-edit-key="location.gallerySubtitle" data-edit-label="Podnadpis fotogalerie">
@@ -272,7 +272,7 @@ const credentials = about.credentials || defaultCredentials;
         <div>
           <a
             href="/galerie"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-espresso-950 text-xs sm:text-sm font-black shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all whitespace-nowrap"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-espresso-950 text-xs sm:text-sm font-black shadow-2xs hover:shadow-tile transition-all whitespace-nowrap"
             data-tina-field={tinaField(locationInfo, 'fullGalleryButtonText')}
           >
             <span>{fullGalleryButtonText}</span>
@@ -284,7 +284,7 @@ const credentials = about.credentials || defaultCredentials;
         {gallery.map((item, idx) => (
           <div
             data-tina-field={tinaField(locationInfo, 'gallery', idx)}
-            class="group rounded-3xl overflow-hidden border-2 border-parchment-300 hover:border-amber-400 bg-white shadow-xs hover:shadow-card-lift transition-all duration-300"
+            class="group rounded-card-xl overflow-hidden border-2 border-parchment-300 hover:border-amber-400 bg-surface-card shadow-tile hover:shadow-card-lift transition-all duration-300"
           >
             <div class="relative overflow-hidden aspect-video">
               <img
@@ -298,7 +298,7 @@ const credentials = about.credentials || defaultCredentials;
                 loading="lazy"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-              <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-espresso-950/80 backdrop-blur-xs text-white text-[11px] font-bold border border-white/20">
+              <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-card-sm bg-espresso-950/80 backdrop-blur-xs text-white text-[11px] font-bold border border-white/20">
                 📍 Růžová 1238, UH
               </span>
             </div>
@@ -315,7 +315,7 @@ const credentials = about.credentials || defaultCredentials;
       </div>
 
       <!-- Large Prominent Callout to full gallery -->
-      <div class="mt-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-amber-100/90 via-amber-50 to-amber-100/90 border-2 border-amber-300 shadow-md flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
+      <div class="mt-8 p-6 sm:p-8 rounded-card-xl bg-gradient-to-r from-amber-100/90 via-amber-50 to-amber-100/90 border-2 border-amber-300 shadow-card flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
         <div class="flex items-center gap-4">
           <span class="text-4xl flex-shrink-0">📸</span>
           <div class="space-y-1">
@@ -325,7 +325,7 @@ const credentials = about.credentials || defaultCredentials;
         </div>
         <a
           href="/galerie"
-          class="btn-gold-pulse inline-flex items-center justify-center gap-2.5 py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 text-espresso-950 font-heading font-black text-sm sm:text-base border border-amber-500 shadow-md hover:scale-105 transition-all whitespace-nowrap flex-shrink-0"
+          class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active inline-flex items-center justify-center gap-2.5 py-3.5 sm:py-4 px-6 sm:px-8 rounded-card-md bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 text-espresso-950 font-heading font-black text-sm sm:text-base border border-amber-500 transition-all whitespace-nowrap flex-shrink-0 cursor-pointer"
           data-tina-field={tinaField(locationInfo, 'galleryCtaBannerButton')}
         >
           <span>{galleryCtaBannerButton.replace(/→\s*$/, '').trim()}</span>

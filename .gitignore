@@ -12,3 +12,7 @@ dist/
 # TinaCMS generated files (built on dev/build)
 .tina/__generated__
 tina/__generated__
+
+# AI agent local configs
+.agents/
+

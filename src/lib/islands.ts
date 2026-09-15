@@ -4,7 +4,8 @@ import type { PageQuery, LegalQuery, GalleryQuery } from '../../tina/__generated
 import PageContent from '../components/PageContent.astro';
 import LegalContent from '../components/LegalContent.astro';
 import GalleryView from '../components/GalleryView.astro';
-import { getHomePageDataQuery, getLegalPageDataQuery, getGalleryDataQuery } from './data';
+import CenikContent from '../components/CenikContent.astro';
+import { getHomePageDataQuery, getLegalPageDataQuery, getGalleryDataQuery, getPricingPageDataQuery } from './data';
 
 export const islands: IslandRegistry = {
   page: {
@@ -21,6 +22,14 @@ export const islands: IslandRegistry = {
     wrapper: { tag: 'div', className: 'flex flex-col flex-grow w-full max-w-full min-w-0' },
     propsFromData: (data) => ({
       gallery: (data as QueryResult<GalleryQuery>).data?.gallery,
+    }),
+  },
+  cenik: {
+    fetch: () => getPricingPageDataQuery(),
+    component: CenikContent,
+    wrapper: { tag: 'div', className: 'flex flex-col flex-grow w-full max-w-full min-w-0' },
+    propsFromData: (data) => ({
+      cenik: (data as any).data?.cenik,
     }),
   },
   privacy: {

@@ -29,17 +29,17 @@ const contactPrompt = faq.contactPrompt || "Máte jakýkoliv další dotaz ohled
 const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formuláře níže →";
 ---
 
-<section id="faq" class="py-8 sm:py-12 md:py-16 relative bg-[#FDFBF7] border-t border-parchment-300 overflow-hidden">
+<section id="faq" class="py-8 sm:py-12 md:py-16 relative bg-surface-base border-t border-parchment-300 overflow-hidden">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Header -->
     <div class="text-center space-y-3 mb-6 md:mb-12">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-bold uppercase tracking-wider text-amber-950" data-tina-field={tinaField(faq, 'badge')} data-edit-key="faq.badge" data-edit-label="Štítek FAQ">
-        {badge}
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-2xs" data-tina-field={tinaField(faq, 'badge')} data-edit-key="faq.badge" data-edit-label="Štítek FAQ">
+        <span>❓</span> <span>{badge}</span>
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(faq, 'title')} data-edit-key="faq.title" data-edit-label="Nadpis FAQ" set:html={formatRichText(title)}>
+      <h2 class="font-heading font-black text-fluid-h2 text-espresso-950 tracking-tight" data-tina-field={tinaField(faq, 'title')} data-edit-key="faq.title" data-edit-label="Nadpis FAQ" set:html={formatRichText(title)}>
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg max-w-2xl mx-auto" data-tina-field={tinaField(faq, 'subtitle')} data-edit-key="faq.subtitle" data-edit-label="Podnadpis FAQ" set:html={formatRichText(subtitle)}>
+      <p class="text-espresso-800/85 text-fluid-body max-w-2xl mx-auto" data-tina-field={tinaField(faq, 'subtitle')} data-edit-key="faq.subtitle" data-edit-label="Podnadpis FAQ" set:html={formatRichText(subtitle)}>
       </p>
     </div>
 
@@ -49,12 +49,12 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
         <details
           name="faq-accordion"
           data-tina-field={tinaField(faq, 'items', index)}
-          class="group bg-white rounded-2xl border border-parchment-300 overflow-hidden transition-all data-[open]:border-amber-400 data-[open]:shadow-sm"
+          class="group bg-surface-card rounded-card-lg border-2 border-parchment-300 overflow-hidden transition-all data-[open]:border-amber-400 data-[open]:shadow-tile shadow-2xs"
           open={index === 0}
         >
-          <summary class="flex items-center justify-between p-5 sm:p-6 cursor-pointer list-none text-left select-none text-espresso-950 font-heading font-bold text-base sm:text-lg hover:text-amber-900 transition-colors">
+          <summary class="flex items-center justify-between p-5 sm:p-6 cursor-pointer list-none text-left select-none text-espresso-950 font-heading font-black text-base sm:text-lg hover:text-amber-900 transition-colors">
             <span class="pr-6" data-tina-field={tinaField(item, 'question')} data-edit-key={`faq.items.${index}.question`} data-edit-label="Otázka">{item.question}</span>
-            <div class="w-8 h-8 rounded-full bg-parchment-200 flex items-center justify-center flex-shrink-0 text-espresso-800 group-open:rotate-180 group-open:bg-amber-200 group-open:text-amber-950 transition-all duration-300">
+            <div class="w-8 h-8 rounded-card-sm bg-parchment-200 flex items-center justify-center flex-shrink-0 text-espresso-800 group-open:rotate-180 group-open:bg-amber-200 group-open:text-amber-950 transition-all duration-300">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
@@ -69,7 +69,7 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
     </div>
 
     <!-- Bottom prompt -->
-    <div class="mt-12 text-center p-6 rounded-2xl bg-amber-100/60 border border-amber-300/80 text-espresso-950">
+    <div class="mt-12 text-center p-6 rounded-card-lg bg-amber-100/60 border border-amber-300/80 text-espresso-950">
       <p class="text-sm font-medium">
         <span data-tina-field={tinaField(faq, 'contactPrompt')} data-edit-key="faq.contactPrompt" data-edit-label="Výzva FAQ">{contactPrompt}</span>
         <a href="#kontakt" class="text-amber-900 font-bold underline hover:text-amber-700 ml-1" data-tina-field={tinaField(faq, 'contactPromptLinkText')} data-edit-key="faq.contactPromptLinkText" data-edit-label="Odkaz výzvy FAQ">

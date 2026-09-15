@@ -4,10 +4,12 @@ import homeContent from '../../content/pages/home.json';
 import privacyContent from '../../content/legal/privacy.json';
 import termsContent from '../../content/legal/terms.json';
 import galleryContent from '../../content/gallery/gallery.json';
+import cenikContent from '../../content/pricing/cenik.json';
 
 export type PageData = typeof homeContent;
 export type LegalData = typeof privacyContent;
 export type GalleryData = typeof galleryContent;
+export type CenikData = typeof cenikContent;
 
 /**
  * Načte data domovské stránky pomocí Tina clienta zabaleného do requestWithMetadata.
@@ -88,4 +90,29 @@ export async function getGalleryData(): Promise<GalleryData> {
   const result = await getGalleryDataQuery();
   return ((result?.data as any)?.gallery || galleryContent) as GalleryData;
 }
+
+/**
+ * Načte data stránky podrobného ceníku pomocí Tina clienta zabaleného do requestWithMetadata.
+ */
+export async function getPricingPageDataQuery() {
+  try {
+    return await requestWithMetadata(
+      (client.queries as any).cenik({ relativePath: 'cenik.json' }),
+      { priority: 'primary' }
+    );
+  } catch (e) {
+    return {
+      data: { cenik: cenikContent as any },
+      query: '',
+      variables: { relativePath: 'cenik.json' },
+      id: 'cenik',
+    };
+  }
+}
+
+export async function getPricingPageData(): Promise<CenikData> {
+  const result = await getPricingPageDataQuery();
+  return ((result?.data as any)?.cenik || cenikContent) as CenikData;
+}
+
 

@@ -73,15 +73,15 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
 ---
 
 <div class="lg:col-span-7">
-  <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border-2 border-amber-300/80 shadow-soft-lg relative">
+  <div class="bg-surface-card rounded-card-xl p-6 sm:p-8 md:p-10 border-2 border-amber-300/80 shadow-card relative">
     
     <div class="flex items-center gap-2 mb-2">
-      <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400 text-espresso-950" data-tina-field={tinaField(contact, 'formBadge')} data-edit-key="contact.formBadge" data-edit-label="Formulář - štítek">
+      <span class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(contact, 'formBadge')} data-edit-key="contact.formBadge" data-edit-label="Formulář - štítek">
         {formBadge}
       </span>
       <span class="text-xs text-stone-500 font-bold" data-tina-field={tinaField(contact, 'formBadgeNote')} data-edit-key="contact.formBadgeNote" data-edit-label="Formulář - poznámka ke štítku">{formBadgeNote}</span>
     </div>
-    <h3 class="font-academy font-black text-2xl sm:text-3xl text-espresso-950 mb-1" data-tina-field={tinaField(contact, 'formTitle')} data-edit-key="contact.formTitle" data-edit-label="Formulář - nadpis">
+    <h3 class="font-heading font-black text-fluid-h2 text-espresso-950 mb-1" data-tina-field={tinaField(contact, 'formTitle')} data-edit-key="contact.formTitle" data-edit-label="Formulář - nadpis">
       {formTitle}
     </h3>
     <p class="text-xs sm:text-sm text-stone-600 mb-6 font-normal" data-tina-field={tinaField(contact, 'formSubtitle')} data-edit-key="contact.formSubtitle" data-edit-label="Formulář - podnadpis">
@@ -93,14 +93,14 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <input type="hidden" id="selected-group-input" name="selected_group" value="" />
 
       <!-- Selected Animal Group Callout (Active when clicked from weekly schedule) -->
-      <div id="selected-group-callout" class="hidden p-3.5 sm:p-4 rounded-2xl bg-amber-100/90 border-2 border-amber-400 shadow-2xs transition-all">
+      <div id="selected-group-callout" class="hidden p-3.5 sm:p-4 rounded-card-lg bg-amber-100/90 border-2 border-amber-400 shadow-2xs transition-all">
         <div class="flex items-center justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
-            <span id="callout-group-emoji" class="w-10 h-10 rounded-xl bg-amber-300 text-espresso-950 flex items-center justify-center text-xl flex-shrink-0 font-bold shadow-2xs border border-amber-400">
+            <span id="callout-group-emoji" class="w-10 h-10 rounded-card-md bg-amber-300 text-espresso-950 flex items-center justify-center text-xl flex-shrink-0 font-bold shadow-2xs border border-amber-400">
               🦘
             </span>
             <div class="min-w-0">
-              <div class="text-[10px] font-black uppercase tracking-wider text-amber-900" data-tina-field={tinaField(contact, 'selectedGroupCalloutTitle')}>
+              <div class="text-[11px] font-black uppercase tracking-wider text-amber-900" data-tina-field={tinaField(contact, 'selectedGroupCalloutTitle')}>
                 {selectedGroupCalloutTitle}
               </div>
               <div id="callout-group-title" class="font-heading font-black text-sm sm:text-base text-espresso-950 truncate">
@@ -724,11 +724,11 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
         </div>
       </div>
 
-      <!-- Submit Button with Gold Pulse -->
+      <!-- Submit Button with Gold Pulse and 3D Haptic Shadow -->
       <button
         type="submit"
         id="submit-button"
-        class="btn-gold-pulse w-full inline-flex items-center justify-center gap-3 py-4 px-8 rounded-2xl font-heading font-black text-base text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 disabled:opacity-50 cursor-pointer"
+        class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active w-full inline-flex items-center justify-center gap-3 py-4 sm:py-5 px-8 rounded-card-md font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 disabled:opacity-50 cursor-pointer transition-transform"
       >
         <span id="button-text" data-tina-field={tinaField(contact, 'submitButtonText')} data-edit-key="contact.submitButtonText" data-edit-label="Text tlačítka">{submitButtonText}</span>
         <svg id="button-icon" class="w-5 h-5 text-espresso-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">

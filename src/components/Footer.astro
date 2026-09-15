@@ -42,6 +42,7 @@ const defaultNavLinks = [
   { label: "⏱️ Průběh 60 min lekce", href: "#metodika" },
   { label: "🦘 O panu Válkovi (Mr. Válek, Melbourne)", href: "#o-mne" },
   { label: "🎁 Ceník & 1. lekce zdarma", href: "#cenik" },
+  { label: "🏷️ Podrobný ceník & slevy", href: "/cenik" },
   { label: "📸 Fotogalerie doučovny", href: "/galerie" },
   { label: "❓ Časté dotazy (FAQ)", href: "#faq" }
 ];
@@ -59,7 +60,7 @@ const termsLinkText = footer.termsLinkText || "Obchodní podmínky";
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-white border-t border-parchment-300 pt-12 pb-10 text-espresso-800 text-sm">
+<footer class="bg-surface-base border-t border-parchment-300 pt-12 pb-10 text-espresso-800 text-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-parchment-200">
@@ -67,7 +68,7 @@ const currentYear = new Date().getFullYear();
       <!-- Column 1: Brand & Mascot -->
       <div class="md:col-span-5 space-y-4">
         <div class="flex items-center gap-3">
-          <ParrotLogo className="w-12 h-12 shadow-sm rounded-full" />
+          <ParrotLogo className="w-12 h-12 shadow-2xs rounded-full" />
           <div>
             <span class="font-heading font-black text-xl text-espresso-950 block leading-tight" data-tina-field={tinaField(footer, 'brandName')} data-edit-key="footer.brandName" data-edit-label="Název akademie">
               {brandName}
@@ -80,7 +81,7 @@ const currentYear = new Date().getFullYear();
         <p class="text-xs sm:text-sm text-espresso-800/80 max-w-sm leading-relaxed" data-tina-field={tinaField(footer, 'description')} data-edit-key="footer.description" data-edit-label="Popis v patičce">
           {description}
         </p>
-        <div class="inline-block text-xs font-bold text-amber-900 bg-amber-50 px-3 py-1 rounded-xl border border-amber-200" data-tina-field={tinaField(footer, 'locationNote')} data-edit-key="footer.locationNote" data-edit-label="Poznámka k místu v patičce">
+        <div class="inline-block text-xs font-bold text-amber-900 bg-amber-50 px-3 py-1.5 rounded-card-sm border border-amber-200" data-tina-field={tinaField(footer, 'locationNote')} data-edit-key="footer.locationNote" data-edit-label="Poznámka k místu v patičce">
           {locationNote}
         </div>
       </div>

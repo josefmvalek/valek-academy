@@ -94,7 +94,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
 
 
         <!-- Main Headline with warm gradient accent -->
-        <h1 class:list={["font-heading font-black text-2xl sm:text-4xl md:text-5xl tracking-tight leading-[1.14] break-words text-espresso-950", cardEnabled ? "lg:text-6xl xl:text-[4.25rem]" : "lg:text-6xl xl:text-[4rem] max-w-3xl mx-auto"]} data-tina-field={tinaField(hero, 'title')} data-edit-key="hero.title" data-edit-label="Hlavní nadpis">
+        <h1 class:list={["font-heading font-black text-fluid-h1 tracking-tight leading-[1.14] break-words text-espresso-950", cardEnabled ? "text-center lg:text-left" : "max-w-3xl mx-auto text-center"]} data-tina-field={tinaField(hero, 'title')} data-edit-key="hero.title" data-edit-label="Hlavní nadpis">
           {title.includes('–') ? (
             <>
               <span set:html={formatRichText(title.split('–')[0].trim())} /> <span>–</span>{' '}
@@ -106,14 +106,14 @@ const cardCtaLink = card.ctaLink || "#kontakt";
         </h1>
 
         <!-- Subtitle -->
-        <p class:list={["text-sm sm:text-base lg:text-xl xl:text-[21px] text-espresso-800/90 leading-relaxed font-normal break-words", cardEnabled ? "max-w-2xl mx-auto lg:mx-0" : "max-w-2xl mx-auto"]} data-tina-field={tinaField(hero, 'subtitle')} data-edit-key="hero.subtitle" data-edit-label="Podnadpis" set:html={formatRichText(subtitle)}>
+        <p class:list={["text-fluid-body text-espresso-800/90 leading-relaxed font-normal break-words", cardEnabled ? "max-w-2xl mx-auto lg:mx-0" : "max-w-2xl mx-auto"]} data-tina-field={tinaField(hero, 'subtitle')} data-edit-key="hero.subtitle" data-edit-label="Podnadpis" set:html={formatRichText(subtitle)}>
         </p>
 
         <!-- CTA Buttons Group -->
         <div class:list={["flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 w-full", cardEnabled ? "justify-center lg:justify-start" : "justify-center"]}>
           <a
             href={ctaPrimaryLink}
-            class="btn-gold-pulse w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 sm:px-8 py-3.5 sm:py-4 rounded-2xl font-heading font-black text-sm sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md hover:shadow-lg text-center cursor-pointer transition-all hover:scale-[1.02]"
+            class="btn-gold-pulse w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-card-lg font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 text-center cursor-pointer transition-all"
             data-tina-field={tinaField(hero, 'ctaPrimaryText')}
           >
             <span>🎁</span>
@@ -125,7 +125,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
 
           <a
             href={ctaSecondaryLink}
-            class="w-full sm:w-auto inline-flex items-center justify-center px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl font-heading font-bold text-xs sm:text-base text-espresso-900 hover:text-espresso-950 bg-white hover:bg-parchment-50 border-2 border-parchment-300 shadow-2xs hover:border-amber-400 transition-all text-center"
+            class="btn-dice-secondary w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-7 py-3.5 sm:py-4 rounded-card-lg font-heading font-bold text-xs sm:text-base text-espresso-900 hover:text-espresso-950 bg-white hover:bg-parchment-50 border-2 border-parchment-300 transition-all text-center cursor-pointer"
             data-tina-field={tinaField(hero, 'ctaSecondaryText')}
             data-edit-key="hero.ctaSecondaryText"
             data-edit-label="Sekundární tlačítko"
@@ -173,10 +173,10 @@ const cardCtaLink = card.ctaLink || "#kontakt";
                     <h3 class="font-heading font-black text-base sm:text-xl text-espresso-950 leading-tight truncate" data-tina-field={hero.card ? tinaField(card, 'teacherName') : undefined} data-edit-key="hero.card.teacherName" data-edit-label="Jméno lektora">
                       {teacherName}
                     </h3>
-                    <p class="text-[10px] sm:text-xs text-stone-600 font-medium mt-0.5 truncate" data-tina-field={hero.card ? tinaField(card, 'teacherRole') : undefined} data-edit-key="hero.card.teacherRole" data-edit-label="Vzdělání lektora">
+                    <p class="text-xs text-stone-600 font-medium mt-0.5 truncate" data-tina-field={hero.card ? tinaField(card, 'teacherRole') : undefined} data-edit-key="hero.card.teacherRole" data-edit-label="Vzdělání lektora">
                       {teacherRole}
                     </p>
-                    <p class="text-[10px] sm:text-[11px] text-amber-900 font-bold mt-0.5 flex items-center gap-1.5 truncate">
+                    <p class="text-xs text-amber-900 font-bold mt-0.5 flex items-center gap-1.5 truncate">
                       <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
                       <span class="truncate" data-tina-field={hero.card ? tinaField(card, 'teacherTag') : undefined} data-edit-key="hero.card.teacherTag" data-edit-label="Specializace lektora">{teacherTag}</span>
                     </p>
@@ -184,7 +184,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
                 </div>
 
                 <div class="flex-shrink-0">
-                  <span class="text-[9px] sm:text-[10px] uppercase font-black bg-gradient-to-b from-amber-300 to-amber-400 text-espresso-950 border border-amber-500 px-2 py-1 rounded-lg inline-block text-center shadow-2xs leading-tight whitespace-pre-line" data-tina-field={hero.card ? tinaField(card, 'badgeText') : undefined} data-edit-key="hero.card.badgeText" data-edit-label="Odznáček na kartě">
+                  <span class="text-[11px] uppercase font-black tracking-wide bg-gradient-to-b from-amber-300 to-amber-400 text-espresso-950 border border-amber-500 px-2.5 py-1.5 rounded-card-sm inline-block text-center shadow-2xs leading-tight whitespace-pre-line" data-tina-field={hero.card ? tinaField(card, 'badgeText') : undefined} data-edit-key="hero.card.badgeText" data-edit-label="Odznáček na kartě">
                     {cardBadge}
                   </span>
                 </div>
@@ -196,18 +196,18 @@ const cardCtaLink = card.ctaLink || "#kontakt";
               <!-- Benefit Chips 2-Col Grid -->
               {showBenefits && (
                 <div class="grid grid-cols-2 gap-2 text-xs">
-                  <div class="p-2 sm:p-3 rounded-xl bg-amber-50/80 border border-amber-200 flex items-center gap-1.5 sm:gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit1Title') : undefined}>
-                    <span class="text-lg sm:text-xl leading-none flex-shrink-0">🎲</span>
+                  <div class="p-2.5 rounded-card-md bg-amber-50/80 border border-amber-200 flex items-center gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit1Title') : undefined}>
+                    <span class="text-xl leading-none flex-shrink-0">🎲</span>
                     <div class="min-w-0">
-                      <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate" data-edit-key="hero.card.benefit1Title" data-edit-label="Výhoda 1 nadpis">{benefit1Title}</div>
-                      <div class="text-[9px] sm:text-[10px] text-stone-600 truncate" data-tina-field={hero.card ? tinaField(card, 'benefit1Desc') : undefined} data-edit-key="hero.card.benefit1Desc" data-edit-label="Výhoda 1 popis">{benefit1Desc}</div>
+                      <div class="font-black text-espresso-950 text-xs truncate" data-edit-key="hero.card.benefit1Title" data-edit-label="Výhoda 1 nadpis">{benefit1Title}</div>
+                      <div class="text-[11px] text-stone-600 font-medium truncate" data-tina-field={hero.card ? tinaField(card, 'benefit1Desc') : undefined} data-edit-key="hero.card.benefit1Desc" data-edit-label="Výhoda 1 popis">{benefit1Desc}</div>
                     </div>
                   </div>
-                  <div class="p-2 sm:p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 flex items-center gap-1.5 sm:gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit2Title') : undefined}>
-                    <span class="text-lg sm:text-xl leading-none flex-shrink-0">👥</span>
+                  <div class="p-2.5 rounded-card-md bg-emerald-50/80 border border-emerald-200 flex items-center gap-2 min-w-0" data-tina-field={hero.card ? tinaField(card, 'benefit2Title') : undefined}>
+                    <span class="text-xl leading-none flex-shrink-0">👥</span>
                     <div class="min-w-0">
-                      <div class="font-black text-espresso-950 text-[11px] sm:text-xs truncate" data-edit-key="hero.card.benefit2Title" data-edit-label="Výhoda 2 nadpis">{benefit2Title}</div>
-                      <div class="text-[9px] sm:text-[10px] text-stone-600 truncate" data-tina-field={hero.card ? tinaField(card, 'benefit2Desc') : undefined} data-edit-key="hero.card.benefit2Desc" data-edit-label="Výhoda 2 popis">{benefit2Desc}</div>
+                      <div class="font-black text-espresso-950 text-xs truncate" data-edit-key="hero.card.benefit2Title" data-edit-label="Výhoda 2 nadpis">{benefit2Title}</div>
+                      <div class="text-[11px] text-stone-600 font-medium truncate" data-tina-field={hero.card ? tinaField(card, 'benefit2Desc') : undefined} data-edit-key="hero.card.benefit2Desc" data-edit-label="Výhoda 2 popis">{benefit2Desc}</div>
                     </div>
                   </div>
                 </div>
@@ -215,14 +215,14 @@ const cardCtaLink = card.ctaLink || "#kontakt";
 
               <!-- Location & Contact Strip -->
               {showBenefits && (
-                <div class="p-2 sm:p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between gap-1.5 sm:gap-2 text-xs min-w-0" data-tina-field={hero.card ? tinaField(card, 'locationNote') : undefined}>
-                  <div class="flex items-center gap-1 sm:gap-1.5 flex-wrap min-w-0">
+                <div class="p-2.5 rounded-card-md bg-stone-50 border border-stone-200 flex items-center justify-between gap-2 text-xs min-w-0" data-tina-field={hero.card ? tinaField(card, 'locationNote') : undefined}>
+                  <div class="flex items-center gap-1.5 flex-wrap min-w-0">
                     <span class="text-amber-700 font-bold flex-shrink-0">📍</span>
-                    <span class="font-bold text-espresso-950 text-[10px] sm:text-xs" data-edit-key="hero.card.locationNote" data-edit-label="Místo v kartě">{locationNote}</span>
+                    <span class="font-bold text-espresso-950 text-xs" data-edit-key="hero.card.locationNote" data-edit-label="Místo v kartě">{locationNote}</span>
                     <span class="text-stone-300">•</span>
-                    <span class="text-stone-600 text-[10px] sm:text-[11px] font-medium" data-tina-field={hero.card ? tinaField(card, 'onlineNote') : undefined} data-edit-key="hero.card.onlineNote" data-edit-label="Online v kartě">{onlineNote}</span>
+                    <span class="text-stone-600 text-xs font-medium" data-tina-field={hero.card ? tinaField(card, 'onlineNote') : undefined} data-edit-key="hero.card.onlineNote" data-edit-label="Online v kartě">{onlineNote}</span>
                   </div>
-                  <a href={cardCtaLink} class="font-black text-amber-900 hover:text-amber-700 underline text-[10px] sm:text-[11px] flex-shrink-0" data-tina-field={hero.card ? tinaField(card, 'ctaText') : undefined} data-edit-key="hero.card.ctaText" data-edit-label="Odkaz v kartě">
+                  <a href={cardCtaLink} class="font-black text-amber-900 hover:text-amber-700 underline text-xs flex-shrink-0" data-tina-field={hero.card ? tinaField(card, 'ctaText') : undefined} data-edit-key="hero.card.ctaText" data-edit-label="Odkaz v kartě">
                     {cardCtaText}
                   </a>
                 </div>
@@ -243,7 +243,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
           const meta = statMeta[idx] || { tag: "VÝHODA", icon: "✨", colorClass: "text-amber-800 bg-amber-100/90 border-amber-300" };
           return (
             <div
-              class="group relative bg-white/95 hover:bg-white rounded-2xl p-4 sm:p-5 text-center border border-parchment-300 shadow-2xs hover:shadow-card-lift hover:border-amber-400/80 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between overflow-hidden"
+              class="group relative bg-white/95 hover:bg-white rounded-card-lg p-4 sm:p-5 text-center border border-parchment-300 shadow-2xs hover:shadow-card-lift hover:border-amber-400/80 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between overflow-hidden"
               data-tina-field={tinaField(hero, 'stats', idx)}
             >
               <!-- Ambient top shimmer on hover -->
@@ -252,7 +252,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
               <!-- Top micro-tag with icon -->
               <div class="flex items-center justify-center gap-1.5 mb-2.5">
                 <span class="text-base sm:text-lg leading-none">{meta.icon}</span>
-                <span class={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border shadow-2xs ${meta.colorClass}`}>
+                <span class={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-2xs ${meta.colorClass}`}>
                   {meta.tag}
                 </span>
               </div>
@@ -268,7 +268,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
 
               <!-- Description / Subtext -->
               <div
-                class="text-xs sm:text-sm text-espresso-800/80 font-medium mt-1.5 leading-snug"
+                class="text-xs sm:text-sm text-espresso-800/85 font-medium mt-1.5 leading-snug"
                 data-edit-key={`hero.stats.${idx}.label`}
                 data-edit-label="Popis statistiky"
               >

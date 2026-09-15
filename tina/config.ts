@@ -1114,6 +1114,182 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: "cenik",
+        label: "Podrobný ceník (/cenik)",
+        path: "content/pricing",
+        format: "json",
+        ui: {
+          router: ({ document }) => {
+            if (document._sys.filename === "cenik") {
+              return "/cenik";
+            }
+            return undefined;
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Název stránky (SEO Titulek)",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "object",
+            name: "seo",
+            label: "SEO Nastavení",
+            fields: [
+              { type: "string", name: "metaTitle", label: "SEO Titulek (<title>)" },
+              { type: "string", name: "metaDescription", label: "SEO Popis pro vyhledávače", ui: { component: "textarea" } },
+              { type: "string", name: "canonicalUrl", label: "Kanonická URL" },
+            ],
+          },
+          {
+            type: "string",
+            name: "backLinkText",
+            label: "Text odkazu Zpět (např. Zpět na hlavní stránku)",
+          },
+          {
+            type: "object",
+            name: "header",
+            label: "Hlavička stránky ceníku",
+            fields: [
+              { type: "string", name: "badge", label: "Štítek / Odznáček" },
+              { type: "string", name: "title", label: "Hlavní nadpis (H1)", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Úvodní popis / perex", ui: { component: "textarea" } },
+            ],
+          },
+          {
+            type: "object",
+            name: "programs",
+            label: "4 Hlavní výukové programy",
+            list: true,
+            ui: {
+              itemProps: (item) => ({
+                label: `${item?.icon || '🏷️'} ${item?.title || 'Program'} (${item?.cohortBadge || ''})`,
+              }),
+            },
+            fields: [
+              { type: "string", name: "id", label: "ID programu (např. kids, teens, adults, individual)", required: true },
+              { type: "string", name: "icon", label: "Emoji / Ikona (např. 🎲, 🎓, 💼, 👤)" },
+              { type: "string", name: "cohortBadge", label: "Štítek věku / skupiny (např. 1.–6. třída ZŠ • 60 minut)" },
+              { type: "string", name: "popularBadge", label: "Zvýrazňující odznak (např. ⭐ Nejoblíbenější • 1. lekce ZDARMA)" },
+              { type: "string", name: "title", label: "Název programu", required: true },
+              { type: "string", name: "description", label: "Popis programu", ui: { component: "textarea" } },
+              { type: "string", name: "baseRate", label: "Základní cena (např. 320 Kč)" },
+              { type: "string", name: "baseRateNote", label: "Poznámka k zákl. ceně (např. / 60 min)" },
+              { type: "string", name: "packageRate", label: "Cena s balíčkem (např. 250 Kč)" },
+              { type: "string", name: "packageRateNote", label: "Poznámka k balíčku (např. / h (jen cca 1 000 Kč/měsíc))" },
+              { type: "string", name: "fullYearRate", label: "Cena roční / druhá frekvence (např. od 220 Kč)" },
+              { type: "string", name: "fullYearRateNote", label: "Poznámka k roční ceně (např. / hodina (sleva až 31 %))" },
+              { type: "string", name: "timeSlots", label: "Časové sloty (např. Po–Pá 12:30–13:30...)" },
+              { type: "string", name: "features", label: "Výhody a obsah balíčku", list: true },
+              { type: "string", name: "ctaPrimaryText", label: "Text primárního tlačítka" },
+              { type: "string", name: "ctaPrimaryLink", label: "Odkaz primárního tlačítka" },
+              { type: "string", name: "ctaSecondaryText", label: "Text sekundárního tlačítka" },
+              { type: "string", name: "ctaSecondaryLink", label: "Odkaz sekundárního tlačítka" },
+            ],
+          },
+          {
+            type: "object",
+            name: "comparisonTable",
+            label: "Srovnávací tabulka slev a balíčků",
+            fields: [
+              { type: "string", name: "badge", label: "Štítek nadpisu" },
+              { type: "string", name: "title", label: "Nadpis tabulky" },
+              { type: "string", name: "subtitle", label: "Popis pod nadpisem", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "rows",
+                label: "Řádky srovnávací tabulky",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({
+                    label: `${item?.period || 'Období'} (${item?.frequency || ''}) - ${item?.totalPrice || ''}`,
+                  }),
+                },
+                fields: [
+                  { type: "string", name: "period", label: "Období balíčku (např. Pololetí (20 týdnů))", required: true },
+                  { type: "string", name: "tag", label: "Štítek (např. Nejoblíbenější, Doporučeno, Max. úspora)" },
+                  { type: "string", name: "frequency", label: "Frekvence (např. 1× týdně)" },
+                  { type: "string", name: "lessons", label: "Celkem lekcí (např. 20 lekcí)" },
+                  { type: "string", name: "basePrice", label: "Základní cena (přeškrtnutá, např. 6 400 Kč)" },
+                  { type: "string", name: "discount", label: "Sleva (např. -22 %)" },
+                  { type: "string", name: "unitPrice", label: "Cena za 1 lekci (např. 250 Kč)" },
+                  { type: "string", name: "totalPrice", label: "Celková cena balíčku (např. 5 000 Kč)" },
+                  { type: "boolean", name: "isPopular", label: "Zvýraznit žlutě (nejoblíbenější)?" },
+                  { type: "boolean", name: "isRecommended", label: "Zvýraznit zeleně (doporučeno)?" },
+                  { type: "boolean", name: "isBestValue", label: "Zvýraznit světle zeleně (max úspora)?" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "guarantees",
+            label: "Férová pravidla & Platební podmínky (4 pilíře)",
+            fields: [
+              { type: "string", name: "badge", label: "Štítek nadpisu" },
+              { type: "string", name: "title", label: "Nadpis sekce" },
+              { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "items",
+                label: "Položky záruk (4 karty)",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({
+                    label: `${item?.icon || '🛡️'} ${item?.title || 'Záruka'}`,
+                  }),
+                },
+                fields: [
+                  { type: "string", name: "icon", label: "Ikona (emoji, např. 🎁, 💳, 🔄, 🔒)" },
+                  { type: "string", name: "title", label: "Nadpis pravidla", required: true },
+                  { type: "string", name: "text", label: "Popis pravidla", ui: { component: "textarea" } },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "faq",
+            label: "Časté dotazy ke ceníku (FAQ)",
+            fields: [
+              { type: "string", name: "title", label: "Nadpis FAQ" },
+              {
+                type: "object",
+                name: "items",
+                label: "Otázky a odpovědi",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({
+                    label: `❓ ${item?.question || 'Otázka'}`,
+                  }),
+                },
+                fields: [
+                  { type: "string", name: "question", label: "Otázka", required: true },
+                  { type: "string", name: "answer", label: "Odpověď", ui: { component: "textarea" } },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "ctaBanner",
+            label: "Spodní výzva k akci (CTA banner)",
+            fields: [
+              { type: "string", name: "badge", label: "Štítek banneru" },
+              { type: "string", name: "title", label: "Hlavní nadpis banneru" },
+              { type: "string", name: "subtitle", label: "Podnadpis banneru", ui: { component: "textarea" } },
+              { type: "string", name: "primaryBtnText", label: "Text primárního tlačítka" },
+              { type: "string", name: "primaryBtnLink", label: "Odkaz primárního tlačítka" },
+              { type: "string", name: "secondaryBtnText", label: "Text sekundárního tlačítka" },
+              { type: "string", name: "secondaryBtnLink", label: "Odkaz sekundárního tlačítka" },
+            ],
+          },
+        ],
+      },
     ],
   },
 });

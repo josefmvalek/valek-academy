@@ -132,14 +132,14 @@ const waitingList = audience.waitingList || {
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-tina-field={tinaField(audience, 'badge')} data-edit-key="audience.badge" data-edit-label="Štítek programů">
         <span>🎲</span> <span>{badge}</span>
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(audience, 'title')} data-edit-key="audience.title" data-edit-label="Nadpis programů" set:html={formatRichText(title)}>
+      <h2 class="font-heading font-black text-fluid-h2 text-espresso-950 tracking-tight" data-tina-field={tinaField(audience, 'title')} data-edit-key="audience.title" data-edit-label="Nadpis programů" set:html={formatRichText(title)}>
       </h2>
-      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(audience, 'subtitle')} data-edit-key="audience.subtitle" data-edit-label="Podnadpis programů" set:html={formatRichText(subtitle)}>
+      <p class="text-espresso-800/85 text-fluid-body max-w-3xl mx-auto" data-tina-field={tinaField(audience, 'subtitle')} data-edit-key="audience.subtitle" data-edit-label="Podnadpis programů" set:html={formatRichText(subtitle)}>
       </p>
     </div>
 
     <!-- In-person Location Banner -->
-    <div class="mb-6 md:mb-8 max-w-2xl mx-auto p-3 sm:p-3.5 rounded-2xl bg-white/90 border border-amber-300 shadow-2xs flex items-center justify-center gap-2 sm:gap-3 text-xs text-espresso-950 font-medium text-center flex-wrap">
+    <div class="mb-6 md:mb-8 max-w-2xl mx-auto p-3 sm:p-3.5 rounded-card-lg bg-white/90 border border-amber-300 shadow-2xs flex items-center justify-center gap-2 sm:gap-3 text-xs text-espresso-950 font-medium text-center flex-wrap">
       <span class="flex items-center gap-1.5 text-amber-950 font-bold">
         <span>🏡</span> <span>100% osobně v doučovně: Josef Válek (Růžová 1238, Uherské Hradiště – naproti ZŠ UNESCO)</span>
       </span>
@@ -151,22 +151,22 @@ const waitingList = audience.waitingList || {
 
     <!-- Mobile Cohort Switcher Tabs (Cuts ~1,400px of scroll on phones!) -->
     <div class="lg:hidden mb-6">
-      <div class="text-center text-[11px] font-black uppercase tracking-wider text-amber-950/80 mb-2" data-tina-field={tinaField(audience as any, 'cohortTabsLabel')}>
+      <div class="text-center text-xs font-black uppercase tracking-wider text-amber-950/80 mb-2" data-tina-field={tinaField(audience as any, 'cohortTabsLabel')}>
         {cohortTabsLabel}
       </div>
-      <div class="grid grid-cols-3 gap-1.5 p-1.5 rounded-2xl bg-parchment-200 border border-parchment-300 shadow-2xs" id="cohort-tabs">
+      <div class="grid grid-cols-3 gap-1.5 p-1.5 rounded-card-md bg-parchment-200 border border-parchment-300 shadow-2xs" id="cohort-tabs">
         {kidsPrograms.map((prog, idx) => (
           <button
             type="button"
             class:list={[
-              "cohort-tab-btn py-2.5 px-2 rounded-xl font-heading text-xs transition-all text-center flex flex-col items-center justify-center gap-0.5 cursor-pointer",
+              "cohort-tab-btn py-2.5 px-2 rounded-card-sm font-heading text-xs transition-all text-center flex flex-col items-center justify-center gap-0.5 cursor-pointer",
               idx === 0
                 ? "bg-amber-400 text-espresso-950 shadow-xs border border-amber-500 font-black"
                 : "bg-transparent text-espresso-800 hover:text-espresso-950 font-bold border border-transparent"
             ]}
             data-target={`program-${prog.id}`}
           >
-            <span class="text-base">{prog.icon}</span>
+            <span class="text-lg leading-none">{prog.icon}</span>
             <span class="truncate font-black">{prog.title.split(':')[0]}</span>
           </button>
         ))}
@@ -180,7 +180,7 @@ const waitingList = audience.waitingList || {
           id={`program-${prog.id}`}
           data-tina-field={tinaField(audience, 'kidsPrograms', idx)}
           class:list={[
-            "cohort-card rounded-3xl p-6 sm:p-8 flex-col justify-between border-2 border-parchment-300 hover:border-amber-400 hover:shadow-card-lift bg-white shadow-xs transition-all duration-300 relative group hover:-translate-y-1",
+            "cohort-card rounded-card-xl p-6 sm:p-8 flex-col justify-between border-2 border-parchment-300 hover:border-amber-400 hover:shadow-card-lift bg-white shadow-card transition-all duration-300 relative group hover:-translate-y-1.5",
             idx === 0 ? "flex lg:flex" : "hidden lg:flex"
           ]}
         >
@@ -188,12 +188,12 @@ const waitingList = audience.waitingList || {
             
             <!-- Top Card Header: Icon, Age & Badge -->
             <div class="flex items-center justify-between">
-              <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-2xs bg-amber-100/80 text-espresso-950 border border-amber-300/80">
+              <div class="w-14 h-14 rounded-card-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-2xs bg-amber-100/80 text-espresso-950 border border-amber-300/80">
                 {prog.icon}
               </div>
               <div class="flex flex-col items-end gap-1">
                 <span
-                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-black tracking-wide uppercase bg-amber-100 text-amber-950 border border-amber-300 shadow-2xs"
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black tracking-wide uppercase bg-amber-100 text-amber-950 border border-amber-300 shadow-2xs"
                   data-tina-field={tinaField(prog, 'badge')}
                   data-edit-key={`audience.kidsPrograms.${idx}.badge`}
                   data-edit-label="Štítek karty"
@@ -208,7 +208,7 @@ const waitingList = audience.waitingList || {
 
             <!-- Program Card Image (Clickable & Editable) -->
             {prog.image && (
-              <div class="relative w-full h-40 rounded-2xl overflow-hidden border border-amber-200/80 bg-parchment-100 shadow-2xs group/img">
+              <div class="relative w-full h-40 rounded-card-md overflow-hidden border border-amber-200/80 bg-parchment-100 shadow-2xs group/img">
                 <img
                   src={prog.image}
                   alt={prog.title}
@@ -224,10 +224,10 @@ const waitingList = audience.waitingList || {
 
             <!-- Title & Highlight -->
             <div>
-              <h3 class="font-heading font-black text-2xl text-espresso-950 group-hover:text-amber-900 transition-colors" data-tina-field={tinaField(prog, 'title')} data-edit-key={`audience.kidsPrograms.${idx}.title`} data-edit-label="Název programu">
+              <h3 class="font-heading font-black text-fluid-h3 text-espresso-950 group-hover:text-amber-900 transition-colors" data-tina-field={tinaField(prog, 'title')} data-edit-key={`audience.kidsPrograms.${idx}.title`} data-edit-label="Název programu">
                 {prog.title}
               </h3>
-              <div class="inline-block mt-2 text-xs font-black uppercase tracking-wider text-amber-950 bg-amber-100 px-2.5 py-1 rounded-lg border border-amber-300" data-tina-field={tinaField(prog, 'highlight')} data-edit-key={`audience.kidsPrograms.${idx}.highlight`} data-edit-label="Tahák programu">
+              <div class="inline-block mt-2 text-xs font-black uppercase tracking-wider text-amber-950 bg-amber-100 px-2.5 py-1 rounded-card-sm border border-amber-300" data-tina-field={tinaField(prog, 'highlight')} data-edit-key={`audience.kidsPrograms.${idx}.highlight`} data-edit-label="Tahák programu">
                 {prog.highlight}
               </div>
               <p class="text-espresso-800/90 text-sm mt-3 leading-relaxed font-normal" data-tina-field={tinaField(prog, 'description')} data-edit-key={`audience.kidsPrograms.${idx}.description`} data-edit-label="Popis programu">
@@ -237,10 +237,10 @@ const waitingList = audience.waitingList || {
 
             <!-- Tailored Games for this age -->
             <div class="pt-3 border-t border-parchment-200">
-              <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-2" data-tina-field={tinaField(audience as any, 'gamesLabel')}>{gamesLabel}</div>
+              <div class="text-xs font-black uppercase tracking-wider text-stone-600 mb-2" data-tina-field={tinaField(audience as any, 'gamesLabel')}>{gamesLabel}</div>
               <div class="flex flex-wrap gap-1.5" data-tina-field={tinaField(prog, 'games')}>
                 {(prog.games || []).map((g) => (
-                  <span class="px-2 py-0.5 rounded-md bg-parchment-100 border border-parchment-300 text-[11px] font-bold text-espresso-950">
+                  <span class="px-2.5 py-1 rounded-card-sm bg-parchment-100 border border-parchment-300 text-xs font-bold text-espresso-950 shadow-2xs">
                     🎲 {g}
                   </span>
                 ))}
@@ -249,7 +249,7 @@ const waitingList = audience.waitingList || {
 
             <!-- Bullet Points -->
             <div class="pt-3 border-t border-parchment-200 space-y-2">
-              <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 mb-1" data-tina-field={tinaField(audience as any, 'pointsLabel')}>{pointsLabel}</div>
+              <div class="text-xs font-black uppercase tracking-wider text-stone-600 mb-1" data-tina-field={tinaField(audience as any, 'pointsLabel')}>{pointsLabel}</div>
               <ul class="space-y-2" data-tina-field={tinaField(prog, 'points')}>
                 {(prog.points || []).map((point, pIdx) => (
                   <li class="flex items-start gap-2.5 text-xs sm:text-sm text-espresso-900 font-medium">
@@ -268,12 +268,12 @@ const waitingList = audience.waitingList || {
             <a
               href={prog.ctaLink || "#kontakt"}
               data-tina-field={tinaField(prog, 'ctaText')}
-              class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-500 border border-amber-500 shadow-xs hover:shadow-md transition-all text-center cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-card-md font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-dice-btn active:shadow-dice-btn-active btn-gold-pulse transition-all text-center cursor-pointer"
             >
               <span data-edit-key={`audience.kidsPrograms.${idx}.ctaText`} data-edit-label="Tlačítko programu">{prog.ctaText?.replace(/→\s*$/, '').trim()}</span>
               <span>→</span>
             </a>
-            <div class="text-center mt-2 text-[11px] font-bold text-amber-900" data-tina-field={tinaField(audience as any, 'guaranteeLabel')}>
+            <div class="text-center mt-2 text-xs font-bold text-amber-900" data-tina-field={tinaField(audience as any, 'guaranteeLabel')}>
               {guaranteeLabel}
             </div>
           </div>

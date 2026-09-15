@@ -3,6 +3,51 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* --- Surface & Canvas Tokens --- */
+    --surface-base: #FAF7F2;
+    --surface-card: #FFFFFF;
+    --surface-sunken: #F5EFEB;
+    --surface-highlight: #FFFDF8;
+    --surface-border: #E8DCBF;
+    --surface-border-subtle: #F3EAD7;
+
+    /* --- Brand & Contrast Tokens (WCAG AA/AAA) --- */
+    --brand-amber: #D97706;
+    --brand-amber-light: #F59E0B;
+    --brand-amber-dark: #B45309;
+    --brand-amber-glow: rgba(245, 158, 11, 0.28);
+    --brand-navy: #1E3A8A;
+    --brand-navy-dark: #0F172A;
+    --brand-emerald: #059669;
+    --brand-emerald-light: #10B981;
+    --brand-espresso: #2A190F;
+    --brand-muted: #5C473A;
+
+    /* --- Fluid Typography Scale via clamp() --- */
+    --fluid-h1: clamp(2.15rem, 1.4rem + 3.2vw, 4rem);
+    --fluid-h2: clamp(1.65rem, 1.15rem + 2.1vw, 2.75rem);
+    --fluid-h3: clamp(1.25rem, 1rem + 1.1vw, 1.85rem);
+    --fluid-h4: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
+    --fluid-body: clamp(0.95rem, 0.92rem + 0.2vw, 1.125rem);
+    --fluid-small: clamp(0.8125rem, 0.8rem + 0.1vw, 0.9rem);
+
+    /* --- Physicality & Board Game Elevation Tokens --- */
+    --shadow-tile: 0 3px 0 #C4A87C, 0 6px 14px rgba(42, 25, 15, 0.08);
+    --shadow-card: 0 4px 20px -2px rgba(42, 25, 15, 0.06);
+    --shadow-card-lift: 0 16px 36px -6px rgba(42, 25, 15, 0.12), 0 0 0 1px rgba(217, 119, 6, 0.15);
+    --shadow-dice-btn: 0 4px 0 #B45309, 0 8px 20px rgba(217, 119, 6, 0.35);
+    --shadow-dice-btn-hover: 0 6px 0 #92400E, 0 14px 28px rgba(217, 119, 6, 0.45);
+    --shadow-dice-btn-active: 0 1px 0 #92400E, 0 3px 8px rgba(217, 119, 6, 0.25);
+
+    /* --- Spatial & Geometric Radii --- */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-full: 9999px;
+  }
+
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -10,8 +55,8 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
-    background-color: #FAF7F2;
-    color: #2A190F;
+    background-color: var(--surface-base);
+    color: var(--brand-espresso);
     font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
     overflow-x: clip;
@@ -21,8 +66,8 @@
   }
 
   body {
-    background-color: #FAF7F2;
-    color: #2A190F;
+    background-color: var(--surface-base);
+    color: var(--brand-espresso);
     overflow-x: hidden;
     overflow-x: clip;
     max-width: 100%;
@@ -38,7 +83,7 @@
 
   ::selection {
     background-color: #FDE68A;
-    color: #2A190F;
+    color: var(--brand-espresso);
   }
 
   /* Custom clean warm scrollbar */
@@ -80,16 +125,17 @@
   }
 
   .academic-card {
-    background-color: #FFFFFF;
-    border: 1px solid #EADBCE;
-    box-shadow: 0 4px 20px -2px rgba(42, 25, 15, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: var(--surface-card);
+    border: 1px solid var(--surface-border-subtle);
+    box-shadow: var(--shadow-card);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .academic-card:hover {
-    border-color: #D97706;
-    box-shadow: 0 16px 32px -4px rgba(42, 25, 15, 0.1);
-    transform: translateY(-3px);
+    border-color: var(--brand-amber-light);
+    box-shadow: var(--shadow-card-lift);
+    transform: translateY(-4px);
   }
 
   .glass-panel {
@@ -207,13 +253,33 @@
     overflow: hidden !important;
     contain: paint;
     isolation: isolate;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.4), 0 0 0 1px rgba(245, 158, 11, 0.4);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--shadow-dice-btn);
   }
 
   .btn-gold-pulse:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 16px 32px -4px rgba(217, 119, 6, 0.55), 0 0 20px 2px rgba(245, 158, 11, 0.4);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-dice-btn-hover);
+  }
+
+  .btn-gold-pulse:active {
+    transform: translateY(2px);
+    box-shadow: var(--shadow-dice-btn-active);
+  }
+
+  .btn-dice-secondary {
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 3px 0 #D7C49C, 0 6px 14px rgba(42, 25, 15, 0.06);
+  }
+
+  .btn-dice-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #C4A87C, 0 10px 20px rgba(42, 25, 15, 0.1);
+  }
+
+  .btn-dice-secondary:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #C4A87C, 0 2px 5px rgba(42, 25, 15, 0.05);
   }
 
   .btn-gold-pulse::after {

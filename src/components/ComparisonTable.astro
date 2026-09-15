@@ -99,7 +99,7 @@ const labelMotivation = comparison.labelMotivation || "Motivace dítěte:";
 const columns = comparison.columns || defaultColumns;
 ---
 
-<section id="srovnani" class={`py-8 sm:py-12 md:py-20 relative bg-gradient-to-b from-white via-parchment-50/80 to-white border-b border-parchment-300 overflow-hidden ${className}`}>
+<section id="srovnani" class={`py-8 sm:py-12 md:py-20 relative bg-surface-base border-b border-parchment-300 overflow-hidden ${className}`}>
   
   <!-- Decorative background lighting -->
   <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[350px] bg-amber-200/25 rounded-full blur-3xl pointer-events-none -z-10"></div>
@@ -108,12 +108,12 @@ const columns = comparison.columns || defaultColumns;
     
     <!-- Header -->
     <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-14">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-xs" data-tina-field={tinaField(comparison, 'badge')} data-edit-key="comparison.badge" data-edit-label="Štítek srovnání">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-2xs" data-tina-field={tinaField(comparison, 'badge')} data-edit-key="comparison.badge" data-edit-label="Štítek srovnání">
         <span>⚖️</span> <span>{badge}</span>
       </div>
-      <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(comparison, 'title')} data-edit-key="comparison.title" data-edit-label="Nadpis srovnání" set:html={formatRichText(title)}>
+      <h2 class="font-heading font-black text-fluid-h2 text-espresso-950 tracking-tight" data-tina-field={tinaField(comparison, 'title')} data-edit-key="comparison.title" data-edit-label="Nadpis srovnání" set:html={formatRichText(title)}>
       </h2>
-      <p class="text-espresso-800/80 text-sm sm:text-lg" data-tina-field={tinaField(comparison, 'subtitle')} data-edit-key="comparison.subtitle" data-edit-label="Podnadpis srovnání" set:html={formatRichText(subtitle)}>
+      <p class="text-espresso-800/85 text-fluid-body" data-tina-field={tinaField(comparison, 'subtitle')} data-edit-key="comparison.subtitle" data-edit-label="Podnadpis srovnání" set:html={formatRichText(subtitle)}>
       </p>
     </div>
 
@@ -123,17 +123,17 @@ const columns = comparison.columns || defaultColumns;
         <div
           data-tina-field={tinaField(comparison, 'columns', idx)}
           class:list={[
-            "rounded-3xl p-6 sm:p-8 flex-col justify-between transition-all duration-300 relative",
+            "rounded-card-xl p-6 sm:p-8 flex-col justify-between transition-all duration-300 relative",
             col.isWinner
               ? "order-1 lg:order-3 flex bg-gradient-to-b from-[#FFFDF8] via-amber-50/40 to-white border-2 border-amber-400 shadow-card-lift ring-2 ring-amber-400/40 lg:-translate-y-3"
               : (idx === 0
-                  ? "order-3 lg:order-1 comparison-extra hidden lg:flex bg-white border-2 border-parchment-300 shadow-xs opacity-90 hover:opacity-100"
-                  : "order-4 lg:order-2 comparison-extra hidden lg:flex bg-white border-2 border-parchment-300 shadow-xs opacity-90 hover:opacity-100"
+                  ? "order-3 lg:order-1 comparison-extra hidden lg:flex bg-surface-card border-2 border-parchment-300 shadow-tile opacity-90 hover:opacity-100"
+                  : "order-4 lg:order-2 comparison-extra hidden lg:flex bg-surface-card border-2 border-parchment-300 shadow-tile opacity-90 hover:opacity-100"
                 )
           ]}
         >
           {col.isWinner && (
-            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-espresso-950 font-heading font-black text-[11px] uppercase tracking-wider shadow-md border border-amber-300 flex items-center gap-1.5 whitespace-nowrap" data-tina-field={tinaField(col, 'badge')} data-edit-key={`comparison.columns.${idx}.badge`} data-edit-label="Štítek vítěze">
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-espresso-950 font-heading font-black text-xs uppercase tracking-wider shadow-sm border border-amber-300 flex items-center gap-1.5 whitespace-nowrap" data-tina-field={tinaField(col, 'badge')} data-edit-key={`comparison.columns.${idx}.badge`} data-edit-label="Štítek vítěze">
               <span>🏆</span>
               <span>{col.badge}</span>
             </div>
@@ -143,14 +143,14 @@ const columns = comparison.columns || defaultColumns;
             <!-- Card Header -->
             <div class="pb-5 border-b border-parchment-200">
               {!col.isWinner && (
-                <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-parchment-200 text-stone-700 mb-2" data-tina-field={tinaField(col, 'badge')} data-edit-key={`comparison.columns.${idx}.badge`} data-edit-label="Štítek možnosti">
+                <span class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-parchment-200 text-stone-700 mb-2 border border-parchment-300" data-tina-field={tinaField(col, 'badge')} data-edit-key={`comparison.columns.${idx}.badge`} data-edit-label="Štítek možnosti">
                   {col.badge}
                 </span>
               )}
-              <h3 class="font-heading font-black text-2xl text-espresso-950" data-tina-field={tinaField(col, 'title')} data-edit-key={`comparison.columns.${idx}.title`} data-edit-label="Název možnosti">
+              <h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950" data-tina-field={tinaField(col, 'title')} data-edit-key={`comparison.columns.${idx}.title`} data-edit-label="Název možnosti">
                 {col.title}
               </h3>
-              <p class="text-xs text-stone-500 font-semibold mt-1" data-tina-field={tinaField(col, 'subtitle')} data-edit-key={`comparison.columns.${idx}.subtitle`} data-edit-label="Podtitul možnosti">
+              <p class="text-xs text-stone-600 font-semibold mt-1" data-tina-field={tinaField(col, 'subtitle')} data-edit-key={`comparison.columns.${idx}.subtitle`} data-edit-label="Podtitul možnosti">
                 {col.subtitle}
               </p>
 
@@ -174,7 +174,7 @@ const columns = comparison.columns || defaultColumns;
               
               <!-- 1. Speaking Time -->
               <div class="space-y-1">
-                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1" data-tina-field={tinaField(comparison, 'labelSpeakingTime')} data-edit-key="comparison.labelSpeakingTime" data-edit-label="Popisek: Mluvení">
+                <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1.5" data-tina-field={tinaField(comparison, 'labelSpeakingTime')} data-edit-key="comparison.labelSpeakingTime" data-edit-label="Popisek: Mluvení">
                   <span>🗣️</span> <span>{labelSpeakingTime}</span>
                 </div>
                 <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'speakingTime')} data-edit-key={`comparison.columns.${idx}.speakingTime`} data-edit-label="Prostor pro řeč">
@@ -184,7 +184,7 @@ const columns = comparison.columns || defaultColumns;
 
               <!-- 2. Atmosphere -->
               <div class="space-y-1">
-                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1" data-tina-field={tinaField(comparison, 'labelAtmosphere')} data-edit-key="comparison.labelAtmosphere" data-edit-label="Popisek: Atmosféra">
+                <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1.5" data-tina-field={tinaField(comparison, 'labelAtmosphere')} data-edit-key="comparison.labelAtmosphere" data-edit-label="Popisek: Atmosféra">
                   <span>🧘</span> <span>{labelAtmosphere}</span>
                 </div>
                 <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'atmosphere')} data-edit-key={`comparison.columns.${idx}.atmosphere`} data-edit-label="Atmosféra">
@@ -194,7 +194,7 @@ const columns = comparison.columns || defaultColumns;
 
               <!-- 3. Method -->
               <div class="space-y-1">
-                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1" data-tina-field={tinaField(comparison, 'labelMethod')} data-edit-key="comparison.labelMethod" data-edit-label="Popisek: Metodika">
+                <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1.5" data-tina-field={tinaField(comparison, 'labelMethod')} data-edit-key="comparison.labelMethod" data-edit-label="Popisek: Metodika">
                   <span>🎲</span> <span>{labelMethod}</span>
                 </div>
                 <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'method')} data-edit-key={`comparison.columns.${idx}.method`} data-edit-label="Metodika">
@@ -204,7 +204,7 @@ const columns = comparison.columns || defaultColumns;
 
               <!-- 4. Accent -->
               <div class="space-y-1">
-                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1" data-tina-field={tinaField(comparison, 'labelAccent')} data-edit-key="comparison.labelAccent" data-edit-label="Popisek: Přízvuk">
+                <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1.5" data-tina-field={tinaField(comparison, 'labelAccent')} data-edit-key="comparison.labelAccent" data-edit-label="Popisek: Přízvuk">
                   <span>🇦🇺</span> <span>{labelAccent}</span>
                 </div>
                 <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'accent')} data-edit-key={`comparison.columns.${idx}.accent`} data-edit-label="Přízvuk">
@@ -214,7 +214,7 @@ const columns = comparison.columns || defaultColumns;
 
               <!-- 5. Motivation -->
               <div class="space-y-1">
-                <div class="text-[10px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1" data-tina-field={tinaField(comparison, 'labelMotivation')} data-edit-key="comparison.labelMotivation" data-edit-label="Popisek: Motivace">
+                <div class="text-[11px] font-black uppercase tracking-wider text-stone-500 flex items-center gap-1.5" data-tina-field={tinaField(comparison, 'labelMotivation')} data-edit-key="comparison.labelMotivation" data-edit-label="Popisek: Motivace">
                   <span>🚀</span> <span>{labelMotivation}</span>
                 </div>
                 <p class:list={["font-medium leading-snug", col.isWinner ? "text-espresso-950 font-bold" : "text-stone-700"]} data-tina-field={tinaField(col, 'motivation')} data-edit-key={`comparison.columns.${idx}.motivation`} data-edit-label="Motivace">
@@ -230,7 +230,7 @@ const columns = comparison.columns || defaultColumns;
             {col.isWinner ? (
               <a
                 href={ctaLink}
-                class="btn-gold-pulse w-full py-3.5 px-4 rounded-xl font-heading font-black text-center text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md flex items-center justify-center gap-2 transition-transform hover:scale-[1.02]"
+                class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active w-full py-4 px-4 rounded-card-md font-heading font-black text-center text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 flex items-center justify-center gap-2 transition-transform cursor-pointer"
                 data-tina-field={tinaField(comparison, 'ctaText')}
                 data-edit-key="comparison.ctaText"
                 data-edit-label="Tlačítko vítěze"
@@ -253,7 +253,7 @@ const columns = comparison.columns || defaultColumns;
         <button
           type="button"
           id="toggle-comparison-btn"
-          class="w-full py-3 px-4 rounded-2xl bg-white hover:bg-parchment-100 border-2 border-parchment-300 font-heading font-black text-xs text-espresso-950 flex items-center justify-center gap-2 shadow-xs cursor-pointer transition-all active:scale-[0.98]"
+          class="w-full py-3.5 px-4 rounded-card-md bg-white hover:bg-parchment-100 border-2 border-parchment-300 font-heading font-black text-xs text-espresso-950 flex items-center justify-center gap-2 shadow-2xs cursor-pointer transition-all active:scale-[0.98]"
         >
           <span>⚖️</span>
           <span id="toggle-comparison-text" data-tina-field={tinaField(comparison, 'toggleButtonText')} data-edit-key="comparison.toggleButtonText" data-edit-label="Tlačítko srovnání">{toggleButtonText}</span>
