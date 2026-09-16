@@ -40,11 +40,11 @@
     --shadow-dice-btn-hover: 0 6px 0 #92400E, 0 14px 28px rgba(217, 119, 6, 0.45);
     --shadow-dice-btn-active: 0 1px 0 #92400E, 0 3px 8px rgba(217, 119, 6, 0.25);
 
-    /* --- Spatial & Geometric Radii --- */
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --radius-xl: 28px;
+    /* --- Spatial & Geometric Radii (přátelské zaoblení pro akademii) --- */
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
     --radius-full: 9999px;
   }
 
@@ -358,5 +358,12 @@
 
 .animate-shimmer {
   animation: shimmer 2.5s infinite;
+}
+
+@layer utilities {
+  .rounded-card-sm { border-radius: var(--radius-sm, 10px); }
+  .rounded-card-md { border-radius: var(--radius-md, 16px); }
+  .rounded-card-lg { border-radius: var(--radius-lg, 24px); }
+  .rounded-card-xl { border-radius: var(--radius-xl, 32px); }
 }
 
