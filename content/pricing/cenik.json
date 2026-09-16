@@ -72,10 +72,10 @@
       "description": "Specializované skupiny pro 4 profese: Medici 🩺, Právníci ⚖️, Technici & Inženýři ⚙️, Obchod & Účetnictví 📊. Cílem je odbourat ostych, zvládnout prezentace a osvojit si odbornou terminologii.",
       "baseRate": "480 Kč",
       "baseRateNote": "/ 90 min",
-      "packageRate": "420 Kč",
+      "packageRate": "420 Kč / hod.",
       "packageRateNote": "/ 90 min na osobu",
       "fullYearRate": "Možnost platby přes zaměstnanecké benefity / FKSP",
-      "fullYearRateNote": "",
+      "fullYearRateNote": "gdfgdfg",
       "timeSlots": "Pondělí až Čtvrtek 17:00–18:30 (5 bloků týdně)",
       "features": [
         "Praktická konverzace ze světa práce, žádná nudná gramatika ze školních lavic",
