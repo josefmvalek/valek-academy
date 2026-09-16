@@ -73,14 +73,16 @@
       "baseRate": "480 Kč",
       "baseRateNote": "/ 90 min",
       "packageRate": "420 Kč / hod.",
-      "packageRateNote": "/ 90 min na osobu",
-      "fullYearRate": "Možnost platby přes zaměstnanecké benefity / FKSP",
+      "packageRateNote": "(sleva 15%, 280 Kč/h, celkem 8 400 Kč)",
+      "fullYearRate": "",
       "fullYearRateNote": "gdfgdfg",
       "timeSlots": "Pondělí až Čtvrtek 17:00–18:30 (5 bloků týdně)",
       "features": [
         "Praktická konverzace ze světa práce, žádná nudná gramatika ze školních lavic",
         "Lektor Josef Válek vystudoval BBA na prestižní RMIT University v Melbourne",
-        "Vystavení daňového dokladu (faktury) pro uplatnění ve firemních nákladech"
+        "Vystavení daňového dokladu (faktury) pro uplatnění ve firemních nákladech",
+        "Možnost platby přes zaměstnanecké benefity / FKSP",
+        "Rozsáhlá cizojazyčná knihovna k dispozici studentům"
       ],
       "ctaPrimaryText": "Poptat profesní skupinu →",
       "ctaPrimaryLink": "/#kontakt",
