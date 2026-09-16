@@ -25,12 +25,12 @@
     --brand-muted: #5C473A;
 
     /* --- Fluid Typography Scale via clamp() --- */
-    --fluid-h1: clamp(2.15rem, 1.4rem + 3.2vw, 4rem);
-    --fluid-h2: clamp(1.65rem, 1.15rem + 2.1vw, 2.75rem);
-    --fluid-h3: clamp(1.25rem, 1rem + 1.1vw, 1.85rem);
-    --fluid-h4: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
-    --fluid-body: clamp(0.95rem, 0.92rem + 0.2vw, 1.125rem);
-    --fluid-small: clamp(0.8125rem, 0.8rem + 0.1vw, 0.9rem);
+    --fluid-h1: clamp(2.35rem, 1.6rem + 2.8vw, 4.25rem);
+    --fluid-h2: clamp(1.85rem, 1.3rem + 1.8vw, 3rem);
+    --fluid-h3: clamp(1.35rem, 1.1rem + 1vw, 2rem);
+    --fluid-h4: clamp(1.15rem, 1rem + 0.5vw, 1.5rem);
+    --fluid-body: clamp(1.05rem, 0.98rem + 0.3vw, 1.25rem);
+    --fluid-small: clamp(0.875rem, 0.82rem + 0.2vw, 1rem);
 
     /* --- Physicality & Board Game Elevation Tokens --- */
     --shadow-tile: 0 3px 0 #C4A87C, 0 6px 14px rgba(42, 25, 15, 0.08);
@@ -365,5 +365,12 @@
   .rounded-card-md { border-radius: var(--radius-md, 16px); }
   .rounded-card-lg { border-radius: var(--radius-lg, 24px); }
   .rounded-card-xl { border-radius: var(--radius-xl, 32px); }
+
+  .text-fluid-h1 { font-size: var(--fluid-h1, 3.5rem); }
+  .text-fluid-h2 { font-size: var(--fluid-h2, 2.25rem); }
+  .text-fluid-h3 { font-size: var(--fluid-h3, 1.5rem); }
+  .text-fluid-h4 { font-size: var(--fluid-h4, 1.25rem); }
+  .text-fluid-body { font-size: var(--fluid-body, 1.125rem); }
+  .text-fluid-small { font-size: var(--fluid-small, 0.875rem); }
 }
 
