@@ -65,7 +65,7 @@ const step2Text = contact.step2Text || "Pan Válek se vám do 24 h ozve s volný
 const step3Text = contact.step3Text || "Dítě si přijde nezávazně zahrát 1. lekci zdarma";
 
 const selectedGroupCalloutTitle = contact.selectedGroupCalloutTitle || "🎯 Vybraná zvířecí skupinka z rozvrhu";
-const selectedGroupClearText = contact.selectedGroupClearText || "✕ Změnit";
+const selectedGroupClearText = contact.selectedGroupClearText || "✕ Změnit skupinku";
 const formSuccessTitle = contact.formSuccessTitle || "Děkuji za zprávu!";
 const formSuccessText = contact.formSuccessText || "Požadavek jsem přijal a ozvu se vám co nejdříve s návrhem termínu ukázkové lekce zdarma v Uherském Hradišti.";
 const formErrorTitle = contact.formErrorTitle || "Omlouvám se, odeslání se nezdařilo.";
@@ -398,8 +398,10 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
         </div>
       </div>
 
-      <!-- Row 4: Grade Level (Custom Rich Dropdown) -->
-      <div class="relative custom-dropdown-container" id="custom-level-dropdown">
+      <!-- Group-Dependent Preference Fields (Auto-collapsed when group is selected from schedule) -->
+      <div id="schedule-preference-fields" class="space-y-4 sm:space-y-5 transition-all">
+        <!-- Row 4: Grade Level (Custom Rich Dropdown) -->
+        <div class="relative custom-dropdown-container" id="custom-level-dropdown">
         <label id="level-label" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
           <span data-tina-field={tinaField(contact, 'levelLabel')}>{levelLabel}</span> <span class="text-stone-400 text-[10px] font-normal" data-tina-field={tinaField(contact, 'levelLabelNote')}>{levelLabelNote}</span>
         </label>
@@ -687,6 +689,19 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
             <span class="text-[10px] text-espresso-900 font-bold">Kdykoliv</span>
           </button>
         </div>
+      </div>
+      </div>
+
+      <!-- Toggle to expand preferences if group is selected from schedule -->
+      <div id="toggle-preferences-wrapper" class="hidden text-center py-1">
+        <button
+          type="button"
+          id="toggle-preferences-btn"
+          class="text-xs text-amber-900/80 hover:text-amber-950 font-bold underline hover:no-underline cursor-pointer inline-flex items-center gap-1.5 p-2 rounded-xl hover:bg-amber-100/60 transition-colors"
+        >
+          <span>⚙️ Upřesnit další volné dny nebo změnit ročník</span>
+          <span id="toggle-preferences-icon">▾</span>
+        </button>
       </div>
 
       <!-- Row 5: Message -->
@@ -1154,6 +1169,11 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
   const calloutMeta = document.getElementById('callout-group-meta');
   const selectedGroupInput = document.getElementById('selected-group-input') as HTMLInputElement | null;
   const clearGroupBtn = document.getElementById('clear-selected-group-btn');
+  const segmentDropdown = document.getElementById('custom-segment-dropdown');
+  const prefFields = document.getElementById('schedule-preference-fields');
+  const togglePrefWrapper = document.getElementById('toggle-preferences-wrapper');
+  const togglePrefBtn = document.getElementById('toggle-preferences-btn');
+  const togglePrefIcon = document.getElementById('toggle-preferences-icon');
 
   function setSelectedGroup(detail: {
     id?: string;
@@ -1216,6 +1236,12 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       }
     }
 
+    // Smart auto-collapse: hide redundant segment & preference pickers for a friction-free booking experience
+    if (segmentDropdown) segmentDropdown.classList.add('hidden');
+    if (prefFields) prefFields.classList.add('hidden');
+    if (togglePrefWrapper) togglePrefWrapper.classList.remove('hidden');
+    if (togglePrefIcon) togglePrefIcon.textContent = '▾';
+
     // Update CTA button text if waiting list
     if (btnText) {
       if (detail.status === 'waiting_list') {
@@ -1229,10 +1255,29 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
   function clearSelectedGroup() {
     if (calloutEl) calloutEl.classList.add('hidden');
     if (selectedGroupInput) selectedGroupInput.value = '';
+    // Restore full form options
+    if (segmentDropdown) segmentDropdown.classList.remove('hidden');
+    if (prefFields) prefFields.classList.remove('hidden');
+    if (togglePrefWrapper) togglePrefWrapper.classList.add('hidden');
     updateButtonLabel();
   }
 
   clearGroupBtn?.addEventListener('click', clearSelectedGroup);
+
+  if (togglePrefBtn && prefFields) {
+    togglePrefBtn.addEventListener('click', () => {
+      const isHidden = prefFields.classList.contains('hidden');
+      if (isHidden) {
+        prefFields.classList.remove('hidden');
+        if (segmentDropdown) segmentDropdown.classList.remove('hidden');
+        if (togglePrefIcon) togglePrefIcon.textContent = '▴';
+      } else {
+        prefFields.classList.add('hidden');
+        if (segmentDropdown) segmentDropdown.classList.add('hidden');
+        if (togglePrefIcon) togglePrefIcon.textContent = '▾';
+      }
+    });
+  }
 
   window.addEventListener('valek:select-group', ((e: CustomEvent) => {
     setSelectedGroup(e.detail);

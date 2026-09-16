@@ -45,8 +45,8 @@ const { hero } = Astro.props;
 
 const title = hero.title || "Angličtina, která děti baví – hrou a v malých skupinkách";
 const subtitle = hero.subtitle || "Konec nudného biflování u tabule. Josef Válek vyrůstal v Melbourne a v Uherském Hradišti otevírá doučovnu pro děti v přátelských skupinkách (4–8 dětí) plnou deskových her a přirozené konverzace s autentickým rodilým přízvukem.";
-const ctaPrimaryText = hero.ctaPrimaryText || "Vyzkoušet 1. lekci zdarma";
-const ctaPrimaryLink = hero.ctaPrimaryLink || "#kontakt";
+const ctaPrimaryText = hero.ctaPrimaryText || "🎯 Najít volnou skupinku (1. lekce zdarma)";
+const ctaPrimaryLink = hero.ctaPrimaryLink || "#harmonogram";
 const ctaSecondaryText = hero.ctaSecondaryText || "Jak výuka funguje";
 const ctaSecondaryLink = hero.ctaSecondaryLink || "#programy";
 const stats = hero.stats || [
@@ -116,7 +116,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
             class="btn-gold-pulse w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-card-lg font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 text-center cursor-pointer transition-all"
             data-tina-field={tinaField(hero, 'ctaPrimaryText')}
           >
-            <span>🎁</span>
+            {!ctaPrimaryText.includes('🎯') && !ctaPrimaryText.includes('🎁') && <span>🎁</span>}
             <span data-edit-key="hero.ctaPrimaryText" data-edit-label="Text tlačítka">{ctaPrimaryText}</span>
             <svg class="w-5 h-5 text-espresso-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
