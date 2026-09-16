@@ -571,7 +571,7 @@
         "name": "Středoškoláci & Maturita",
         "price": "480 Kč",
         "period": "/ 90 min.",
-        "description": "Cílená příprava k maturitě a vysokoškolskému studiu, zejména aktivace mluvení a rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
+        "description": "Cílená příprava k maturitě a vysokoškolskému studiu, zejména vyjadřovací schopnosti, aktivace mluvení, rozvoj slovní zásoby a pokročilejších obratů pro vybudování sebejistoty a odstranění nervozity.",
         "isPopular": false,
         "badge": "Připravujeme brzy",
         "features": [
@@ -579,8 +579,9 @@
           "Cvičení \"fluent presentation\" před komisí",
           "Materiály a podklady k tématům v ceně",
           "Troubleshooting opakovaných chyb",
-          "Přípravný kurs pro budoucí opér a na studium v zahraničí",
-          "Zapište se nezávazně na čekací listinu"
+          "Přípravný kurs pro budoucí opér či na studium v zahraničí",
+          "Zapište se nezávazně na čekací listinu",
+          "Student-centered: hodiny se dynamicky přizpůsobují potřebám studenta"
         ],
         "ctaText": "Zapsat se na čekací listinu",
         "ctaLink": "#kontakt"
