@@ -121,13 +121,13 @@
     "subtitle": "Platí pro skupinky dětí a žáků ZŠ (základní sazba 320 Kč/hodina). Čím delší období a čím častější docházka, tím vyšší sleva.",
     "rows": [
       {
-        "period": "1 měsíc (4 týdny)",
+        "period": "1 měsíc (4x 60 min.)",
         "frequency": "1× týdně",
         "lessons": "4 lekce",
-        "basePrice": "1 280 Kč",
+        "basePrice": "1 360 Kč",
         "discount": "-6 %",
-        "unitPrice": "300 Kč",
-        "totalPrice": "1 200 Kč"
+        "unitPrice": "320 Kč",
+        "totalPrice": "1280 Kč"
       },
       {
         "period": "3 měsíce (12 týdnů)",
