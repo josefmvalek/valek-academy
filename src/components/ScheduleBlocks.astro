@@ -10,11 +10,13 @@ interface GroupItem {
   emoji: string;
   cohort: string;
   cohortBadge?: string;
+  walkHint?: string;
   occupiedSeats?: number;
   maxSeats?: number;
   waitingListSeats?: number;
   statusOverride?: string;
   description?: string;
+  [key: string]: any;
 }
 
 interface Props {
@@ -27,6 +29,26 @@ interface Props {
     rollingSystemTitle?: string;
     rollingSystemText?: string;
     ctaText?: string;
+    smartFinderTabLabel?: string;
+    smartFinderTabBadge?: string;
+    fullScheduleTabLabel?: string;
+    smartFinderBadge?: string;
+    smartFinderTime?: string;
+    smartFinderFree?: string;
+    smartStep1Title?: string;
+    smartCohort1Title?: string;
+    smartCohort1Sub?: string;
+    smartCohort2Title?: string;
+    smartCohort2Sub?: string;
+    smartCohort3Title?: string;
+    smartCohort3Sub?: string;
+    smartStep2Title?: string;
+    smartDayAllLabel?: string;
+    smartResultsTitle?: string;
+    smartEmptyTitle?: string;
+    smartEmptyText?: string;
+    smartEmptyReset?: string;
+    smartSwitchToFull?: string;
     groups?: GroupItem[];
     [key: string]: any;
   };
@@ -41,6 +63,32 @@ const subtitle = schedule.subtitle || "Výuka probíhá 100% osobně v doučovn�
 const rollingSystemBadge = schedule.rollingSystemBadge || "🔄 PLYNULÝ CELOROČNÍ SYSTÉM";
 const rollingSystemTitle = schedule.rollingSystemTitle || "Žádný začátek ani konec – do party se můžete přidat kdykoliv";
 const rollingSystemText = schedule.rollingSystemText || "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Pan Válek si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!";
+
+// Smart Group Finder Props
+const smartFinderTabLabel = schedule.smartFinderTabLabel || "Chytrý 2krokový vyhledávač";
+const smartFinderTabBadge = schedule.smartFinderTabBadge || "Doporučeno";
+const fullScheduleTabLabel = schedule.fullScheduleTabLabel || "Celý týdenní rozvrh (15)";
+
+const smartFinderBadge = schedule.smartFinderBadge || "🎯 RYCHLÝ VÝBĚR VHODNÉ SKUPINKY";
+const smartFinderTime = schedule.smartFinderTime || "Zabere 15 vteřin";
+const smartFinderFree = schedule.smartFinderFree || "🎁 1. lekce 100% ZDARMA";
+
+const smartStep1Title = schedule.smartStep1Title || "1. Do jaké třídy dítě chodí?";
+const smartCohort1Title = schedule.smartCohort1Title || "1.–3. třída ZŠ";
+const smartCohort1Sub = schedule.smartCohort1Sub || "12:30–13:30 • 60 min";
+const smartCohort2Title = schedule.smartCohort2Title || "4.–6. třída ZŠ";
+const smartCohort2Sub = schedule.smartCohort2Sub || "13:30–14:30 • 60 min";
+const smartCohort3Title = schedule.smartCohort3Title || "7.–13. třída & SŠ";
+const smartCohort3Sub = schedule.smartCohort3Sub || "14:30–16:00 • 90 min";
+
+const smartStep2Title = schedule.smartStep2Title || "2. Které dny po škole se vám nejvíc hodí?";
+const smartDayAllLabel = schedule.smartDayAllLabel || "🌟 Kdykoliv v týdnu";
+
+const smartResultsTitle = schedule.smartResultsTitle || "🎯 Doporučené zvířecí skupinky pro váš výběr:";
+const smartEmptyTitle = schedule.smartEmptyTitle || "Pro tento den a ročník jsme nenašli odpovídající skupinku";
+const smartEmptyText = schedule.smartEmptyText || "Zkuste přepnout den na „Kdykoliv v týdnu“ nebo se podívejte do celého týdenního rozvrhu.";
+const smartEmptyReset = schedule.smartEmptyReset || "Zobrazit všechny dny v týdnu";
+const smartSwitchToFull = schedule.smartSwitchToFull || "Chcete si prohlédnout všech 15 skupinek v kompletní týdenní tabulce? Přepnout na celý rozvrh →";
 
 const whyInPersonIcon = schedule.whyInPersonIcon || "🎲";
 const whyInPersonTitle = schedule.whyInPersonTitle || "Proč učíme 100% naživo v doučovně a ne přes internet?";
@@ -180,13 +228,13 @@ function getLocalWalkHint(cohort: string) {
       
       <!-- Section Header -->
       <div class="max-w-3xl mx-auto text-center space-y-3 mb-8 sm:mb-10">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'badge')}>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'badge')} data-edit-key="schedule.badge" data-edit-label="Štítek rozvrhu">
           <span>⏰</span>
           <span>{badge}</span>
         </div>
-        <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight" data-tina-field={tinaField(schedule, 'title')} set:html={formatRichText(title)}>
+        <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight" data-tina-field={tinaField(schedule, 'title')} data-edit-key="schedule.title" data-edit-label="Nadpis rozvrhu" set:html={formatRichText(title)}>
         </h2>
-        <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed" data-tina-field={tinaField(schedule, 'subtitle')} set:html={formatRichText(subtitle)}>
+        <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed" data-tina-field={tinaField(schedule, 'subtitle')} data-edit-key="schedule.subtitle" data-edit-label="Podnadpis rozvrhu" set:html={formatRichText(subtitle)}>
         </p>
       </div>
 
@@ -194,39 +242,39 @@ function getLocalWalkHint(cohort: string) {
       <div class="max-w-5xl mx-auto mb-10 p-5 sm:p-7 rounded-3xl bg-amber-50/90 border-2 border-amber-300/90 shadow-soft-sm relative overflow-hidden">
         <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div class="space-y-3 flex-1">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-200/80 border border-amber-400 text-espresso-950 text-[11px] font-black uppercase tracking-wider" data-tina-field={tinaField(schedule, 'rollingSystemBadge')}>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-200/80 border border-amber-400 text-espresso-950 text-[11px] font-black uppercase tracking-wider" data-tina-field={tinaField(schedule, 'rollingSystemBadge')} data-edit-key="schedule.rollingSystemBadge" data-edit-label="Štítek plynulého systému">
               <span>{rollingSystemBadge}</span>
             </div>
-            <h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950 leading-snug" data-tina-field={tinaField(schedule, 'rollingSystemTitle')}>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950 leading-snug" data-tina-field={tinaField(schedule, 'rollingSystemTitle')} data-edit-key="schedule.rollingSystemTitle" data-edit-label="Nadpis plynulého systému">
               {rollingSystemTitle}
             </h3>
-            <p class="text-xs sm:text-sm text-espresso-900/85 leading-relaxed font-normal" data-tina-field={tinaField(schedule, 'rollingSystemText')} set:html={formatRichText(rollingSystemText)}>
+            <p class="text-xs sm:text-sm text-espresso-900/85 leading-relaxed font-normal" data-tina-field={tinaField(schedule, 'rollingSystemText')} data-edit-key="schedule.rollingSystemText" data-edit-label="Popis plynulého systému" set:html={formatRichText(rollingSystemText)}>
             </p>
           </div>
 
           <!-- 3 Quick Pillars of Rolling Intake -->
           <div class="w-full lg:w-80 flex-shrink-0 grid grid-cols-1 gap-2.5">
             <div class="p-3 rounded-2xl bg-white/90 border border-amber-200 flex items-center gap-3 shadow-2xs">
-              <span class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar1Number')}>{pillar1Number}</span>
+              <span class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar1Number')} data-edit-key="schedule.pillar1Number" data-edit-label="Pilíř 1 číslo">{pillar1Number}</span>
               <div class="text-xs">
-                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar1Title')}>{pillar1Title}</strong>
-                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar1Desc')}>{pillar1Desc}</span>
+                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar1Title')} data-edit-key="schedule.pillar1Title" data-edit-label="Pilíř 1 nadpis">{pillar1Title}</strong>
+                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar1Desc')} data-edit-key="schedule.pillar1Desc" data-edit-label="Pilíř 1 popis">{pillar1Desc}</span>
               </div>
             </div>
 
             <div class="p-3 rounded-2xl bg-white/90 border border-amber-200 flex items-center gap-3 shadow-2xs">
-              <span class="w-9 h-9 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar2Number')}>{pillar2Number}</span>
+              <span class="w-9 h-9 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar2Number')} data-edit-key="schedule.pillar2Number" data-edit-label="Pilíř 2 číslo">{pillar2Number}</span>
               <div class="text-xs">
-                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar2Title')}>{pillar2Title}</strong>
-                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar2Desc')}>{pillar2Desc}</span>
+                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar2Title')} data-edit-key="schedule.pillar2Title" data-edit-label="Pilíř 2 nadpis">{pillar2Title}</strong>
+                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar2Desc')} data-edit-key="schedule.pillar2Desc" data-edit-label="Pilíř 2 popis">{pillar2Desc}</span>
               </div>
             </div>
 
             <div class="p-3 rounded-2xl bg-white/90 border border-amber-200 flex items-center gap-3 shadow-2xs">
-              <span class="w-9 h-9 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar3Icon')}>{pillar3Icon}</span>
+              <span class="w-9 h-9 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center font-black text-base flex-shrink-0" data-tina-field={tinaField(schedule, 'pillar3Icon')} data-edit-key="schedule.pillar3Icon" data-edit-label="Pilíř 3 ikona">{pillar3Icon}</span>
               <div class="text-xs">
-                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar3Title')}>{pillar3Title}</strong>
-                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar3Desc')}>{pillar3Desc}</span>
+                <strong class="text-espresso-950 block font-heading" data-tina-field={tinaField(schedule, 'pillar3Title')} data-edit-key="schedule.pillar3Title" data-edit-label="Pilíř 3 nadpis">{pillar3Title}</strong>
+                <span class="text-stone-600 text-[11px]" data-tina-field={tinaField(schedule, 'pillar3Desc')} data-edit-key="schedule.pillar3Desc" data-edit-label="Pilíř 3 popis">{pillar3Desc}</span>
               </div>
             </div>
           </div>
@@ -235,10 +283,10 @@ function getLocalWalkHint(cohort: string) {
 
       <!-- Why In-Person Callout Banner -->
       <div class="max-w-5xl mx-auto mb-8 p-4 sm:p-5 rounded-card-lg bg-emerald-50/80 border border-emerald-300/80 flex flex-col sm:flex-row items-center gap-4 shadow-2xs">
-        <span class="text-3xl flex-shrink-0" data-tina-field={tinaField(schedule, 'whyInPersonIcon')}>{whyInPersonIcon}</span>
+        <span class="text-3xl flex-shrink-0" data-tina-field={tinaField(schedule, 'whyInPersonIcon')} data-edit-key="schedule.whyInPersonIcon" data-edit-label="Ikona naživo">{whyInPersonIcon}</span>
         <div class="space-y-1 text-center sm:text-left flex-1">
-          <h4 class="font-heading font-black text-sm sm:text-base text-emerald-950" data-tina-field={tinaField(schedule, 'whyInPersonTitle')}>{whyInPersonTitle}</h4>
-          <p class="text-xs text-emerald-900/80 leading-relaxed font-normal" data-tina-field={tinaField(schedule, 'whyInPersonText')}>{whyInPersonText}</p>
+          <h4 class="font-heading font-black text-sm sm:text-base text-emerald-950" data-tina-field={tinaField(schedule, 'whyInPersonTitle')} data-edit-key="schedule.whyInPersonTitle" data-edit-label="Nadpis naživo">{whyInPersonTitle}</h4>
+          <p class="text-xs text-emerald-900/80 leading-relaxed font-normal" data-tina-field={tinaField(schedule, 'whyInPersonText')} data-edit-key="schedule.whyInPersonText" data-edit-label="Popis naživo">{whyInPersonText}</p>
         </div>
       </div>
 
@@ -252,8 +300,8 @@ function getLocalWalkHint(cohort: string) {
             data-view="smart"
           >
             <span>🎯</span>
-            <span>Chytrý 2krokový vyhledávač</span>
-            <span class="px-2 py-0.5 rounded-full text-[10px] bg-amber-400 text-espresso-950 uppercase font-black tracking-wider">Doporučeno</span>
+            <span data-tina-field={tinaField(schedule, 'smartFinderTabLabel')} data-edit-key="schedule.smartFinderTabLabel" data-edit-label="Přepínač: Vyhledávač">{smartFinderTabLabel}</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] bg-amber-400 text-espresso-950 uppercase font-black tracking-wider" data-tina-field={tinaField(schedule, 'smartFinderTabBadge')} data-edit-key="schedule.smartFinderTabBadge" data-edit-label="Štítek přepínače">{smartFinderTabBadge}</span>
           </button>
           <button
             type="button"
@@ -262,7 +310,7 @@ function getLocalWalkHint(cohort: string) {
             data-view="full"
           >
             <span>📋</span>
-            <span>Celý týdenní rozvrh (15)</span>
+            <span data-tina-field={tinaField(schedule, 'fullScheduleTabLabel')} data-edit-key="schedule.fullScheduleTabLabel" data-edit-label="Přepínač: Celý rozvrh">{fullScheduleTabLabel}</span>
           </button>
         </div>
       </div>
@@ -274,18 +322,18 @@ function getLocalWalkHint(cohort: string) {
           <!-- Top subtle ribbon -->
           <div class="flex items-center justify-between gap-2 mb-6 pb-4 border-b border-parchment-200">
             <div class="flex items-center gap-2">
-              <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-950 text-xs font-black uppercase tracking-wider border border-amber-300">
-                🎯 RYCHLÝ VÝBĚR VHODNÉ SKUPINKY
+              <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-950 text-xs font-black uppercase tracking-wider border border-amber-300" data-tina-field={tinaField(schedule, 'smartFinderBadge')} data-edit-key="schedule.smartFinderBadge" data-edit-label="Štítek vyhledávače">
+                {smartFinderBadge}
               </span>
-              <span class="text-xs text-stone-500 font-bold hidden sm:inline">Zabere 15 vteřin</span>
+              <span class="text-xs text-stone-500 font-bold hidden sm:inline" data-tina-field={tinaField(schedule, 'smartFinderTime')} data-edit-key="schedule.smartFinderTime" data-edit-label="Odhad času">{smartFinderTime}</span>
             </div>
-            <span class="text-xs text-emerald-800 font-bold">🎁 1. lekce 100% ZDARMA</span>
+            <span class="text-xs text-emerald-800 font-bold" data-tina-field={tinaField(schedule, 'smartFinderFree')} data-edit-key="schedule.smartFinderFree" data-edit-label="Štítek lekce zdarma">{smartFinderFree}</span>
           </div>
 
           <!-- Step 1: Cohort Selection (3 big interactive cards) -->
           <div class="space-y-3 mb-6">
-            <label class="block text-xs sm:text-sm font-black uppercase tracking-wider text-espresso-950">
-              1. Do jaké třídy dítě chodí?
+            <label class="block text-xs sm:text-sm font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'smartStep1Title')} data-edit-key="schedule.smartStep1Title" data-edit-label="Krok 1: Nadpis">
+              {smartStep1Title}
             </label>
             <div class="grid sm:grid-cols-3 gap-2.5" id="smart-cohort-buttons">
               <button
@@ -295,8 +343,8 @@ function getLocalWalkHint(cohort: string) {
               >
                 <span class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🎒</span>
                 <div class="min-w-0">
-                  <div class="font-heading font-black text-sm text-espresso-950 truncate">1.–3. třída ZŠ</div>
-                  <div class="text-xs text-stone-600 truncate">12:30–13:30 • 60 min</div>
+                  <div class="font-heading font-black text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort1Title')} data-edit-key="schedule.smartCohort1Title" data-edit-label="Krok 1: 1.–3. třída">{smartCohort1Title}</div>
+                  <div class="text-xs text-stone-600 truncate" data-tina-field={tinaField(schedule, 'smartCohort1Sub')} data-edit-key="schedule.smartCohort1Sub" data-edit-label="Krok 1: 1.–3. třída čas">{smartCohort1Sub}</div>
                 </div>
               </button>
 
@@ -307,8 +355,8 @@ function getLocalWalkHint(cohort: string) {
               >
                 <span class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🚀</span>
                 <div class="min-w-0">
-                  <div class="font-heading font-black text-sm text-espresso-950 truncate">4.–6. třída ZŠ</div>
-                  <div class="text-xs text-stone-600 truncate">13:30–14:30 • 60 min</div>
+                  <div class="font-heading font-black text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort2Title')} data-edit-key="schedule.smartCohort2Title" data-edit-label="Krok 1: 4.–6. třída">{smartCohort2Title}</div>
+                  <div class="text-xs text-stone-600 truncate" data-tina-field={tinaField(schedule, 'smartCohort2Sub')} data-edit-key="schedule.smartCohort2Sub" data-edit-label="Krok 1: 4.–6. třída čas">{smartCohort2Sub}</div>
                 </div>
               </button>
 
@@ -319,8 +367,8 @@ function getLocalWalkHint(cohort: string) {
               >
                 <span class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🎓</span>
                 <div class="min-w-0">
-                  <div class="font-heading font-black text-sm text-espresso-950 truncate">7.–13. třída & SŠ</div>
-                  <div class="text-xs text-stone-600 truncate">14:30–16:00 • 90 min</div>
+                  <div class="font-heading font-black text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort3Title')} data-edit-key="schedule.smartCohort3Title" data-edit-label="Krok 1: 7.–13. třída">{smartCohort3Title}</div>
+                  <div class="text-xs text-stone-600 truncate" data-tina-field={tinaField(schedule, 'smartCohort3Sub')} data-edit-key="schedule.smartCohort3Sub" data-edit-label="Krok 1: 7.–13. třída čas">{smartCohort3Sub}</div>
                 </div>
               </button>
             </div>
@@ -328,8 +376,8 @@ function getLocalWalkHint(cohort: string) {
 
           <!-- Step 2: Day Selection (Day Pills) -->
           <div class="space-y-3 mb-6 pb-6 border-b border-parchment-200">
-            <label class="block text-xs sm:text-sm font-black uppercase tracking-wider text-espresso-950">
-              2. Které dny po škole se vám nejvíc hodí?
+            <label class="block text-xs sm:text-sm font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'smartStep2Title')} data-edit-key="schedule.smartStep2Title" data-edit-label="Krok 2: Nadpis">
+              {smartStep2Title}
             </label>
             <div class="flex flex-wrap gap-2" id="smart-day-pills">
               <button
@@ -337,7 +385,7 @@ function getLocalWalkHint(cohort: string) {
                 data-smart-day="all"
                 class="smart-day-btn px-4 py-2 rounded-full text-xs font-black transition-all cursor-pointer border bg-espresso-950 text-amber-300 border-espresso-950 shadow-2xs"
               >
-                🌟 Kdykoliv v týdnu
+                <span data-tina-field={tinaField(schedule, 'smartDayAllLabel')} data-edit-key="schedule.smartDayAllLabel" data-edit-label="Krok 2: Všechny dny">{smartDayAllLabel}</span>
               </button>
               <button
                 type="button"
@@ -380,8 +428,8 @@ function getLocalWalkHint(cohort: string) {
           <!-- Matching Results Showcase Area -->
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-black uppercase tracking-wider text-amber-950">
-                🎯 Doporučené zvířecí skupinky pro váš výběr:
+              <span class="text-xs font-black uppercase tracking-wider text-amber-950" data-tina-field={tinaField(schedule, 'smartResultsTitle')} data-edit-key="schedule.smartResultsTitle" data-edit-label="Nadpis doporučených skupinek">
+                {smartResultsTitle}
               </span>
               <span id="smart-match-count" class="text-xs font-bold text-stone-500">
                 Zobrazeno skupinek: 5
@@ -389,12 +437,13 @@ function getLocalWalkHint(cohort: string) {
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="smart-cards-container">
-              {groups.map((group) => {
+              {groups.map((group, idx) => {
                 const cap = getCapacityInfo(group);
-                const walkHint = getLocalWalkHint(group.cohort);
+                const walkHint = group.walkHint || getLocalWalkHint(group.cohort);
                 const isInitialSmartVisible = group.cohort === '1.–3. třída';
                 return (
                   <div
+                    data-tina-field={tinaField(schedule, 'groups', idx)}
                     data-smart-card-id={group.id}
                     data-smart-cohort={group.cohort}
                     data-smart-day={group.day}
@@ -412,20 +461,49 @@ function getLocalWalkHint(cohort: string) {
                       </div>
 
                       <div class="flex items-center gap-3 pt-1">
-                        <span class="text-3xl w-12 h-12 rounded-card-md bg-amber-100 flex items-center justify-center border border-amber-300 shadow-2xs flex-shrink-0">
+                        <span
+                          class="text-3xl w-12 h-12 rounded-card-md bg-amber-100 flex items-center justify-center border border-amber-300 shadow-2xs flex-shrink-0"
+                          data-tina-field={tinaField(group, 'emoji')}
+                          data-edit-key={`schedule.groups.${idx}.emoji`}
+                          data-edit-label="Emoji"
+                        >
                           {group.emoji}
                         </span>
                         <div class="min-w-0">
-                          <h4 class="font-heading font-black text-lg text-espresso-950 truncate">{group.animal}</h4>
-                          <span class="text-xs font-bold text-amber-900 truncate block">{group.cohortBadge || group.cohort}</span>
+                          <h4
+                            class="font-heading font-black text-lg text-espresso-950 truncate"
+                            data-tina-field={tinaField(group, 'animal')}
+                            data-edit-key={`schedule.groups.${idx}.animal`}
+                            data-edit-label="Zvíře"
+                          >
+                            {group.animal}
+                          </h4>
+                          <span
+                            class="text-xs font-bold text-amber-900 truncate block"
+                            data-tina-field={tinaField(group, 'cohortBadge')}
+                            data-edit-key={`schedule.groups.${idx}.cohortBadge`}
+                            data-edit-label="Štítek zaměření"
+                          >
+                            {group.cohortBadge || group.cohort}
+                          </span>
                         </div>
                       </div>
 
-                      <p class="text-xs text-espresso-800/85 leading-relaxed font-normal min-h-[36px]">
+                      <p
+                        class="text-xs text-espresso-800/85 leading-relaxed font-normal min-h-[36px]"
+                        data-tina-field={tinaField(group, 'description')}
+                        data-edit-key={`schedule.groups.${idx}.description`}
+                        data-edit-label="Popis skupinky"
+                      >
                         {group.description}
                       </p>
 
-                      <div class="p-2.5 rounded-card-sm bg-amber-50/90 border border-amber-200 text-[11px] text-amber-950 font-medium leading-snug">
+                      <div
+                        class="p-2.5 rounded-card-sm bg-amber-50/90 border border-amber-200 text-[11px] text-amber-950 font-medium leading-snug"
+                        data-tina-field={tinaField(group, 'walkHint')}
+                        data-edit-key={`schedule.groups.${idx}.walkHint`}
+                        data-edit-label="Docházkový tip"
+                      >
                         {walkHint}
                       </div>
 
@@ -476,9 +554,9 @@ function getLocalWalkHint(cohort: string) {
               <!-- Empty state if no groups match current filters -->
               <div id="smart-empty-state" class="hidden col-span-full py-10 px-6 text-center rounded-card-lg bg-parchment-50 border-2 border-dashed border-parchment-300">
                 <span class="text-3xl block mb-2">🔍</span>
-                <h4 class="font-heading font-black text-sm text-espresso-950 mb-1">Pro tento den a ročník jsme nenašli odpovídající skupinku</h4>
-                <p class="text-xs text-stone-600 max-w-md mx-auto mb-3">Zkuste přepnout den na „Kdykoliv v týdnu“ nebo se podívejte do celého týdenního rozvrhu.</p>
-                <button type="button" id="smart-reset-day-btn" class="text-xs font-bold text-amber-900 underline hover:text-amber-950 cursor-pointer">Zobrazit všechny dny v týdnu</button>
+                <h4 class="font-heading font-black text-sm text-espresso-950 mb-1" data-tina-field={tinaField(schedule, 'smartEmptyTitle')} data-edit-key="schedule.smartEmptyTitle" data-edit-label="Nenalezeno: Nadpis">{smartEmptyTitle}</h4>
+                <p class="text-xs text-stone-600 max-w-md mx-auto mb-3" data-tina-field={tinaField(schedule, 'smartEmptyText')} data-edit-key="schedule.smartEmptyText" data-edit-label="Nenalezeno: Popis">{smartEmptyText}</p>
+                <button type="button" id="smart-reset-day-btn" class="text-xs font-bold text-amber-900 underline hover:text-amber-950 cursor-pointer" data-tina-field={tinaField(schedule, 'smartEmptyReset')} data-edit-key="schedule.smartEmptyReset" data-edit-label="Nenalezeno: Reset">{smartEmptyReset}</button>
               </div>
             </div>
 
@@ -490,8 +568,11 @@ function getLocalWalkHint(cohort: string) {
               type="button"
               id="smart-switch-to-full-btn"
               class="text-xs sm:text-sm text-stone-600 hover:text-amber-900 font-bold underline transition-colors cursor-pointer"
+              data-tina-field={tinaField(schedule, 'smartSwitchToFull')}
+              data-edit-key="schedule.smartSwitchToFull"
+              data-edit-label="Odkaz na celý rozvrh"
             >
-              Chcete si prohlédnout všech 15 skupinek v kompletní týdenní tabulce? Přepnout na celý rozvrh →
+              {smartSwitchToFull}
             </button>
           </div>
 
@@ -536,6 +617,8 @@ function getLocalWalkHint(cohort: string) {
                   : "bg-white text-espresso-900 hover:bg-amber-50 border-parchment-300 hover:border-amber-400"
               ]}
               data-tina-field={tinaField(schedule, 'filterGrade13Label')}
+              data-edit-key="schedule.filterGrade13Label"
+              data-edit-label="Filtr: 1.–3. třída"
             >
               {filterGrade13Label}
             </button>
@@ -549,6 +632,8 @@ function getLocalWalkHint(cohort: string) {
                   : "bg-white text-espresso-900 hover:bg-amber-50 border-parchment-300 hover:border-amber-400"
               ]}
               data-tina-field={tinaField(schedule, 'filterGrade46Label')}
+              data-edit-key="schedule.filterGrade46Label"
+              data-edit-label="Filtr: 4.–6. třída"
             >
               {filterGrade46Label}
             </button>
@@ -562,6 +647,8 @@ function getLocalWalkHint(cohort: string) {
                   : "bg-white text-espresso-900 hover:bg-amber-50 border-parchment-300 hover:border-amber-400"
               ]}
               data-tina-field={tinaField(schedule, 'filterGrade713Label')}
+              data-edit-key="schedule.filterGrade713Label"
+              data-edit-label="Filtr: 7.–13. třída"
             >
               {filterGrade713Label}
             </button>
@@ -575,6 +662,8 @@ function getLocalWalkHint(cohort: string) {
                   : "bg-white text-espresso-900 hover:bg-amber-50 border-parchment-300 hover:border-amber-400"
               ]}
               data-tina-field={tinaField(schedule, 'filterAllLabel')}
+              data-edit-key="schedule.filterAllLabel"
+              data-edit-label="Filtr: Všechny skupinky"
             >
               {filterAllLabel}
             </button>
@@ -583,15 +672,15 @@ function getLocalWalkHint(cohort: string) {
 
         <!-- Capacity Legend Strip -->
         <div class="max-w-xl mx-auto flex items-center justify-center gap-4 sm:gap-6 text-[11px] font-bold text-stone-600 mb-8 flex-wrap">
-          <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendOpen')}>
+          <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendOpen')} data-edit-key="schedule.legendOpen" data-edit-label="Legenda: Volno">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
             <span>{legendOpen}</span>
           </div>
-          <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendWaitingList')}>
+          <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendWaitingList')} data-edit-key="schedule.legendWaitingList" data-edit-label="Legenda: Čekací listina">
             <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
             <span>{legendWaitingList}</span>
           </div>
-          <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendFull')}>
+          <div class="flex items-center gap-1.5" data-tina-field={tinaField(schedule, 'legendFull')} data-edit-key="schedule.legendFull" data-edit-label="Legenda: We're full">
             <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
             <span>{legendFull}</span>
           </div>
@@ -636,12 +725,22 @@ function getLocalWalkHint(cohort: string) {
 
                 <!-- Animal Header -->
                 <div class="flex items-center gap-3 pt-1">
-                  <div class="w-13 h-13 rounded-2xl bg-amber-100/80 border border-amber-300 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:rotate-3 transition-transform shadow-2xs flex-shrink-0">
+                  <div
+                    class="w-13 h-13 rounded-2xl bg-amber-100/80 border border-amber-300 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:rotate-3 transition-transform shadow-2xs flex-shrink-0"
+                    data-tina-field={tinaField(group, 'emoji')}
+                    data-edit-key={`schedule.groups.${idx}.emoji`}
+                    data-edit-label="Emoji"
+                  >
                     {group.emoji}
                   </div>
                   <div>
                     <div class="flex items-baseline gap-2">
-                      <h3 class="font-heading font-black text-xl text-espresso-950 group-hover:text-amber-800 transition-colors">
+                      <h3
+                        class="font-heading font-black text-xl text-espresso-950 group-hover:text-amber-800 transition-colors"
+                        data-tina-field={tinaField(group, 'animal')}
+                        data-edit-key={`schedule.groups.${idx}.animal`}
+                        data-edit-label="Zvíře"
+                      >
                         {group.animal}
                       </h3>
                       <span class="text-xs font-bold text-stone-500">
@@ -649,7 +748,12 @@ function getLocalWalkHint(cohort: string) {
                       </span>
                     </div>
                     {group.cohortBadge && (
-                      <div class="text-[11px] font-extrabold text-amber-900 mt-0.5">
+                      <div
+                        class="text-[11px] font-extrabold text-amber-900 mt-0.5"
+                        data-tina-field={tinaField(group, 'cohortBadge')}
+                        data-edit-key={`schedule.groups.${idx}.cohortBadge`}
+                        data-edit-label="Štítek zaměření"
+                      >
                         {group.cohortBadge}
                       </div>
                     )}
@@ -657,7 +761,12 @@ function getLocalWalkHint(cohort: string) {
                 </div>
 
                 <!-- Description -->
-                <p class="text-xs text-espresso-800/80 leading-relaxed font-normal min-h-[38px]">
+                <p
+                  class="text-xs text-espresso-800/80 leading-relaxed font-normal min-h-[38px]"
+                  data-tina-field={tinaField(group, 'description')}
+                  data-edit-key={`schedule.groups.${idx}.description`}
+                  data-edit-label="Popis skupinky"
+                >
                   {group.description}
                 </p>
 
@@ -725,19 +834,19 @@ function getLocalWalkHint(cohort: string) {
           <div data-tina-field={tinaField(schedule, 'adultsBlock')} class="bg-parchment-50 rounded-3xl p-6 sm:p-7 border border-parchment-300 flex flex-col justify-between space-y-4">
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
-                <span class="px-2.5 py-1 rounded-xl bg-blue-100 border border-blue-300 text-blue-950 text-xs font-black" data-tina-field={tinaField(adultsBlock, 'timeBadge')}>
+                <span class="px-2.5 py-1 rounded-xl bg-blue-100 border border-blue-300 text-blue-950 text-xs font-black" data-tina-field={tinaField(adultsBlock, 'timeBadge')} data-edit-key="schedule.adultsBlock.timeBadge" data-edit-label="Dospělí: Časový štítek">
                   {adultsBlock.timeBadge || "Po – Čt 17:00 – 18:30"}
                 </span>
-                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(adultsBlock, 'timeNote')}>{adultsBlock.timeNote || "90 minut • 5 bloků týdně"}</span>
+                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(adultsBlock, 'timeNote')} data-edit-key="schedule.adultsBlock.timeNote" data-edit-label="Dospělí: Časová poznámka">{adultsBlock.timeNote || "90 minut • 5 bloků týdně"}</span>
               </div>
               <div class="flex items-center gap-3">
-                <span class="text-3xl" data-tina-field={tinaField(adultsBlock, 'icon')}>{adultsBlock.icon || "💼"}</span>
+                <span class="text-3xl" data-tina-field={tinaField(adultsBlock, 'icon')} data-edit-key="schedule.adultsBlock.icon" data-edit-label="Dospělí: Ikona">{adultsBlock.icon || "💼"}</span>
                 <div>
-                  <h4 class="font-heading font-black text-lg text-espresso-950" data-tina-field={tinaField(adultsBlock, 'title')}>{adultsBlock.title || "Dospělí & Odborné profesní skupiny"}</h4>
-                  <p class="text-xs text-stone-600" data-tina-field={tinaField(adultsBlock, 'subtitle')}>{adultsBlock.subtitle || "4 obory: Medici 🩺, Právníci ⚖️, Technici ⚙️, Obchod 📊"}</p>
+                  <h4 class="font-heading font-black text-lg text-espresso-950" data-tina-field={tinaField(adultsBlock, 'title')} data-edit-key="schedule.adultsBlock.title" data-edit-label="Dospělí: Nadpis">{adultsBlock.title || "Dospělí & Odborné profesní skupiny"}</h4>
+                  <p class="text-xs text-stone-600" data-tina-field={tinaField(adultsBlock, 'subtitle')} data-edit-key="schedule.adultsBlock.subtitle" data-edit-label="Dospělí: Podtitul">{adultsBlock.subtitle || "4 obory: Medici 🩺, Právníci ⚖️, Technici ⚙️, Obchod 📊"}</p>
                 </div>
               </div>
-              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(adultsBlock, 'desc')}>
+              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(adultsBlock, 'desc')} data-edit-key="schedule.adultsBlock.desc" data-edit-label="Dospělí: Popis">
                 {adultsBlock.desc || "Intenzivní podvečerní skupiny pro pracující a studenty VŠ. Žádné biflování gramatiky ze základky, ale moderní odborná mluva, prezentace a přirozený přízvuk."}
               </p>
             </div>
@@ -747,7 +856,7 @@ function getLocalWalkHint(cohort: string) {
               data-select-special={adultsBlock.title || "Dospělí & Odborné profesní skupiny (Po–Čt 17:00–18:30)"}
               class="special-slot-btn inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-heading font-black text-xs text-espresso-950 bg-white hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 transition-colors shadow-2xs"
             >
-              <span data-tina-field={tinaField(adultsBlock, 'ctaText')}>{adultsBlock.ctaText || "Rezervovat profesní skupinu →"}</span>
+              <span data-tina-field={tinaField(adultsBlock, 'ctaText')} data-edit-key="schedule.adultsBlock.ctaText" data-edit-label="Dospělí: Tlačítko">{adultsBlock.ctaText || "Rezervovat profesní skupinu →"}</span>
             </a>
           </div>
         )}
@@ -757,19 +866,19 @@ function getLocalWalkHint(cohort: string) {
           <div data-tina-field={tinaField(schedule, 'individualBlock')} class="bg-parchment-50 rounded-3xl p-6 sm:p-7 border border-parchment-300 flex flex-col justify-between space-y-4">
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
-                <span class="px-2.5 py-1 rounded-xl bg-purple-100 border border-purple-300 text-purple-950 text-xs font-black" data-tina-field={tinaField(individualBlock, 'timeBadge')}>
+                <span class="px-2.5 py-1 rounded-xl bg-purple-100 border border-purple-300 text-purple-950 text-xs font-black" data-tina-field={tinaField(individualBlock, 'timeBadge')} data-edit-key="schedule.individualBlock.timeBadge" data-edit-label="Individuální: Časový štítek">
                   {individualBlock.timeBadge || "Dopoledne dle domluvy"}
                 </span>
-                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(individualBlock, 'timeNote')}>{individualBlock.timeNote || "950 Kč / 60 min"}</span>
+                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(individualBlock, 'timeNote')} data-edit-key="schedule.individualBlock.timeNote" data-edit-label="Individuální: Cena/čas">{individualBlock.timeNote || "950 Kč / 60 min"}</span>
               </div>
               <div class="flex items-center gap-3">
-                <span class="text-3xl" data-tina-field={tinaField(individualBlock, 'icon')}>{individualBlock.icon || "👤"}</span>
+                <span class="text-3xl" data-tina-field={tinaField(individualBlock, 'icon')} data-edit-key="schedule.individualBlock.icon" data-edit-label="Individuální: Ikona">{individualBlock.icon || "👤"}</span>
                 <div>
-                  <h4 class="font-heading font-black text-lg text-espresso-950" data-tina-field={tinaField(individualBlock, 'title')}>{individualBlock.title || "Individuální výuka 1 na 1"}</h4>
-                  <p class="text-xs text-stone-600" data-tina-field={tinaField(individualBlock, 'subtitle')}>{individualBlock.subtitle || "Maximální flexibilita pro náročné cíle"}</p>
+                  <h4 class="font-heading font-black text-lg text-espresso-950" data-tina-field={tinaField(individualBlock, 'title')} data-edit-key="schedule.individualBlock.title" data-edit-label="Individuální: Nadpis">{individualBlock.title || "Individuální výuka 1 na 1"}</h4>
+                  <p class="text-xs text-stone-600" data-tina-field={tinaField(individualBlock, 'subtitle')} data-edit-key="schedule.individualBlock.subtitle" data-edit-label="Individuální: Podtitul">{individualBlock.subtitle || "Maximální flexibilita pro náročné cíle"}</p>
                 </div>
               </div>
-              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(individualBlock, 'desc')}>
+              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(individualBlock, 'desc')} data-edit-key="schedule.individualBlock.desc" data-edit-label="Individuální: Popis">
                 {individualBlock.desc || "Probíhá výhradně v dopoledních hodinách v klidu doučovny v Uherském Hradišti. Příprava na mezinárodní konference, pohovory v zahraničí nebo specifické požadavky."}
               </p>
             </div>
@@ -779,7 +888,7 @@ function getLocalWalkHint(cohort: string) {
               data-select-special={individualBlock.title || "Individuální výuka 1 na 1 (Dopolední hodiny)"}
               class="special-slot-btn inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-heading font-black text-xs text-espresso-950 bg-white hover:bg-amber-100 border border-parchment-300 hover:border-amber-400 transition-colors shadow-2xs"
             >
-              <span data-tina-field={tinaField(individualBlock, 'ctaText')}>{individualBlock.ctaText || "Poptat individuální výuku 1 na 1 →"}</span>
+              <span data-tina-field={tinaField(individualBlock, 'ctaText')} data-edit-key="schedule.individualBlock.ctaText" data-edit-label="Individuální: Tlačítko">{individualBlock.ctaText || "Poptat individuální výuku 1 na 1 →"}</span>
             </a>
           </div>
         )}
