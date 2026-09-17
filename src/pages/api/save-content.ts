@@ -17,8 +17,41 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const payload = await request.json();
-    const filePath = path.join(process.cwd(), 'content', 'pages', 'home.json');
-    
+    const targetFileName = typeof payload._file === 'string' ? payload._file : 'home.json';
+    delete payload._file;
+
+    const fileMap: Record<string, string> = {
+      'home.json': path.join(process.cwd(), 'content', 'pages', 'home.json'),
+      'cenik.json': path.join(process.cwd(), 'content', 'pricing', 'cenik.json'),
+      'rozvrh.json': path.join(process.cwd(), 'content', 'schedule', 'rozvrh.json'),
+      'gallery.json': path.join(process.cwd(), 'content', 'gallery', 'gallery.json'),
+      'ochrana-osobnich-udaju.json': path.join(process.cwd(), 'content', 'legal', 'ochrana-osobnich-udaju.json'),
+      'obchodni-podminky.json': path.join(process.cwd(), 'content', 'legal', 'obchodni-podminky.json'),
+    };
+
+    const filePath = fileMap[targetFileName] || fileMap['home.json'];
+
+    // If target is gallery.json and payload contains gallery namespace, unwrap it
+    if (targetFileName === 'gallery.json' && payload.gallery && typeof payload.gallery === 'object') {
+      const galleryData = payload.gallery;
+      delete payload.gallery;
+      Object.assign(payload, galleryData);
+    }
+
+    // If target is cenik.json and payload contains cenik namespace, unwrap it
+    if (targetFileName === 'cenik.json' && payload.cenik && typeof payload.cenik === 'object') {
+      const cenikData = payload.cenik;
+      delete payload.cenik;
+      Object.assign(payload, cenikData);
+    }
+
+    // If target is rozvrh.json and payload contains rozvrh namespace, unwrap it
+    if (targetFileName === 'rozvrh.json' && payload.rozvrh && typeof payload.rozvrh === 'object') {
+      const rozvrhData = payload.rozvrh;
+      delete payload.rozvrh;
+      Object.assign(payload, rozvrhData);
+    }
+
     // Read current file to preserve structure
     const currentRaw = await fs.readFile(filePath, 'utf-8');
     const currentData = JSON.parse(currentRaw);
@@ -88,7 +121,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     await fs.writeFile(filePath, JSON.stringify(updatedData, null, 2), 'utf-8');
 
-    return new Response(JSON.stringify({ success: true, message: "Obsah byl úspěšně uložen do home.json" }), {
+    return new Response(JSON.stringify({ success: true, message: `Obsah byl úspěšně uložen do ${path.basename(filePath)}` }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });

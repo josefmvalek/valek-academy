@@ -161,22 +161,22 @@ const themePresets: Record<string, {
   <div class="mb-6 sm:mb-8">
     <a href="/" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-stone-600 hover:text-amber-900 transition-colors group">
       <span class="group-hover:-translate-x-1 transition-transform">←</span>
-      <span data-tina-field={tinaField(cenik, 'backLinkText')}>{backLinkText}</span>
+      <span data-tina-field={tinaField(cenik, 'backLinkText')} data-edit-key="cenik.backLinkText" data-edit-label="Zpět">{backLinkText}</span>
     </a>
   </div>
 
   <!-- Header -->
   <div class="max-w-4xl mx-auto text-center space-y-3 mb-10 sm:mb-14">
     {header.badge && (
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950 shadow-xs" data-tina-field={tinaField(header, 'badge')}>
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950 shadow-xs" data-tina-field={tinaField(header, 'badge')} data-edit-key="cenik.header.badge" data-edit-label="Štítek ceníku">
         <span>🏷️</span>
         <span>{header.badge}</span>
       </div>
     )}
-    <h1 class="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(header, 'title')}>
+    <h1 class="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(header, 'title')} data-edit-key="cenik.header.title" data-edit-label="Nadpis ceníku">
       {header.title || "Podrobný ceník všech programů, slevové balíčky & férové podmínky"}
     </h1>
-    <p class="text-espresso-800/85 text-sm sm:text-lg leading-relaxed max-w-3xl mx-auto font-normal" data-tina-field={tinaField(header, 'subtitle')} set:html={formatRichText(header.subtitle || "U nás neplatíte nic naslepo a nevážete se dlouhými smlouvami. Každý student začíná <strong>1. lekcí 100% ZDARMA</strong>. Teprve když je dítě nadšené, vyberete si výhodný balíček s motivační slevou až 30 %.")} />
+    <p class="text-espresso-800/85 text-sm sm:text-lg leading-relaxed max-w-3xl mx-auto font-normal" data-tina-field={tinaField(header, 'subtitle')} data-edit-key="cenik.header.subtitle" data-edit-label="Podnadpis ceníku" set:html={formatRichText(header.subtitle || "U nás neplatíte nic naslepo a nevážete se dlouhými smlouvami. Každý student začíná <strong>1. lekcí 100% ZDARMA</strong>. Teprve když je dítě nadšené, vyberete si výhodný balíček s motivační slevou až 30 %.")} />
   </div>
 
   <!-- 4 Core Programs Detailed Pricing Cards -->
@@ -426,14 +426,14 @@ const themePresets: Record<string, {
       {ctaBanner.badge && (
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-espresso-950 text-xs font-black uppercase tracking-wider" data-tina-field={tinaField(ctaBanner, 'badge')}>
           <span>🎁</span>
-          <span>{ctaBanner.badge}</span>
+          <span data-edit-key="cenik.ctaBanner.badge" data-edit-label="Štítek banneru ceníku">{ctaBanner.badge}</span>
         </div>
       )}
-      <h2 class="font-heading font-black text-2xl sm:text-4xl text-amber-300 tracking-tight max-w-2xl mx-auto" data-tina-field={tinaField(ctaBanner, 'title')}>
+      <h2 class="font-heading font-black text-2xl sm:text-4xl text-amber-300 tracking-tight max-w-2xl mx-auto" data-tina-field={tinaField(ctaBanner, 'title')} data-edit-key="cenik.ctaBanner.title" data-edit-label="Nadpis banneru ceníku">
         {ctaBanner.title || "Vyzkoušejte si atmosféru doučovny nezávazně a bez rizika"}
       </h2>
       {ctaBanner.subtitle && (
-        <p class="text-stone-300 text-xs sm:text-base max-w-xl mx-auto leading-relaxed font-normal" data-tina-field={tinaField(ctaBanner, 'subtitle')}>
+        <p class="text-stone-300 text-xs sm:text-base max-w-xl mx-auto leading-relaxed font-normal" data-tina-field={tinaField(ctaBanner, 'subtitle')} data-edit-key="cenik.ctaBanner.subtitle" data-edit-label="Podnadpis banneru ceníku">
           {ctaBanner.subtitle}
         </p>
       )}
@@ -444,7 +444,7 @@ const themePresets: Record<string, {
             class="btn-gold-pulse inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md hover:scale-105 transition-transform"
             data-tina-field={tinaField(ctaBanner, 'primaryBtnText')}
           >
-            <span>{ctaBanner.primaryBtnText}</span>
+            <span data-edit-key="cenik.ctaBanner.primaryBtnText" data-edit-label="Tlačítko banneru">{ctaBanner.primaryBtnText}</span>
           </a>
         )}
         {ctaBanner.secondaryBtnText && (
@@ -453,7 +453,7 @@ const themePresets: Record<string, {
             class="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl font-heading font-bold text-sm text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-colors"
             data-tina-field={tinaField(ctaBanner, 'secondaryBtnText')}
           >
-            <span>{ctaBanner.secondaryBtnText}</span>
+            <span data-edit-key="cenik.ctaBanner.secondaryBtnText" data-edit-label="Sekundární tlačítko">{ctaBanner.secondaryBtnText}</span>
           </a>
         )}
       </div>

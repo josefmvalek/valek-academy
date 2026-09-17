@@ -14,6 +14,12 @@
     "ctaText": "🎁 1. lekce zdarma",
     "ctaLink": "#kontakt",
     "mobileMenuTitle": "VALEK ACADEMY • Menu",
+    "drawerTitle": "VALEK ACADEMY",
+    "drawerSubtitle": "Rozcestník & Navigace",
+    "drawerCloseText": "Zavřít",
+    "drawerCtaText": "🎁 Rezervovat 1. lekce ZDARMA",
+    "drawerCtaLink": "/rozvrh#kontakt",
+    "drawerLocationNote": "📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO)",
     "navLinks": [
       {
         "label": "Programy & Hry",
@@ -55,6 +61,7 @@
       "teacherName": "Josef Válek",
       "teacherRole": "BBA, RMIT Melbourne • 25+ let v ČR",
       "teacherTag": "Rodilý přízvuk & výuka hrou",
+      "teacherBadgePhoto": "Mr. Válek",
       "badgeText": "1. lekce\nZDARMA",
       "audio": {
         "title": "Poslech pana Válka (Australský přízvuk)",
@@ -121,6 +128,8 @@
     "gamesLabel": "Hry v této skupince:",
     "pointsLabel": "Co získáte:",
     "guaranteeLabel": "🎁 1. ukázková lekce 100% ZDARMA",
+    "inPersonBannerText1": "100% osobně v doučovně: Josef Válek (Růžová 1238, Uherské Hradiště – naproti ZŠ UNESCO)",
+    "inPersonBannerText2": "Deskovky & karty na velkém stole v partě 4–8 dětí",
     "kidsPrograms": [
       {
         "id": "zs-1",
@@ -213,7 +222,25 @@
       "Trpělivé vysvětlení logiky úloh bez paniky a zbytečného tlaku"
     ],
     "ctaText": "Předběžně se zapsat na čekací listinu",
-    "ctaLink": "#kontakt"
+    "ctaLink": "#kontakt",
+    "guaranteeNote": "* Zápis je 100% nezávazný, dáme vám vědět přednostně",
+    "subjectsTitle": "Přijímačky na SŠ (5. & 9. třída)",
+    "subjectsBadge": "Čekací listina",
+    "subjectsNote": "Přípravu v Uherském Hradišti vede zkušený pedagog s klidným a trpělivým přístupem.",
+    "subjects": [
+      {
+        "icon": "📖",
+        "title": "Český jazyk a literatura",
+        "subtitle": "Čtenářská gramotnost, pravopis a rozbory vět",
+        "desc": "Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět bez stresu."
+      },
+      {
+        "icon": "📐",
+        "title": "Matematika & Geometrie",
+        "subtitle": "Logické úlohy, zlomky, rovnice a konstrukce",
+        "desc": "Srozumitelný postup krok za krokem. Žádné memorování vzorců bez pochopení souvislostí."
+      }
+    ]
   },
   "about": {
     "enabled": true,
@@ -222,6 +249,10 @@
     "image": "/uploads/Portrait-0.2.jpg",
     "teacherName": "Josef Válek",
     "role": "Majitel, lektor angličtiny, překladatel, tlumočník",
+    "teacherGreeting": "Ahoj, jsem",
+    "melbournePhotoTag": "Melbourne",
+    "locationPhotoBadge": "📍 Růžová 1238, UH",
+    "melbourneTag": "Vyrůstal v Melbourne, Austrálie 🇦🇺",
     "bio": "Dobrý den! Jmenuji se Josef Válek. Je mi 50 let. Prvních 7 let svého života jsem vyrůstal na Slovácku, ale v roce 1984 jsem se ocitl v Austrálii, kde jsem žil až do ukončení univerzitních studií. Osud mi tak dopřál naprosto přirozený cit pro angličtinu a autentický rodilý přízvuk. V České republice však žiji již více než 25 let – mluvím tedy plynně česky a přesně vím, s čím Češi v angličtině bojují. Před otevřením dveří akademie jsem dlouhá léta učil angličtinu, pracoval v korporátní sféře v oblasti marketingu a PR a mnoho let působil jako odborný technický překladatel, simultánní tlumočník a soukromý lektor angličtiny pro manažery i odborníky. Sám jsem celoživotní student jazyků, mluvím také plynně německy a španělsky.\n\nNyní jako otec pěti dětí si naplňuji svůj životní sen: otevřel jsem svou vlastní akademii v Uherském Hradišti, obklopenou cizojazyčnou literaturou a deskovkami. Zaměřuji se na předávání lásky k jazyku mladé generaci hravou, aktivní formou v malých skupinkách bez stresu ze zkoušení. Dospělým a odborné veřejnosti rád nabídnu řešení šité na míru se zaměřením na výslovnost, sebejistý projev a odbornou slovní zásobu.",
     "quote": "„Děti se nepotřebují jen biflovat gramatické poučky nazpaměť. Když k učení přistoupíme hravě – přes povídání, deskovky, karty a partu kamarádů – jazyk do nich vklouzne přirozeně a začnou se na každou hodinu těšit.“",
     "quoteAuthor": "— JOSEF VÁLEK, ZAKLADATEL VALEK ACADEMY",
@@ -552,6 +583,9 @@
     "tabsLabel": "Vyberte kategorii ceníku:",
     "featuresLabel": "Balíček obsahuje:",
     "guarantee": "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát různé hry a aktivity, a užít si příjemnou atmosféru v malé skupince. Pokud dítě onemocní, o lekci nepřijdete – nabízí se možnost si hodinu nahradit v jiný den v jiné skupině.  ",
+    "fullPricingBtnText": "Otevřít podrobný a kompletní ceník všech programů & slev",
+    "fullPricingBtnNote": "Samostatná stránka s detailním rozpadem cen pro 1. i 2. stupeň, dospělé, kalkulátorem a platebními podmínkami.",
+    "fullPricingBtnLink": "/cenik",
     "tiers": [
       {
         "name": "Děti & Žáci ZŠ (Skupinky hrou)",

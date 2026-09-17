@@ -32,20 +32,39 @@ const {
 const brandName = navbar.brandName || "VALEK ACADEMY";
 const brandTagline = navbar.brandTagline || "Uherské Hradiště • Výuka hrou";
 const ctaText = navbar.ctaText || "🎁 1. lekce zdarma";
+const ctaLink = navbar.ctaLink || "#kontakt";
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isHomePage = pathname === '/';
-const ctaDestination = isHomePage ? '#kontakt' : '/#kontakt';
+const ctaDestination = ctaLink.startsWith('#')
+  ? (isHomePage ? ctaLink : `/${ctaLink}`)
+  : ctaLink;
 
-// Primary standalone top links for desktop (context-aware: in-page anchors on homepage, full paths on subpages)
-const primaryNavLinks = [
-  { label: "Rozvrh", href: isHomePage ? "#rozvrh" : "/rozvrh" },
+// Primary standalone top links for desktop (dynamically sourced from CMS with fallback)
+const defaultNavLinks = [
+  { label: "Rozvrh", href: isHomePage ? "#harmonogram" : "/rozvrh" },
   { label: "Ceník", href: isHomePage ? "#cenik" : "/cenik" },
   { label: "Programy", href: isHomePage ? "#programy" : "/#programy" },
   { label: "O lektorovi", href: isHomePage ? "#o-mne" : "/#o-mne" },
   { label: "FAQ", href: isHomePage ? "#faq" : "/#faq" },
   { label: "Fotogalerie", href: "/galerie" }
 ];
+
+const navLinks = (navbar.navLinks && navbar.navLinks.length > 0)
+  ? navbar.navLinks.map((item: NavLink) => ({
+      label: item.label,
+      href: (isHomePage || !item.href.startsWith('#')) ? item.href : `/${item.href}`,
+      badge: item.badge,
+      rawItem: item
+    }))
+  : defaultNavLinks;
+
+const drawerTitle = navbar.drawerTitle || brandName;
+const drawerSubtitle = navbar.drawerSubtitle || "Rozcestník & Navigace";
+const drawerCloseText = navbar.drawerCloseText || "Zavřít";
+const drawerCtaText = navbar.drawerCtaText || "🎁 Rezervovat 1. lekci ZDARMA";
+const drawerCtaLink = navbar.drawerCtaLink || (isHomePage ? "#kontakt" : "/rozvrh#kontakt");
+const drawerLocationNote = navbar.drawerLocationNote || (contact.location ? `📍 ${contact.location} (naproti ZŠ UNESCO)` : "📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO)");
 
 interface DrawerItem {
   label: string;
@@ -103,12 +122,13 @@ const drawerSections: DrawerCategory[] = [
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-bold text-stone-700" aria-label="Hlavní navigace">
-        {primaryNavLinks.map((link) => (
+        {navLinks.map((link: any, lIdx: number) => (
           <a
             href={link.href}
             class="hover:text-amber-900 transition-colors whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-card-sm hover:bg-amber-100/60 text-stone-800 font-extrabold"
+            data-tina-field={link.rawItem ? tinaField(link.rawItem, 'label') : undefined}
           >
-            <span>{link.label}</span>
+            <span data-edit-key={link.rawItem ? `navbar.navLinks.${lIdx}.label` : undefined} data-edit-label="Odkaz v menu">{link.label}</span>
           </a>
         ))}
       </nav>
@@ -175,8 +195,8 @@ const drawerSections: DrawerCategory[] = [
     <div class="flex items-center gap-2.5">
       <ParrotLogo className="w-8 h-8 rounded-full shadow-2xs" />
       <div>
-        <div class="font-heading font-black text-sm text-espresso-950 leading-tight">{brandName}</div>
-        <div class="text-[10px] text-amber-900 font-bold leading-tight">Rozcestník & Navigace</div>
+        <div class="font-heading font-black text-sm text-espresso-950 leading-tight" data-tina-field={tinaField(navbar, 'drawerTitle')} data-edit-key="navbar.drawerTitle" data-edit-label="Nadpis v menu">{drawerTitle}</div>
+        <div class="text-[10px] text-amber-900 font-bold leading-tight" data-tina-field={tinaField(navbar, 'drawerSubtitle')} data-edit-key="navbar.drawerSubtitle" data-edit-label="Podnadpis v menu">{drawerSubtitle}</div>
       </div>
     </div>
     <button
@@ -186,7 +206,7 @@ const drawerSections: DrawerCategory[] = [
       aria-label="Zavřít menu"
     >
       <span>✕</span>
-      <span class="hidden sm:inline">Zavřít</span>
+      <span class="hidden sm:inline" data-tina-field={tinaField(navbar, 'drawerCloseText')} data-edit-key="navbar.drawerCloseText" data-edit-label="Text zavřít">{drawerCloseText}</span>
     </button>
   </div>
 
@@ -236,11 +256,12 @@ const drawerSections: DrawerCategory[] = [
   <div class="p-5 sm:p-6 border-t border-parchment-300 bg-white/95 space-y-3 sticky bottom-0 z-10 backdrop-blur-md">
     
     <a
-      href="/rozvrh#kontakt"
+      href={drawerCtaLink}
       data-drawer-link
       class="btn-gold-pulse w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs text-center"
+      data-tina-field={tinaField(navbar, 'drawerCtaText')}
     >
-      <span>🎁 Rezervovat 1. lekci ZDARMA</span>
+      <span data-edit-key="navbar.drawerCtaText" data-edit-label="Text tlačítka v menu">{drawerCtaText}</span>
       <span>→</span>
     </a>
 
@@ -263,8 +284,8 @@ const drawerSections: DrawerCategory[] = [
       </a>
     </div>
 
-    <div class="text-[10px] text-center text-stone-500 pt-1">
-      📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO)
+    <div class="text-[10px] text-center text-stone-500 pt-1" data-tina-field={tinaField(navbar, 'drawerLocationNote')}>
+      <span data-edit-key="navbar.drawerLocationNote" data-edit-label="Poznámka adresy v menu">{drawerLocationNote}</span>
     </div>
 
   </div>

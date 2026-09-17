@@ -1,8 +1,33 @@
 {
   "title": "Fotogalerie doučovny a her | VALEK ACADEMY Uherské Hradiště",
+  "backLinkText": "Zpět na hlavní stránku",
   "badge": "FOTOGALERIE DOUČOVNY & HER",
   "heading": "Nahlédněte do naší doučovny v Uherském Hradišti",
   "subtitle": "Žádné školní lavice, zkoušení u tabule ani pasivní koukání do monitoru. Prohlédněte si, jak to u nás vypadá – velký stůl pro deskovky, desítky originálních her a přátelská rodinná atmosféra přímo v centru UH.",
+  "filterTitle": "Filtrovat fotografie podle kategorie:",
+  "allPhotosFilterLabel": "Všechny snímky",
+  "trustBadges": [
+    {
+      "icon": "🏠",
+      "text": "Růžová 1238, UH (naproti ZŠ UNESCO)",
+      "isHighlight": false
+    },
+    {
+      "icon": "🎲",
+      "text": "Desítky originálních her",
+      "isHighlight": false
+    },
+    {
+      "icon": "👨‍🏫",
+      "text": "Mr. Válek s australským přízvukem",
+      "isHighlight": false
+    },
+    {
+      "icon": "🎁",
+      "text": "1. lekce 100% ZDARMA",
+      "isHighlight": true
+    }
+  ],
   "categories": [
     {
       "id": "ucebna",
@@ -108,6 +133,7 @@
     }
   ],
   "ctaBanner": {
+    "badge": "Přijďte se přesvědčit naživo",
     "title": "Líbí se vám naše doučovna a přátelská atmosféra?",
     "subtitle": "Přijďte si s dítětem nezávazně zahrát deskovku a vyzkoušet atmosféru v malé skupince. První celá lekce je 100% ZDARMA a k ničemu vás nezavazuje.",
     "buttonText": "🎁 Vyzkoušet 1. lekci ZDARMA",

@@ -699,6 +699,22 @@
         }
       });
 
+      // Determine target file based on current URL pathname
+      const pathname = window.location.pathname.replace(/\/$/, '');
+      let targetFile = 'home.json';
+      if (pathname.includes('/cenik')) {
+        targetFile = 'cenik.json';
+      } else if (pathname.includes('/rozvrh')) {
+        targetFile = 'rozvrh.json';
+      } else if (pathname.includes('/galerie')) {
+        targetFile = 'gallery.json';
+      } else if (pathname.includes('/ochrana-osobnich-udaju')) {
+        targetFile = 'ochrana-osobnich-udaju.json';
+      } else if (pathname.includes('/obchodni-podminky')) {
+        targetFile = 'obchodni-podminky.json';
+      }
+      payload._file = targetFile;
+
       const response = await fetch('/api/save-content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -708,7 +724,7 @@
       const result = await response.json();
 
       if (response.ok && result.success) {
-        showToast("✅ Změny uloženy! Texty a fotky byly zapsány do content/pages/home.json");
+        showToast(`✅ Změny uloženy! Texty a fotky byly úspěšně zapsány.`);
       } else {
         showToast("❌ Chyba při ukládání: " + (result.error || "Neznámá chyba"), true);
       }

@@ -29,6 +29,24 @@ const features = scio.features || [
 ];
 const ctaText = scio.ctaText || "Předběžně se zapsat na čekací listinu";
 const ctaLink = scio.ctaLink || "#kontakt";
+const guaranteeNote = scio.guaranteeNote || "* Zápis je 100% nezávazný, dáme vám vědět přednostně";
+const subjectsTitle = scio.subjectsTitle || "Přijímačky na SŠ (5. & 9. třída)";
+const subjectsBadge = scio.subjectsBadge || "Čekací listina";
+const subjectsNote = scio.subjectsNote || "Přípravu v Uherském Hradišti vede zkušený pedagog s klidným a trpělivým přístupem.";
+const subjects = scio.subjects || [
+  {
+    icon: "📖",
+    title: "Český jazyk a literatura",
+    subtitle: "Čtenářská gramotnost, pravopis a rozbory vět",
+    desc: "Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět bez stresu."
+  },
+  {
+    icon: "📐",
+    title: "Matematika & Geometrie",
+    subtitle: "Logické úlohy, zlomky, rovnice a konstrukce",
+    desc: "Srozumitelný postup krok za krokem. Žádné memorování vzorců bez pochopení souvislostí."
+  }
+];
 ---
 
 <section id="scio" class="py-12 md:py-16 relative bg-gradient-to-b from-white via-parchment-100/50 to-white border-y border-parchment-200">
@@ -59,7 +77,7 @@ const ctaLink = scio.ctaLink || "#kontakt";
 
           <!-- Feature Grid -->
           <div class="grid sm:grid-cols-2 gap-3.5 pt-1" data-tina-field={tinaField(scio, 'features')}>
-            {features.map((feat, idx) => (
+            {features.map((feat: string, idx: number) => (
               <div class="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-parchment-300 shadow-2xs">
                 <div class="w-7 h-7 rounded-lg bg-amber-400 text-espresso-950 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">
                   {idx + 1}
@@ -79,8 +97,7 @@ const ctaLink = scio.ctaLink || "#kontakt";
               <span data-tina-field={tinaField(scio, 'ctaText')} data-edit-key="scio.ctaText" data-edit-label="Tlačítko SCIO">{ctaText}</span>
               <span>→</span>
             </a>
-            <span class="text-xs text-stone-500 font-medium">
-              * Zápis je 100% nezávazný, dáme vám vědět přednostně
+            <span class="text-xs text-stone-500 font-medium" data-tina-field={tinaField(scio, 'guaranteeNote')} data-edit-key="scio.guaranteeNote" data-edit-label="Garanční poznámka SCIO" set:html={formatRichText(guaranteeNote)}>
             </span>
           </div>
 
@@ -92,44 +109,29 @@ const ctaLink = scio.ctaLink || "#kontakt";
             
             <div class="flex items-center justify-between pb-4 border-b border-white/10">
               <span class="text-xs font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-                <span>📐</span> <span>Přijímačky na SŠ (5. & 9. třída)</span>
+                <span>📐</span> <span data-tina-field={tinaField(scio, 'subjectsTitle')} data-edit-key="scio.subjectsTitle" data-edit-label="Nadpis předmětů SCIO">{subjectsTitle}</span>
               </span>
-              <span class="text-[10px] bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2.5 py-0.5 rounded-full font-bold">
-                Čekací listina
+              <span class="text-[10px] bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2.5 py-0.5 rounded-full font-bold" data-tina-field={tinaField(scio, 'subjectsBadge')} data-edit-key="scio.subjectsBadge" data-edit-label="Štítek předmětů SCIO">
+                {subjectsBadge}
               </span>
             </div>
 
-            <!-- Subject 1: Czech -->
-            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
-              <div class="flex items-center gap-3">
-                <span class="text-2xl">📖</span>
-                <div>
-                  <h4 class="font-heading font-black text-base text-white">Český jazyk a literatura</h4>
-                  <p class="text-xs text-amber-200/80">Čtenářská gramotnost, pravopis a rozbory vět</p>
+            <!-- Subjects list -->
+            {subjects.map((subj: any, idx: number) => (
+              <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5" data-tina-field={tinaField(subj, 'title')}>
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl" data-edit-key={`scio.subjects.${idx}.icon`}>{subj.icon || "📖"}</span>
+                  <div>
+                    <h4 class="font-heading font-black text-base text-white" data-edit-key={`scio.subjects.${idx}.title`} data-edit-label="Název předmětu" set:html={formatRichText(subj.title)}></h4>
+                    {subj.subtitle && <p class="text-xs text-amber-200/80" data-edit-key={`scio.subjects.${idx}.subtitle`} data-edit-label="Podtitul předmětu" set:html={formatRichText(subj.subtitle)}></p>}
+                  </div>
                 </div>
+                {subj.desc && <p class="text-xs text-stone-300 pl-9 leading-relaxed" data-edit-key={`scio.subjects.${idx}.desc`} data-edit-label="Popis předmětu" set:html={formatRichText(subj.desc)}></p>}
               </div>
-              <p class="text-xs text-stone-300 pl-9 leading-relaxed">
-                Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět bez stresu.
-              </p>
-            </div>
-
-            <!-- Subject 2: Math -->
-            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
-              <div class="flex items-center gap-3">
-                <span class="text-2xl">📐</span>
-                <div>
-                  <h4 class="font-heading font-black text-base text-white">Matematika & Geometrie</h4>
-                  <p class="text-xs text-amber-200/80">Logické úlohy, zlomky, rovnice a konstrukce</p>
-                </div>
-              </div>
-              <p class="text-xs text-stone-300 pl-9 leading-relaxed">
-                Srozumitelný postup krok za krokem. Žádné memorování vzorců bez pochopení souvislostí.
-              </p>
-            </div>
+            ))}
 
             <div class="text-center pt-2 border-t border-white/10">
-              <p class="text-xs text-stone-400">
-                Přípravu v Uherském Hradišti vede zkušený pedagog s klidným a trpělivým přístupem.
+              <p class="text-xs text-stone-400" data-tina-field={tinaField(scio, 'subjectsNote')} data-edit-key="scio.subjectsNote" data-edit-label="Poznámka předmětů SCIO" set:html={formatRichText(subjectsNote)}>
               </p>
             </div>
 

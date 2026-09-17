@@ -45,6 +45,9 @@ const subtitle = pricing.subtitle || "Pro děti na ZŠ je 1. celá lekce v malé
 const tabsLabel = pricing.tabsLabel || "Vyberte kategorii ceníku:";
 const featuresLabel = pricing.featuresLabel || "Balíček obsahuje:";
 const guarantee = pricing.guarantee || "🎁 1. LEKCE 100% ZDARMA & FÉROVÉ ZÁRUKY: Přijďte si s dítětem nezávazně zahrát deskovky a vyzkoušet atmosféru v malé skupince. Žádné platby předem ani skryté závazky.";
+const fullPricingBtnText = pricing.fullPricingBtnText || "Otevřít podrobný a kompletní ceník všech programů & slev";
+const fullPricingBtnNote = pricing.fullPricingBtnNote || "Samostatná stránka s detailním rozpadem cen pro 1. i 2. stupeň, dospělé, kalkulátorem a platebními podmínkami.";
+const fullPricingBtnLink = pricing.fullPricingBtnLink || "/cenik";
 const rawTiers = pricing.tiers;
 const tiers: Tier[] = Array.isArray(rawTiers)
   ? (rawTiers as Tier[])
@@ -231,15 +234,16 @@ const pillars = pricing.pillars || defaultPillars;
     <!-- Large Prominent Button linking to Dedicated /cenik page -->
     <div class="mt-10 sm:mt-12 text-center max-w-2xl mx-auto">
       <a
-        href="/cenik"
+        href={fullPricingBtnLink}
         class="btn-gold-pulse group w-full sm:w-auto inline-flex items-center justify-center gap-3 py-4 sm:py-5 px-6 sm:px-10 rounded-2xl font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border-2 border-amber-500 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+        data-tina-field={tinaField(pricing, 'fullPricingBtnText')}
       >
         <span class="text-2xl group-hover:scale-110 transition-transform">🏷️</span>
-        <span>Otevřít podrobný a kompletní ceník všech programů & slev</span>
+        <span data-edit-key="pricing.fullPricingBtnText" data-edit-label="Tlačítko na ceník">{fullPricingBtnText}</span>
         <span class="group-hover:translate-x-1.5 transition-transform font-black">→</span>
       </a>
-      <p class="text-xs text-stone-500 mt-2 font-medium">
-        Samostatná stránka s detailním rozpadem cen pro 1. i 2. stupeň, dospělé, kalkulátorem a platebními podmínkami.
+      <p class="text-xs text-stone-500 mt-2 font-medium" data-tina-field={tinaField(pricing, 'fullPricingBtnNote')}>
+        <span data-edit-key="pricing.fullPricingBtnNote" data-edit-label="Popis odkazu ceníku">{fullPricingBtnNote}</span>
       </p>
     </div>
 
