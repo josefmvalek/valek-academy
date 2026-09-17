@@ -134,6 +134,7 @@
           "description": "Vizuální karty, figurky a herní plány pomáhají zafixovat slovíčka lépe než pouhé vyplňování pracovních sešitů."
         },
         {
+          "hidden": true,
           "image": "/uploads/images/board-games-3d.webp",
           "title": "Didaktické modely & 3D reálie",
           "description": "Prostorové herní komponenty a kartičky motivují děti ke spontánnímu popisování světa v angličtině."
