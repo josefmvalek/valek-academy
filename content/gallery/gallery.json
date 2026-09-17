@@ -72,6 +72,7 @@
       "description": "Naše hlavní zbraň proti nudě: Karak, Scrabble, Dixit, Catan, Dobble a bleskové kvízy.",
       "photos": [
         {
+          "hidden": true,
           "image": "/uploads/images/board-games-closeup.jpg",
           "title": "Herní stůl připravený na lekci",
           "description": "Otevřený Karak, Scrabble a kartičky. Děti se nemohou dočkat, až hodí kostkou a začnou tvořit první anglické věty."
