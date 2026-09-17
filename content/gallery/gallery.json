@@ -121,6 +121,7 @@
       "description": "Autentické australské knihy, reálie z Melbourne, fonetické pomůcky a didaktické materiály.",
       "photos": [
         {
+          "hidden": true,
           "image": "/uploads/images/australian-library-corner.jpg",
           "title": "Australský čtenářský koutek s koalou",
           "description": "Knížky pro děti v originále (Roald Dahl, Australian Wildlife), plyšový koala a útulné křeslo se světýlky pro chvíle klidného čtení."
