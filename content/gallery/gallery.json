@@ -83,6 +83,7 @@
           "description": "Rychlé hledání symbolů a skládání slov. Trénink reflexů a okamžitého anglického pojmenování bez překládání v hlavě."
         },
         {
+          "hidden": true,
           "image": "/uploads/images/doucovna-hry.webp",
           "title": "Kolekce originálních anglických her",
           "description": "Hry pečlivě vybíráme podle věku – od jednoduchého Dobble pro 1. třídu až po strategický Carcassonne a Codenames."
