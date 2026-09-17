@@ -379,7 +379,7 @@
         "emoji": "🐻",
         "cohort": "1.–3. třída",
         "cohortBadge": "Karak Junior & Karty",
-        "occupiedSeats": 8,
+        "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
