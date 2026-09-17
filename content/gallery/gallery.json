@@ -109,6 +109,7 @@
           "description": "Intenzivní 90minutové bloky pro starší studenty: didaktické testy, esejistika, ústní témata a plynulá argumentace bez trémy."
         },
         {
+          "hidden": true,
           "image": "/uploads/images/adults-conversation-group.jpg",
           "title": "Večerní klub pro dospělé a profesní skupiny",
           "description": "Medici, právníci, inženýři i milovníci cestování u šálku čaje v přátelské debatě s rodilým přízvukem pana Válka."
