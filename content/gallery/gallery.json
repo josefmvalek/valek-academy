@@ -76,6 +76,7 @@
           "description": "Otevřený Karak, Scrabble a kartičky. Děti se nemohou dočkat, až hodí kostkou a začnou tvořit první anglické věty."
         },
         {
+          "hidden": true,
           "image": "/uploads/images/dobble-cards-hands.jpg",
           "title": "Bleskové postřehovky Dobble & písmena",
           "description": "Rychlé hledání symbolů a skládání slov. Trénink reflexů a okamžitého anglického pojmenování bez překládání v hlavě."
