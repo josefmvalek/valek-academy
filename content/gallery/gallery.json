@@ -52,6 +52,7 @@
           "description": "Zde se odehrávají všechny napínavé partie. Děti sedí společně u stolu, komunikují tváří v tvář a přirozeně reagují v angličtině."
         },
         {
+          "hidden": true,
           "image": "/uploads/images/classroom-interior-sunlit.jpg",
           "title": "Slunná učebna v historickém centru UH",
           "description": "Klidné a bezpečné zázemí s výhledem na město. Místo v centru Uherského Hradiště, kde se nikdo nebojí udělat chybu."
