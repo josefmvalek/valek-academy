@@ -129,6 +129,7 @@
           "description": "Knížky pro děti v originále (Roald Dahl, Australian Wildlife), plyšový koala a útulné křeslo se světýlky pro chvíle klidného čtení."
         },
         {
+          "hidden": true,
           "image": "/uploads/images/classroom-games.jpg",
           "title": "Zapojení všech smyslů do učení",
           "description": "Vizuální karty, figurky a herní plány pomáhají zafixovat slovíčka lépe než pouhé vyplňování pracovních sešitů."
