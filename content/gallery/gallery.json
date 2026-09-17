@@ -46,7 +46,8 @@
           "description": "Pan Válek s didaktickými kartičkami a bohatou knihovnou plnou slovníků, cizojazyčných knih v učebně v Uherském Hradišti."
         },
         {
-          "image": "/uploads/images/doucovna-stul.webp",
+          "hidden": true,
+          "image": "",
           "title": "Hlavní herní stůl pro deskovky",
           "description": "Zde se odehrávají všechny napínavé partie. Děti sedí společně u stolu, komunikují tváří v tvář a přirozeně reagují v angličtině."
         },
@@ -56,6 +57,7 @@
           "description": "Klidné a bezpečné zázemí s výhledem na město. Místo v centru Uherského Hradiště, kde se nikdo nebojí udělat chybu."
         },
         {
+          "hidden": true,
           "image": "/uploads/images/classroom-library.jpg",
           "title": "Knihovna a studijní zázemí v Uherském Hradišti",
           "description": "Poličky plné originálních anglických knížek, australských map a populárních deskovek pro děti i dospívající."
