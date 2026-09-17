@@ -102,6 +102,7 @@
           "description": "V partě vrstevníků mizí ostych i strach ze špatných známek. Děti se navzájem podporují a učí se přirozenou konverzací."
         },
         {
+          "hidden": true,
           "image": "/uploads/images/maturita-study-session.jpg",
           "title": "Příprava na maturitu a CERMAT testy",
           "description": "Intenzivní 90minutové bloky pro starší studenty: didaktické testy, esejistika, ústní témata a plynulá argumentace bez trémy."
