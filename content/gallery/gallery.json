@@ -97,6 +97,7 @@
       "description": "Malé skupinky 4–8 dětí, kde každý dostane prostor mluvit celých 60 minut.",
       "photos": [
         {
+          "hidden": true,
           "image": "/uploads/images/kids-boardgame-fun.jpg",
           "title": "Smích, soutěživost a radost z výhry",
           "description": "V partě vrstevníků mizí ostych i strach ze špatných známek. Děti se navzájem podporují a učí se přirozenou konverzací."
