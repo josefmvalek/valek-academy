@@ -318,11 +318,15 @@ const waitingList = audience.waitingList || {
 
 <script>
   function initCohortTabs() {
+    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
+    const isInIframe = window.self !== window.top;
+    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+
     const tabs = document.querySelectorAll<HTMLButtonElement>('.cohort-tab-btn');
     const cards = document.querySelectorAll<HTMLElement>('.cohort-card');
 
     tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
+      tab.addEventListener(interactiveEvent, () => {
         const targetId = tab.getAttribute('data-target');
         if (!targetId) return;
 

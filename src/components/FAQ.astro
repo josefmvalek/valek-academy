@@ -85,11 +85,15 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
 
 <script>
   function initFaqDetails() {
+    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
+    const isInIframe = window.self !== window.top;
+    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+
     const detailsList = document.querySelectorAll<HTMLDetailsElement>('.faq-details');
     detailsList.forEach((details) => {
       const summary = details.querySelector('summary');
       if (!summary) return;
-      summary.addEventListener('click', () => {
+      summary.addEventListener(interactiveEvent, () => {
         const willBeOpen = !details.open;
         if (willBeOpen) {
           detailsList.forEach(other => {

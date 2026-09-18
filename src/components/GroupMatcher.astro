@@ -287,6 +287,10 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
 <script>
   const matcherSection = document.getElementById('rozrazovac');
   if (matcherSection) {
+    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
+    const isInIframe = window.self !== window.top;
+    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+
     const gradeBtns = document.querySelectorAll<HTMLButtonElement>('.grade-btn');
     const interestBtns = document.querySelectorAll<HTMLButtonElement>('.interest-btn');
     const goalBtns = document.querySelectorAll<HTMLButtonElement>('.goal-btn');
@@ -485,7 +489,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
 
   // Button Click Handlers
   gradeBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener(interactiveEvent, () => {
       playClickPop();
       gradeBtns.forEach(b => {
         b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
@@ -499,7 +503,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
   });
 
   interestBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener(interactiveEvent, () => {
       playClickPop();
       interestBtns.forEach(b => {
         b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
@@ -513,7 +517,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
   });
 
   goalBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener(interactiveEvent, () => {
       playClickPop();
       goalBtns.forEach(b => {
         b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');

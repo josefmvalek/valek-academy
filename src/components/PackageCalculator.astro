@@ -329,6 +329,10 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
 <script>
   function initPackageCalculator() {
+    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
+    const isInIframe = window.self !== window.top;
+    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+
     const calc = document.getElementById('kalkulator-balicku');
     if (!calc) return;
 
@@ -605,7 +609,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
     // Attach click listeners to mode buttons
     modeBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener(interactiveEvent, () => {
         playClickPop();
         const mode = btn.getAttribute('data-mode') === 'teens' ? 'teens' : 'kids';
         if (mode === currentMode) return;
@@ -631,7 +635,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
     // Attach click listeners to duration buttons
     durationBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener(interactiveEvent, () => {
         playClickPop();
         const weeks = parseInt(btn.getAttribute('data-weeks') || '20', 10);
         selectedWeeks = weeks;
@@ -652,7 +656,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
     // Attach click listeners to frequency buttons
     freqBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener(interactiveEvent, () => {
         playClickPop();
         const freq = parseInt(btn.getAttribute('data-freq') || '1', 10);
         selectedFreq = freq;

@@ -259,11 +259,15 @@ const pillars = pricing.pillars || defaultPillars;
 
 <script>
   function initPricingTabs() {
+    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
+    const isInIframe = window.self !== window.top;
+    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+
     const tabs = document.querySelectorAll<HTMLButtonElement>('.pricing-tab-btn');
     const cards = document.querySelectorAll<HTMLElement>('.pricing-card');
 
     tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
+      tab.addEventListener(interactiveEvent, () => {
         const targetId = tab.getAttribute('data-target');
         if (!targetId) return;
 

@@ -268,6 +268,10 @@ const columns = comparison.columns || defaultColumns;
 
 <script>
   function initComparisonToggle() {
+    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
+    const isInIframe = window.self !== window.top;
+    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+
     const btn = document.getElementById('toggle-comparison-btn');
     const textSpan = document.getElementById('toggle-comparison-text');
     const iconSpan = document.getElementById('toggle-comparison-icon');
@@ -277,7 +281,7 @@ const columns = comparison.columns || defaultColumns;
 
     let expanded = false;
 
-    btn.addEventListener('click', () => {
+    btn.addEventListener(interactiveEvent, () => {
       expanded = !expanded;
       extras.forEach(card => {
         if (expanded) {

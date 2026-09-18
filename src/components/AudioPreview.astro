@@ -213,11 +213,15 @@ phrases.forEach((p) => {
 
   let activePhraseKey = 'gday';
 
+  // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
+  const isInIframe = window.self !== window.top;
+  const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+
   const phraseChips = document.querySelectorAll<HTMLButtonElement>('.phrase-chip');
   const liveTextCz = document.getElementById('speech-czech-text');
 
   phraseChips.forEach((chip) => {
-    chip.addEventListener('click', () => {
+    chip.addEventListener(interactiveEvent, () => {
       const key = chip.getAttribute('data-phrase') || 'gday';
       activePhraseKey = key;
 
