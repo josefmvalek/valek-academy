@@ -1,77 +1,217 @@
-# 🦘 VALEK ACADEMY – Výuka a doučování angličtiny v Uherském Hradišti
+# 🦘 VALEK ACADEMY – Výuka a doučování angličtiny hrou
+> **Oficiální webová prezentace a rezervační systém pro akademii angličtiny Josefa Válka v Uherském Hradišti.**
 
-Profesionální, vysoce konverzní a interaktivní web pro lektora angličtiny Josefa Válka (Mr. Válek). Web je postaven na moderní hybridní architektuře **Astro v5 + TinaCMS + In-Page Visual Editor**, nabízí bleskurychlý statický rendering (SSG), dynamické API pro rezervace lekcí a kompletní click-to-edit editaci veškerého obsahu přímo z prohlížeče.
+[![Astro v5](https://img.shields.io/badge/Astro-v5.0+-BC52EE.svg?style=flat-square&logo=astro&logoColor=white)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC.svg?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TinaCMS](https://img.shields.io/badge/TinaCMS-Git_Backed-FF6A00.svg?style=flat-square&logo=tinacms&logoColor=white)](https://tina.io/)
+[![Deployment](https://img.shields.io/badge/Deploy-Vercel-000000.svg?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com/)
+[![Email](https://img.shields.io/badge/Email-Resend-000000.svg?style=flat-square&logo=resend&logoColor=white)](https://resend.com/)
 
----
-
-## 🚀 Použitý technologický stack
-
-- **Framework:** [Astro v5](https://astro.build/) – ultra-rychlý statický rendering (SSG) s nulovou klientskou zátěží a serverless API pro formuláře.
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/) – teplý pergamenový a zlatý design s glassmorphismem, 3D haptickými tlačítky a prémiovou typografií (*Cinzel*, *Outfit*, *Plus Jakarta Sans*).
-- **CMS (Dvojí editační rozhraní):**
-  - **TinaCMS** (`/admin`) – plnohodnotná vizuální administrace napojená na Git a Tina Cloud.
-  - **In-Page Visual Editor** – přímá inline editace textů, čísel a odznaků přímo na živé stránce ve vývojovém režimu se souběžným ukládáním do JSON souborů.
-- **Formuláře & E-maily:** Vlastní serverless endpoint `/api/send-reservation` s integrací [Resend](https://resend.com/) pro okamžité potvrzovací e-maily klientům a notifikace lektorovi.
-- **Hosting:** [Vercel](https://vercel.com/) – automatické nasazení z GitHubu přes `@astrojs/vercel` adaptér.
+Web běží na živé doméně: **[valekacademy.cz](https://valekacademy.cz)**
 
 ---
 
-## 📂 Struktura webu a stránek
+## 📖 O projektu
 
-1. **Domovská stránka (`/`):**
-   - **Hero:** Profil lektora Josefa Válka (Melbourne roots, 25+ let v ČR), audio přehrávač reálných hlášek (*G'day mate!*), sociální důkaz a CTA do 1. lekce zdarma.
-   - **Programy & Hry:** Didaktické deskovky (Karak, Scrabble, Dixit, Dobble, Story Cubes) rozdělené dle věku.
-   - **Průběh 60 min lekce:** Čtyřfázová metodika (naladění, hra, škola, rekapitulace).
-   - **O lektorovi:** Příběh čechoaustralana Josefa Válka.
-   - **Rozřazovač skupinek (GroupMatcher):** 3krokový interaktivní kvíz pro rodiče s Web Audio API zvukovými efekty a generováním zlaté vstupenky.
-   - **Harmonogram (ScheduleBlocks):** Týdenní rozvrh 15 zvířecích skupinek (Klokánci, Koaly, Vombati...).
-   - **Kde učíme:** Mapa a lokalita doučovny v centru UH (naproti ZŠ UNESCO).
-   - **Časté dotazy rodičů (FAQ):** Akordeon s dynamickým Schema.org FAQPage JSON-LD.
-   - **Rezervační formulář (ContactForm):** Interaktivní výběr skupinky, validace a odeslání rezervace.
-2. **Rozvrh hodin (`/rozvrh`):** Dedikovaná stránka s kompletním přehledem 15 skupinek a přímou rezervací.
-3. **Ceník & Kalkulátor (`/cenik`):** Podrobný přehled programů, srovnávací tabulka se školou a interaktivní kalkulátor balíčků slev (až 31 % úspora).
-4. **Fotogalerie (`/galerie`):** Dynamická galerie s filtrováním dle kategorií (doučovna, deskovky, lektor, akce).
-5. **Právní stránky:** VOP (`/obchodni-podminky`) a GDPR (`/ochrana-osobnich-udaju`).
+**VALEK ACADEMY** představuje moderní, konverzně zaměřený a interaktivní web pro lektora angličtiny Josefa Válka (*Mr. Válek*), který vyrostl a studoval v Austrálii (RMIT Melbourne) a přes 25 let žije a vyučuje v ČR. Výuka probíhá v útulné doučovně naproti ZŠ UNESCO v Uherském Hradišti v malých skupinkách (4–8 dětí) hravou formou didaktických deskových her (Karak, Scrabble, Dixit, Dobble, Story Cubes) i formou konverzací pro dospělé a přípravy na Scio/přijímačky.
+
+Web je postaven na hybridní architektuře **Astro v5 + TinaCMS + In-Page Visual Editor**, nabízí bleskurychlý statický rendering (SSG), dynamické API pro rezervace a kompletní editovatelnost veškerého obsahu.
 
 ---
 
-## 🛠️ Lokální spuštění na počítači (Development)
+## ✨ Klíčové funkce a interaktivní prvky
 
-### 1. Instalace závislostí
+### 🎯 1. 3krokový rozřazovač skupinek (`GroupMatcher.astro`)
+* Interaktivní kvíz pro rodiče a studenty (věk dítěte, úroveň angličtiny, preference cílů).
+* Zvukové efekty generované přímo přes **Web Audio API** (bez zátěže externích souborů).
+* Automatické doporučení zvířecí skupinky (*Klokánci, Koaly, Vombati, Dingo, Klokani, Krokodýli*).
+* Generování virtuální **zlaté VIP vstupenky** na 1. lekci zdarma s přímým propisem do rezervačního formuláře.
+
+### 💰 2. Interaktivní kalkulátor balíčků & slev (`PackageCalculator.astro`)
+* Přepínání platebních módů: měsíční flexibilní platba vs. zvýhodněné balíčky lekcí (úspora až 31 %).
+* Přepínač sourozenecké slevy (+10 % navíc).
+* Dynamický výpočet ceny za 60min lekci, celkové ceny i absolutní úspory v Kč v reálném čase.
+
+### 📅 3. Týdenní rozvrh hodin s přímou rezervací (`ScheduleBlocks.astro`)
+* 100% datově řízený z [content/schedule/rozvrh.json](file:///c:/Users/Jozka/Desktop/ValekAcademy/content/schedule/rozvrh.json).
+* Přehledné vizuální bloky pro všech 15 skupinek od pondělí do pátku (13:00 – 18:30).
+* Kapacitní indikátory obsazenosti a tlačítko rychlé rezervace konkrétního termínu na 1 klik.
+
+### 🖼️ 4. Dynamická filtrovatelná fotogalerie (`GalleryView.astro`)
+* Okamžité přepínání kategorií (*Učebna, Deskovky, Výuka, Knihovna*) na straně klienta.
+* Moderní WebP formát fotografií s nativním líným načítáním (`loading="lazy"`).
+
+### 🔊 5. Zvukový přehrávač reálných hlášek lektora
+* Tlačítka pro přehrání autentických australských pozdravů (*G'day mate!*, *No worries*) v podání Josefa Válka uložených ve složce [public/audio/](file:///c:/Users/Jozka/Desktop/ValekAcademy/public/audio/).
+
+### 🧭 6. Značková 404 stránka & Mobile PWA
+* Vlastní [src/pages/404.astro](file:///c:/Users/Jozka/Desktop/ValekAcademy/src/pages/404.astro) s rychlou navigací na Domů, Rozvrh, Ceník a WhatsApp.
+* PWA Webmanifest [public/site.webmanifest](file:///c:/Users/Jozka/Desktop/ValekAcademy/public/site.webmanifest) a meta tag `theme-color` `#FAF7F2` pro barevné sladění horní lišty mobilních prohlížečů (Safari na iOS i Chrome na Androidu).
+
+---
+
+## 🏗️ Architektura: CMS-First & Dvojí editace
+
+Projekt striktně dodržuje pravidlo **žádných hardcoded textů v šablonách**:
+1. **TinaCMS (`/admin`):** Plnohodnotná vizuální administrace napojená na Git repozitář a Tina Cloud. Definice kolekcí je v [tina/config.ts](file:///c:/Users/Jozka/Desktop/ValekAcademy/tina/config.ts).
+2. **In-Page Visual Editor (`VisualEditor.astro`):** V lokálním vývojovém režimu umožňuje editovat texty přímo na živé stránce kliknutím a ukládat je přes interní endpoint `/api/save-content` přímo do JSON souborů v `content/`.
+3. **Click-to-Edit atributy:**
+   * `data-tina-field={tinaField(obj, 'key')}` pro TinaCMS
+   * `data-edit-key="cesta.v.json"` a `data-edit-label="Název"` pro In-Page Editor
+
+### Struktura datových JSON souborů (`content/`):
+```
+content/
+├── pages/
+│   └── home.json          # Texty úvodní stránky (Hero, About, Timeline, Contact, FAQ...)
+├── schedule/
+│   └── rozvrh.json        # Harmonogram, skupinky, dny, časy a kapacita
+├── pricing/
+│   └── cenik.json         # Cenové balíčky, výhody, srovnávací tabulka a kalkulátor
+├── gallery/
+│   └── gallery.json       # Seznam fotografií, popisky a kategorie
+└── legal/
+    ├── terms.json         # Všeobecné obchodní podmínky (VOP)
+    └── privacy.json       # Zásady ochrany osobních údajů (GDPR)
+```
+
+---
+
+## 📬 E-mailový rezervační systém (Resend)
+
+Formulář [ContactForm.astro](file:///c:/Users/Jozka/Desktop/ValekAcademy/src/components/ContactForm.astro) odesílá data na serverless API endpoint [src/pages/api/send-reservation.ts](file:///c:/Users/Jozka/Desktop/ValekAcademy/src/pages/api/send-reservation.ts):
+* **Potvrzení pro klienta:** Krásně nastylovaný HTML e-mail s rekapitulací rezervované skupinky, dnem, časem a informacemi k 1. lekci zdarma.
+* **Upozornění pro lektora:** Okamžitá notifikace s kontaktními údaji rodiče (telefon, e-mail, jméno dítěte, poznámka).
+* **Zabezpečení:** Odesílá se přes [Resend](https://resend.com/) s ověřenými DKIM a SPF záznamy přímo z domény `@valekacademy.cz`.
+
+---
+
+## 🚀 Lokální spuštění (Development)
+
+### Požadavky
+* **Node.js** 20+ (nebo 22 LTS)
+* **npm** 10+
+
+### 1. Klonování repozitáře a instalace
 ```bash
+git clone https://github.com/josefmvalek/valek-academy.git
+cd valek-academy
 npm install
 ```
 
-### 2. Spuštění vývojového serveru
+### 2. Konfigurace prostředí
+V kořenu projektu vytvořte soubor `.env` (můžete zkopírovat vzorový [.env.example](file:///c:/Users/Jozka/Desktop/ValekAcademy/.env.example)):
+```bash
+cp .env.example .env
+```
+
+### 3. Spuštění vývojového serveru
 ```bash
 npm run dev
 ```
-Tento příkaz spustí:
-- Astro vývojový server na `http://localhost:4321`
-- TinaCMS lokální GraphQL server na `http://localhost:4001`
-- Automatický WebP image watcher na pozadí
-
-### 3. Editace obsahu
-- **In-Page Visual Editor:** Přímo na `http://localhost:4321` klikněte na plovoucí tlačítko editoru v pravém dolním rohu.
-- **TinaCMS Administrace:** Otevřete `http://localhost:4321/admin`.
+Tento příkaz paralelně nastartuje:
+* Astro dev server na **`http://localhost:4321`**
+* TinaCMS lokální GraphQL server na **`http://localhost:4001`**
+* Vizuální administraci na **`http://localhost:4321/admin`**
 
 ---
 
-## 🏗️ Produkční build & kontrola typů
+## 🛠️ Dostupné npm skripty
 
-```bash
-# Kontrola TypeScript a Astro diagnostiky (0 chyb)
-npm run typecheck
+| Příkaz | Popis |
+| :--- | :--- |
+| `npm run dev` | Spustí lokální vývojový server Astro + TinaCMS |
+| `npm run build` | Zkompiluje Tina schema a sestaví produkční bundle (`astro build`) |
+| `npm run typecheck` | Zkontroluje integritu TypeScript typů a Astro diagnostiku (**0 errors**) |
+| `node build.js` | Robustní produkční sestavení pro nasazení (používáno na Vercelu) |
+| `npm run optimize-images`| Optimalizuje a převede obrázky ve složce `public/images/` do formátu WebP |
 
-# Plný produkční build (TinaCMS schema compilation + Astro SSG export)
-node build.js
+---
+
+## ⚙️ Proměnné prostředí (Environment Variables)
+
+Při nasazení na **Vercel** nastavte v sekci *Project Settings → Environment Variables*:
+
+| Proměnná | Popis | Příklad |
+| :--- | :--- | :--- |
+| `RESEND_API_KEY` | Tajný API klíč z [resend.com](https://resend.com) | `re_123456789...` |
+| `RESEND_FROM_EMAIL` | Oficiální odesílatel potvrzovacích e-mailů | `VALEK ACADEMY <info@valekacademy.cz>` |
+| `RESEND_TO_ADMIN` | E-mail pro zasílání notifikací lektorovi | `info@valekacademy.cz` |
+| `PUBLIC_TINA_CLIENT_ID`| ID projektu v Tina Cloud | `...` |
+| `TINA_TOKEN` | Read/write přístupový token z Tina Cloud | `...` |
+
+---
+
+## 🔍 SEO & Strukturovaná data (Schema.org)
+
+Web má špičkovou technickou SEO optimalizaci:
+* **JSON-LD Schema.org graf:**
+  * `@type: "EducationalOrganization"` – kompletní profil lektora, IČO, adresa v UH, GPS souřadnice, otevírací doba a obsluhované obce (*Uherské Hradiště, Kunovice, Staré Město, Babice, Uherský Brod...*).
+  * `@type: "FAQPage"` – dynamicky generováno z FAQ sekce pro zobrazení rozbalovacích otázek přímo ve výsledcích vyhledávání na Googlu.
+  * `@type: "Course"` – strukturované informace o kurzech angličtiny.
+  * `@type: "BreadcrumbList"` – navigace na podstránkách.
+* **Meta značky:** Open Graph (Facebook, WhatsApp), Twitter Summary Card s velkým náhledovým obrázkem.
+* **Sitemap:** Automaticky generovaná dynamická sitemapa na [/sitemap.xml](https://valekacademy.cz/sitemap.xml).
+* **Robots.txt:** Nastaveno pro optimální indexaci roboty Googlebot a Seznambot.
+
+---
+
+## 📁 Struktura projektu
+
+```text
+valek-academy/
+├── content/                     # Git-backed JSON datové soubory pro CMS
+│   ├── gallery/                 # Data fotogalerie
+│   ├── legal/                   # Obchodní podmínky a GDPR
+│   ├── pages/                   # Obsah úvodní stránky
+│   ├── pricing/                 # Ceník, kalkulačka a srovnání
+│   └── schedule/                # Rozvrh a definice skupinek
+├── public/                      # Statické soubory
+│   ├── admin/                   # TinaCMS administrátorská SPA aplikace
+│   ├── audio/                   # Zvukové nahrávky lektora (.mp3)
+│   ├── images/                  # Optimalizované WebP fotografie a loga
+│   ├── site.webmanifest         # PWA manifest pro mobilní instalaci
+│   └── robots.txt               # Pravidla pro vyhledávače
+├── src/
+│   ├── components/              # Modulární Astro komponenty
+│   │   ├── GroupMatcher.astro   # Interaktivní rozřazovač skupinek
+│   │   ├── PackageCalculator.astro # Cenová kalkulačka slev
+│   │   ├── ScheduleBlocks.astro # Harmonogram výuky
+│   │   ├── ContactForm.astro    # Rezervační formulář
+│   │   ├── GalleryView.astro    # Filtrovatelná fotogalerie
+│   │   ├── VisualEditor.astro   # Živý In-Page vizuální editor
+│   │   └── ...                  # Hero, Navbar, Footer, FAQ, Testimonials
+│   ├── layouts/
+│   │   └── Layout.astro         # Hlavní layout, SEO hlavička, Schema.org
+│   ├── lib/
+│   │   ├── data.ts              # Načítání JSON dat a Tina queries
+│   │   └── islands.ts           # Konfigurace Tina ostrovů
+│   ├── pages/
+│   │   ├── api/
+│   │   │   ├── save-content.ts  # Endpoint pro ukládání z Visual Editoru
+│   │   │   ├── send-reservation.ts # Serverless odesílání e-mailů
+│   │   │   └── upload-image.ts  # Upload obrázků
+│   │   ├── 404.astro            # Stylová chybová stránka
+│   │   ├── cenik.astro          # Podrobný ceník & kalkulátor
+│   │   ├── galerie.astro        # Fotogalerie učebny a her
+│   │   ├── index.astro          # Úvodní stránka
+│   │   ├── rozvrh.astro         # Rozvrh hodin
+│   │   └── sitemap.xml.ts       # Dynamický generátor sitemapy
+│   └── styles/
+│       └── global.css           # Globální styly a Tailwind direktivy
+├── tina/
+│   └── config.ts                # Kompletní schéma kolekcí TinaCMS
+├── .env.example                 # Vzorové proměnné prostředí
+├── astro.config.mjs             # Konfigurace Astro a Vercel adaptéru
+├── build.js                     # Produkční build skript
+├── package.json                 # Závislosti a skripty
+└── tailwind.config.mjs          # Konfigurace Tailwind design systému
 ```
 
 ---
 
-## 📬 Nastavení odesílání e-mailů (Resend)
+## 📄 Licence a vlastnictví
 
-Pro aktivaci reálného odesílání potvrzovacích e-mailů nastavte v prostředí Vercelu:
-- `RESEND_API_KEY` = *(váš API klíč z resend.com)*
-
-Bez nastaveného klíče formulář bezpečně přejde do demo režimu, vrací formátované potvrzení o přijetí a nezpůsobí pád aplikace.
+© 2026 Josef Válek – VALEK ACADEMY. Všechna práva vyhrazena.  
+Vytvořeno pro lektorskou činnost a výuku angličtiny v Uherském Hradišti.
