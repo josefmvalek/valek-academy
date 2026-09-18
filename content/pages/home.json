@@ -1059,7 +1059,18 @@
     "teenChildNameLabel": "Jméno rodiče",
     "teenSubmitButtonText": "📝 Zapsat se na čekací listinu pro maturanty",
     "securityNote": "🔒 Vaše kontaktní údaje jsou v naprostém bezpečí a slouží pouze k domluvě úvodní lekce.",
-    "web3formsKey": "f49fa95f-e8a5-4b5b-b462-11980de8d1bc"
+    "web3formsKey": "f49fa95f-e8a5-4b5b-b462-11980de8d1bc",
+    "whatsappConfirmationMessage": "Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro {attendee}{group}. Rád/a bych se domluvil/a na konkrétním termínu.",
+    "calendarEventTitle": "1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY",
+    "calendarEventDesc": "Ukázková lekce angličtiny hrou v malé skupince pro {attendee}{group}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!",
+    "receiptBadge": "✓ REZERVACE V POŘÁDKU PŘIJATA",
+    "receiptGuaranteeBadge": "🎁 1. lekce 100% ZDARMA",
+    "receiptGreetingTitle": "Děkuji za zprávu",
+    "receiptWhatToBring": "Pouze přezůvky a dobrou náladu. Deskovky, karty, didaktické materiály i pití jsou zajištěny.",
+    "receiptLocation": "📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO – 90 s pěšky)",
+    "receiptPrice": "100% ZDARMA (nezávazně vyzkoušíte)",
+    "receiptGoogleCalBtnText": "Uložit do Google Kalendáře",
+    "receiptWhatsAppBtnText": "Napsat panu Válkovi na WhatsApp"
   },
   "footer": {
     "brandName": "VALEK ACADEMY",

@@ -81,6 +81,18 @@ const adultSubmitButtonText = contact.adultSubmitButtonText || "📝 Zapsat se n
 const teenNameLabel = contact.teenNameLabel || "Jméno studenta / zájemce";
 const teenChildNameLabel = contact.teenChildNameLabel || "Jméno rodiče";
 const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na čekací listinu pro maturanty";
+
+const receiptBadge = contact.receiptBadge || "✓ REZERVACE V POŘÁDKU PŘIJATA";
+const receiptGuaranteeBadge = contact.receiptGuaranteeBadge || "🎁 1. lekce 100% ZDARMA";
+const receiptGreetingTitle = contact.receiptGreetingTitle || "Děkuji za zprávu";
+const receiptWhatToBring = contact.receiptWhatToBring || "Pouze přezůvky a dobrou náladu. Deskovky, karty, didaktické materiály i pití jsou zajištěny.";
+const receiptLocation = contact.receiptLocation || "📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO – 90 s pěšky)";
+const receiptPrice = contact.receiptPrice || "100% ZDARMA (nezávazně vyzkoušíte)";
+const receiptGoogleCalBtnText = contact.receiptGoogleCalBtnText || "Uložit do Google Kalendáře";
+const receiptWhatsAppBtnText = contact.receiptWhatsAppBtnText || "Napsat panu Válkovi na WhatsApp";
+const whatsappConfirmationMessage = contact.whatsappConfirmationMessage || "Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro {attendee}{group}. Rád/a bych se domluvil/a na konkrétním termínu.";
+const calendarEventTitle = contact.calendarEventTitle || "1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY";
+const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce angličtiny hrou v malé skupince pro {attendee}{group}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!";
 ---
 
 <div class="lg:col-span-7">
@@ -108,6 +120,10 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
       data-teen-name-label={teenNameLabel}
       data-teen-child-label={teenChildNameLabel}
       data-teen-btn-text={teenSubmitButtonText}
+      data-whatsapp-template={whatsappConfirmationMessage}
+      data-cal-title={calendarEventTitle}
+      data-cal-desc={calendarEventDesc}
+      data-receipt-location={receiptLocation}
     >
       <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
       <input type="hidden" id="selected-group-input" name="selected_group" value="" />
@@ -804,17 +820,17 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
         <div class="p-5 sm:p-7 rounded-card-lg bg-gradient-to-br from-emerald-50 via-white to-amber-50/50 border-2 border-emerald-500 shadow-md space-y-4">
           
           <div class="flex items-center gap-2 flex-wrap">
-            <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-600 text-white shadow-2xs">
-              ✓ REZERVACE V POŘÁDKU PŘIJATA
+            <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-600 text-white shadow-2xs" data-tina-field={tinaField(contact, 'receiptBadge')} data-edit-key="contact.receiptBadge" data-edit-label="Potvrzení - odznak">
+              {receiptBadge}
             </span>
-            <span class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-200 text-amber-950 border border-amber-300">
-              🎁 1. lekce 100% ZDARMA
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-200 text-amber-950 border border-amber-300" data-tina-field={tinaField(contact, 'receiptGuaranteeBadge')} data-edit-key="contact.receiptGuaranteeBadge" data-edit-label="Potvrzení - odznak záruky">
+              {receiptGuaranteeBadge}
             </span>
           </div>
 
           <div>
             <h4 class="font-heading font-black text-fluid-h3 text-espresso-950">
-              Děkuji za zprávu, <span id="confirm-parent-name" class="text-amber-800 font-extrabold"></span>!
+              <span data-tina-field={tinaField(contact, 'receiptGreetingTitle')} data-edit-key="contact.receiptGreetingTitle" data-edit-label="Potvrzení - nadpis">{receiptGreetingTitle}</span>, <span id="confirm-parent-name" class="text-amber-800 font-extrabold"></span>!
             </h4>
             <p class="text-xs sm:text-sm text-stone-700 mt-1.5 leading-relaxed font-normal">
               Rezervaci ukázkové lekce pro <strong id="confirm-child-name" class="text-espresso-950">vaše dítě</strong> jsem úspěšně zaznamenal. Do 24 hodin se vám ozvu na telefon <strong id="confirm-phone-num" class="text-espresso-950"></strong> nebo e-mailem s potvrzením volného místa v partě.
@@ -837,15 +853,15 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
             </div>
             <div class="flex items-start justify-between pb-2 border-b border-parchment-200 gap-2">
               <span class="text-stone-500 font-semibold flex-shrink-0">Místo doučovny:</span>
-              <span class="font-bold text-espresso-950 text-right">📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO – 90 s pěšky)</span>
+              <span class="font-bold text-espresso-950 text-right" data-tina-field={tinaField(contact, 'receiptLocation')} data-edit-key="contact.receiptLocation" data-edit-label="Potvrzení - adresa">{receiptLocation}</span>
             </div>
             <div class="flex items-start justify-between pb-2 border-b border-parchment-200 gap-2">
               <span class="text-stone-500 font-semibold flex-shrink-0">Co si vzít s sebou:</span>
-              <span class="font-medium text-stone-700 text-right">Pouze přezůvky a dobrou náladu. Deskovky, karty, didaktické materiály i pití jsou zajištěny.</span>
+              <span class="font-medium text-stone-700 text-right" data-tina-field={tinaField(contact, 'receiptWhatToBring')} data-edit-key="contact.receiptWhatToBring" data-edit-label="Potvrzení - co s sebou">{receiptWhatToBring}</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-stone-500 font-semibold">Cena:</span>
-              <span class="font-black text-emerald-700 text-right text-sm sm:text-base">100% ZDARMA (nezávazně vyzkoušíte)</span>
+              <span class="font-black text-emerald-700 text-right text-sm sm:text-base" data-tina-field={tinaField(contact, 'receiptPrice')} data-edit-key="contact.receiptPrice" data-edit-label="Potvrzení - cena">{receiptPrice}</span>
             </div>
           </div>
 
@@ -860,7 +876,7 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
                 class="py-3 px-4 rounded-xl bg-white hover:bg-amber-50 text-espresso-950 border-2 border-amber-400 font-heading font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-2xs transition-all hover:scale-[1.02] cursor-pointer"
               >
                 <span>📅</span>
-                <span>Uložit do Google Kalendáře</span>
+                <span data-tina-field={tinaField(contact, 'receiptGoogleCalBtnText')} data-edit-key="contact.receiptGoogleCalBtnText" data-edit-label="Potvrzení - tlačítko Kalendář">{receiptGoogleCalBtnText}</span>
               </a>
 
               <a
@@ -871,7 +887,7 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
                 class="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-2xs transition-all hover:scale-[1.02] cursor-pointer"
               >
                 <span>💬</span>
-                <span>Napsat panu Válkovi na WhatsApp</span>
+                <span data-tina-field={tinaField(contact, 'receiptWhatsAppBtnText')} data-edit-key="contact.receiptWhatsAppBtnText" data-edit-label="Potvrzení - tlačítko WhatsApp">{receiptWhatsAppBtnText}</span>
               </a>
             </div>
 
@@ -1832,18 +1848,25 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
     // Setup Google Calendar Link
     if (addGoogleCalBtn) {
       const attendee = isAdult ? 'dospělého' : (childName || 'dítě');
-      const calTitle = encodeURIComponent(group ? `1. lekce zdarma: ${group} | VALEK ACADEMY` : "1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY");
-      const calDesc = encodeURIComponent(`Ukázková lekce angličtiny hrou v malé skupince pro ${attendee}${group ? ` (skupinka: ${group})` : ''}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!`);
-      const calLoc = encodeURIComponent("Růžová 1238, 686 01 Uherské Hradiště (naproti ZŠ UNESCO)");
-      addGoogleCalBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&details=${calDesc}&location=${calLoc}`;
+      const groupNote = group ? ` (skupinka: ${group})` : '';
+      const calTitleTpl = form?.dataset.calTitle || "1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY";
+      const calDescTpl = form?.dataset.calDesc || "Ukázková lekce angličtiny hrou v malé skupince pro {attendee}{group}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!";
+      const calLoc = form?.dataset.receiptLocation || "Růžová 1238, 686 01 Uherské Hradiště (naproti ZŠ UNESCO)";
+
+      const finalCalTitle = group ? `1. lekce zdarma: ${group} | VALEK ACADEMY` : calTitleTpl;
+      const finalCalDesc = calDescTpl.replace('{attendee}', attendee).replace('{group}', groupNote);
+
+      addGoogleCalBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(finalCalTitle)}&details=${encodeURIComponent(finalCalDesc)}&location=${encodeURIComponent(calLoc)}`;
     }
 
-    // Setup WhatsApp Button Link with personalized message
+    // Setup WhatsApp Button Link with personalized message from CMS
     if (confirmWhatsAppBtn) {
       const attendee = isAdult ? 'mě' : (childName ? `mého syna/dceru ${childName}` : 'mé dítě');
       const groupNote = group ? ` (skupinka ${group})` : '';
-      const waMsg = encodeURIComponent(`Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro ${attendee}${groupNote}. Rád/a bych se domluvil/a na konkrétním termínu.`);
-      confirmWhatsAppBtn.href = `https://wa.me/420792372642?text=${waMsg}`;
+      const waTpl = form?.dataset.whatsappTemplate || "Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro {attendee}{group}. Rád/a bych se domluvil/a na konkrétním termínu.";
+      const finalWaMsg = waTpl.replace('{attendee}', attendee).replace('{group}', groupNote);
+
+      confirmWhatsAppBtn.href = `https://wa.me/420792372642?text=${encodeURIComponent(finalWaMsg)}`;
     }
 
     // Hide input fields, reveal rich confirmation ticket
