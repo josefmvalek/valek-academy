@@ -152,7 +152,7 @@ const waitingList = audience.waitingList || {
     </div>
 
     <!-- Mobile Cohort Switcher Tabs (Cuts ~1,400px of scroll on phones!) -->
-    <div class="lg:hidden mb-6">
+    <div class="md:hidden mb-6">
       <div class="text-center text-xs font-black uppercase tracking-wider text-amber-950/80 mb-2" data-tina-field={tinaField(audience as any, 'cohortTabsLabel')}>
         {cohortTabsLabel}
       </div>
@@ -175,15 +175,15 @@ const waitingList = audience.waitingList || {
       </div>
     </div>
 
-    <!-- 3 Kids Programs Cards (Side-by-side on desktop, single tab card on mobile) -->
-    <div class="grid lg:grid-cols-3 gap-6 sm:gap-8 items-stretch" id="segments-grid">
+    <!-- 3 Kids Programs Cards (Side-by-side on desktop/tablets, single tab card on mobile) -->
+    <div class="grid md:grid-cols-3 gap-6 sm:gap-8 items-stretch" id="segments-grid">
       {kidsPrograms.map((prog, idx) => (
         <div
           id={`program-${prog.id}`}
           data-tina-field={tinaField(audience, 'kidsPrograms', idx)}
           class:list={[
             "cohort-card reveal-on-scroll rounded-card-xl p-6 sm:p-8 flex-col justify-between border-2 border-parchment-300 hover:border-amber-400 hover:shadow-card-lift bg-white shadow-card transition-all duration-300 relative group hover:-translate-y-1.5",
-            idx === 0 ? "flex lg:flex" : "hidden lg:flex"
+            idx === 0 ? "flex md:flex" : "hidden md:flex"
           ]}
         >
           <div class="space-y-5">
@@ -346,7 +346,7 @@ const waitingList = audience.waitingList || {
             card.classList.add('hidden');
           }
         });
-      });
+      }, true);
     });
 
     const audienceWaitingBtn = document.querySelector<HTMLAnchorElement>('.audience-waiting-cta');

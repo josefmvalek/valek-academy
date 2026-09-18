@@ -253,8 +253,14 @@ const schemaGraph: any = {
     <!-- Smooth Scroll-Driven Reveal Observer -->
     <script is:inline>
       (function () {
+        const isInIframe = window.self !== window.top;
+        if (isInIframe) {
+          document.documentElement.classList.add('in-iframe');
+          if (document.body) document.body.classList.add('in-iframe');
+        }
+
         function initScrollReveal() {
-          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          if (isInIframe || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
             return;
           }
@@ -265,7 +271,7 @@ const schemaGraph: any = {
                 obs.unobserve(entry.target);
               }
             });
-          }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+          }, { threshold: 0.05, rootMargin: '50px 0px 50px 0px' });
 
           document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
         }
@@ -276,6 +282,16 @@ const schemaGraph: any = {
           initScrollReveal();
         }
         document.addEventListener('astro:page-load', initScrollReveal);
+
+        // TinaCMS iframe auto-observer to ensure newly rendered elements stay visible
+        if (isInIframe) {
+          const makeVisible = () => {
+            document.querySelectorAll('.reveal-on-scroll:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
+          };
+          makeVisible();
+          const mutObserver = new MutationObserver(makeVisible);
+          mutObserver.observe(document.documentElement, { childList: true, subtree: true });
+        }
       })();
     </script>
   </body>

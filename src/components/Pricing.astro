@@ -91,7 +91,7 @@ const pillars = pricing.pillars || defaultPillars;
     </div>
 
     <!-- Mobile Tier Switcher Tabs (Cuts scrolling on phones and lets users easily check upcoming programs) -->
-    <div class="lg:hidden mb-6">
+    <div class="md:hidden mb-6">
       <div class="text-center text-xs font-black uppercase tracking-wider text-amber-950/80 mb-2" data-tina-field={tinaField(pricing as any, 'tabsLabel')} data-edit-key="pricing.tabsLabel" data-edit-label="Popisek přepínače ceníku">
         {tabsLabel}
       </div>
@@ -115,7 +115,7 @@ const pillars = pricing.pillars || defaultPillars;
     </div>
 
     <!-- Pricing Tiers Grid -->
-    <div class="grid lg:grid-cols-3 gap-6 sm:gap-8 items-stretch" id="pricing-grid">
+    <div class="grid md:grid-cols-3 gap-6 sm:gap-8 items-stretch" id="pricing-grid">
       {tiers.map((tier, idx) => {
         const isPopular = tier.isPopular;
         return (
@@ -124,9 +124,9 @@ const pillars = pricing.pillars || defaultPillars;
             data-tina-field={tinaField(pricing, 'tiers', idx)}
             class:list={[
               "pricing-card reveal-on-scroll rounded-card-xl p-6 sm:p-8 md:p-10 flex-col justify-between relative transition-all duration-300",
-              idx === 0 ? "flex lg:flex" : "hidden lg:flex",
+              idx === 0 ? "flex md:flex" : "hidden md:flex",
               isPopular
-                ? "bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-xl glow-amber lg:-translate-y-3 z-10"
+                ? "bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-xl glow-amber md:-translate-y-3 z-10"
                 : "bg-white border border-parchment-300 shadow-card opacity-90 hover:opacity-100 hover:shadow-card-lift"
             ]}
           >
