@@ -85,7 +85,7 @@
         "Rozsáhlá cizojazyčná knihovna k dispozici studentům"
       ],
       "ctaPrimaryText": "Poptat profesní skupinu →",
-      "ctaPrimaryLink": "/#kontakt",
+      "ctaPrimaryLink": "/#kontakt?program=dospeli",
       "ctaSecondaryText": "",
       "ctaSecondaryLink": ""
     },
@@ -110,7 +110,7 @@
         "Pro velmi nářočné"
       ],
       "ctaPrimaryText": "Poptat individuální lekce 1 na 1 →",
-      "ctaPrimaryLink": "/#kontakt",
+      "ctaPrimaryLink": "/#kontakt?program=dospeli",
       "ctaSecondaryText": "",
       "ctaSecondaryLink": ""
     }

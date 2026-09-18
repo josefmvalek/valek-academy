@@ -16,6 +16,7 @@ interface Testimonial {
 interface Props {
   className?: string;
   testimonials?: {
+    enabled?: boolean;
     badge?: string;
     title?: string;
     subtitle?: string;
@@ -72,8 +73,10 @@ const subtitle = testimonials.subtitle || "Skutečné zkušenosti maminek, tatí
 const ratingScore = testimonials.ratingScore || "5.0 / 5.0";
 const ratingNote = testimonials.ratingNote || "25+ let lektorské praxe a 250+ spokojených dětí";
 const reviews = testimonials.reviews || defaultReviews;
+const enabled = testimonials.enabled !== false;
 ---
 
+{enabled && (
 <section id="reference" class={`py-8 sm:py-12 md:py-20 relative bg-surface-base border-b border-parchment-300 overflow-hidden ${className}`}>
   
   <!-- Subtle ambient lighting -->
@@ -175,6 +178,7 @@ const reviews = testimonials.reviews || defaultReviews;
 
   </div>
 </section>
+)}
 
 <script>
   function initTestimonialsCarousel() {

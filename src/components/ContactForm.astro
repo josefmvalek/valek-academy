@@ -33,6 +33,11 @@ interface Props {
     step1Text?: string;
     step2Text?: string;
     step3Text?: string;
+    adultNameLabel?: string;
+    adultSubmitButtonText?: string;
+    teenNameLabel?: string;
+    teenChildNameLabel?: string;
+    teenSubmitButtonText?: string;
     [key: string]: any;
   };
 }
@@ -70,6 +75,12 @@ const formSuccessTitle = contact.formSuccessTitle || "Děkuji za zprávu!";
 const formSuccessText = contact.formSuccessText || "Požadavek jsem přijal a ozvu se vám co nejdříve s návrhem termínu ukázkové lekce zdarma v Uherském Hradišti.";
 const formErrorTitle = contact.formErrorTitle || "Omlouvám se, odeslání se nezdařilo.";
 const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na ${phoneFormatted} nebo napsat přímo na WhatsApp?`;
+
+const adultNameLabel = contact.adultNameLabel || "Vaše celé jméno";
+const adultSubmitButtonText = contact.adultSubmitButtonText || "📝 Zapsat se na čekací listinu pro dospělé";
+const teenNameLabel = contact.teenNameLabel || "Jméno studenta / zájemce";
+const teenChildNameLabel = contact.teenChildNameLabel || "Jméno rodiče";
+const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na čekací listinu pro maturanty";
 ---
 
 <div class="lg:col-span-7">
@@ -88,7 +99,16 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       {formSubtitle}
     </p>
 
-    <form id="contact-form" class="space-y-4 sm:space-y-5" data-access-key={web3formsKey}>
+    <form
+      id="contact-form"
+      class="space-y-4 sm:space-y-5"
+      data-access-key={web3formsKey}
+      data-adult-name-label={adultNameLabel}
+      data-adult-btn-text={adultSubmitButtonText}
+      data-teen-name-label={teenNameLabel}
+      data-teen-child-label={teenChildNameLabel}
+      data-teen-btn-text={teenSubmitButtonText}
+    >
       <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
       <input type="hidden" id="selected-group-input" name="selected_group" value="" />
 
@@ -332,10 +352,12 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       </div>
 
       <!-- Row 2: Parent Name and Child Name -->
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label for="name" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            <span data-tina-field={tinaField(contact, 'parentNameLabel')} data-edit-key="contact.parentNameLabel" data-edit-label="Štítek jména rodiče">{parentNameLabel}</span> <span class="text-red-500">*</span>
+      <div class="grid sm:grid-cols-2 gap-4 transition-all duration-300" id="name-fields-container">
+        <div id="parent-name-col" class="transition-all duration-300">
+          <label for="name" id="name-label" class="flex items-baseline justify-between gap-1 text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5 min-h-[18px]">
+            <span>
+              <span id="name-label-text" data-tina-field={tinaField(contact, 'parentNameLabel')} data-edit-key="contact.parentNameLabel" data-edit-label="Štítek jména rodiče">{parentNameLabel}</span> <span class="text-red-500">*</span>
+            </span>
           </label>
           <input
             type="text"
@@ -347,9 +369,10 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
           />
         </div>
 
-        <div>
-          <label for="child-name" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            <span data-tina-field={tinaField(contact, 'childNameLabel')} data-edit-key="contact.childNameLabel" data-edit-label="Štítek jména dítěte">{childNameLabel}</span> <span class="text-stone-400 text-[10px]">(např. Tomáš, 10 let)</span>
+        <div id="child-name-col" class="transition-all duration-300">
+          <label for="child-name" id="child-name-label" class="flex items-baseline justify-between gap-1 text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5 min-h-[18px]">
+            <span id="child-name-label-text" data-tina-field={tinaField(contact, 'childNameLabel')} data-edit-key="contact.childNameLabel" data-edit-label="Štítek jména dítěte">{childNameLabel}</span>
+            <span id="child-name-hint" class="text-stone-400 text-[10px] font-normal normal-case tracking-normal">(a věk)</span>
           </label>
           <input
             type="text"
@@ -407,7 +430,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
         <!-- Row 4: Grade Level (Custom Rich Dropdown) -->
         <div class="relative custom-dropdown-container" id="custom-level-dropdown">
         <label id="level-label" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-          <span data-tina-field={tinaField(contact, 'levelLabel')} data-edit-key="contact.levelLabel" data-edit-label="Štítek úrovně">{levelLabel}</span> <span class="text-stone-400 text-[10px] font-normal" data-tina-field={tinaField(contact, 'levelLabelNote')} data-edit-key="contact.levelLabelNote" data-edit-label="Poznámka k úrovni">{levelLabelNote}</span>
+          <span id="level-label-title" data-tina-field={tinaField(contact, 'levelLabel')} data-edit-key="contact.levelLabel" data-edit-label="Štítek úrovně">{levelLabel}</span> <span id="level-label-note" class="text-stone-400 text-[10px] font-normal" data-tina-field={tinaField(contact, 'levelLabelNote')} data-edit-key="contact.levelLabelNote" data-edit-label="Poznámka k úrovni">{levelLabelNote}</span>
         </label>
 
         <!-- Hidden native select for form submit, accessibility & fallback -->
@@ -636,9 +659,9 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <div>
         <div class="flex flex-wrap items-baseline justify-between gap-1 mb-2">
           <label class="block text-xs font-bold uppercase tracking-wider text-espresso-950">
-            <span data-tina-field={tinaField(contact, 'daysLabel')} data-edit-key="contact.daysLabel" data-edit-label="Preferované dny">{daysLabel}</span> <span class="text-amber-800 text-[11px] font-semibold lowercase" data-tina-field={tinaField(contact, 'daysNote')} data-edit-key="contact.daysNote" data-edit-label="Poznámka ke dnům">{daysNote}</span>
+            <span id="days-label-title" data-tina-field={tinaField(contact, 'daysLabel')} data-edit-key="contact.daysLabel" data-edit-label="Preferované dny">{daysLabel}</span> <span id="days-note-text" class="text-amber-800 text-[11px] font-semibold lowercase" data-tina-field={tinaField(contact, 'daysNote')} data-edit-key="contact.daysNote" data-edit-label="Poznámka ke dnům">{daysNote}</span>
           </label>
-          <span class="text-[11px] text-stone-500" data-tina-field={tinaField(contact, 'daysTimeNote')} data-edit-key="contact.daysTimeNote" data-edit-label="Časový tip">{daysTimeNote}</span>
+          <span id="days-time-note" class="text-[11px] text-stone-500 font-medium" data-tina-field={tinaField(contact, 'daysTimeNote')} data-edit-key="contact.daysTimeNote" data-edit-label="Časový tip">{daysTimeNote}</span>
         </div>
 
         <!-- Interactive Days Selector -->
@@ -880,17 +903,204 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
   const segmentSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
   const defaultSubmitText = btnText?.textContent || "🎁 Rezervovat 1. lekci ZDARMA";
 
-  function updateButtonLabel() {
-    if (!btnText || !segmentSelect) return;
-    if (segmentSelect.value.includes('Čekací listina')) {
-      btnText.textContent = "📝 Zapsat se na přednostní čekací listinu";
+  // Dynamic elements for audience segment adaptation
+  const parentNameCol = document.getElementById('parent-name-col');
+  const nameLabelText = document.getElementById('name-label-text');
+  const nameInput = document.getElementById('name') as HTMLInputElement | null;
+  const childNameCol = document.getElementById('child-name-col');
+  const childNameLabelText = document.getElementById('child-name-label-text');
+  const childNameHint = document.getElementById('child-name-hint');
+  const childNameInput = document.getElementById('child-name') as HTMLInputElement | null;
+
+  const levelSelect = document.getElementById('level') as HTMLSelectElement | null;
+  const levelLabelTitle = document.getElementById('level-label-title');
+  const levelLabelNote = document.getElementById('level-label-note');
+  const daysTimeNote = document.getElementById('days-time-note');
+  const messageInput = document.getElementById('message') as HTMLTextAreaElement | null;
+
+  // Initial defaults
+  const defaultParentLabel = nameLabelText?.textContent?.trim() || "Jméno rodiče";
+  const defaultChildLabel = childNameLabelText?.textContent?.trim() || "Jméno a věk dítěte";
+  const defaultLevelLabel = levelLabelTitle?.textContent?.trim() || "Třída / současná úroveň";
+  const defaultLevelNote = levelLabelNote?.textContent?.trim() || "(pro výběr her a party vrstevníků)";
+  const defaultDaysTimeNote = daysTimeNote?.textContent?.trim() || "Čas 14:00–18:00 přizpůsobujeme skupince";
+  const defaultMessagePlaceholder = messageInput?.placeholder || "Dobrý den, potřebovali bychom pomoci s mluvením a přípravou do školy...";
+
+  function applySegmentMode(segmentVal: string) {
+    if (!nameLabelText || !nameInput) return;
+
+    const formEl = document.getElementById('contact-form') as HTMLFormElement | null;
+    const adultNameLabelVal = formEl?.dataset.adultNameLabel || "Vaše celé jméno";
+    const adultBtnTextVal = formEl?.dataset.adultBtnText || "📝 Zapsat se na čekací listinu pro dospělé";
+    const teenNameLabelVal = formEl?.dataset.teenNameLabel || "Jméno studenta / zájemce";
+    const teenChildLabelVal = formEl?.dataset.teenChildLabel || "Jméno rodiče";
+    const teenBtnTextVal = formEl?.dataset.teenBtnText || "📝 Zapsat se na čekací listinu pro maturanty";
+
+    const lower = (segmentVal || '').toLowerCase();
+    const isAdult = lower.includes('dospěl') || lower.includes('konverzace');
+    const isTeen = lower.includes('středoškoláci') || lower.includes('maturita') || lower.includes('střední');
+    const isScio = lower.includes('scio') || lower.includes('přijímačky');
+
+    if (isAdult) {
+      // --- ADULT CONVERSATION MODE ---
+      parentNameCol?.classList.add('sm:col-span-2');
+      nameLabelText.textContent = adultNameLabelVal;
+      nameInput.placeholder = "např. Ing. Petr Dvořák";
+
+      childNameCol?.classList.add('hidden');
+      if (childNameInput) {
+        childNameInput.required = false;
+        childNameInput.value = '';
+      }
+
+      if (levelLabelTitle) levelLabelTitle.textContent = "Vaše současná úroveň / Cíl konverzace";
+      if (levelLabelNote) levelLabelNote.textContent = "(přizpůsobíme tempo i témata na míru)";
+
+      // Auto-select Adult level if currently on a kids level
+      if (levelSelect && !levelSelect.value.toLowerCase().includes('dospěl') && !levelSelect.value.toLowerCase().includes('konverzace')) {
+        const adultOpt = Array.from(levelSelect.options).find(o => o.value.toLowerCase().includes('dospěl') || o.value.toLowerCase().includes('konverzace'));
+        if (adultOpt) {
+          levelSelect.value = adultOpt.value;
+          levelSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+
+      if (daysTimeNote) daysTimeNote.textContent = "Odpolední a večerní termíny (17:00–20:00) dle domluvy";
+      if (messageInput) messageInput.placeholder = "Dobrý den, mám zájem o konverzaci bez stresu / potřebuji angličtinu do práce v oboru...";
+      if (btnText) btnText.textContent = adultBtnTextVal;
+
+    } else if (isTeen) {
+      // --- TEEN / HIGH SCHOOL / MATURITA MODE ---
+      parentNameCol?.classList.remove('sm:col-span-2');
+      nameLabelText.textContent = teenNameLabelVal;
+      nameInput.placeholder = "např. Tereza Dvořáková (3. ročník Gymnázia)";
+
+      childNameCol?.classList.remove('hidden');
+      if (childNameLabelText) childNameLabelText.textContent = teenChildLabelVal;
+      if (childNameHint) childNameHint.textContent = "(nepovinné)";
+      if (childNameInput) {
+        childNameInput.placeholder = "např. Jan Dvořák (otec)";
+        childNameInput.required = false;
+      }
+
+      if (levelLabelTitle) levelLabelTitle.textContent = "Ročník SŠ / Zaměření";
+      if (levelLabelNote) levelLabelNote.textContent = "(příprava k maturitě či studiu)";
+
+      // Auto-select High School level
+      if (levelSelect && !levelSelect.value.toLowerCase().includes('střední') && !levelSelect.value.toLowerCase().includes('maturita')) {
+        const ssOpt = Array.from(levelSelect.options).find(o => o.value.toLowerCase().includes('střední') || o.value.toLowerCase().includes('maturita'));
+        if (ssOpt) {
+          levelSelect.value = ssOpt.value;
+          levelSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+
+      if (daysTimeNote) daysTimeNote.textContent = "Odpolední 90min bloky přizpůsobujeme rozvrhu SŠ";
+      if (messageInput) messageInput.placeholder = "Dobrý den, potřebuji se připravit k maturitě / zbavit se nervozity při mluvení...";
+      if (btnText) btnText.textContent = teenBtnTextVal;
+
+    } else if (isScio) {
+      // --- SCIO PREPARATION MODE ---
+      parentNameCol?.classList.remove('sm:col-span-2');
+      nameLabelText.textContent = defaultParentLabel;
+      nameInput.placeholder = "např. Alena Nováková";
+
+      childNameCol?.classList.remove('hidden');
+      if (childNameLabelText) childNameLabelText.textContent = "Jméno žáka";
+      if (childNameHint) childNameHint.textContent = "(5. nebo 9. třída)";
+      if (childNameInput) {
+        childNameInput.placeholder = "např. Tomáš, 9. třída (příprava na gymnázium)";
+        childNameInput.required = false;
+      }
+
+      if (levelLabelTitle) levelLabelTitle.textContent = "Třída a termín zkoušek";
+      if (levelLabelNote) levelLabelNote.textContent = "(5. nebo 9. třída ZŠ)";
+
+      if (levelSelect) {
+        const scioOpt = Array.from(levelSelect.options).find(o => o.value.toLowerCase().includes('scio'));
+        if (scioOpt) {
+          levelSelect.value = scioOpt.value;
+          levelSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+
+      if (daysTimeNote) daysTimeNote.textContent = "Přípravné bloky přizpůsobujeme rozvrhu";
+      if (messageInput) messageInput.placeholder = "Dobrý den, máme zájem o přípravu na přijímací zkoušky na víceleté gymnázium / SŠ...";
+      if (btnText) btnText.textContent = "📝 Zapsat se na přednostní čekací listinu";
+
     } else {
-      btnText.textContent = defaultSubmitText;
+      // --- KIDS MODE (DEFAULT) ---
+      parentNameCol?.classList.remove('sm:col-span-2');
+      nameLabelText.textContent = defaultParentLabel;
+      nameInput.placeholder = "např. Alena Nováková";
+
+      childNameCol?.classList.remove('hidden');
+      if (childNameLabelText) childNameLabelText.textContent = defaultChildLabel;
+      if (childNameHint) childNameHint.textContent = "(a věk)";
+      if (childNameInput) {
+        childNameInput.placeholder = "např. Tomáš, 10 let (4. třída)";
+        childNameInput.required = false;
+      }
+
+      if (levelLabelTitle) levelLabelTitle.textContent = defaultLevelLabel;
+      if (levelLabelNote) levelLabelNote.textContent = defaultLevelNote;
+
+      if (levelSelect && (levelSelect.value.toLowerCase().includes('dospěl') || levelSelect.value.toLowerCase().includes('střední'))) {
+        const kidsOpt = Array.from(levelSelect.options).find(o => o.value.includes('4.–6.') || o.value.includes('1.–3.'));
+        if (kidsOpt) {
+          levelSelect.value = kidsOpt.value;
+          levelSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+
+      if (daysTimeNote) daysTimeNote.textContent = defaultDaysTimeNote;
+      if (messageInput) messageInput.placeholder = defaultMessagePlaceholder;
+      if (btnText) btnText.textContent = defaultSubmitText;
     }
   }
 
-  segmentSelect?.addEventListener('change', updateButtonLabel);
-  updateButtonLabel();
+  function checkUrlSegmentParam() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const programParam = urlParams.get('program') || '';
+      const hash = window.location.hash.toLowerCase();
+
+      let targetSegment = '';
+      if (programParam === 'dospeli' || programParam === 'adults' || hash.includes('dospeli') || hash.includes('adults')) {
+        targetSegment = 'adults';
+      } else if (programParam === 'maturita' || programParam === 'stredoskoly' || programParam === 'teens' || hash.includes('maturita') || hash.includes('stredoskoly')) {
+        targetSegment = 'teens';
+      } else if (programParam === 'scio' || hash.includes('scio')) {
+        targetSegment = 'scio';
+      }
+
+      if (targetSegment && segmentSelect) {
+        let matchingValue = '';
+        if (targetSegment === 'adults') {
+          matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('dospěl') || o.value.toLowerCase().includes('konverzace'))?.value || '';
+        } else if (targetSegment === 'teens') {
+          matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('středoškoláci') || o.value.toLowerCase().includes('maturita') || o.value.toLowerCase().includes('střední'))?.value || '';
+        } else if (targetSegment === 'scio') {
+          matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('scio'))?.value || '';
+        }
+
+        if (matchingValue) {
+          segmentSelect.value = matchingValue;
+          segmentSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    } catch {}
+  }
+
+  segmentSelect?.addEventListener('change', () => {
+    if (segmentSelect) applySegmentMode(segmentSelect.value);
+  });
+
+  // Initial check on load
+  checkUrlSegmentParam();
+  if (segmentSelect) {
+    applySegmentMode(segmentSelect.value);
+  }
 
   // --- Custom Rich Dropdowns Controller ---
   function setupCustomDropdown(config: {
@@ -1390,7 +1600,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
     if (segmentDropdown) segmentDropdown.classList.remove('hidden');
     if (prefFields) prefFields.classList.remove('hidden');
     if (togglePrefWrapper) togglePrefWrapper.classList.add('hidden');
-    updateButtonLabel();
+    if (segmentSelect) applySegmentMode(segmentSelect.value);
   }
 
   clearGroupBtn?.addEventListener('click', clearSelectedGroup);
@@ -1510,9 +1720,21 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
     const formData = new FormData(form);
     const accessKey = form.dataset.accessKey || "";
 
+    const lowerSeg = segmentVal.toLowerCase();
+    const isAdult = lowerSeg.includes('dospěl') || lowerSeg.includes('konverzace');
+    const isTeen = lowerSeg.includes('středoškoláci') || lowerSeg.includes('maturita') || lowerSeg.includes('střední');
+
     // Add clean, human-readable labels for Mr. Válek's Web3Forms email
-    formData.append("1_Jmeno_rodice", nameVal);
-    if (childNameVal) formData.append("2_Dite_a_vek", childNameVal);
+    if (isAdult) {
+      formData.append("1_Cele_jmeno", nameVal);
+      formData.append("2_Dite_a_vek", "N/A (Dospělý zájemce)");
+    } else if (isTeen) {
+      formData.append("1_Jmeno_studenta", nameVal);
+      if (childNameVal) formData.append("2_Jmeno_rodice", childNameVal);
+    } else {
+      formData.append("1_Jmeno_rodice", nameVal);
+      if (childNameVal) formData.append("2_Dite_a_vek", childNameVal);
+    }
     formData.append("3_Telefon", phoneVal);
     formData.append("4_Email", emailVal);
     formData.append("5_Vybrany_program", segmentVal);
@@ -1529,7 +1751,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: nameVal,
-          childName: childNameVal,
+          childName: isAdult ? "N/A (Dospělý)" : childNameVal,
           phone: phoneVal,
           email: emailVal,
           segment: segmentVal,
@@ -1546,7 +1768,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
     try {
       if (accessKey) {
         formData.append("access_key", accessKey);
-        formData.append("subject", nameVal ? `Nová poptávka: 1. lekce zdarma – ${nameVal}` : "Nová poptávka 1. lekce zdarma z webu VALEK ACADEMY");
+        formData.append("subject", nameVal ? `Nová poptávka: ${segmentVal} – ${nameVal}` : "Nová poptávka z webu VALEK ACADEMY");
         formData.append("from_name", "VALEK ACADEMY Rezervace");
         
         const response = await fetch("https://api.web3forms.com/submit", {
@@ -1570,13 +1792,27 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       errorBox?.classList.remove('hidden');
     } finally {
       submitBtn.disabled = false;
-      if (btnText) updateButtonLabel();
+      if (segmentSelect) applySegmentMode(segmentSelect.value);
     }
   });
 
   function handleSuccess(name: string, childName: string, phone: string, segment: string, group: string, days: string) {
     if (confirmParentName) confirmParentName.textContent = name || "vážený zákazníku";
-    if (confirmChildName) confirmChildName.textContent = childName || "vaše dítě";
+
+    const lowerSeg = (segment || '').toLowerCase();
+    const isAdult = lowerSeg.includes('dospěl') || lowerSeg.includes('konverzace');
+    const isTeen = lowerSeg.includes('středoškoláci') || lowerSeg.includes('maturita') || lowerSeg.includes('střední');
+
+    if (confirmChildName) {
+      if (isAdult) {
+        confirmChildName.textContent = "vás osobně";
+      } else if (isTeen) {
+        confirmChildName.textContent = childName ? `${childName}` : "vás (studenta SŠ)";
+      } else {
+        confirmChildName.textContent = childName || "vaše dítě";
+      }
+    }
+
     if (confirmPhoneNum) confirmPhoneNum.textContent = phone;
     if (confirmProgramLabel) confirmProgramLabel.textContent = segment || "Výuka hrou";
     
@@ -1591,15 +1827,17 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
 
     // Setup Google Calendar Link
     if (addGoogleCalBtn) {
+      const attendee = isAdult ? 'dospělého' : (childName || 'dítě');
       const calTitle = encodeURIComponent("1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY");
-      const calDesc = encodeURIComponent(`Ukázková lekce angličtiny hrou v malé skupince pro ${childName || 'dítě'}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!`);
+      const calDesc = encodeURIComponent(`Ukázková lekce angličtiny hrou v malé skupince pro ${attendee}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!`);
       const calLoc = encodeURIComponent("Růžová 1238, 686 01 Uherské Hradiště (naproti ZŠ UNESCO)");
       addGoogleCalBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&details=${calDesc}&location=${calLoc}`;
     }
 
     // Setup WhatsApp Button Link with personalized message
     if (confirmWhatsAppBtn) {
-      const waMsg = encodeURIComponent(`Dobrý den pane Válku, právě jsem odeslal/a rezervaci 1. lekce zdarma pro ${childName || 'dítě'}. Rád/a bych se domluvil/a na konkrétním termínu.`);
+      const attendee = isAdult ? 'mě' : (childName ? `mého syna/dceru ${childName}` : 'mé dítě');
+      const waMsg = encodeURIComponent(`Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro ${attendee}. Rád/a bych se domluvil/a na konkrétním termínu.`);
       confirmWhatsAppBtn.href = `https://wa.me/420792372642?text=${waMsg}`;
     }
 

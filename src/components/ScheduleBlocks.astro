@@ -43,6 +43,7 @@ interface Props {
     smartCohort3Title?: string;
     smartCohort3Sub?: string;
     smartStep2Title?: string;
+    smartDayMultiNote?: string;
     smartDayAllLabel?: string;
     smartResultsTitle?: string;
     smartEmptyTitle?: string;
@@ -82,6 +83,7 @@ const smartCohort3Title = schedule.smartCohort3Title || "7.–13. třída & SŠ"
 const smartCohort3Sub = schedule.smartCohort3Sub || "14:30–16:00 • 90 min";
 
 const smartStep2Title = schedule.smartStep2Title || "2. Které dny po škole se vám nejvíc hodí?";
+const smartDayMultiNote = schedule.smartDayMultiNote || "✨ Lze vybrat i více dní najednou";
 const smartDayAllLabel = schedule.smartDayAllLabel || "🌟 Kdykoliv v týdnu";
 
 const smartResultsTitle = schedule.smartResultsTitle || "🎯 Doporučené zvířecí skupinky pro váš výběr:";
@@ -376,49 +378,60 @@ function getLocalWalkHint(cohort: string) {
 
           <!-- Step 2: Day Selection (Day Pills) -->
           <div class="space-y-3 mb-6 pb-6 border-b border-parchment-200">
-            <label class="block text-xs sm:text-sm font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'smartStep2Title')} data-edit-key="schedule.smartStep2Title" data-edit-label="Krok 2: Nadpis">
-              {smartStep2Title}
-            </label>
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <label class="block text-xs sm:text-sm font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'smartStep2Title')} data-edit-key="schedule.smartStep2Title" data-edit-label="Krok 2: Nadpis">
+                {smartStep2Title}
+              </label>
+              <span class="text-[11px] font-bold text-amber-900 bg-amber-100/80 border border-amber-300/70 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs" data-tina-field={tinaField(schedule, 'smartDayMultiNote')} data-edit-key="schedule.smartDayMultiNote" data-edit-label="Krok 2: Výběr více dní">
+                {smartDayMultiNote}
+              </span>
+            </div>
             <div class="flex flex-wrap gap-2" id="smart-day-pills">
               <button
                 type="button"
                 data-smart-day="all"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-black transition-all cursor-pointer border bg-espresso-950 text-amber-300 border-espresso-950 shadow-2xs"
+                aria-pressed="true"
+                class="smart-day-btn px-4 py-2 rounded-full text-xs font-black transition-all cursor-pointer border bg-espresso-950 text-amber-300 border-espresso-950 shadow-2xs select-none"
               >
                 <span data-tina-field={tinaField(schedule, 'smartDayAllLabel')} data-edit-key="schedule.smartDayAllLabel" data-edit-label="Krok 2: Všechny dny">{smartDayAllLabel}</span>
               </button>
               <button
                 type="button"
                 data-smart-day="Pondělí"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50"
+                aria-pressed="false"
+                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
               >
                 Pondělí
               </button>
               <button
                 type="button"
                 data-smart-day="Úterý"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50"
+                aria-pressed="false"
+                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
               >
                 Úterý
               </button>
               <button
                 type="button"
                 data-smart-day="Středa"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50"
+                aria-pressed="false"
+                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
               >
                 Středa
               </button>
               <button
                 type="button"
                 data-smart-day="Čtvrtek"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50"
+                aria-pressed="false"
+                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
               >
                 Čtvrtek
               </button>
               <button
                 type="button"
                 data-smart-day="Pátek"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50"
+                aria-pressed="false"
+                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
               >
                 Pátek
               </button>
@@ -971,7 +984,22 @@ function getLocalWalkHint(cohort: string) {
     const smartResetDayBtn = document.getElementById('smart-reset-day-btn');
 
     let activeSmartCohort = '1.–3. třída';
-    let activeSmartDay = 'all';
+    const activeSmartDays = new Set<string>(['all']);
+
+    function updateDayButtonsUI() {
+      smartDayBtns.forEach((b) => {
+        const bDay = b.getAttribute('data-smart-day') || 'all';
+        const isActive = activeSmartDays.has(bDay);
+        b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        if (isActive) {
+          b.classList.remove('bg-white', 'text-espresso-900', 'border-parchment-300', 'hover:border-amber-400', 'hover:bg-amber-50', 'font-bold');
+          b.classList.add('bg-espresso-950', 'text-amber-300', 'border-espresso-950', 'shadow-2xs', 'font-black');
+        } else {
+          b.classList.remove('bg-espresso-950', 'text-amber-300', 'border-espresso-950', 'shadow-2xs', 'font-black');
+          b.classList.add('bg-white', 'text-espresso-900', 'border-parchment-300', 'hover:border-amber-400', 'hover:bg-amber-50', 'font-bold');
+        }
+      });
+    }
 
     function updateSmartFilters() {
       let visibleCount = 0;
@@ -981,7 +1009,7 @@ function getLocalWalkHint(cohort: string) {
         const cDay = card.getAttribute('data-smart-day') || '';
 
         const cohortMatch = activeSmartCohort === 'all' || cCohort === activeSmartCohort;
-        const dayMatch = activeSmartDay === 'all' || cDay === activeSmartDay;
+        const dayMatch = activeSmartDays.has('all') || (cDay !== '' && activeSmartDays.has(cDay));
 
         if (cohortMatch && dayMatch) {
           card.style.display = 'flex';
@@ -1037,28 +1065,37 @@ function getLocalWalkHint(cohort: string) {
     smartDayBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         const day = btn.getAttribute('data-smart-day') || 'all';
-        activeSmartDay = day;
 
-        smartDayBtns.forEach((b) => {
-          if ((b.getAttribute('data-smart-day') || 'all') === day) {
-            b.classList.remove('bg-white', 'text-espresso-900', 'border-parchment-300', 'hover:border-amber-400', 'hover:bg-amber-50', 'font-bold');
-            b.classList.add('bg-espresso-950', 'text-amber-300', 'border-espresso-950', 'shadow-2xs', 'font-black');
+        if (day === 'all') {
+          activeSmartDays.clear();
+          activeSmartDays.add('all');
+        } else {
+          activeSmartDays.delete('all');
+
+          if (activeSmartDays.has(day)) {
+            activeSmartDays.delete(day);
+            if (activeSmartDays.size === 0) {
+              activeSmartDays.add('all');
+            }
           } else {
-            b.classList.remove('bg-espresso-950', 'text-amber-300', 'border-espresso-950', 'shadow-2xs', 'font-black');
-            b.classList.add('bg-white', 'text-espresso-900', 'border-parchment-300', 'hover:border-amber-400', 'hover:bg-amber-50', 'font-bold');
+            activeSmartDays.add(day);
           }
-        });
+        }
 
+        updateDayButtonsUI();
         updateSmartFilters();
       });
     });
 
     smartResetDayBtn?.addEventListener('click', () => {
-      const allDaysBtn = document.querySelector<HTMLButtonElement>('.smart-day-btn[data-smart-day="all"]');
-      allDaysBtn?.click();
+      activeSmartDays.clear();
+      activeSmartDays.add('all');
+      updateDayButtonsUI();
+      updateSmartFilters();
     });
 
     // Run initial filter sync
+    updateDayButtonsUI();
     updateSmartFilters();
 
     // --- 3. Full Timetable: Cohort Filters ---

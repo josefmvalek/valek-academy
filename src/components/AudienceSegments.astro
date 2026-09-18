@@ -305,8 +305,9 @@ const waitingList = audience.waitingList || {
 
       <a
         href="#kontakt"
+        data-audience-target="adults"
         data-tina-field={tinaField(waitingList, 'ctaText')}
-        class="flex-shrink-0 px-6 py-3.5 rounded-2xl bg-white hover:bg-parchment-100 text-espresso-950 border-2 border-parchment-300 hover:border-amber-400 font-heading font-bold text-sm shadow-xs transition-all hover:scale-105 text-center"
+        class="audience-waiting-cta flex-shrink-0 px-6 py-3.5 rounded-2xl bg-white hover:bg-parchment-100 text-espresso-950 border-2 border-parchment-300 hover:border-amber-400 font-heading font-bold text-sm shadow-xs transition-all hover:scale-105 text-center cursor-pointer"
       >
         <span data-edit-key="audience.waitingList.ctaText" data-edit-label="Tlačítko čekací listiny">{waitingList.ctaText}</span>
       </a>
@@ -346,6 +347,17 @@ const waitingList = audience.waitingList || {
           }
         });
       });
+    });
+
+    const audienceWaitingBtn = document.querySelector<HTMLAnchorElement>('.audience-waiting-cta');
+    audienceWaitingBtn?.addEventListener('click', () => {
+      const segmentSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
+      if (!segmentSelect) return;
+      const opt = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('dospěl') || o.value.toLowerCase().includes('konverzace'));
+      if (opt) {
+        segmentSelect.value = opt.value;
+        segmentSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
     });
   }
 

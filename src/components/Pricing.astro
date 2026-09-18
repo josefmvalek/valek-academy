@@ -186,7 +186,14 @@ const pillars = pricing.pillars || defaultPillars;
             <div class="pt-8 mt-8 border-t border-parchment-200">
               <a
                 href={tier.ctaLink || "#kontakt"}
-                class={`w-full inline-flex items-center justify-center py-4 px-6 rounded-card-md font-heading font-black text-base transition-all text-center cursor-pointer ${
+                data-pricing-target={
+                  tier.name.toLowerCase().includes('dospěl')
+                    ? 'adults'
+                    : tier.name.toLowerCase().includes('střed') || tier.name.toLowerCase().includes('maturit')
+                    ? 'teens'
+                    : 'kids'
+                }
+                class={`pricing-cta-btn w-full inline-flex items-center justify-center py-4 px-6 rounded-card-md font-heading font-black text-base transition-all text-center cursor-pointer ${
                   isPopular
                     ? 'btn-gold-pulse bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 text-espresso-950 border border-amber-500 shadow-dice-btn active:shadow-dice-btn-active'
                     : 'btn-dice-secondary bg-parchment-100 hover:bg-parchment-200 text-espresso-950 border border-parchment-300'
@@ -285,7 +292,40 @@ const pillars = pricing.pillars || defaultPillars;
 
   }
 
-  document.addEventListener('DOMContentLoaded', initPricingTabs);
-  document.addEventListener('astro:page-load', initPricingTabs);
+  function initPricingCtas() {
+    const buttons = document.querySelectorAll<HTMLAnchorElement>('.pricing-cta-btn');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-pricing-target');
+        if (!target) return;
+
+        const segmentSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
+        if (!segmentSelect) return;
+
+        let matchingValue = '';
+        if (target === 'adults') {
+          matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('dospěl') || o.value.toLowerCase().includes('konverzace'))?.value || '';
+        } else if (target === 'teens') {
+          matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('středoškoláci') || o.value.toLowerCase().includes('maturita') || o.value.toLowerCase().includes('střední'))?.value || '';
+        } else if (target === 'kids') {
+          matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('děti na zš'))?.value || '';
+        }
+
+        if (matchingValue) {
+          segmentSelect.value = matchingValue;
+          segmentSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initPricingTabs();
+    initPricingCtas();
+  });
+  document.addEventListener('astro:page-load', () => {
+    initPricingTabs();
+    initPricingCtas();
+  });
 </script>
 
