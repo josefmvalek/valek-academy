@@ -5,6 +5,7 @@ interface Props {
   className?: string;
   phone?: string;
   groupMatcher?: {
+    enabled?: boolean;
     badge?: string;
     title?: string;
     subtitle?: string;
@@ -25,6 +26,7 @@ interface Props {
 
 const { className = "", groupMatcher = {}, phone = "420792372642" } = Astro.props;
 
+const enabled = groupMatcher.enabled !== false;
 const badge = groupMatcher.badge || "Rychlý 3krokový průvodce pro rodiče";
 const title = groupMatcher.title || "Jaká skupinka a deskovky budou vaše dítě bavit nejvíc?";
 const subtitle = groupMatcher.subtitle || "Každé dítě je jiné. Klikněte níže a za 20 vteřin zjistíte, do jaké skupinky vrstevníků skvěle zapadne a jaké hry pro něj vybereme.";
@@ -97,6 +99,7 @@ const goals = groupMatcher.goals || defaultGoals;
 const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0] || defaultGrades[1];
 ---
 
+{enabled && (
 <section id="rozrazovac" data-phone={phone} data-grades-matrix={JSON.stringify(grades)} class={`py-8 sm:py-12 md:py-20 bg-gradient-to-b from-parchment-100/80 via-white to-parchment-100/60 border-y border-parchment-200 relative overflow-hidden ${className}`}>
   
   <!-- Ambient decorative glow -->
@@ -279,11 +282,14 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
 
   </div>
 </section>
+)}
 
 <script>
-  const gradeBtns = document.querySelectorAll<HTMLButtonElement>('.grade-btn');
-  const interestBtns = document.querySelectorAll<HTMLButtonElement>('.interest-btn');
-  const goalBtns = document.querySelectorAll<HTMLButtonElement>('.goal-btn');
+  const matcherSection = document.getElementById('rozrazovac');
+  if (matcherSection) {
+    const gradeBtns = document.querySelectorAll<HTMLButtonElement>('.grade-btn');
+    const interestBtns = document.querySelectorAll<HTMLButtonElement>('.interest-btn');
+    const goalBtns = document.querySelectorAll<HTMLButtonElement>('.goal-btn');
 
   const resTitle = document.getElementById('res-group-title');
   const resDesc = document.getElementById('res-group-desc');
@@ -521,4 +527,5 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
   });
 
   updateRecommendation();
+  }
 </script>

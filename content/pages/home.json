@@ -92,10 +92,10 @@
             "icon": "🦘"
           },
           {
-            "label": "Rozřazovač skupinek (Kvíz)",
-            "href": "/#rozrazovac",
-            "desc": "Zlatá vstupenka & doporučení her",
-            "icon": "🧭"
+            "label": "Týdenní rozvrh skupinek",
+            "href": "/#harmonogram",
+            "desc": "Výběr dne, času a volná místa",
+            "icon": "📅"
           },
           {
             "label": "Kde učíme (Doučovna UH)",
@@ -818,7 +818,7 @@
     ]
   },
   "groupMatcher": {
-    "enabled": true,
+    "enabled": false,
     "badge": "Rychlý 3krokový průvodce pro rodiče",
     "title": "Jaká skupinka a deskovky budou vaše dítě bavit nejvíc?",
     "subtitle": "Každé dítě je jiné. Klikněte níže a za 20 vteřin zjistíte, do jaké skupinky vrstevníků skvěle zapadne a jaké hry pro něj vybereme.",
@@ -1073,8 +1073,8 @@
         "href": "#programy"
       },
       {
-        "label": "🧭 Rozřazovač skupinek",
-        "href": "#rozrazovac"
+        "label": "📅 Týdenní rozvrh & volná místa",
+        "href": "#harmonogram"
       },
       {
         "label": "⏱️ Průběh 60 min lekce",
