@@ -109,7 +109,7 @@ const getHref = (href: string) => {
         <ul class="space-y-2 text-xs sm:text-sm text-stone-600">
           {navLinks.map((link: any, idx: number) => (
             <li data-tina-field={tinaField(footer, 'navLinks', idx)}>
-              <a href={getHref(link.href)} class={`hover:text-amber-800 transition-colors ${link.href === '#rozrazovac' ? 'text-amber-900 font-bold' : ''}`} data-tina-field={tinaField(link, 'label')}>
+              <a href={getHref(link.href)} class={`hover:text-amber-800 transition-colors ${link.href === '#harmonogram' ? 'text-amber-900 font-bold' : ''}`} data-tina-field={tinaField(link, 'label')}>
                 {link.label}
               </a>
             </li>
