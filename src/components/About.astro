@@ -67,7 +67,8 @@ const fullGalleryButtonText = locationInfo.fullGalleryButtonText || "📸 Celá 
 const galleryCtaBannerTitle = locationInfo.galleryCtaBannerTitle || "Chcete vidět více z naší herny, výuky a deskových her?";
 const galleryCtaBannerDesc = locationInfo.galleryCtaBannerDesc || "Prozkoumejte velkou fotogalerii s detailními kategoriemi a popisky.";
 const galleryCtaBannerButton = locationInfo.galleryCtaBannerButton || "Otevřít velkou fotogalerii";
-const melbourneTag = about.melbourneTag || "Vyrůstal v Melbourne, Austrálie 🇦🇺";
+const melbourneTag = about.melbourneTag || "Vyrůstal v Melbourne, Austrálie";
+const cleanedMelbourneTag = melbourneTag.replace(/🇦🇺|AU/g, '').trim();
 const teacherGreeting = about.teacherGreeting || "Ahoj, jsem";
 const melbournePhotoTag = about.melbournePhotoTag || "Melbourne";
 const locationPhotoBadge = about.locationPhotoBadge || "📍 Růžová 1238, UH";
@@ -144,7 +145,7 @@ const credentials = about.credentials || defaultCredentials;
           </div>
           {melbourneTag && (
             <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-card-sm bg-emerald-100 border border-emerald-300 text-emerald-950 text-xs font-bold" data-tina-field={tinaField(about, 'melbourneTag')}>
-              <span>🇦🇺</span> <span>{melbourneTag}</span>
+              <span>🦘</span> <span>{cleanedMelbourneTag}</span>
             </div>
           )}
         </div>

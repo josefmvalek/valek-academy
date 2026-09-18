@@ -99,7 +99,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
           {title.includes('–') ? (
             <>
               <span set:html={formatRichText(title.split('–')[0].trim())} /> <span>–</span>{' '}
-              <span class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 bg-clip-text text-transparent underline decoration-amber-300/80 decoration-wavy decoration-2 underline-offset-4" set:html={formatRichText(title.split('–').slice(1).join('–').trim())} />
+              <span class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 bg-clip-text text-transparent" set:html={formatRichText(title.split('–').slice(1).join('–').trim())} />
             </>
           ) : (
             <Fragment set:html={formatRichText(title)} />

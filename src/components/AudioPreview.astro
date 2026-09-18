@@ -82,8 +82,9 @@ phrases.forEach((p) => {
   <div class="flex items-center justify-between gap-2 mb-2.5 min-w-0">
     <div class="flex items-center gap-1.5 min-w-0 flex-1">
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
-      <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-300 truncate" data-tina-field={audio.title ? tinaField(audio, 'title') : undefined} data-edit-key="hero.card.audio.title" data-edit-label="Nadpis zvuku">
-        🇦🇺 {title}
+      <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-300 truncate flex items-center gap-1" data-tina-field={audio.title ? tinaField(audio, 'title') : undefined} data-edit-key="hero.card.audio.title" data-edit-label="Nadpis zvuku">
+        <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-amber-400/20 text-xs">🦘</span>
+        <span>{title}</span>
       </span>
     </div>
     <span class="text-[10px] sm:text-[11px] font-mono text-amber-200/90 bg-white/10 px-2 py-0.5 rounded-md border border-white/10 flex-shrink-0" id="audio-time">
@@ -92,12 +93,12 @@ phrases.forEach((p) => {
   </div>
 
   <!-- Interactive Phrase Chips (Fast click to hear) -->
-  <div class="flex flex-wrap gap-1 sm:gap-1.5 mb-2.5 w-full" id="phrase-chips-container">
+  <div class="flex flex-wrap gap-1.5 sm:gap-1.5 mb-2.5 w-full" id="phrase-chips-container">
     {phrases.map((phrase, idx) => (
       <button
         type="button"
         data-phrase={phrase.id}
-        class={`phrase-chip ${idx === 0 ? 'active bg-amber-400 text-espresso-950 border-amber-300 hover:bg-amber-300 shadow-xs' : 'bg-white/10 hover:bg-white/20 text-amber-100 border-white/15'} px-2 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold border transition-all cursor-pointer whitespace-nowrap`}
+        class={`phrase-chip ${idx === 0 ? 'active bg-amber-400 text-espresso-950 border-amber-300 hover:bg-amber-300 shadow-xs' : 'bg-white/10 hover:bg-white/20 text-amber-100 border-white/15'} px-3 sm:px-2.5 py-1.5 sm:py-1 rounded-lg text-xs sm:text-[11px] font-bold border transition-all cursor-pointer whitespace-nowrap min-h-[36px] sm:min-h-0 flex items-center justify-center active:scale-95`}
         data-tina-field={audio.phrases ? tinaField(audio, 'phrases', idx) : undefined}
         data-edit-key={`hero.card.audio.phrases.${idx}.buttonLabel`}
         data-edit-label={`Tlačítko ${idx + 1}`}

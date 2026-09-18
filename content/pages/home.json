@@ -733,6 +733,7 @@
     "phases": [
       {
         "time": "00–10 min",
+        "icon": "☕",
         "badge": "1. Fáze: Zahřátí",
         "title": "Chit-chat & vypnutí školního stresu",
         "desc": "Dítě přijde po celém dni ve škole. Žádné zkoušení ani testy – sedneme si ke stolu, popovídáme si o událostech dne a přirozeně přepneme hlavu do angličtiny.",
@@ -740,6 +741,7 @@
       },
       {
         "time": "10–40 min",
+        "icon": "🎲",
         "badge": "2. Fáze: Hlavní hra",
         "title": "Deskovka v angličtině & rodilý přízvuk",
         "desc": "Srdce celé lekce. Student nesmí mluvit česky. Hrajeme Scrabble, Story Cubes nebo kartičky. Děti házejí kostkou, vymýšlejí strategie a v zápalu hry reagují v angličtině úplně automaticky a bez přemýšlení o poučkách. Nová slovíčka a výrazy se zaznamenávají na tabuli.",
@@ -747,6 +749,7 @@
       },
       {
         "time": "40–55 min",
+        "icon": "🎒",
         "badge": "3. Fáze: Školní látka",
         "title": "Vysvětlení i v češtině & pomoc s úkoly",
         "desc": "Co se ve škole zdálo složité, najednou dává smysl. Mr. Válek v klidu v češtině dovysvětlí gramatiku, projde s dětmi problematická cvičení a připraví je na písemky.",
@@ -754,6 +757,7 @@
       },
       {
         "time": "50–60 min",
+        "icon": "🌟",
         "badge": "4. Fáze: Závěr",
         "title": "Minikvíz, pochvala a razítko do pasu",
         "desc": "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do cestovního pasu malého učně. Dítě odchází s úsměvem a těší se na příští hodinu.",

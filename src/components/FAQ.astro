@@ -49,7 +49,7 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
         <details
           name="faq-accordion"
           data-tina-field={tinaField(faq, 'items', index)}
-          class="group bg-surface-card rounded-card-lg border-2 border-parchment-300 overflow-hidden transition-all data-[open]:border-amber-400 data-[open]:shadow-tile shadow-2xs"
+          class="faq-details group bg-surface-card rounded-card-lg border-2 border-parchment-300 overflow-hidden transition-all data-[open]:border-amber-400 data-[open]:shadow-tile shadow-2xs"
           open={index === 0}
         >
           <summary class="flex items-center justify-between p-5 sm:p-6 cursor-pointer list-none text-left select-none text-espresso-950 font-heading font-black text-base sm:text-lg hover:text-amber-900 transition-colors">
@@ -61,8 +61,10 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
             </div>
           </summary>
 
-          <div class="px-6 pb-6 pt-1 text-espresso-800/90 text-sm sm:text-base leading-relaxed border-t border-parchment-200 mt-1 font-normal">
-            <p data-tina-field={tinaField(item, 'answer')} data-edit-key={`faq.items.${index}.answer`} data-edit-label="Odpověď" set:html={formatRichText(item.answer)}></p>
+          <div class="faq-content">
+            <div class="px-6 pb-6 pt-1 text-espresso-800/90 text-sm sm:text-base leading-relaxed border-t border-parchment-200 mt-1 font-normal">
+              <p data-tina-field={tinaField(item, 'answer')} data-edit-key={`faq.items.${index}.answer`} data-edit-label="Odpověď" set:html={formatRichText(item.answer)}></p>
+            </div>
           </div>
         </details>
       ))}

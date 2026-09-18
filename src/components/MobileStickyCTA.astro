@@ -58,13 +58,22 @@ const link = stickyCta.link || ctaLink || "#kontakt";
       });
     }
 
-    // Auto-hide when user is already at the contact form
+    // Auto-hide when user is already at the contact form & adjust WhatsApp widget position
+    const waWidget = document.getElementById('floating-whatsapp-widget');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           bar.classList.add('translate-y-full');
+          if (waWidget) {
+            waWidget.classList.remove('bottom-20');
+            waWidget.classList.add('bottom-4');
+          }
         } else {
           bar.classList.remove('translate-y-full');
+          if (waWidget) {
+            waWidget.classList.remove('bottom-4');
+            waWidget.classList.add('bottom-20');
+          }
         }
       });
     }, { threshold: 0.15 });

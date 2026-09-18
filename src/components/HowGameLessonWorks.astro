@@ -108,7 +108,7 @@ const poster = howItWorks.poster || {
     <img
       src={poster.image || "/images/board-games-3d.webp"}
       alt="Deskové hry pro výuku angličtiny ve Valek Academy"
-      class="w-full h-64 sm:h-80 md:h-96 lg:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
+      class="w-full h-[320px] sm:h-80 md:h-96 lg:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
       width="1376"
       height="768"
       loading="lazy"
@@ -117,7 +117,7 @@ const poster = howItWorks.poster || {
       data-edit-type="image"
       data-edit-label="Obrázek deskových her"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/95 via-espresso-950/50 to-transparent flex flex-col justify-end p-6 sm:p-10">
+    <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/95 via-espresso-950/60 to-espresso-950/20 flex flex-col justify-end p-4 sm:p-6 md:p-10">
       <div class="space-y-2 max-w-2xl" data-tina-field={tinaField(howItWorks, 'poster')}>
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-espresso-950 text-xs font-black uppercase tracking-wider shadow-2xs" data-tina-field={tinaField(poster, 'tag')}>
           <span>✨</span> <span>{poster.tag}</span>

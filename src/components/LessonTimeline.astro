@@ -76,22 +76,29 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
 
     <!-- 4 Phases Grid with Timeline Connectors -->
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-      {phases.map((phase, idx) => (
-        <div
-          data-tina-field={tinaField(timeline, 'phases', idx)}
-          class="rounded-card-lg p-6 sm:p-7 bg-surface-card border-2 border-parchment-300 shadow-tile hover:border-amber-400 hover:shadow-card-lift transition-all flex flex-col justify-between group relative"
-        >
-          
-          <!-- Top Row: Time Badge & Icon -->
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-xs font-black px-2.5 py-1 rounded-card-sm bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(phase, 'time')} data-edit-key={`timeline.phases.${idx}.time`} data-edit-label="Čas fáze">
-                {phase.time}
-              </span>
-              <span class="w-12 h-12 rounded-card-md bg-white border border-parchment-300 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-2xs">
-                {phase.icon}
-              </span>
-            </div>
+      {phases.map((phase, idx) => {
+        const icon = phase.icon || defaultPhases[idx]?.icon || ["☕", "🎲", "🎒", "🌟"][idx] || "⏱️";
+        return (
+          <div
+            data-tina-field={tinaField(timeline, 'phases', idx)}
+            class="reveal-on-scroll rounded-card-lg p-6 sm:p-7 bg-surface-card border-2 border-parchment-300 shadow-tile hover:border-amber-400 hover:shadow-card-lift transition-all flex flex-col justify-between group relative"
+          >
+            
+            <!-- Top Row: Time Badge & Icon -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs font-black px-2.5 py-1 rounded-card-sm bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(phase, 'time')} data-edit-key={`timeline.phases.${idx}.time`} data-edit-label="Čas fáze">
+                  {phase.time}
+                </span>
+                <span
+                  class="w-12 h-12 rounded-card-md bg-white border border-parchment-300 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-2xs"
+                  data-tina-field={tinaField(phase, 'icon')}
+                  data-edit-key={`timeline.phases.${idx}.icon`}
+                  data-edit-label="Ikona fáze"
+                >
+                  {icon}
+                </span>
+              </div>
 
             <div>
               <span class="text-xs font-bold uppercase tracking-wider text-amber-900 block mb-1" data-tina-field={tinaField(phase, 'badge')} data-edit-key={`timeline.phases.${idx}.badge`} data-edit-label="Štítek fáze">
@@ -116,7 +123,8 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
           </div>
 
         </div>
-      ))}
+        );
+      })}
     </div>
 
     <!-- Bottom Guarantee Callout -->
