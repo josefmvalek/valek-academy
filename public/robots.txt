@@ -1,6 +1,10 @@
+# robots.txt for VALEK ACADEMY (https://valekacademy.cz)
+# Optimalizováno pro Googlebot, Seznambot a další vyhledávače
+
 User-agent: *
 Allow: /
 Disallow: /admin/
-Disallow: /tina-island/
+Disallow: /api/
 
+# XML Sitemap
 Sitemap: https://valekacademy.cz/sitemap.xml

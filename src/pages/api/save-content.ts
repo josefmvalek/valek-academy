@@ -25,8 +25,10 @@ export const POST: APIRoute = async ({ request }) => {
       'cenik.json': path.join(process.cwd(), 'content', 'pricing', 'cenik.json'),
       'rozvrh.json': path.join(process.cwd(), 'content', 'schedule', 'rozvrh.json'),
       'gallery.json': path.join(process.cwd(), 'content', 'gallery', 'gallery.json'),
-      'ochrana-osobnich-udaju.json': path.join(process.cwd(), 'content', 'legal', 'ochrana-osobnich-udaju.json'),
-      'obchodni-podminky.json': path.join(process.cwd(), 'content', 'legal', 'obchodni-podminky.json'),
+      'privacy.json': path.join(process.cwd(), 'content', 'legal', 'privacy.json'),
+      'terms.json': path.join(process.cwd(), 'content', 'legal', 'terms.json'),
+      'ochrana-osobnich-udaju.json': path.join(process.cwd(), 'content', 'legal', 'privacy.json'),
+      'obchodni-podminky.json': path.join(process.cwd(), 'content', 'legal', 'terms.json'),
     };
 
     const filePath = fileMap[targetFileName] || fileMap['home.json'];
@@ -50,6 +52,13 @@ export const POST: APIRoute = async ({ request }) => {
       const rozvrhData = payload.rozvrh;
       delete payload.rozvrh;
       Object.assign(payload, rozvrhData);
+    }
+
+    // If target is privacy.json or terms.json and payload contains legal namespace, unwrap it
+    if ((targetFileName === 'privacy.json' || targetFileName === 'terms.json' || targetFileName === 'ochrana-osobnich-udaju.json' || targetFileName === 'obchodni-podminky.json') && payload.legal && typeof payload.legal === 'object') {
+      const legalData = payload.legal;
+      delete payload.legal;
+      Object.assign(payload, legalData);
     }
 
     // Read current file to preserve structure

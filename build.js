@@ -1,4 +1,8 @@
 import { execSync } from 'child_process';
+import { scanAndConvertAll } from './scripts/optimize-images.mjs';
+
+// Automatická konverze nově nahraných obrázků na WebP před každým buildem
+await scanAndConvertAll();
 
 const hasCloudCreds = Boolean(
   (process.env.PUBLIC_TINA_CLIENT_ID || process.env.NEXT_PUBLIC_TINA_CLIENT_ID) &&

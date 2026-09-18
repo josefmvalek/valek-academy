@@ -441,9 +441,11 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
 
         if (formSelect) {
           if (currentGrade === 'ss') {
-            formSelect.value = "Středoškoláci & Maturita [Brzy – Čekací listina]";
+            const ssOption = Array.from(formSelect.options).find(opt => opt.value.includes('Středoškoláci') || opt.value.includes('Maturita'));
+            formSelect.value = ssOption ? ssOption.value : (formSelect.options[1]?.value || "");
           } else {
-            formSelect.value = "Děti na ZŠ (Výuka hrou v malé skupince 4–8 dětí) – 1. LEKCE ZDARMA";
+            const kidsOption = Array.from(formSelect.options).find(opt => opt.value.includes('Děti na ZŠ'));
+            formSelect.value = kidsOption ? kidsOption.value : (formSelect.options[0]?.value || "");
           }
           formSelect.dispatchEvent(new Event('change', { bubbles: true }));
         }

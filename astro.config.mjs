@@ -5,6 +5,7 @@ import { tinaAdminDevRedirect } from '@tinacms/astro/vite';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
+  site: 'https://valekacademy.cz',
   output: 'server',
   adapter: vercel(),
   integrations: [

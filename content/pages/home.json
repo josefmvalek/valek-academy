@@ -45,6 +45,72 @@
         "label": "FAQ",
         "href": "#faq"
       }
+    ],
+    "drawerSections": [
+      {
+        "category": "Hlavní stránky",
+        "items": [
+          {
+            "label": "Rozvrh hodin & Rezervace",
+            "href": "/rozvrh",
+            "desc": "15 zvířecích skupinek, volná místa",
+            "icon": "📅"
+          },
+          {
+            "label": "Podrobný ceník & Kalkulátor",
+            "href": "/cenik",
+            "desc": "Slevy až 31 %, balíčky a platby",
+            "icon": "🏷️"
+          },
+          {
+            "label": "Velká fotogalerie",
+            "href": "/galerie",
+            "desc": "16 snímků doučovny a her v centru UH",
+            "icon": "📸"
+          }
+        ]
+      },
+      {
+        "category": "Sekce na webu",
+        "items": [
+          {
+            "label": "Programy & Hry pro žáky ZŠ",
+            "href": "/#programy",
+            "desc": "Karak, Scrabble, Dobble a konverzace",
+            "icon": "🎲"
+          },
+          {
+            "label": "Průběh 60 min lekce",
+            "href": "/#metodika",
+            "desc": "4 fáze: naladění, hra, škola a rekapitulace",
+            "icon": "⏱️"
+          },
+          {
+            "label": "O lektorovi (Mr. Válek)",
+            "href": "/#o-mne",
+            "desc": "Čechoaustralan, RMIT Univ. Melbourne",
+            "icon": "🦘"
+          },
+          {
+            "label": "Rozřazovač skupinek (Kvíz)",
+            "href": "/#rozrazovac",
+            "desc": "Zlatá vstupenka & doporučení her",
+            "icon": "🧭"
+          },
+          {
+            "label": "Kde učíme (Doučovna UH)",
+            "href": "/#kde-ucime",
+            "desc": "Růžová 1238, naproti ZŠ UNESCO",
+            "icon": "📍"
+          },
+          {
+            "label": "Časté dotazy rodičů (FAQ)",
+            "href": "/#faq",
+            "desc": "Odpovědi na vše, co vás zajímá",
+            "icon": "❓"
+          }
+        ]
+      }
     ]
   },
   "hero": {
@@ -57,7 +123,7 @@
     "card": {
       "enabled": true,
       "showBenefits": true,
-      "image": "/uploads/images/josef-valek.webp",
+      "image": "/images/josef-valek.webp",
       "teacherName": "Josef Válek",
       "teacherRole": "BBA, RMIT Melbourne • 25+ let v ČR",
       "teacherTag": "Rodilý přízvuk & výuka hrou",
@@ -209,44 +275,11 @@
       "ctaText": "Zapsat se na čekací listinu →"
     }
   },
-  "scio": {
-    "enabled": false,
-    "badge": "PŘIPRAVUJEME PRO DALŠÍ SEMESTR",
-    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
-    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
-    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
-    "features": [
-      "Rozbor typových testových úloh z matematiky a češtiny",
-      "Osvědčené postupy a strategie pro zvládnutí časového limitu",
-      "Pravidelné testy nanečisto s detailním rozborem každé chyby",
-      "Trpělivé vysvětlení logiky úloh bez paniky a zbytečného tlaku"
-    ],
-    "ctaText": "Předběžně se zapsat na čekací listinu",
-    "ctaLink": "#kontakt",
-    "guaranteeNote": "* Zápis je 100% nezávazný, dáme vám vědět přednostně",
-    "subjectsTitle": "Přijímačky na SŠ (5. & 9. třída)",
-    "subjectsBadge": "Čekací listina",
-    "subjectsNote": "Přípravu v Uherském Hradišti vede zkušený pedagog s klidným a trpělivým přístupem.",
-    "subjects": [
-      {
-        "icon": "📖",
-        "title": "Český jazyk a literatura",
-        "subtitle": "Čtenářská gramotnost, pravopis a rozbory vět",
-        "desc": "Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět bez stresu."
-      },
-      {
-        "icon": "📐",
-        "title": "Matematika & Geometrie",
-        "subtitle": "Logické úlohy, zlomky, rovnice a konstrukce",
-        "desc": "Srozumitelný postup krok za krokem. Žádné memorování vzorců bez pochopení souvislostí."
-      }
-    ]
-  },
   "about": {
     "enabled": true,
     "badge": "PŘÍBĚH LEKTORA",
     "title": "Slovácký rodák, který vyrostl v Austrálii – a teď učí s úsměvem a trpělivostí",
-    "image": "/uploads/Portrait-0.2.jpg",
+    "image": "/uploads/Portrait-0.2.webp",
     "teacherName": "Josef Válek",
     "role": "Majitel, lektor angličtiny, překladatel, tlumočník",
     "bio": "Dobrý den! Jmenuji se Josef Válek. Je mi 50 let. Prvních 7 let svého života jsem vyrůstal na Slovácku, ale v roce 1984 jsem se ocitl v Austrálii, kde jsem žil až do ukončení univerzitních studií. Osud mi tak dopřál naprosto přirozený cit pro angličtinu a autentický rodilý přízvuk. V České republice však žiji již více než 25 let – mluvím tedy plynně česky a přesně vím, s čím Češi v angličtině bojují. Před otevřením dveří akademie jsem dlouhá léta učil angličtinu, pracoval v korporátní sféře v oblasti marketingu a PR a mnoho let působil jako odborný technický překladatel, simultánní tlumočník a soukromý lektor angličtiny pro manažery i odborníky. Sám jsem celoživotní student jazyků, mluvím také plynně německy a španělsky.\n\nNyní jako otec pěti dětí si naplňuji svůj životní sen: otevřel jsem svou vlastní akademii v Uherském Hradišti, obklopenou cizojazyčnou literaturou a deskovkami. Zaměřuji se na předávání lásky k jazyku mladé generaci hravou, aktivní formou v malých skupinkách bez stresu ze zkoušení. Dospělým a odborné veřejnosti rád nabídnu řešení šité na míru se zaměřením na výslovnost, sebejistý projev a odbornou slovní zásobu.",
@@ -293,287 +326,6 @@
         "description": "Přijďte si nezávazně vyzkoušet atmosféru. Dítě si zahraje deskovku a sami uvidíte, jak se mu to líbí."
       }
     ]
-  },
-  "schedule": {
-    "enabled": true,
-    "badge": "PŘEHLEDNÝ ČASOVÝ ROZVRH & REZERVACE",
-    "title": "Pravidelný týdenní rozvrh: Vyberte si svou zvířecí skupinku",
-    "subtitle": "Výuka probíhá 100% osobně v doučovně v Uherském Hradišti (Růžová 1238). Žádné sezení u monitoru přes internet – deskovky, karty a přirozená konverzace naživo.",
-    "smartFinderTabLabel": "Chytrý 2krokový vyhledávač",
-    "smartFinderTabBadge": "Doporučeno",
-    "fullScheduleTabLabel": "Celý týdenní rozvrh (15)",
-    "smartFinderBadge": "🎯 RYCHLÝ VÝBĚR VHODNÉ SKUPINKY",
-    "smartFinderTime": "Zabere 15 vteřin",
-    "smartFinderFree": "🎁 1. lekce 100% ZDARMA",
-    "smartStep1Title": "1. Do jaké třídy dítě chodí?",
-    "smartCohort1Title": "1.–3. třída ZŠ",
-    "smartCohort1Sub": "12:30–13:30 • 60 min",
-    "smartCohort2Title": "4.–6. třída ZŠ",
-    "smartCohort2Sub": "13:30–14:30 • 60 min",
-    "smartCohort3Title": "7.–13. třída & SŠ",
-    "smartCohort3Sub": "14:30–16:00 • 90 min",
-    "smartStep2Title": "2. Které dny po škole se vám nejvíc hodí?",
-    "smartDayAllLabel": "🌟 Kdykoliv v týdnu",
-    "smartResultsTitle": "🎯 Doporučené zvířecí skupinky pro váš výběr:",
-    "smartEmptyTitle": "Pro tento den a ročník jsme nenašli odpovídající skupinku",
-    "smartEmptyText": "Zkuste přepnout den na „Kdykoliv v týdnu“ nebo se podívejte do celého týdenního rozvrhu.",
-    "smartEmptyReset": "Zobrazit všechny dny v týdnu",
-    "smartSwitchToFull": "Chcete si prohlédnout všech 15 skupinek v kompletní týdenní tabulce? Přepnout na celý rozvrh →",
-    "whyInPersonIcon": "🎲",
-    "whyInPersonTitle": "Proč učíme 100% naživo v doučovně a ne přes internet?",
-    "whyInPersonText": "Děti i studenti tráví u monitorů hodiny denně. Jazyk hrou funguje nejlépe při živém očním kontaktu, házení kostkou, smíchu a týmových deskovkách. U obrazovky takové zapojení nevznikne.",
-    "rollingSystemBadge": "🔄 PLYNULÝ CELOROČNÍ SYSTÉM",
-    "rollingSystemTitle": "Žádný začátek ani konec – do party se můžete přidat kdykoliv",
-    "rollingSystemText": "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Pan Válek si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!",
-    "pillar1Number": "8",
-    "pillar1Title": "Optimální kapacita 8 míst",
-    "pillar1Desc": "Ideální pro deskovky, karty a každé dítě se dostane ke slovu.",
-    "pillar2Number": "4",
-    "pillar2Title": "Waiting list 4 místa",
-    "pillar2Desc": "Přednostní čekací listina pro případ uvolnění místa v partě.",
-    "pillar3Icon": "🔒",
-    "pillar3Title": "Garance stálé ceny",
-    "pillar3Desc": "Stávající studenti si drží svou původní příznivou sazbu natrvalo.",
-    "filterAllLabel": "🌟 Všechny skupinky (15)",
-    "filterGrade13Label": "🎒 1.–3. třída (12:30–13:30 • 60 min)",
-    "filterGrade46Label": "🚀 4.–6. třída (13:30–14:30 • 60 min)",
-    "filterGrade713Label": "🎓 7.–13. třída & Maturita (14:30–16:00 • 90 min)",
-    "legendOpen": "Volno (do 8 dětí)",
-    "legendWaitingList": "Čekací listina (8–11 dětí)",
-    "legendFull": "We're full! (12 dětí)",
-    "ctaText": "Vybrat skupinku a rezervovat 1. lekci zdarma →",
-    "groups": [
-      {
-        "id": "kangaroos",
-        "day": "Pondělí",
-        "time": "12:30 – 13:30",
-        "animal": "Klokánci",
-        "emoji": "🦘",
-        "cohort": "1.–3. třída",
-        "cohortBadge": "Družina & První krůčky hrou",
-        "occupiedSeats": 0,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka a věty, barvy, čísla a zvířata formou karet a deskovek. Hodně povídání. "
-      },
-      {
-        "id": "koalas",
-        "day": "Úterý",
-        "time": "12:30 – 13:30",
-        "animal": "Koalas",
-        "emoji": "🐨",
-        "cohort": "1.–3. třída",
-        "cohortBadge": "Pohodová parta & Dobble",
-        "occupiedSeats": 0,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka a věty, barvy, čísla a zvířata formou karet a deskovek. Hodně povídání. "
-      },
-      {
-        "id": "wombats",
-        "day": "Středa",
-        "time": "12:30 – 13:30",
-        "animal": "Wombats",
-        "emoji": "🐻",
-        "cohort": "1.–3. třída",
-        "cohortBadge": "Karak Junior & Karty",
-        "occupiedSeats": 0,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka a věty, barvy, čísla a zvířata formou karet a deskovek. Hodně povídání. "
-      },
-      {
-        "id": "wallabies",
-        "day": "Čtvrtek",
-        "time": "12:30 – 13:30",
-        "animal": "Wallabies",
-        "emoji": "🦘",
-        "cohort": "1.–3. třída",
-        "cohortBadge": "Pohyb & Rychlá reakce",
-        "occupiedSeats": 0,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka a věty, barvy, čísla a zvířata formou karet a deskovek. Hodně povídání. "
-      },
-      {
-        "id": "tasmanian-devils",
-        "day": "Pátek",
-        "time": "12:30 – 13:30",
-        "animal": "Tasmanian devils",
-        "emoji": "😈",
-        "cohort": "1.–3. třída",
-        "cohortBadge": "Páteční herní klub",
-        "occupiedSeats": 0,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka a věty, barvy, čísla a zvířata formou karet a deskovek. Hodně povídání. "
-      },
-      {
-        "id": "rabbits",
-        "day": "Pondělí",
-        "time": "13:30 – 14:30",
-        "animal": "Rabbits",
-        "emoji": "🐇",
-        "cohort": "4.–6. třída",
-        "cohortBadge": "Karak & Slovní zásoba",
-        "occupiedSeats": 6,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Propojení školního učiva s populárními deskovkami. Rozšiřování slovní zásoby a tvoření celých vět bez váhání."
-      },
-      {
-        "id": "foxes",
-        "day": "Úterý",
-        "time": "13:30 – 14:30",
-        "animal": "Foxes",
-        "emoji": "🦊",
-        "cohort": "4.–6. třída",
-        "cohortBadge": "Strategie & Codenames",
-        "occupiedSeats": 7,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Bystrá parta mladých stratégů. Asociační hry, dedukce a přirozené domlouvání pravidel v angličtině."
-      },
-      {
-        "id": "brumbies",
-        "day": "Středa",
-        "time": "13:30 – 14:30",
-        "animal": "Brumbies",
-        "emoji": "🐎",
-        "cohort": "4.–6. třída",
-        "cohortBadge": "Plynulost & Sebevědomí",
-        "occupiedSeats": 5,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Svoboda vyjadřování bez strachu z gramatických chyb. Lektor trpělivě navádí na správnou větnou stavbu."
-      },
-      {
-        "id": "camels",
-        "day": "Čtvrtek",
-        "time": "13:30 – 14:30",
-        "animal": "Camels",
-        "emoji": "🐪",
-        "cohort": "4.–6. třída",
-        "cohortBadge": "Vytrvalost & Hloubka",
-        "occupiedSeats": 9,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Velmi žádaný čtvrteční slot. Základních 8 míst je obsazeno, přijímáme zájemce na čekací listinu (zbývají 3 místa)."
-      },
-      {
-        "id": "cane-toads",
-        "day": "Pátek",
-        "time": "13:30 – 14:30",
-        "animal": "Cane toads",
-        "emoji": "🐸",
-        "cohort": "4.–6. třída",
-        "cohortBadge": "Páteční výzva & Smích",
-        "occupiedSeats": 4,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Legendární australské ropuchy přinášejí pořádnou porci humoru, blafovacích karetních her a uvolněné zábavy."
-      },
-      {
-        "id": "crocodiles",
-        "day": "Pondělí",
-        "time": "14:30 – 16:00",
-        "animal": "Crocodiles",
-        "emoji": "🐊",
-        "cohort": "7.–13. třída",
-        "cohortBadge": "Maturita & Pokročilá konverzace",
-        "occupiedSeats": 6,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Intenzivní 90minutový ponor. Společenská témata, argumentace, simulace ústní zkoušky a australský idiom."
-      },
-      {
-        "id": "sharks",
-        "day": "Úterý",
-        "time": "14:30 – 16:00",
-        "animal": "Sharks",
-        "emoji": "🦈",
-        "cohort": "7.–13. třída",
-        "cohortBadge": "Příprava na SŠ & SCIO testy",
-        "occupiedSeats": 7,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Pohotovost a přesnost. Trénink typových úloh na přijímačky, práce s textem a poslech rodilého mluvčího."
-      },
-      {
-        "id": "snakes",
-        "day": "Středa",
-        "time": "14:30 – 16:00",
-        "animal": "Snakes",
-        "emoji": "🐍",
-        "cohort": "7.–13. třída",
-        "cohortBadge": "Debatní klub & Reálie",
-        "occupiedSeats": 12,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "full",
-        "description": "Tato skupinka dosáhla maximální kapacity včetně waiting listu (12/12). Pro zájemce doporučujeme čtvrtek či pátek."
-      },
-      {
-        "id": "spiders",
-        "day": "Čtvrtek",
-        "time": "14:30 – 16:00",
-        "animal": "Spiders",
-        "emoji": "🕷️",
-        "cohort": "7.–13. třída",
-        "cohortBadge": "Maturitní témata & Eseje",
-        "occupiedSeats": 5,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Jeden ze 2 specializovaných bloků zaměřených na maturitní didaktické testy, rozbor článků a mluvený projev."
-      },
-      {
-        "id": "buffalos",
-        "day": "Pátek",
-        "time": "14:30 – 16:00",
-        "animal": "Buffalos",
-        "emoji": "🐃",
-        "cohort": "7.–13. třída",
-        "cohortBadge": "Pohodový závěr týdne",
-        "occupiedSeats": 4,
-        "maxSeats": 8,
-        "waitingListSeats": 4,
-        "statusOverride": "auto",
-        "description": "Páteční 90minutovka pro středoškoláky. Společenské hry v angličtině (Secret Hitler, Codenames) a diskuze o filmech a hudbě."
-      }
-    ],
-    "adultsBlock": {
-      "enabled": true,
-      "timeBadge": "Po – Čt 17:00 – 18:30",
-      "timeNote": "90 minut • 5 bloků týdně",
-      "icon": "💼",
-      "title": "Dospělí & Odborné profesní skupiny",
-      "subtitle": "4 obory: Medici 🩺, Právníci ⚖️, Technici ⚙️, Obchod 📊",
-      "desc": "Intenzivní podvečerní skupiny pro pracující a studenty VŠ. Žádné biflování gramatiky ze základky, ale moderní odborná mluva, prezentace a přirozený přízvuk.",
-      "ctaText": "Rezervovat profesní skupinu →"
-    },
-    "individualBlock": {
-      "enabled": true,
-      "timeBadge": "Dopoledne dle domluvy",
-      "timeNote": "950 Kč / 60 min",
-      "icon": "👤",
-      "title": "Individuální výuka 1 na 1",
-      "subtitle": "950 Kč / 60 min • Maximální flexibilita pro náročné cíle",
-      "desc": "Probíhá výhradně v dopoledních hodinách v klidu doučovny v Uherském Hradišti. Příprava na mezinárodní konference, pohovory v zahraničí nebo specifické požadavky.",
-      "ctaText": "Poptat individuální výuku 1 na 1 →"
-    }
   },
   "pricing": {
     "enabled": true,
@@ -799,7 +551,7 @@
     ]
   },
   "testimonials": {
-    "enabled": false,
+    "enabled": true,
     "badge": "Reference rodičů ze Slovácka",
     "title": "Co o doučování říkají rodiče z Uherského Hradiště a okolí?",
     "subtitle": "Skutečné zkušenosti maminek, tatínků i studentů, kterým pan Válek pomohl odbourat strach z angličtiny a získat sebevědomí.",
@@ -841,6 +593,39 @@
         "highlight": "Úspěšné zvládnutí přijímacích zkoušek",
         "quote": "Pan Válek mi pomohl nejen s mluvením bez českého tvrdého přízvuku, ale i s testy k přijímačkám na gympl. Všechno vysvětluje logicky a v pohodě, žádný stres ze známkování. Na lekcích jsme se vždycky nasmáli.",
         "avatarText": "DS"
+      }
+    ]
+  },
+  "scio": {
+    "enabled": false,
+    "badge": "PŘIPRAVUJEME PRO DALŠÍ SEMESTR",
+    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
+    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
+    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
+    "features": [
+      "Rozbor typových testových úloh z matematiky a češtiny",
+      "Osvědčené postupy a strategie pro zvládnutí časového limitu",
+      "Pravidelné testy nanečisto s detailním rozborem každé chyby",
+      "Trpělivé vysvětlení logiky úloh bez paniky a zbytečného tlaku"
+    ],
+    "ctaText": "Předběžně se zapsat na čekací listinu",
+    "ctaLink": "#kontakt",
+    "guaranteeNote": "* Zápis je 100% nezávazný, dáme vám vědět přednostně",
+    "subjectsTitle": "Přijímačky na SŠ (5. & 9. třída)",
+    "subjectsBadge": "Čekací listina",
+    "subjectsNote": "Přípravu v Uherském Hradišti vede zkušený pedagog s klidným a trpělivým přístupem.",
+    "subjects": [
+      {
+        "icon": "📖",
+        "title": "Český jazyk a literatura",
+        "subtitle": "Čtenářská gramotnost, pravopis a rozbory vět",
+        "desc": "Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět bez stresu."
+      },
+      {
+        "icon": "📐",
+        "title": "Matematika & Geometrie",
+        "subtitle": "Logické úlohy, zlomky, rovnice a konstrukce",
+        "desc": "Srozumitelný postup krok za krokem. Žádné memorování vzorců bez pochopení souvislostí."
       }
     ]
   },
@@ -1017,12 +802,12 @@
     "surroundingTowns": "Centrální dostupnost ve školním epicentru Uherského Hradiště – jen pár kroků pro studenty ZŠ UNESCO, ZŠ Sportovní, ZŠ Za Alejí, Gymnázia UH i Obchodní akademie. Dopřejte svému dítěti zábavnou angličtinu a sami si užijte hodinku zaslouženého klidu. Parkování přímo před budovou (10 Kč/hod.) a blízkost autobusového i vlakového nádraží zpřístupňuje doučovnu celému okresu (Kunovice, Staré Město, Babice, Jalubí či Ostrožská Nová Ves).",
     "gallery": [
       {
-        "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.02.jpeg",
+        "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.02.webp",
         "title": "Útulný herní stůl pro 4–8 dětí",
         "desc": "Prostorný dřevěný stůl, kde se děti učí v uvolněné atmosféře a bez pocitu školní lavice."
       },
       {
-        "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.58.jpeg",
+        "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.58.webp",
         "title": "Knihovnička a deskové hry",
         "desc": "Karak, Scrabble, Dixit, Story Cubes a desítky dalších her pro všechny věkové kategorie."
       }

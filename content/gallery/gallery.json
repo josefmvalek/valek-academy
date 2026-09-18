@@ -36,30 +36,30 @@
       "description": "Příjemné rodinné prostředí na adrese Růžová 1238 v Uherském Hradišti (naproti ZŠ UNESCO).",
       "photos": [
         {
-          "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.02.jpeg",
+          "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.02.webp",
           "title": "Prostorný herní stůl pro 8 studentů na akademii v Uherském Hradišti",
           "description": "Prostorný dřevěný stůl u okna v naší učebně naproti ZŠ UNESCO v Uherském Hradišti. Děti se učí v uvolněné atmosféře u deskových her a bez pocitu školní lavice."
         },
         {
-          "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.58.jpeg",
+          "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.42.58.webp",
           "title": "Lektor Josef Válek před tabuli a knihovnou",
           "description": "Pan Válek s didaktickými kartičkami a bohatou knihovnou plnou slovníků, cizojazyčných knih v učebně v Uherském Hradišti."
         },
         {
           "hidden": true,
-          "image": "",
+          "image": "/images/doucovna-stul.webp",
           "title": "Hlavní herní stůl pro deskovky",
           "description": "Zde se odehrávají všechny napínavé partie. Děti sedí společně u stolu, komunikují tváří v tvář a přirozeně reagují v angličtině."
         },
         {
           "hidden": true,
-          "image": "/uploads/images/classroom-interior-sunlit.jpg",
+          "image": "/images/classroom-interior-sunlit.webp",
           "title": "Slunná učebna v historickém centru UH",
           "description": "Klidné a bezpečné zázemí s výhledem na město. Místo v centru Uherského Hradiště, kde se nikdo nebojí udělat chybu."
         },
         {
           "hidden": true,
-          "image": "/uploads/images/classroom-library.jpg",
+          "image": "/images/classroom-library.webp",
           "title": "Knihovna a studijní zázemí v Uherském Hradišti",
           "description": "Poličky plné originálních anglických knížek, australských map a populárních deskovek pro děti i dospívající."
         }
@@ -73,19 +73,19 @@
       "photos": [
         {
           "hidden": true,
-          "image": "/uploads/images/board-games-closeup.jpg",
+          "image": "/images/board-games-closeup.webp",
           "title": "Herní stůl připravený na lekci",
           "description": "Otevřený Karak, Scrabble a kartičky. Děti se nemohou dočkat, až hodí kostkou a začnou tvořit první anglické věty."
         },
         {
           "hidden": true,
-          "image": "/uploads/images/dobble-cards-hands.jpg",
+          "image": "/images/dobble-cards-hands.webp",
           "title": "Bleskové postřehovky Dobble & písmena",
           "description": "Rychlé hledání symbolů a skládání slov. Trénink reflexů a okamžitého anglického pojmenování bez překládání v hlavě."
         },
         {
           "hidden": true,
-          "image": "/uploads/images/doucovna-hry.webp",
+          "image": "/images/doucovna-hry.webp",
           "title": "Kolekce originálních anglických her",
           "description": "Hry pečlivě vybíráme podle věku – od jednoduchého Dobble pro 1. třídu až po strategický Carcassonne a Codenames."
         }
@@ -99,19 +99,19 @@
       "photos": [
         {
           "hidden": true,
-          "image": "/uploads/images/kids-boardgame-fun.jpg",
+          "image": "/images/kids-boardgame-fun.webp",
           "title": "Smích, soutěživost a radost z výhry",
           "description": "V partě vrstevníků mizí ostych i strach ze špatných známek. Děti se navzájem podporují a učí se přirozenou konverzací."
         },
         {
           "hidden": true,
-          "image": "/uploads/images/maturita-study-session.jpg",
+          "image": "/images/maturita-study-session.webp",
           "title": "Příprava na maturitu a CERMAT testy",
           "description": "Intenzivní 90minutové bloky pro starší studenty: didaktické testy, esejistika, ústní témata a plynulá argumentace bez trémy."
         },
         {
           "hidden": true,
-          "image": "/uploads/images/adults-conversation-group.jpg",
+          "image": "/images/adults-conversation-group.webp",
           "title": "Večerní klub pro dospělé a profesní skupiny",
           "description": "Medici, právníci, inženýři i milovníci cestování u šálku čaje v přátelské debatě s rodilým přízvukem pana Válka."
         }
@@ -125,19 +125,19 @@
       "photos": [
         {
           "hidden": true,
-          "image": "/uploads/images/australian-library-corner.jpg",
+          "image": "/images/australian-library-corner.webp",
           "title": "Australský čtenářský koutek s koalou",
           "description": "Knížky pro děti v originále (Roald Dahl, Australian Wildlife), plyšový koala a útulné křeslo se světýlky pro chvíle klidného čtení."
         },
         {
           "hidden": true,
-          "image": "/uploads/images/classroom-games.jpg",
+          "image": "/images/classroom-games.webp",
           "title": "Zapojení všech smyslů do učení",
           "description": "Vizuální karty, figurky a herní plány pomáhají zafixovat slovíčka lépe než pouhé vyplňování pracovních sešitů."
         },
         {
           "hidden": true,
-          "image": "/uploads/images/board-games-3d.webp",
+          "image": "/images/board-games-3d.webp",
           "title": "Didaktické modely & 3D reálie",
           "description": "Prostorové herní komponenty a kartičky motivují děti ke spontánnímu popisování světa v angličtině."
         }

@@ -31,7 +31,7 @@ const reservation = rozvrh.reservation || {};
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
     <a href="/" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-stone-600 hover:text-amber-900 transition-colors group">
       <span class="group-hover:-translate-x-1 transition-transform">←</span>
-      <span data-tina-field={tinaField(rozvrh, 'backLinkText')}>{backLinkText}</span>
+      <span data-tina-field={tinaField(rozvrh, 'backLinkText')} data-edit-key="rozvrh.backLinkText" data-edit-label="Zpětný odkaz">{backLinkText}</span>
     </a>
   </div>
 
@@ -45,12 +45,12 @@ const reservation = rozvrh.reservation || {};
       <div class="max-w-3xl mx-auto text-center space-y-2 mb-10">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full vintage-ribbon text-xs font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(reservation, 'badge')}>
           <span>📝</span>
-          <span>{reservation.badge || "OBJEDNÁNÍ & REZERVACE LEKCE"}</span>
+          <span data-edit-key="rozvrh.reservation.badge" data-edit-label="Štítek rezervace">{reservation.badge || "OBJEDNÁNÍ & REZERVACE LEKCE"}</span>
         </div>
-        <h2 class="font-heading font-black text-2xl sm:text-4xl text-espresso-950" data-tina-field={tinaField(reservation, 'title')}>
+        <h2 class="font-heading font-black text-2xl sm:text-4xl text-espresso-950" data-tina-field={tinaField(reservation, 'title')} data-edit-key="rozvrh.reservation.title" data-edit-label="Nadpis rezervace">
           {reservation.title || "Přihláška na 1. ukázkovou lekci ZDARMA"}
         </h2>
-        <p class="text-xs sm:text-base text-espresso-800/80 font-normal" data-tina-field={tinaField(reservation, 'subtitle')}>
+        <p class="text-xs sm:text-base text-espresso-800/80 font-normal" data-tina-field={tinaField(reservation, 'subtitle')} data-edit-key="rozvrh.reservation.subtitle" data-edit-label="Podnadpis rezervace">
           {reservation.subtitle || "Vybrali jste si skupinku v rozvrhu výše? Zde vyplňte krátký kontakt a pan Válek se vám ozve s potvrzením termínu."}
         </p>
       </div>

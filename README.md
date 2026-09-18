@@ -1,30 +1,37 @@
-# 🇬🇧 Josef Válek – Moderní web pro výuku a doučování angličtiny
+# 🦘 VALEK ACADEMY – Výuka a doučování angličtiny v Uherském Hradišti
 
-Profesionální, vysoce konverzní one-page prezentační web pro lektora angličtiny. Web je bleskově rychlý, plně responzivní pro mobily i počítače a vybavený vizuální administrací **TinaCMS** na adrese `/admin`, která umožňuje snadnou editaci všech textů, ceníků, referencí i kontaktů bez nutnosti sahat do kódu.
+Profesionální, vysoce konverzní a interaktivní web pro lektora angličtiny Josefa Válka (Mr. Válek). Web je postaven na moderní hybridní architektuře **Astro v5 + TinaCMS + In-Page Visual Editor**, nabízí bleskurychlý statický rendering (SSG), dynamické API pro rezervace lekcí a kompletní click-to-edit editaci veškerého obsahu přímo z prohlížeče.
 
 ---
 
 ## 🚀 Použitý technologický stack
 
-- **Framework:** [Astro v5](https://astro.build/) – staticky generovaný web (SSG) s nulovou zátěží a okamžitým načítáním.
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/) – moderní tmavý design s glassmorphism efekty, zlatými akcenty a prémiovou typografií (Google Fonts *Outfit* & *Inter*).
-- **CMS:** [TinaCMS](https://tina.io/) – správa obsahu s vizuálním náhledem na adrese `/admin` s napojením na GitHub.
-- **Formulář:** Připraveno pro [Web3Forms](https://web3forms.com/) – odesílání poptávek přímo do e-mailu bez vlastního backendu.
-- **Hosting:** [Vercel](https://vercel.com/) – bezplatný provoz (Free Tier), automatické nasazení z GitHubu.
+- **Framework:** [Astro v5](https://astro.build/) – ultra-rychlý statický rendering (SSG) s nulovou klientskou zátěží a serverless API pro formuláře.
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) – teplý pergamenový a zlatý design s glassmorphismem, 3D haptickými tlačítky a prémiovou typografií (*Cinzel*, *Outfit*, *Plus Jakarta Sans*).
+- **CMS (Dvojí editační rozhraní):**
+  - **TinaCMS** (`/admin`) – plnohodnotná vizuální administrace napojená na Git a Tina Cloud.
+  - **In-Page Visual Editor** – přímá inline editace textů, čísel a odznaků přímo na živé stránce ve vývojovém režimu se souběžným ukládáním do JSON souborů.
+- **Formuláře & E-maily:** Vlastní serverless endpoint `/api/send-reservation` s integrací [Resend](https://resend.com/) pro okamžité potvrzovací e-maily klientům a notifikace lektorovi.
+- **Hosting:** [Vercel](https://vercel.com/) – automatické nasazení z GitHubu přes `@astrojs/vercel` adaptér.
 
 ---
 
-## 📂 Struktura webu (sekce)
+## 📂 Struktura webu a stránek
 
-1. **Hlavička (Sticky Navbar):** Logo, rychlé odkazy na sekce, telefon, CTA tlačítko a přímý odkaz do administrace `/admin`.
-2. **Hero sekce:** Úderný nadpis, podnadpis, sociální důkaz (*10+ let praxe*, *150+ studentů*, *4.9/5 hodnocení*), výrazná CTA tlačítka.
-3. **O mně / Metodika:** Profil lektora Josefa Válka, filozofie výuky bez memorování pouček, 4 pilíře metodiky.
-4. **Služby a kurzy:** 4 karty programů (Individuální výuka 1 na 1, Konverzace pro dospělé, Byznys angličtina pro kariéru, Příprava na certifikáty a maturitu).
-5. **Ceník:** Přehledné balíčky (Jednotlivá lekce, Balíček 10 lekcí – nejoblíbenější se slevou 10 %, Firemní výuka) s garancí spokojenosti.
-6. **Reference:** Autentické recenze studentů s 5hvězdičkovým hodnocením a iniciálami.
-7. **FAQ:** Často kladené otázky formou moderního, přístupného akordeonu (`<details>`).
-8. **Kontakt & Rezervační formulář:** Konverzní formulář s výběrem úrovně AJ a cíle + přímé kontakty (telefon, WhatsApp, e-mail).
-9. **Patička:** Rychlá navigace, copyright a odkaz do CMS.
+1. **Domovská stránka (`/`):**
+   - **Hero:** Profil lektora Josefa Válka (Melbourne roots, 25+ let v ČR), audio přehrávač reálných hlášek (*G'day mate!*), sociální důkaz a CTA do 1. lekce zdarma.
+   - **Programy & Hry:** Didaktické deskovky (Karak, Scrabble, Dixit, Dobble, Story Cubes) rozdělené dle věku.
+   - **Průběh 60 min lekce:** Čtyřfázová metodika (naladění, hra, škola, rekapitulace).
+   - **O lektorovi:** Příběh čechoaustralana Josefa Válka.
+   - **Rozřazovač skupinek (GroupMatcher):** 3krokový interaktivní kvíz pro rodiče s Web Audio API zvukovými efekty a generováním zlaté vstupenky.
+   - **Harmonogram (ScheduleBlocks):** Týdenní rozvrh 15 zvířecích skupinek (Klokánci, Koaly, Vombati...).
+   - **Kde učíme:** Mapa a lokalita doučovny v centru UH (naproti ZŠ UNESCO).
+   - **Časté dotazy rodičů (FAQ):** Akordeon s dynamickým Schema.org FAQPage JSON-LD.
+   - **Rezervační formulář (ContactForm):** Interaktivní výběr skupinky, validace a odeslání rezervace.
+2. **Rozvrh hodin (`/rozvrh`):** Dedikovaná stránka s kompletním přehledem 15 skupinek a přímou rezervací.
+3. **Ceník & Kalkulátor (`/cenik`):** Podrobný přehled programů, srovnávací tabulka se školou a interaktivní kalkulátor balíčků slev (až 31 % úspora).
+4. **Fotogalerie (`/galerie`):** Dynamická galerie s filtrováním dle kategorií (doučovna, deskovky, lektor, akce).
+5. **Právní stránky:** VOP (`/obchodni-podminky`) a GDPR (`/ochrana-osobnich-udaju`).
 
 ---
 
@@ -40,90 +47,31 @@ npm install
 npm run dev
 ```
 Tento příkaz spustí:
-- Astro vývojový server na: `http://localhost:4321`
-- TinaCMS lokální GraphQL server
+- Astro vývojový server na `http://localhost:4321`
+- TinaCMS lokální GraphQL server na `http://localhost:4001`
+- Automatický WebP image watcher na pozadí
 
-### 3. Vstup do administrace webu
-Otevřete v prohlížeči:
-👉 **`http://localhost:4321/admin`**
-
-Zde můžete přímo v reálném čase přepisovat texty, měnit ceny, přidávat otázky do FAQ nebo reference. Všechny změny se ukládají přímo do souboru `content/pages/home.json`.
-
----
-
-## ☁️ Nasazení na Vercel (Krok za krokem)
-
-Web je 100% připravený pro bezplatný hosting na **Vercelu**:
-
-1. Nahrajte tento projekt do nového repozitáře na vašem [GitHubu](https://github.com/).
-2. Přejděte na [Vercel.com](https://vercel.com/) a přihlaste se pomocí GitHub účtu.
-3. Klikněte na **Add New... -> Project** a vyberte repozitář s webem.
-4. Vercel automaticky rozpozná framework **Astro**.
-5. Klikněte na tlačítko **Deploy**.
-6. Během minuty je web živý na bezplatné doméně `vase-jmeno.vercel.app` (případně můžete připojit vlastní doménu `.cz`).
+### 3. Editace obsahu
+- **In-Page Visual Editor:** Přímo na `http://localhost:4321` klikněte na plovoucí tlačítko editoru v pravém dolním rohu.
+- **TinaCMS Administrace:** Otevřete `http://localhost:4321/admin`.
 
 ---
 
-## 🔑 Propojení s Tina Cloud (Pro online editaci pro tátu)
+## 🏗️ Produkční build & kontrola typů
 
-Aby táta mohl web upravovat online přímo z webového prohlížeče na adrese `vase-domena.vercel.app/admin` bez nutnosti programování:
+```bash
+# Kontrola TypeScript a Astro diagnostiky (0 chyb)
+npm run typecheck
 
-1. Zaregistrujte se zdarma na [app.tina.io](https://app.tina.io/).
-2. Klikněte na **New Project** a propojte jej se stejným GitHub repozitářem.
-3. V detailu projektu na Tina Cloud zkopírujte:
-   - **Client ID**
-   - **Read/Write Token**
-4. Na Vercelu otevřete nastavení vašeho projektu: **Settings -> Environment Variables** a přidejte:
-   - `PUBLIC_TINA_CLIENT_ID` = *(váš Client ID)*
-   - `TINA_TOKEN` = *(váš Token)*
-5. Proveďte nový Redeploy na Vercelu.
-6. **Hotovo!** Táta navštíví `vase-domena.vercel.app/admin`, přihlásí se a veškeré úpravy, které provede a uloží, Tina automaticky zapíše jako commit do GitHubu a Vercel web sám do minuty přebuduje!
-
----
-
-## 📬 Nastavení odesílání e-mailů z formuláře (Web3Forms)
-
-Formulář je připraven pro bezplatnou službu Web3Forms bez nutnosti backendu:
-
-1. Navštivte [Web3Forms.com](https://web3forms.com/).
-2. Zadejte e-mail, na který mají poptávky chodit (např. `josef.valek@email.cz`), a klikněte na *Create your Access Key*.
-3. Obdržený klíč z e-mailu vložte do souboru `content/pages/home.json` (položka `web3formsKey`), nebo přímo v TinaCMS v sekci *Kontakt*.
-4. Jakmile student vyplní formulář, zpráva okamžitě dorazí přímo do e-mailové schránky lektora.
-
----
-
-## 📁 Struktura souborů
-
+# Plný produkční build (TinaCMS schema compilation + Astro SSG export)
+node build.js
 ```
-├── content/
-│   └── pages/
-│       └── home.json            # Veškerá textová a datová náplň webu
-├── public/
-│   ├── favicon.svg              # Ikona webu
-│   └── uploads/                 # Složka pro nahrané obrázky z TinaCMS
-├── src/
-│   ├── components/
-│   │   ├── About.astro          # Sekce O mně a metodika
-│   │   ├── Contact.astro        # Rezervační formulář a kontakty
-│   │   ├── FAQ.astro            # Akordeon často kladených otázek
-│   │   ├── Footer.astro         # Patička s copyrightem a odkazy
-│   │   ├── Hero.astro           # Úvodní konverzní hero sekce
-│   │   ├── Navbar.astro         # Responzivní sticky navigace
-│   │   ├── Pricing.astro        # Ceník a balíčky
-│   │   ├── Services.astro       # Karty nabízených kurzů
-│   │   └── Testimonials.astro   # Hodnocení a recenze studentů
-│   ├── layouts/
-│   │   └── Layout.astro         # Hlavní HTML obálka, SEO a OpenGraph meta tagy
-│   ├── lib/
-│   │   └── data.ts              # Načítání dat z TinaCMS s fallbackem
-│   ├── pages/
-│   │   └── index.astro          # Hlavní stránka
-│   └── styles/
-│       └── global.css           # Globální styly, Tailwind a Google Fonts
-├── tina/
-│   └── config.ts                # Kompletní schéma pro TinaCMS
-├── astro.config.mjs             # Konfigurace Astro (Tailwind, Tina, Vercel)
-├── tailwind.config.mjs          # Konfigurace Tailwind barev a stylů
-├── tsconfig.json                # TypeScript konfigurace
-└── package.json                 # Skripty a závislosti
-```
+
+---
+
+## 📬 Nastavení odesílání e-mailů (Resend)
+
+Pro aktivaci reálného odesílání potvrzovacích e-mailů nastavte v prostředí Vercelu:
+- `RESEND_API_KEY` = *(váš API klíč z resend.com)*
+
+Bez nastaveného klíče formulář bezpečně přejde do demo režimu, vrací formátované potvrzení o přijetí a nezpůsobí pád aplikace.

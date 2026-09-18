@@ -115,6 +115,86 @@
       "ctaSecondaryLink": ""
     }
   ],
+  "calculator": {
+    "enabled": true,
+    "badge": "CHYTRÝ KALKULÁTOR BALÍČKŮ",
+    "title": "Spočítejte si slevu za předplatné a frekvenci",
+    "subtitle": "Čím delší období a čím častěji dítě chodí, tím nižší je cena za lekci. Využijte pololetní balíček za 250 Kč/hod (jen cca 1 000 Kč měsíčně) nebo roční předplatné za pouhých 220 Kč/hod.",
+    "basePrice": 320,
+    "basePriceTeens": 480,
+    "step1Title": "Vyberte délku období (balíček):",
+    "step1Badge": "až -31 % sleva (od 220 Kč/h)",
+    "step2Title": "Jak často chcete, aby dítě chodilo:",
+    "step2Badge": "extra bonus za frekvenci",
+    "resultBadge": "VÝSLEDNÁ KALKULACE S BALÍČKOVOU SLEVOU",
+    "savingsBadge": "Vaše úspora",
+    "ctaText": "Vyzkoušet 1. lekci zdarma s touto slevou →",
+    "note": "🎁 1. ukázková lekce je vždy 100% ZDARMA. Platbu řešíte až po první hodině, když je dítě spokojené.",
+    "durations": [
+      {
+        "weeks": 4,
+        "label": "1 měsíc",
+        "periodDesc": "4 týdny výuky",
+        "badge": "300 Kč / h (1 200 Kč)",
+        "baseDiscount": 6,
+        "popular": false,
+        "bestValue": false
+      },
+      {
+        "weeks": 12,
+        "label": "3 měsíce",
+        "periodDesc": "12 týdnů (čtvrtletí)",
+        "badge": "280 Kč / h (3 360 Kč)",
+        "baseDiscount": 12.5,
+        "popular": false,
+        "bestValue": false
+      },
+      {
+        "weeks": 20,
+        "label": "Pololetí",
+        "periodDesc": "20 týdnů (půl roku)",
+        "badge": "250 Kč / h (5 000 Kč)",
+        "baseDiscount": 22,
+        "popular": true,
+        "bestValue": false
+      },
+      {
+        "weeks": 40,
+        "label": "Celý rok",
+        "periodDesc": "40 týdnů (školní rok)",
+        "badge": "220 Kč / h (8 800 Kč)",
+        "baseDiscount": 31,
+        "popular": false,
+        "bestValue": true
+      }
+    ],
+    "frequencies": [
+      {
+        "freq": 1,
+        "label": "1× týdně",
+        "desc": "Standardní tempo hrou",
+        "bonus": 0,
+        "badge": "Standardní",
+        "recommended": false
+      },
+      {
+        "freq": 2,
+        "label": "2× týdně",
+        "desc": "Rychlý pokrok & sazba 220 Kč",
+        "bonus": 9,
+        "badge": "Doporučeno (220 Kč/h)",
+        "recommended": true
+      },
+      {
+        "freq": 3,
+        "label": "3× týdně",
+        "desc": "Intenzivní příprava & testy",
+        "bonus": 9,
+        "badge": "Max. intenzita",
+        "recommended": false
+      }
+    ]
+  },
   "comparisonTable": {
     "badge": "📊 PŘEHLEDNÉ SROVNÁNÍ BALÍČKŮ",
     "title": "Kolik přesně ušetříte při předplatném výuky?",

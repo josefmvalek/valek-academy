@@ -8,17 +8,21 @@ import ComparisonTable from './ComparisonTable.astro';
 import HowGameLessonWorks from './HowGameLessonWorks.astro';
 import LessonTimeline from './LessonTimeline.astro';
 import About from './About.astro';
+import GroupMatcher from './GroupMatcher.astro';
 import Testimonials from './Testimonials.astro';
 import ScioSection from './ScioSection.astro';
 import FAQ from './FAQ.astro';
 import Contact from './Contact.astro';
 import Footer from './Footer.astro';
+import { getSchedulePageData } from '../lib/data';
 
 interface Props {
   page?: any;
+  schedule?: any;
 }
 
-const { page = {} } = Astro.props;
+const { page = {}, schedule: passedSchedule } = Astro.props;
+const schedule = passedSchedule || page.schedule || (await getSchedulePageData())?.schedule || {};
 const navbar = page.navbar || {};
 const hero = page.hero || {};
 const audience = page.audience || {};
@@ -28,6 +32,7 @@ const comparison = page.comparison || {};
 const testimonials = page.testimonials || {};
 const howItWorks = page.howItWorks || {};
 const timeline = page.timeline || {};
+const groupMatcher = page.groupMatcher || {};
 const scio = page.scio || {};
 const locationInfo = page.location || {};
 const faq = page.faq || {};
@@ -59,8 +64,16 @@ const footer = page.footer || {};
   <!-- 5. The Teacher & Doučovna: Josef Válek's Melbourne roots, 25 years in ČR, 4 pillars + classroom photo gallery -->
   {about.enabled !== false && <About about={about} locationInfo={locationInfo} />}
 
-  <!-- 6. Weekly Schedule: Animal groups timetable with Smart Group Finder -->
-  <ScheduleBlocks schedule={page.schedule} />
+  <!-- 6. Interactive Group Matcher: 3-step quiz to find ideal group & games for the child -->
+  {groupMatcher.enabled !== false && (
+    <GroupMatcher
+      groupMatcher={groupMatcher}
+      phone={contact.phone?.replace('+', '') || '420792372642'}
+    />
+  )}
+
+  <!-- 7. Weekly Schedule: Animal groups timetable with Smart Group Finder -->
+  <ScheduleBlocks schedule={schedule} />
 
   <!-- 7. Transparency & Value: Svižný ceník + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
   {pricing.enabled !== false && <Pricing pricing={pricing} />}

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import sharp from 'sharp';
 
 export const prerender = false;
 
@@ -56,13 +57,29 @@ export const POST: APIRoute = async ({ request }) => {
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '') || 'obrazek';
     
+    // Process buffer and convert to WebP unless it's SVG
+    const arrayBuffer = await file.arrayBuffer();
+    let buffer: any = Buffer.from(arrayBuffer);
+    let finalExt = ext.toLowerCase();
+
+    if (file.type !== 'image/svg+xml') {
+      try {
+        buffer = await sharp(buffer)
+          .rotate() // Auto-orient phone photos
+          .resize({ width: 1920, height: 1920, fit: 'inside', withoutEnlargement: true })
+          .webp({ quality: 85, effort: 4 })
+          .toBuffer();
+        finalExt = '.webp';
+      } catch (sharpErr) {
+        console.warn('Auto WebP conversion failed, falling back to original:', sharpErr);
+      }
+    }
+
     const timestamp = Date.now();
-    const finalFilename = `${baseName}-${timestamp}${ext.toLowerCase()}`;
+    const finalFilename = `${baseName}-${timestamp}${finalExt}`;
     const destinationPath = path.join(uploadsDir, finalFilename);
 
     // Write file
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
     await fs.writeFile(destinationPath, buffer);
 
     const publicUrl = `/uploads/${finalFilename}`;

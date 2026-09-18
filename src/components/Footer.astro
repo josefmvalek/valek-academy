@@ -65,6 +65,14 @@ const whatsappNumber = contact.whatsapp || contactPhone.replace('+', '') || "420
 const whatsappText = contact.whatsappText || "WhatsApp zpráva";
 const contactLocation = contact.location || "Růžová 1238, Uherské Hradiště";
 const contactHours = contact.hours || "Pondělí – Pátek: 8:00 – 19:00";
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHomePage = pathname === '/';
+const getHref = (href: string) => {
+  if (!href) return '#';
+  if (isHomePage || !href.startsWith('#')) return href;
+  return `/${href}`;
+};
 ---
 
 <footer class="bg-[#FBF8F2] border-t border-parchment-300 py-12 md:py-16 text-stone-700 relative overflow-hidden">
@@ -101,7 +109,7 @@ const contactHours = contact.hours || "Pondělí – Pátek: 8:00 – 19:00";
         <ul class="space-y-2 text-xs sm:text-sm text-stone-600">
           {navLinks.map((link: any, idx: number) => (
             <li data-tina-field={tinaField(footer, 'navLinks', idx)}>
-              <a href={link.href} class={`hover:text-amber-800 transition-colors ${link.href === '#rozrazovac' ? 'text-amber-900 font-bold' : ''}`} data-tina-field={tinaField(link, 'label')}>
+              <a href={getHref(link.href)} class={`hover:text-amber-800 transition-colors ${link.href === '#rozrazovac' ? 'text-amber-900 font-bold' : ''}`} data-tina-field={tinaField(link, 'label')}>
                 {link.label}
               </a>
             </li>

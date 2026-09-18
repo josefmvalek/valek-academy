@@ -92,15 +92,17 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
       <input type="hidden" id="selected-group-input" name="selected_group" value="" />
 
-      <!-- Selected Animal Group Callout (Active when clicked from weekly schedule) -->
-      <div id="selected-group-callout" class="hidden p-3.5 sm:p-4 rounded-card-lg bg-amber-100/90 border-2 border-amber-400 shadow-2xs transition-all">
+      <!-- Form interactive fields container (hidden after successful submission) -->
+      <div id="form-interactive-fields" class="space-y-4 sm:space-y-5">
+        <!-- Selected Animal Group Callout (Active when clicked from weekly schedule) -->
+        <div id="selected-group-callout" class="hidden p-3.5 sm:p-4 rounded-card-lg bg-amber-100/90 border-2 border-amber-400 shadow-2xs transition-all">
         <div class="flex items-center justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
             <span id="callout-group-emoji" class="w-10 h-10 rounded-card-md bg-amber-300 text-espresso-950 flex items-center justify-center text-xl flex-shrink-0 font-bold shadow-2xs border border-amber-400">
               🦘
             </span>
             <div class="min-w-0">
-              <div class="text-[11px] font-black uppercase tracking-wider text-amber-900" data-tina-field={tinaField(contact, 'selectedGroupCalloutTitle')}>
+              <div class="text-[11px] font-black uppercase tracking-wider text-amber-900" data-tina-field={tinaField(contact, 'selectedGroupCalloutTitle')} data-edit-key="contact.selectedGroupCalloutTitle" data-edit-label="Zvolená skupinka nadpis">
                 {selectedGroupCalloutTitle}
               </div>
               <div id="callout-group-title" class="font-heading font-black text-sm sm:text-base text-espresso-950 truncate">
@@ -117,6 +119,8 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
             class="text-xs text-espresso-800 hover:text-red-700 font-bold px-2.5 py-1.5 rounded-xl hover:bg-amber-200/80 transition-colors whitespace-nowrap cursor-pointer flex-shrink-0 border border-amber-300 bg-white/70"
             title="Zrušit a vybrat jiné zvířátko"
             data-tina-field={tinaField(contact, 'selectedGroupClearText')}
+            data-edit-key="contact.selectedGroupClearText"
+            data-edit-label="Zrušit výběr zvířátka"
           >
             {selectedGroupClearText}
           </button>
@@ -126,7 +130,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <!-- Row 1: Segment Choice (Custom Rich Dropdown) -->
       <div class="relative custom-dropdown-container" id="custom-segment-dropdown">
         <label id="segment-label" class="block text-xs font-black uppercase tracking-wider text-espresso-950 mb-2">
-          <span data-tina-field={tinaField(contact, 'programLabel')}>{programLabel}</span> <span class="text-red-500">*</span>
+          <span data-tina-field={tinaField(contact, 'programLabel')} data-edit-key="contact.programLabel" data-edit-label="Štítek výběru programu">{programLabel}</span> <span class="text-red-500">*</span>
         </label>
 
         <!-- Hidden native select for form submit, accessibility & Tina fallback -->
@@ -141,14 +145,14 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
           <option value="Děti na ZŠ (Výuka hrou v malé skupince 4–8 dětí) – 1. LEKCE ZDARMA" selected>
             🎲 Děti na ZŠ (Skupinka 4–8 dětí hrou) – 1. LEKCE 100% ZDARMA [Otevřeno]
           </option>
-          <option value="Dospělí & Konverzace [Brzy – Čekací listina]">
-            💼 Angličtina pro dospělé [Přednostní čekací listina]
+          <option value="Středoškoláci & Maturita (90 min intenzivní bloky) – 1. LEKCE ZDARMA">
+            🎓 Střední škola a maturita (90 min bloky) – 1. LEKCE 100% ZDARMA [Otevřeno]
           </option>
-          <option value="Středoškoláci & Maturita [Brzy – Čekací listina]">
-            🎓 Střední škola a maturita [Přednostní čekací listina]
+          <option value="Angličtina pro dospělé & Konverzace (Miniskupinky i individuál)">
+            💼 Angličtina pro dospělé & Konverzace [Otevřeno / Dle domluvy]
           </option>
-          <option value="SCIO testy & Přijímačky na SŠ [Brzy – Čekací listina]">
-            📐 SCIO testy & Přijímačky na SŠ [Přednostní čekací listina]
+          <option value="SCIO testy & Přijímačky na SŠ (Čeština & Matematika)">
+            📐 SCIO testy & Přijímačky na SŠ [Přednostní zápis]
           </option>
         </select>
 
@@ -223,15 +227,44 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
             <span class="option-check text-base text-amber-700 font-black flex-shrink-0">✓</span>
           </div>
 
-          <!-- Option 2: Dospělí -->
+          <!-- Option 2: Středoškoláci & Maturita -->
           <div
             role="option"
             aria-selected="false"
-            data-value="Dospělí & Konverzace [Brzy – Čekací listina]"
+            data-value="Středoškoláci & Maturita (90 min intenzivní bloky) – 1. LEKCE ZDARMA"
+            data-icon="🎓"
+            data-title="Střední škola & Maturita"
+            data-badge="🎁 1. lekce ZDARMA • Otevřeno"
+            data-badge-class="bg-emerald-100 text-emerald-900 border border-emerald-300"
+            data-desc="Příprava k maturitě (didaktické testy & ústní část), Cambridge zkoušky a konverzace"
+            class="segment-option p-3 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
+          >
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="w-10 h-10 rounded-xl bg-amber-100 text-espresso-950 flex items-center justify-center text-lg flex-shrink-0 group-hover/opt:scale-110 transition-transform shadow-2xs border border-amber-300">
+                🎓
+              </span>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-heading font-black text-sm text-espresso-950">Střední škola & Maturita (90 min)</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300">
+                    🎁 1. lekce ZDARMA • Otevřeno
+                  </span>
+                </div>
+                <p class="text-[11px] text-stone-500 font-normal truncate mt-0.5">Příprava k maturitě (didaktické testy & ústní část), plynulost mluvení bez trémy</p>
+              </div>
+            </div>
+            <span class="option-check text-base text-amber-700 font-black flex-shrink-0 hidden">✓</span>
+          </div>
+
+          <!-- Option 3: Dospělí -->
+          <div
+            role="option"
+            aria-selected="false"
+            data-value="Angličtina pro dospělé & Konverzace (Miniskupinky i individuál)"
             data-icon="💼"
             data-title="Angličtina pro dospělé & Konverzace"
-            data-badge="⏳ Přednostní čekací listina"
-            data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+            data-badge="💬 Otevřeno • Domluva"
+            data-badge-class="bg-amber-100 text-amber-900 border border-amber-300"
             data-desc="Mluvení bez stresu a ostychu, praktická slovní zásoba do práce i na cesty"
             class="segment-option p-3 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
           >
@@ -243,39 +276,10 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
                 <div class="flex items-center gap-2 flex-wrap">
                   <span class="font-heading font-black text-sm text-espresso-950">Angličtina pro dospělé & Konverzace</span>
                   <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">
-                    ⏳ Přednostní čekací listina
+                    💬 Otevřeno • Domluva
                   </span>
                 </div>
                 <p class="text-[11px] text-stone-500 font-normal truncate mt-0.5">Mluvení bez stresu a ostychu, praktická slovní zásoba do práce i na cesty</p>
-              </div>
-            </div>
-            <span class="option-check text-base text-amber-700 font-black flex-shrink-0 hidden">✓</span>
-          </div>
-
-          <!-- Option 3: Středoškoláci & Maturita -->
-          <div
-            role="option"
-            aria-selected="false"
-            data-value="Středoškoláci & Maturita [Brzy – Čekací listina]"
-            data-icon="🎓"
-            data-title="Střední škola & Maturita"
-            data-badge="⏳ Přednostní čekací listina"
-            data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
-            data-desc="Příprava k maturitě (didaktické testy & ústní část), Cambridge zkoušky a konverzace"
-            class="segment-option p-3 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
-          >
-            <div class="flex items-center gap-3 min-w-0">
-              <span class="w-10 h-10 rounded-xl bg-parchment-200 text-espresso-950 flex items-center justify-center text-lg flex-shrink-0 group-hover/opt:scale-110 transition-transform shadow-2xs border border-parchment-300">
-                🎓
-              </span>
-              <div class="min-w-0">
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-heading font-black text-sm text-espresso-950">Střední škola & Maturita</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">
-                    ⏳ Přednostní čekací listina
-                  </span>
-                </div>
-                <p class="text-[11px] text-stone-500 font-normal truncate mt-0.5">Příprava k maturitě (didaktické testy & ústní část), Cambridge zkoušky a konverzace</p>
               </div>
             </div>
             <span class="option-check text-base text-amber-700 font-black flex-shrink-0 hidden">✓</span>
@@ -285,10 +289,10 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
           <div
             role="option"
             aria-selected="false"
-            data-value="SCIO testy & Přijímačky na SŠ [Brzy – Čekací listina]"
+            data-value="SCIO testy & Přijímačky na SŠ (Čeština & Matematika)"
             data-icon="📐"
             data-title="SCIO testy & Přijímačky na SŠ"
-            data-badge="⏳ Přednostní čekací listina"
+            data-badge="🎯 Přednostní zápis"
             data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
             data-desc="Cílená příprava pro 5. a 9. třídy na jednotné přijímací zkoušky na gymnázia a SŠ"
             class="segment-option p-3 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
@@ -301,7 +305,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
                 <div class="flex items-center gap-2 flex-wrap">
                   <span class="font-heading font-black text-sm text-espresso-950">SCIO testy & Přijímačky na SŠ</span>
                   <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">
-                    ⏳ Přednostní čekací listina
+                    🎯 Přednostní zápis
                   </span>
                 </div>
                 <p class="text-[11px] text-stone-500 font-normal truncate mt-0.5">Cílená příprava pro 5. a 9. třídy na jednotné přijímací zkoušky na gymnázia a SŠ</p>
@@ -331,7 +335,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
           <label for="name" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            <span data-tina-field={tinaField(contact, 'parentNameLabel')}>{parentNameLabel}</span> <span class="text-red-500">*</span>
+            <span data-tina-field={tinaField(contact, 'parentNameLabel')} data-edit-key="contact.parentNameLabel" data-edit-label="Štítek jména rodiče">{parentNameLabel}</span> <span class="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -345,7 +349,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
 
         <div>
           <label for="child-name" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            <span data-tina-field={tinaField(contact, 'childNameLabel')}>{childNameLabel}</span> <span class="text-stone-400 text-[10px]">(např. Tomáš, 10 let)</span>
+            <span data-tina-field={tinaField(contact, 'childNameLabel')} data-edit-key="contact.childNameLabel" data-edit-label="Štítek jména dítěte">{childNameLabel}</span> <span class="text-stone-400 text-[10px]">(např. Tomáš, 10 let)</span>
           </label>
           <input
             type="text"
@@ -361,7 +365,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
           <label for="phone" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            <span data-tina-field={tinaField(contact, 'phoneLabel')}>{phoneLabel}</span> <span class="text-red-500">*</span>
+            <span data-tina-field={tinaField(contact, 'phoneLabel')} data-edit-key="contact.phoneLabel" data-edit-label="Štítek telefonu">{phoneLabel}</span> <span class="text-red-500">*</span>
           </label>
           <div class="relative">
             <input
@@ -380,7 +384,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
 
         <div>
           <label for="email" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-            <span data-tina-field={tinaField(contact, 'emailLabel')}>{emailLabel}</span> <span class="text-red-500">*</span>
+            <span data-tina-field={tinaField(contact, 'emailLabel')} data-edit-key="contact.emailLabel" data-edit-label="Štítek e-mailu">{emailLabel}</span> <span class="text-red-500">*</span>
           </label>
           <div class="relative">
             <input
@@ -403,7 +407,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
         <!-- Row 4: Grade Level (Custom Rich Dropdown) -->
         <div class="relative custom-dropdown-container" id="custom-level-dropdown">
         <label id="level-label" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5">
-          <span data-tina-field={tinaField(contact, 'levelLabel')}>{levelLabel}</span> <span class="text-stone-400 text-[10px] font-normal" data-tina-field={tinaField(contact, 'levelLabelNote')}>{levelLabelNote}</span>
+          <span data-tina-field={tinaField(contact, 'levelLabel')} data-edit-key="contact.levelLabel" data-edit-label="Štítek úrovně">{levelLabel}</span> <span class="text-stone-400 text-[10px] font-normal" data-tina-field={tinaField(contact, 'levelLabelNote')} data-edit-key="contact.levelLabelNote" data-edit-label="Poznámka k úrovni">{levelLabelNote}</span>
         </label>
 
         <!-- Hidden native select for form submit, accessibility & fallback -->
@@ -417,9 +421,9 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
           <option value="ZŠ 1. stupeň (1.–3. třída)">ZŠ 1. stupeň (1.–3. třída) – Malí objevitelé & deskovky</option>
           <option value="ZŠ 2. stupeň (4.–6. třída)" selected>ZŠ 2. stupeň (4.–6. třída) – Dobrodruzi & Karak</option>
           <option value="ZŠ 2. stupeň (7.–9. třída)">ZŠ 2. stupeň (7.–9. třída) – Mladí stratégové & Příprava na SŠ</option>
-          <option value="Střední škola / Maturita">Střední škola / Maturita [Přednostní čekací listina]</option>
-          <option value="Dospělý začátečník / Konverzace">Dospělý / Konverzace [Přednostní čekací listina]</option>
-          <option value="SCIO přijímačky">SCIO přijímačky 5. / 9. třída [Přednostní čekací listina]</option>
+          <option value="Střední škola / Maturita">Střední škola / Maturita – 90 min bloky [Otevřeno]</option>
+          <option value="Dospělý začátečník / Konverzace">Dospělý / Konverzace [Otevřeno / Domluva]</option>
+          <option value="SCIO přijímačky">SCIO přijímačky 5. / 9. třída [Přednostní zápis]</option>
         </select>
 
         <!-- Custom Trigger Button for Level -->
@@ -552,21 +556,21 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
             data-value="Střední škola / Maturita"
             data-icon="🎓"
             data-title="Střední škola / Maturita"
-            data-badge="⏳ Čekací listina"
-            data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+            data-badge="🎁 1. lekce ZDARMA • Otevřeno"
+            data-badge-class="bg-emerald-100 text-emerald-900 border border-emerald-300"
             data-desc="Příprava na ústní maturitu i didaktické testy, Cambridge certifikáty"
             class="level-option p-2.5 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
           >
             <div class="flex items-center gap-2.5 min-w-0">
-              <span class="w-8 h-8 rounded-lg bg-parchment-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
+              <span class="w-8 h-8 rounded-lg bg-amber-100 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
                 🎓
               </span>
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">Střední škola / Maturita</span>
-                  <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Čekací listina</span>
+                  <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300">Otevřeno (90 min)</span>
                 </div>
-                <p class="text-[10px] text-stone-500 font-normal truncate">Ústní maturita, didaktické testy a konverzace</p>
+                <p class="text-[10px] text-stone-500 font-normal truncate">Ústní maturita, didaktické testy a plynulost mluvení</p>
               </div>
             </div>
             <span class="option-check text-sm text-amber-700 font-black flex-shrink-0 hidden">✓</span>
@@ -579,21 +583,21 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
             data-value="Dospělý začátečník / Konverzace"
             data-icon="☕"
             data-title="Dospělý / Konverzace bez stresu"
-            data-badge="⏳ Čekací listina"
-            data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+            data-badge="💬 Otevřeno • Domluva"
+            data-badge-class="bg-amber-100 text-amber-900 border border-amber-300"
             data-desc="Rozmluvení bez strachu z chyb, praktická angličtina na cesty a do práce"
             class="level-option p-2.5 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
           >
             <div class="flex items-center gap-2.5 min-w-0">
-              <span class="w-8 h-8 rounded-lg bg-parchment-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
+              <span class="w-8 h-8 rounded-lg bg-amber-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
                 ☕
               </span>
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">Dospělý / Konverzace</span>
-                  <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Čekací listina</span>
+                  <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Otevřeno</span>
                 </div>
-                <p class="text-[10px] text-stone-500 font-normal truncate">Mluvení bez stresu, cestování a práce</p>
+                <p class="text-[10px] text-stone-500 font-normal truncate">Mluvení bez stresu, slovní zásoba na cesty a do práce</p>
               </div>
             </div>
             <span class="option-check text-sm text-amber-700 font-black flex-shrink-0 hidden">✓</span>
@@ -606,19 +610,19 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
             data-value="SCIO přijímačky"
             data-icon="📐"
             data-title="SCIO testy & Přijímačky"
-            data-badge="⏳ Čekací listina"
-            data-badge-class="bg-parchment-200 text-stone-800 border border-parchment-300"
+            data-badge="🎯 Přednostní zápis"
+            data-badge-class="bg-amber-100 text-amber-900 border border-amber-300"
             data-desc="Příprava pro 5. a 9. třídy na jednotné přijímací zkoušky na gymnázia"
             class="level-option p-2.5 rounded-xl border-2 border-transparent hover:border-amber-300 hover:bg-parchment-50 cursor-pointer transition-all flex items-center justify-between gap-3 group/opt"
           >
             <div class="flex items-center gap-2.5 min-w-0">
-              <span class="w-8 h-8 rounded-lg bg-parchment-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
+              <span class="w-8 h-8 rounded-lg bg-amber-200 text-espresso-950 flex items-center justify-center text-base flex-shrink-0 group-hover/opt:scale-110 transition-transform">
                 📐
               </span>
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="font-heading font-black text-xs sm:text-sm text-espresso-950">SCIO testy & Přijímačky</span>
-                  <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Čekací listina</span>
+                  <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">Přednostní zápis</span>
                 </div>
                 <p class="text-[10px] text-stone-500 font-normal truncate">Strategie řešení testů Cermat a Scio na gymnázia</p>
               </div>
@@ -632,9 +636,9 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <div>
         <div class="flex flex-wrap items-baseline justify-between gap-1 mb-2">
           <label class="block text-xs font-bold uppercase tracking-wider text-espresso-950">
-            <span data-tina-field={tinaField(contact, 'daysLabel')}>{daysLabel}</span> <span class="text-amber-800 text-[11px] font-semibold lowercase" data-tina-field={tinaField(contact, 'daysNote')}>{daysNote}</span>
+            <span data-tina-field={tinaField(contact, 'daysLabel')} data-edit-key="contact.daysLabel" data-edit-label="Preferované dny">{daysLabel}</span> <span class="text-amber-800 text-[11px] font-semibold lowercase" data-tina-field={tinaField(contact, 'daysNote')} data-edit-key="contact.daysNote" data-edit-label="Poznámka ke dnům">{daysNote}</span>
           </label>
-          <span class="text-[11px] text-stone-500" data-tina-field={tinaField(contact, 'daysTimeNote')}>{daysTimeNote}</span>
+          <span class="text-[11px] text-stone-500" data-tina-field={tinaField(contact, 'daysTimeNote')} data-edit-key="contact.daysTimeNote" data-edit-label="Časový tip">{daysTimeNote}</span>
         </div>
 
         <!-- Interactive Days Selector -->
@@ -706,7 +710,7 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
 
       <!-- Row 5: Message -->
       <div>
-        <label for="message" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5" data-tina-field={tinaField(contact, 'messageLabel')}>
+        <label for="message" class="block text-xs font-bold uppercase tracking-wider text-espresso-950 mb-1.5" data-tina-field={tinaField(contact, 'messageLabel')} data-edit-key="contact.messageLabel" data-edit-label="Štítek zprávy">
           {messageLabel}
         </label>
         <textarea
@@ -721,20 +725,20 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <!-- Reassuring 3-Step Micro-Timeline -->
       <div class="p-3 sm:p-3.5 rounded-2xl bg-parchment-100/90 border border-parchment-300/80 space-y-1.5 text-espresso-950">
         <div class="text-[10px] font-black uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
-          <span>⏱️</span> <span data-tina-field={tinaField(contact, 'stepsTitle')}>{stepsTitle}</span>
+          <span>⏱️</span> <span data-tina-field={tinaField(contact, 'stepsTitle')} data-edit-key="contact.stepsTitle" data-edit-label="Co se stane">{stepsTitle}</span>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
           <div class="flex items-start gap-1.5">
             <span class="w-4 h-4 rounded-full bg-amber-300 text-espresso-950 flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">1</span>
-            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step1Text')}>{step1Text}</span>
+            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step1Text')} data-edit-key="contact.step1Text" data-edit-label="Krok 1">{step1Text}</span>
           </div>
           <div class="flex items-start gap-1.5">
             <span class="w-4 h-4 rounded-full bg-amber-300 text-espresso-950 flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">2</span>
-            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step2Text')}>{step2Text}</span>
+            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step2Text')} data-edit-key="contact.step2Text" data-edit-label="Krok 2">{step2Text}</span>
           </div>
           <div class="flex items-start gap-1.5">
             <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">3</span>
-            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step3Text')}>{step3Text}</span>
+            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step3Text')} data-edit-key="contact.step3Text" data-edit-label="Krok 3">{step3Text}</span>
           </div>
         </div>
       </div>
@@ -755,14 +759,14 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       <div id="form-success" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-sm flex items-center gap-3">
         <span class="text-2xl">✅</span>
         <div>
-          <strong data-tina-field={tinaField(contact, 'formSuccessTitle')}>{formSuccessTitle}</strong> <span data-tina-field={tinaField(contact, 'formSuccessText')}>{formSuccessText}</span>
+          <strong data-tina-field={tinaField(contact, 'formSuccessTitle')} data-edit-key="contact.formSuccessTitle" data-edit-label="Úspěch: nadpis">{formSuccessTitle}</strong> <span data-tina-field={tinaField(contact, 'formSuccessText')} data-edit-key="contact.formSuccessText" data-edit-label="Úspěch: text">{formSuccessText}</span>
         </div>
       </div>
 
       <div id="form-error" class="hidden p-4 rounded-xl bg-rose-50 border border-rose-300 text-rose-900 text-sm flex items-center gap-3">
         <span class="text-2xl">⚠️</span>
         <div>
-          <strong data-tina-field={tinaField(contact, 'formErrorTitle')}>{formErrorTitle}</strong> <span data-tina-field={tinaField(contact, 'formErrorText')}>{formErrorText}</span>
+          <strong data-tina-field={tinaField(contact, 'formErrorTitle')} data-edit-key="contact.formErrorTitle" data-edit-label="Chyba: nadpis">{formErrorTitle}</strong> <span data-tina-field={tinaField(contact, 'formErrorText')} data-edit-key="contact.formErrorText" data-edit-label="Chyba: text">{formErrorText}</span>
         </div>
       </div>
 
@@ -770,6 +774,95 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
         <span>{securityNote}</span>
         <a href="/ochrana-osobnich-udaju" class="underline hover:text-amber-800 transition-colors ml-1 font-semibold" target="_blank" rel="noopener">Více informací v Zásadách ochrany osobních údajů & cookies.</a>
       </p>
+      </div><!-- /#form-interactive-fields -->
+
+      <!-- Booking Confirmation Receipt (Rich On-page Confirmation Card) -->
+      <div id="booking-confirmation-receipt" class="hidden space-y-5">
+        <div class="p-5 sm:p-7 rounded-card-lg bg-gradient-to-br from-emerald-50 via-white to-amber-50/50 border-2 border-emerald-500 shadow-md space-y-4">
+          
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-600 text-white shadow-2xs">
+              ✓ REZERVACE V POŘÁDKU PŘIJATA
+            </span>
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-200 text-amber-950 border border-amber-300">
+              🎁 1. lekce 100% ZDARMA
+            </span>
+          </div>
+
+          <div>
+            <h4 class="font-heading font-black text-fluid-h3 text-espresso-950">
+              Děkuji za zprávu, <span id="confirm-parent-name" class="text-amber-800 font-extrabold"></span>!
+            </h4>
+            <p class="text-xs sm:text-sm text-stone-700 mt-1.5 leading-relaxed font-normal">
+              Rezervaci ukázkové lekce pro <strong id="confirm-child-name" class="text-espresso-950">vaše dítě</strong> jsem úspěšně zaznamenal. Do 24 hodin se vám ozvu na telefon <strong id="confirm-phone-num" class="text-espresso-950"></strong> nebo e-mailem s potvrzením volného místa v partě.
+            </p>
+          </div>
+
+          <!-- Structured Ticket Card -->
+          <div class="p-4 rounded-card-md bg-white border-2 border-amber-300 shadow-2xs space-y-3 text-xs sm:text-sm">
+            <div class="flex items-center justify-between pb-2 border-b border-parchment-200 gap-2">
+              <span class="text-stone-500 font-semibold">Vybraný program:</span>
+              <span id="confirm-program-label" class="font-bold text-espresso-950 text-right">Děti na ZŠ (výuka hrou)</span>
+            </div>
+            <div id="confirm-group-row" class="flex items-center justify-between pb-2 border-b border-parchment-200 gap-2">
+              <span class="text-stone-500 font-semibold">Zvířecí skupinka:</span>
+              <span id="confirm-group-label" class="font-black text-amber-900 text-right">Dle domluvy</span>
+            </div>
+            <div class="flex items-center justify-between pb-2 border-b border-parchment-200 gap-2">
+              <span class="text-stone-500 font-semibold">Preferované dny:</span>
+              <span id="confirm-days-label" class="font-bold text-espresso-950 text-right">Kdykoliv v týdnu</span>
+            </div>
+            <div class="flex items-start justify-between pb-2 border-b border-parchment-200 gap-2">
+              <span class="text-stone-500 font-semibold flex-shrink-0">Místo doučovny:</span>
+              <span class="font-bold text-espresso-950 text-right">📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO – 90 s pěšky)</span>
+            </div>
+            <div class="flex items-start justify-between pb-2 border-b border-parchment-200 gap-2">
+              <span class="text-stone-500 font-semibold flex-shrink-0">Co si vzít s sebou:</span>
+              <span class="font-medium text-stone-700 text-right">Pouze přezůvky a dobrou náladu. Deskovky, karty, didaktické materiály i pití jsou zajištěny.</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-stone-500 font-semibold">Cena:</span>
+              <span class="font-black text-emerald-700 text-right text-sm sm:text-base">100% ZDARMA (nezávazně vyzkoušíte)</span>
+            </div>
+          </div>
+
+          <!-- Calendar & WhatsApp Quick Action Bar -->
+          <div class="pt-2 space-y-2.5">
+            <div class="grid sm:grid-cols-2 gap-2.5">
+              <a
+                id="add-google-cal-btn"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="py-3 px-4 rounded-xl bg-white hover:bg-amber-50 text-espresso-950 border-2 border-amber-400 font-heading font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-2xs transition-all hover:scale-[1.02] cursor-pointer"
+              >
+                <span>📅</span>
+                <span>Uložit do Google Kalendáře</span>
+              </a>
+
+              <a
+                id="confirm-whatsapp-btn"
+                href="https://wa.me/420792372642"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-2xs transition-all hover:scale-[1.02] cursor-pointer"
+              >
+                <span>💬</span>
+                <span>Napsat panu Válkovi na WhatsApp</span>
+              </a>
+            </div>
+
+            <button
+              type="button"
+              id="reset-form-btn"
+              class="w-full py-2.5 px-4 text-xs font-bold text-stone-500 hover:text-espresso-950 hover:underline transition-colors text-center cursor-pointer"
+            >
+              ↺ Chcete odeslat další rezervaci nebo přihlásit sourozence?
+            </button>
+          </div>
+
+        </div>
+      </div>
 
     </form>
 
@@ -1008,44 +1101,75 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
   const emailValidIcon = document.getElementById('email-valid-icon');
 
   function formatPhoneCzech(val: string): string {
-    let cleaned = val.replace(/[^\d+]/g, '');
-    if (cleaned.startsWith('+420')) {
-      const rest = cleaned.slice(4).replace(/\D/g, '');
-      const parts = rest.match(/(\d{1,3})/g) || [];
-      return '+420 ' + parts.join(' ');
-    } else if (cleaned.startsWith('+')) {
-      return cleaned;
+    let raw = val.trim();
+    if (!raw) return '';
+
+    // Handle Czech (+420) and Slovak (+421) prefixes
+    let prefix = '+420 ';
+    let digits = '';
+
+    if (raw.startsWith('+421')) {
+      prefix = '+421 ';
+      digits = raw.slice(4).replace(/\D/g, '');
+    } else if (raw.startsWith('+420')) {
+      prefix = '+420 ';
+      digits = raw.slice(4).replace(/\D/g, '');
+    } else if (raw.startsWith('420') && raw.length > 9) {
+      prefix = '+420 ';
+      digits = raw.slice(3).replace(/\D/g, '');
+    } else if (raw.startsWith('421') && raw.length > 9) {
+      prefix = '+421 ';
+      digits = raw.slice(3).replace(/\D/g, '');
+    } else if (raw.startsWith('+')) {
+      return raw; // Keep custom international format
     } else {
-      const digits = cleaned.replace(/\D/g, '');
-      if (digits.length > 9 && digits.startsWith('420')) {
-        const rest = digits.slice(3);
-        const parts = rest.match(/(\d{1,3})/g) || [];
-        return '+420 ' + parts.join(' ');
-      }
-      const parts = digits.match(/(\d{1,3})/g) || [];
-      return parts.join(' ');
+      prefix = '+420 ';
+      digits = raw.replace(/\D/g, '');
     }
+
+    // Limit to 9 digits for CZ/SK local numbers
+    digits = digits.slice(0, 9);
+    if (!digits) return '';
+
+    const parts = digits.match(/.{1,3}/g) || [];
+    return prefix + parts.join(' ');
   }
 
   phoneInput?.addEventListener('input', (e) => {
     if (!phoneInput) return;
+    const isDelete = (e as any).inputType?.includes('delete');
     const curVal = phoneInput.value;
-    const formatted = formatPhoneCzech(curVal);
-    if (formatted !== curVal && !(e as any).inputType?.includes('delete')) {
-      phoneInput.value = formatted;
+
+    // If user is deleting and field has only the prefix left, clear completely
+    if (isDelete && (curVal === '+420 ' || curVal === '+420' || curVal === '+421 ' || curVal === '+421' || curVal === '+')) {
+      phoneInput.value = '';
+      if (phoneFeedback) phoneFeedback.innerHTML = '';
+      phoneValidIcon?.classList.add('hidden');
+      phoneInput.classList.remove('border-emerald-500', 'bg-emerald-50/20', 'border-amber-400');
+      phoneInput.classList.add('border-parchment-300');
+      return;
     }
 
-    const digitsOnly = phoneInput.value.replace(/\D/g, '').replace(/^420/, '');
+    if (!isDelete && curVal.length > 0) {
+      const formatted = formatPhoneCzech(curVal);
+      if (formatted) {
+        phoneInput.value = formatted;
+      }
+    }
+
+    const digitsOnly = phoneInput.value.replace(/\D/g, '').replace(/^(420|421)/, '');
     if (digitsOnly.length === 9) {
       if (phoneFeedback) {
-        phoneFeedback.innerHTML = '<span class="text-emerald-700 font-bold flex items-center gap-1"><span>✓</span> <span>Telefon je v pořádku</span></span>';
+        phoneFeedback.innerHTML = '<span class="text-emerald-700 font-bold flex items-center gap-1"><span>✓</span> <span>Telefonní číslo je v pořádku</span></span>';
       }
       phoneValidIcon?.classList.remove('hidden');
       phoneInput.classList.remove('border-parchment-300', 'border-amber-400');
       phoneInput.classList.add('border-emerald-500', 'bg-emerald-50/20');
     } else if (digitsOnly.length > 0) {
+      const remaining = 9 - digitsOnly.length;
+      const plural = remaining === 1 ? 'číslici' : (remaining < 5 ? 'číslice' : 'číslic');
       if (phoneFeedback) {
-        phoneFeedback.innerHTML = `<span class="text-stone-500">Zbývá zadat ještě ${9 - digitsOnly.length} číslice</span>`;
+        phoneFeedback.innerHTML = `<span class="text-stone-500">Zbývá zadat ještě ${remaining} ${plural}</span>`;
       }
       phoneValidIcon?.classList.add('hidden');
       phoneInput.classList.remove('border-emerald-500', 'bg-emerald-50/20', 'border-parchment-300');
@@ -1055,6 +1179,13 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       phoneValidIcon?.classList.add('hidden');
       phoneInput.classList.remove('border-emerald-500', 'bg-emerald-50/20', 'border-amber-400');
       phoneInput.classList.add('border-parchment-300');
+    }
+  });
+
+  phoneInput?.addEventListener('blur', () => {
+    if (!phoneInput) return;
+    if (phoneInput.value.trim().length > 0) {
+      phoneInput.value = formatPhoneCzech(phoneInput.value);
     }
   });
 
@@ -1312,13 +1443,44 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
     }
   }
 
+  const fieldsWrapper = document.getElementById('form-interactive-fields');
+  const receiptEl = document.getElementById('booking-confirmation-receipt');
+  const resetFormBtn = document.getElementById('reset-form-btn');
+
+  const confirmParentName = document.getElementById('confirm-parent-name');
+  const confirmChildName = document.getElementById('confirm-child-name');
+  const confirmPhoneNum = document.getElementById('confirm-phone-num');
+  const confirmProgramLabel = document.getElementById('confirm-program-label');
+  const confirmGroupLabel = document.getElementById('confirm-group-label');
+  const confirmGroupRow = document.getElementById('confirm-group-row');
+  const confirmDaysLabel = document.getElementById('confirm-days-label');
+  const addGoogleCalBtn = document.getElementById('add-google-cal-btn') as HTMLAnchorElement | null;
+  const confirmWhatsAppBtn = document.getElementById('confirm-whatsapp-btn') as HTMLAnchorElement | null;
+
+  resetFormBtn?.addEventListener('click', () => {
+    form?.reset();
+    clearSelectedGroup();
+    selectedDays.clear();
+    selectedDays.add('Kdykoliv');
+    updateDaysState();
+    if (phoneFeedback) phoneFeedback.innerHTML = '';
+    if (emailFeedback) emailFeedback.innerHTML = '';
+    phoneValidIcon?.classList.add('hidden');
+    emailValidIcon?.classList.add('hidden');
+    phoneInput?.classList.remove('border-emerald-500', 'bg-emerald-50/20', 'border-amber-400');
+    phoneInput?.classList.add('border-parchment-300');
+    receiptEl?.classList.add('hidden');
+    fieldsWrapper?.classList.remove('hidden');
+    fieldsWrapper?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form || !submitBtn) return;
 
-    // Check phone valid digits length
+    // Check phone valid digits length (must have at least 9 local digits)
     if (phoneInput) {
-      const digits = phoneInput.value.replace(/\D/g, '').replace(/^420/, '');
+      const digits = phoneInput.value.replace(/\D/g, '').replace(/^(420|421)/, '');
       if (digits.length < 9) {
         phoneInput.focus();
         if (phoneFeedback) {
@@ -1335,13 +1497,55 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
     successBox?.classList.add('hidden');
     errorBox?.classList.add('hidden');
 
+    const nameVal = (document.getElementById('name') as HTMLInputElement)?.value?.trim() || "";
+    const childNameVal = (document.getElementById('child-name') as HTMLInputElement)?.value?.trim() || "";
+    const phoneVal = phoneInput?.value?.trim() || "";
+    const emailVal = emailInput?.value?.trim() || "";
+    const segmentVal = segmentSelect?.value || "";
+    const levelVal = (document.getElementById('level') as HTMLSelectElement)?.value || "";
+    const daysVal = daysHiddenInput?.value || "Kdykoliv v týdnu";
+    const selectedGroupVal = selectedGroupInput?.value || "";
+    const messageVal = (document.getElementById('message') as HTMLTextAreaElement)?.value?.trim() || "";
+
     const formData = new FormData(form);
     const accessKey = form.dataset.accessKey || "";
+
+    // Add clean, human-readable labels for Mr. Válek's Web3Forms email
+    formData.append("1_Jmeno_rodice", nameVal);
+    if (childNameVal) formData.append("2_Dite_a_vek", childNameVal);
+    formData.append("3_Telefon", phoneVal);
+    formData.append("4_Email", emailVal);
+    formData.append("5_Vybrany_program", segmentVal);
+    if (selectedGroupVal) formData.append("6_Zvireci_skupinka", selectedGroupVal);
+    formData.append("7_Preferovane_dny", daysVal);
+    formData.append("8_Uroven_trida", levelVal);
+    formData.append("9_Misto_vyuky", "Růžová 1238, Uherské Hradiště (100% naživo naproti ZŠ UNESCO)");
+    if (messageVal) formData.append("10_Poznamka", messageVal);
+
+    // Call internal server endpoint for autoresponder / receipts
+    try {
+      fetch('/api/send-reservation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: nameVal,
+          childName: childNameVal,
+          phone: phoneVal,
+          email: emailVal,
+          segment: segmentVal,
+          selectedGroup: selectedGroupVal,
+          days: daysVal,
+          level: levelVal,
+          message: messageVal
+        })
+      }).catch(() => {});
+    } catch {
+      // Background task
+    }
 
     try {
       if (accessKey) {
         formData.append("access_key", accessKey);
-        const nameVal = (document.getElementById('name') as HTMLInputElement)?.value?.trim();
         formData.append("subject", nameVal ? `Nová poptávka: 1. lekce zdarma – ${nameVal}` : "Nová poptávka 1. lekce zdarma z webu VALEK ACADEMY");
         formData.append("from_name", "VALEK ACADEMY Rezervace");
         
@@ -1352,35 +1556,15 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
 
         const data = await response.json();
         if (data.success) {
-          form.reset();
-          clearSelectedGroup();
-          selectedDays.clear();
-          selectedDays.add('Kdykoliv');
-          updateDaysState();
-          if (phoneFeedback) phoneFeedback.innerHTML = '';
-          if (emailFeedback) emailFeedback.innerHTML = '';
-          phoneValidIcon?.classList.add('hidden');
-          emailValidIcon?.classList.add('hidden');
-          successBox?.classList.remove('hidden');
-          triggerCelebration();
+          handleSuccess(nameVal, childNameVal, phoneVal, segmentVal, selectedGroupVal, daysVal);
         } else {
           console.error("Web3Forms submission error:", data);
           errorBox?.classList.remove('hidden');
         }
       } else {
-        // Fallback for development without key
+        // Fallback for local development without active key
         await new Promise((resolve) => setTimeout(resolve, 600));
-        form.reset();
-        clearSelectedGroup();
-        selectedDays.clear();
-        selectedDays.add('Kdykoliv');
-        updateDaysState();
-        if (phoneFeedback) phoneFeedback.innerHTML = '';
-        if (emailFeedback) emailFeedback.innerHTML = '';
-        phoneValidIcon?.classList.add('hidden');
-        emailValidIcon?.classList.add('hidden');
-        successBox?.classList.remove('hidden');
-        triggerCelebration();
+        handleSuccess(nameVal, childNameVal, phoneVal, segmentVal, selectedGroupVal, daysVal);
       }
     } catch {
       errorBox?.classList.remove('hidden');
@@ -1389,4 +1573,43 @@ const formErrorText = contact.formErrorText || `Můžete mi prosím zavolat na $
       if (btnText) updateButtonLabel();
     }
   });
+
+  function handleSuccess(name: string, childName: string, phone: string, segment: string, group: string, days: string) {
+    if (confirmParentName) confirmParentName.textContent = name || "vážený zákazníku";
+    if (confirmChildName) confirmChildName.textContent = childName || "vaše dítě";
+    if (confirmPhoneNum) confirmPhoneNum.textContent = phone;
+    if (confirmProgramLabel) confirmProgramLabel.textContent = segment || "Výuka hrou";
+    
+    if (group && confirmGroupLabel && confirmGroupRow) {
+      confirmGroupLabel.textContent = group;
+      confirmGroupRow.classList.remove('hidden');
+    } else if (confirmGroupRow) {
+      confirmGroupRow.classList.add('hidden');
+    }
+
+    if (confirmDaysLabel) confirmDaysLabel.textContent = days || "Kdykoliv v týdnu";
+
+    // Setup Google Calendar Link
+    if (addGoogleCalBtn) {
+      const calTitle = encodeURIComponent("1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY");
+      const calDesc = encodeURIComponent(`Ukázková lekce angličtiny hrou v malé skupince pro ${childName || 'dítě'}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!`);
+      const calLoc = encodeURIComponent("Růžová 1238, 686 01 Uherské Hradiště (naproti ZŠ UNESCO)");
+      addGoogleCalBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&details=${calDesc}&location=${calLoc}`;
+    }
+
+    // Setup WhatsApp Button Link with personalized message
+    if (confirmWhatsAppBtn) {
+      const waMsg = encodeURIComponent(`Dobrý den pane Válku, právě jsem odeslal/a rezervaci 1. lekce zdarma pro ${childName || 'dítě'}. Rád/a bych se domluvil/a na konkrétním termínu.`);
+      confirmWhatsAppBtn.href = `https://wa.me/420792372642?text=${waMsg}`;
+    }
+
+    // Hide input fields, reveal rich confirmation ticket
+    if (fieldsWrapper && receiptEl) {
+      fieldsWrapper.classList.add('hidden');
+      receiptEl.classList.remove('hidden');
+      receiptEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    triggerCelebration();
+  }
 </script>

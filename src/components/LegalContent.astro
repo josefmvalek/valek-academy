@@ -21,6 +21,7 @@ const contactBoxSubtitle = legal.contactBoxSubtitle || (isPrivacy ? 'Kdykoliv se
 
 const adminInfo = legal.adminInfo || {};
 const providerInfo = legal.providerInfo || {};
+const partyKey = isPrivacy ? 'adminInfo' : 'providerInfo';
 const partyInfo = isPrivacy ? adminInfo : providerInfo;
 
 const sections = legal.sections || [];
@@ -36,25 +37,25 @@ const firstSection = sections[0] || {};
         href="/"
         class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-900 hover:text-espresso-950 transition-colors py-1.5 px-3 rounded-xl bg-amber-100/70 border border-amber-200"
       >
-        <span>←</span> <span data-tina-field={tinaField(legal, 'backLinkText')}>{backLinkText}</span>
+        <span>←</span> <span data-tina-field={tinaField(legal, 'backLinkText')} data-edit-key="legal.backLinkText" data-edit-label="Zpětný odkaz">{backLinkText}</span>
       </a>
       <div class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${isPrivacy ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-amber-100 text-amber-950 border border-amber-300'}`}>
-        <span>{isPrivacy ? '🔒' : '📜'}</span> <span data-tina-field={tinaField(legal, 'badge')}>{badge}</span>
+        <span>{isPrivacy ? '🔒' : '📜'}</span> <span data-tina-field={tinaField(legal, 'badge')} data-edit-key="legal.badge" data-edit-label="Štítek">{badge}</span>
       </div>
     </div>
 
     <!-- Header Card -->
     <div class="bg-white rounded-3xl p-6 sm:p-10 border-2 border-amber-200/80 shadow-soft-lg mb-8">
-      <h1 class="font-academy font-black text-2xl sm:text-4xl text-espresso-950 tracking-tight mb-3" data-tina-field={tinaField(legal, 'title')}>
+      <h1 class="font-academy font-black text-2xl sm:text-4xl text-espresso-950 tracking-tight mb-3" data-tina-field={tinaField(legal, 'title')} data-edit-key="legal.title" data-edit-label="Hlavní nadpis">
         {title}
       </h1>
-      <p class="text-sm sm:text-base text-espresso-800/85 leading-relaxed font-normal mb-4" data-tina-field={tinaField(legal, 'subtitle')}>
+      <p class="text-sm sm:text-base text-espresso-800/85 leading-relaxed font-normal mb-4" data-tina-field={tinaField(legal, 'subtitle')} data-edit-key="legal.subtitle" data-edit-label="Podnadpis">
         {subtitle}
       </p>
       <div class="flex flex-wrap items-center gap-4 text-xs text-stone-500 pt-3 border-t border-parchment-200">
-        <span>📅 Účinnost od: <span data-tina-field={tinaField(legal, 'effectiveDate')}>{effectiveDate}</span></span>
+        <span>📅 Účinnost od: <span data-tina-field={tinaField(legal, 'effectiveDate')} data-edit-key="legal.effectiveDate" data-edit-label="Datum účinnosti">{effectiveDate}</span></span>
         <span>•</span>
-        <span>📍 {isPrivacy ? 'Provozovna' : 'Doučovna'}: <span data-tina-field={tinaField(legal, 'locationNote')}>{locationNote}</span></span>
+        <span>📍 {isPrivacy ? 'Provozovna' : 'Doučovna'}: <span data-tina-field={tinaField(legal, 'locationNote')} data-edit-key="legal.locationNote" data-edit-label="Lokalita">{locationNote}</span></span>
       </div>
     </div>
 
@@ -64,75 +65,78 @@ const firstSection = sections[0] || {};
       <!-- Section 1: Administrator / Provider Info Card -->
       <section class="bg-white rounded-3xl p-6 sm:p-8 border border-parchment-300 shadow-xs space-y-3">
         <div class="flex items-center gap-2.5 text-espresso-950 font-heading font-black text-lg sm:text-xl">
-          <span class="w-8 h-8 rounded-xl bg-amber-100 text-espresso-950 flex items-center justify-center text-sm font-bold" data-tina-field={firstSection.number ? tinaField(firstSection, 'number') : undefined}>
+          <span class="w-8 h-8 rounded-xl bg-amber-100 text-espresso-950 flex items-center justify-center text-sm font-bold" data-tina-field={firstSection.number ? tinaField(firstSection, 'number') : undefined} data-edit-key="legal.sections.0.number" data-edit-label="Číslo sekce 1">
             {firstSection.number || '1'}
           </span>
-          <h2 data-tina-field={firstSection.title ? tinaField(firstSection, 'title') : undefined}>
+          <h2 data-tina-field={firstSection.title ? tinaField(firstSection, 'title') : undefined} data-edit-key="legal.sections.0.title" data-edit-label="Nadpis sekce 1">
             {firstSection.title || (isPrivacy ? 'Kdo je správcem vašich osobních údajů?' : 'Úvodní ustanovení a identifikace poskytovatele')}
           </h2>
         </div>
-        <p data-tina-field={firstSection.content ? tinaField(firstSection, 'content') : undefined}>
+        <p data-tina-field={firstSection.content ? tinaField(firstSection, 'content') : undefined} data-edit-key="legal.sections.0.content" data-edit-label="Obsah sekce 1">
           {firstSection.content || (isPrivacy ? 'Správcem osobních údajů ve smyslu Nařízení Evropského parlamentu a Rady (EU) 2016/679 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů (tzv. GDPR) a zákona č. 110/2019 Sb., o zpracování osobních údajů, je:' : 'Poskytovatelem vzdělávacích služeb a lektorem je:')}
         </p>
         <div class="p-4 rounded-2xl bg-parchment-50 border border-parchment-300 space-y-1.5 text-xs sm:text-sm font-medium">
-          <p><strong>Jméno a příjmení:</strong> <span data-tina-field={tinaField(partyInfo, 'name')}>{partyInfo.name || 'Josef Válek'}</span></p>
-          <p><strong>IČO:</strong> <span data-tina-field={tinaField(partyInfo, 'ico')}>{partyInfo.ico || '72419563'}</span></p>
-          <p><strong>{isPrivacy ? 'Sídlo a adresa doučovny' : 'Sídlo a doučovna'}:</strong> <span data-tina-field={tinaField(partyInfo, 'address')}>{partyInfo.address || 'Růžová 1238, 686 01 Uherské Hradiště, Česká republika'}</span></p>
-          <p><strong>{isPrivacy ? 'Zápis v evidenci' : 'Živnostenský zápis'}:</strong> <span data-tina-field={tinaField(partyInfo, 'registry')}>{partyInfo.registry || 'Fyzická osoba zapsaná v živnostenském rejstříku Městského úřadu Uherské Hradiště'}</span></p>
-          <p><strong>Daňový status:</strong> <span data-tina-field={tinaField(partyInfo, 'taxStatus')}>{partyInfo.taxStatus || 'Neplátce DPH'}</span></p>
-          <p><strong>{isPrivacy ? 'E-mail' : 'Kontaktní e-mail'}:</strong> <a href={`mailto:${partyInfo.email || 'info@valekacademy.cz'}`} class="text-amber-800 underline" data-tina-field={tinaField(partyInfo, 'email')}>{partyInfo.email || 'info@valekacademy.cz'}</a></p>
-          <p><strong>{isPrivacy ? 'Telefon' : 'Kontaktní telefon'}:</strong> <a href={`tel:${(partyInfo.phone || '+420 792 372 642').replace(/\s+/g, '')}`} class="text-amber-800 underline" data-tina-field={tinaField(partyInfo, 'phone')}>{partyInfo.phone || '+420 792 372 642'}</a></p>
+          <p><strong>Jméno a příjmení:</strong> <span data-tina-field={tinaField(partyInfo, 'name')} data-edit-key={`legal.${partyKey}.name`} data-edit-label="Jméno lektora">{partyInfo.name || 'Josef Válek'}</span></p>
+          <p><strong>IČO:</strong> <span data-tina-field={tinaField(partyInfo, 'ico')} data-edit-key={`legal.${partyKey}.ico`} data-edit-label="IČO">{partyInfo.ico || '72419563'}</span></p>
+          <p><strong>{isPrivacy ? 'Sídlo a adresa doučovny' : 'Sídlo a doučovna'}:</strong> <span data-tina-field={tinaField(partyInfo, 'address')} data-edit-key={`legal.${partyKey}.address`} data-edit-label="Adresa">{partyInfo.address || 'Růžová 1238, 686 01 Uherské Hradiště, Česká republika'}</span></p>
+          <p><strong>{isPrivacy ? 'Zápis v evidenci' : 'Živnostenský zápis'}:</strong> <span data-tina-field={tinaField(partyInfo, 'registry')} data-edit-key={`legal.${partyKey}.registry`} data-edit-label="Zápis v rejstříku">{partyInfo.registry || 'Fyzická osoba zapsaná v živnostenském rejstříku Městského úřadu Uherské Hradiště'}</span></p>
+          <p><strong>Daňový status:</strong> <span data-tina-field={tinaField(partyInfo, 'taxStatus')} data-edit-key={`legal.${partyKey}.taxStatus`} data-edit-label="Daňový status">{partyInfo.taxStatus || 'Neplátce DPH'}</span></p>
+          <p><strong>{isPrivacy ? 'E-mail' : 'Kontaktní e-mail'}:</strong> <a href={`mailto:${partyInfo.email || 'info@valekacademy.cz'}`} class="text-amber-800 underline" data-tina-field={tinaField(partyInfo, 'email')} data-edit-key={`legal.${partyKey}.email`} data-edit-label="Kontaktní e-mail">{partyInfo.email || 'info@valekacademy.cz'}</a></p>
+          <p><strong>{isPrivacy ? 'Telefon' : 'Kontaktní telefon'}:</strong> <a href={`tel:${(partyInfo.phone || '+420 792 372 642').replace(/\s+/g, '')}`} class="text-amber-800 underline" data-tina-field={tinaField(partyInfo, 'phone')} data-edit-key={`legal.${partyKey}.phone`} data-edit-label="Kontaktní telefon">{partyInfo.phone || '+420 792 372 642'}</a></p>
         </div>
         {!isPrivacy && (
-          <p class="text-xs text-stone-600" data-tina-field={tinaField(legal, 'clientNote')}>
+          <p class="text-xs text-stone-600" data-tina-field={tinaField(legal, 'clientNote')} data-edit-key="legal.clientNote" data-edit-label="Poznámka ke klientovi">
             {clientNote}
           </p>
         )}
       </section>
 
       <!-- Dynamic Sections from CMS -->
-      {sections.slice(1).map((sec: any) => (
-        <section class={`rounded-3xl p-6 sm:p-8 border shadow-xs space-y-3 ${(isPrivacy && sec.number === '6') || (!isPrivacy && sec.number === '2') ? 'bg-amber-50/70 border-2 border-amber-300' : 'bg-white border-parchment-300'}`}>
-          <div class="flex items-center gap-2.5 text-espresso-950 font-heading font-black text-lg sm:text-xl">
-            <span class={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${(isPrivacy && sec.number === '6') || (!isPrivacy && sec.number === '2') ? 'bg-amber-400 text-espresso-950' : 'bg-amber-100 text-espresso-950'}`} data-tina-field={tinaField(sec, 'number')}>
-              {sec.number}
-            </span>
-            <h2 data-tina-field={tinaField(sec, 'title')}>{sec.title}</h2>
-          </div>
-
-          {sec.content && (
-            <div class="space-y-2 whitespace-pre-line text-xs sm:text-sm text-stone-700 leading-relaxed" data-tina-field={tinaField(sec, 'content')}>
-              {sec.content}
+      {sections.slice(1).map((sec: any, idx: number) => {
+        const realIdx = idx + 1;
+        return (
+          <section class={`rounded-3xl p-6 sm:p-8 border shadow-xs space-y-3 ${(isPrivacy && sec.number === '6') || (!isPrivacy && sec.number === '2') ? 'bg-amber-50/70 border-2 border-amber-300' : 'bg-white border-parchment-300'}`}>
+            <div class="flex items-center gap-2.5 text-espresso-950 font-heading font-black text-lg sm:text-xl">
+              <span class={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${(isPrivacy && sec.number === '6') || (!isPrivacy && sec.number === '2') ? 'bg-amber-400 text-espresso-950' : 'bg-amber-100 text-espresso-950'}`} data-tina-field={tinaField(sec, 'number')} data-edit-key={`legal.sections.${realIdx}.number`} data-edit-label={`Číslo sekce ${sec.number || realIdx}`}>
+                {sec.number}
+              </span>
+              <h2 data-tina-field={tinaField(sec, 'title')} data-edit-key={`legal.sections.${realIdx}.title`} data-edit-label={`Nadpis sekce ${sec.number || realIdx}`}>{sec.title}</h2>
             </div>
-          )}
 
-          {sec.bullets && sec.bullets.length > 0 && (
-            <ul class="list-disc pl-5 space-y-1.5 text-stone-700 text-xs sm:text-sm pt-1">
-              {sec.bullets.map((b: any) => (
-                <li>
-                  {b.label && <strong data-tina-field={tinaField(b, 'label')}>{b.label} </strong>}
-                  <span data-tina-field={tinaField(b, 'text')}>{b.text}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-      ))}
+            {sec.content && (
+              <div class="space-y-2 whitespace-pre-line text-xs sm:text-sm text-stone-700 leading-relaxed" data-tina-field={tinaField(sec, 'content')} data-edit-key={`legal.sections.${realIdx}.content`} data-edit-label={`Obsah sekce ${sec.number || realIdx}`}>
+                {sec.content}
+              </div>
+            )}
+
+            {sec.bullets && sec.bullets.length > 0 && (
+              <ul class="list-disc pl-5 space-y-1.5 text-stone-700 text-xs sm:text-sm pt-1">
+                {sec.bullets.map((b: any, bIdx: number) => (
+                  <li>
+                    {b.label && <strong data-tina-field={tinaField(b, 'label')} data-edit-key={`legal.sections.${realIdx}.bullets.${bIdx}.label`} data-edit-label="Štítek odrážky">{b.label} </strong>}
+                    <span data-tina-field={tinaField(b, 'text')} data-edit-key={`legal.sections.${realIdx}.bullets.${bIdx}.text`} data-edit-label="Text odrážky">{b.text}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        );
+      })}
 
       <!-- Contact Box -->
       <section class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-soft space-y-3">
-        <h3 class="font-heading font-black text-base sm:text-lg text-espresso-950" data-tina-field={tinaField(legal, 'contactBoxTitle')}>
+        <h3 class="font-heading font-black text-base sm:text-lg text-espresso-950" data-tina-field={tinaField(legal, 'contactBoxTitle')} data-edit-key="legal.contactBoxTitle" data-edit-label="Nadpis kontaktního boxu">
           {contactBoxTitle}
         </h3>
-        <p class="text-xs sm:text-sm text-stone-700" data-tina-field={tinaField(legal, 'contactBoxSubtitle')}>
+        <p class="text-xs sm:text-sm text-stone-700" data-tina-field={tinaField(legal, 'contactBoxSubtitle')} data-edit-key="legal.contactBoxSubtitle" data-edit-label="Popis kontaktního boxu">
           {contactBoxSubtitle}
         </p>
         <div class="flex flex-wrap gap-4 pt-1">
           <a href={`mailto:${partyInfo.email || 'info@valekacademy.cz'}`} class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 text-espresso-950 font-bold text-xs sm:text-sm hover:bg-amber-300 transition-colors shadow-2xs">
-            <span>✉️</span> <span data-tina-field={tinaField(partyInfo, 'email')}>{partyInfo.email || 'info@valekacademy.cz'}</span>
+            <span>✉️</span> <span data-tina-field={tinaField(partyInfo, 'email')} data-edit-key={`legal.${partyKey}.email`} data-edit-label="E-mail">{partyInfo.email || 'info@valekacademy.cz'}</span>
           </a>
           <a href={`tel:${(partyInfo.phone || '+420 792 372 642').replace(/\s+/g, '')}`} class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-parchment-100 border border-parchment-300 text-espresso-950 font-bold text-xs sm:text-sm hover:bg-parchment-200 transition-colors">
-            <span>📞</span> <span data-tina-field={tinaField(partyInfo, 'phone')}>{partyInfo.phone || '+420 792 372 642'}</span>
+            <span>📞</span> <span data-tina-field={tinaField(partyInfo, 'phone')} data-edit-key={`legal.${partyKey}.phone`} data-edit-label="Telefon">{partyInfo.phone || '+420 792 372 642'}</span>
           </a>
         </div>
       </section>

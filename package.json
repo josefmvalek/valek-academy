@@ -9,6 +9,8 @@
     "build:cloud": "tinacms build --content=local -c \"astro build\"",
     "build:local": "tinacms build --local --skip-cloud-checks -c \"astro build\"",
     "preview": "astro preview",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "watch:images": "node scripts/optimize-images.mjs --watch",
     "typecheck": "astro check",
     "astro": "astro"
   },
@@ -19,6 +21,7 @@
     "astro": "^5.4.2",
     "canvas-confetti": "^1.9.4",
     "lucide-astro": "^0.477.0",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.17",
     "tinacms": "^3.12.1"
   },

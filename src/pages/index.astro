@@ -7,11 +7,13 @@ import VisualEditor from '../components/VisualEditor.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
 import PageContent from '../components/PageContent.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
-import { getHomePageDataQuery } from '../lib/data';
+import { getHomePageDataQuery, getSchedulePageData } from '../lib/data';
 import { islands } from '../lib/islands';
 
 const queryResult = await getHomePageDataQuery();
 const page = queryResult.data?.page || {};
+const schedulePage = await getSchedulePageData();
+const schedule = schedulePage?.schedule;
 const hero = page.hero || {};
 const contact = page.contact || {};
 const stickyCta = page.stickyCta || {};
@@ -21,11 +23,12 @@ const whatsappWidget = page.whatsappWidget || {};
 
 <Layout
   seo={seo}
+  faqItems={page.faq?.items}
   title={seo.metaTitle || page.title || "VALEK ACADEMY | Hravá angličtina s Čechoaustralanem v malých skupinkách"}
   description={seo.metaDescription || hero.subtitle || "VALEK ACADEMY: Výuka angličtiny v malých skupinkách hrou a deskovkami. Josef Válek vyrostl v Austrálii, žije 25+ let v ČR a učí s autentickým přízvukem a úsměvem."}
 >
   <TinaIsland name="page" wrapper={islands.page.wrapper} primary>
-    <PageContent page={page} />
+    <PageContent page={page} schedule={schedule} />
   </TinaIsland>
 
   {stickyCta.enabled !== false && <MobileStickyCTA ctaLink={stickyCta.link || "#kontakt"} ctaText={stickyCta.text} stickyCta={stickyCta} />}
