@@ -941,8 +941,11 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
     const isTeen = lower.includes('středoškoláci') || lower.includes('maturita') || lower.includes('střední');
     const isScio = lower.includes('scio') || lower.includes('přijímačky');
 
+    const customLevelDropdown = document.getElementById('custom-level-dropdown');
+
     if (isAdult) {
       // --- ADULT CONVERSATION MODE ---
+      customLevelDropdown?.classList.add('hidden');
       parentNameCol?.classList.add('sm:col-span-2');
       nameLabelText.textContent = adultNameLabelVal;
       nameInput.placeholder = "např. Ing. Petr Dvořák";
@@ -953,10 +956,7 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
         childNameInput.value = '';
       }
 
-      if (levelLabelTitle) levelLabelTitle.textContent = "Vaše současná úroveň / Cíl konverzace";
-      if (levelLabelNote) levelLabelNote.textContent = "(přizpůsobíme tempo i témata na míru)";
-
-      // Auto-select Adult level if currently on a kids level
+      // Auto-select Adult level
       if (levelSelect && !levelSelect.value.toLowerCase().includes('dospěl') && !levelSelect.value.toLowerCase().includes('konverzace')) {
         const adultOpt = Array.from(levelSelect.options).find(o => o.value.toLowerCase().includes('dospěl') || o.value.toLowerCase().includes('konverzace'));
         if (adultOpt) {
@@ -971,6 +971,7 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
 
     } else if (isTeen) {
       // --- TEEN / HIGH SCHOOL / MATURITA MODE ---
+      customLevelDropdown?.classList.add('hidden');
       parentNameCol?.classList.remove('sm:col-span-2');
       nameLabelText.textContent = teenNameLabelVal;
       nameInput.placeholder = "např. Tereza Dvořáková (3. ročník Gymnázia)";
@@ -982,9 +983,6 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
         childNameInput.placeholder = "např. Jan Dvořák (otec)";
         childNameInput.required = false;
       }
-
-      if (levelLabelTitle) levelLabelTitle.textContent = "Ročník SŠ / Zaměření";
-      if (levelLabelNote) levelLabelNote.textContent = "(příprava k maturitě či studiu)";
 
       // Auto-select High School level
       if (levelSelect && !levelSelect.value.toLowerCase().includes('střední') && !levelSelect.value.toLowerCase().includes('maturita')) {
@@ -1001,6 +999,7 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
 
     } else if (isScio) {
       // --- SCIO PREPARATION MODE ---
+      customLevelDropdown?.classList.add('hidden');
       parentNameCol?.classList.remove('sm:col-span-2');
       nameLabelText.textContent = defaultParentLabel;
       nameInput.placeholder = "např. Alena Nováková";
@@ -1012,9 +1011,6 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
         childNameInput.placeholder = "např. Tomáš, 9. třída (příprava na gymnázium)";
         childNameInput.required = false;
       }
-
-      if (levelLabelTitle) levelLabelTitle.textContent = "Třída a termín zkoušek";
-      if (levelLabelNote) levelLabelNote.textContent = "(5. nebo 9. třída ZŠ)";
 
       if (levelSelect) {
         const scioOpt = Array.from(levelSelect.options).find(o => o.value.toLowerCase().includes('scio'));
@@ -1030,6 +1026,7 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
 
     } else {
       // --- KIDS MODE (DEFAULT) ---
+      customLevelDropdown?.classList.remove('hidden');
       parentNameCol?.classList.remove('sm:col-span-2');
       nameLabelText.textContent = defaultParentLabel;
       nameInput.placeholder = "např. Alena Nováková";
@@ -1045,7 +1042,7 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
       if (levelLabelTitle) levelLabelTitle.textContent = defaultLevelLabel;
       if (levelLabelNote) levelLabelNote.textContent = defaultLevelNote;
 
-      if (levelSelect && (levelSelect.value.toLowerCase().includes('dospěl') || levelSelect.value.toLowerCase().includes('střední'))) {
+      if (levelSelect && (levelSelect.value.toLowerCase().includes('dospěl') || levelSelect.value.toLowerCase().includes('střední') || levelSelect.value.toLowerCase().includes('scio'))) {
         const kidsOpt = Array.from(levelSelect.options).find(o => o.value.includes('4.–6.') || o.value.includes('1.–3.'));
         if (kidsOpt) {
           levelSelect.value = kidsOpt.value;
