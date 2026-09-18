@@ -1737,9 +1737,13 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
     formData.append("5_Vybrany_program", segmentVal);
     if (selectedGroupVal) formData.append("6_Zvireci_skupinka", selectedGroupVal);
     formData.append("7_Preferovane_dny", daysVal);
-    formData.append("8_Uroven_trida", levelVal);
+    if (levelVal) formData.append("8_Uroven_trida", levelVal);
     formData.append("9_Misto_vyuky", "Růžová 1238, Uherské Hradiště (100% naživo naproti ZŠ UNESCO)");
     if (messageVal) formData.append("10_Poznamka", messageVal);
+
+    // Remove internal/raw field keys so Web3Forms only sends the clean numbered Czech fields to Mr. Válek's inbox
+    const rawKeys = ['name', 'child_name', 'phone', 'email', 'segment', 'level', 'days', 'selected_group', 'message', 'botcheck'];
+    rawKeys.forEach(k => formData.delete(k));
 
     // Call internal server endpoint for autoresponder / receipts
     try {
@@ -1765,10 +1769,13 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
     try {
       if (accessKey) {
         formData.append("access_key", accessKey);
-        formData.append("subject", nameVal ? `Nová poptávka: ${segmentVal} – ${nameVal}` : "Nová poptávka z webu VALEK ACADEMY");
+        const emailSubject = selectedGroupVal
+          ? `Nová rezervace: ${selectedGroupVal} – ${nameVal}`
+          : (nameVal ? `Nová poptávka: ${segmentVal} – ${nameVal}` : "Nová poptávka z webu VALEK ACADEMY");
+        formData.append("subject", emailSubject);
         formData.append("from_name", "VALEK ACADEMY Rezervace");
         
-        const response = await fetch("https://api.web3forms.com/submit", {
+        const response = await fetch("https://api.web3Forms.com/submit".toLowerCase(), {
           method: "POST",
           body: formData,
         });
@@ -1825,8 +1832,8 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
     // Setup Google Calendar Link
     if (addGoogleCalBtn) {
       const attendee = isAdult ? 'dospělého' : (childName || 'dítě');
-      const calTitle = encodeURIComponent("1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY");
-      const calDesc = encodeURIComponent(`Ukázková lekce angličtiny hrou v malé skupince pro ${attendee}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!`);
+      const calTitle = encodeURIComponent(group ? `1. lekce zdarma: ${group} | VALEK ACADEMY` : "1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY");
+      const calDesc = encodeURIComponent(`Ukázková lekce angličtiny hrou v malé skupince pro ${attendee}${group ? ` (skupinka: ${group})` : ''}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!`);
       const calLoc = encodeURIComponent("Růžová 1238, 686 01 Uherské Hradiště (naproti ZŠ UNESCO)");
       addGoogleCalBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&details=${calDesc}&location=${calLoc}`;
     }
@@ -1834,7 +1841,8 @@ const teenSubmitButtonText = contact.teenSubmitButtonText || "📝 Zapsat se na 
     // Setup WhatsApp Button Link with personalized message
     if (confirmWhatsAppBtn) {
       const attendee = isAdult ? 'mě' : (childName ? `mého syna/dceru ${childName}` : 'mé dítě');
-      const waMsg = encodeURIComponent(`Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro ${attendee}. Rád/a bych se domluvil/a na konkrétním termínu.`);
+      const groupNote = group ? ` (skupinka ${group})` : '';
+      const waMsg = encodeURIComponent(`Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro ${attendee}${groupNote}. Rád/a bych se domluvil/a na konkrétním termínu.`);
       confirmWhatsAppBtn.href = `https://wa.me/420792372642?text=${waMsg}`;
     }
 

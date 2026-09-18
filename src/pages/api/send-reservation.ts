@@ -28,6 +28,38 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
+    const lowerSeg = (data.segment || '').toLowerCase();
+    const isAdult = lowerSeg.includes('dospěl') || lowerSeg.includes('konverzace');
+    const isTeen = lowerSeg.includes('středoškoláci') || lowerSeg.includes('maturita') || lowerSeg.includes('střední');
+    const isScio = lowerSeg.includes('scio') || lowerSeg.includes('přijímačk');
+
+    // Dynamic greeting & context tailored to who signed up
+    let introGreeting = 'Dobrý den, děkuji za vaši rezervaci ukázkové lekce hrou v Uherském Hradišti.';
+    let prepInstructions = 'Pouze <strong>přezůvky a dobrou náladu</strong>. Veškeré deskové hry, výukové karty, mini-tabule i nápoje (čaj, voda) jsou v doučovně zdarma k dispozici.';
+    let prepTitle = '🎒 Co si vzít na 1. lekci s sebou?';
+    let nameLabel = 'Jméno rodiče:';
+    let secondaryLabel = 'Dítě / student:';
+
+    if (isAdult) {
+      introGreeting = 'Dobrý den, děkuji za váš zájem o lekce angličtiny a konverzace pro dospělé v Uherském Hradišti.';
+      prepTitle = '☕ Co s sebou na lekci?';
+      prepInstructions = 'Pouze <strong>dobrou náladu a chuť mluvit bez stresu a ostychu</strong>. Káva, čaj, voda i veškeré výukové materiály a konverzační okruhy jsou v učebně zdarma k dispozici.';
+      nameLabel = 'Jméno zájemce:';
+      secondaryLabel = '';
+    } else if (isTeen) {
+      introGreeting = 'Dobrý den, děkuji za rezervaci lekce pro studenta střední školy / přípravy k maturitě v Uherském Hradišti.';
+      prepTitle = '📚 Co si vzít na lekci s sebou?';
+      prepInstructions = 'Pouze <strong>sešit či blok, psací potřeby a chuť se posunout</strong>. Čaj, voda a studijní materiály jsou k dispozici zdarma.';
+      nameLabel = 'Jméno studenta:';
+      secondaryLabel = 'Kontakt na rodiče:';
+    } else if (isScio) {
+      introGreeting = 'Dobrý den, děkuji za poptávku přípravných kurzů SCIO a přijímacích zkoušek v Uherském Hradišti.';
+      prepTitle = '📐 Co si vzít na lekci s sebou?';
+      prepInstructions = 'Základní <strong>psací a rýsovací potřeby</strong>. Veškeré testové sady SCIO a CERMAT pro vás máme v učebně připravené.';
+      nameLabel = 'Jméno rodiče / zájemce:';
+      secondaryLabel = 'Žák / student:';
+    }
+
     // HTML Email Template for Autoresponder (Client confirmation)
     const clientHtml = `
       <div style="font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; max-width: 600px; margin: 0 auto; background-color: #FAF7F2; border: 2px solid #F59E0B; border-radius: 24px; padding: 32px; color: #2A190F;">
@@ -39,7 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
             Potvrzení rezervace – VALEK ACADEMY
           </h1>
           <p style="font-size: 15px; color: #5C473A; margin: 0;">
-            Dobrý den, děkuji za vaši rezervaci ukázkové lekce hrou v Uherském Hradišti.
+            ${introGreeting}
           </p>
         </div>
 
@@ -48,13 +80,25 @@ export const POST: APIRoute = async ({ request }) => {
             📋 Shrnutí rezervace:
           </h3>
           <table style="width: 100%; font-size: 14px; border-collapse: collapse;">
+            ${data.segment ? `
             <tr>
-              <td style="padding: 6px 0; color: #78716C; width: 40%;">Jméno rodiče:</td>
+              <td style="padding: 6px 0; color: #78716C; width: 40%;">Program:</td>
+              <td style="padding: 6px 0; font-weight: 700; color: #2A190F;">${data.segment}</td>
+            </tr>
+            ` : ''}
+            ${data.selectedGroup ? `
+            <tr>
+              <td style="padding: 6px 0; color: #78716C;">Vybraná skupinka:</td>
+              <td style="padding: 6px 0; font-weight: 800; color: #B45309;">${data.selectedGroup}</td>
+            </tr>
+            ` : ''}
+            <tr>
+              <td style="padding: 6px 0; color: #78716C; width: 40%;">${nameLabel}</td>
               <td style="padding: 6px 0; font-weight: 700; color: #2A190F;">${data.name}</td>
             </tr>
-            ${data.childName ? `
+            ${(!isAdult && data.childName && secondaryLabel) ? `
             <tr>
-              <td style="padding: 6px 0; color: #78716C;">Dítě / student:</td>
+              <td style="padding: 6px 0; color: #78716C;">${secondaryLabel}</td>
               <td style="padding: 6px 0; font-weight: 700; color: #2A190F;">${data.childName}</td>
             </tr>
             ` : ''}
@@ -66,16 +110,16 @@ export const POST: APIRoute = async ({ request }) => {
               <td style="padding: 6px 0; color: #78716C;">E-mail:</td>
               <td style="padding: 6px 0; font-weight: 700; color: #2A190F;">${data.email}</td>
             </tr>
-            ${data.selectedGroup ? `
-            <tr>
-              <td style="padding: 6px 0; color: #78716C;">Vybraná skupinka:</td>
-              <td style="padding: 6px 0; font-weight: 700; color: #B45309;">${data.selectedGroup}</td>
-            </tr>
-            ` : ''}
             ${data.days ? `
             <tr>
               <td style="padding: 6px 0; color: #78716C;">Preferované dny:</td>
               <td style="padding: 6px 0; font-weight: 700; color: #2A190F;">${data.days}</td>
+            </tr>
+            ` : ''}
+            ${data.level ? `
+            <tr>
+              <td style="padding: 6px 0; color: #78716C;">Úroveň / ročník:</td>
+              <td style="padding: 6px 0; font-weight: 700; color: #2A190F;">${data.level}</td>
             </tr>
             ` : ''}
             <tr>
@@ -91,16 +135,16 @@ export const POST: APIRoute = async ({ request }) => {
 
         <div style="background-color: #FEF3C7; border: 1px solid #F59E0B; border-radius: 16px; padding: 20px; margin-bottom: 24px;">
           <h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 800; color: #78350F;">
-            🎒 Co si vzít na 1. lekci s sebou?
+            ${prepTitle}
           </h4>
           <p style="margin: 0; font-size: 13px; color: #5C473A; line-height: 1.5;">
-            Pouze <strong>přezůvky a dobrou náladu</strong>. Veškeré deskové hry, výukové karty, mini-tabule i nápoje (čaj, voda) jsou v doučovně zdarma k dispozici.
+            ${prepInstructions}
           </p>
         </div>
 
         <div style="font-size: 13px; color: #78716C; text-align: center; border-top: 1px solid #E8DCBF; padding-top: 20px;">
           <p style="margin: 0 0 6px 0;">
-            Do 24 hodin se vám ozvu s potvrzením konkrétního termínu.
+            Do 24 hodin se vám ozvu s potvrzením konkrétního termínu a detailů.
           </p>
           <p style="margin: 0; font-weight: 700; color: #2A190F;">
             Josef Válek • VALEK ACADEMY Uherské Hradiště<br/>
@@ -117,6 +161,14 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (resendApiKey) {
       try {
+        const clientSubject = data.selectedGroup 
+          ? `Potvrzení rezervace: ${data.selectedGroup} – VALEK ACADEMY`
+          : `Potvrzení rezervace 1. lekce zdarma – VALEK ACADEMY`;
+
+        const adminSubject = data.selectedGroup
+          ? `Nová rezervace (${data.selectedGroup}) – ${data.name}`
+          : `Nová poptávka: ${data.segment || 'Web'} – ${data.name}`;
+
         const [clientRes, adminRes] = await Promise.all([
           fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -128,7 +180,7 @@ export const POST: APIRoute = async ({ request }) => {
               from: fromEmail,
               to: [data.email],
               reply_to: 'info@valekacademy.cz',
-              subject: `Potvrzení rezervace 1. lekce zdarma – VALEK ACADEMY`,
+              subject: clientSubject,
               html: clientHtml,
             })
           }),
@@ -142,17 +194,22 @@ export const POST: APIRoute = async ({ request }) => {
               from: fromEmail,
               to: [adminEmail],
               reply_to: data.email,
-              subject: `Nová rezervace 1. lekce: ${data.name} (${data.childName || 'dítě'})`,
+              subject: adminSubject,
               html: `
-                <h2>Nová rezervace z webu VALEK ACADEMY</h2>
-                <p><strong>Jméno rodiče:</strong> ${data.name}</p>
-                <p><strong>Dítě:</strong> ${data.childName || 'Neuvedeno'}</p>
-                <p><strong>Telefon:</strong> <a href="tel:${data.phone}">${data.phone}</a></p>
-                <p><strong>E-mail:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
-                <p><strong>Skupinka:</strong> ${data.selectedGroup || 'Dle domluvy'}</p>
-                <p><strong>Dny:</strong> ${data.days || 'Kdykoliv'}</p>
-                <p><strong>Úroveň:</strong> ${data.level || 'Neuvedeno'}</p>
-                <p><strong>Zpráva:</strong> ${data.message || 'Bez poznámky'}</p>
+                <div style="font-family: sans-serif; max-width: 600px;">
+                  <h2 style="color: #2A190F;">Nová rezervace z webu VALEK ACADEMY</h2>
+                  <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                    <tr><td style="padding: 6px; font-weight: bold; border-bottom: 1px solid #eee;">Program:</td><td style="padding: 6px; border-bottom: 1px solid #eee;">${data.segment || 'Neuvedeno'}</td></tr>
+                    ${data.selectedGroup ? `<tr><td style="padding: 6px; font-weight: bold; color: #B45309; border-bottom: 1px solid #eee;">Vybraná skupinka:</td><td style="padding: 6px; font-weight: bold; color: #B45309; border-bottom: 1px solid #eee;">${data.selectedGroup}</td></tr>` : ''}
+                    <tr><td style="padding: 6px; font-weight: bold; border-bottom: 1px solid #eee;">${nameLabel}</td><td style="padding: 6px; border-bottom: 1px solid #eee;">${data.name}</td></tr>
+                    ${(!isAdult && data.childName && secondaryLabel) ? `<tr><td style="padding: 6px; font-weight: bold; border-bottom: 1px solid #eee;">${secondaryLabel}:</td><td style="padding: 6px; border-bottom: 1px solid #eee;">${data.childName}</td></tr>` : ''}
+                    <tr><td style="padding: 6px; font-weight: bold; border-bottom: 1px solid #eee;">Telefon:</td><td style="padding: 6px; border-bottom: 1px solid #eee;"><a href="tel:${data.phone}">${data.phone}</a></td></tr>
+                    <tr><td style="padding: 6px; font-weight: bold; border-bottom: 1px solid #eee;">E-mail:</td><td style="padding: 6px; border-bottom: 1px solid #eee;"><a href="mailto:${data.email}">${data.email}</a></td></tr>
+                    <tr><td style="padding: 6px; font-weight: bold; border-bottom: 1px solid #eee;">Preferované dny:</td><td style="padding: 6px; border-bottom: 1px solid #eee;">${data.days || 'Kdykoliv'}</td></tr>
+                    ${data.level ? `<tr><td style="padding: 6px; font-weight: bold; border-bottom: 1px solid #eee;">Úroveň / ročník:</td><td style="padding: 6px; border-bottom: 1px solid #eee;">${data.level}</td></tr>` : ''}
+                    <tr><td style="padding: 6px; font-weight: bold; border-bottom: 1px solid #eee;">Poznámka:</td><td style="padding: 6px; border-bottom: 1px solid #eee;">${data.message || 'Bez poznámky'}</td></tr>
+                  </table>
+                </div>
               `
             })
           })
