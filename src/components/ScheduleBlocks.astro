@@ -965,15 +965,15 @@ function getLocalWalkHint(cohort: string) {
       }
     }
 
-    viewSmartFinderBtn?.addEventListener('click', () => setScheduleView('smart'));
-    viewFullScheduleBtn?.addEventListener('click', () => setScheduleView('full'));
+    viewSmartFinderBtn?.addEventListener('click', () => setScheduleView('smart'), true);
+    viewFullScheduleBtn?.addEventListener('click', () => setScheduleView('full'), true);
     smartSwitchToFullBtn?.addEventListener('click', () => {
       setScheduleView('full');
       const switcher = document.getElementById('schedule-mode-switcher');
       if (switcher) {
         switcher.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    });
+    }, true);
 
     // --- 2. Smart Group Finder: Cohort + Day Filtering ---
     const smartCohortBtns = document.querySelectorAll<HTMLButtonElement>('.smart-cohort-btn');
@@ -1059,7 +1059,7 @@ function getLocalWalkHint(cohort: string) {
         });
 
         updateSmartFilters();
-      });
+      }, true);
     });
 
     smartDayBtns.forEach((btn) => {
@@ -1084,7 +1084,7 @@ function getLocalWalkHint(cohort: string) {
 
         updateDayButtonsUI();
         updateSmartFilters();
-      });
+      }, true);
     });
 
     smartResetDayBtn?.addEventListener('click', () => {
@@ -1092,7 +1092,7 @@ function getLocalWalkHint(cohort: string) {
       activeSmartDays.add('all');
       updateDayButtonsUI();
       updateSmartFilters();
-    });
+    }, true);
 
     // Run initial filter sync
     updateDayButtonsUI();
@@ -1136,7 +1136,7 @@ function getLocalWalkHint(cohort: string) {
       btn.addEventListener('click', () => {
         const cohort = btn.getAttribute('data-cohort') || 'all';
         applyCohortFilter(cohort);
-      });
+      }, true);
     });
 
     // Filter by cohort (mobile dropdown)
