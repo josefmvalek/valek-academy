@@ -112,51 +112,67 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Resend integration if API key is provided
     const resendApiKey = process.env.RESEND_API_KEY;
-    if (resendApiKey) {
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${resendApiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          from: 'VALEK ACADEMY <info@valekacademy.cz>',
-          to: [data.email],
-          reply_to: 'info@valekacademy.cz',
-          subject: `Potvrzení rezervace 1. lekce zdarma – VALEK ACADEMY`,
-          html: clientHtml,
-        })
-      });
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'VALEK ACADEMY <info@valekacademy.cz>';
+    const adminEmail = process.env.RESEND_TO_ADMIN || 'info@valekacademy.cz';
 
-      // Also send notification to Mr. Valek
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${resendApiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          from: 'Rezervace Web <info@valekacademy.cz>',
-          to: ['info@valekacademy.cz'],
-          reply_to: data.email,
-          subject: `Nová rezervace 1. lekce: ${data.name} (${data.childName || 'dítě'})`,
-          html: `
-            <h2>Nová rezervace z webu VALEK ACADEMY</h2>
-            <p><strong>Jméno rodiče:</strong> ${data.name}</p>
-            <p><strong>Dítě:</strong> ${data.childName || 'Neuvedeno'}</p>
-            <p><strong>Telefon:</strong> <a href="tel:${data.phone}">${data.phone}</a></p>
-            <p><strong>E-mail:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
-            <p><strong>Skupinka:</strong> ${data.selectedGroup || 'Dle domluvy'}</p>
-            <p><strong>Dny:</strong> ${data.days || 'Kdykoliv'}</p>
-            <p><strong>Úroveň:</strong> ${data.level || 'Neuvedeno'}</p>
-            <p><strong>Zpráva:</strong> ${data.message || 'Bez poznámky'}</p>
-          `
-        })
-      });
+    if (resendApiKey) {
+      try {
+        const [clientRes, adminRes] = await Promise.all([
+          fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${resendApiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              from: fromEmail,
+              to: [data.email],
+              reply_to: 'info@valekacademy.cz',
+              subject: `Potvrzení rezervace 1. lekce zdarma – VALEK ACADEMY`,
+              html: clientHtml,
+            })
+          }),
+          fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${resendApiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              from: fromEmail,
+              to: [adminEmail],
+              reply_to: data.email,
+              subject: `Nová rezervace 1. lekce: ${data.name} (${data.childName || 'dítě'})`,
+              html: `
+                <h2>Nová rezervace z webu VALEK ACADEMY</h2>
+                <p><strong>Jméno rodiče:</strong> ${data.name}</p>
+                <p><strong>Dítě:</strong> ${data.childName || 'Neuvedeno'}</p>
+                <p><strong>Telefon:</strong> <a href="tel:${data.phone}">${data.phone}</a></p>
+                <p><strong>E-mail:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
+                <p><strong>Skupinka:</strong> ${data.selectedGroup || 'Dle domluvy'}</p>
+                <p><strong>Dny:</strong> ${data.days || 'Kdykoliv'}</p>
+                <p><strong>Úroveň:</strong> ${data.level || 'Neuvedeno'}</p>
+                <p><strong>Zpráva:</strong> ${data.message || 'Bez poznámky'}</p>
+              `
+            })
+          })
+        ]);
+
+        if (!clientRes.ok) {
+          const errData = await clientRes.text();
+          console.warn('Resend client email response not OK:', clientRes.status, errData);
+        }
+        if (!adminRes.ok) {
+          const errData = await adminRes.text();
+          console.warn('Resend admin email response not OK:', adminRes.status, errData);
+        }
+      } catch (emailErr) {
+        console.error('Failed to send email via Resend:', emailErr);
+      }
 
       return new Response(JSON.stringify({ 
         success: true, 
-        message: 'Rezervace i potvrzovací e-mail byly v pořádku odeslány.' 
+        message: 'Rezervace byla úspěšně přijata.' 
       }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' }

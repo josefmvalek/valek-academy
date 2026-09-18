@@ -1,0 +1,21 @@
+{
+  "name": "VALEK ACADEMY • Angličtina hrou",
+  "short_name": "VALEK ACADEMY",
+  "description": "Výuka a doučování angličtiny v Uherském Hradišti formou deskových her pro děti a konverzace pro dospělé.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF7F2",
+  "theme_color": "#FAF7F2",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.jpg",
+      "sizes": "180x180",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
