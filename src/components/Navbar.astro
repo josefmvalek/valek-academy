@@ -352,9 +352,9 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
       document.body.classList.remove('overflow-hidden');
     }
 
-    openBtns.forEach((btn) => btn.addEventListener('click', openDrawer));
-    closeBtns.forEach((btn) => btn.addEventListener('click', closeDrawer));
-    drawerLinks.forEach((link) => link.addEventListener('click', closeDrawer));
+    openBtns.forEach((btn) => btn.addEventListener('click', openDrawer, true));
+    closeBtns.forEach((btn) => btn.addEventListener('click', closeDrawer, true));
+    drawerLinks.forEach((link) => link.addEventListener('click', closeDrawer, true));
 
     // Close on Escape key
     window.addEventListener('keydown', (e) => {

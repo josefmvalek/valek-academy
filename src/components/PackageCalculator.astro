@@ -626,7 +626,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
         updateDurationBadges();
         recalculate();
-      });
+      }, true);
     });
 
     // Attach click listeners to duration buttons
@@ -647,7 +647,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         btn.setAttribute('aria-checked', 'true');
 
         recalculate();
-      });
+      }, true);
     });
 
     // Attach click listeners to frequency buttons
@@ -668,7 +668,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         btn.setAttribute('aria-checked', 'true');
 
         recalculate();
-      });
+      }, true);
     });
 
     // Initial setup on page load

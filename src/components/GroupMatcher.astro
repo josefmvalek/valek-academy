@@ -495,7 +495,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
       btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
       currentGrade = btn.getAttribute('data-grade') || '4-6';
       updateRecommendation();
-    });
+    }, true);
   });
 
   interestBtns.forEach((btn) => {
@@ -509,7 +509,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
       btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
       currentInterest = btn.getAttribute('data-interest') || 'fantasy';
       updateRecommendation();
-    });
+    }, true);
   });
 
   goalBtns.forEach((btn) => {
@@ -523,7 +523,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
       btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
       currentGoal = btn.getAttribute('data-goal') || 'confidence';
       updateRecommendation();
-    });
+    }, true);
   });
 
   updateRecommendation();

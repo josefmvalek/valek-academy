@@ -1180,7 +1180,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
       } else {
         openMenu();
       }
-    });
+    }, true);
 
     function selectOption(opt: HTMLElement) {
       const val = opt.dataset.value || '';
@@ -1229,7 +1229,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
       opt.addEventListener('click', (e: MouseEvent) => {
         e.stopPropagation();
         selectOption(opt);
-      });
+      }, true);
     });
 
     // Sync custom dropdown when select value is changed externally (e.g. from GroupMatcher or Schedule)
@@ -1513,7 +1513,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
         }
       }
       updateDaysState();
-    });
+    }, true);
   });
 
   // --- Selected Animal Group Integration from ScheduleBlocks ---
@@ -1616,7 +1616,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     if (segmentSelect) applySegmentMode(segmentSelect.value);
   }
 
-  clearGroupBtn?.addEventListener('click', clearSelectedGroup);
+  clearGroupBtn?.addEventListener('click', clearSelectedGroup, true);
 
   if (togglePrefBtn && prefFields) {
     togglePrefBtn.addEventListener('click', () => {
@@ -1630,7 +1630,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
         if (segmentDropdown) segmentDropdown.classList.add('hidden');
         if (togglePrefIcon) togglePrefIcon.textContent = '▾';
       }
-    });
+    }, true);
   }
 
   window.addEventListener('valek:select-group', ((e: CustomEvent) => {
@@ -1695,7 +1695,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     receiptEl?.classList.add('hidden');
     fieldsWrapper?.classList.remove('hidden');
     fieldsWrapper?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  }, true);
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();

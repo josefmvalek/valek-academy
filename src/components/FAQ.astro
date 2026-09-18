@@ -82,3 +82,29 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
 
   </div>
 </section>
+
+<script>
+  function initFaqDetails() {
+    const detailsList = document.querySelectorAll<HTMLDetailsElement>('.faq-details');
+    detailsList.forEach((details) => {
+      const summary = details.querySelector('summary');
+      if (!summary) return;
+      summary.addEventListener('click', () => {
+        const willBeOpen = !details.open;
+        if (willBeOpen) {
+          detailsList.forEach(other => {
+            if (other !== details && other.open) other.open = false;
+          });
+        }
+        setTimeout(() => {
+          if (details.open !== willBeOpen) {
+            details.open = willBeOpen;
+          }
+        }, 10);
+      }, true);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initFaqDetails);
+  document.addEventListener('astro:page-load', initFaqDetails);
+</script>
