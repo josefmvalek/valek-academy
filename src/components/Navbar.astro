@@ -29,6 +29,11 @@ const {
   phoneFormatted = "+420 792 372 642"
 } = Astro.props;
 
+const rawPhone = contact.phone || phone || "+420792372642";
+const phoneDigits = rawPhone.replace(/\D/g, '');
+const normalizedPhone = `+${phoneDigits}`;
+const waPhone = phoneDigits;
+
 const brandName = navbar.brandName || "VALEK ACADEMY";
 const brandTagline = navbar.brandTagline || "Uherské Hradiště • Výuka hrou";
 const ctaText = navbar.ctaText || "🎁 1. lekce zdarma";
@@ -145,7 +150,7 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
         
         <!-- Direct Phone Link (Desktop XL only) -->
         <a
-          href={`tel:${phone}`}
+          href={`tel:${normalizedPhone}`}
           class="hidden xl:inline-flex items-center gap-1.5 text-xs font-bold text-stone-700 hover:text-espresso-950 px-3 py-2 rounded-card-sm hover:bg-stone-200/50 transition-colors whitespace-nowrap"
           data-tina-field={contact ? tinaField(contact, 'phoneFormatted') : undefined}
         >
@@ -295,14 +300,14 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
 
     <div class="grid grid-cols-2 gap-2 pt-1">
       <a
-        href={`tel:${phone}`}
+        href={`tel:${normalizedPhone}`}
         class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-parchment-100 hover:bg-parchment-200 border border-parchment-300 text-xs font-bold text-espresso-950 transition-colors text-center"
       >
         <span>📞</span>
         <span class="truncate">{phoneFormatted}</span>
       </a>
       <a
-        href={`https://wa.me/${phone.replace('+', '')}?text=${encodeURIComponent('Dobrý den pane Válku, rád/a bych se zeptal/a na volná místa v doučovně na 1. lekci zdarma.')}`}
+        href={`https://wa.me/${waPhone}?text=${encodeURIComponent('Dobrý den pane Válku, rád/a bych se zeptal/a na volná místa v doučovně na 1. lekci zdarma.')}`}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-xs font-bold text-emerald-950 transition-colors text-center"

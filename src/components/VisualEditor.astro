@@ -416,7 +416,17 @@
   function handlePaste(e: ClipboardEvent) {
     e.preventDefault();
     const text = e.clipboardData?.getData('text/plain') || '';
-    document.execCommand('insertText', false, text);
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0) {
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+      const node = document.createTextNode(text);
+      range.insertNode(node);
+      range.setStartAfter(node);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
   }
 
   function hideFloatingToolbar() {
@@ -425,17 +435,21 @@
     floatingToolbar.classList.remove('flex');
   }
 
+  function execFormat(command: string) {
+    (document as any).execCommand(command, false);
+  }
+
   function updateToolbarActiveStates() {
     if (!floatingToolbar || floatingToolbar.classList.contains('hidden')) return;
     try {
-      const isBold = document.queryCommandState('bold');
-      const isItalic = document.queryCommandState('italic');
-      const isUnderline = document.queryCommandState('underline');
+      const isBold = Boolean((document as any).queryCommandState?.('bold'));
+      const isItalic = Boolean((document as any).queryCommandState?.('italic'));
+      const isUnderline = Boolean((document as any).queryCommandState?.('underline'));
 
       fmtBoldBtn?.classList.toggle('ve-fmt-active', isBold);
       fmtItalicBtn?.classList.toggle('ve-fmt-active', isItalic);
       fmtUnderlineBtn?.classList.toggle('ve-fmt-active', isUnderline);
-    } catch (e) {
+    } catch {
       // ignore
     }
   }
@@ -768,25 +782,25 @@
 
   fmtBoldBtn?.addEventListener('click', (e) => {
     e.preventDefault();
-    document.execCommand('bold', false);
+    execFormat('bold');
     updateToolbarActiveStates();
   });
 
   fmtItalicBtn?.addEventListener('click', (e) => {
     e.preventDefault();
-    document.execCommand('italic', false);
+    execFormat('italic');
     updateToolbarActiveStates();
   });
 
   fmtUnderlineBtn?.addEventListener('click', (e) => {
     e.preventDefault();
-    document.execCommand('underline', false);
+    execFormat('underline');
     updateToolbarActiveStates();
   });
 
   fmtClearBtn?.addEventListener('click', (e) => {
     e.preventDefault();
-    document.execCommand('removeFormat', false);
+    execFormat('removeFormat');
     updateToolbarActiveStates();
   });
 
