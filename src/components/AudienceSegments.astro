@@ -317,55 +317,90 @@ const waitingList = audience.waitingList || {
 </section>
 
 <script>
-  function initCohortTabs() {
-    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
-    const isInIframe = window.self !== window.top;
-    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+  (() => {
+    let activeCohortTarget = 'cohort-card-0';
 
-    const tabs = document.querySelectorAll<HTMLButtonElement>('.cohort-tab-btn');
-    const cards = document.querySelectorAll<HTMLElement>('.cohort-card');
+    function syncCohortTabsUI() {
+      const tabs = document.querySelectorAll<HTMLButtonElement>('.cohort-tab-btn');
+      const cards = document.querySelectorAll<HTMLElement>('.cohort-card');
 
-    tabs.forEach(tab => {
-      tab.addEventListener(interactiveEvent, () => {
+      tabs.forEach((tab) => {
         const targetId = tab.getAttribute('data-target');
-        if (!targetId) return;
+        const isSelected = targetId === activeCohortTarget;
+        if (isSelected) {
+          tab.classList.remove('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
+          tab.classList.add('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+        } else {
+          tab.classList.remove('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+          tab.classList.add('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
+        }
+      });
 
-        // Reset all tabs
-        tabs.forEach(t => {
-          t.classList.remove('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
-          t.classList.add('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
-        });
+      cards.forEach((card) => {
+        if (card.id === activeCohortTarget) {
+          card.classList.remove('hidden');
+          card.classList.add('flex');
+        } else {
+          card.classList.remove('flex');
+          card.classList.add('hidden');
+        }
+      });
+    }
 
-        // Activate clicked tab
-        tab.classList.remove('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
-        tab.classList.add('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+    let lastHandledTime = 0;
+    function handleCohortInteraction(e: Event) {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
 
-        // On mobile, toggle visibility of the cards
-        cards.forEach(card => {
-          if (card.id === targetId) {
-            card.classList.remove('hidden');
-            card.classList.add('flex');
-          } else {
-            card.classList.remove('flex');
-            card.classList.add('hidden');
-          }
-        });
-      }, true);
-    });
+      const tabBtn = target.closest<HTMLButtonElement>('.cohort-tab-btn');
+      if (tabBtn) {
+        const targetId = tabBtn.getAttribute('data-target');
+        if (targetId) {
+          activeCohortTarget = targetId;
+          syncCohortTabsUI();
+        }
+        return;
+      }
 
-    const audienceWaitingBtn = document.querySelector<HTMLAnchorElement>('.audience-waiting-cta');
-    audienceWaitingBtn?.addEventListener('click', () => {
-      const segmentSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
-      if (!segmentSelect) return;
-      const opt = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('dospěl') || o.value.toLowerCase().includes('konverzace'));
-      if (opt) {
-        segmentSelect.value = opt.value;
-        segmentSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      const audienceWaitingBtn = target.closest<HTMLAnchorElement>('.audience-waiting-cta');
+      if (audienceWaitingBtn) {
+        const segmentSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
+        if (!segmentSelect) return;
+        const opt = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('dospěl') || o.value.toLowerCase().includes('konverzace'));
+        if (opt) {
+          segmentSelect.value = opt.value;
+          segmentSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        return;
+      }
+    }
+
+    document.addEventListener('pointerdown', (e) => {
+      lastHandledTime = Date.now();
+      handleCohortInteraction(e);
+    }, true);
+
+    document.addEventListener('click', (e) => {
+      if (Date.now() - lastHandledTime < 350) return;
+      handleCohortInteraction(e);
+    }, true);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncCohortTabsUI);
+    } else {
+      syncCohortTabsUI();
+    }
+    document.addEventListener('astro:page-load', syncCohortTabsUI);
+
+    let lastCohortTab = document.querySelector('.cohort-tab-btn');
+    const cohortObserver = new MutationObserver(() => {
+      const currentCohortTab = document.querySelector('.cohort-tab-btn');
+      if (currentCohortTab && currentCohortTab !== lastCohortTab) {
+        lastCohortTab = currentCohortTab;
+        syncCohortTabsUI();
       }
     });
-  }
-
-  document.addEventListener('DOMContentLoaded', initCohortTabs);
-  document.addEventListener('astro:page-load', initCohortTabs);
+    cohortObserver.observe(document.body, { childList: true, subtree: true });
+  })();
 </script>
 

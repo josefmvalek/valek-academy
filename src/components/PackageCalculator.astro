@@ -328,43 +328,12 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 )}
 
 <script>
-  function initPackageCalculator() {
-    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
-    const isInIframe = window.self !== window.top;
-    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
-
-    const calc = document.getElementById('kalkulator-balicku');
-    if (!calc) return;
-
-    const basePriceKids = parseInt(calc.getAttribute('data-base-price-kids') || '320', 10);
-    const basePriceTeens = parseInt(calc.getAttribute('data-base-price-teens') || '480', 10);
-    const phone = calc.getAttribute('data-phone') || '420792372642';
-
+  (() => {
+    // Persistent state across TinaCMS island swaps
     let currentMode: 'kids' | 'teens' = 'kids';
     let selectedWeeks = 20;
     let selectedFreq = 1;
 
-    const modeBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-mode-btn');
-    const durationBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-duration-btn');
-    const freqBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-freq-btn');
-    const explanatoryNote = document.getElementById('calc-explanatory-note');
-
-    const cohortDisplay = document.getElementById('calc-cohort-display');
-    const totalDiscountBadge = document.getElementById('calc-total-discount-badge');
-    const periodDisplay = document.getElementById('calc-period-display');
-    const freqDisplay = document.getElementById('calc-freq-display');
-    const lessonsDisplay = document.getElementById('calc-lessons-display');
-    const breakdownPill = document.getElementById('calc-breakdown-pill');
-    const unitPrice = document.getElementById('calc-unit-price');
-    const unitSuffix = document.getElementById('calc-unit-suffix');
-    const originalUnit = document.getElementById('calc-original-unit');
-    const unitSaving = document.getElementById('calc-unit-saving');
-    const totalPrice = document.getElementById('calc-total-price');
-    const totalSavings = document.getElementById('calc-total-savings');
-    const ctaBtn = document.getElementById('calc-cta-btn');
-    const waBtn = document.getElementById('calc-wa-btn') as HTMLAnchorElement | null;
-
-    // Audio pop
     let audioCtx: AudioContext | null = null;
     function playClickPop() {
       try {
@@ -396,8 +365,58 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       40: "Celý rok"
     };
 
-    function updateDurationBadges() {
+    function updateModeButtonsUI(calc: HTMLElement) {
+      const modeBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-mode-btn');
+      modeBtns.forEach(b => {
+        const isSelected = b.getAttribute('data-mode') === currentMode;
+        b.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+        if (isSelected) {
+          b.classList.remove('bg-transparent', 'text-stone-600', 'font-bold');
+          b.classList.add('bg-white', 'text-espresso-950', 'shadow-xs', 'border-amber-400', 'font-black');
+        } else {
+          b.classList.remove('bg-white', 'text-espresso-950', 'shadow-xs', 'border-amber-400', 'font-black');
+          b.classList.add('bg-transparent', 'text-stone-600', 'font-bold');
+        }
+      });
+    }
+
+    function updateDurationButtonsUI(calc: HTMLElement) {
+      const durationBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-duration-btn');
+      durationBtns.forEach(b => {
+        const weeks = parseInt(b.getAttribute('data-weeks') || '20', 10);
+        const isSelected = weeks === selectedWeeks;
+        b.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+        if (isSelected) {
+          b.classList.remove('bg-white/90', 'border-parchment-300');
+          b.classList.add('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
+        } else {
+          b.classList.remove('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
+          b.classList.add('bg-white/90', 'border-parchment-300');
+        }
+      });
+    }
+
+    function updateFreqButtonsUI(calc: HTMLElement) {
+      const freqBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-freq-btn');
+      freqBtns.forEach(b => {
+        const freq = parseInt(b.getAttribute('data-freq') || '1', 10);
+        const isSelected = freq === selectedFreq;
+        b.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+        if (isSelected) {
+          b.classList.remove('bg-white/90', 'border-parchment-300');
+          b.classList.add('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
+        } else {
+          b.classList.remove('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
+          b.classList.add('bg-white/90', 'border-parchment-300');
+        }
+      });
+    }
+
+    function updateDurationBadges(calc: HTMLElement) {
       const isKids = currentMode === 'kids';
+      const durationBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-duration-btn');
+      const freqBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-freq-btn');
+      const explanatoryNote = document.getElementById('calc-explanatory-note');
 
       durationBtns.forEach(btn => {
         const weeks = parseInt(btn.getAttribute('data-weeks') || '20', 10);
@@ -445,13 +464,20 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
     }
 
     function recalculate() {
+      const calc = document.getElementById('kalkulator-balicku');
+      if (!calc) return;
+
+      const basePriceKids = parseInt(calc.getAttribute('data-base-price-kids') || '320', 10);
+      const basePriceTeens = parseInt(calc.getAttribute('data-base-price-teens') || '480', 10);
+      const phone = calc.getAttribute('data-phone') || '420792372642';
+
       const isKids = currentMode === 'kids';
       const basePrice = isKids ? basePriceKids : basePriceTeens;
       const lessonUnit = isKids ? '60 min' : '90 min';
       const cohortName = isKids ? '🎒 Děti ZŠ (60 min)' : '🎓 2. stupeň, SŠ & dospělí (90 min)';
 
-      const activeDurationBtn = calc?.querySelector<HTMLButtonElement>('.calc-duration-btn[aria-checked="true"]') || durationBtns[0];
-      const activeFreqBtn = calc?.querySelector<HTMLButtonElement>('.calc-freq-btn[aria-checked="true"]') || freqBtns[0];
+      const activeDurationBtn = calc.querySelector<HTMLButtonElement>(`.calc-duration-btn[data-weeks="${selectedWeeks}"]`) || calc.querySelector<HTMLButtonElement>('.calc-duration-btn');
+      const activeFreqBtn = calc.querySelector<HTMLButtonElement>(`.calc-freq-btn[data-freq="${selectedFreq}"]`) || calc.querySelector<HTMLButtonElement>('.calc-freq-btn');
 
       const weeks = parseInt(activeDurationBtn?.getAttribute('data-weeks') || String(selectedWeeks), 10);
       const freq = parseInt(activeFreqBtn?.getAttribute('data-freq') || String(selectedFreq), 10);
@@ -462,7 +488,6 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
       const totalLessons = weeks * freq;
 
-      // Effective unit rate
       let discountedPricePerLesson = basePrice;
       let totalDiscount = 0;
 
@@ -481,7 +506,6 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
           totalDiscount = freq >= 2 ? 12.5 : 6;
         }
       } else {
-        // 90-min rates aligned with /cenik
         if (weeks === 40 || totalLessons >= 40 || (weeks === 20 && freq >= 2)) {
           discountedPricePerLesson = 330;
           totalDiscount = 31;
@@ -497,7 +521,6 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         }
       }
 
-      // If custom CMS discount was set and differs, honor the CMS percentage
       const rawCustomDiscount = baseDiscount + bonus;
       if (Math.abs(rawCustomDiscount - totalDiscount) > 4) {
         totalDiscount = Math.min(50, Math.round(rawCustomDiscount * 10) / 10);
@@ -518,168 +541,160 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       }
 
       const savingPerLesson = basePrice - discountedPricePerLesson;
-      const totalOriginalCost = totalLessons * basePrice;
-      const totalDiscountedCost = totalLessons * discountedPricePerLesson;
+      const totalOriginalCost = basePrice * totalLessons;
+      const totalDiscountedCost = discountedPricePerLesson * totalLessons;
       const allSavings = totalOriginalCost - totalDiscountedCost;
 
-      // Update UI elements
-      if (cohortDisplay) {
-        cohortDisplay.textContent = cohortName;
-      }
-      if (totalDiscountBadge) {
-        totalDiscountBadge.textContent = totalDiscount > 0 ? `-${totalDiscount} % SLEVA` : `ZÁKLADNÍ CENA`;
-      }
-      if (periodDisplay) {
-        periodDisplay.textContent = `${durationLabel} (${weeks} týdnů)`;
-      }
-      if (freqDisplay) {
-        freqDisplay.textContent = freqLabel;
-      }
-      if (lessonsDisplay) {
-        lessonsDisplay.textContent = `${totalLessons} lekcí (${weeks} týdnů × ${freqLabel})`;
-      }
-      if (breakdownPill) {
-        breakdownPill.textContent = tierExplanation;
-      }
-      if (unitPrice) {
-        unitPrice.textContent = `${discountedPricePerLesson} Kč`;
-      }
-      if (unitSuffix) {
-        unitSuffix.textContent = ` / ${lessonUnit}`;
-      }
-      if (originalUnit) {
-        originalUnit.textContent = `${basePrice} Kč`;
-      }
-      if (unitSaving) {
-        unitSaving.textContent = `${savingPerLesson} Kč`;
-      }
-      if (totalPrice) {
-        totalPrice.textContent = `${totalDiscountedCost.toLocaleString('cs-CZ')} Kč`;
-      }
-      if (totalSavings) {
-        totalSavings.textContent = `${allSavings.toLocaleString('cs-CZ')} Kč`;
-      }
+      const cohortDisplay = document.getElementById('calc-cohort-display');
+      const totalDiscountBadge = document.getElementById('calc-total-discount-badge');
+      const periodDisplay = document.getElementById('calc-period-display');
+      const freqDisplay = document.getElementById('calc-freq-display');
+      const lessonsDisplay = document.getElementById('calc-lessons-display');
+      const breakdownPill = document.getElementById('calc-breakdown-pill');
+      const unitPrice = document.getElementById('calc-unit-price');
+      const unitSuffix = document.getElementById('calc-unit-suffix');
+      const originalUnit = document.getElementById('calc-original-unit');
+      const unitSaving = document.getElementById('calc-unit-saving');
+      const totalPrice = document.getElementById('calc-total-price');
+      const totalSavings = document.getElementById('calc-total-savings');
+      const waBtn = document.getElementById('calc-wa-btn') as HTMLAnchorElement | null;
 
-      // Dynamic WhatsApp message
+      if (cohortDisplay) cohortDisplay.textContent = cohortName;
+      if (totalDiscountBadge) {
+        totalDiscountBadge.textContent = totalDiscount > 0 ? `Sleva ${totalDiscount} %` : `Základní sazba`;
+      }
+      if (periodDisplay) periodDisplay.textContent = `${durationLabel} (${weeks} týdnů)`;
+      if (freqDisplay) freqDisplay.textContent = freqLabel;
+      if (lessonsDisplay) lessonsDisplay.textContent = `${totalLessons} lekcí`;
+      if (breakdownPill) breakdownPill.textContent = tierExplanation;
+      if (unitPrice) unitPrice.textContent = `${discountedPricePerLesson} Kč`;
+      if (unitSuffix) unitSuffix.textContent = ` / ${lessonUnit}`;
+      if (originalUnit) originalUnit.textContent = `${basePrice} Kč`;
+      if (unitSaving) unitSaving.textContent = `${savingPerLesson} Kč`;
+      if (totalPrice) totalPrice.textContent = `${totalDiscountedCost.toLocaleString('cs-CZ')} Kč`;
+      if (totalSavings) totalSavings.textContent = `${allSavings.toLocaleString('cs-CZ')} Kč`;
+
       const periodName = `${durationLabel} (${weeks} týdnů)`;
       const modeLabel = isKids ? "Děti ZŠ (60minutové lekce)" : "2. stupeň, SŠ & dospělí (90minutové lekce)";
       const waMsg = `Dobrý den pane Válku, v kalkulátoru na webu Valek Academy jsem si spočítal(a) balíček pro: ${modeLabel}\n• Období: ${periodName}\n• Frekvence: ${freqLabel} (celkem ${totalLessons} lekcí)\n• Cena: ${discountedPricePerLesson} Kč / ${lessonUnit} (sleva ${totalDiscount} %, celkem ${totalDiscountedCost.toLocaleString('cs-CZ')} Kč).\n\nRádi bychom si domluvili 1. ukázkovou lekci zdarma.`;
       if (waBtn) {
         waBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(waMsg)}`;
       }
+    }
 
-      // Form prefill on CTA click
+    function syncCalculator() {
+      const calc = document.getElementById('kalkulator-balicku');
+      if (!calc) return;
+      updateModeButtonsUI(calc);
+      updateDurationButtonsUI(calc);
+      updateFreqButtonsUI(calc);
+      updateDurationBadges(calc);
+      recalculate();
+    }
+
+    let lastHandledTime = 0;
+    function handleCalculatorInteraction(e: Event) {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const calc = target.closest('#kalkulator-balicku') as HTMLElement | null;
+      if (!calc) return;
+
+      // Mode button
+      const modeBtn = target.closest<HTMLButtonElement>('.calc-mode-btn');
+      if (modeBtn) {
+        playClickPop();
+        const mode = modeBtn.getAttribute('data-mode') === 'teens' ? 'teens' : 'kids';
+        currentMode = mode;
+        syncCalculator();
+        return;
+      }
+
+      // Duration button
+      const durationBtn = target.closest<HTMLButtonElement>('.calc-duration-btn');
+      if (durationBtn) {
+        playClickPop();
+        const weeks = parseInt(durationBtn.getAttribute('data-weeks') || '20', 10);
+        selectedWeeks = weeks;
+        syncCalculator();
+        return;
+      }
+
+      // Frequency button
+      const freqBtn = target.closest<HTMLButtonElement>('.calc-freq-btn');
+      if (freqBtn) {
+        playClickPop();
+        const freq = parseInt(freqBtn.getAttribute('data-freq') || '1', 10);
+        selectedFreq = freq;
+        syncCalculator();
+        return;
+      }
+
+      // CTA button (prefill form)
+      const ctaBtn = target.closest<HTMLButtonElement>('#calc-cta-btn');
       if (ctaBtn) {
-        ctaBtn.onclick = () => {
-          playClickPop();
+        playClickPop();
+        const isKids = currentMode === 'kids';
+        const formSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
+        if (formSelect) {
+          formSelect.value = isKids
+            ? "🎲 Děti na ZŠ (Skupinka 4–8 dětí hrou) – 1. LEKCE 100% ZDARMA"
+            : "🎓 Střední škola a maturita [Přednostní čekací listina]";
+          formSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
 
-          const formSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
-          if (formSelect) {
-            formSelect.value = isKids
-              ? "🎲 Děti na ZŠ (Skupinka 4–8 dětí hrou) – 1. LEKCE 100% ZDARMA"
-              : "🎓 Střední škola a maturita [Přednostní čekací listina]";
-            formSelect.dispatchEvent(new Event('change', { bubbles: true }));
-          }
+        const msgField = document.getElementById('message') as HTMLTextAreaElement | null;
+        if (msgField) {
+          const modeLabel = isKids ? "Děti ZŠ (60minutové lekce)" : "2. stupeň, SŠ & dospělí (90minutové lekce)";
+          msgField.value = `Dobrý den pane Válku, máme zájem o balíček z kalkulátoru (${modeLabel}):\n• Období: ${selectedWeeks} týdnů\n• Frekvence: ${selectedFreq}× týdně\n\nRádi bychom nejprve nezávazně vyzkoušeli 1. lekci 100% zdarma.`;
+        }
 
-          const msgField = document.getElementById('message') as HTMLTextAreaElement | null;
-          if (msgField) {
-            msgField.value = `Dobrý den pane Válku, máme zájem o balíček z kalkulátoru (${modeLabel}):\n• Období: ${periodName}\n• Frekvence: ${freqLabel} (celkem ${totalLessons} lekcí)\n• Zvýhodněná cena: ${discountedPricePerLesson} Kč / ${lessonUnit} (sleva ${totalDiscount} %, celkem ${totalDiscountedCost.toLocaleString('cs-CZ')} Kč)\n\nRádi bychom nejprve nezávazně vyzkoušeli 1. lekci 100% zdarma.`;
-          }
+        const contactSection = document.getElementById('kontakt');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
 
-          const contactSection = document.getElementById('kontakt');
-          if (contactSection) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-          }
+        const formCard = document.getElementById('contact-form')?.parentElement;
+        if (formCard) {
+          formCard.classList.add('ring-4', 'ring-amber-400', 'border-amber-500');
+          setTimeout(() => {
+            formCard.classList.remove('ring-4', 'ring-amber-400', 'border-amber-500');
+          }, 2500);
+        }
 
-          const formCard = document.getElementById('contact-form')?.parentElement;
-          if (formCard) {
-            formCard.classList.add('ring-4', 'ring-amber-400', 'border-amber-500');
-            setTimeout(() => {
-              formCard.classList.remove('ring-4', 'ring-amber-400', 'border-amber-500');
-            }, 2500);
-          }
-
-          const nameInput = document.getElementById('name') as HTMLInputElement | null;
-          if (nameInput) {
-            setTimeout(() => nameInput.focus(), 600);
-          }
-        };
+        const nameInput = document.getElementById('name') as HTMLInputElement | null;
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 600);
+        }
+        return;
       }
     }
 
-    // Attach click listeners to mode buttons
-    modeBtns.forEach(btn => {
-      btn.addEventListener(interactiveEvent, () => {
-        playClickPop();
-        const mode = btn.getAttribute('data-mode') === 'teens' ? 'teens' : 'kids';
-        if (mode === currentMode) return;
+    document.addEventListener('pointerdown', (e) => {
+      lastHandledTime = Date.now();
+      handleCalculatorInteraction(e);
+    }, true);
 
-        currentMode = mode;
+    document.addEventListener('click', (e) => {
+      if (Date.now() - lastHandledTime < 350) return;
+      handleCalculatorInteraction(e);
+    }, true);
 
-        modeBtns.forEach(b => {
-          const isSelected = b === btn;
-          b.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-          if (isSelected) {
-            b.classList.remove('bg-transparent', 'text-stone-600', 'font-bold');
-            b.classList.add('bg-white', 'text-espresso-950', 'shadow-xs', 'border-amber-400', 'font-black');
-          } else {
-            b.classList.remove('bg-white', 'text-espresso-950', 'shadow-xs', 'border-amber-400', 'font-black');
-            b.classList.add('bg-transparent', 'text-stone-600', 'font-bold');
-          }
-        });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncCalculator);
+    } else {
+      syncCalculator();
+    }
+    document.addEventListener('astro:page-load', syncCalculator);
 
-        updateDurationBadges();
-        recalculate();
-      }, true);
+    let lastCalcEl = document.getElementById('kalkulator-balicku');
+    const calcObserver = new MutationObserver(() => {
+      const currentCalcEl = document.getElementById('kalkulator-balicku');
+      if (currentCalcEl && currentCalcEl !== lastCalcEl) {
+        lastCalcEl = currentCalcEl;
+        syncCalculator();
+      }
     });
-
-    // Attach click listeners to duration buttons
-    durationBtns.forEach(btn => {
-      btn.addEventListener(interactiveEvent, () => {
-        playClickPop();
-        const weeks = parseInt(btn.getAttribute('data-weeks') || '20', 10);
-        selectedWeeks = weeks;
-
-        durationBtns.forEach(b => {
-          b.classList.remove('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
-          b.classList.add('bg-white/90', 'border-parchment-300');
-          b.setAttribute('aria-checked', 'false');
-        });
-
-        btn.classList.remove('bg-white/90', 'border-parchment-300');
-        btn.classList.add('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
-        btn.setAttribute('aria-checked', 'true');
-
-        recalculate();
-      }, true);
-    });
-
-    // Attach click listeners to frequency buttons
-    freqBtns.forEach(btn => {
-      btn.addEventListener(interactiveEvent, () => {
-        playClickPop();
-        const freq = parseInt(btn.getAttribute('data-freq') || '1', 10);
-        selectedFreq = freq;
-
-        freqBtns.forEach(b => {
-          b.classList.remove('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
-          b.classList.add('bg-white/90', 'border-parchment-300');
-          b.setAttribute('aria-checked', 'false');
-        });
-
-        btn.classList.remove('bg-white/90', 'border-parchment-300');
-        btn.classList.add('bg-amber-100/90', 'border-amber-500', 'ring-2', 'ring-amber-400', 'shadow-sm');
-        btn.setAttribute('aria-checked', 'true');
-
-        recalculate();
-      }, true);
-    });
-
-    // Initial setup on page load
-    updateDurationBadges();
-    recalculate();
-  }
-
-  document.addEventListener('DOMContentLoaded', initPackageCalculator);
-  document.addEventListener('astro:page-load', initPackageCalculator);
+    calcObserver.observe(document.body, { childList: true, subtree: true });
+  })();
 </script>

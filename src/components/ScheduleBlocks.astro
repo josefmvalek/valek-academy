@@ -933,25 +933,22 @@ function getLocalWalkHint(cohort: string) {
 
 <!-- Client-side script for interactive filtering and smooth booking connection -->
 <script>
-  function setupScheduleInteraction() {
-    // Use 'pointerdown' for interactive UI in TinaCMS visual editor.
-    // TinaCMS bridge.js intercepts 'click' events on elements with data-tina-field
-    // and calls stopPropagation(), which blocks our tab-switching logic.
-    // 'pointerdown' fires before 'click' and is not intercepted by the bridge.
-    const isInIframe = window.self !== window.top;
-    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+  (() => {
+    // Persistent state across island replacements in TinaCMS
+    let activeScheduleView: 'smart' | 'full' = 'smart';
+    let activeSmartCohort = '1.–3. třída';
+    const activeSmartDays = new Set<string>(['all']);
+    let activeFullCohort = 'all';
 
-    // --- 1. View Switching: Smart Finder vs Full Timetable ---
-    const smartFinderView = document.getElementById('smart-finder-view');
-    const fullScheduleView = document.getElementById('full-schedule-view');
-    const viewSmartFinderBtn = document.getElementById('view-smart-finder-btn');
-    const viewFullScheduleBtn = document.getElementById('view-full-schedule-btn');
-    const smartSwitchToFullBtn = document.getElementById('smart-switch-to-full-btn');
+    function updateViewUI() {
+      const smartFinderView = document.getElementById('smart-finder-view');
+      const fullScheduleView = document.getElementById('full-schedule-view');
+      const viewSmartFinderBtn = document.getElementById('view-smart-finder-btn');
+      const viewFullScheduleBtn = document.getElementById('view-full-schedule-btn');
 
-    function setScheduleView(view: 'smart' | 'full') {
       if (!smartFinderView || !fullScheduleView) return;
 
-      if (view === 'smart') {
+      if (activeScheduleView === 'smart') {
         smartFinderView.classList.remove('hidden');
         fullScheduleView.classList.add('hidden');
 
@@ -972,28 +969,21 @@ function getLocalWalkHint(cohort: string) {
       }
     }
 
-    viewSmartFinderBtn?.addEventListener(interactiveEvent, () => setScheduleView('smart'), true);
-    viewFullScheduleBtn?.addEventListener(interactiveEvent, () => setScheduleView('full'), true);
-    smartSwitchToFullBtn?.addEventListener(interactiveEvent, () => {
-      setScheduleView('full');
-      const switcher = document.getElementById('schedule-mode-switcher');
-      if (switcher) {
-        switcher.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, true);
-
-    // --- 2. Smart Group Finder: Cohort + Day Filtering ---
-    const smartCohortBtns = document.querySelectorAll<HTMLButtonElement>('.smart-cohort-btn');
-    const smartDayBtns = document.querySelectorAll<HTMLButtonElement>('.smart-day-btn');
-    const smartCards = document.querySelectorAll<HTMLElement>('.smart-result-card');
-    const smartMatchCount = document.getElementById('smart-match-count');
-    const smartEmptyState = document.getElementById('smart-empty-state');
-    const smartResetDayBtn = document.getElementById('smart-reset-day-btn');
-
-    let activeSmartCohort = '1.–3. třída';
-    const activeSmartDays = new Set<string>(['all']);
+    function updateCohortButtonsUI() {
+      const smartCohortBtns = document.querySelectorAll<HTMLButtonElement>('.smart-cohort-btn');
+      smartCohortBtns.forEach((b) => {
+        if (b.getAttribute('data-smart-cohort') === activeSmartCohort) {
+          b.classList.remove('bg-parchment-50', 'border-parchment-300');
+          b.classList.add('bg-amber-100/90', 'border-amber-500', 'shadow-2xs');
+        } else {
+          b.classList.remove('bg-amber-100/90', 'border-amber-500', 'shadow-2xs');
+          b.classList.add('bg-parchment-50', 'border-parchment-300');
+        }
+      });
+    }
 
     function updateDayButtonsUI() {
+      const smartDayBtns = document.querySelectorAll<HTMLButtonElement>('.smart-day-btn');
       smartDayBtns.forEach((b) => {
         const bDay = b.getAttribute('data-smart-day') || 'all';
         const isActive = activeSmartDays.has(bDay);
@@ -1009,6 +999,9 @@ function getLocalWalkHint(cohort: string) {
     }
 
     function updateSmartFilters() {
+      const smartCards = document.querySelectorAll<HTMLElement>('.smart-result-card');
+      const smartMatchCount = document.getElementById('smart-match-count');
+      const smartEmptyState = document.getElementById('smart-empty-state');
       let visibleCount = 0;
 
       smartCards.forEach((card) => {
@@ -1026,7 +1019,6 @@ function getLocalWalkHint(cohort: string) {
         }
       });
 
-      // Update count badge with proper Czech inflections
       if (smartMatchCount) {
         if (visibleCount === 0) {
           smartMatchCount.textContent = 'Nenalezena žádná skupinka';
@@ -1039,7 +1031,6 @@ function getLocalWalkHint(cohort: string) {
         }
       }
 
-      // Toggle empty state placeholder
       if (smartEmptyState) {
         if (visibleCount === 0) {
           smartEmptyState.classList.remove('hidden');
@@ -1049,36 +1040,94 @@ function getLocalWalkHint(cohort: string) {
       }
     }
 
-    smartCohortBtns.forEach((btn) => {
-      btn.addEventListener(interactiveEvent, () => {
-        const cohort = btn.getAttribute('data-smart-cohort');
-        if (!cohort) return;
-        activeSmartCohort = cohort;
+    function updateFullCohortFilter() {
+      const filterButtons = document.querySelectorAll<HTMLButtonElement>('.schedule-filter-btn');
+      const groupCards = document.querySelectorAll<HTMLElement>('.schedule-group-card');
+      const cohortSelect = document.getElementById('schedule-cohort-select') as HTMLSelectElement | null;
 
-        smartCohortBtns.forEach((b) => {
-          if (b.getAttribute('data-smart-cohort') === cohort) {
-            b.classList.remove('bg-parchment-50', 'border-parchment-300');
-            b.classList.add('bg-amber-100/90', 'border-amber-500', 'shadow-2xs');
-          } else {
-            b.classList.remove('bg-amber-100/90', 'border-amber-500', 'shadow-2xs');
-            b.classList.add('bg-parchment-50', 'border-parchment-300');
-          }
-        });
+      if (cohortSelect && cohortSelect.value !== activeFullCohort) {
+        cohortSelect.value = activeFullCohort;
+      }
 
-        updateSmartFilters();
-      }, true);
-    });
+      filterButtons.forEach((b) => {
+        const bCohort = b.getAttribute('data-cohort');
+        if (bCohort === activeFullCohort) {
+          b.classList.remove('bg-white', 'text-espresso-900', 'border-parchment-300', 'hover:bg-amber-50');
+          b.classList.add('bg-espresso-950', 'text-amber-300', 'border-espresso-950');
+        } else {
+          b.classList.remove('bg-espresso-950', 'text-amber-300', 'border-espresso-950');
+          b.classList.add('bg-white', 'text-espresso-900', 'border-parchment-300', 'hover:bg-amber-50');
+        }
+      });
 
-    smartDayBtns.forEach((btn) => {
-      btn.addEventListener(interactiveEvent, () => {
-        const day = btn.getAttribute('data-smart-day') || 'all';
+      groupCards.forEach((card) => {
+        const cardCohort = card.getAttribute('data-cohort');
+        if (activeFullCohort === 'all' || cardCohort === activeFullCohort) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
 
+    function syncAllUI() {
+      updateViewUI();
+      updateCohortButtonsUI();
+      updateDayButtonsUI();
+      updateSmartFilters();
+      updateFullCohortFilter();
+    }
+
+    let lastHandledTime = 0;
+    function handleInteractiveEvent(e: Event) {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      // 1. Smart Cohort Buttons (e.g. 1.–3., 4.–6., 7.–13.)
+      const cohortBtn = target.closest<HTMLButtonElement>('.smart-cohort-btn');
+      if (cohortBtn) {
+        const cohort = cohortBtn.getAttribute('data-smart-cohort');
+        if (cohort) {
+          activeSmartCohort = cohort;
+          updateCohortButtonsUI();
+          updateSmartFilters();
+          return;
+        }
+      }
+
+      // 2. Schedule View Switcher
+      const smartViewBtn = target.closest('#view-smart-finder-btn');
+      if (smartViewBtn) {
+        activeScheduleView = 'smart';
+        updateViewUI();
+        return;
+      }
+
+      const fullViewBtn = target.closest('#view-full-schedule-btn');
+      if (fullViewBtn) {
+        activeScheduleView = 'full';
+        updateViewUI();
+        return;
+      }
+
+      const switchToFullBtn = target.closest('#smart-switch-to-full-btn');
+      if (switchToFullBtn) {
+        activeScheduleView = 'full';
+        updateViewUI();
+        const switcher = document.getElementById('schedule-mode-switcher');
+        switcher?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      // 3. Day Filter Buttons (Pills)
+      const dayBtn = target.closest<HTMLButtonElement>('.smart-day-btn');
+      if (dayBtn) {
+        const day = dayBtn.getAttribute('data-smart-day') || 'all';
         if (day === 'all') {
           activeSmartDays.clear();
           activeSmartDays.add('all');
         } else {
           activeSmartDays.delete('all');
-
           if (activeSmartDays.has(day)) {
             activeSmartDays.delete(day);
             if (activeSmartDays.size === 0) {
@@ -1088,105 +1137,57 @@ function getLocalWalkHint(cohort: string) {
             activeSmartDays.add(day);
           }
         }
-
         updateDayButtonsUI();
         updateSmartFilters();
-      }, true);
-    });
-
-    smartResetDayBtn?.addEventListener(interactiveEvent, () => {
-      activeSmartDays.clear();
-      activeSmartDays.add('all');
-      updateDayButtonsUI();
-      updateSmartFilters();
-    }, true);
-
-    // Run initial filter sync
-    updateDayButtonsUI();
-    updateSmartFilters();
-
-    // --- 3. Full Timetable: Cohort Filters ---
-    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.schedule-filter-btn');
-    const groupCards = document.querySelectorAll<HTMLElement>('.schedule-group-card');
-    const cohortSelect = document.getElementById('schedule-cohort-select') as HTMLSelectElement | null;
-
-    function applyCohortFilter(cohort: string) {
-      if (cohortSelect && cohortSelect.value !== cohort) {
-        cohortSelect.value = cohort;
+        return;
       }
 
-      // Update active buttons style
-      filterButtons.forEach((b) => {
-        const bCohort = b.getAttribute('data-cohort');
-        if (bCohort === cohort) {
-          b.classList.remove('bg-white', 'text-espresso-900', 'border-parchment-300', 'hover:bg-amber-50');
-          b.classList.add('bg-espresso-950', 'text-amber-300', 'border-espresso-950');
-        } else {
-          b.classList.remove('bg-espresso-950', 'text-amber-300', 'border-espresso-950');
-          b.classList.add('bg-white', 'text-espresso-900', 'border-parchment-300', 'hover:bg-amber-50');
-        }
-      });
+      // 4. Reset Day Filter
+      const resetDayBtn = target.closest('#smart-reset-day-btn');
+      if (resetDayBtn) {
+        activeSmartDays.clear();
+        activeSmartDays.add('all');
+        updateDayButtonsUI();
+        updateSmartFilters();
+        return;
+      }
 
-      // Filter cards
-      groupCards.forEach((card) => {
-        const cardCohort = card.getAttribute('data-cohort');
-        if (cohort === 'all' || cardCohort === cohort) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
+      // 5. Full Schedule Cohort Filter Tabs
+      const fullFilterBtn = target.closest<HTMLButtonElement>('.schedule-filter-btn');
+      if (fullFilterBtn) {
+        const cohort = fullFilterBtn.getAttribute('data-cohort') || 'all';
+        activeFullCohort = cohort;
+        updateFullCohortFilter();
+        return;
+      }
 
-    // Filter by cohort (desktop tabs)
-    filterButtons.forEach((btn) => {
-      btn.addEventListener(interactiveEvent, () => {
-        const cohort = btn.getAttribute('data-cohort') || 'all';
-        applyCohortFilter(cohort);
-      }, true);
-    });
-
-    // Filter by cohort (mobile dropdown)
-    if (cohortSelect) {
-      cohortSelect.addEventListener('change', () => {
-        applyCohortFilter(cohortSelect.value);
-      });
-    }
-
-    // --- 4. Group Selection CTAs and Booking Bridge ---
-    const selectButtons = document.querySelectorAll<HTMLButtonElement>('[data-select-group]');
-    const specialButtons = document.querySelectorAll<HTMLAnchorElement>('.special-slot-btn');
-
-    selectButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-select-group');
-        const name = btn.getAttribute('data-group-name');
-        const day = btn.getAttribute('data-group-day');
-        const time = btn.getAttribute('data-group-time');
-        const cohort = btn.getAttribute('data-group-cohort');
-        const animal = btn.getAttribute('data-group-animal');
-        const emoji = btn.getAttribute('data-group-emoji');
-        const status = btn.getAttribute('data-group-status');
+      // 6. Select Group CTAs
+      const selectBtn = target.closest<HTMLButtonElement>('[data-select-group]');
+      if (selectBtn) {
+        const id = selectBtn.getAttribute('data-select-group');
+        const name = selectBtn.getAttribute('data-group-name');
+        const day = selectBtn.getAttribute('data-group-day');
+        const time = selectBtn.getAttribute('data-group-time');
+        const cohort = selectBtn.getAttribute('data-group-cohort');
+        const animal = selectBtn.getAttribute('data-group-animal');
+        const emoji = selectBtn.getAttribute('data-group-emoji');
+        const status = selectBtn.getAttribute('data-group-status');
 
         if (status === 'full') return;
 
-        // Dispatch custom event for contact form
         window.dispatchEvent(new CustomEvent('valek:select-group', {
           detail: { id, name, day, time, cohort, animal, emoji, status }
         }));
 
-        // Scroll smoothly to contact section
         const contactSection = document.getElementById('kontakt');
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
+        contactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
 
-    // Special slots (Adults / 1-on-1)
-    specialButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const slotName = btn.getAttribute('data-select-special');
+      // 7. Special Slots (Adults / 1-on-1)
+      const specialBtn = target.closest<HTMLAnchorElement>('.special-slot-btn');
+      if (specialBtn) {
+        const slotName = specialBtn.getAttribute('data-select-special');
         if (!slotName) return;
 
         window.dispatchEvent(new CustomEvent('valek:select-group', {
@@ -1203,18 +1204,49 @@ function getLocalWalkHint(cohort: string) {
         }));
 
         const contactSection = document.getElementById('kontakt');
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-  }
+        contactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
 
-  // Setup on page load and view transitions
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupScheduleInteraction);
-  } else {
-    setupScheduleInteraction();
-  }
-  document.addEventListener('astro:page-load', setupScheduleInteraction);
+    // Capture pointerdown before TinaCMS click-to-edit stops event propagation
+    document.addEventListener('pointerdown', (e) => {
+      lastHandledTime = Date.now();
+      handleInteractiveEvent(e);
+    }, true);
+
+    // Fallback click listener (e.g. keyboard navigation or simulated clicks)
+    document.addEventListener('click', (e) => {
+      if (Date.now() - lastHandledTime < 350) return;
+      handleInteractiveEvent(e);
+    }, true);
+
+    // Dropdown change delegation
+    document.addEventListener('change', (e) => {
+      const select = (e.target as HTMLElement)?.closest<HTMLSelectElement>('#schedule-cohort-select');
+      if (select) {
+        activeFullCohort = select.value;
+        updateFullCohortFilter();
+      }
+    }, true);
+
+    // Initial sync
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncAllUI);
+    } else {
+      syncAllUI();
+    }
+    document.addEventListener('astro:page-load', syncAllUI);
+
+    // Observe TinaCMS island swaps to preserve selected cohort & filter states
+    let lastContainer = document.getElementById('smart-finder-view');
+    const observer = new MutationObserver(() => {
+      const currentContainer = document.getElementById('smart-finder-view');
+      if (currentContainer && currentContainer !== lastContainer) {
+        lastContainer = currentContainer;
+        syncAllUI();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  })();
 </script>

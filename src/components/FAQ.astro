@@ -84,31 +84,40 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
 </section>
 
 <script>
-  function initFaqDetails() {
-    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
-    const isInIframe = window.self !== window.top;
-    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+  (() => {
+    let lastHandledTime = 0;
+    function handleFaqInteraction(e: Event) {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
 
-    const detailsList = document.querySelectorAll<HTMLDetailsElement>('.faq-details');
-    detailsList.forEach((details) => {
-      const summary = details.querySelector('summary');
+      const summary = target.closest('summary');
       if (!summary) return;
-      summary.addEventListener(interactiveEvent, () => {
-        const willBeOpen = !details.open;
-        if (willBeOpen) {
-          detailsList.forEach(other => {
-            if (other !== details && other.open) other.open = false;
-          });
-        }
-        setTimeout(() => {
-          if (details.open !== willBeOpen) {
-            details.open = willBeOpen;
-          }
-        }, 10);
-      }, true);
-    });
-  }
 
-  document.addEventListener('DOMContentLoaded', initFaqDetails);
-  document.addEventListener('astro:page-load', initFaqDetails);
+      const details = summary.closest<HTMLDetailsElement>('.faq-details');
+      if (!details) return;
+
+      const willBeOpen = !details.open;
+      if (willBeOpen) {
+        document.querySelectorAll<HTMLDetailsElement>('.faq-details').forEach((other) => {
+          if (other !== details && other.open) other.open = false;
+        });
+      }
+
+      setTimeout(() => {
+        if (details.open !== willBeOpen) {
+          details.open = willBeOpen;
+        }
+      }, 10);
+    }
+
+    document.addEventListener('pointerdown', (e) => {
+      lastHandledTime = Date.now();
+      handleFaqInteraction(e);
+    }, true);
+
+    document.addEventListener('click', (e) => {
+      if (Date.now() - lastHandledTime < 350) return;
+      handleFaqInteraction(e);
+    }, true);
+  })();
 </script>

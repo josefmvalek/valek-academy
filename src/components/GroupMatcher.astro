@@ -285,152 +285,217 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
 )}
 
 <script>
-  const matcherSection = document.getElementById('rozrazovac');
-  if (matcherSection) {
-    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
-    const isInIframe = window.self !== window.top;
-    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+  (() => {
+    // Persistent state across island replacements
+    let currentGrade = '4-6';
+    let currentInterest = 'fantasy';
+    let currentGoal = 'confidence';
 
-    const gradeBtns = document.querySelectorAll<HTMLButtonElement>('.grade-btn');
-    const interestBtns = document.querySelectorAll<HTMLButtonElement>('.interest-btn');
-    const goalBtns = document.querySelectorAll<HTMLButtonElement>('.goal-btn');
+    let audioCtx: AudioContext | null = null;
+    function playClickPop() {
+      try {
+        const AudioCtxClass = window.AudioContext || (window as any).webkitAudioContext;
+        if (!AudioCtxClass) return;
+        audioCtx = audioCtx || new AudioCtxClass();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
 
-  const resTitle = document.getElementById('res-group-title');
-  const resDesc = document.getElementById('res-group-desc');
-  const resGames = document.getElementById('res-games-list');
-  const matcherCta = document.getElementById('matcher-cta-btn');
-  const matcherWaBtn = document.getElementById('matcher-wa-btn') as HTMLAnchorElement | null;
-  const formSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
-  const levelSelect = document.getElementById('level') as HTMLSelectElement | null;
-  const matcherSection = document.getElementById('rozrazovac');
-  const phoneNum = matcherSection?.getAttribute('data-phone') || '420792372642';
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(540, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(780, audioCtx.currentTime + 0.05);
 
-  let currentGrade = '4-6';
-  let currentInterest = 'fantasy';
-  let currentGoal = 'confidence';
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
 
-  let audioCtx: AudioContext | null = null;
-  function playClickPop() {
-    try {
-      const AudioCtxClass = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioCtxClass) return;
-      audioCtx = audioCtx || new AudioCtxClass();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(540, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(780, audioCtx.currentTime + 0.05);
-
-      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.07);
-    } catch(e) {}
-  }
-
-  const groupMatrix: Record<string, { title: string; desc: string; games: string[]; levelValue: string }> = {
-    '1-3': {
-      title: "Skupinka Malých Objevitelů (1.–3. třída ZŠ)",
-      desc: "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou australskou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
-      games: ["🎲 Dobble & zvířata", "🧩 Scrabble Junior", "🃏 Karetní pexesa v AJ", "🏰 Jednoduché deskovky"],
-      levelValue: "ZŠ 1. stupeň (1.–3. třída)"
-    },
-    '4-6': {
-      title: "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
-      desc: "Ideální věk pro napínavé hry a skupinovou dynamiku. Děti komunikují v angličtině přímo během herních situací, rozmluví se a před písemkami ve škole mají náskok.",
-      games: ["🐉 Karak & Hrdinové", "🗣️ Story Cubes (Věty)", "🧩 Slovní rébusy", "🃏 Exploding Kittens"],
-      levelValue: "ZŠ 2. stupeň (4.–6. třída)"
-    },
-    '7-9': {
-      title: "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
-      desc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým přízvukem a připravujeme se na přijímačky na střední školy.",
-      games: ["🏰 Carcassonne & Strategie", "🗣️ Debatní scénky z cest", "🎲 Codenames (Krycí jména)", "📐 Přijímačkové rébusy"],
-      levelValue: "ZŠ 2. stupeň (7.–9. třída)"
-    },
-    'ss': {
-      title: "Přednostní skupina: Středoškoláci & Maturita",
-      desc: "Cílená příprava k maturitě (ústní i písemná část), Cambridge certifikáty a příprava na vysokou školu. Odstranění ostychu z mluvení před komisí.",
-      games: ["🎓 Simulace maturitního speakingu", "🗣️ Byznys & reálie", "📝 Rozbor esejí a didaktických testů"],
-      levelValue: "Střední škola / Maturita"
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.07);
+      } catch(e) {}
     }
-  };
 
-  const gradesMatrixAttr = matcherSection?.getAttribute('data-grades-matrix');
-  if (gradesMatrixAttr) {
-    try {
-      const parsedGrades = JSON.parse(gradesMatrixAttr);
-      if (Array.isArray(parsedGrades)) {
-        parsedGrades.forEach((g: any) => {
-          if (g && g.id && groupMatrix[g.id]) {
-            if (g.recommendedTitle) groupMatrix[g.id].title = g.recommendedTitle;
-            if (g.recommendedDesc) groupMatrix[g.id].desc = g.recommendedDesc;
-            if (Array.isArray(g.recommendedGames) && g.recommendedGames.length > 0) groupMatrix[g.id].games = g.recommendedGames;
-          }
-        });
+    const groupMatrix: Record<string, { title: string; desc: string; games: string[]; levelValue: string }> = {
+      '1-3': {
+        title: "Skupinka Malých Objevitelů (1.–3. třída ZŠ)",
+        desc: "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou australskou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
+        games: ["🎲 Dobble & zvířata", "🧩 Scrabble Junior", "🃏 Karetní pexesa v AJ", "🏰 Jednoduché deskovky"],
+        levelValue: "ZŠ 1. stupeň (1.–3. třída)"
+      },
+      '4-6': {
+        title: "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
+        desc: "Ideální věk pro napínavé hry a skupinovou dynamiku. Děti komunikují v angličtině přímo během herních situací, rozmluví se a před písemkami ve škole mají náskok.",
+        games: ["🐉 Karak & Hrdinové", "🗣️ Story Cubes (Věty)", "🧩 Slovní rébusy", "🃏 Exploding Kittens"],
+        levelValue: "ZŠ 2. stupeň (4.–6. třída)"
+      },
+      '7-9': {
+        title: "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
+        desc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým přízvukem a připravujeme se na přijímačky na střední školy.",
+        games: ["🏰 Carcassonne & Strategie", "🗣️ Debatní scénky z cest", "🎲 Codenames (Krycí jména)", "📐 Přijímačkové rébusy"],
+        levelValue: "ZŠ 2. stupeň (7.–9. třída)"
+      },
+      'ss': {
+        title: "Přednostní skupina: Středoškoláci & Maturita",
+        desc: "Cílená příprava k maturitě (ústní i písemná část), Cambridge certifikáty a příprava na vysokou školu. Odstranění ostychu z mluvení před komisí.",
+        games: ["🎓 Simulace maturitního speakingu", "🗣️ Byznys & reálie", "📝 Rozbor esejí a didaktických testů"],
+        levelValue: "Střední škola / Maturita"
       }
-    } catch(e) {}
-  }
+    };
 
-  function updateRecommendation() {
-    const data = groupMatrix[currentGrade] || groupMatrix['4-6'];
-
-    if (resTitle) resTitle.textContent = data.title;
-    if (resDesc) resDesc.textContent = data.desc;
-
-    if (resGames) {
-      resGames.innerHTML = '';
-      data.games.forEach((g) => {
-        const tag = document.createElement('span');
-        tag.className = 'px-3 py-1 rounded-xl bg-white border border-amber-300 text-xs font-bold text-espresso-950 shadow-2xs';
-        tag.textContent = g;
-        resGames.appendChild(tag);
+    function updateGradeButtonsUI(matcherSection: HTMLElement) {
+      const gradeBtns = matcherSection.querySelectorAll<HTMLButtonElement>('.grade-btn');
+      gradeBtns.forEach(b => {
+        const isMatch = (b.getAttribute('data-grade') || '4-6') === currentGrade;
+        if (isMatch) {
+          b.classList.remove('border-parchment-300', 'bg-parchment-50');
+          b.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+        } else {
+          b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+          b.classList.add('border-parchment-300', 'bg-parchment-50');
+        }
       });
     }
 
-    const interestMap: Record<string, string> = {
-      fantasy: "fantasy a dobrodružné hry (Karak)",
-      words: "slovní rébusy a skládání slov (Scrabble)",
-      speed: "postřehové a akční bleskové hry",
-      action: "postřehové a karetní hry",
-      strategy: "stavění a strategické deskovky"
-    };
-
-    const goalMap: Record<string, string> = {
-      confidence: "odbourat strach z mluvení před ostatními",
-      grades: "zlepšit známky a látku ze školy",
-      fun: "být napřed, bavit se a najít partu vrstevníků",
-      exams: "připravit se na přijímačky a testy"
-    };
-
-    const interestText = interestMap[currentInterest] || "deskové hry";
-    const goalText = goalMap[currentGoal] || "získat jistotu v angličtině";
-
-    // Dynamic WhatsApp message with quiz answers
-    const waMessage = `Dobrý den pane Válku, v průvodci na webu Valek Academy nám pro dítě vyšla skupinka: ${data.title}. Dítě nejvíce baví ${interestText} a rádi bychom pomohli: ${goalText}. Máte v této skupince volné místo na 1. ukázkovou lekci zdarma?`;
-    const waUrl = `https://wa.me/${phoneNum}?text=${encodeURIComponent(waMessage)}`;
-
-    if (matcherWaBtn) {
-      matcherWaBtn.href = waUrl;
+    function updateInterestButtonsUI(matcherSection: HTMLElement) {
+      const interestBtns = matcherSection.querySelectorAll<HTMLButtonElement>('.interest-btn');
+      interestBtns.forEach(b => {
+        const isMatch = (b.getAttribute('data-interest') || 'fantasy') === currentInterest;
+        if (isMatch) {
+          b.classList.remove('border-parchment-300', 'bg-parchment-50');
+          b.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+        } else {
+          b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+          b.classList.add('border-parchment-300', 'bg-parchment-50');
+        }
+      });
     }
 
-    // Update global floating WhatsApp widget if present
-    const floatingWaLink = document.getElementById('floating-wa-link') as HTMLAnchorElement | null;
-    const floatingWaText = document.getElementById('floating-wa-text');
-    if (floatingWaLink) {
-      floatingWaLink.href = waUrl;
-    }
-    if (floatingWaText) {
-      const shortTitle = data.title.split('(')[0].replace('Skupinka ', '').trim();
-      floatingWaText.textContent = `Poptat ${shortTitle} na WhatsApp →`;
+    function updateGoalButtonsUI(matcherSection: HTMLElement) {
+      const goalBtns = matcherSection.querySelectorAll<HTMLButtonElement>('.goal-btn');
+      goalBtns.forEach(b => {
+        const isMatch = (b.getAttribute('data-goal') || 'confidence') === currentGoal;
+        if (isMatch) {
+          b.classList.remove('border-parchment-300', 'bg-parchment-50');
+          b.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+        } else {
+          b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
+          b.classList.add('border-parchment-300', 'bg-parchment-50');
+        }
+      });
     }
 
-    if (matcherCta) {
-      matcherCta.onclick = () => {
+    function updateRecommendation() {
+      const matcherSection = document.getElementById('rozrazovac');
+      if (!matcherSection) return;
+
+      const resTitle = document.getElementById('res-group-title');
+      const resDesc = document.getElementById('res-group-desc');
+      const resGames = document.getElementById('res-games-list');
+      const matcherWaBtn = document.getElementById('matcher-wa-btn') as HTMLAnchorElement | null;
+      const phoneNum = matcherSection.getAttribute('data-phone') || '420792372642';
+
+      const data = groupMatrix[currentGrade] || groupMatrix['4-6'];
+
+      if (resTitle) resTitle.textContent = data.title;
+      if (resDesc) resDesc.textContent = data.desc;
+
+      if (resGames) {
+        resGames.innerHTML = '';
+        data.games.forEach((g) => {
+          const span = document.createElement('span');
+          span.className = 'px-3 py-1 rounded-xl bg-white border border-amber-300 text-xs font-bold text-espresso-950 shadow-2xs';
+          span.textContent = g;
+          resGames.appendChild(span);
+        });
+      }
+
+      const interestMap: Record<string, string> = {
+        fantasy: "fantasy a dobrodružné hry (Karak)",
+        words: "slovní rébusy a skládání slov (Scrabble)",
+        speed: "postřehové a akční bleskové hry",
+        action: "postřehové a karetní hry",
+        strategy: "stavění a strategické deskovky"
+      };
+
+      const goalMap: Record<string, string> = {
+        confidence: "odbourat strach z mluvení před ostatními",
+        grades: "zlepšit známky a látku ze školy",
+        fun: "být napřed, bavit se a najít partu vrstevníků",
+        exams: "připravit se na přijímačky a testy"
+      };
+
+      const interestText = interestMap[currentInterest] || "deskové hry";
+      const goalText = goalMap[currentGoal] || "získat jistotu v angličtině";
+
+      const waMessage = `Dobrý den pane Válku, v průvodci na webu Valek Academy nám pro dítě vyšla skupinka: ${data.title}. Dítě nejvíce baví ${interestText} a rádi bychom pomohli: ${goalText}. Máte v této skupince volné místo na 1. ukázkovou lekci zdarma?`;
+      const waUrl = `https://wa.me/${phoneNum}?text=${encodeURIComponent(waMessage)}`;
+
+      if (matcherWaBtn) {
+        matcherWaBtn.href = waUrl;
+      }
+
+      const floatingWaLink = document.getElementById('floating-wa-link') as HTMLAnchorElement | null;
+      const floatingWaText = document.getElementById('floating-wa-text');
+      if (floatingWaLink) {
+        floatingWaLink.href = waUrl;
+      }
+      if (floatingWaText) {
+        const shortTitle = data.title.split('(')[0].replace('Skupinka ', '').trim();
+        floatingWaText.textContent = `Poptat ${shortTitle} na WhatsApp →`;
+      }
+    }
+
+    function syncGroupMatcher() {
+      const matcherSection = document.getElementById('rozrazovac');
+      if (!matcherSection) return;
+      updateGradeButtonsUI(matcherSection);
+      updateInterestButtonsUI(matcherSection);
+      updateGoalButtonsUI(matcherSection);
+      updateRecommendation();
+    }
+
+    let lastHandledTime = 0;
+    function handleMatcherInteraction(e: Event) {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const matcherSection = target.closest('#rozrazovac') as HTMLElement | null;
+      if (!matcherSection) return;
+
+      // Grade button
+      const gradeBtn = target.closest<HTMLButtonElement>('.grade-btn');
+      if (gradeBtn) {
+        playClickPop();
+        currentGrade = gradeBtn.getAttribute('data-grade') || '4-6';
+        syncGroupMatcher();
+        return;
+      }
+
+      // Interest button
+      const interestBtn = target.closest<HTMLButtonElement>('.interest-btn');
+      if (interestBtn) {
+        playClickPop();
+        currentInterest = interestBtn.getAttribute('data-interest') || 'fantasy';
+        syncGroupMatcher();
+        return;
+      }
+
+      // Goal button
+      const goalBtn = target.closest<HTMLButtonElement>('.goal-btn');
+      if (goalBtn) {
+        playClickPop();
+        currentGoal = goalBtn.getAttribute('data-goal') || 'confidence';
+        syncGroupMatcher();
+        return;
+      }
+
+      // Matcher CTA (form prefill)
+      const matcherCta = target.closest<HTMLAnchorElement>('#matcher-cta-btn');
+      if (matcherCta) {
+        const data = groupMatrix[currentGrade] || groupMatrix['4-6'];
+        const formSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
+        const levelSelect = document.getElementById('level') as HTMLSelectElement | null;
+
         const interestMap: Record<string, string> = {
           fantasy: "fantasy a dobrodružné hry (Karak)",
           words: "slovní rébusy a skládání slov (Scrabble)",
@@ -438,14 +503,12 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
           action: "postřehové a karetní hry",
           strategy: "stavění a strategické deskovky"
         };
-
         const goalMap: Record<string, string> = {
           confidence: "odbourat strach z mluvení před ostatními",
           grades: "zlepšit známky a látku ze školy",
           fun: "být napřed, bavit se a najít partu vrstevníků",
           exams: "připravit se na přijímačky a testy"
         };
-
         const interestText = interestMap[currentInterest] || "deskové hry";
         const goalText = goalMap[currentGoal] || "získat jistotu v angličtině";
 
@@ -470,7 +533,6 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
           msgField.value = `Dobrý den pane Válku, rádi bychom vyzkoušeli 1. lekci zdarma v doučovně. Máme zájem o: ${data.title}.\nDítě baví: ${interestText}.\nPotřebujeme pomoci: ${goalText}.`;
         }
 
-        // Highlight form card and focus name input
         const formCard = document.getElementById('contact-form')?.parentElement;
         if (formCard) {
           formCard.classList.add('ring-4', 'ring-amber-400', 'border-amber-500');
@@ -483,53 +545,35 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
         if (nameInput) {
           setTimeout(() => nameInput.focus(), 300);
         }
-      };
+        return;
+      }
     }
-  }
 
-  // Button Click Handlers
-  gradeBtns.forEach((btn) => {
-    btn.addEventListener(interactiveEvent, () => {
-      playClickPop();
-      gradeBtns.forEach(b => {
-        b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
-        b.classList.add('border-parchment-300', 'bg-parchment-50');
-      });
-      btn.classList.remove('border-parchment-300', 'bg-parchment-50');
-      btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
-      currentGrade = btn.getAttribute('data-grade') || '4-6';
-      updateRecommendation();
+    document.addEventListener('pointerdown', (e) => {
+      lastHandledTime = Date.now();
+      handleMatcherInteraction(e);
     }, true);
-  });
 
-  interestBtns.forEach((btn) => {
-    btn.addEventListener(interactiveEvent, () => {
-      playClickPop();
-      interestBtns.forEach(b => {
-        b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
-        b.classList.add('border-parchment-300', 'bg-parchment-50');
-      });
-      btn.classList.remove('border-parchment-300', 'bg-parchment-50');
-      btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
-      currentInterest = btn.getAttribute('data-interest') || 'fantasy';
-      updateRecommendation();
+    document.addEventListener('click', (e) => {
+      if (Date.now() - lastHandledTime < 350) return;
+      handleMatcherInteraction(e);
     }, true);
-  });
 
-  goalBtns.forEach((btn) => {
-    btn.addEventListener(interactiveEvent, () => {
-      playClickPop();
-      goalBtns.forEach(b => {
-        b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
-        b.classList.add('border-parchment-300', 'bg-parchment-50');
-      });
-      btn.classList.remove('border-parchment-300', 'bg-parchment-50');
-      btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
-      currentGoal = btn.getAttribute('data-goal') || 'confidence';
-      updateRecommendation();
-    }, true);
-  });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncGroupMatcher);
+    } else {
+      syncGroupMatcher();
+    }
+    document.addEventListener('astro:page-load', syncGroupMatcher);
 
-  updateRecommendation();
-  }
+    let lastMatcherEl = document.getElementById('rozrazovac');
+    const matcherObserver = new MutationObserver(() => {
+      const currentMatcherEl = document.getElementById('rozrazovac');
+      if (currentMatcherEl && currentMatcherEl !== lastMatcherEl) {
+        lastMatcherEl = currentMatcherEl;
+        syncGroupMatcher();
+      }
+    });
+    matcherObserver.observe(document.body, { childList: true, subtree: true });
+  })();
 </script>

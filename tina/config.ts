@@ -9,12 +9,12 @@ const branch =
 const scheduleField: any = {
   type: "object",
   name: "schedule",
-  label: "Harmonogram & Rezervace týdenních slotů",
+  label: "📅 Harmonogram & Rezervace týdenních slotů",
   fields: [
     { type: "boolean", name: "enabled", label: "Zobrazit harmonogram na webu?" },
     { type: "string", name: "badge", label: "Odznáček sekce" },
     { type: "string", name: "title", label: "Nadpis sekce" },
-    { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+    { type: "string", name: "subtitle", label: "Podnadpis sekce", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
 
     // Smart Group Finder Fields
     { type: "string", name: "smartFinderTabLabel", label: "Přepínač: Název záložky Vyhledávače (např. Chytrý 2krokový vyhledávač)" },
@@ -41,10 +41,10 @@ const scheduleField: any = {
 
     { type: "string", name: "whyInPersonIcon", label: "Ikona banneru naživo (např. 🎲)" },
     { type: "string", name: "whyInPersonTitle", label: "Nadpis banneru naživo" },
-    { type: "string", name: "whyInPersonText", label: "Text banneru naživo", ui: { component: "textarea" } },
+    { type: "string", name: "whyInPersonText", label: "Text banneru naživo", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
     { type: "string", name: "rollingSystemBadge", label: "Štítek plynulého náboru" },
     { type: "string", name: "rollingSystemTitle", label: "Nadpis plynulého celoročního systému" },
-    { type: "string", name: "rollingSystemText", label: "Vysvětlení plynulého systému a garance ceny", ui: { component: "textarea" } },
+    { type: "string", name: "rollingSystemText", label: "Vysvětlení plynulého systému a garance ceny", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
     { type: "string", name: "pillar1Number", label: "Číslo 1. pilíře (např. 8)" },
     { type: "string", name: "pillar1Title", label: "Nadpis 1. pilíře" },
     { type: "string", name: "pillar1Desc", label: "Popis 1. pilíře" },
@@ -68,9 +68,23 @@ const scheduleField: any = {
       label: "Týdenní zvířecí skupinky (15 slotů Po–Pá)",
       list: true,
       ui: {
-        itemProps: (item: any) => ({
-          label: `${item?.emoji || "🐾"} ${item?.day || "Den"} ${item?.time || "Čas"} – ${item?.animal || "Zvíře"} (${item?.occupiedSeats ?? 0}/${item?.maxSeats || 8})`,
-        }),
+        itemProps: (item: any) => {
+          const occ = Number(item?.occupiedSeats ?? 0);
+          const max = Number(item?.maxSeats || 8);
+          const isManualFull = item?.statusOverride === "full";
+          const isManualWait = item?.statusOverride === "waiting_list";
+          const isManualOpen = item?.statusOverride === "open";
+
+          let statusEmoji = "🟢";
+          if (isManualFull || (!isManualOpen && occ >= max + 4)) {
+            statusEmoji = "🔴";
+          } else if (isManualWait || (!isManualOpen && occ >= max)) {
+            statusEmoji = "🟡";
+          }
+          return {
+            label: `${statusEmoji} ${item?.emoji || "🐾"} ${item?.day || "Den"} ${item?.time || "Čas"} – ${item?.animal || "Zvíře"} (${occ}/${max})`,
+          };
+        },
       },
       fields: [
         { type: "string", name: "id", label: "ID skupinky (např. kangaroos)" },
@@ -81,7 +95,22 @@ const scheduleField: any = {
         { type: "string", name: "cohort", label: "Ročník / Stupeň (např. 1.–3. třída)" },
         { type: "string", name: "cohortBadge", label: "Štítek zaměření (např. Hravé deskovky & základy)" },
         { type: "string", name: "walkHint", label: "Lokální tip / docházková vzdálenost (např. 📍 Ze ZŠ UNESCO přes přechod 90 vteřin)" },
-        { type: "number", name: "occupiedSeats", label: "Počet obsazených míst (0–12)" },
+        {
+          type: "number",
+          name: "occupiedSeats",
+          label: "Počet obsazených míst (0–12)",
+          description: "Při dosažení kapacity (8) se skupinka automaticky přepne na čekací listinu 🟡, nad 12 míst na plno 🔴.",
+          ui: {
+            validate: (val: any) => {
+              if (val !== undefined && val !== null && val !== "") {
+                const num = Number(val);
+                if (isNaN(num)) return "Musí být platné číslo";
+                if (num < 0) return "Počet míst nemůže být záporný";
+                if (num > 15) return "Maximální povolená hodnota je 15";
+              }
+            },
+          },
+        },
         { type: "number", name: "maxSeats", label: "Optimální kapacita (výchozí 8)" },
         { type: "number", name: "waitingListSeats", label: "Kapacita čekací listiny (výchozí 4)" },
         {
@@ -134,12 +163,12 @@ const scheduleField: any = {
 const calculatorField: any = {
   type: "object",
   name: "calculator",
-  label: "Kalkulátor slev a balíčků",
+  label: "🧮 Kalkulátor slev a balíčků",
   fields: [
     { type: "boolean", name: "enabled", label: "Zobrazit kalkulátor slev na webu?" },
     { type: "string", name: "badge", label: "Odznáček kalkulátoru" },
     { type: "string", name: "title", label: "Nadpis kalkulátoru" },
-    { type: "string", name: "subtitle", label: "Podnadpis kalkulátoru", ui: { component: "textarea" } },
+    { type: "string", name: "subtitle", label: "Podnadpis kalkulátoru", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
     { type: "number", name: "basePrice", label: "Základní cena za 60 min lekci (Děti ZŠ) v Kč (např. 320)" },
     { type: "number", name: "basePriceTeens", label: "Základní cena za 90 min lekci (SŠ & Dospělí) v Kč (např. 480)" },
     { type: "string", name: "step1Title", label: "Krok 1 - Nadpis délky období" },
@@ -158,13 +187,38 @@ const calculatorField: any = {
       name: "durations",
       label: "Předvolby délky předplatného (balíčky)",
       list: true,
-      ui: { itemProps: (item: any) => ({ label: `${item?.label || "Období"} (${item?.weeks || 0} týdnů – sleva ${item?.baseDiscount ?? 0} %)` }) },
+      ui: { itemProps: (item: any) => ({ label: `${item?.popular ? '⭐ ' : item?.bestValue ? '💎 ' : ''}${item?.label || "Období"} (${item?.weeks || 0} týdnů – sleva ${item?.baseDiscount ?? 0} %)` }) },
       fields: [
-        { type: "number", name: "weeks", label: "Počet týdnů / lekcí (např. 4, 12, 20, 40)" },
+        {
+          type: "number",
+          name: "weeks",
+          label: "Počet týdnů / lekcí (např. 4, 12, 20, 40)",
+          ui: {
+            validate: (val: any) => {
+              if (val !== undefined && val !== null && val !== "") {
+                const num = Number(val);
+                if (isNaN(num) || num <= 0) return "Počet týdnů musí být větší než 0";
+                if (num > 52) return "Maximální délka je 52 týdnů";
+              }
+            },
+          },
+        },
         { type: "string", name: "label", label: "Název období (např. 1 měsíc, Pololetí)" },
         { type: "string", name: "periodDesc", label: "Popis (např. 20 týdnů půl roku)" },
         { type: "string", name: "badge", label: "Štítek slevy (např. 250 Kč / h)" },
-        { type: "number", name: "baseDiscount", label: "Základní sleva balíčku v % (např. 22)" },
+        {
+          type: "number",
+          name: "baseDiscount",
+          label: "Základní sleva balíčku v % (např. 22)",
+          ui: {
+            validate: (val: any) => {
+              if (val !== undefined && val !== null && val !== "") {
+                const num = Number(val);
+                if (isNaN(num) || num < 0 || num > 100) return "Sleva musí být v rozmezí 0 až 100 %";
+              }
+            },
+          },
+        },
         { type: "boolean", name: "popular", label: "Zvýraznit jako nejoblíbenější?" },
         { type: "boolean", name: "bestValue", label: "Zvýraznit jako maximální úspora?" },
       ],
@@ -174,12 +228,36 @@ const calculatorField: any = {
       name: "frequencies",
       label: "Předvolby frekvence docházky (za týden)",
       list: true,
-      ui: { itemProps: (item: any) => ({ label: `${item?.label || "Frekvence"} (${item?.freq || 1}× týdně – bonus +${item?.bonus ?? 0} %)` }) },
+      ui: { itemProps: (item: any) => ({ label: `${item?.recommended ? '🎯 ' : ''}${item?.label || "Frekvence"} (${item?.freq || 1}× týdně – bonus +${item?.bonus ?? 0} %)` }) },
       fields: [
-        { type: "number", name: "freq", label: "Počet lekcí týdně (1, 2, 3)" },
+        {
+          type: "number",
+          name: "freq",
+          label: "Počet lekcí týdně (1, 2, 3)",
+          ui: {
+            validate: (val: any) => {
+              if (val !== undefined && val !== null && val !== "") {
+                const num = Number(val);
+                if (isNaN(num) || num < 1 || num > 7) return "Frekvence musí být v rozmezí 1 až 7 lekcí týdně";
+              }
+            },
+          },
+        },
         { type: "string", name: "label", label: "Název (např. 2× týdně)" },
         { type: "string", name: "desc", label: "Popisek (např. Rychlý pokrok)" },
-        { type: "number", name: "bonus", label: "Bonusová sleva za frekvenci v % (např. 9)" },
+        {
+          type: "number",
+          name: "bonus",
+          label: "Bonusová sleva za frekvenci v % (např. 9)",
+          ui: {
+            validate: (val: any) => {
+              if (val !== undefined && val !== null && val !== "") {
+                const num = Number(val);
+                if (isNaN(num) || num < 0 || num > 100) return "Bonusová sleva musí být v rozmezí 0 až 100 %";
+              }
+            },
+          },
+        },
         { type: "string", name: "badge", label: "Štítek bonusu (např. +9 % extra sleva)" },
         { type: "boolean", name: "recommended", label: "Doporučeno?" },
       ],
@@ -205,7 +283,7 @@ export default defineConfig({
     collections: [
       {
         name: "page",
-        label: "Obsah webu",
+        label: "📄 Obsah hlavní stránky (/)",
         path: "content/pages",
         format: "json",
         ui: {
@@ -227,11 +305,11 @@ export default defineConfig({
           {
             type: "object",
             name: "seo",
-            label: "SEO & Vyhledávače (Google, Seznam)",
+            label: "🔍 SEO & Vyhledávače (Google, Seznam)",
             fields: [
               { type: "string", name: "metaTitle", label: "SEO Titulek stránky (<title>)" },
               { type: "string", name: "metaDescription", label: "SEO Popisek pro vyhledávače", ui: { component: "textarea" } },
-              { type: "image", name: "ogImage", label: "Obrázek pro sdílení na sítích (OpenGraph 1200x630)" },
+              { type: "image", name: "ogImage", label: "Obrázek pro sdílení na sítích (OpenGraph 1200x630)", description: "Doporučený rozměr pro sítě: 1200×630 px (poměr 1.91:1), JPG nebo PNG." },
               { type: "string", name: "canonicalUrl", label: "Kanonická URL adresa (např. https://valekacademy.cz/)" },
               { type: "string", name: "keywords", label: "Klíčová slova (oddělená čárkami)" },
             ],
@@ -239,9 +317,9 @@ export default defineConfig({
           {
             type: "object",
             name: "navbar",
-            label: "Hlavička & Navigace",
+            label: "🧭 Hlavička & Hlavní navigace",
             fields: [
-              { type: "image", name: "logoImage", label: "Vlastní logo / Obrázek maskota" },
+              { type: "image", name: "logoImage", label: "Vlastní logo / Obrázek maskota", description: "Vlastní logo nebo maskot (průhledné PNG nebo SVG)." },
               { type: "string", name: "brandName", label: "Název značky" },
               { type: "string", name: "brandTagline", label: "Podtitul značky" },
               { type: "string", name: "ctaText", label: "Text tlačítka v menu" },
@@ -259,7 +337,7 @@ export default defineConfig({
                 label: "Odkazy v horním menu",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.label || "Odkaz" }),
+                  itemProps: (item) => ({ label: `🔗 ${item?.label || "Odkaz"}` }),
                 },
                 fields: [
                   { type: "string", name: "label", label: "Text odkazu" },
@@ -300,7 +378,7 @@ export default defineConfig({
           {
             type: "object",
             name: "hero",
-            label: "Hero sekce",
+            label: "🏠 Hero sekce (Úvodní banner & lektor)",
             fields: [
               { type: "string", name: "badge", label: "Horní odznáček / Tagline" },
               { type: "string", name: "title", label: "Hlavní nadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i>, <u>podtržené</u> (nebo **tučné**, *kurzíva*)" },
@@ -316,7 +394,7 @@ export default defineConfig({
                 fields: [
                   { type: "boolean", name: "enabled", label: "Zobrazit kartu pana Válka v Hero na webu?" },
                   { type: "boolean", name: "showBenefits", label: "Zobrazit v kartě spodní minikarty výhod a adresu?" },
-                  { type: "image", name: "image", label: "Fotka / Avatar lektora v Hero" },
+                  { type: "image", name: "image", label: "Fotka / Avatar lektora v Hero", description: "Doporučený formát: portrét 800×1000 px, průhledné pozadí nebo ořez, WebP/PNG." },
                   { type: "string", name: "teacherName", label: "Jméno lektora" },
                   { type: "string", name: "teacherRole", label: "Podtitul / Vzdělání (např. BBA Melbourne • 25+ let v ČR)" },
                   { type: "string", name: "teacherTag", label: "Specializace (např. Australský přízvuk & výuka hrou)" },
@@ -334,7 +412,7 @@ export default defineConfig({
                         label: "Zvukové fráze",
                         list: true,
                         ui: {
-                          itemProps: (item) => ({ label: `${item?.buttonLabel || item?.id || "Fráze"}` }),
+                          itemProps: (item) => ({ label: `🔊 ${item?.buttonLabel || item?.id || "Fráze"}` }),
                         },
                         fields: [
                           { type: "string", name: "id", label: "Klíč zvuku (gday, dice, noworries)" },
@@ -364,7 +442,7 @@ export default defineConfig({
                 label: "Statistiky & Důvěryhodnost",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: `${item?.number || "Statistika"} - ${item?.label || ""}` }),
+                  itemProps: (item) => ({ label: `${item?.icon || '📊'} ${item?.number || "Statistika"} - ${item?.label || ""}` }),
                 },
                 fields: [
                   { type: "string", name: "number", label: "Číslo (např. 10+ let)" },
@@ -378,12 +456,12 @@ export default defineConfig({
           {
             type: "object",
             name: "audience",
-            label: "3 Cílové skupiny (ZŠ, SŠ, Dospělí)",
+            label: "👥 3 Cílové skupiny (ZŠ, SŠ, Dospělí)",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit sekci Programy & Hry na webu?" },
               { type: "string", name: "badge", label: "Odznáček sekce" },
               { type: "string", name: "title", label: "Nadpis sekce" },
-              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "cohortTabsLabel", label: "Mobilní přepínač ročníků - nadpis" },
               { type: "string", name: "gamesLabel", label: "Karta programu - nadpis her" },
               { type: "string", name: "pointsLabel", label: "Karta programu - nadpis výhod" },
@@ -396,12 +474,12 @@ export default defineConfig({
                 label: "Programy pro žáky ZŠ",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: `${item?.title || "Program"} (${item?.age || ""})` }),
+                  itemProps: (item) => ({ label: `${item?.icon || '🎒'} ${item?.title || "Program"} (${item?.age || ""})` }),
                 },
                 fields: [
                   { type: "string", name: "id", label: "Identifikátor" },
                   { type: "string", name: "icon", label: "Ikona / Emoji" },
-                  { type: "image", name: "image", label: "Obrázek programu (ilustrace / fotka)" },
+                  { type: "image", name: "image", label: "Obrázek programu (ilustrace / fotka)", description: "Ilustrační fotka nebo obrázek programu (poměr 16:9 nebo 4:3, WebP)." },
                   { type: "string", name: "title", label: "Název programu" },
                   { type: "string", name: "age", label: "Věk a velikost skupinky" },
                   { type: "string", name: "badge", label: "Štítek" },
@@ -430,12 +508,12 @@ export default defineConfig({
           {
             type: "object",
             name: "scio",
-            label: "Sekce SCIO & Přijímačky na SŠ",
+            label: "🎓 Sekce SCIO & Přijímačky na SŠ",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit sekci SCIO na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
-              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "tagline", label: "Slogan" },
               { type: "string", name: "features", label: "Body a výhody přípravy", list: true },
               { type: "string", name: "ctaText", label: "Text tlačítka" },
@@ -464,12 +542,12 @@ export default defineConfig({
           {
             type: "object",
             name: "about",
-            label: "Sekce O lektorovi & Metodika",
+            label: "👨‍🏫 Sekce O lektorovi & Metodika",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit sekci O lektorovi na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
-              { type: "image", name: "image", label: "Hlavní fotka lektora pana Válka" },
+              { type: "image", name: "image", label: "Hlavní fotka lektora pana Válka", description: "Doporučený formát: 1000×1200 px, kvalitní portrétní foto, WebP." },
               { type: "string", name: "teacherName", label: "Jméno lektora" },
               { type: "string", name: "role", label: "Titul / Pozice" },
               { type: "string", name: "bio", label: "Životopis a přístup", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i>, <u>podtržené</u> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
@@ -499,7 +577,7 @@ export default defineConfig({
                 label: "4 Pilíře výuky",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.title || "Pilíř" }),
+                  itemProps: (item) => ({ label: `${item?.icon || "📌"} ${item?.title || "Pilíř"}` }),
                 },
                 fields: [
                   { type: "string", name: "icon", label: "Ikona / Emoji" },
@@ -512,12 +590,12 @@ export default defineConfig({
           {
             type: "object",
             name: "pricing",
-            label: "Ceník a balíčky",
+            label: "💰 Ceník a cenové balíčky",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit sekci Ceník na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
-              { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis sekce", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "tabsLabel", label: "Mobilní přepínač ceníku - nadpis" },
               { type: "string", name: "featuresLabel", label: "Karta ceníku - nadpis položek v ceně" },
               { type: "string", name: "guarantee", label: "Garance spokojenosti", ui: { component: "textarea" } },
@@ -527,7 +605,7 @@ export default defineConfig({
                 label: "Cenové balíčky",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: `${item?.name || "Balíček"} - ${item?.price || ""}` }),
+                  itemProps: (item) => ({ label: `${item?.isPopular ? "⭐ " : ""}${item?.name || "Balíček"} – ${item?.price || ""}` }),
                 },
                 fields: [
                   { type: "string", name: "name", label: "Název balíčku" },
@@ -547,7 +625,7 @@ export default defineConfig({
                 label: "3 Garance ceníku (dole)",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.title || "Garance" }),
+                  itemProps: (item) => ({ label: `${item?.icon || "🛡️"} ${item?.title || "Garance"}` }),
                 },
                 fields: [
                   { type: "string", name: "icon", label: "Ikona (emoji)" },
@@ -561,12 +639,12 @@ export default defineConfig({
           {
             type: "object",
             name: "comparison",
-            label: "Srovnávací tabulka (Škola vs Doučování vs Valek)",
+            label: "⚖️ Srovnávací tabulka (Škola vs Doučování vs Valek)",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit Srovnávací tabulku na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis srovnání" },
-              { type: "string", name: "subtitle", label: "Podnadpis srovnání", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis srovnání", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "ctaText", label: "Text tlačítka 1. lekce (vítěz)" },
               { type: "string", name: "ctaLink", label: "Odkaz tlačítka (vítěz)" },
               { type: "string", name: "toggleButtonText", label: "Text tlačítka pro mobilní srovnání" },
@@ -581,7 +659,7 @@ export default defineConfig({
                 label: "Srovnávací sloupce",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.title || "Sloupec" }),
+                  itemProps: (item) => ({ label: `${item?.isWinner ? "🏆 " : "📊 "}${item?.title || "Sloupec"} (${item?.price || ""})` }),
                 },
                 fields: [
                   { type: "string", name: "type", label: "Typ (school, private, valek)" },
@@ -604,12 +682,12 @@ export default defineConfig({
           {
             type: "object",
             name: "testimonials",
-            label: "Reference a recenze",
+            label: "⭐ Reference a recenze studentů a rodičů",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit sekci Reference na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
-              { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis sekce", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "ratingScore", label: "Skóre hodnocení" },
               { type: "string", name: "ratingNote", label: "Poznámka k hodnocení" },
               {
@@ -618,7 +696,11 @@ export default defineConfig({
                 label: "Recenze studentů a rodičů",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: `${item?.name || "Student"} (${item?.role || ""})` }),
+                  itemProps: (item: any) => {
+                    const rating = Math.min(5, Math.max(1, Number(item?.rating) || 5));
+                    const stars = "⭐".repeat(rating);
+                    return { label: `${stars} ${item?.name || "Student"} (${item?.location || item?.role || "Rodič"})` };
+                  },
                 },
                 fields: [
                   { type: "string", name: "name", label: "Jméno studenta / rodiče" },
@@ -635,12 +717,12 @@ export default defineConfig({
           {
             type: "object",
             name: "howItWorks",
-            label: "Metodika & Hry",
+            label: "🎲 Jak funguje výuka hrou & Deskovky",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit sekci Jak výuka hrou funguje na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
-              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "quote", label: "Citát / Zvýrazněná věta" },
               { type: "string", name: "gamesTitle", label: "Nadpis představených her" },
               { type: "string", name: "gamesSubtitle", label: "Podnadpis představených her" },
@@ -651,7 +733,7 @@ export default defineConfig({
                 label: "Představené deskovky",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.title || "Deskovka" }),
+                  itemProps: (item) => ({ label: `${item?.icon || "🎲"} ${item?.title || "Deskovka"} [${item?.badge || item?.tag || ""}]` }),
                 },
                 fields: [
                   { type: "string", name: "icon", label: "Ikona / Emoji" },
@@ -669,7 +751,7 @@ export default defineConfig({
                 label: "3 Kroky lekce",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.title || "Krok" }),
+                  itemProps: (item) => ({ label: `${item?.badge || "Krok"}: ${item?.title || "Krok"}` }),
                 },
                 fields: [
                   { type: "string", name: "badge", label: "Štítek kroku" },
@@ -682,7 +764,7 @@ export default defineConfig({
                 name: "poster",
                 label: "Obrázkový poster s deskovkami",
                 fields: [
-                  { type: "image", name: "image", label: "Obrázek deskových her / Doučovny" },
+                  { type: "image", name: "image", label: "Obrázek deskových her / Doučovny", description: "Doporučený formát: na šířku 16:9 nebo 4:3, min. 1200 px šířka, WebP." },
                   { type: "string", name: "tag", label: "Štítek (např. Atmosféra naší doučovny)" },
                   { type: "string", name: "title", label: "Nadpis posteru" },
                   { type: "string", name: "desc", label: "Popis posteru", ui: { component: "textarea" } },
@@ -704,12 +786,12 @@ export default defineConfig({
           {
             type: "object",
             name: "timeline",
-            label: "Časová osa lekce (60 minut)",
+            label: "⏱️ Časová osa lekce (60 minut)",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit Časovou osu 60 min lekce na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
-              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "calloutTitle", label: "Výzva/Garance - nadpis" },
               { type: "string", name: "calloutDesc", label: "Výzva/Garance - popis", ui: { component: "textarea" } },
               { type: "string", name: "calloutCtaText", label: "Výzva/Garance - text tlačítka" },
@@ -720,7 +802,7 @@ export default defineConfig({
                 label: "4 Fáze lekce",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: `${item?.icon || '⏱️'} ${item?.time || "Čas"} - ${item?.title || "Fáze"}` }),
+                  itemProps: (item) => ({ label: `${item?.icon || "⏱️"} ${item?.time || "Čas"} – ${item?.title || "Fáze"}` }),
                 },
                 fields: [
                   { type: "string", name: "icon", label: "Ikona / Emoji fáze (např. ☕, 🎲, 🎒, 🌟)" },
@@ -736,14 +818,14 @@ export default defineConfig({
           {
             type: "object",
             name: "location",
-            label: "Kde učíme & Doučovna",
+            label: "📍 Kde učíme & Doučovna Uherské Hradiště",
             fields: [
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
-              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "galleryBadge", label: "Fotogalerie - odznáček" },
               { type: "string", name: "galleryTitle", label: "Fotogalerie - nadpis" },
-              { type: "string", name: "gallerySubtitle", label: "Fotogalerie - podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "gallerySubtitle", label: "Fotogalerie - podnadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "fullGalleryButtonText", label: "Text tlačítka pro otevření celé fotogalerie" },
               { type: "string", name: "galleryCtaBannerTitle", label: "Nadpis spodního banneru fotogalerie" },
               { type: "string", name: "galleryCtaBannerDesc", label: "Popis spodního banneru fotogalerie", ui: { component: "textarea" } },
@@ -759,7 +841,7 @@ export default defineConfig({
                 label: "Výhody lokality",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.title || "Výhoda" }),
+                  itemProps: (item) => ({ label: `${item?.icon || "✨"} ${item?.title || "Výhoda"}` }),
                 },
                 fields: [
                   { type: "string", name: "icon", label: "Ikona / Emoji" },
@@ -774,10 +856,10 @@ export default defineConfig({
                 label: "Fotogalerie doučovny",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.title || "Fotografie" }),
+                  itemProps: (item) => ({ label: `📸 ${item?.title || "Fotografie"}` }),
                 },
                 fields: [
-                  { type: "image", name: "image", label: "Obrázek" },
+                  { type: "image", name: "image", label: "Obrázek", description: "Doporučený formát: 4:3 nebo 16:9, max. 1920 px šířka, WebP." },
                   { type: "string", name: "title", label: "Název fotky" },
                   { type: "string", name: "desc", label: "Popisek fotky" },
                 ],
@@ -787,12 +869,12 @@ export default defineConfig({
           {
             type: "object",
             name: "groupMatcher",
-            label: "Rozřazovač do skupinek",
+            label: "🎯 Rozřazovač do skupinek",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit Rozřazovač do skupinek na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis" },
-              { type: "string", name: "subtitle", label: "Podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "step1Title", label: "Nadpis 1. kroku" },
               { type: "string", name: "step2Title", label: "Nadpis 2. kroku" },
               { type: "string", name: "step3Title", label: "Nadpis 3. kroku" },
@@ -807,7 +889,7 @@ export default defineConfig({
                 name: "grades",
                 label: "Krok 1: Volby ročníků",
                 list: true,
-                ui: { itemProps: (item) => ({ label: item?.title || "Třída" }) },
+                ui: { itemProps: (item) => ({ label: `${item?.icon || "🎒"} ${item?.title || "Třída"} (${item?.age || ""})` }) },
                 fields: [
                   { type: "string", name: "id", label: "ID (1-3, 4-6, 7-9, ss)" },
                   { type: "string", name: "icon", label: "Ikona / Emoji" },
@@ -823,7 +905,7 @@ export default defineConfig({
                 name: "interests",
                 label: "Krok 2: Volby zájmů",
                 list: true,
-                ui: { itemProps: (item) => ({ label: item?.title || "Zájem" }) },
+                ui: { itemProps: (item) => ({ label: `${item?.icon || "🎯"} ${item?.title || "Zájem"}` }) },
                 fields: [
                   { type: "string", name: "id", label: "ID (fantasy, words, speed, strategy)" },
                   { type: "string", name: "icon", label: "Ikona / Emoji" },
@@ -836,7 +918,7 @@ export default defineConfig({
                 name: "goals",
                 label: "Krok 3: Cíle žáka",
                 list: true,
-                ui: { itemProps: (item) => ({ label: item?.title || "Cíl" }) },
+                ui: { itemProps: (item) => ({ label: `${item?.icon || "⭐"} ${item?.title || "Cíl"}` }) },
                 fields: [
                   { type: "string", name: "id", label: "ID (confidence, grades, fun)" },
                   { type: "string", name: "icon", label: "Ikona / Emoji" },
@@ -849,12 +931,12 @@ export default defineConfig({
           {
             type: "object",
             name: "faq",
-            label: "Časté dotazy (FAQ)",
+            label: "❓ Časté dotazy (FAQ)",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit sekci Časté dotazy (FAQ) na webu?" },
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
-              { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis sekce", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "contactPrompt", label: "Spodní výzva FAQ (otázka)" },
               { type: "string", name: "contactPromptLinkText", label: "Spodní výzva FAQ (text odkazu)" },
               {
@@ -863,7 +945,7 @@ export default defineConfig({
                 label: "Otázky a odpovědi",
                 list: true,
                 ui: {
-                  itemProps: (item) => ({ label: item?.question || "Otázka" }),
+                  itemProps: (item) => ({ label: `❓ ${item?.question || "Otázka"}` }),
                 },
                 fields: [
                   { type: "string", name: "question", label: "Otázka" },
@@ -875,20 +957,20 @@ export default defineConfig({
           {
             type: "object",
             name: "contact",
-            label: "Kontaktní informace",
+            label: "📞 Kontaktní informace & Rezervační formulář",
             fields: [
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
-              { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
-              { type: "image", name: "tutorImage", label: "Fotka lektora u kontaktu" },
+              { type: "string", name: "subtitle", label: "Podnadpis sekce", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
+              { type: "image", name: "tutorImage", label: "Fotka lektora u kontaktu", description: "Portrét lektora (čtverec nebo portrét, WebP)." },
               { type: "string", name: "tutorName", label: "Jméno lektora na kartě" },
               { type: "string", name: "tutorCredentials", label: "Titul a zkušenosti" },
               { type: "string", name: "tutorRole", label: "Místo / Doučovna" },
               { type: "string", name: "introText", label: "Úvodní text pod lektorem", ui: { component: "textarea" } },
               { type: "string", name: "email", label: "Kontaktní e-mail" },
-              { type: "string", name: "phone", label: "Telefonní číslo" },
+              { type: "string", name: "phone", label: "Telefonní číslo", description: "Číslo s mezinárodní předvolbou (např. +420 792 372 642)." },
               { type: "string", name: "phoneFormatted", label: "Telefon (zobrazený formát)" },
-              { type: "string", name: "whatsapp", label: "Odkaz na WhatsApp" },
+              { type: "string", name: "whatsapp", label: "Odkaz na WhatsApp", description: "Číslo bez mezer pro odkaz (např. 420792372642)." },
               { type: "string", name: "whatsappText", label: "Text odkazu na WhatsApp" },
               { type: "string", name: "whatsappMessage", label: "Předvyplněná zpráva pro WhatsApp", ui: { component: "textarea" } },
               { type: "string", name: "location", label: "Místo výuky" },
@@ -898,7 +980,7 @@ export default defineConfig({
               { type: "string", name: "formBadge", label: "Formulář - štítek" },
               { type: "string", name: "formBadgeNote", label: "Formulář - poznámka ke štítku" },
               { type: "string", name: "formTitle", label: "Formulář - nadpis" },
-              { type: "string", name: "formSubtitle", label: "Formulář - podnadpis", ui: { component: "textarea" } },
+              { type: "string", name: "formSubtitle", label: "Formulář - podnadpis", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "programLabel", label: "Formulář - popisek výběru programu" },
               { type: "string", name: "formatLabel", label: "Formulář - popisek formy výuky" },
               { type: "string", name: "formatInPersonTitle", label: "Formulář - volba osobně nadpis" },
@@ -953,7 +1035,7 @@ export default defineConfig({
           {
             type: "object",
             name: "footer",
-            label: "Patička webu",
+            label: "🦶 Patička webu & Právní informace",
             fields: [
               { type: "string", name: "brandName", label: "Název akademie" },
               { type: "string", name: "brandTagline", label: "Slogan akademie" },
@@ -965,7 +1047,7 @@ export default defineConfig({
                 name: "navLinks",
                 label: "Odkazy v rychlé navigaci",
                 list: true,
-                ui: { itemProps: (item) => ({ label: item?.label || "Odkaz" }) },
+                ui: { itemProps: (item) => ({ label: `🔗 ${item?.label || "Odkaz"}` }) },
                 fields: [
                   { type: "string", name: "label", label: "Text odkazu" },
                   { type: "string", name: "href", label: "Cíl odkazu" },
@@ -985,7 +1067,7 @@ export default defineConfig({
           {
             type: "object",
             name: "stickyCta",
-            label: "Mobilní plovoucí lišta",
+            label: "📱 Mobilní plovoucí lišta",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit mobilní plovoucí lištu?" },
               { type: "string", name: "text", label: "Text výzvy" },
@@ -996,7 +1078,7 @@ export default defineConfig({
           {
             type: "object",
             name: "whatsappWidget",
-            label: "Plovoucí tlačítko WhatsApp",
+            label: "💬 Plovoucí tlačítko WhatsApp",
             fields: [
               { type: "boolean", name: "enabled", label: "Zobrazit plovoucí WhatsApp tlačítko na webu?" },
               { type: "string", name: "phone", label: "Telefonní číslo pro WhatsApp (bez mezer, např. 420792372642)" },
@@ -1009,7 +1091,7 @@ export default defineConfig({
       },
       {
         name: "legal",
-        label: "Právní dokumenty (GDPR & VOP)",
+        label: "⚖️ Právní dokumenty (GDPR & VOP)",
         path: "content/legal",
         format: "json",
         ui: {
@@ -1051,6 +1133,7 @@ export default defineConfig({
             type: "string",
             name: "subtitle",
             label: "Úvodní popis stránky",
+            description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)",
             ui: { component: "textarea" },
           },
           {
@@ -1115,13 +1198,13 @@ export default defineConfig({
             list: true,
             ui: {
               itemProps: (item) => ({
-                label: `${item?.number ? item.number + '. ' : ''}${item?.title || 'Sekce'}`,
+                label: `📄 ${item?.number ? item.number + '. ' : ''}${item?.title || 'Sekce'}`,
               }),
             },
             fields: [
               { type: "string", name: "number", label: "Číslo sekce" },
               { type: "string", name: "title", label: "Nadpis sekce", required: true },
-              { type: "string", name: "content", label: "Text sekce", ui: { component: "textarea" } },
+              { type: "string", name: "content", label: "Text sekce", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               {
                 type: "object",
                 name: "bullets",
@@ -1138,7 +1221,7 @@ export default defineConfig({
       },
       {
         name: "gallery",
-        label: "Fotogalerie",
+        label: "🖼️ Fotogalerie (/galerie)",
         path: "content/gallery",
         format: "json",
         ui: {
@@ -1176,6 +1259,7 @@ export default defineConfig({
             type: "string",
             name: "subtitle",
             label: "Podnadpis galerie",
+            description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)",
             ui: { component: "textarea" },
           },
           {
@@ -1191,7 +1275,7 @@ export default defineConfig({
           {
             type: "object",
             name: "trustBadges",
-            label: "Odznáčky důvěry pod nadpisem",
+            label: "✨ Odznáčky důvěry pod nadpisem",
             list: true,
             ui: {
               itemProps: (item: any) => ({ label: `${item?.icon || "✨"} ${item?.text || "Odznáček"}` }),
@@ -1205,7 +1289,7 @@ export default defineConfig({
           {
             type: "object",
             name: "categories",
-            label: "Kategorie fotogalerie",
+            label: "📁 Kategorie fotogalerie",
             list: true,
             ui: {
               itemProps: (item) => ({
@@ -1220,7 +1304,7 @@ export default defineConfig({
               {
                 type: "object",
                 name: "photos",
-                label: "Fotografie v této kategorii",
+                label: "📸 Fotografie v této kategorii",
                 list: true,
                 ui: {
                   itemProps: (item) => ({
@@ -1229,7 +1313,7 @@ export default defineConfig({
                 },
                 fields: [
                   { type: "boolean", name: "hidden", label: "🚫 Skrýt tento obrázek na webu?" },
-                  { type: "image", name: "image", label: "Fotografie (soubor)", required: true },
+                  { type: "image", name: "image", label: "Fotografie (soubor)", description: "Doporučený formát: 4:3 nebo 16:9, max. 1920 px šířka, WebP nebo JPG.", required: true },
                   { type: "string", name: "title", label: "Název / popisek fotky", required: true },
                   { type: "string", name: "description", label: "Podrobnější text / poznámka k fotce", ui: { component: "textarea" } },
                   { type: "boolean", name: "isFeatured", label: "Zvýraznit (širší karta)?" },
@@ -1240,11 +1324,11 @@ export default defineConfig({
           {
             type: "object",
             name: "ctaBanner",
-            label: "Spodní výzva k akci (CTA banner)",
+            label: "📣 Spodní výzva k akci (CTA banner)",
             fields: [
               { type: "string", name: "badge", label: "Štítek banneru (např. Přijďte se přesvědčit naživo)" },
               { type: "string", name: "title", label: "Nadpis banneru" },
-              { type: "string", name: "subtitle", label: "Podnadpis banneru", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis banneru", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "buttonText", label: "Text tlačítka" },
               { type: "string", name: "buttonLink", label: "Odkaz tlačítka" },
             ],
@@ -1253,7 +1337,7 @@ export default defineConfig({
       },
       {
         name: "cenik",
-        label: "Podrobný ceník (/cenik)",
+        label: "💳 Podrobný ceník (/cenik)",
         path: "content/pricing",
         format: "json",
         ui: {
@@ -1275,7 +1359,7 @@ export default defineConfig({
           {
             type: "object",
             name: "seo",
-            label: "SEO Nastavení",
+            label: "🔍 SEO Nastavení",
             fields: [
               { type: "string", name: "metaTitle", label: "SEO Titulek (<title>)" },
               { type: "string", name: "metaDescription", label: "SEO Popis pro vyhledávače", ui: { component: "textarea" } },
@@ -1290,21 +1374,21 @@ export default defineConfig({
           {
             type: "object",
             name: "header",
-            label: "Hlavička stránky ceníku",
+            label: "🏷️ Hlavička stránky ceníku",
             fields: [
               { type: "string", name: "badge", label: "Štítek / Odznáček" },
               { type: "string", name: "title", label: "Hlavní nadpis (H1)", ui: { component: "textarea" } },
-              { type: "string", name: "subtitle", label: "Úvodní popis / perex", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Úvodní popis / perex", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
             ],
           },
           {
             type: "object",
             name: "programs",
-            label: "4 Hlavní výukové programy",
+            label: "📦 4 Hlavní výukové programy",
             list: true,
             ui: {
               itemProps: (item) => ({
-                label: `${item?.icon || '🏷️'} ${item?.title || 'Program'} (${item?.cohortBadge || ''})`,
+                label: `${item?.icon || '🏷️'} ${item?.title || 'Program'} (${item?.baseRate || ''})`,
               }),
             },
             fields: [
@@ -1332,11 +1416,11 @@ export default defineConfig({
           {
             type: "object",
             name: "comparisonTable",
-            label: "Srovnávací tabulka slev a balíčků",
+            label: "📊 Srovnávací tabulka slev a balíčků",
             fields: [
               { type: "string", name: "badge", label: "Štítek nadpisu" },
               { type: "string", name: "title", label: "Nadpis tabulky" },
-              { type: "string", name: "subtitle", label: "Popis pod nadpisem", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Popis pod nadpisem", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               {
                 type: "object",
                 name: "rows",
@@ -1344,7 +1428,7 @@ export default defineConfig({
                 list: true,
                 ui: {
                   itemProps: (item) => ({
-                    label: `${item?.period || 'Období'} (${item?.frequency || ''}) - ${item?.totalPrice || ''}`,
+                    label: `${item?.isPopular ? '⭐ ' : item?.isRecommended ? '🟢 ' : item?.isBestValue ? '💎 ' : ''}${item?.period || 'Období'} (${item?.frequency || ''}) - ${item?.totalPrice || ''}`,
                   }),
                 },
                 fields: [
@@ -1366,11 +1450,11 @@ export default defineConfig({
           {
             type: "object",
             name: "guarantees",
-            label: "Férová pravidla & Platební podmínky (4 pilíře)",
+            label: "🛡️ Férová pravidla & Platební podmínky (4 pilíře)",
             fields: [
               { type: "string", name: "badge", label: "Štítek nadpisu" },
               { type: "string", name: "title", label: "Nadpis sekce" },
-              { type: "string", name: "subtitle", label: "Podnadpis sekce", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis sekce", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               {
                 type: "object",
                 name: "items",
@@ -1392,7 +1476,7 @@ export default defineConfig({
           {
             type: "object",
             name: "faq",
-            label: "Časté dotazy ke ceníku (FAQ)",
+            label: "❓ Časté dotazy ke ceníku (FAQ)",
             fields: [
               { type: "string", name: "title", label: "Nadpis FAQ" },
               {
@@ -1415,11 +1499,11 @@ export default defineConfig({
           {
             type: "object",
             name: "ctaBanner",
-            label: "Spodní výzva k akci (CTA banner)",
+            label: "📣 Spodní výzva k akci (CTA banner)",
             fields: [
               { type: "string", name: "badge", label: "Štítek banneru" },
               { type: "string", name: "title", label: "Hlavní nadpis banneru" },
-              { type: "string", name: "subtitle", label: "Podnadpis banneru", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis banneru", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
               { type: "string", name: "primaryBtnText", label: "Text primárního tlačítka" },
               { type: "string", name: "primaryBtnLink", label: "Odkaz primárního tlačítka" },
               { type: "string", name: "secondaryBtnText", label: "Text sekundárního tlačítka" },
@@ -1430,7 +1514,7 @@ export default defineConfig({
       },
       {
         name: "rozvrh",
-        label: "Rozvrh hodin (/rozvrh)",
+        label: "📅 Rozvrh hodin (/rozvrh)",
         path: "content/schedule",
         format: "json",
         ui: {
@@ -1452,7 +1536,7 @@ export default defineConfig({
           {
             type: "object",
             name: "seo",
-            label: "SEO Nastavení",
+            label: "🔍 SEO Nastavení",
             fields: [
               { type: "string", name: "metaTitle", label: "SEO Titulek (<title>)" },
               { type: "string", name: "metaDescription", label: "SEO Popis pro vyhledávače", ui: { component: "textarea" } },
@@ -1468,11 +1552,11 @@ export default defineConfig({
           {
             type: "object",
             name: "reservation",
-            label: "Spodní sekce rezervace a formuláře (#kontakt)",
+            label: "📝 Spodní sekce rezervace a formuláře (#kontakt)",
             fields: [
               { type: "string", name: "badge", label: "Štítek sekce" },
               { type: "string", name: "title", label: "Hlavní nadpis formuláře" },
-              { type: "string", name: "subtitle", label: "Podnadpis formuláře", ui: { component: "textarea" } },
+              { type: "string", name: "subtitle", label: "Podnadpis formuláře", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
             ],
           },
         ],

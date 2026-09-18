@@ -169,199 +169,232 @@ phrases.forEach((p) => {
 </div>
 
 <script>
-  const playBtn = document.getElementById('audio-play-btn');
-  const playIcon = document.getElementById('audio-play-icon');
-  const pauseIcon = document.getElementById('audio-pause-icon');
-  const bars = document.querySelectorAll('.sound-wave-bar');
-  const timeDisplay = document.getElementById('audio-time');
-  const subtitle = document.getElementById('audio-subtitle');
-  const liveText = document.getElementById('speech-live-text');
-  const nativeAudio = document.getElementById('native-audio') as HTMLAudioElement | null;
+  (() => {
+    let isPlaying = false;
+    let timerInterval: any = null;
+    let secondsRemaining = 10;
+    let activePhraseKey = 'gday';
 
-  let isPlaying = false;
-  let timerInterval: any = null;
-  let secondsRemaining = 10;
+    let defaultPhrases: Record<string, { en: string; cz: string; short: string; duration: number }> = {
+      gday: {
+        en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
+        cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
+        short: "G'day mate! I'm Mr. Valek.",
+        duration: 10
+      },
+      dice: {
+        en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
+        cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
+        short: "Let's roll the dice!",
+        duration: 8
+      },
+      noworries: {
+        en: "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
+        cz: "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!",
+        short: "No worries at all!",
+        duration: 9
+      }
+    };
 
-  const previewBox = document.getElementById('audio-preview-box');
-  let phrases: Record<string, { en: string; cz: string; short: string; duration: number }> = {
-    gday: {
-      en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
-      cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
-      short: "G'day mate! I'm Mr. Valek.",
-      duration: 10
-    },
-    dice: {
-      en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
-      cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
-      short: "Let's roll the dice!",
-      duration: 8
-    },
-    noworries: {
-      en: "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
-      cz: "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!",
-      short: "No worries at all!",
-      duration: 9
+    function getPhrases() {
+      const previewBox = document.getElementById('audio-preview-box');
+      let p = { ...defaultPhrases };
+      if (previewBox?.dataset.phrases) {
+        try {
+          const parsed = JSON.parse(previewBox.dataset.phrases);
+          p = { ...p, ...parsed };
+        } catch (e) {}
+      }
+      return p;
     }
-  };
 
-  if (previewBox?.dataset.phrases) {
-    try {
-      const parsed = JSON.parse(previewBox.dataset.phrases);
-      phrases = { ...phrases, ...parsed };
-    } catch (e) {}
-  }
-
-  let activePhraseKey = 'gday';
-
-  // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
-  const isInIframe = window.self !== window.top;
-  const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
-
-  const phraseChips = document.querySelectorAll<HTMLButtonElement>('.phrase-chip');
-  const liveTextCz = document.getElementById('speech-czech-text');
-
-  phraseChips.forEach((chip) => {
-    chip.addEventListener(interactiveEvent, () => {
-      const key = chip.getAttribute('data-phrase') || 'gday';
-      activePhraseKey = key;
-
-      // Update active chip styles
-      phraseChips.forEach(c => {
-        c.classList.remove('bg-amber-400', 'text-espresso-950', 'border-amber-300', 'shadow-xs');
-        c.classList.add('bg-white/10', 'text-amber-100', 'border-white/15');
-      });
-      chip.classList.remove('bg-white/10', 'text-amber-100', 'border-white/15');
-      chip.classList.add('bg-amber-400', 'text-espresso-950', 'border-amber-300', 'shadow-xs');
-
-      const data = phrases[key] || phrases.gday;
-      if (liveText) liveText.textContent = `„${data.en}“`;
-      if (liveTextCz) liveTextCz.textContent = `„${data.cz}“`;
-      if (subtitle) subtitle.innerHTML = `<strong class="text-amber-300">„${data.short}“</strong> – Přehrává se`;
-
-      stopAudio();
-      setPlayingState(true);
-    }, true);
-  });
-
-  // Play real audio file (MP3)
-  function playAudioFile() {
-    if (!nativeAudio) return;
-
-    nativeAudio.src = `/audio/${activePhraseKey}.mp3`;
-
-    nativeAudio.oncanplay = () => {
-      if (!isPlaying) return;
-      nativeAudio.play().catch(() => {
-        stopAudio();
-      });
-    };
-
-    nativeAudio.ontimeupdate = () => {
-      if (!nativeAudio.duration || isNaN(nativeAudio.duration)) return;
-      const remaining = Math.max(0, Math.ceil(nativeAudio.duration - nativeAudio.currentTime));
-      if (timeDisplay) {
-        timeDisplay.textContent = `0:${remaining.toString().padStart(2, '0')}`;
-      }
-    };
-
-    nativeAudio.onended = () => {
-      stopAudio();
-    };
-
-    nativeAudio.onerror = () => {
-      // If MP3 fails, try WAV fallback, else stop cleanly
-      if (nativeAudio.src.endsWith('.mp3')) {
-        nativeAudio.src = `/audio/${activePhraseKey}.wav`;
-        nativeAudio.play().catch(() => {
-          stopAudio();
-        });
-      } else {
-        stopAudio();
-      }
-    };
-
-    nativeAudio.load();
-  }
-
-  function setPlayingState(playing: boolean) {
-    isPlaying = playing;
-    const currentData = phrases[activePhraseKey] || phrases.gday;
-
-    if (playing) {
-      playIcon?.classList.add('hidden');
-      pauseIcon?.classList.remove('hidden');
-
-      bars.forEach((bar, index) => {
-        bar.classList.remove('h-2', 'h-4', 'h-3', 'h-5', 'h-1.5', 'bg-stone-600', 'bg-amber-400/50');
-        bar.classList.add('bg-amber-400');
-        const waveClass = `animate-wave-${(index % 4) + 1}`;
-        bar.classList.add(waveClass);
-      });
-
-      if (subtitle) {
-        subtitle.innerHTML = `<span class="text-emerald-400 font-bold animate-pulse">● Hraje:</span> <strong class="text-white">„${currentData.short}“</strong>`;
-      }
-
-      secondsRemaining = currentData.duration;
-      if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
-
-      playAudioFile();
-
-      // Countdown timer backup
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        if (nativeAudio && !nativeAudio.paused && nativeAudio.duration) return;
-        secondsRemaining--;
-        if (secondsRemaining <= 0) {
-          stopAudio();
-          return;
-        }
-        if (timeDisplay) {
-          timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
-        }
-      }, 1000);
-
-    } else {
-      playIcon?.classList.remove('hidden');
-      pauseIcon?.classList.add('hidden');
-
-      bars.forEach((bar, index) => {
-        bar.classList.remove('animate-wave-1', 'animate-wave-2', 'animate-wave-3', 'animate-wave-4');
-        if (index > 5) {
-          bar.classList.add('bg-stone-600');
+    function syncChipsUI() {
+      const phraseChips = document.querySelectorAll<HTMLButtonElement>('.phrase-chip');
+      phraseChips.forEach((c) => {
+        const key = c.getAttribute('data-phrase') || 'gday';
+        if (key === activePhraseKey) {
+          c.classList.remove('bg-white/10', 'text-amber-100', 'border-white/15');
+          c.classList.add('bg-amber-400', 'text-espresso-950', 'border-amber-300', 'shadow-xs');
         } else {
-          bar.classList.add('bg-amber-400');
+          c.classList.remove('bg-amber-400', 'text-espresso-950', 'border-amber-300', 'shadow-xs');
+          c.classList.add('bg-white/10', 'text-amber-100', 'border-white/15');
         }
       });
+    }
 
-      if (subtitle) {
-        subtitle.innerHTML = `<strong class="text-amber-300">„${currentData.short}“</strong> – Klikněte pro přehrání`;
+    function playAudioFile() {
+      const nativeAudio = document.getElementById('native-audio') as HTMLAudioElement | null;
+      if (!nativeAudio) return;
+
+      nativeAudio.src = `/audio/${activePhraseKey}.mp3`;
+      nativeAudio.oncanplay = () => {
+        if (!isPlaying) return;
+        nativeAudio.play().catch(() => stopAudio());
+      };
+      nativeAudio.ontimeupdate = () => {
+        if (!nativeAudio.duration || isNaN(nativeAudio.duration)) return;
+        const remaining = Math.max(0, Math.ceil(nativeAudio.duration - nativeAudio.currentTime));
+        const timeDisplay = document.getElementById('audio-time');
+        if (timeDisplay) {
+          timeDisplay.textContent = `0:${remaining.toString().padStart(2, '0')}`;
+        }
+      };
+      nativeAudio.onended = () => stopAudio();
+      nativeAudio.onerror = () => {
+        if (nativeAudio.src.endsWith('.mp3')) {
+          nativeAudio.src = `/audio/${activePhraseKey}.wav`;
+          nativeAudio.play().catch(() => stopAudio());
+        } else {
+          stopAudio();
+        }
+      };
+      nativeAudio.load();
+    }
+
+    function setPlayingState(playing: boolean) {
+      isPlaying = playing;
+      const phrases = getPhrases();
+      const currentData = phrases[activePhraseKey] || phrases.gday;
+
+      const playIcon = document.getElementById('audio-play-icon');
+      const pauseIcon = document.getElementById('audio-pause-icon');
+      const bars = document.querySelectorAll('.sound-wave-bar');
+      const subtitle = document.getElementById('audio-subtitle');
+      const timeDisplay = document.getElementById('audio-time');
+      const nativeAudio = document.getElementById('native-audio') as HTMLAudioElement | null;
+
+      if (playing) {
+        playIcon?.classList.add('hidden');
+        pauseIcon?.classList.remove('hidden');
+
+        bars.forEach((bar, index) => {
+          bar.classList.remove('h-2', 'h-4', 'h-3', 'h-5', 'h-1.5', 'bg-stone-600', 'bg-amber-400/50');
+          bar.classList.add('bg-amber-400');
+          const waveClass = `animate-wave-${(index % 4) + 1}`;
+          bar.classList.add(waveClass);
+        });
+
+        if (subtitle) {
+          subtitle.innerHTML = `<span class="text-emerald-400 font-bold animate-pulse">● Hraje:</span> <strong class="text-white">„${currentData.short}“</strong>`;
+        }
+
+        secondsRemaining = currentData.duration;
+        if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
+
+        playAudioFile();
+
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          if (nativeAudio && !nativeAudio.paused && nativeAudio.duration) return;
+          secondsRemaining--;
+          if (secondsRemaining <= 0) {
+            stopAudio();
+            return;
+          }
+          if (timeDisplay) {
+            timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
+          }
+        }, 1000);
+      } else {
+        playIcon?.classList.remove('hidden');
+        pauseIcon?.classList.add('hidden');
+
+        bars.forEach((bar, index) => {
+          bar.classList.remove('animate-wave-1', 'animate-wave-2', 'animate-wave-3', 'animate-wave-4');
+          if (index > 5) {
+            bar.classList.add('bg-stone-600');
+          } else {
+            bar.classList.add('bg-amber-400');
+          }
+        });
+
+        if (subtitle) {
+          subtitle.innerHTML = `<strong class="text-amber-300">„${currentData.short}“</strong> – Klikněte pro přehrání`;
+        }
+
+        clearInterval(timerInterval);
+        if (nativeAudio) {
+          nativeAudio.pause();
+          nativeAudio.currentTime = 0;
+        }
       }
+    }
 
-      clearInterval(timerInterval);
+    function stopAudio() {
+      setPlayingState(false);
+      const phrases = getPhrases();
+      const currentData = phrases[activePhraseKey] || phrases.gday;
+      secondsRemaining = currentData.duration;
+      const timeDisplay = document.getElementById('audio-time');
+      if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
+      const nativeAudio = document.getElementById('native-audio') as HTMLAudioElement | null;
       if (nativeAudio) {
         nativeAudio.pause();
         nativeAudio.currentTime = 0;
       }
     }
-  }
 
-  function stopAudio() {
-    setPlayingState(false);
-    const currentData = phrases[activePhraseKey] || phrases.gday;
-    secondsRemaining = currentData.duration;
-    if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
-    if (nativeAudio) {
-      nativeAudio.pause();
-      nativeAudio.currentTime = 0;
+    let lastHandledTime = 0;
+    function handleAudioInteraction(e: Event) {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const chip = target.closest<HTMLButtonElement>('.phrase-chip');
+      if (chip) {
+        const key = chip.getAttribute('data-phrase') || 'gday';
+        activePhraseKey = key;
+        syncChipsUI();
+
+        const phrases = getPhrases();
+        const data = phrases[key] || phrases.gday;
+        const liveText = document.getElementById('speech-live-text');
+        const liveTextCz = document.getElementById('speech-czech-text');
+        const subtitle = document.getElementById('audio-subtitle');
+        if (liveText) liveText.textContent = `„${data.en}“`;
+        if (liveTextCz) liveTextCz.textContent = `„${data.cz}“`;
+        if (subtitle) subtitle.innerHTML = `<strong class="text-amber-300">„${data.short}“</strong> – Přehrává se`;
+
+        stopAudio();
+        setPlayingState(true);
+        return;
+      }
+
+      const playBtn = target.closest<HTMLButtonElement>('#audio-play-btn');
+      if (playBtn) {
+        if (isPlaying) {
+          stopAudio();
+        } else {
+          setPlayingState(true);
+        }
+        return;
+      }
     }
-  }
 
-  playBtn?.addEventListener('click', () => {
-    if (isPlaying) {
-      stopAudio();
+    document.addEventListener('pointerdown', (e) => {
+      lastHandledTime = Date.now();
+      handleAudioInteraction(e);
+    }, true);
+
+    document.addEventListener('click', (e) => {
+      if (Date.now() - lastHandledTime < 350) return;
+      handleAudioInteraction(e);
+    }, true);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncChipsUI);
     } else {
-      setPlayingState(true);
+      syncChipsUI();
     }
-  }, true);
+    document.addEventListener('astro:page-load', syncChipsUI);
+
+    let lastAudioBox = document.getElementById('audio-preview-box');
+    const audioObserver = new MutationObserver(() => {
+      const currentBox = document.getElementById('audio-preview-box');
+      if (currentBox && currentBox !== lastAudioBox) {
+        lastAudioBox = currentBox;
+        syncChipsUI();
+      }
+    });
+    audioObserver.observe(document.body, { childList: true, subtree: true });
+  })();
 </script>

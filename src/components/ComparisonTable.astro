@@ -267,23 +267,15 @@ const columns = comparison.columns || defaultColumns;
 </section>
 
 <script>
-  function initComparisonToggle() {
-    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
-    const isInIframe = window.self !== window.top;
-    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
-
-    const btn = document.getElementById('toggle-comparison-btn');
-    const textSpan = document.getElementById('toggle-comparison-text');
-    const iconSpan = document.getElementById('toggle-comparison-icon');
-    const extras = document.querySelectorAll('.comparison-extra');
-
-    if (!btn || !textSpan || !iconSpan) return;
-
+  (() => {
     let expanded = false;
 
-    btn.addEventListener(interactiveEvent, () => {
-      expanded = !expanded;
-      extras.forEach(card => {
+    function syncComparisonUI() {
+      const textSpan = document.getElementById('toggle-comparison-text');
+      const iconSpan = document.getElementById('toggle-comparison-icon');
+      const extras = document.querySelectorAll('.comparison-extra');
+
+      extras.forEach((card) => {
         if (expanded) {
           card.classList.remove('hidden');
           card.classList.add('flex');
@@ -293,17 +285,54 @@ const columns = comparison.columns || defaultColumns;
         }
       });
 
-      if (expanded) {
-        textSpan.textContent = 'Skrýt srovnání se školou a 1 na 1';
-        iconSpan.textContent = '▲';
-      } else {
-        textSpan.textContent = 'Zobrazit srovnání se školou a 1 na 1';
-        iconSpan.textContent = '▼';
+      if (textSpan) {
+        textSpan.textContent = expanded
+          ? 'Skrýt srovnání se školou a 1 na 1'
+          : 'Zobrazit srovnání se školou a 1 na 1';
+      }
+      if (iconSpan) {
+        iconSpan.textContent = expanded ? '▲' : '▼';
+      }
+    }
+
+    let lastHandledTime = 0;
+    function handleComparisonInteraction(e: Event) {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const btn = target.closest('#toggle-comparison-btn');
+      if (btn) {
+        expanded = !expanded;
+        syncComparisonUI();
+      }
+    }
+
+    document.addEventListener('pointerdown', (e) => {
+      lastHandledTime = Date.now();
+      handleComparisonInteraction(e);
+    }, true);
+
+    document.addEventListener('click', (e) => {
+      if (Date.now() - lastHandledTime < 350) return;
+      handleComparisonInteraction(e);
+    }, true);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncComparisonUI);
+    } else {
+      syncComparisonUI();
+    }
+    document.addEventListener('astro:page-load', syncComparisonUI);
+
+    let lastBtn = document.getElementById('toggle-comparison-btn');
+    const compObserver = new MutationObserver(() => {
+      const currentBtn = document.getElementById('toggle-comparison-btn');
+      if (currentBtn && currentBtn !== lastBtn) {
+        lastBtn = currentBtn;
+        syncComparisonUI();
       }
     });
-  }
-
-  document.addEventListener('DOMContentLoaded', initComparisonToggle);
-  document.addEventListener('astro:page-load', initComparisonToggle);
+    compObserver.observe(document.body, { childList: true, subtree: true });
+  })();
 </script>
 

@@ -258,60 +258,65 @@ const pillars = pricing.pillars || defaultPillars;
 </section>
 
 <script>
-  function initPricingTabs() {
-    // Use 'pointerdown' in TinaCMS iframe to bypass bridge.js click interception
-    const isInIframe = window.self !== window.top;
-    const interactiveEvent = isInIframe ? 'pointerdown' : 'click';
+  (() => {
+    let activePricingTarget = 'pricing-card-0';
 
-    const tabs = document.querySelectorAll<HTMLButtonElement>('.pricing-tab-btn');
-    const cards = document.querySelectorAll<HTMLElement>('.pricing-card');
+    function syncPricingTabsUI() {
+      const tabs = document.querySelectorAll<HTMLButtonElement>('.pricing-tab-btn');
+      const cards = document.querySelectorAll<HTMLElement>('.pricing-card');
 
-    tabs.forEach(tab => {
-      tab.addEventListener(interactiveEvent, () => {
+      tabs.forEach((tab) => {
         const targetId = tab.getAttribute('data-target');
-        if (!targetId) return;
+        const isSelected = targetId === activePricingTarget;
+        if (isSelected) {
+          tab.classList.remove('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
+          tab.classList.add('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+        } else {
+          tab.classList.remove('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+          tab.classList.add('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
+        }
+      });
 
-        // Reset all tabs
-        tabs.forEach(t => {
-          t.classList.remove('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
-          t.classList.add('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
-        });
+      cards.forEach((card) => {
+        if (card.id === activePricingTarget) {
+          card.classList.remove('hidden');
+          card.classList.add('flex');
+        } else {
+          card.classList.remove('flex');
+          card.classList.add('hidden');
+        }
+      });
+    }
 
-        // Activate clicked tab
-        tab.classList.remove('bg-transparent', 'text-espresso-800', 'font-bold', 'border-transparent');
-        tab.classList.add('bg-amber-400', 'text-espresso-950', 'shadow-xs', 'border-amber-500', 'font-black');
+    let lastHandledTime = 0;
+    function handlePricingInteraction(e: Event) {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
 
-        // Toggle card visibility on mobile
-        cards.forEach(card => {
-          if (card.id === targetId) {
-            card.classList.remove('hidden');
-            card.classList.add('flex');
-          } else {
-            card.classList.remove('flex');
-            card.classList.add('hidden');
-          }
-        });
-      }, true);
-    });
+      const tabBtn = target.closest<HTMLButtonElement>('.pricing-tab-btn');
+      if (tabBtn) {
+        const targetId = tabBtn.getAttribute('data-target');
+        if (targetId) {
+          activePricingTarget = targetId;
+          syncPricingTabsUI();
+        }
+        return;
+      }
 
-  }
-
-  function initPricingCtas() {
-    const buttons = document.querySelectorAll<HTMLAnchorElement>('.pricing-cta-btn');
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-pricing-target');
-        if (!target) return;
+      const ctaBtn = target.closest<HTMLAnchorElement>('.pricing-cta-btn');
+      if (ctaBtn) {
+        const pricingTarget = ctaBtn.getAttribute('data-pricing-target');
+        if (!pricingTarget) return;
 
         const segmentSelect = document.getElementById('segment-select') as HTMLSelectElement | null;
         if (!segmentSelect) return;
 
         let matchingValue = '';
-        if (target === 'adults') {
+        if (pricingTarget === 'adults') {
           matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('dospěl') || o.value.toLowerCase().includes('konverzace'))?.value || '';
-        } else if (target === 'teens') {
+        } else if (pricingTarget === 'teens') {
           matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('středoškoláci') || o.value.toLowerCase().includes('maturita') || o.value.toLowerCase().includes('střední'))?.value || '';
-        } else if (target === 'kids') {
+        } else if (pricingTarget === 'kids') {
           matchingValue = Array.from(segmentSelect.options).find(o => o.value.toLowerCase().includes('děti na zš'))?.value || '';
         }
 
@@ -319,17 +324,36 @@ const pillars = pricing.pillars || defaultPillars;
           segmentSelect.value = matchingValue;
           segmentSelect.dispatchEvent(new Event('change', { bubbles: true }));
         }
-      });
-    });
-  }
+        return;
+      }
+    }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    initPricingTabs();
-    initPricingCtas();
-  });
-  document.addEventListener('astro:page-load', () => {
-    initPricingTabs();
-    initPricingCtas();
-  });
+    document.addEventListener('pointerdown', (e) => {
+      lastHandledTime = Date.now();
+      handlePricingInteraction(e);
+    }, true);
+
+    document.addEventListener('click', (e) => {
+      if (Date.now() - lastHandledTime < 350) return;
+      handlePricingInteraction(e);
+    }, true);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncPricingTabsUI);
+    } else {
+      syncPricingTabsUI();
+    }
+    document.addEventListener('astro:page-load', syncPricingTabsUI);
+
+    let lastPricingTab = document.querySelector('.pricing-tab-btn');
+    const pricingObserver = new MutationObserver(() => {
+      const currentPricingTab = document.querySelector('.pricing-tab-btn');
+      if (currentPricingTab && currentPricingTab !== lastPricingTab) {
+        lastPricingTab = currentPricingTab;
+        syncPricingTabsUI();
+      }
+    });
+    pricingObserver.observe(document.body, { childList: true, subtree: true });
+  })();
 </script>
 
