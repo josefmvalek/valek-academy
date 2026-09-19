@@ -195,8 +195,8 @@
       },
       {
         "freq": 2,
-        "label": "2× týdně",
-        "desc": "Optimální (bonus sleva 10%) ",
+        "label": "2× týdně (-5%)",
+        "desc": "Optimální frekvence",
         "bonus": 5,
         "badge": "-5% za důslenost",
         "recommended": true
