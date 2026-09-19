@@ -162,11 +162,11 @@
         "emoji": "🐎",
         "cohort": "4.–6. třída",
         "cohortBadge": "Plynulost & Sebevědomí",
-        "occupiedSeats": 0,
+        "occupiedSeats": 2,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Svoboda vyjadřování bez strachu z gramatických chyb. Lektor trpělivě navádí na správnou větnou stavbu."
+        "description": "Tato skupinka se zaměřuje na přípravu žáků 5. třídy na přijimací zkoušky CERMAT z matematiky. Zaměření je úspěšné absolvování zkoušky, a mluví se více česky, nicméně se žáci naučí mnoho anglitiny z oblasti matematiky. "
       },
       {
         "id": "camels",
