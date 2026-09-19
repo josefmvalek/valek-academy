@@ -7,9 +7,6 @@ import galleryContent from '../../content/gallery/gallery.json';
 import cenikContent from '../../content/pricing/cenik.json';
 import rozvrhContent from '../../content/schedule/rozvrh.json';
 import blog1 from '../../content/blog/proc-deskovky-funguji.json';
-import blog2 from '../../content/blog/deskovky-na-doma.json';
-import blog3 from '../../content/blog/strach-z-mluveni.json';
-import blog4 from '../../content/blog/prijimacky-anglictina-uh.json';
 
 export type PageData = typeof homeContent;
 export type LegalData = typeof privacyContent;
@@ -18,16 +15,44 @@ export type CenikData = typeof cenikContent;
 export type SchedulePageData = typeof rozvrhContent;
 export type BlogPost = typeof blog1;
 
-export const defaultBlogPosts: BlogPost[] = [blog4, blog3, blog2, blog1];
+const rawBlogModules = import.meta.glob<{ default: BlogPost }>('../../content/blog/*.json', { eager: true });
+export const defaultBlogPosts: BlogPost[] = Object.values(rawBlogModules)
+  .map((mod: any) => (mod.default || mod) as BlogPost)
+  .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
-export function getBlogPosts(): BlogPost[] {
-  return defaultBlogPosts;
+export function getBlogPosts(includeDisabled = false): BlogPost[] {
+  if (includeDisabled) {
+    return defaultBlogPosts;
+  }
+  return defaultBlogPosts.filter((p: any) => p.enabled !== false);
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
-  return defaultBlogPosts.find(
-    (p) => p.slug === slug || p.slug === slug.replace(/\.json$/, '')
-  );
+  const clean = (slug || '').replace(/\.json$/, '');
+  return defaultBlogPosts.find((p) => p.slug === clean);
+}
+
+/**
+ * Načte data konkrétního článku blogu pomocí Tina clienta zabaleného do requestWithMetadata.
+ * Umožní živou vizuální editaci a napojení formuláře článku v TinaCMS sidebaru v /admin.
+ */
+export async function getBlogPostDataQuery(slug: string) {
+  const cleanSlug = (slug || '').replace(/\.json$/, '');
+  const relativePath = `${cleanSlug}.json`;
+  const fallback = getBlogPostBySlug(cleanSlug);
+  try {
+    return await requestWithMetadata(
+      (client.queries as any).blog({ relativePath }),
+      { priority: 'primary' }
+    );
+  } catch (e) {
+    return {
+      data: { blog: fallback as any },
+      query: '',
+      variables: { relativePath },
+      id: cleanSlug,
+    };
+  }
 }
 
 /**

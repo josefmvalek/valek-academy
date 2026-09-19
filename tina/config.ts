@@ -1612,6 +1612,12 @@ export default defineConfig({
         },
         fields: [
           {
+            type: "boolean",
+            name: "enabled",
+            label: "✅ Zobrazit článek na webu? (Aktivní / Deaktivovaný)",
+            description: "Pokud pole vypnete, článek bude deaktivován a skryt ze seznamu článků na webu i z vyhledávačů.",
+          },
+          {
             type: "string",
             name: "title",
             label: "Název článku",

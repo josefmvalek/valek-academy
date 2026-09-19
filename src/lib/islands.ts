@@ -6,7 +6,8 @@ import LegalContent from '../components/LegalContent.astro';
 import GalleryView from '../components/GalleryView.astro';
 import CenikContent from '../components/CenikContent.astro';
 import RozvrhContent from '../components/RozvrhContent.astro';
-import { getHomePageDataQuery, getLegalPageDataQuery, getGalleryDataQuery, getPricingPageDataQuery, getSchedulePageDataQuery } from './data';
+import BlogPostContent from '../components/BlogPostContent.astro';
+import { getHomePageDataQuery, getLegalPageDataQuery, getGalleryDataQuery, getPricingPageDataQuery, getSchedulePageDataQuery, getBlogPostDataQuery } from './data';
 
 export const islands: IslandRegistry = {
   page: {
@@ -57,6 +58,14 @@ export const islands: IslandRegistry = {
     propsFromData: (data) => ({
       legal: (data as QueryResult<LegalQuery>).data?.legal,
       type: 'terms' as const,
+    }),
+  },
+  blog: {
+    fetch: (_req, params) => getBlogPostDataQuery(params.get('slug') || ''),
+    component: BlogPostContent,
+    wrapper: { tag: 'div', className: 'flex flex-col flex-grow w-full max-w-full min-w-0' },
+    propsFromData: (data) => ({
+      post: (data as any)?.data?.blog,
     }),
   },
 };

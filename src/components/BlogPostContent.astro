@@ -1,0 +1,246 @@
+---
+import BlogCard from './BlogCard.astro';
+import { formatRichText } from '../lib/richText';
+import { tinaField } from '@tinacms/astro/tina-field';
+
+interface Props {
+  post: any;
+  otherPosts?: any[];
+}
+
+const { post = {}, otherPosts = [] } = Astro.props;
+
+// Helper to format content with headings and bullet points
+function renderArticleContent(rawContent?: string) {
+  if (!rawContent) return '';
+  let formatted = rawContent;
+  formatted = formatted.replace(/^###\s+(.+)$/gm, '<h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950 tracking-tight mt-8 mb-4 pt-2 border-t border-parchment-200">$1</h3>');
+  formatted = formatted.replace(/^•\s+(.+)$/gm, '<li class="ml-4 pl-2 my-1 text-espresso-900/90 leading-relaxed font-normal list-disc">$1</li>');
+  return formatRichText(formatted);
+}
+---
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+  <!-- Status banner if deactivated in CMS -->
+  {post.enabled === false && (
+    <div class="mb-6 p-4 rounded-2xl bg-amber-50 border-2 border-amber-400 text-amber-950 flex items-center justify-between gap-3 text-xs sm:text-sm font-bold shadow-xs">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">⚠️</span>
+        <span>Tento článek je v CMS <strong>deaktivován</strong>. Na veřejném webu je skrytý.</span>
+      </div>
+      <span class="px-2.5 py-1 rounded-md bg-amber-200 text-amber-900 text-xs font-black uppercase tracking-wider">
+        Koncept / Skryto
+      </span>
+    </div>
+  )}
+
+  <!-- Breadcrumbs -->
+  <nav aria-label="Drobečková navigace" class="mb-6">
+    <ol class="flex items-center gap-2 text-xs font-bold text-stone-500 flex-wrap">
+      <li>
+        <a href="/" class="hover:text-amber-800 transition-colors flex items-center gap-1">
+          <span>🏠</span> <span>Domů</span>
+        </a>
+      </li>
+      <li><span>/</span></li>
+      <li>
+        <a href="/blog" class="hover:text-amber-800 transition-colors">
+          Rádce pro rodiče
+        </a>
+      </li>
+      <li><span>/</span></li>
+      <li class="text-espresso-950 font-black truncate max-w-xs sm:max-w-md" aria-current="page">
+        {post.title}
+      </li>
+    </ol>
+  </nav>
+
+  <!-- Article Header Card -->
+  <article class="bg-white rounded-3xl p-6 sm:p-10 border-2 border-parchment-300 shadow-soft-lg space-y-8 mb-12">
+    
+    <!-- Category & Read Time Pills -->
+    <div class="flex items-center justify-between gap-3 flex-wrap border-b border-parchment-200 pb-4">
+      <span
+        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-amber-100 text-amber-950 border border-amber-300 shadow-2xs"
+        data-tina-field={tinaField(post, 'category')}
+        data-edit-key={`blog.${post.slug}.category`}
+      >
+        <span data-tina-field={tinaField(post, 'categoryIcon')}>{post.categoryIcon || '🎲'}</span>
+        <span>{post.category}</span>
+      </span>
+
+      <div class="flex items-center gap-3 text-xs text-stone-500 font-bold">
+        <span
+          data-tina-field={tinaField(post, 'readTime')}
+          data-edit-key={`blog.${post.slug}.readTime`}
+        >
+          ⏱️ {post.readTime}
+        </span>
+        <span>•</span>
+        <span>📍 Doučovna Uh. Hradiště</span>
+      </div>
+    </div>
+
+    <!-- Main Heading -->
+    <h1
+      class="font-academy font-black text-2xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight leading-tight"
+      data-tina-field={tinaField(post, 'title')}
+      data-edit-key={`blog.${post.slug}.title`}
+      data-edit-label="Název článku"
+    >
+      {post.title}
+    </h1>
+
+    <!-- Author Bar -->
+    <div class="flex items-center gap-3.5 pt-1 pb-4 border-b border-parchment-200">
+      <img
+        src={post.authorAvatar || '/images/josef-valek-thumb.webp'}
+        alt={post.author || 'Josef Válek'}
+        class="w-12 h-12 rounded-full border-2 border-amber-400 object-cover shadow-2xs flex-shrink-0"
+        data-tina-field={tinaField(post, 'authorAvatar')}
+        data-edit-key={`blog.${post.slug}.authorAvatar`}
+        data-edit-label="Fotka autora"
+      />
+      <div class="min-w-0">
+        <div
+          class="font-heading font-black text-sm sm:text-base text-espresso-950"
+          data-tina-field={tinaField(post, 'author')}
+          data-edit-key={`blog.${post.slug}.author`}
+          data-edit-label="Jméno autora"
+        >
+          {post.author || 'Josef Válek'}
+        </div>
+        <div
+          class="text-xs text-stone-500 font-medium"
+          data-tina-field={tinaField(post, 'authorRole')}
+          data-edit-key={`blog.${post.slug}.authorRole`}
+          data-edit-label="Role autora"
+        >
+          {post.authorRole || 'Lektor angličtiny, otec 5 dětí, BBA Melbourne'}
+        </div>
+      </div>
+    </div>
+
+    <!-- Cover Image -->
+    {post.coverImage && (
+      <div
+        class="rounded-2xl overflow-hidden aspect-[16/9] bg-stone-100 border border-parchment-300 shadow-xs relative"
+        data-tina-field={tinaField(post, 'coverImage')}
+      >
+        <img
+          src={post.coverImage}
+          alt={post.title}
+          class="w-full h-full object-cover object-center"
+          data-edit-key={`blog.${post.slug}.coverImage`}
+          data-edit-label="Úvodní fotka článku"
+        />
+      </div>
+    )}
+
+    <!-- Summary Perex -->
+    {post.summary && (
+      <div
+        class="p-5 sm:p-6 rounded-2xl bg-amber-50/80 border-l-4 border-amber-500 border-t border-r border-b border-amber-200 text-espresso-950 text-base sm:text-lg font-medium leading-relaxed italic"
+        data-tina-field={tinaField(post, 'summary')}
+      >
+        <span data-edit-key={`blog.${post.slug}.summary`} data-edit-label="Anotace článku">
+          {post.summary}
+        </span>
+      </div>
+    )}
+
+    <!-- Main Body Content -->
+    <div
+      class="prose prose-stone max-w-none text-espresso-900/90 text-fluid-body leading-relaxed space-y-4 font-normal"
+      data-tina-field={tinaField(post, 'content')}
+      data-edit-key={`blog.${post.slug}.content`}
+      data-edit-label="Text článku"
+      set:html={renderArticleContent(post.content)}
+    />
+
+    <!-- Tutor Tip Highlight Callout -->
+    {post.tutorTip && (
+      <div
+        class="my-8 p-6 rounded-2xl bg-gradient-to-br from-amber-100/90 via-amber-50/80 to-parchment-100 border-2 border-amber-400/90 shadow-sm space-y-2"
+        data-tina-field={tinaField(post, 'tutorTip')}
+      >
+        <div class="flex items-center gap-2 text-amber-950 font-heading font-black text-base sm:text-lg">
+          <span>💡</span>
+          <span
+            data-tina-field={tinaField(post.tutorTip, 'title')}
+            data-edit-key={`blog.${post.slug}.tutorTip.title`}
+            data-edit-label="Nadpis tipu lektora"
+          >
+            {post.tutorTip.title}
+          </span>
+        </div>
+        <p
+          class="text-xs sm:text-sm text-espresso-950/90 leading-relaxed font-normal"
+          data-tina-field={tinaField(post.tutorTip, 'text')}
+          data-edit-key={`blog.${post.slug}.tutorTip.text`}
+          data-edit-label="Text tipu lektora"
+          set:html={formatRichText(post.tutorTip.text)}
+        />
+      </div>
+    )}
+
+    <!-- End of Article Conversion Card -->
+    <div class="mt-10 p-6 sm:p-8 rounded-2xl bg-espresso-950 text-white border-2 border-amber-400 shadow-xl space-y-4 text-center sm:text-left sm:flex sm:items-center sm:justify-between sm:gap-6">
+      <div class="space-y-2 max-w-lg">
+        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black uppercase tracking-wider">
+          🎁 1. lekce 100% ZDARMA
+        </span>
+        <h3
+          class="font-heading font-black text-lg sm:text-xl text-white"
+          data-tina-field={tinaField(post, 'ctaTitle')}
+          data-edit-key={`blog.${post.slug}.ctaTitle`}
+          data-edit-label="Spodní CTA nadpis"
+        >
+          {post.ctaTitle || "Chcete, aby angličtina vaše dítě bavila?"}
+        </h3>
+        <p
+          class="text-xs sm:text-sm text-stone-300 font-normal leading-relaxed"
+          data-tina-field={tinaField(post, 'ctaText')}
+          data-edit-key={`blog.${post.slug}.ctaText`}
+          data-edit-label="Spodní CTA text"
+        >
+          {post.ctaText || "Přijďte si do naší doučovny v Uherském Hradišti vyzkoušet deskovky naživo. 1. ukázková lekce je nezávazná a zcela zdarma."}
+        </p>
+      </div>
+
+      <a
+        href="/rozvrh"
+        class="inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-espresso-950 font-heading font-black text-xs sm:text-sm shadow-soft hover:shadow-card-lift transition-transform hover:scale-105 whitespace-nowrap flex-shrink-0 cursor-pointer"
+      >
+        Rezervovat lekci →
+      </a>
+    </div>
+
+  </article>
+
+  <!-- Back to All Articles & Related Posts -->
+  {otherPosts && otherPosts.length > 0 && (
+    <div class="space-y-6">
+      <div class="flex items-center justify-between flex-wrap gap-4">
+        <h2 class="font-heading font-black text-xl sm:text-2xl text-espresso-950 tracking-tight">
+          Další články a tipy lektora
+        </h2>
+        <a
+          href="/blog"
+          class="text-xs font-black text-amber-900 hover:text-amber-700 transition-colors flex items-center gap-1"
+        >
+          <span>Zobrazit všechny články</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        {otherPosts.map((other) => (
+          <BlogCard post={other} />
+        ))}
+      </div>
+    </div>
+  )}
+
+</div>
