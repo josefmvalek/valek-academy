@@ -34,6 +34,12 @@ interface Props {
     perLessonSuffix?: string;
     totalPriceLabel?: string;
     whatsappBtnText?: string;
+    buddyDiscountEnabled?: boolean;
+    buddyDiscountPercent?: number;
+    buddyDiscountTitle?: string;
+    buddyDiscountBadge?: string;
+    buddyDiscountDesc?: string;
+    buddyDiscountResultLabel?: string;
     durations?: any[];
     frequencies?: any[];
     [key: string]: any;
@@ -78,6 +84,13 @@ const perLessonSuffix = calculator.perLessonSuffix || " / lekce";
 const totalPriceLabel = calculator.totalPriceLabel || "Celková cena balíčku";
 const whatsappBtnText = calculator.whatsappBtnText || "Odeslat tuto kalkulaci přímo na WhatsApp";
 
+const buddyDiscountEnabled = calculator.buddyDiscountEnabled !== false;
+const buddyDiscountPercent = calculator.buddyDiscountPercent ?? 5;
+const buddyDiscountTitle = calculator.buddyDiscountTitle || "Přijdeme ve dvou (kamarád ze třídy / sourozenec)";
+const buddyDiscountBadge = calculator.buddyDiscountBadge || "EXTRA SLEVA -5 % PRO OBA";
+const buddyDiscountDesc = calculator.buddyDiscountDesc || "Zapíšete se společně se spolužákem nebo sourozencem? Získáte oba dodatečnou slevu 5 % z celkové ceny balíčku.";
+const buddyDiscountResultLabel = calculator.buddyDiscountResultLabel || "👫 Sleva pro dva (kamarád / sourozenec):";
+
 // Default duration presets if not configured
 const defaultDurations = [
   { weeks: 4, label: "1 měsíc", periodDesc: "4 týdny výuky", badge: "300 Kč/h (1 200 Kč)", baseDiscount: 6 },
@@ -107,6 +120,10 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
     data-note-teens={noteTeens}
     data-cohort-kids={`🎒 ${modeKidsLabel} (${modeKidsBadge})`}
     data-cohort-teens={`🎓 ${modeTeensLabel} (${modeTeensBadge})`}
+    data-buddy-enabled={buddyDiscountEnabled ? "true" : "false"}
+    data-buddy-percent={buddyDiscountPercent}
+    data-buddy-title={buddyDiscountTitle}
+    data-buddy-result-label={buddyDiscountResultLabel}
     class="mt-12 sm:mt-16 bg-gradient-to-br from-[#FFFDF9] via-white to-[#FDF8EE] rounded-3xl p-5 sm:p-8 md:p-10 border-2 border-amber-300 shadow-xl relative overflow-hidden"
   >
     
@@ -262,6 +279,53 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
           </div>
         </div>
 
+        <!-- Step 3 / Bonus Option: Buddy / Sibling Discount -->
+        {buddyDiscountEnabled && (
+          <div
+            id="calc-buddy-card"
+            class="p-4 rounded-2xl bg-amber-50/70 hover:bg-amber-50 border-2 border-dashed border-amber-300 hover:border-amber-500 transition-all cursor-pointer group shadow-2xs select-none"
+            role="checkbox"
+            aria-checked="false"
+            tabindex="0"
+          >
+            <div class="flex items-start gap-3">
+              <div class="pt-0.5">
+                <input
+                  type="checkbox"
+                  id="calc-buddy-checkbox"
+                  class="w-5 h-5 rounded-md border-2 border-amber-400 text-amber-600 focus:ring-amber-400 focus:ring-offset-0 cursor-pointer accent-amber-600 transition-all pointer-events-none"
+                  tabindex="-1"
+                />
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 flex-wrap mb-1">
+                  <span
+                    class="font-heading font-black text-xs sm:text-sm text-espresso-950 flex items-center gap-1.5"
+                    data-tina-field={tinaField(calculator, 'buddyDiscountTitle')}
+                  >
+                    <span>👫</span>
+                    <span data-edit-key="cenik.calculator.buddyDiscountTitle" data-edit-label="Kamarádská sleva nadpis">{buddyDiscountTitle}</span>
+                  </span>
+                  <span
+                    class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-2xs group-hover:bg-emerald-200 transition-colors"
+                    data-tina-field={tinaField(calculator, 'buddyDiscountBadge')}
+                  >
+                    <span data-edit-key="cenik.calculator.buddyDiscountBadge" data-edit-label="Kamarádská sleva štítek">{buddyDiscountBadge}</span>
+                  </span>
+                </div>
+                <p
+                  class="text-[11px] sm:text-xs text-espresso-800/80 leading-relaxed font-normal"
+                  data-tina-field={tinaField(calculator, 'buddyDiscountDesc')}
+                  data-edit-key="cenik.calculator.buddyDiscountDesc"
+                  data-edit-label="Kamarádská sleva popis"
+                >
+                  {buddyDiscountDesc}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <!-- Explanatory note -->
         <div
           id="calc-explanatory-note"
@@ -309,6 +373,20 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
           <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600">
             <span data-tina-field={tinaField(calculator, 'totalLessonsLabel')} data-edit-key="cenik.calculator.totalLessonsLabel" data-edit-label="Popisek Celkem lekcí">{totalLessonsLabel}</span>
             <span id="calc-lessons-display" class="font-bold text-espresso-950">20 lekcí</span>
+          </div>
+
+          <!-- Buddy discount active highlight pill -->
+          <div
+            id="calc-buddy-status-row"
+            class="hidden p-2 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold flex items-center justify-between gap-2"
+          >
+            <span class="flex items-center gap-1.5 truncate">
+              <span>👫</span>
+              <span id="calc-buddy-status-label" data-tina-field={tinaField(calculator, 'buddyDiscountResultLabel')} data-edit-key="cenik.calculator.buddyDiscountResultLabel" data-edit-label="Kamarádská sleva výsledek">{buddyDiscountResultLabel}</span>
+            </span>
+            <span id="calc-buddy-status-badge" class="px-2 py-0.5 rounded-md bg-emerald-200 text-emerald-950 font-black text-[11px] flex-shrink-0">
+              -{buddyDiscountPercent} % pro oba
+            </span>
           </div>
 
           <div class="pt-2 border-t border-parchment-200">
@@ -393,6 +471,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
     let currentMode: 'kids' | 'teens' = 'kids';
     let selectedWeeks = 20;
     let selectedFreq = 1;
+    let isBuddyDiscountActive = false;
 
     let audioCtx: AudioContext | null = null;
     function playClickPop() {
@@ -424,6 +503,33 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       20: "Pololetí",
       40: "Celý rok"
     };
+
+    function updateBuddyUI(calc: HTMLElement) {
+      const buddyCard = calc.querySelector<HTMLElement>('#calc-buddy-card');
+      const buddyCheckbox = calc.querySelector<HTMLInputElement>('#calc-buddy-checkbox');
+      const buddyStatusRow = calc.querySelector<HTMLElement>('#calc-buddy-status-row');
+
+      if (buddyCheckbox) {
+        buddyCheckbox.checked = isBuddyDiscountActive;
+      }
+      if (buddyCard) {
+        buddyCard.setAttribute('aria-checked', isBuddyDiscountActive ? 'true' : 'false');
+        if (isBuddyDiscountActive) {
+          buddyCard.classList.remove('bg-amber-50/70', 'border-dashed', 'border-amber-300');
+          buddyCard.classList.add('bg-emerald-50', 'border-solid', 'border-emerald-500', 'ring-2', 'ring-emerald-400/50');
+        } else {
+          buddyCard.classList.remove('bg-emerald-50', 'border-solid', 'border-emerald-500', 'ring-2', 'ring-emerald-400/50');
+          buddyCard.classList.add('bg-amber-50/70', 'border-dashed', 'border-amber-300');
+        }
+      }
+      if (buddyStatusRow) {
+        if (isBuddyDiscountActive) {
+          buddyStatusRow.classList.remove('hidden');
+        } else {
+          buddyStatusRow.classList.add('hidden');
+        }
+      }
+    }
 
     function updateModeButtonsUI(calc: HTMLElement) {
       const modeBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-mode-btn');
@@ -544,8 +650,11 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
       const totalLessons = weeks * freq;
 
-      // Celková sleva v % z CMS: základní sleva balíčku + bonusová sleva za frekvenci
-      const totalDiscount = Math.min(60, Math.max(0, Math.round((baseDiscount + bonus) * 10) / 10));
+      const buddyPercent = parseFloat(calc.getAttribute('data-buddy-percent') || '5');
+      const buddyBonus = isBuddyDiscountActive ? buddyPercent : 0;
+
+      // Celková sleva v % z CMS: základní sleva balíčku + bonusová sleva za frekvenci + kamarádská sleva
+      const totalDiscount = Math.min(60, Math.max(0, Math.round((baseDiscount + bonus + buddyBonus) * 10) / 10));
 
       // Přepočtená cena za lekci po slevě (vypočtená přímo ze zadané základní ceny a slevy v CMS)
       const discountedPricePerLesson = totalDiscount > 0
@@ -553,7 +662,11 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         : basePrice;
 
       let tierExplanation = "";
-      if (freq >= 2 && bonus > 0) {
+      if (isBuddyDiscountActive && freq >= 2 && bonus > 0) {
+        tierExplanation = `${durationLabel} + ${freq}× týdně + kamarád (-${buddyPercent} %) • sleva ${totalDiscount} % (${discountedPricePerLesson} Kč / ${lessonUnit})`;
+      } else if (isBuddyDiscountActive) {
+        tierExplanation = `${durationLabel} + kamarád (-${buddyPercent} %) • sleva ${totalDiscount} % (${discountedPricePerLesson} Kč / ${lessonUnit})`;
+      } else if (freq >= 2 && bonus > 0) {
         tierExplanation = `${durationLabel} + bonus ${freq}× týdně (sleva ${totalDiscount} %, sazba ${discountedPricePerLesson} Kč / ${lessonUnit})`;
       } else if (totalDiscount > 0) {
         tierExplanation = `${durationLabel} (${lessonUnit}) • sleva ${totalDiscount} % (${discountedPricePerLesson} Kč / lekce)`;
@@ -597,7 +710,8 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
       const periodName = `${durationLabel} (${weeks} týdnů)`;
       const modeLabel = isKids ? "Děti ZŠ (60minutové lekce)" : "2. stupeň, SŠ & dospělí (90minutové lekce)";
-      const waMsg = `Dobrý den pane Válku, v kalkulátoru na webu Valek Academy jsem si spočítal(a) balíček pro: ${modeLabel}\n• Období: ${periodName}\n• Frekvence: ${freqLabel} (celkem ${totalLessons} lekcí)\n• Cena: ${discountedPricePerLesson} Kč / ${lessonUnit} (sleva ${totalDiscount} %, celkem ${totalDiscountedCost.toLocaleString('cs-CZ')} Kč).\n\nRádi bychom si domluvili 1. ukázkovou lekci zdarma.`;
+      const buddyWaLine = isBuddyDiscountActive ? `\n• Uplatněna kamarádská / sourozenecká sleva (-${buddyPercent} % pro obě děti)` : "";
+      const waMsg = `Dobrý den pane Válku, v kalkulátoru na webu Valek Academy jsem si spočítal(a) balíček pro: ${modeLabel}\n• Období: ${periodName}\n• Frekvence: ${freqLabel} (celkem ${totalLessons} lekcí)${buddyWaLine}\n• Cena: ${discountedPricePerLesson} Kč / ${lessonUnit} (sleva ${totalDiscount} %, celkem ${totalDiscountedCost.toLocaleString('cs-CZ')} Kč).\n\nRádi bychom si domluvili 1. ukázkovou lekci zdarma.`;
       if (waBtn) {
         waBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(waMsg)}`;
       }
@@ -609,6 +723,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       updateModeButtonsUI(calc);
       updateDurationButtonsUI(calc);
       updateFreqButtonsUI(calc);
+      updateBuddyUI(calc);
       updateDurationBadges(calc);
       recalculate();
     }
@@ -651,6 +766,15 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         return;
       }
 
+      // Buddy discount card toggle
+      const buddyCard = target.closest('#calc-buddy-card');
+      if (buddyCard) {
+        playClickPop();
+        isBuddyDiscountActive = !isBuddyDiscountActive;
+        syncCalculator();
+        return;
+      }
+
       // CTA button (prefill form)
       const ctaBtn = target.closest<HTMLButtonElement>('#calc-cta-btn');
       if (ctaBtn) {
@@ -667,12 +791,20 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         const msgField = document.getElementById('message') as HTMLTextAreaElement | null;
         if (msgField) {
           const modeLabel = isKids ? "Děti ZŠ (60minutové lekce)" : "2. stupeň, SŠ & dospělí (90minutové lekce)";
-          msgField.value = `Dobrý den pane Válku, máme zájem o balíček z kalkulátoru (${modeLabel}):\n• Období: ${selectedWeeks} týdnů\n• Frekvence: ${selectedFreq}× týdně\n\nRádi bychom nejprve nezávazně vyzkoušeli 1. lekci 100% zdarma.`;
+          const buddyPercent = parseFloat(calc.getAttribute('data-buddy-percent') || '5');
+          const buddyLine = isBuddyDiscountActive ? `\n• Přijdeme ve dvou (kamarád ze třídy / sourozenec) – chceme uplatnit slevu ${buddyPercent} % pro obě děti.` : "";
+          msgField.value = `Dobrý den pane Válku, máme zájem o balíček z kalkulátoru (${modeLabel}):\n• Období: ${selectedWeeks} týdnů\n• Frekvence: ${selectedFreq}× týdně${buddyLine}\n\nRádi bychom nejprve nezávazně vyzkoušeli 1. lekci 100% zdarma.`;
         }
 
         const contactSection = document.getElementById('kontakt');
         if (contactSection) {
           contactSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          // On subpages without inline contact form: redirect to homepage contact section with prefill query params
+          const modeParam = isKids ? 'deti' : 'teens';
+          const buddyParam = isBuddyDiscountActive ? '1' : '0';
+          window.location.href = `/?program=${modeParam}&weeks=${selectedWeeks}&freq=${selectedFreq}&buddy=${buddyParam}#kontakt`;
+          return;
         }
 
         const formCard = document.getElementById('contact-form')?.parentElement;
@@ -700,6 +832,18 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       if (Date.now() - lastHandledTime < 350) return;
       handleCalculatorInteraction(e);
     }, true);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        const target = e.target as HTMLElement | null;
+        if (target && target.closest('#calc-buddy-card')) {
+          e.preventDefault();
+          playClickPop();
+          isBuddyDiscountActive = !isBuddyDiscountActive;
+          syncCalculator();
+        }
+      }
+    });
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', syncCalculator);

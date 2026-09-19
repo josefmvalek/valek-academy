@@ -1104,6 +1104,21 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
           segmentSelect.dispatchEvent(new Event('change', { bubbles: true }));
         }
       }
+
+      // Pre-fill message from calculator if coming from /cenik or external query params
+      const weeksParam = urlParams.get('weeks');
+      const freqParam = urlParams.get('freq');
+      const buddyParam = urlParams.get('buddy');
+      if (weeksParam || freqParam || buddyParam) {
+        const msgEl = document.getElementById('message') as HTMLTextAreaElement | null;
+        if (msgEl && (!msgEl.value || msgEl.value.trim() === '')) {
+          const modeLabel = targetSegment === 'teens' ? "2. stupeň, SŠ & dospělí (90minutové lekce)" : "Děti ZŠ (60minutové lekce)";
+          const buddyLine = buddyParam === '1' ? "\n• Přijdeme ve dvou (kamarád ze třídy / sourozenec) – chceme uplatnit slevu 5 % pro obě děti." : "";
+          const weeksStr = weeksParam ? `${weeksParam} týdnů` : "pololetí";
+          const freqStr = freqParam ? `${freqParam}× týdně` : "1× týdně";
+          msgEl.value = `Dobrý den pane Válku, máme zájem o balíček z kalkulátoru (${modeLabel}):\n• Období: ${weeksStr}\n• Frekvence: ${freqStr}${buddyLine}\n\nRádi bychom nejprve nezávazně vyzkoušeli 1. lekci 100% zdarma.`;
+        }
+      }
     } catch {}
   }
 
@@ -1111,8 +1126,10 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     if (segmentSelect) applySegmentMode(segmentSelect.value);
   });
 
-  // Initial check on load
+  // Initial check on load & page transitions
   checkUrlSegmentParam();
+  document.addEventListener('DOMContentLoaded', checkUrlSegmentParam);
+  document.addEventListener('astro:page-load', checkUrlSegmentParam);
   if (segmentSelect) {
     applySegmentMode(segmentSelect.value);
   }

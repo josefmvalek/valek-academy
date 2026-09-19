@@ -204,6 +204,14 @@ const calculatorField: any = {
     { type: "string", name: "perLessonSuffix", label: "Karta výsledku: Přípona jednotky (např. / lekce)" },
     { type: "string", name: "totalPriceLabel", label: "Karta výsledku: Hlavní nadpis ceny (např. Celková cena balíčku)" },
     { type: "string", name: "whatsappBtnText", label: "Karta výsledku: Text WhatsApp tlačítka (např. Odeslat tuto kalkulaci přímo na WhatsApp)" },
+
+    // Kamarádská / sourozenecká sleva (Tandem bonus)
+    { type: "boolean", name: "buddyDiscountEnabled", label: "Povolit volbu Kamarádská / sourozenecká sleva v kalkulátoru?" },
+    { type: "number", name: "buddyDiscountPercent", label: "Výše kamarádské slevy v % (např. 5)" },
+    { type: "string", name: "buddyDiscountTitle", label: "Kamarádská sleva - Hlavní titulek (např. Přijdeme ve dvou (kamarád ze třídy / sourozenec))" },
+    { type: "string", name: "buddyDiscountBadge", label: "Kamarádská sleva - Štítek (např. EXTRA SLEVA -5 % PRO OBA)" },
+    { type: "string", name: "buddyDiscountDesc", label: "Kamarádská sleva - Popis výhody", ui: { component: "textarea" } },
+    { type: "string", name: "buddyDiscountResultLabel", label: "Karta výsledku: Popisek kamarádské slevy (např. 👫 Sleva pro dva (kamarád / sourozenec):)" },
     {
       type: "object",
       name: "durations",

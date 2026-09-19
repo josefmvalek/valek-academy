@@ -468,6 +468,12 @@
       "savingsBadge": "Vaše úspora",
       "ctaText": "Vyzkoušet 1. lekci zdarma s touto slevou →",
       "note": "🎁 1. ukázková lekce je vždy 100% ZDARMA. Platbu řešíte až po první hodině, když je dítě spokojené.",
+      "buddyDiscountEnabled": true,
+      "buddyDiscountPercent": 5,
+      "buddyDiscountTitle": "Přijdeme ve dvou (kamarád ze třídy / sourozenec)",
+      "buddyDiscountBadge": "EXTRA SLEVA -5 % PRO OBA",
+      "buddyDiscountDesc": "Zapíšete se společně se spolužákem nebo sourozencem? Získáte oba dodatečnou slevu 5 % z celkové ceny balíčku.",
+      "buddyDiscountResultLabel": "👫 Sleva pro dva (kamarád / sourozenec):",
       "durations": [
         {
           "weeks": 4,
