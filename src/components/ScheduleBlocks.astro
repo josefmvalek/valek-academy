@@ -63,7 +63,7 @@ const title = schedule.title || "Pravidelný týdenní rozvrh: Vyberte si svou z
 const subtitle = schedule.subtitle || "Výuka probíhá 100% osobně v doučovně v Uherském Hradišti (Růžová 1238). Žádné sezení u monitoru přes internet – deskovky, karty a přirozená konverzace naživo.";
 const rollingSystemBadge = schedule.rollingSystemBadge || "🔄 PLYNULÝ CELOROČNÍ SYSTÉM";
 const rollingSystemTitle = schedule.rollingSystemTitle || "Žádný začátek ani konec – do party se můžete přidat kdykoliv";
-const rollingSystemText = schedule.rollingSystemText || "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Pan Válek si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!";
+const rollingSystemText = schedule.rollingSystemText || "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Pan Válek dbá na to, aby skupinky byly věkově i jazykově sladěné a děti si v partě skvěle rozuměly. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!";
 
 // Smart Group Finder Props
 const smartFinderTabLabel = schedule.smartFinderTabLabel || "Chytrý 2krokový vyhledávač";
@@ -79,7 +79,7 @@ const smartCohort1Title = schedule.smartCohort1Title || "1.–3. třída ZŠ";
 const smartCohort1Sub = schedule.smartCohort1Sub || "12:30–13:30 • 60 min";
 const smartCohort2Title = schedule.smartCohort2Title || "4.–6. třída ZŠ";
 const smartCohort2Sub = schedule.smartCohort2Sub || "13:30–14:30 • 60 min";
-const smartCohort3Title = schedule.smartCohort3Title || "7.–13. třída & SŠ";
+const smartCohort3Title = schedule.smartCohort3Title || "7.–9. třída & SŠ";
 const smartCohort3Sub = schedule.smartCohort3Sub || "14:30–16:00 • 90 min";
 
 const smartStep2Title = schedule.smartStep2Title || "2. Které dny po škole se vám nejvíc hodí?";
@@ -101,7 +101,7 @@ const pillar1Title = schedule.pillar1Title || "Optimální kapacita 8 míst";
 const pillar1Desc = schedule.pillar1Desc || "Ideální pro deskovky, karty a každé dítě se dostane ke slovu.";
 
 const pillar2Number = schedule.pillar2Number || "4";
-const pillar2Title = schedule.pillar2Title || "Waiting list 4 místa";
+const pillar2Title = schedule.pillar2Title || "Čekací listina (4 místa)";
 const pillar2Desc = schedule.pillar2Desc || "Přednostní čekací listina pro případ uvolnění místa v partě.";
 
 const pillar3Icon = schedule.pillar3Icon || "🔒";
@@ -111,11 +111,11 @@ const pillar3Desc = schedule.pillar3Desc || "Stávající studenti si drží svo
 const filterAllLabel = schedule.filterAllLabel || "🌟 Všechny skupinky (15)";
 const filterGrade13Label = schedule.filterGrade13Label || "🎒 1.–3. třída (12:30–13:30 • 60 min)";
 const filterGrade46Label = schedule.filterGrade46Label || "🚀 4.–6. třída (13:30–14:30 • 60 min)";
-const filterGrade713Label = schedule.filterGrade713Label || "🎓 7.–13. třída & Maturita (14:30–16:00 • 90 min)";
+const filterGrade713Label = schedule.filterGrade713Label || "🎓 7.–9. třída & SŠ (14:30–16:00 • 90 min)";
 
 const legendOpen = schedule.legendOpen || "Volno (do 8 dětí)";
 const legendWaitingList = schedule.legendWaitingList || "Čekací listina (8–11 dětí)";
-const legendFull = schedule.legendFull || "We're full! (12 dětí)";
+const legendFull = schedule.legendFull || "Obsazeno (včetně čekací listiny)";
 
 const adultsBlock = schedule.adultsBlock || {};
 const individualBlock = schedule.individualBlock || {};
@@ -124,7 +124,7 @@ const individualBlock = schedule.individualBlock || {};
 const defaultGroups: GroupItem[] = [
   // 12:30 - 13:30 (1.-3. třída)
   { id: "kangaroos", day: "Pondělí", time: "12:30 – 13:30", animal: "Kangaroos", emoji: "🦘", cohort: "1.–3. třída", cohortBadge: "Družina & První krůčky hrou", occupiedSeats: 5, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka, barvy, čísla a zvířata formou karet a deskovek." },
-  { id: "koalas", day: "Úterý", time: "12:30 – 13:30", animal: "Koalas", emoji: "🐨", cohort: "1.–3. třída", cohortBadge: "Pohodová parta & Dobble", occupiedSeats: 7, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Klidná a trpělivá skupinka pro odbourání ostychu z mluvení. Obrázkové karty a australská výslovnost od malička." },
+  { id: "koalas", day: "Úterý", time: "12:30 – 13:30", animal: "Koalas", emoji: "🐨", cohort: "1.–3. třída", cohortBadge: "Pohodová parta & Dobble", occupiedSeats: 7, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Klidná a trpělivá skupinka pro odbourání ostychu z mluvení. Obrázkové karty a čistá výslovnost rodilého mluvčího od malička." },
   { id: "wombats", day: "Středa", time: "12:30 – 13:30", animal: "Wombats", emoji: "🐻", cohort: "1.–3. třída", cohortBadge: "Karak Junior & Karty", occupiedSeats: 8, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Základní kapacita 8 dětí je plná. Přijímáme přihlášky na přednostní čekací listinu pro případ uvolnění místa." },
   { id: "wallabies", day: "Čtvrtek", time: "12:30 – 13:30", animal: "Wallabies", emoji: "🦘", cohort: "1.–3. třída", cohortBadge: "Pohyb & Rychlá reakce", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Skupinka plná energie, házení kostkou a veselých konverzačních her. Ideální pro živější děti po škole." },
   { id: "tasmanian-devils", day: "Pátek", time: "12:30 – 13:30", animal: "Tasmanian devils", emoji: "😈", cohort: "1.–3. třída", cohortBadge: "Páteční herní klub", occupiedSeats: 6, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Páteční odměna za celý týden. Žádné učebnice, čistá radost ze hry a spontánní mluvení v angličtině." },
@@ -136,12 +136,12 @@ const defaultGroups: GroupItem[] = [
   { id: "camels", day: "Čtvrtek", time: "13:30 – 14:30", animal: "Camels", emoji: "🐪", cohort: "4.–6. třída", cohortBadge: "Vytrvalost & Hloubka", occupiedSeats: 9, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Velmi žádaný čtvrteční slot. Základních 8 míst je obsazeno, přijímáme zájemce na čekací listinu (zbývají 3 místa)." },
   { id: "cane-toads", day: "Pátek", time: "13:30 – 14:30", animal: "Cane toads", emoji: "🐸", cohort: "4.–6. třída", cohortBadge: "Páteční výzva & Smích", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Legendární australské ropuchy přinášejí pořádnou porci humoru, blafovacích karetních her a uvolněné zábavy." },
 
-  // 14:30 - 16:00 (7.-13. třída)
-  { id: "crocodiles", day: "Pondělí", time: "14:30 – 16:00", animal: "Crocodiles", emoji: "🐊", cohort: "7.–13. třída", cohortBadge: "Maturita & Pokročilá konverzace", occupiedSeats: 6, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Intenzivní 90minutový ponor. Společenská témata, argumentace, simulace ústní zkoušky a australský idiom." },
-  { id: "sharks", day: "Úterý", time: "14:30 – 16:00", animal: "Sharks", emoji: "🦈", cohort: "7.–13. třída", cohortBadge: "Příprava na SŠ & SCIO testy", occupiedSeats: 7, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Pohotovost a přesnost. Trénink typových úloh na přijímačky, práce s textem a poslech rodilého mluvčího." },
-  { id: "snakes", day: "Středa", time: "14:30 – 16:00", animal: "Snakes", emoji: "🐍", cohort: "7.–13. třída", cohortBadge: "Debatní klub & Reálie", occupiedSeats: 12, maxSeats: 8, waitingListSeats: 4, statusOverride: "full", description: "Tato skupinka dosáhla maximální kapacity včetně waiting listu (12/12). Pro zájemce doporučujeme čtvrtek či pátek." },
-  { id: "spiders", day: "Čtvrtek", time: "14:30 – 16:00", animal: "Spiders", emoji: "🕷️", cohort: "7.–13. třída", cohortBadge: "Maturitní témata & Eseje", occupiedSeats: 5, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Jeden ze 2 specializovaných bloků zaměřených na maturitní didaktické testy, rozbor článků a mluvený projev." },
-  { id: "buffalos", day: "Pátek", time: "14:30 – 16:00", animal: "Buffalos", emoji: "🐃", cohort: "7.–13. třída", cohortBadge: "Pohodový závěr týdne", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Páteční 90minutovka pro středoškoláky. Společenské hry v angličtině (Secret Hitler, Codenames) a diskuze o filmech a hudbě." }
+  // 14:30 - 16:00 (7.-9. třída & SŠ)
+  { id: "crocodiles", day: "Pondělí", time: "14:30 – 16:00", animal: "Crocodiles", emoji: "🐊", cohort: "7.–9. třída & SŠ", cohortBadge: "Maturita & Pokročilá konverzace", occupiedSeats: 6, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Intenzivní 90minutový ponor. Společenská témata, argumentace, simulace ústní zkoušky a bohatá moderní slovní zásoba." },
+  { id: "sharks", day: "Úterý", time: "14:30 – 16:00", animal: "Sharks", emoji: "🦈", cohort: "7.–9. třída & SŠ", cohortBadge: "Příprava na SŠ & SCIO testy", occupiedSeats: 7, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Pohotovost a přesnost. Trénink typových úloh na přijímačky, práce s textem a poslech rodilého mluvčího." },
+  { id: "snakes", day: "Středa", time: "14:30 – 16:00", animal: "Snakes", emoji: "🐍", cohort: "7.–9. třída & SŠ", cohortBadge: "Debatní klub & Reálie", occupiedSeats: 12, maxSeats: 8, waitingListSeats: 4, statusOverride: "full", description: "Tato skupinka dosáhla maximální kapacity včetně čekací listiny (12/12). Pro zájemce doporučujeme čtvrtek či pátek." },
+  { id: "spiders", day: "Čtvrtek", time: "14:30 – 16:00", animal: "Spiders", emoji: "🕷️", cohort: "7.–9. třída & SŠ", cohortBadge: "Maturitní témata & Eseje", occupiedSeats: 5, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Jeden ze 2 specializovaných bloků zaměřených na maturitní didaktické testy, rozbor článků a mluvený projev." },
+  { id: "buffalos", day: "Pátek", time: "14:30 – 16:00", animal: "Buffalos", emoji: "🐃", cohort: "7.–9. třída & SŠ", cohortBadge: "Pohodový závěr týdne", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Páteční 90minutovka pro středoškoláky. Společenské hry v angličtině (Secret Hitler, Codenames) a diskuze o filmech a hudbě." }
 ];
 
 const groups = (schedule.groups && schedule.groups.length > 0) ? schedule.groups : defaultGroups;

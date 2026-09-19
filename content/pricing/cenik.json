@@ -22,7 +22,7 @@
       "baseRate": "320 Kč / 60 min. ",
       "baseRateNote": "",
       "packageRate": "280 Kč / 60 min.",
-      "packageRateNote": "(sleva 15%)",
+      "packageRateNote": "(sleva 15 %)",
       "fullYearRate": "250 Kč / 60 min.",
       "fullYearRateNote": "(sleva 25 %)",
       "timeSlots": "Po–Pá 12:30–13:30 (1.–3. tř.) a 13:30–14:30 (4.–6. tř.)",
@@ -31,7 +31,7 @@
         "Veškeré deskové hry, výukové karty a materiály v ceně kurzu",
         "Garance stálé ceny: Po naplnění třídy držíte svou výhodnou sazbu podle úvazku",
         "Možnost bezplatné náhrady hodiny v paralelní skupince při omluvě nemoci",
-        "Sleva 10% na všechny sourozence na Valek Academy"
+        "Sleva 10 % na všechny sourozence na Valek Academy"
       ],
       "ctaPrimaryText": "Vybrat zvířecí skupinku v rozvrhu →",
       "ctaPrimaryLink": "/rozvrh",
@@ -41,22 +41,22 @@
     {
       "id": "teens",
       "icon": "🎓",
-      "cohortBadge": "7.–13. třída • 90 minut",
+      "cohortBadge": "7.–9. třída & SŠ • 90 minut",
       "popularBadge": "",
       "title": "Maturita, Přijímačky & Konverzace",
       "description": "Pro maturanty intenzivní 90minutové bloky zaměřené na výslovnost a plynulost řeči, didaktické testy CERMAT, SCIO přijímačky na gymnázia, ústní maturitní zkoušku, esejistiku a plynulou argumentaci.\nPro nematuranty víc zábavy, konverzací, her a mluvení.",
       "baseRate": "480 Kč / 90 min.",
       "baseRateNote": "",
       "packageRate": "420 Kč / 90 min.",
-      "packageRateNote": "(sleva 15%, 280 Kč/h, celkem 8 400 Kč)",
+      "packageRateNote": "(sleva 15 %, 280 Kč/h, celkem 8 400 Kč)",
       "fullYearRate": "380 Kč / 90 min.",
-      "fullYearRateNote": "(sleva 25%, 250 Kč/h)",
+      "fullYearRateNote": "(sleva 25 %, 250 Kč/h)",
       "timeSlots": "Po–Pá 14:30–16:00 (včetně 2 specializovaných maturitních bloků)",
       "features": [
         "1. lekce 100% ZDARMA pro vyzkoušení stylu lektora",
         "Trénink a dril reálných maturitních otázek se zaměřením na správnou výslovnost",
-        "společenské strategické hry v angličtině (Risk, Codenames)",
-        "Zázemí příjemné, odborně vybavené učebny ve středu Uherské Hradiště"
+        "Společenské strategické hry v angličtině (Risk, Codenames)",
+        "Zázemí příjemné, moderně vybavené učebny v centru Uherského Hradiště"
       ],
       "ctaPrimaryText": "Zobrazit termíny v rozvrhu (Crocodiles, Sharks...) →",
       "ctaPrimaryLink": "/rozvrh",
@@ -73,10 +73,10 @@
       "baseRate": "480 Kč / 90 min.",
       "baseRateNote": "",
       "packageRate": "420 Kč / hod.",
-      "packageRateNote": "(sleva 15%, 280 Kč/h, celkem 8 400 Kč)",
+      "packageRateNote": "(sleva 15 %, 280 Kč/h, celkem 8 400 Kč)",
       "fullYearRate": "380 Kč / 90 min.",
-      "fullYearRateNote": "(sleva 25%, 250 Kč/h)",
-      "timeSlots": "Pondělí až Čtvrtek 17:00–18:30 (5 bloků týdně)",
+      "fullYearRateNote": "(sleva 25 %, 250 Kč/h)",
+      "timeSlots": "Pondělí až čtvrtek 17:00–18:30 (4 bloky týdně)",
       "features": [
         "Praktická konverzace ze světa práce, žádná nudná gramatika ze školních lavic",
         "Lektor Josef Válek vystudoval BBA na prestižní RMIT University v Melbourne",
@@ -95,7 +95,7 @@
       "cohortBadge": "Individuální tempo • 60 minut",
       "popularBadge": "",
       "title": "Individuální výuka 1 na 1",
-      "description": "100% soustředěná pozornost lektora výhradně pro vás. Příprava na pracovní pohovory v zahraničních korporacích, intenzvní dril výslovnosti a odstraňování přízvuku, mezinárodní certifikáty nebo rapidní doučení školní látky.",
+      "description": "100% soustředěná pozornost lektora výhradně pro vás. Příprava na pracovní pohovory v zahraničních korporacích, intenzivní dril výslovnosti a odstraňování přízvuku, mezinárodní certifikáty nebo rapidní doučení školní látky.",
       "baseRate": "1050 Kč / 60 min.",
       "baseRateNote": "",
       "packageRate": "910 Kč / 60 min.",
@@ -107,7 +107,7 @@
         "Klidné prostředí doučovny v centru Uherského Hradiště (Růžová 1238)",
         "Možnost detailního rozboru vašich konkrétních materiálů a prezentací",
         "Flexibilní plánování termínů dle domluvy",
-        "Pro velmi nářočné"
+        "Pro velmi náročné"
       ],
       "ctaPrimaryText": "Poptat individuální lekce 1 na 1 →",
       "ctaPrimaryLink": "/#kontakt?program=dospeli",
@@ -201,19 +201,19 @@
     "subtitle": "Platí pro skupinky dětí a žáků ZŠ (základní sazba 320 Kč/hodina). Čím delší období a čím častější docházka, tím vyšší sleva.",
     "rows": [
       {
-        "period": "1 měsíc (4x 60 min.)",
+        "period": "1 měsíc (4× 60 min.)",
         "frequency": "1× týdně",
         "lessons": "4 lekce",
         "basePrice": "1 280 Kč",
         "discount": "-6 %",
         "unitPrice": "300 Kč",
-        "totalPrice": "1200 Kč"
+        "totalPrice": "1 200 Kč"
       },
       {
-        "period": "3 měsíce (12x 60 min.)",
+        "period": "3 měsíce (12× 60 min.)",
         "frequency": "1× týdně",
         "lessons": "12 lekcí",
-        "basePrice": "4080 Kč",
+        "basePrice": "4 080 Kč",
         "discount": "-15 %",
         "unitPrice": "280 Kč",
         "totalPrice": "3 360 Kč"

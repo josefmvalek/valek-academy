@@ -1,8 +1,8 @@
 {
-  "title": "Valek Academy | Angličtina s čechoaustralanem v malých skupinách",
+  "title": "Valek Academy | Angličtina pro děti v malých skupinkách s rodilým mluvčím",
   "seo": {
     "metaTitle": "Josef Válek | Angličtina pro děti hrou ve skupinkách - 1. lekce ZDARMA",
-    "metaDescription": "Trpělivá výuka angličtiny v malých skupinkách (4–8 dětí) formou deskových her a konverzace. Lektor vyrostl v Melbourne a učí s autentickým rodilým přízvukem v centru Uherského Hradiště.",
+    "metaDescription": "Trpělivá výuka angličtiny v malých skupinkách (4–8 dětí) formou deskových her a konverzace. Lektor vyrostl v Melbourne a učí děti s čistou výslovností rodilého mluvčího v centru Uherského Hradiště.",
     "ogImage": "https://valekacademy.cz/images/og-valek-academy.jpg",
     "canonicalUrl": "https://valekacademy.cz/",
     "keywords": "doučování angličtiny Uherské Hradiště, angličtina pro děti, angličtina hrou, deskové hry, Josef Válek, rodilý mluvčí"
@@ -17,7 +17,7 @@
     "drawerTitle": "VALEK ACADEMY",
     "drawerSubtitle": "Rozcestník & Navigace",
     "drawerCloseText": "Zavřít",
-    "drawerCtaText": "🎁 Rezervovat 1. lekce ZDARMA",
+    "drawerCtaText": "🎁 Rezervovat 1. lekci ZDARMA",
     "drawerCtaLink": "/rozvrh#kontakt",
     "drawerLocationNote": "📍 Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO)",
     "navLinks": [
@@ -86,9 +86,9 @@
             "icon": "⏱️"
           },
           {
-            "label": "O lektorovi (Mr. Válek)",
+            "label": "O lektorovi (pan Válek)",
             "href": "/#o-mne",
-            "desc": "Čechoaustralan, RMIT Univ. Melbourne",
+            "desc": "Vyrůstal v Melbourne, RMIT Univ.",
             "icon": "🦘"
           },
           {
@@ -114,8 +114,8 @@
     ]
   },
   "hero": {
-    "title": "Angličtina, která děti baví – hrou a v malých přátelských skupinkách",
-    "subtitle": "Konec nudného biflování, zkoušek a hodin sezení v tichosti. Mr. Válek vyrůstal v Austrálii od dětství do dospělosti a nyní otevřel učebnu pro děti a studenty v malých skupinkách (4–8 dětí) plnou povídání, deskovek, karet a přirozené konverzace. Učí se osobně v centru Uherského Hradiště, kde studenti mluví a učitel něžně nasměřuje.",
+    "title": "Angličtina, která děti baví – hrou, v partě kamarádů a bez strachu z chyb",
+    "subtitle": "Konec tichého sezení v lavici a obav ze špatných známek. Pan Válek vyrostl v Melbourne a v Uherském Hradišti otevřel přátelskou doučovnu pro děti v malých skupinkách (4–8 dětí). Učíme se formou deskovek, karet a živého povídání. Děti samy aktivně mluví, lektor je trpělivě vede a cokoliv složitého ze školy v klidu vysvětlí v češtině.",
     "ctaPrimaryText": "🎯 Najít volnou skupinku (1. lekce zdarma)",
     "ctaPrimaryLink": "#harmonogram",
     "ctaSecondaryText": "Jak výuka hrou a povídáním funguje",
@@ -126,10 +126,10 @@
       "image": "/images/josef-valek.webp",
       "teacherName": "Josef Válek",
       "teacherRole": "BBA, RMIT Melbourne • 25+ let v ČR",
-      "teacherTag": "Rodilý přízvuk & výuka hrou",
+      "teacherTag": "Čistá výslovnost rodilého mluvčího & výuka hrou",
       "badgeText": "1. lekce\nZDARMA",
       "audio": {
-        "title": "Poslech pana Válka (Australský přízvuk)",
+        "title": "Ukázka výslovnosti (přirozená rodilá angličtina)",
         "subtitlePrompt": "Klikněte pro přehrání",
         "phrases": [
           {
@@ -137,7 +137,7 @@
             "buttonLabel": "🦘 „G'day mate!“",
             "short": "G'day mate! I'm Mr. Valek.",
             "en": "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
-            "cz": "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!"
+            "cz": "Ahoj! Vítej ve Valek Academy. Hoď kostkou a pojďme si hravě povídat anglicky!"
           },
           {
             "id": "dice",
@@ -181,7 +181,7 @@
       },
       {
         "number": "Austrálie",
-        "label": "zde Mr. Válek vyrůstal (rodilý přizvuk)"
+        "label": "kde pan Válek vyrostl (rodilá výslovnost)"
       }
     ]
   },
@@ -204,7 +204,7 @@
         "age": "Věk 6–9 let • Max 4–8 dětí",
         "badge": "HRAVÝ START",
         "highlight": "Konec strachu z cizího jazyka dřív, než začne",
-        "description": "Pro nejmenší děti je angličtina čistá hra. Učí se barvičky, zvířátka, základní otázky a reakce pomocí obrázkových karet, jednoduchých rébusů a pohádek s rodilým přízvukem.",
+        "description": "Pro nejmenší děti je angličtina čistá hra. Učí se barvičky, zvířátka, základní otázky a reakce pomocí obrázkových karet, jednoduchých rébusů a pohádek s přirozenou výslovností rodilého mluvčího.",
         "games": [
           "Story Cubes Junior",
           "Dobble English",
@@ -214,10 +214,10 @@
         "points": [
           "1. ukázková lekce 100% ZDARMA",
           "Maximální zapojení formou smíchu a her",
-          "Mr. Válek v klidu dovysvětlí cokoliv v češtině",
+          "Pan Válek v klidu dovysvětlí cokoliv v češtině",
           "Pravidelný kontakt a zpětná vazba pro rodiče"
         ],
-        "ctaText": "Přihlásit třeťáka / prvňáka zdarma",
+        "ctaText": "Vyzkoušet lekci pro 1.–3. třídu zdarma",
         "ctaLink": "#kontakt"
       },
       {
@@ -227,7 +227,7 @@
         "age": "Věk 10–12 let • Max 4–8 dětí",
         "badge": "DOBRODRUZI",
         "highlight": "Záchrana známek a vášeň pro deskovky",
-        "description": "Ideální věk pro strategické hry. Děti v týmu prozkoumávají hořící místnosti jako záchranáři, bojují s monstry a plánují tahy – vše přirozeně v angličtině. Vytěží maximum z toho co se naučili ve škole.",
+        "description": "Ideální věk pro strategické hry. Děti v týmu prozkoumávají hořící místnosti jako záchranáři, bojují s monstry a plánují tahy – vše přirozeně v angličtině. Vytěží maximum z toho, co se naučily ve škole.",
         "games": [
           "Záchranáři",
           "Scrabble Junior",
@@ -251,7 +251,7 @@
         "age": "Věk 13–15 let • Max 4–8 dětí",
         "badge": "PŘÍPRAVA NA SŠ",
         "highlight": "Plynulost, sebevědomí a přijímačky",
-        "description": "Pro starší žáky volíme náročnější společenské hry, rébusy a debaty. Osvojí si pohotovou argumentaci bez kostrbatého českého přízvuku a získají sebevědomí před přijímacími zkouškami na střední školy.",
+        "description": "Pro starší žáky volíme náročnější společenské hry, rébusy a debaty. Osvojí si pohotovou argumentaci bez typického českého přízvuku a získají sebevědomí před přijímacími zkouškami na střední školy i gymnázia.",
         "games": [
           "Dixit (asociace)",
           "Krycí jména (Codenames)",
@@ -278,11 +278,11 @@
   "about": {
     "enabled": true,
     "badge": "PŘÍBĚH LEKTORA",
-    "title": "Slovácký rodák, který vyrostl v Austrálii – a teď učí s úsměvem a trpělivostí",
+    "title": "Otec 5 dětí, který vyrostl v Melbourne – a teď na Slovácku učí s úsměvem a svatou trpělivostí",
     "image": "/uploads/Portrait-0.2.webp",
     "teacherName": "Josef Válek",
     "role": "Majitel, lektor angličtiny, překladatel, tlumočník",
-    "bio": "Dobrý den! Jmenuji se Josef Válek. Je mi 50 let. Prvních 7 let svého života jsem vyrůstal na Slovácku, ale v roce 1984 jsem se ocitl v Austrálii, kde jsem žil až do ukončení univerzitních studií. Osud mi tak dopřál naprosto přirozený cit pro angličtinu a autentický rodilý přízvuk. V České republice však žiji již více než 25 let – mluvím tedy plynně česky a přesně vím, s čím Češi v angličtině bojují. Před otevřením dveří akademie jsem dlouhá léta učil angličtinu, pracoval v korporátní sféře v oblasti marketingu a PR a mnoho let působil jako odborný technický překladatel, simultánní tlumočník a soukromý lektor angličtiny pro manažery i odborníky. Sám jsem celoživotní student jazyků, mluvím také plynně německy a španělsky.\n\nNyní jako otec pěti dětí si naplňuji svůj životní sen: otevřel jsem svou vlastní akademii v Uherském Hradišti, obklopenou cizojazyčnou literaturou a deskovkami. Zaměřuji se na předávání lásky k jazyku mladé generaci hravou, aktivní formou v malých skupinkách bez stresu ze zkoušení. Dospělým a odborné veřejnosti rád nabídnu řešení šité na míru se zaměřením na výslovnost, sebejistý projev a odbornou slovní zásobu.",
+    "bio": "Dobrý den! Jmenuji se Josef Válek. Je mi 50 let a jsem hrdým otcem pěti dětí. Prvních 7 let svého života jsem vyrůstal na Slovácku, ale v roce 1984 jsem se ocitl v Austrálii, kde jsem chodil do školy a vystudoval univerzitu v Melbourne. Angličtina se tak stala mou druhou mateřštinou s naprosto přirozeným citem a čistou výslovností rodilého mluvčího. V České republice však žiji již více než 25 let – mluvím tedy plynně česky a přesně vím, s čím čeští školáci v angličtině zápasí.\n\nPrávě z vlastní rodičovské zkušenosti vím, jak zásadní je trpělivost, pochopení a bezpečné prostředí, kde se dítě nebojí udělat chybu. V centru Uherského Hradiště jsem otevřel přátelskou doučovnu, kde dětem předávám lásku k jazyku hravou formou – přes deskovky, karty, smích a živou konverzaci bez stresu ze zkoušení. Složitou látku ze školy si v klidu vysvětlíme česky a v angličtině si okamžitě vyzkoušíme, jak funguje v praxi.",
     "quote": "„Děti se nepotřebují jen biflovat gramatické poučky nazpaměť. Když k učení přistoupíme hravě – přes povídání, deskovky, karty a partu kamarádů – jazyk do nich vklouzne přirozeně a začnou se na každou hodinu těšit.“",
     "quoteAuthor": "— JOSEF VÁLEK, ZAKLADATEL VALEK ACADEMY",
     "ctaText": "Vyzkoušet s dítětem 1. lekci zdarma",
@@ -292,14 +292,14 @@
     "locationPhotoBadge": "📍 Růžová 1238, UH",
     "melbourneTag": "Vyrůstal v Melbourne, Austrálie 🇦🇺",
     "credentials": {
-      "title": "Proč se učit s Mr. Válekem?",
+      "title": "Proč se učit s panem Válkem?",
       "subtitle": "BBA, RMIT Univ., Melbourne • 25+ let v ČR",
       "points": [
-        "Vyrůstal v Austrálii: Přirozená výslovnost a dynamická slovní zásoba bez typického českého přízvuku.",
-        "25+ let v České republice: Žádná komunikační bariéra – složitou látku v klidu vysvětlí v češtině.",
-        "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 4–8 dětí, které odbourají strach ze známkování.",
-        "Australské vzdělání a odborná praxe: RMIT University, Melbourne + celoživotní lektor, překladatel a tlumočník.",
-        "Celoživotní student jazyků: Nekáže to, co sám nedělá."
+        "Vyrůstal v Melbourne: Přirozená výslovnost rodilého mluvčího a živá slovní zásoba bez českého přízvuku.",
+        "Otec 5 dětí & 25+ let praxe v ČR: Obrovská trpělivost, porozumění dětem a schopnost vysvětlit složitou látku v klidu v češtině.",
+        "Výuka hrou v malých skupinkách: Deskovky a karty ve skupince 4–8 dětí, které odbourají strach ze známkování a chyb.",
+        "Vzdělání na RMIT University v Melbourne: Mezinárodní standardy, bohaté zkušenosti lektora, překladatele a tlumočníka.",
+        "Most ke školním úspěchům: Pomáháme látce ze školy dávat smysl a připravujeme na zkoušky v pohodové atmosféře."
       ],
       "note": "VALEK ACADEMY • Doučovna Uherské Hradiště",
       "guarantee": "🎁 1. ukázková lekce je 100% ZDARMA"
@@ -312,8 +312,8 @@
       },
       {
         "icon": "🇦🇺",
-        "title": "Rodilý přízvuk a intuitivní cit pro angličtinu",
-        "description": "Díky vyrůstání v Austrálii a celoživotní odbornou prací s angličtinou předávám přirozenou intonaci a moderní živý jazyk bez typického českého přízvuku."
+        "title": "Čistá výslovnost a přirozený cit pro jazyk",
+        "description": "Díky vyrůstání a univerzitnímu studiu v Melbourne předávám dětem čistou mezinárodní výslovnost, správný rytmus řeči a živý jazyk bez typického českého přízvuku."
       },
       {
         "icon": "🇨🇿",
@@ -350,7 +350,7 @@
           "Všechny herní i výukové materiály v ceně",
           "Férové náhrady: při nemoci možnost náhradní hodiny v jiné skupince",
           "Výrazné slevy při zápisu na 20 nebo 40 lekcí",
-          "Rodič smí přijít na pozorování svého dítěte v třídě"
+          "Rodiče jsou kdykoliv vítáni – můžete se přijít podívat přímo do hodiny"
         ],
         "ctaText": "Vyzkoušet 1. lekci zdarma",
         "ctaLink": "#kontakt"
@@ -367,8 +367,8 @@
           "Praxe od profesionálního překladatele / simultánního tlumočníka",
           "Cvičení výslovnosti a motivace pro překonání ostychu z chyb",
           "Učíte se ve skupině motivovaných kolegů",
-          "Skupiny pro doktory a sestřicky, inženýry, právníky, účetní, podnikatele, úředníky, ale i učitele angličtiny",
-          "K dispozici rozsáhlá knihovna odborné cizojazyčné literatůry a beletrie"
+          "Skupiny pro doktory a sestřičky, inženýry, právníky, účetní, podnikatele, úředníky, ale i učitele angličtiny",
+          "K dispozici rozsáhlá knihovna odborné cizojazyčné literatury a beletrie"
         ],
         "ctaText": "Zapsat se na čekací listinu",
         "ctaLink": "#kontakt"
@@ -382,12 +382,12 @@
         "badge": "Připravujeme brzy",
         "features": [
           "Systematický trénink maturitních úloh",
-          "Cvičení \"fluent presentation\" před komisí",
+          "Nácvik sebejistého a plynulého vystupování před maturitní komisí",
           "Materiály a podklady k tématům v ceně",
-          "Troubleshooting opakovaných chyb",
-          "Přípravný kurs pro budoucí opér či na studium v zahraničí",
+          "Odstranění typických zlozvyků a opakovaných chyb",
+          "Přípravný kurz pro budoucí au-pair či na studium v zahraničí",
           "Zapište se nezávazně na čekací listinu",
-          "Student-centered: hodiny se dynamicky přizpůsobují potřebám studenta"
+          "Výuka šitá na míru: tempo i témata se dynamicky přizpůsobují potřebám studenta"
         ],
         "ctaText": "Zapsat se na čekací listinu",
         "ctaLink": "#kontakt"
@@ -502,7 +502,7 @@
     "labelSpeakingTime": "Mluvení a prostor pro řeč:",
     "labelAtmosphere": "Atmosféra & stres:",
     "labelMethod": "Metodika výuky:",
-    "labelAccent": "Přízvuk a lektor:",
+    "labelAccent": "Výslovnost a lektor:",
     "labelMotivation": "Motivace dítěte:",
     "columns": [
       {
@@ -512,10 +512,10 @@
         "badge": "Klasická škola / jazykovka",
         "price": "Zdarma nebo téměř",
         "speakingTime": "V průměru pouze 1–2 minuty na žáka za hodinu",
-        "atmosphere": "Stres ze zkoušení, ponížení u tabule a strach z chytáků",
+        "atmosphere": "Stres ze zkoušení u tabule, obava z chyb a zbytečný tlak na známky",
         "method": "Mechanické vyplňování pracovních sešitů a biflování",
-        "accent": "Často český pedagog schovávající se za učebnicí, běžný tvrdý český přízvuk",
-        "motivation": "Povinnost, nuda a obava ze špatných \"známek\", drcení sebejistoty",
+        "accent": "Při 25 žácích ve třídě nezbývá prostor na individuální práci s výslovností a přirozenou konverzaci",
+        "motivation": "Povinnost a obava ze špatných známek často vedou ke ztrátě chuti a ostychu mluvit",
         "footerNote": "Ve škole se zkouší u tabule",
         "isWinner": false
       },
@@ -540,10 +540,10 @@
         "badge": "Vítěz srovnání • Doporučujeme",
         "price": "320 Kč / 60 min",
         "priceNote": "1. lekce ZDARMA + SLEVY dle balíčku",
-        "speakingTime": "Studenti mluví, učitel vede - aktivní mluvení v zápalu hry celých 60 minut",
-        "atmosphere": "Student se nenudí, ale také není zahlcený, těší se na Academy - uvolněný smích, deskovky, nápoj, bezpečné prostředí",
+        "speakingTime": "Studenti mluví, lektor vede – aktivní mluvení v zápalu hry po celou lekci",
+        "atmosphere": "Žádný stres ani strach z chyb – uvolněný smích, deskovky, občerstvení a bezpečné prostředí",
         "method": "Autentické hry (Catan, Scrabble, Story Cubes)+ látka ze školy",
-        "accent": "Autentický rodilý přízvuk + naučí správnou výslovnost (25+ let praxe, trpělivé vysvětlení v češtině)",
+        "accent": "Výslovnost rodilého mluvčího (mezinárodní standard) + trpělivé vysvětlení v češtině (25+ let praxe v ČR)",
         "motivation": "Dítě/student se na doučování těší a do školy vstupuje se sebevědomím",
         "footerNote": "",
         "isWinner": true
@@ -573,7 +573,7 @@
         "location": "Kunovice",
         "rating": 5,
         "highlight": "Konečně doučování, které není za trest",
-        "quote": "Hledali jsme doučování, které pro kluka nebude dalším sezením v lavici. Australský přízvuk pana Válka a výuka přes deskovky Karak a Scrabble je geniální koncept. Syn se na každé úterý vyloženě těší a z angličtiny je najednou jeho nejoblíbenější předmět.",
+        "quote": "Hledali jsme doučování, které pro kluka nebude dalším sezením v lavici. Čistá výslovnost rodilého mluvčího pana Válka a výuka přes deskovky Karak a Scrabble je geniální koncept. Syn se na každé úterý vyloženě těší a angličtina je najednou jeho nejoblíbenější předmět.",
         "avatarText": "MK"
       },
       {
@@ -600,7 +600,7 @@
     "enabled": false,
     "badge": "PŘIPRAVUJEME PRO DALŠÍ SEMESTR",
     "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
-    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
+    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z českého jazyka a matematiky pro žáky 5. a 9. tříd.",
     "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
     "features": [
       "Rozbor typových testových úloh z matematiky a češtiny",
@@ -712,7 +712,7 @@
     "poster": {
       "tag": "Atmosféra naší doučovny v Uherském Hradišti",
       "title": "Doba kamenná, Scrabble, Story Cubes a mnoho dalších her",
-      "desc": "Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek. Valek Academy neprosazuje běžné autopilot učebnice známých zahraničních značek."
+      "desc": "Děti se učí v zápalu hry. Pravidla, strategie a reakce probíhají v přirozené angličtině – bez strachu ze zkoušení u tabule či špatných známek. Ve Valek Academy se neučí podle sterilních šablon z běžných učebnic, ale pomocí živé interakce a reálného mluvení."
     },
     "bottomCta": {
       "title": "Chcete si tento 60minutový herní zážitek vyzkoušet naživo?",
@@ -725,7 +725,7 @@
     "enabled": true,
     "badge": "Jak probíhá každá hodina",
     "title": "60 minut v učebně Valek Academy: Krok za krokem",
-    "subtitle": "Proč výuka hrou funguje lépe než pasivní poslouchání učebnicového učitele? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.",
+    "subtitle": "Proč výuka hrou funguje lépe než pasivní poslouchání výkladu z učebnice? Podívejte se, jak máme každou minutu promyšlenou pro maximální rozvoj dítěte.",
     "calloutTitle": "Chcete si tento 60-minutový zážitek vyzkoušet naživo?",
     "calloutDesc": "První lekce v malé skupince dětí (Uherské Hradiště) je 100% ZDARMA a nezávazná.",
     "calloutCtaText": "Vyzkoušet zdarma →",
@@ -743,16 +743,16 @@
         "time": "10–40 min",
         "icon": "🎲",
         "badge": "2. Fáze: Hlavní hra",
-        "title": "Deskovka v angličtině & rodilý přízvuk",
-        "desc": "Srdce celé lekce. Student nesmí mluvit česky. Hrajeme Scrabble, Story Cubes nebo kartičky. Děti házejí kostkou, vymýšlejí strategie a v zápalu hry reagují v angličtině úplně automaticky a bez přemýšlení o poučkách. Nová slovíčka a výrazy se zaznamenávají na tabuli.",
-        "highlight": "Přirozený přízvuk a živá mluva"
+        "title": "Deskovka v angličtině & čistá výslovnost",
+        "desc": "Srdce celé lekce. Mluvíme pouze anglicky – v zápalu hry to jde úplně přirozeně a samo. Hrajeme Scrabble, Story Cubes nebo kartičky. Děti házejí kostkou, vymýšlejí strategie a reagují v angličtině úplně automaticky a bez přemýšlení o poučkách. Nová slovíčka a výrazy se zaznamenávají na tabuli.",
+        "highlight": "Přirozená výslovnost a živá mluva"
       },
       {
         "time": "40–55 min",
         "icon": "🎒",
         "badge": "3. Fáze: Školní látka",
         "title": "Vysvětlení i v češtině & pomoc s úkoly",
-        "desc": "Co se ve škole zdálo složité, najednou dává smysl. Mr. Válek v klidu v češtině dovysvětlí gramatiku, projde s dětmi problematická cvičení a připraví je na písemky.",
+        "desc": "Co se ve škole zdálo složité, najednou dává smysl. Pan Válek v klidu v češtině dovysvětlí gramatiku, projde s dětmi problematická cvičení a připraví je na písemky.",
         "highlight": "Jistota do školy a lepší známky v žákovské"
       },
       {
@@ -760,7 +760,7 @@
         "icon": "🌟",
         "badge": "4. Fáze: Závěr",
         "title": "Minikvíz, pochvala a razítko do pasu",
-        "desc": "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do cestovního pasu malého učně. Dítě odchází s úsměvem a těší se na příští hodinu.",
+        "desc": "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do cestovního pasu malého cestovatele. Dítě odchází s úsměvem a těší se na příští hodinu.",
         "highlight": "Dítě odchází sebevědomé a motivované"
       }
     ]
@@ -852,7 +852,7 @@
         "title": "4.–6. třída ZŠ",
         "age": "Věk 10–12 let",
         "recommendedTitle": "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
-        "recommendedDesc": "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Mr. Válek vede celou hru uvolněně s vyladěným přízvukem a na závěr v klidu česky dovysvětlí látku ze školy.",
+        "recommendedDesc": "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Pan Válek vede celou hru uvolněně s přirozenou výslovností rodilého mluvčího a na závěr v klidu česky dovysvětlí látku ze školy.",
         "recommendedGames": [
           "🎲 Karak & Dračí doupě",
           "🗣️ Story Cubes (Tvorba vět)",
@@ -956,27 +956,27 @@
       },
       {
         "question": "Proč je výuka v malých skupinkách a ne 1 na 1?",
-        "answer": "Toto je zásadní otázka! Výuka \"one-on-one\" je samozřejmě možná mimo dobu vyhrazenou pro skupiny na které se Valek Academy zaměřuje, ale její účel je individuálně řešit vážnější problémy nebo drilovat extrémně ambiciózní studenty. Tato forma výuky je přibližně třikrát tak drahá a soustředí se intenzivní doučování gramatiky. Má své místo. Nicméně, za normální situace je výhodnější přijít třikrát tak často do skupinové výuky a exponovat se více. Deskovky, konverzace a jazykové hry fungují nejlépe v partě vrstevníků! V malé skupince 4 až 8 dětí vzniká přirozená dynamika, smích a zdravá soutěživost. Děti ztrácejí ostych mnohem rychleji, když vidí, že i ostatní dělají chyby. Skupinka je přitom stále dostatečně malá na to, aby Mr. Válek mohl chytat chyby a věnovat každému dítěti individuálně."
+        "answer": "Toto je zásadní otázka! Výuka „one-on-one“ je samozřejmě možná mimo dobu vyhrazenou pro skupiny, na které se Valek Academy zaměřuje, ale její účel je individuálně řešit vážnější problémy nebo připravovat vysoce specializované studenty. Tato forma výuky je přibližně třikrát dražší a soustředí se na intenzivní doučování gramatiky. Má své místo. Nicméně za běžných okolností je mnohem přínosnější přijít třikrát tak často do skupinové výuky a být s jazykem v častějším přirozeném kontaktu. Deskovky, konverzace a jazykové hry fungují nejlépe v partě vrstevníků! V malé skupince 4 až 8 dětí vzniká přirozená dynamika, smích a zdravá soutěživost. Děti ztrácejí ostych mnohem rychleji, když vidí, že i ostatní dělají chyby. Skupinka je přitom stále dostatečně malá na to, abych mohl každého citlivě opravit a věnovat se dětem i individuálně."
       },
       {
         "question": "Jak probíhá první ukázková lekce zdarma?",
-        "answer": "První celá lekce je pro každé dítě 100% ZDARMA. Dítě přijde do skupinky, zahraje si hry a deskovky, seznámí se s Mr. Valek i ostatními dětmi a vy jako rodiče můžete hodinu sledovat a sami uvidíte, jak se mu to líbí a jak reaguje. K ničemu se nezavazujete – rozhodnete se až po lekci."
+        "answer": "První celá lekce je pro každé dítě 100% ZDARMA. Dítě přijde do skupinky, zahraje si hry a deskovky, seznámí se se mnou i s ostatními dětmi a vy jako rodiče můžete hodinu sledovat a sami uvidíte, jak se mu to líbí a jak reaguje. K ničemu se nezavazujete – rozhodnete se až po lekci."
       },
       {
         "question": "Vyrůstal jste v Austrálii, ale domluvíme se normálně česky?",
-        "answer": "Ano, naprosto bez problému! V Austrálii Mr. Valek žil od svých 7 let až do ukončení univerzitních studií, ale v České republice žije již více než 25 let. Mluví tedy plynulou češtinou. U dětí vše složité rád vysvětlí česky, takže se nikdo nemusí bát, že by něčemu nerozuměl."
+        "answer": "Ano, naprosto bez problému! V Austrálii jsem žil od svých 7 let až do ukončení univerzitních studií, ale v České republice žiji již více než 25 let. Mluvím tedy naprosto plynně česky a s dětmi i rodiči se bez problémů domluvím. Cokoliv složitějšího rád v klidu vysvětlím v češtině, takže se nikdo nemusí bát, že by něčemu nerozuměl."
       },
       {
         "question": "Jak je to s doučováním dospělých a přípravou na maturitu?",
-        "answer": "Časové pásmo dvou 60 minutových bloků od 12:30-13:30 a 13:30-14:30 (10 bloků týdně) je vyhrazeno pro žáky prvního stupně (1.-5. třída), kteří brzy končí nebo mohou přejít z družiny. Následující 90 minutové bloky jsou 14:30-16:00 a jsou zacílené na druhý stupeň (6.-13. třída) z čehož 2 bloky budou zaměřené čistě na přípravu na maturitu (celkem 5 bloků týdně). Odborné skupiny specificky zaměřené na mediky, právníky, techniky-inženýry, obchod/účetnictví budou pondělí až čtvrtek 17:00 -18:30 (celkem 5 bloků týdně). Případné doučování one-on-one se odehraje mimo tyto hodiny, zejména v dopoledních hodinách. "
+        "answer": "Časové pásmo dvou 60minutových bloků (12:30–13:30 a 13:30–14:30) je vyhrazeno pro žáky prvního stupně (1.–5. třída), kteří po vyučování přecházejí z družiny. Následující 90minutové bloky (14:30–16:00) jsou zacílené na druhý stupeň a střední školy (6.–9. třída a SŠ), z nichž 2 bloky jsou zaměřené přímo na přípravu k maturitě. Odborné profesní skupiny (lékaři, právníci, technici, obchod a účetnictví) probíhají od pondělí do čtvrtka v čase 17:00–18:30 (celkem 4 bloky týdně). Případná individuální výuka 1 na 1 probíhá v dopoledních hodinách."
       },
       {
         "question": "Musíme kupovat nějaké materiály a učebnice?",
-        "answer": "Nemusíte! Všechny materiály, fotokopie, mini-tabulky, fixy, deskové hry, karty, jsou plně zahrnuty v ceně lekcí. Valek Academy NEPOUŽÍVÁ klasické učebnice, tj. berličky které zaplavily trh. Studentovi stačí vlastní sešit a psací potřeby, které má ze školy nebo práce. Metodika výuky se opírá o princip učení gramatiky a slovní zásoby v okamžiku, kdy na ni student přirozeně narazí v praxi."
+        "answer": "Nemusíte! Všechny materiály, pracovní listy, minitabulky, fixy, deskové hry i karty jsou plně zahrnuty v ceně lekcí. Valek Academy nepoužívá klasické školní učebnice plné mechanického vyplňování cvičení. Studentovi stačí vlastní sešit a psací potřeby ze školy či práce. Gramatiku i nová slovíčka si osvojujeme v okamžiku, kdy na ně přirozeně narazíme v praxi a při hře."
       },
       {
         "question": "Může být moje dítě ve skupince s kamarádem nebo spolužákem?",
-        "answer": "Určitě ano! Pokud přijde několik kamarádů společně, je to skvělé, ostych opadne ještě rychleji a do her a konverzace se zapojí okamžitě. Samozřejmě záleží na kapacitě učebny, která pohodlně pojme 12 studentů (pak by byl přítomný anglicky mluvící asistent pedagoga). Nicméně, optimální počet studentů je 6-8, aby bylo dost volného prostoru a Mr. Valek se mohl studentům plně věnovat."
+        "answer": "Určitě ano! Pokud přijde několik kamarádů společně, je to skvělé – ostych opadne ještě rychleji a do her i konverzace se zapojí okamžitě. Optimální počet studentů ve skupince je 6 až 8, aby měli všichni dostatek prostoru a já se mohl každému studentovi naplno věnovat."
       },
       {
         "question": "Co když je dítě úplný začátečník a anglicky ještě skoro neumí?",
@@ -984,7 +984,7 @@
       },
       {
         "question": "Budou mít děti domácí úkoly?",
-        "answer": "Domácí úkoly Mr. Valek nemá rád, podobně tak jako jeho studenti. Veškerou praxi, novou slovní zásobu a rozmluvení se zvládne v zápalu hry během společné lekce. Jediný úkol je během týdne párkrát projít poznámky, popř. rozdaný poznámkový list u menších. Každý den by student měl něco v jazyku udělat, aspoň 10 minut."
+        "answer": "Domácí úkoly nemám rád – stejně jako moji studenti. Veškerou praxi, nová slovíčka i rozmluvení zvládneme v zápalu hry během společné hodiny. Jediné, co doporučuji, je během týdne si v klidu projít poznámky nebo si doma pustit oblíbené video v angličtině. Každý den stačí věnovat jazyku aspoň 10 minut."
       }
     ]
   },
@@ -1000,7 +1000,7 @@
     "phone": "+420792372642",
     "phoneFormatted": "+420 792 372 642",
     "whatsapp": "https://wa.me/420792372642",
-    "whatsappText": "Napsat Mr. Válkovi na WhatsApp →",
+    "whatsappText": "Napsat panu Válkovi na WhatsApp →",
     "whatsappMessage": "Dobrý den pane Válku, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.",
     "location": "Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO - Hradební)",
     "hours": "Pondělí – Pátek: 9:00 – 19:00",
@@ -1009,7 +1009,7 @@
     "formBadge": "🎁 1. LEKCE 100% ZDARMA",
     "formBadgeNote": "Nezávazná přihláška",
     "formTitle": "Rezervace ukázkové lekce hrou",
-    "formSubtitle": "Vyplňte krátký formulář a Mr. Válek se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.",
+    "formSubtitle": "Vyplňte krátký formulář a pan Válek se vám ozve s návrhem volných dnů v doučovně v Uherském Hradišti.",
     "programLabel": "O jaký program máte zájem?",
     "formatLabel": "Kde chcete, aby výuka probíhala?",
     "formatInPersonTitle": "🏡 Osobně v UH",
@@ -1074,8 +1074,8 @@
   },
   "footer": {
     "brandName": "VALEK ACADEMY",
-    "brandTagline": "Angličtina s Čechoaustralanem",
-    "description": "Trpělivá výuka angličtiny v malých skupinkách formou konverzací, deskových her a zajímavých aktivit. Pan Válek vyrostl v Austrálii, vystudoval Business Administration & Marketing na RMIT University v Melbourne a učí s úsměvem a přirozeným přízvukem.",
+    "brandTagline": "Angličtina v malých skupinkách",
+    "description": "Trpělivá výuka angličtiny v malých skupinkách formou konverzací, deskových her a zajímavých aktivit. Pan Válek vyrostl v Melbourne, vystudoval Business Administration & Marketing na RMIT University a učí děti s úsměvem a čistou výslovností rodilého mluvčího.",
     "locationNote": "📍 Valek Academy: Růžová 1238, Uherské Hradiště",
     "navTitle": "Rychlá navigace",
     "navLinks": [
@@ -1092,7 +1092,7 @@
         "href": "#metodika"
       },
       {
-        "label": "🦘 O panu Válkovi (Mr. Válek, Melbourne)",
+        "label": "🦘 O panu Válkovi (Melbourne)",
         "href": "#o-mne"
       },
       {

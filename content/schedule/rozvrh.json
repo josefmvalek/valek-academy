@@ -2,7 +2,7 @@
   "title": "Rozvrh hodin & rezervace zvířecí skupinky | VALEK ACADEMY Uherské Hradiště",
   "seo": {
     "metaTitle": "Rozvrh hodin & rezervace zvířecí skupinky | VALEK ACADEMY Uherské Hradiště",
-    "metaDescription": "Kompletní týdenní rozvrh 15 zvířecích skupin výuky angličtiny hrou v Uherském Hradišti. 1.–3. třída, 4.–6. třída, 7.–13. třída i dospělí. Rezervace 1. lekce zdarma.",
+    "metaDescription": "Kompletní týdenní rozvrh 15 zvířecích skupin výuky angličtiny hrou v Uherském Hradišti. 1.–3. třída, 4.–6. třída, 7.–9. třída & SŠ i dospělí. Rezervace 1. lekce zdarma.",
     "canonicalUrl": "https://valekacademy.cz/rozvrh"
   },
   "backLinkText": "Zpět na hlavní stránku",
@@ -22,7 +22,7 @@
     "smartCohort1Sub": "12:30–13:30 • 60 min",
     "smartCohort2Title": "4.–6. třída ZŠ",
     "smartCohort2Sub": "13:30–14:30 • 60 min",
-    "smartCohort3Title": "7.–13. třída & SŠ",
+    "smartCohort3Title": "7.–9. třída & SŠ",
     "smartCohort3Sub": "14:30–16:00 • 90 min",
     "smartStep2Title": "2. Které dny po škole se vám nejvíc hodí?",
     "smartDayMultiNote": "✨ Lze vybrat i více dní najednou",
@@ -37,12 +37,12 @@
     "whyInPersonText": "Děti i studenti tráví u monitorů hodiny denně. Jazyk hrou funguje nejlépe při živém očním kontaktu, házení kostkou, smíchu a týmových deskovkách. U obrazovky takové zapojení nevznikne.",
     "rollingSystemBadge": "🔄 PLYNULÝ CELOROČNÍ SYSTÉM",
     "rollingSystemTitle": "Žádný začátek ani konec – do party se můžete přidat kdykoliv",
-    "rollingSystemText": "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Pan Válek si studenty pečlivě vybírá a dbá na to, aby parta fungovala přátelsky a přirozeně. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!",
+    "rollingSystemText": "Kurz nemá pevné datum začátku ani konce. Nové studenty přijímáme plynule po celý rok, pokud je ve skupince volno. Pan Válek dbá na to, aby skupinky byly věkově i jazykově sladěné a děti si v partě skvěle rozuměly. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Pro nově příchozí se cena po naplnění mírně zvyšuje, ale stávající studenti si drží svou původní příznivou sazbu po celou dobu!",
     "pillar1Number": "8",
     "pillar1Title": "Optimální kapacita 8 míst",
     "pillar1Desc": "Ideální pro deskovky, karty a každé dítě se dostane ke slovu.",
     "pillar2Number": "4",
-    "pillar2Title": "Waiting list 4 místa",
+    "pillar2Title": "Čekací listina (4 místa)",
     "pillar2Desc": "Přednostní čekací listina pro případ uvolnění místa v partě.",
     "pillar3Icon": "🔒",
     "pillar3Title": "Garance stálé ceny",
@@ -50,10 +50,10 @@
     "filterAllLabel": "🌟 Všechny skupinky (15)",
     "filterGrade13Label": "🎒 1.–3. třída (12:30–13:30 • 60 min)",
     "filterGrade46Label": "🚀 4.–6. třída (13:30–14:30 • 60 min)",
-    "filterGrade713Label": "🎓 7.–13. třída & Maturita (14:30–16:00 • 90 min)",
+    "filterGrade713Label": "🎓 7.–9. třída & SŠ (14:30–16:00 • 90 min)",
     "legendOpen": "Volno (do 8 dětí)",
     "legendWaitingList": "Čekací listina (8–11 dětí)",
-    "legendFull": "We're full! (12 dětí)",
+    "legendFull": "Obsazeno (včetně čekací listiny)",
     "ctaText": "Vybrat skupinku a rezervovat 1. lekci zdarma →",
     "groups": [
       {
@@ -82,7 +82,7 @@
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Klidná a trpělivá skupinka pro odbourání ostychu z mluvení. Obrázkové karty a australská výslovnost od malička."
+        "description": "Klidná a trpělivá skupinka pro odbourání ostychu z mluvení. Obrázkové karty a čistá výslovnost rodilého mluvčího od malička."
       },
       {
         "id": "wombats",
@@ -202,13 +202,13 @@
         "time": "14:30 – 16:00",
         "animal": "Crocodiles",
         "emoji": "🐊",
-        "cohort": "7.–13. třída",
+        "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Maturita & Pokročilá konverzace",
         "occupiedSeats": 6,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Intenzivní 90minutový ponor. Společenská témata, argumentace, simulace ústní zkoušky a australský idiom."
+        "description": "Intenzivní 90minutový ponor. Společenská témata, argumentace, simulace ústní zkoušky a bohatá moderní slovní zásoba."
       },
       {
         "id": "sharks",
@@ -216,7 +216,7 @@
         "time": "14:30 – 16:00",
         "animal": "Sharks",
         "emoji": "🦈",
-        "cohort": "7.–13. třída",
+        "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Příprava na SŠ & SCIO testy",
         "occupiedSeats": 7,
         "maxSeats": 8,
@@ -230,13 +230,13 @@
         "time": "14:30 – 16:00",
         "animal": "Snakes",
         "emoji": "🐍",
-        "cohort": "7.–13. třída",
+        "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Debatní klub & Reálie",
         "occupiedSeats": 12,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "full",
-        "description": "Tato skupinka dosáhla maximální kapacity včetně waiting listu (12/12). Pro zájemce doporučujeme čtvrtek či pátek."
+        "description": "Tato skupinka dosáhla maximální kapacity včetně čekací listiny (12/12). Pro zájemce doporučujeme čtvrtek či pátek."
       },
       {
         "id": "spiders",
@@ -244,7 +244,7 @@
         "time": "14:30 – 16:00",
         "animal": "Spiders",
         "emoji": "🕷️",
-        "cohort": "7.–13. třída",
+        "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Maturitní témata & Eseje",
         "occupiedSeats": 5,
         "maxSeats": 8,
@@ -258,7 +258,7 @@
         "time": "14:30 – 16:00",
         "animal": "Buffalos",
         "emoji": "🐃",
-        "cohort": "7.–13. třída",
+        "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Pohodový závěr týdne",
         "occupiedSeats": 4,
         "maxSeats": 8,
@@ -270,7 +270,7 @@
     "adultsBlock": {
       "enabled": true,
       "timeBadge": "Po – Čt 17:00 – 18:30",
-      "timeNote": "90 minut • 5 bloků týdně",
+      "timeNote": "90 minut • 4 bloky týdně",
       "icon": "💼",
       "title": "Dospělí & Odborné profesní skupiny",
       "subtitle": "4 obory: Medici 🩺, Právníci ⚖️, Technici ⚙️, Obchod 📊",

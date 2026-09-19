@@ -47,7 +47,7 @@ const defaultGrades = [
     title: "1.–3. třída ZŠ",
     age: "Věk 6–9 let",
     recommendedTitle: "Skupinka Malých Objevitelů (1.–3. třída ZŠ)",
-    recommendedDesc: "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou australskou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
+    recommendedDesc: "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou rodilou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
     recommendedGames: ["🎲 Dobble & zvířata", "🧩 Scrabble Junior", "🃏 Karetní pexesa v AJ", "🏰 Jednoduché deskovky"]
   },
   {
@@ -56,7 +56,7 @@ const defaultGrades = [
     title: "4.–6. třída ZŠ",
     age: "Věk 10–12 let",
     recommendedTitle: "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
-    recommendedDesc: "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Pan Válek (Mr. Válek) vede celou hru uvolněně s australským přízvukem a na závěr v klidu česky dovysvětlí látku ze školy.",
+    recommendedDesc: "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Pan Válek vede celou hru uvolněně s přirozenou výslovností rodilého mluvčího a na závěr v klidu česky dovysvětlí látku ze školy.",
     recommendedGames: ["🎲 Karak & Dračí doupě", "🗣️ Story Cubes (Tvorba vět)", "🧩 Scrabble Junior"]
   },
   {
@@ -65,7 +65,7 @@ const defaultGrades = [
     title: "7.–9. třída ZŠ",
     age: "Věk 13–15 let",
     recommendedTitle: "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
-    recommendedDesc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým přízvukem a připravujeme se na přijímačky na střední školy.",
+    recommendedDesc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s čistou výslovností a připravujeme se na přijímačky na střední školy i gymnázia.",
     recommendedGames: ["🏰 Carcassonne & Strategie", "🗣️ Debatní scénky z cest", "🎲 Codenames (Krycí jména)", "📐 Přijímačkové rébusy"]
   },
   {
@@ -225,7 +225,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
         </div>
 
         <p class="text-xs sm:text-sm text-espresso-900 leading-relaxed font-normal" id="res-group-desc" data-tina-field={defaultSelectedGrade ? tinaField(defaultSelectedGrade, 'recommendedDesc') : undefined} data-edit-key="groupMatcher.grades.1.recommendedDesc" data-edit-label="Doporučená skupinka popis">
-          {defaultSelectedGrade?.recommendedDesc || "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Pan Válek (Mr. Válek) vede celou hru uvolněně s australským přízvukem a na závěr v klidu česky dovysvětlí látku ze školy."}
+          {defaultSelectedGrade?.recommendedDesc || "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Pan Válek vede celou hru uvolněně s přirozenou výslovností rodilého mluvčího a na závěr v klidu česky dovysvětlí látku ze školy."}
         </p>
 
         <!-- Recommended games badges -->
@@ -318,7 +318,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
     const groupMatrix: Record<string, { title: string; desc: string; games: string[]; levelValue: string }> = {
       '1-3': {
         title: "Skupinka Malých Objevitelů (1.–3. třída ZŠ)",
-        desc: "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou australskou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
+        desc: "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou rodilou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
         games: ["🎲 Dobble & zvířata", "🧩 Scrabble Junior", "🃏 Karetní pexesa v AJ", "🏰 Jednoduché deskovky"],
         levelValue: "ZŠ 1. stupeň (1.–3. třída)"
       },
@@ -330,7 +330,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
       },
       '7-9': {
         title: "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
-        desc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s rodilým přízvukem a připravujeme se na přijímačky na střední školy.",
+        desc: "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s čistou výslovností a připravujeme se na přijímačky na střední školy i gymnázia.",
         games: ["🏰 Carcassonne & Strategie", "🗣️ Debatní scénky z cest", "🎲 Codenames (Krycí jména)", "📐 Přijímačkové rébusy"],
         levelValue: "ZŠ 2. stupeň (7.–9. třída)"
       },
