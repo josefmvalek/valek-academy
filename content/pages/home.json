@@ -1,4 +1,11 @@
 {
+  "blogPreview": {
+    "enabled": true,
+    "badge": "📚 RÁDCE PRO RODIČE & TIPY Z DOUČOVNY",
+    "title": "Jak na angličtinu hrou: Rady, hry a postřehy lektora",
+    "subtitle": "Odbourání strachu z mluvení, deskovky na doma a klidná příprava na přijímačky. Tipy od otce 5 dětí a rodilého mluvčího z Melbourne.",
+    "moreLinkText": "Zobrazit všechny články a tipy pro rodiče →"
+  },
   "title": "Valek Academy | Angličtina pro děti v malých skupinkách s rodilým mluvčím",
   "seo": {
     "metaTitle": "Josef Válek | Angličtina pro děti hrou ve skupinkách - 1. lekce ZDARMA",
@@ -321,7 +328,7 @@
   "about": {
     "enabled": true,
     "badge": "PŘÍBĚH LEKTORA",
-    "title": "Otec 5 dětí, který vyrostl v Melbourne – a teď na Slovácku učí s úsměvem a svatou trpělivostí",
+    "title": "Otec 5 dětí, který vyrostl v Austrálii – a teď na Slovácku učí s úsměvem a svatou trpělivostí",
     "image": "/uploads/Portrait-0.2.webp",
     "teacherName": "Josef Válek",
     "role": "Majitel, lektor angličtiny, překladatel, tlumočník",
@@ -959,13 +966,6 @@
     ]
   },
   "scheduleNotice": "Týdenní rozvrh 15 zvířecích skupinek a harmonogram se centrálně spravuje v samostatné sekci '📅 Rozvrh hodin (/rozvrh)', odkud se automaticky propisuje i na hlavní stránku.",
-  "blogPreview": {
-    "enabled": true,
-    "badge": "📚 RÁDCE PRO RODIČE & TIPY Z DOUČOVNY",
-    "title": "Jak na angličtinu hrou: Rady, hry a postřehy lektora",
-    "subtitle": "Odbourání strachu z mluvení, deskovky na doma a klidná příprava na přijímačky. Tipy od otce 5 dětí a rodilého mluvčího z Melbourne.",
-    "moreLinkText": "Zobrazit všechny články a tipy pro rodiče →"
-  },
   "faq": {
     "enabled": true,
     "badge": "ČASTÉ DOTAZY",
