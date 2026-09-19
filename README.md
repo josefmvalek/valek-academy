@@ -29,23 +29,29 @@ Web je postaven na hybridní architektuře **Astro v5 + TinaCMS + In-Page Visual
 * Generování virtuální **zlaté VIP vstupenky** na 1. lekci zdarma s přímým propisem do rezervačního formuláře.
 
 ### 💰 2. Interaktivní kalkulátor balíčků & slev (`PackageCalculator.astro`)
-* Přepínání platebních módů: měsíční flexibilní platba vs. zvýhodněné balíčky lekcí (úspora až 31 %).
-* Přepínač sourozenecké slevy (+10 % navíc).
-* Dynamický výpočet ceny za 60min lekci, celkové ceny i absolutní úspory v Kč v reálném čase.
+* **Dva nezávislé režimy výuky:** Okamžité přepínání mezi **Děti (1.–6. třída, 60 min)** a **SŠ & dospělí (90 min)**.
+* **Nezávislé datové modely:** Oddělená pole `badgeKids` a `badgeTeens` v CMS a dynamické přepínání editačních klíčů ve Visual Editoru, což garantuje nulovou vzájemnou kontaminaci cen.
+* **Automatický dynamický výpočet cen:** Ceny balíčků (1 měsíc, 3 měsíce, Pololetí, Celý rok) se automaticky dopočítávají ze zadané základní sazby (`basePrice` a `basePriceTeens`) a slevy balíčku (`baseDiscount`).
+* **Kamarádská a sourozenecká sleva (Tandem bonus):** Přepínač extra slevy -5 % pro oba studenty s animovaným zvýrazněním.
+* **Rychlá akce:** Předvyplnění rezervačního formuláře se specifickým programem nebo odeslání hotové kalkulace přímo do WhatsAppu lektora.
 
 ### 📅 3. Týdenní rozvrh hodin s přímou rezervací (`ScheduleBlocks.astro`)
 * 100% datově řízený z [content/schedule/rozvrh.json](file:///c:/Users/Jozka/Desktop/ValekAcademy/content/schedule/rozvrh.json).
-* Přehledné vizuální bloky pro všech 15 skupinek od pondělí do pátku (13:00 – 18:30).
+* Přehledné vizuální bloky pro všech 15 skupinek od pondělí do pátku (12:30 – 18:30).
 * Kapacitní indikátory obsazenosti a tlačítko rychlé rezervace konkrétního termínu na 1 klik.
 
 ### 🖼️ 4. Dynamická filtrovatelná fotogalerie (`GalleryView.astro`)
 * Okamžité přepínání kategorií (*Učebna, Deskovky, Výuka, Knihovna*) na straně klienta.
 * Moderní WebP formát fotografií s nativním líným načítáním (`loading="lazy"`).
 
-### 🔊 5. Zvukový přehrávač reálných hlášek lektora
+### 📚 5. Rádce pro rodiče & Blog (`/blog`)
+* Samostatné články zaměřené na deskovky, přijímačky a psychologii učení angličtiny řízené přes TinaCMS a soubory v `content/blog/`.
+* Možnost aktivace / deaktivace publikovaných článků na 1 klik přímo v administraci.
+
+### 🔊 6. Zvukový přehrávač reálných hlášek lektora
 * Tlačítka pro přehrání autentických australských pozdravů (*G'day mate!*, *No worries*) v podání Josefa Válka uložených ve složce [public/audio/](file:///c:/Users/Jozka/Desktop/ValekAcademy/public/audio/).
 
-### 🧭 6. Značková 404 stránka & Mobile PWA
+### 🧭 7. Značková 404 stránka & Mobile PWA
 * Vlastní [src/pages/404.astro](file:///c:/Users/Jozka/Desktop/ValekAcademy/src/pages/404.astro) s rychlou navigací na Domů, Rozvrh, Ceník a WhatsApp.
 * PWA Webmanifest [public/site.webmanifest](file:///c:/Users/Jozka/Desktop/ValekAcademy/public/site.webmanifest) a meta tag `theme-color` `#FAF7F2` pro barevné sladění horní lišty mobilních prohlížečů (Safari na iOS i Chrome na Androidu).
 
@@ -56,24 +62,20 @@ Web je postaven na hybridní architektuře **Astro v5 + TinaCMS + In-Page Visual
 Projekt striktně dodržuje pravidlo **žádných hardcoded textů v šablonách**:
 1. **TinaCMS (`/admin`):** Plnohodnotná vizuální administrace napojená na Git repozitář a Tina Cloud. Definice kolekcí je v [tina/config.ts](file:///c:/Users/Jozka/Desktop/ValekAcademy/tina/config.ts).
 2. **In-Page Visual Editor (`VisualEditor.astro`):** V lokálním vývojovém režimu umožňuje editovat texty přímo na živé stránce kliknutím a ukládat je přes interní endpoint `/api/save-content` přímo do JSON souborů v `content/`.
-3. **Click-to-Edit atributy:**
+3. **Typová bezpečnost ukládání:** API endpoint `/api/save-content` obsahuje automatické přetypování číselných a logických hodnot (`coerceValue`), což zabraňuje nechtěnému vzniku stringů v číselných polích schéma TinaCMS.
+4. **Click-to-Edit atributy:**
    * `data-tina-field={tinaField(obj, 'key')}` pro TinaCMS
    * `data-edit-key="cesta.v.json"` a `data-edit-label="Název"` pro In-Page Editor
 
 ### Struktura datových JSON souborů (`content/`):
 ```
 content/
-├── pages/
-│   └── home.json          # Texty úvodní stránky (Hero, About, Timeline, Contact, FAQ...)
-├── schedule/
-│   └── rozvrh.json        # Harmonogram, skupinky, dny, časy a kapacita
-├── pricing/
-│   └── cenik.json         # Cenové balíčky, výhody, srovnávací tabulka a kalkulátor
-├── gallery/
-│   └── gallery.json       # Seznam fotografií, popisky a kategorie
-└── legal/
-    ├── terms.json         # Všeobecné obchodní podmínky (VOP)
-    └── privacy.json       # Zásady ochrany osobních údajů (GDPR)
+├── blog/                  # Články blogu a rádce pro rodiče (.json)
+├── gallery/               # Seznam fotografií, popisky a kategorie
+├── legal/                 # Obchodní podmínky (VOP) a GDPR
+├── pages/                 # Texty úvodní stránky (Hero, About, Timeline, Contact, FAQ...)
+├── pricing/               # Cenové balíčky, výhody, srovnávací tabulka a kalkulátor
+└── schedule/              # Harmonogram, skupinky, dny, časy a kapacita
 ```
 
 ---
