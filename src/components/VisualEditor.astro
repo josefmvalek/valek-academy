@@ -454,8 +454,45 @@
     floatingToolbar.classList.remove('flex');
   }
 
+  function syncSameKeyElements(sourceEl: HTMLElement) {
+    const key = sourceEl.getAttribute('data-edit-key');
+    if (!key) return;
+    try {
+      const sameKeyElements = document.querySelectorAll<HTMLElement>(`[data-edit-key="${CSS.escape(key)}"]`);
+      sameKeyElements.forEach((other) => {
+        if (other !== sourceEl) {
+          other.innerHTML = sourceEl.innerHTML;
+        }
+      });
+    } catch {
+      const allEditable = document.querySelectorAll<HTMLElement>('[data-edit-key]');
+      allEditable.forEach((other) => {
+        if (other !== sourceEl && other.getAttribute('data-edit-key') === key) {
+          other.innerHTML = sourceEl.innerHTML;
+        }
+      });
+    }
+  }
+
+  function handleElementInput(e: Event) {
+    const target = e.currentTarget as HTMLElement;
+    if (target) {
+      syncSameKeyElements(target);
+    }
+  }
+
   function execFormat(command: string) {
     (document as any).execCommand(command, false);
+    const sel = window.getSelection();
+    if (sel && sel.anchorNode) {
+      const parent = sel.anchorNode.nodeType === Node.ELEMENT_NODE
+        ? (sel.anchorNode as HTMLElement)
+        : sel.anchorNode.parentElement;
+      const editableEl = parent?.closest<HTMLElement>('[data-edit-key]');
+      if (editableEl) {
+        syncSameKeyElements(editableEl);
+      }
+    }
   }
 
   function updateToolbarActiveStates() {
@@ -567,6 +604,9 @@
           el.setAttribute('contenteditable', 'true');
           el.setAttribute('spellcheck', 'false');
           el.addEventListener('paste', handlePaste);
+          el.addEventListener('input', handleElementInput);
+          el.addEventListener('keyup', handleElementInput);
+          el.addEventListener('blur', handleElementInput);
         } else {
           el.removeAttribute('contenteditable');
           el.addEventListener('click', handleImageClick);
@@ -589,6 +629,9 @@
       document.querySelectorAll<HTMLElement>('[data-edit-key]').forEach((el) => {
         el.removeAttribute('contenteditable');
         el.removeEventListener('paste', handlePaste);
+        el.removeEventListener('input', handleElementInput);
+        el.removeEventListener('keyup', handleElementInput);
+        el.removeEventListener('blur', handleElementInput);
         el.removeEventListener('click', handleImageClick);
       });
 
@@ -742,12 +785,17 @@
       const pathname = window.location.pathname.replace(/\/$/, '');
       const filesPayloads: Record<string, any> = {};
       const editableElements = document.querySelectorAll<HTMLElement>('[data-edit-key]');
+      const processedKeys = new Set<string>();
       
       editableElements.forEach((el) => {
         const key = el.getAttribute('data-edit-key');
         if (!key) return;
 
         const targetFile = getTargetFileForKey(key, pathname);
+        const compositeKey = `${targetFile}::${key}`;
+        if (processedKeys.has(compositeKey)) return;
+        processedKeys.add(compositeKey);
+
         if (!filesPayloads[targetFile]) {
           filesPayloads[targetFile] = { _file: targetFile };
         }

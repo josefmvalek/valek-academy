@@ -54,7 +54,8 @@
     "legendOpen": "Volno (do 8 dětí)",
     "legendWaitingList": "Čekací listina (8–11 dětí)",
     "legendFull": "Obsazeno (včetně čekací listiny)",
-    "ctaText": "Vybrat skupinku a rezervovat 1. lekci zdarma →",
+    "ctaText": "Vybrat skupinku a rezervovat 1. lekci zdarma ↓",
+    "bottomCtaText": "Otevřít velký rozvrh hodin & rezervaci místa ve skupince →",
     "groups": [
       {
         "id": "kangaroos",

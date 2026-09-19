@@ -61,7 +61,8 @@ const scheduleField: any = {
     { type: "string", name: "legendOpen", label: "Popisek legendy: Volno" },
     { type: "string", name: "legendWaitingList", label: "Popisek legendy: Čekací listina" },
     { type: "string", name: "legendFull", label: "Popisek legendy: Obsazeno" },
-    { type: "string", name: "ctaText", label: "Text hlavního tlačítka" },
+    { type: "string", name: "ctaText", label: "Text hlavního tlačítka (na /rozvrh pro přechod k rezervaci)" },
+    { type: "string", name: "bottomCtaText", label: "Text spodního tlačítka na homepage (pro otevření rozvrhu)" },
     {
       type: "object",
       name: "groups",

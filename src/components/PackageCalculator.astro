@@ -617,7 +617,6 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       const originalUnit = document.getElementById('calc-original-unit');
 
       durationBtns.forEach((btn, idx) => {
-        const weeks = parseInt(btn.getAttribute('data-weeks') || '20', 10);
         const baseDiscount = parseFloat(btn.getAttribute('data-base-discount') || '0');
         const customBadgeKids = btn.getAttribute('data-badge-kids');
         const customBadgeTeens = btn.getAttribute('data-badge-teens');

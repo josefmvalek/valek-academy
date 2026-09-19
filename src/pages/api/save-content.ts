@@ -67,7 +67,13 @@ export const POST: APIRoute = async ({ request }) => {
     if (targetFileName === 'rozvrh.json' && payload.rozvrh && typeof payload.rozvrh === 'object') {
       const rozvrhData = payload.rozvrh;
       delete payload.rozvrh;
-      Object.assign(payload, rozvrhData);
+      for (const k of Object.keys(rozvrhData)) {
+        if (payload[k] && typeof payload[k] === 'object' && typeof rozvrhData[k] === 'object') {
+          payload[k] = deepMerge(payload[k], rozvrhData[k]);
+        } else {
+          payload[k] = rozvrhData[k];
+        }
+      }
     }
 
     // If target is privacy.json or terms.json and payload contains legal namespace, unwrap it

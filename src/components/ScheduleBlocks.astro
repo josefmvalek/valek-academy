@@ -150,14 +150,38 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isHomePage = pathname === '/';
 const initialCohort: string = isHomePage ? '1.–3. třída' : 'all';
 
+const bottomCtaText = isHomePage
+  ? (schedule.bottomCtaText || "Otevřít velký rozvrh hodin & rezervaci místa ve skupince →")
+  : (schedule.ctaText || "Vybrat skupinku a rezervovat 1. lekci zdarma ↓");
+const bottomCtaHref = isHomePage ? "/rozvrh" : "#kontakt";
+
+function getCohortCategory(str: string): 'primary' | 'middle' | 'older' | 'other' {
+  if (!str) return 'other';
+  const s = str.toLowerCase();
+  if (s.includes('1.–3') || s.includes('1-3') || s.includes('1. stupeň') || s.includes('1. stupen') || /\b[1-3]\b|\b[1-3]\./.test(s)) return 'primary';
+  if (s.includes('4.–6') || s.includes('4-6') || s.includes('2. stupeň') || s.includes('2. stupen') || /\b[4-6]\b|\b[4-6]\./.test(s)) return 'middle';
+  if (s.includes('7.–9') || s.includes('7-9') || s.includes('7.–13') || s.includes('7-13') || s.includes('sš') || s.includes('ss') || s.includes('maturit') || s.includes('střední') || s.includes('stredni') || /\b[7-9]\b|\b[7-9]\./.test(s)) return 'older';
+  return 'other';
+}
+
+function matchesCohort(groupCohort: string, selectedCohort: string): boolean {
+  if (!selectedCohort || selectedCohort === 'all') return true;
+  if (groupCohort === selectedCohort) return true;
+  const catGroup = getCohortCategory(groupCohort);
+  const catSel = getCohortCategory(selectedCohort);
+  if (catGroup !== 'other' && catGroup === catSel) return true;
+  return groupCohort.trim().toLowerCase() === selectedCohort.trim().toLowerCase();
+}
+
 // Helper to compute capacity state
 function getCapacityInfo(group: GroupItem) {
-  const maxSeats = group.maxSeats || 8;
-  const wlSeats = group.waitingListSeats || 4;
-  const occupied = group.occupiedSeats ?? 0;
+  const maxSeats = Number(group.maxSeats) || 8;
+  const wlSeats = Number(group.waitingListSeats) || 4;
+  const occupied = Number(group.occupiedSeats ?? 0);
   const totalMax = maxSeats + wlSeats; // 12
+  const override = group.statusOverride || 'auto';
 
-  if (group.statusOverride === 'full' || occupied >= totalMax) {
+  if (override === 'full' || (override !== 'open' && override !== 'waiting_list' && occupied >= totalMax)) {
     return {
       status: 'full',
       badgeText: "We're full! (12/12)",
@@ -173,7 +197,7 @@ function getCapacityInfo(group: GroupItem) {
     };
   }
 
-  if (group.statusOverride === 'waiting_list' || occupied >= maxSeats) {
+  if (override === 'waiting_list' || (override !== 'open' && occupied >= maxSeats)) {
     const wlOccupied = Math.max(1, occupied - maxSeats);
     const wlAvailable = Math.max(0, wlSeats - wlOccupied);
     return {
@@ -288,7 +312,7 @@ function getLocalWalkHint(cohort: string) {
         <span class="text-3xl flex-shrink-0" data-tina-field={tinaField(schedule, 'whyInPersonIcon')} data-edit-key="schedule.whyInPersonIcon" data-edit-label="Ikona naživo">{whyInPersonIcon}</span>
         <div class="space-y-1 text-center sm:text-left flex-1">
           <h4 class="font-heading font-black text-sm sm:text-base text-emerald-950" data-tina-field={tinaField(schedule, 'whyInPersonTitle')} data-edit-key="schedule.whyInPersonTitle" data-edit-label="Nadpis naživo">{whyInPersonTitle}</h4>
-          <p class="text-xs text-emerald-900/80 leading-relaxed font-normal" data-tina-field={tinaField(schedule, 'whyInPersonText')} data-edit-key="schedule.whyInPersonText" data-edit-label="Popis naživo">{whyInPersonText}</p>
+          <p class="text-xs text-emerald-900/80 leading-relaxed font-normal" data-tina-field={tinaField(schedule, 'whyInPersonText')} data-edit-key="schedule.whyInPersonText" data-edit-label="Popis naživo" set:html={formatRichText(whyInPersonText)}></p>
         </div>
       </div>
 
@@ -459,7 +483,7 @@ function getLocalWalkHint(cohort: string) {
               {groups.map((group, idx) => {
                 const cap = getCapacityInfo(group);
                 const walkHint = group.walkHint || getLocalWalkHint(group.cohort);
-                const isInitialSmartVisible = group.cohort === '1.–3. třída';
+                const isInitialSmartVisible = matchesCohort(group.cohort, '1.–3. třída');
                 return (
                   <div
                     data-tina-field={tinaField(schedule, 'groups', idx)}
@@ -513,8 +537,8 @@ function getLocalWalkHint(cohort: string) {
                         data-tina-field={tinaField(group, 'description')}
                         data-edit-key={`schedule.groups.${idx}.description`}
                         data-edit-label="Popis skupinky"
+                        set:html={formatRichText(group.description || "")}
                       >
-                        {group.description}
                       </p>
 
                       <div
@@ -530,7 +554,7 @@ function getLocalWalkHint(cohort: string) {
                       <div class="space-y-1 pt-1 border-t border-parchment-200">
                         <div class="flex items-center justify-between text-[11px]">
                           <span class="font-bold text-espresso-950">
-                            Obsazeno: {group.occupiedSeats ?? 0}/8
+                            Obsazeno: <span data-tina-field={tinaField(group, 'occupiedSeats')} data-edit-key={`schedule.groups.${idx}.occupiedSeats`} data-edit-label="Počet obsazených míst">{group.occupiedSeats ?? 0}</span>/8
                           </span>
                           <span class="text-[11px] font-bold text-stone-500">
                             {cap.status === 'open' ? `${cap.availableInBase} volno` : cap.status === 'waiting_list' ? 'Waiting list' : 'Plno'}
@@ -709,7 +733,7 @@ function getLocalWalkHint(cohort: string) {
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="schedule-groups-grid">
         {groups.map((group, idx) => {
           const cap = getCapacityInfo(group);
-          const isInitialVisible = initialCohort === 'all' || group.cohort === initialCohort;
+          const isInitialVisible = initialCohort === 'all' || matchesCohort(group.cohort, initialCohort);
           return (
             <div
               data-tina-field={tinaField(schedule, 'groups', idx)}
@@ -730,7 +754,7 @@ function getLocalWalkHint(cohort: string) {
                       {group.day}
                     </span>
                     <span class="text-xs font-black text-amber-950">
-                      ⏱️ {group.time}
+                      ⏱️ <span data-tina-field={tinaField(group, 'time')} data-edit-key={`schedule.groups.${idx}.time`} data-edit-label="Čas">{group.time}</span>
                     </span>
                   </div>
 
@@ -763,7 +787,7 @@ function getLocalWalkHint(cohort: string) {
                         {group.animal}
                       </h3>
                       <span class="text-xs font-bold text-stone-500">
-                        ({group.cohort})
+                        (<span data-tina-field={tinaField(group, 'cohort')} data-edit-key={`schedule.groups.${idx}.cohort`} data-edit-label="Ročník">{group.cohort}</span>)
                       </span>
                     </div>
                     {group.cohortBadge && (
@@ -785,15 +809,15 @@ function getLocalWalkHint(cohort: string) {
                   data-tina-field={tinaField(group, 'description')}
                   data-edit-key={`schedule.groups.${idx}.description`}
                   data-edit-label="Popis skupinky"
+                  set:html={formatRichText(group.description || "")}
                 >
-                  {group.description}
                 </p>
 
                 <!-- Capacity Visual Meter Bar -->
                 <div class="space-y-1.5 pt-2 border-t border-parchment-200">
                   <div class="flex items-center justify-between text-[11px]">
                     <span class="font-bold text-espresso-950">
-                      Obsazenost: <span class="text-amber-900 font-black">{group.occupiedSeats ?? 0}/8</span>
+                      Obsazenost: <span class="text-amber-900 font-black"><span data-tina-field={tinaField(group, 'occupiedSeats')} data-edit-key={`schedule.groups.${idx}.occupiedSeats`} data-edit-label="Počet obsazených míst">{group.occupiedSeats ?? 0}</span>/8</span>
                       {((group.occupiedSeats ?? 0) > 8) && (
                         <span class="text-amber-700 font-extrabold"> (+{((group.occupiedSeats ?? 0) - 8)} na čekačce)</span>
                       )}
@@ -865,8 +889,7 @@ function getLocalWalkHint(cohort: string) {
                   <p class="text-xs text-stone-600" data-tina-field={tinaField(adultsBlock, 'subtitle')} data-edit-key="schedule.adultsBlock.subtitle" data-edit-label="Dospělí: Podtitul">{adultsBlock.subtitle || "4 obory: Medici 🩺, Právníci ⚖️, Technici ⚙️, Obchod 📊"}</p>
                 </div>
               </div>
-              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(adultsBlock, 'desc')} data-edit-key="schedule.adultsBlock.desc" data-edit-label="Dospělí: Popis">
-                {adultsBlock.desc || "Intenzivní podvečerní skupiny pro pracující a studenty VŠ. Žádné biflování gramatiky ze základky, ale moderní odborná mluva, prezentace a přirozený přízvuk."}
+              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(adultsBlock, 'desc')} data-edit-key="schedule.adultsBlock.desc" data-edit-label="Dospělí: Popis" set:html={formatRichText(adultsBlock.desc || "Intenzivní podvečerní skupiny pro pracující a studenty VŠ. Žádné biflování gramatiky ze základky, ale moderní odborná mluva, prezentace a přirozený přízvuk.")}>
               </p>
             </div>
 
@@ -897,8 +920,7 @@ function getLocalWalkHint(cohort: string) {
                   <p class="text-xs text-stone-600" data-tina-field={tinaField(individualBlock, 'subtitle')} data-edit-key="schedule.individualBlock.subtitle" data-edit-label="Individuální: Podtitul">{individualBlock.subtitle || "Maximální flexibilita pro náročné cíle"}</p>
                 </div>
               </div>
-              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(individualBlock, 'desc')} data-edit-key="schedule.individualBlock.desc" data-edit-label="Individuální: Popis">
-                {individualBlock.desc || "Probíhá výhradně v dopoledních hodinách v klidu doučovny v Uherském Hradišti. Příprava na mezinárodní konference, pohovory v zahraničí nebo specifické požadavky."}
+              <p class="text-xs text-espresso-800/80 leading-relaxed font-normal" data-tina-field={tinaField(individualBlock, 'desc')} data-edit-key="schedule.individualBlock.desc" data-edit-label="Individuální: Popis" set:html={formatRichText(individualBlock.desc || "Probíhá výhradně v dopoledních hodinách v klidu doučovny v Uherském Hradišti. Příprava na mezinárodní konference, pohovory v zahraničí nebo specifické požadavky.")}>
               </p>
             </div>
 
@@ -917,11 +939,11 @@ function getLocalWalkHint(cohort: string) {
       <!-- Bottom Global Actions: Dedicated /rozvrh page & Instant Booking -->
       <div class="mt-12 text-center max-w-2xl mx-auto space-y-3">
         <a
-          href="/rozvrh"
+          href={bottomCtaHref}
           class="btn-gold-pulse group w-full sm:w-auto inline-flex items-center justify-center gap-3 py-4 sm:py-5 px-6 sm:px-10 rounded-2xl font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border-2 border-amber-500 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
-          <span class="text-2xl group-hover:scale-110 transition-transform">📅</span>
-          <span>Otevřít velký rozvrh hodin & rezervaci místa ve skupince</span>
+          <span class="text-2xl group-hover:scale-110 transition-transform">{isHomePage ? "📅" : "🎁"}</span>
+          <span data-tina-field={tinaField(schedule, 'ctaText')} data-edit-key="schedule.ctaText" data-edit-label="Spodní akční tlačítko">{bottomCtaText}</span>
           <span class="group-hover:translate-x-1.5 transition-transform font-black">→</span>
         </a>
         <div class="flex items-center justify-center gap-4 text-xs text-stone-500 font-medium flex-wrap">
@@ -982,9 +1004,9 @@ function getLocalWalkHint(cohort: string) {
     function getCohortCategory(str: string): 'primary' | 'middle' | 'older' | 'other' {
       if (!str) return 'other';
       const s = str.toLowerCase();
-      if (s.includes('1.–3') || s.includes('1-3') || s.includes('1. stupeň') || s.includes('1. stupen')) return 'primary';
-      if (s.includes('4.–6') || s.includes('4-6')) return 'middle';
-      if (s.includes('7.–9') || s.includes('7-9') || s.includes('7.–13') || s.includes('7-13') || s.includes('sš') || s.includes('ss') || s.includes('maturit') || s.includes('střední') || s.includes('stredni')) return 'older';
+      if (s.includes('1.–3') || s.includes('1-3') || s.includes('1. stupeň') || s.includes('1. stupen') || /\b[1-3]\b|\b[1-3]\./.test(s)) return 'primary';
+      if (s.includes('4.–6') || s.includes('4-6') || s.includes('2. stupeň') || s.includes('2. stupen') || /\b[4-6]\b|\b[4-6]\./.test(s)) return 'middle';
+      if (s.includes('7.–9') || s.includes('7-9') || s.includes('7.–13') || s.includes('7-13') || s.includes('sš') || s.includes('ss') || s.includes('maturit') || s.includes('střední') || s.includes('stredni') || /\b[7-9]\b|\b[7-9]\./.test(s)) return 'older';
       return 'other';
     }
 
