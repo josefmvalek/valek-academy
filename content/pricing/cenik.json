@@ -152,7 +152,7 @@
         "label": "1 měsíc",
         "periodDesc": "4 týdnů",
         "badge": "320 Kč / 60 min.",
-        "baseDiscount": 5,
+        "baseDiscount": 0,
         "popular": false,
         "bestValue": false
       },
