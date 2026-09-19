@@ -146,12 +146,6 @@
     "perLessonSuffix": " / lekce",
     "totalPriceLabel": "Celková cena balíčku",
     "whatsappBtnText": "Odeslat tuto kalkulaci přímo na WhatsApp",
-    "buddyDiscountEnabled": true,
-    "buddyDiscountPercent": 5,
-    "buddyDiscountTitle": "Přijdeme ve dvou (kamarád ze třídy / sourozenec)",
-    "buddyDiscountBadge": "EXTRA SLEVA -5 % PRO OBA",
-    "buddyDiscountDesc": "Zapíšete se společně se spolužákem nebo sourozencem? Získáte oba dodatečnou slevu 5 % z celkové ceny balíčku.",
-    "buddyDiscountResultLabel": "👫 Sleva pro dva (kamarád / sourozenec):",
     "durations": [
       {
         "weeks": 4,
