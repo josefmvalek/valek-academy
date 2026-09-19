@@ -205,7 +205,7 @@
         "freq": 3,
         "label": "3× týdně",
         "desc": "Intenzivní (bonus sleva 10%)",
-        "bonus": 15,
+        "bonus": 10,
         "badge": "+10% sleva jako odměna",
         "recommended": false
       }
