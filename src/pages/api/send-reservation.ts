@@ -18,10 +18,33 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const data: ReservationPayload = await request.json();
 
-    if (!data.name || !data.phone || !data.email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneDigits = (data.phone || '').replace(/\D/g, '');
+
+    if (!data.name?.trim() || !data.phone?.trim() || !data.email?.trim()) {
       return new Response(JSON.stringify({ 
         success: false, 
         error: 'Chybí povinné údaje (jméno, telefon nebo e-mail).' 
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    if (!emailRegex.test(data.email.trim())) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'Zadaná e-mailová adresa není platná.' 
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    if (phoneDigits.length < 9) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'Telefonní číslo musí mít alespoň 9 číslic.' 
       }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }

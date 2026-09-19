@@ -388,7 +388,20 @@
           return document.createElement('br');
         }
 
-        // Unwrap any other tags (span, div, p, font, etc.) to discard unwanted classes
+        // Handle paragraphs and line breaks from contenteditable (div, p)
+        if (tag === 'p' || tag === 'div') {
+          const fragment = document.createDocumentFragment();
+          if (elem.previousSibling) {
+            fragment.appendChild(document.createElement('br'));
+          }
+          Array.from(elem.childNodes).forEach((child) => {
+            const cleaned = cleanNode(child);
+            if (cleaned) fragment.appendChild(cleaned);
+          });
+          return fragment;
+        }
+
+        // Unwrap any other tags (span, font, etc.) to discard unwanted classes
         const fragment = document.createDocumentFragment();
         Array.from(elem.childNodes).forEach((child) => {
           const cleaned = cleanNode(child);
@@ -416,16 +429,22 @@
   function handlePaste(e: ClipboardEvent) {
     e.preventDefault();
     const text = e.clipboardData?.getData('text/plain') || '';
+    if (!text) return;
+
+    const normalized = text.replace(/\r\n/g, '\n');
+    const lines = normalized.split('\n');
+    const fragment = document.createDocumentFragment();
+    lines.forEach((line, idx) => {
+      if (idx > 0) fragment.appendChild(document.createElement('br'));
+      fragment.appendChild(document.createTextNode(line));
+    });
+
     const sel = window.getSelection();
     if (sel && sel.rangeCount > 0) {
       const range = sel.getRangeAt(0);
       range.deleteContents();
-      const node = document.createTextNode(text);
-      range.insertNode(node);
-      range.setStartAfter(node);
-      range.collapse(true);
-      sel.removeAllRanges();
-      sel.addRange(range);
+      range.insertNode(fragment);
+      sel.collapseToEnd();
     }
   }
 

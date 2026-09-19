@@ -23,7 +23,7 @@ const rozvrhQuery = await getSchedulePageDataQuery();
 const rozvrh = (rozvrhQuery.data as any)?.rozvrh || {};
 
 const seoTitle = rozvrh?.seo?.metaTitle || rozvrh?.title || "Rozvrh hodin & rezervace zvířecí skupinky | VALEK ACADEMY Uherské Hradiště";
-const seoDesc = rozvrh?.seo?.metaDescription || "Kompletní týdenní rozvrh 15 zvířecích skupin výuky angličtiny hrou v Uherském Hradišti. 1.–3. třída, 4.–6. třída, 7.–13. třída i dospělí. Rezervace 1. lekce zdarma.";
+const seoDesc = rozvrh?.seo?.metaDescription || "Kompletní týdenní rozvrh 15 zvířecích skupin výuky angličtiny hrou v Uherském Hradišti. 1.–3. třída, 4.–6. třída, 7.–9. třída & SŠ i dospělí. Rezervace 1. lekce zdarma.";
 const canonical = rozvrh?.seo?.canonicalUrl || "https://valekacademy.cz/rozvrh";
 ---
 

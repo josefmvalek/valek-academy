@@ -27,5 +27,13 @@ export function formatRichText(text?: string | null): string {
     .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '');
 
+  // 3. Zpracování odřádkování a odstavců
+  // Sjednocení Windows \r\n na standardní \n
+  formatted = formatted.replace(/\r\n/g, '\n').trim();
+  // Dva a více nových řádků za sebou -> vizuální odstavec
+  formatted = formatted.replace(/\n{2,}/g, '<span class="block mt-3"></span>');
+  // Jeden nový řádek -> běžné zalomení řádku
+  formatted = formatted.replace(/\n/g, '<br />');
+
   return formatted;
 }

@@ -7,6 +7,7 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   keywords?: string;
+  noindex?: boolean;
   faqItems?: Array<{ question?: string; answer?: string; [key: string]: any }>;
   seo?: {
     metaTitle?: string;
@@ -20,12 +21,18 @@ interface Props {
 const {
   seo,
   faqItems,
+  noindex = false,
   title = seo?.metaTitle || "Josef Válek | Angličtina hrou a bez stresu – pro děti i dospělé",
   description = seo?.metaDescription || "Výuka angličtiny a doučování přirozeně a hrou. Pan Válek vyrostl v Melbourne, žije 25+ let v ČR a učí s čistou výslovností rodilého mluvčího.",
   canonical = seo?.canonicalUrl || "https://valekacademy.cz/",
   ogImage = seo?.ogImage || "https://valekacademy.cz/images/og-valek-academy.jpg",
   keywords = seo?.keywords || "výuka angličtiny, doučování angličtiny, Uherské Hradiště, angličtina hrou, Josef Válek",
 } = Astro.props;
+
+// Ensure OpenGraph and Twitter card image is an absolute URL
+const normalizedOgImage = ogImage.startsWith('http://') || ogImage.startsWith('https://')
+  ? ogImage
+  : `https://valekacademy.cz${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isSubpage = pathname !== '/';
@@ -37,34 +44,8 @@ else if (pathname === '/galerie') subpageName = "Fotogalerie doučovny a her";
 else if (pathname === '/obchodni-podminky') subpageName = "Všeobecné obchodní podmínky";
 else if (pathname === '/ochrana-osobnich-udaju') subpageName = "Ochrana osobních údajů";
 
-const defaultFaqItems = [
-  {
-    question: "Co když je dítě nemocné nebo nemůže dorazit? Propadne nám lekce?",
-    answer: "U nás vám lekce nikdy nepropadne. Pokud dítě nemůže dorazit, v klidu si hodinu nahradí v paralelní skupince v jiný den."
-  },
-  {
-    question: "Musíme se vázat smlouvou na celé pololetí dopředu?",
-    answer: "Vůbec ne. U nás neplatíte nic naslepo. 1. lekce je 100% zdarma a následně si můžete zvolit flexibilní měsíční platbu nebo balíček lekcí bez jakýchkoliv smluvních sankcí."
-  },
-  {
-    question: "Pro jak staré děti je doučování vhodné a jak velké jsou skupinky?",
-    answer: "Doučování je primárně určeno pro žáky základních škol (1. až 9. třída), rozdělené do 3 věkových kategorií. Skupinky tvoří pouze 4 až 8 dětí, což zajišťuje maximální prostor pro každé dítě."
-  },
-  {
-    question: "Jak probíhá 1. ukázková lekce zdarma?",
-    answer: "První 60minutová lekce je 100% nezávazná a zdarma. Dítě se seznámí s panem Válkem, zahraje si deskovku v angličtině a vyzkouší si atmosféru v doučovně v Růžové ulici v Uherském Hradišti."
-  },
-  {
-    question: "Co když dítě neumí anglicky nebo se bojí mluvit?",
-    answer: "Právě pro tyto děti jsou hry ideální. Během deskových her děti zapomenou na trému a začnou reagovat automaticky. Pan Válek navíc mluví plynule česky, takže cokoliv v klidu dovysvětlí."
-  },
-  {
-    question: "Kde přesně výuka probíhá a jaké jsou možnosti parkování?",
-    answer: "Výuka probíhá v útulné doučovně na adrese Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO). Přímo před vchodem je možnost pohodlného parkování za 10 Kč/hod."
-  }
-];
-
-const resolvedFaqItems = (faqItems && faqItems.length > 0) ? faqItems : defaultFaqItems;
+const hasFaq = Boolean(faqItems && faqItems.length > 0);
+const isCoursePage = (pathname === '/' || pathname === '/rozvrh' || pathname === '/cenik') && !noindex;
 
 const schemaGraph: any = {
   "@context": "https://schema.org",
@@ -102,7 +83,7 @@ const schemaGraph: any = {
           "closes": "19:00"
         }
       ],
-      "priceRange": "320 Kč",
+      "priceRange": "320 Kč – 480 Kč",
       "areaServed": [
         "Uherské Hradiště",
         "Kunovice",
@@ -114,37 +95,41 @@ const schemaGraph: any = {
         "Uherský Brod"
       ]
     },
-    {
-      "@type": "FAQPage",
-      "@id": "https://valekacademy.cz/#faq",
-      "mainEntity": resolvedFaqItems.map((item: any) => ({
-        "@type": "Question",
-        "name": item.question || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": (item.answer || "").replace(/<[^>]*>?/gm, "").trim()
-        }
-      }))
-    },
-    {
-      "@type": "Course",
-      "@id": "https://valekacademy.cz/#course",
-      "name": "Hravá angličtina pro žáky ZŠ v malých skupinkách",
-      "description": "Výuka a doučování angličtiny pro děti hrou a deskovými hrami (Karak, Scrabble, Story Cubes) v malých skupinkách 4–8 dětí v Uherském Hradišti.",
-      "provider": {
-        "@type": "Organization",
-        "name": "VALEK ACADEMY",
-        "sameAs": "https://valekacademy.cz"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "320",
-        "priceCurrency": "CZK",
-        "category": "Doučování angličtiny pro žáky ZŠ",
-        "availability": "https://schema.org/InStock"
+    ...(hasFaq ? [
+      {
+        "@type": "FAQPage",
+        "@id": `https://valekacademy.cz${pathname}#faq`,
+        "mainEntity": faqItems!.map((item: any) => ({
+          "@type": "Question",
+          "name": item.question || "",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": (item.answer || "").replace(/<[^>]*>?/gm, "").trim()
+          }
+        }))
       }
-    },
-    ...(isSubpage ? [
+    ] : []),
+    ...(isCoursePage ? [
+      {
+        "@type": "Course",
+        "@id": "https://valekacademy.cz/#course",
+        "name": "Hravá angličtina pro žáky ZŠ v malých skupinkách",
+        "description": "Výuka a doučování angličtiny pro děti hrou a deskovými hrami (Karak, Scrabble, Story Cubes) v malých skupinkách 4–8 dětí v Uherském Hradišti.",
+        "provider": {
+          "@type": "Organization",
+          "name": "VALEK ACADEMY",
+          "sameAs": "https://valekacademy.cz"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "320",
+          "priceCurrency": "CZK",
+          "category": "Doučování angličtiny pro žáky ZŠ",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    ] : []),
+    ...(isSubpage && !noindex ? [
       {
         "@type": "BreadcrumbList",
         "@id": `${canonical}#breadcrumb`,
@@ -188,8 +173,17 @@ const schemaGraph: any = {
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    {noindex ? (
+      <>
+        <meta name="robots" content="noindex, follow" />
+        <meta name="googlebot" content="noindex, follow" />
+      </>
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+      </>
+    )}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -197,7 +191,7 @@ const schemaGraph: any = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="cs_CZ" />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={normalizedOgImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="VALEK ACADEMY • Angličtina pro děti v malých skupinkách s rodilým mluvčím" />
@@ -207,7 +201,7 @@ const schemaGraph: any = {
     <meta property="twitter:url" content={canonical} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={ogImage} />
+    <meta property="twitter:image" content={normalizedOgImage} />
 
     <!-- Local SEO Geo Meta Tags -->
     <meta name="geo.region" content="CZ-ZL" />
@@ -216,7 +210,7 @@ const schemaGraph: any = {
     <meta name="ICBM" content="49.0708, 17.4665" />
 
     <!-- Canonical Tag & XML Sitemap -->
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="sitemap" href="/sitemap.xml" />
 
     <!-- Google Fonts Optimized Loading -->
@@ -234,19 +228,18 @@ const schemaGraph: any = {
     <!-- Dynamic Tab Title on Page Inactivity / Tab Switch -->
     <script is:inline>
       (function () {
-        let originalTitle = document.title;
+        const truePageTitle = document.title;
         const awayTitle = "🎁 1. lekce angličtiny pro děti je zdarma – VALEK ACADEMY";
         let returnTimer = null;
 
         document.addEventListener("visibilitychange", function () {
           if (document.hidden) {
-            originalTitle = document.title;
             document.title = awayTitle;
           } else {
             if (returnTimer) clearTimeout(returnTimer);
             document.title = "👋 Vítejte zpět! | VALEK ACADEMY";
             returnTimer = setTimeout(function () {
-              document.title = originalTitle;
+              document.title = truePageTitle;
             }, 2000);
           }
         });

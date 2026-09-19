@@ -253,6 +253,8 @@ const columns = comparison.columns || defaultColumns;
         <button
           type="button"
           id="toggle-comparison-btn"
+          aria-expanded="false"
+          aria-controls="comparison-cards-container"
           class="w-full py-3.5 px-4 rounded-card-md bg-white hover:bg-parchment-100 border-2 border-parchment-300 font-heading font-black text-xs text-espresso-950 flex items-center justify-center gap-2 shadow-2xs cursor-pointer transition-all active:scale-[0.98]"
         >
           <span>⚖️</span>
@@ -273,6 +275,7 @@ const columns = comparison.columns || defaultColumns;
     function syncComparisonUI() {
       const textSpan = document.getElementById('toggle-comparison-text');
       const iconSpan = document.getElementById('toggle-comparison-icon');
+      const btn = document.getElementById('toggle-comparison-btn');
       const extras = document.querySelectorAll('.comparison-extra');
 
       extras.forEach((card) => {
@@ -284,6 +287,10 @@ const columns = comparison.columns || defaultColumns;
           card.classList.add('hidden');
         }
       });
+
+      if (btn) {
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      }
 
       if (textSpan) {
         textSpan.textContent = expanded

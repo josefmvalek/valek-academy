@@ -15,7 +15,7 @@ const contact = page?.contact || {};
 <Layout
   title="404: Stránka nenalezena | VALEK ACADEMY"
   description="Stránka nebyla nalezena. Vraťte se na úvodní stránku VALEK ACADEMY nebo si prohlédněte rozvrh a ceník doučování angličtiny v Uherském Hradišti."
-  canonical="https://valekacademy.cz/404"
+  noindex={true}
 >
   <Navbar
     navbar={navbar}
@@ -82,13 +82,13 @@ const contact = page?.contact || {};
       <div class="pt-6 border-t border-[#E8DCBF]/60 text-xs sm:text-sm text-[#78716C] flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
         <span>Potřebujete s něčím poradit?</span>
         <a
-          href="https://wa.me/420792372642"
+          href={contact.whatsapp || `https://wa.me/${(contact.phone || '420792372642').replace(/\D/g, '')}`}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 font-bold text-emerald-700 hover:text-emerald-800 transition-colors"
         >
           <span>💬</span>
-          <span>Napsat na WhatsApp (+420 792 372 642)</span>
+          <span>Napsat na WhatsApp ({contact.phoneFormatted || '+420 792 372 642'})</span>
         </a>
       </div>
     </div>

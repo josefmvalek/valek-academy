@@ -8,6 +8,9 @@ export default defineConfig({
   site: 'https://valekacademy.cz',
   output: 'server',
   adapter: vercel(),
+  redirects: {
+    '/rozpis-hodin': '/rozvrh',
+  },
   integrations: [
     tailwind({
       applyBaseStyles: false,

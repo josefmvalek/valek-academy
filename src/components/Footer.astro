@@ -61,7 +61,10 @@ const currentYear = new Date().getFullYear();
 const contactEmail = contact.email || email;
 const contactPhone = contact.phone || phone;
 const contactPhoneFormatted = contact.phoneFormatted || phoneFormatted;
-const whatsappNumber = contact.whatsapp || contactPhone.replace('+', '') || "420792372642";
+const rawWhatsApp = contact.whatsapp || `https://wa.me/${contactPhone.replace(/\D/g, '') || "420792372642"}`;
+const whatsappHref = rawWhatsApp.startsWith('http')
+  ? rawWhatsApp
+  : `https://wa.me/${rawWhatsApp.replace(/\D/g, '')}`;
 const whatsappText = contact.whatsappText || "WhatsApp zpráva";
 const contactLocation = contact.location || "Růžová 1238, Uherské Hradiště";
 const contactHours = contact.hours || "Pondělí – Pátek: 8:00 – 19:00";
@@ -109,7 +112,13 @@ const getHref = (href: string) => {
         <ul class="space-y-2 text-xs sm:text-sm text-stone-600">
           {navLinks.map((link: any, idx: number) => (
             <li data-tina-field={tinaField(footer, 'navLinks', idx)}>
-              <a href={getHref(link.href)} class={`hover:text-amber-800 transition-colors ${link.href === '#harmonogram' ? 'text-amber-900 font-bold' : ''}`} data-tina-field={tinaField(link, 'label')}>
+              <a
+                href={getHref(link.href)}
+                class={`hover:text-amber-800 transition-colors ${link.href === '#harmonogram' ? 'text-amber-900 font-bold' : ''}`}
+                data-tina-field={tinaField(link, 'label')}
+                data-edit-key={`footer.navLinks.${idx}.label`}
+                data-edit-label="Odkaz v zápatí"
+              >
                 {link.label}
               </a>
             </li>
@@ -129,7 +138,7 @@ const getHref = (href: string) => {
             </a>
           </li>
           <li>
-            <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer" class="hover:text-emerald-800 transition-colors flex items-center gap-2 font-bold text-emerald-800">
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="hover:text-emerald-800 transition-colors flex items-center gap-2 font-bold text-emerald-800">
               <span>💬</span> <span data-tina-field={tinaField(contact, 'whatsappText')} data-edit-key="contact.whatsappText" data-edit-label="WhatsApp text">{whatsappText}</span>
             </a>
           </li>
@@ -173,7 +182,7 @@ const getHref = (href: string) => {
         <span class="text-stone-300">•</span>
         <a href="/#kontakt" class="hover:text-espresso-900 transition-colors font-bold text-amber-900" data-tina-field={tinaField(footer, 'bottomCtaText')} data-edit-key="footer.bottomCtaText" data-edit-label="Spodní odkaz 1. lekce">{bottomCtaText}</a>
         <span class="text-stone-300">•</span>
-        <a href="/admin" class="hover:text-espresso-900 transition-colors flex items-center gap-1.5 font-semibold text-stone-600">
+        <a href="/admin" rel="nofollow" class="hover:text-espresso-900 transition-colors flex items-center gap-1.5 font-semibold text-stone-600">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>

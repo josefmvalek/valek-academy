@@ -124,6 +124,8 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
       data-cal-title={calendarEventTitle}
       data-cal-desc={calendarEventDesc}
       data-receipt-location={receiptLocation}
+      data-contact-phone={(contact.phone || '420792372642').replace(/\D/g, '')}
+      data-contact-location={contact.location || "Růžová 1238, Uherské Hradiště"}
     >
       <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
       <input type="hidden" id="selected-group-input" name="selected_group" value="" />
@@ -1733,6 +1735,13 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     const formData = new FormData(form);
     const accessKey = form.dataset.accessKey || "";
 
+    // Honeypot spam check
+    const isBot = (form.querySelector('input[name="botcheck"]') as HTMLInputElement)?.checked;
+    if (isBot) {
+      handleSuccess(nameVal, childNameVal, phoneVal, segmentVal, selectedGroupVal, daysVal);
+      return;
+    }
+
     const lowerSeg = segmentVal.toLowerCase();
     const isAdult = lowerSeg.includes('dospěl') || lowerSeg.includes('konverzace');
     const isTeen = lowerSeg.includes('středoškoláci') || lowerSeg.includes('maturita') || lowerSeg.includes('střední');
@@ -1754,11 +1763,12 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     if (selectedGroupVal) formData.append("6_Zvireci_skupinka", selectedGroupVal);
     formData.append("7_Preferovane_dny", daysVal);
     if (levelVal) formData.append("8_Uroven_trida", levelVal);
-    formData.append("9_Misto_vyuky", "Růžová 1238, Uherské Hradiště (100% naživo naproti ZŠ UNESCO)");
+    const contactLoc = form.dataset.contactLocation || "Růžová 1238, Uherské Hradiště (100% naživo naproti ZŠ UNESCO)";
+    formData.append("9_Misto_vyuky", contactLoc);
     if (messageVal) formData.append("10_Poznamka", messageVal);
 
     // Remove internal/raw field keys so Web3Forms only sends the clean numbered Czech fields to Mr. Válek's inbox
-    const rawKeys = ['name', 'child_name', 'phone', 'email', 'segment', 'level', 'days', 'selected_group', 'message', 'botcheck'];
+    const rawKeys = ['name', 'child_name', 'phone', 'email', 'segment', 'level', 'days', 'preferred_days', 'selected_group', 'message', 'botcheck', 'forma'];
     rawKeys.forEach(k => formData.delete(k));
 
     // Call internal server endpoint for autoresponder / receipts
@@ -1865,8 +1875,9 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
       const groupNote = group ? ` (skupinka ${group})` : '';
       const waTpl = form?.dataset.whatsappTemplate || "Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro {attendee}{group}. Rád/a bych se domluvil/a na konkrétním termínu.";
       const finalWaMsg = waTpl.replace('{attendee}', attendee).replace('{group}', groupNote);
+      const tutorPhone = form?.dataset.contactPhone || '420792372642';
 
-      confirmWhatsAppBtn.href = `https://wa.me/420792372642?text=${encodeURIComponent(finalWaMsg)}`;
+      confirmWhatsAppBtn.href = `https://wa.me/${tutorPhone}?text=${encodeURIComponent(finalWaMsg)}`;
     }
 
     // Hide input fields, reveal rich confirmation ticket
