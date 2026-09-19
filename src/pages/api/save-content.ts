@@ -81,6 +81,26 @@ export const POST: APIRoute = async ({ request }) => {
     const currentRaw = await fs.readFile(filePath, 'utf-8');
     const currentData = JSON.parse(currentRaw);
 
+    // Coerce incoming values to match existing data types (e.g. string "320 Kč" to number 320)
+    function coerceValue(existingValue: any, incomingValue: any): any {
+      if (typeof existingValue === 'number') {
+        if (typeof incomingValue === 'number') return incomingValue;
+        if (typeof incomingValue === 'string') {
+          const match = incomingValue.replace(/\s/g, '').match(/-?\d+(\.\d+)?/);
+          if (match) {
+            const parsed = Number(match[0]);
+            if (!isNaN(parsed)) return parsed;
+          }
+        }
+      }
+      if (typeof existingValue === 'boolean') {
+        if (typeof incomingValue === 'boolean') return incomingValue;
+        if (incomingValue === 'true') return true;
+        if (incomingValue === 'false') return false;
+      }
+      return incomingValue;
+    }
+
     // Deep merge helper that properly preserves arrays and objects
     function deepMerge(target: any, source: any): any {
       if (!source || typeof source !== 'object') {
@@ -98,7 +118,7 @@ export const POST: APIRoute = async ({ request }) => {
             if (idx < target.length && typeof target[idx] === 'object' && typeof source[key] === 'object') {
               target[idx] = deepMerge(target[idx], source[key]);
             } else {
-              target[idx] = source[key];
+              target[idx] = coerceValue(target[idx], source[key]);
             }
           }
         }
@@ -113,7 +133,7 @@ export const POST: APIRoute = async ({ request }) => {
                 if (i < target[key].length && typeof target[key][i] === 'object' && typeof item === 'object') {
                   target[key][i] = deepMerge(target[key][i], item);
                 } else if (item !== undefined) {
-                  target[key][i] = item;
+                  target[key][i] = coerceValue(target[key][i], item);
                 }
               });
             } else if (source[key] && typeof source[key] === 'object') {
@@ -123,17 +143,17 @@ export const POST: APIRoute = async ({ request }) => {
                   if (idx < target[key].length && typeof target[key][idx] === 'object' && typeof source[key][subKey] === 'object') {
                     target[key][idx] = deepMerge(target[key][idx], source[key][subKey]);
                   } else if (source[key][subKey] !== undefined) {
-                    target[key][idx] = source[key][subKey];
+                    target[key][idx] = coerceValue(target[key][idx], source[key][subKey]);
                   }
                 }
               }
             } else if (source[key] !== undefined) {
-              target[key] = source[key];
+              target[key] = coerceValue(target[key], source[key]);
             }
           } else if (target[key] && typeof target[key] === 'object' && source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
             target[key] = deepMerge(target[key], source[key]);
           } else {
-            target[key] = source[key];
+            target[key] = coerceValue(target[key], source[key]);
           }
         } else {
           target[key] = source[key];

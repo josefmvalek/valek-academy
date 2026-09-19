@@ -150,8 +150,10 @@
       {
         "weeks": 4,
         "label": "1 měsíc",
-        "periodDesc": "4 týdnů",
-        "badge": "500 Kč / 90 min.",
+        "periodDesc": "4 týdny",
+        "badgeKids": "320 Kč / 60 min.",
+        "badgeTeens": "480 Kč / 90 min.",
+        "badge": "320 Kč / 60 min.",
         "baseDiscount": 0,
         "popular": false,
         "bestValue": false
@@ -160,7 +162,9 @@
         "weeks": 12,
         "label": "3 měsíce (-5 %)",
         "periodDesc": "12 týdnů",
-        "badge": "456 Kč / 90 min.",
+        "badgeKids": "304 Kč / 60 min.",
+        "badgeTeens": "456 Kč / 90 min.",
+        "badge": "304 Kč / 60 min.",
         "baseDiscount": 5,
         "popular": false,
         "bestValue": false
@@ -169,7 +173,9 @@
         "weeks": 20,
         "label": "Pololetí (-15 %)",
         "periodDesc": "20 týdnů",
-        "badge": "408 Kč / 90 min.",
+        "badgeKids": "272 Kč / 60 min.",
+        "badgeTeens": "408 Kč / 90 min.",
+        "badge": "272 Kč / 60 min.",
         "baseDiscount": 15,
         "popular": true,
         "bestValue": false
@@ -178,7 +184,9 @@
         "weeks": 40,
         "label": "Celý rok (-20 %)",
         "periodDesc": "40 týdnů (školní rok)",
-        "badge": "384 Kč / 90 min",
+        "badgeKids": "256 Kč / 60 min.",
+        "badgeTeens": "384 Kč / 90 min.",
+        "badge": "256 Kč / 60 min.",
         "baseDiscount": 20,
         "popular": false,
         "bestValue": true

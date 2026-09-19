@@ -93,10 +93,10 @@ const buddyDiscountResultLabel = calculator.buddyDiscountResultLabel || "👫 Sl
 
 // Default duration presets if not configured
 const defaultDurations = [
-  { weeks: 4, label: "1 měsíc", periodDesc: "4 týdny výuky", badge: "300 Kč/h (1 200 Kč)", baseDiscount: 6 },
-  { weeks: 12, label: "3 měsíce", periodDesc: "12 týdnů (čtvrtletí)", badge: "280 Kč/h (3 360 Kč)", baseDiscount: 12.5 },
-  { weeks: 20, label: "Pololetí", periodDesc: "20 týdnů (půl roku)", badge: "250 Kč/h (5 000 Kč)", popular: true, baseDiscount: 22 },
-  { weeks: 40, label: "Celý rok", periodDesc: "40 týdnů (školní rok)", badge: "220 Kč/h (8 800 Kč)", bestValue: true, baseDiscount: 31 },
+  { weeks: 4, label: "1 měsíc", periodDesc: "4 týdny výuky", badgeKids: "320 Kč / 60 min.", badgeTeens: "480 Kč / 90 min.", badge: "320 Kč / 60 min.", baseDiscount: 0 },
+  { weeks: 12, label: "3 měsíce", periodDesc: "12 týdnů (čtvrtletí)", badgeKids: "304 Kč / 60 min.", badgeTeens: "456 Kč / 90 min.", badge: "304 Kč / 60 min.", baseDiscount: 5 },
+  { weeks: 20, label: "Pololetí", periodDesc: "20 týdnů (půl roku)", badgeKids: "272 Kč / 60 min.", badgeTeens: "408 Kč / 90 min.", badge: "272 Kč / 60 min.", popular: true, baseDiscount: 15 },
+  { weeks: 40, label: "Celý rok", periodDesc: "40 týdnů (školní rok)", badgeKids: "256 Kč / 60 min.", badgeTeens: "384 Kč / 90 min.", badge: "256 Kč / 60 min.", bestValue: true, baseDiscount: 20 },
 ];
 
 // Default frequency presets if not configured
@@ -120,6 +120,8 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
     data-note-teens={noteTeens}
     data-cohort-kids={`🎒 ${modeKidsLabel} (${modeKidsBadge})`}
     data-cohort-teens={`🎓 ${modeTeensLabel} (${modeTeensBadge})`}
+    data-badge-kids-unit={modeKidsBadge}
+    data-badge-teens-unit={modeTeensBadge}
     data-buddy-enabled={buddyDiscountEnabled ? "true" : "false"}
     data-buddy-percent={buddyDiscountPercent}
     data-buddy-title={buddyDiscountTitle}
@@ -194,42 +196,55 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" role="radiogroup" aria-label="Délka období výuky">
-            {durations.map((d: any, idx: number) => (
-              <button
-                type="button"
-                data-tina-field={tinaField(calculator, 'durations', idx)}
-                data-weeks={d.weeks}
-                data-base-discount={d.baseDiscount}
-                data-badge={d.badge}
-                data-label={d.label}
-                data-period-desc={d.periodDesc}
-                class:list={[
-                  "calc-duration-btn p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer focus:outline-hidden",
-                  d.weeks === 20
-                    ? "bg-amber-100/90 border-amber-500 ring-2 ring-amber-400 shadow-sm"
-                    : "bg-white/90 border-parchment-300 hover:border-amber-300 hover:bg-parchment-100/60"
-                ]}
-                aria-checked={d.weeks === 20 ? "true" : "false"}
-              >
-                {d.popular && (
-                  <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-400 text-espresso-950 shadow-2xs">
-                    Populární
-                  </span>
-                )}
-                {d.bestValue && (
-                  <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-600 text-white shadow-2xs">
-                    Nejvýhodnější
-                  </span>
-                )}
-                <div>
-                  <div class="font-heading font-black text-sm sm:text-base text-espresso-950" data-edit-key={`cenik.calculator.durations.${idx}.label`} data-edit-label="Název období">{d.label}</div>
-                  <div class="text-[11px] text-espresso-800/70" data-edit-key={`cenik.calculator.durations.${idx}.periodDesc`} data-edit-label="Popis období">{d.periodDesc}</div>
-                </div>
-                <div class="mt-2 pt-1 border-t border-parchment-200 text-xs font-extrabold text-amber-900 calc-duration-badge" data-edit-key={`cenik.calculator.durations.${idx}.badge`} data-edit-label="Štítek slevy">
-                  {d.badge}
-                </div>
-              </button>
-            ))}
+            {durations.map((d: any, idx: number) => {
+              const discount = Number(d.baseDiscount ?? 0);
+              const calcRateKids = Math.round(basePrice * (1 - discount / 100));
+              const calcRateTeens = Math.round(basePriceTeens * (1 - discount / 100));
+              const badgeKids = d.badgeKids || `${calcRateKids} Kč / ${modeKidsBadge}`;
+              const badgeTeens = d.badgeTeens || `${calcRateTeens} Kč / ${modeTeensBadge}`;
+              return (
+                <button
+                  type="button"
+                  data-tina-field={tinaField(calculator, 'durations', idx)}
+                  data-weeks={d.weeks}
+                  data-base-discount={d.baseDiscount}
+                  data-badge-kids={badgeKids}
+                  data-badge-teens={badgeTeens}
+                  data-badge={badgeKids}
+                  data-label={d.label}
+                  data-period-desc={d.periodDesc}
+                  class:list={[
+                    "calc-duration-btn p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer focus:outline-hidden",
+                    d.weeks === 20
+                      ? "bg-amber-100/90 border-amber-500 ring-2 ring-amber-400 shadow-sm"
+                      : "bg-white/90 border-parchment-300 hover:border-amber-300 hover:bg-parchment-100/60"
+                  ]}
+                  aria-checked={d.weeks === 20 ? "true" : "false"}
+                >
+                  {d.popular && (
+                    <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-400 text-espresso-950 shadow-2xs">
+                      Populární
+                    </span>
+                  )}
+                  {d.bestValue && (
+                    <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-600 text-white shadow-2xs">
+                      Nejvýhodnější
+                    </span>
+                  )}
+                  <div>
+                    <div class="font-heading font-black text-sm sm:text-base text-espresso-950" data-edit-key={`cenik.calculator.durations.${idx}.label`} data-edit-label="Název období">{d.label}</div>
+                    <div class="text-[11px] text-espresso-800/70" data-edit-key={`cenik.calculator.durations.${idx}.periodDesc`} data-edit-label="Popis období">{d.periodDesc}</div>
+                  </div>
+                  <div
+                    class="mt-2 pt-1 border-t border-parchment-200 text-xs font-extrabold text-amber-900 calc-duration-badge"
+                    data-edit-key={`cenik.calculator.durations.${idx}.badgeKids`}
+                    data-edit-label={`Štítek ceny Děti (${d.label})`}
+                  >
+                    {badgeKids}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -412,7 +427,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
               </div>
             </div>
             <div class="flex items-center justify-between text-[11px] text-stone-500 pt-1 border-t border-parchment-100">
-              <span><span data-tina-field={tinaField(calculator, 'standardPriceLabel')} data-edit-key="cenik.calculator.standardPriceLabel" data-edit-label="Popisek Běžná cena">{standardPriceLabel}</span> <span id="calc-original-unit" class="line-through">320 Kč</span></span>
+              <span><span data-tina-field={tinaField(calculator, 'standardPriceLabel')} data-edit-key="cenik.calculator.standardPriceLabel" data-edit-label="Popisek Běžná cena">{standardPriceLabel}</span> <span id="calc-original-unit" class="line-through" data-edit-key="cenik.calculator.basePrice" data-edit-label="Základní cena Děti (Kč)">{basePrice} Kč</span></span>
               <span class="text-emerald-700 font-bold"><span data-tina-field={tinaField(calculator, 'youSaveLabel')} data-edit-key="cenik.calculator.youSaveLabel" data-edit-label="Popisek Ušetříte">{youSaveLabel}</span> <span id="calc-unit-saving">70 Kč</span><span data-tina-field={tinaField(calculator, 'perLessonSuffix')} data-edit-key="cenik.calculator.perLessonSuffix" data-edit-label="Přípona jednotky">{perLessonSuffix}</span></span>
             </div>
           </div>
@@ -592,25 +607,35 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       const basePriceKids = parseInt(calc.getAttribute('data-base-price-kids') || '320', 10);
       const basePriceTeens = parseInt(calc.getAttribute('data-base-price-teens') || '480', 10);
       const basePrice = isKids ? basePriceKids : basePriceTeens;
+      const lessonUnit = isKids
+        ? (calc.getAttribute('data-badge-kids-unit') || '60 min')
+        : (calc.getAttribute('data-badge-teens-unit') || '90 min');
 
       const durationBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-duration-btn');
       const freqBtns = calc.querySelectorAll<HTMLButtonElement>('.calc-freq-btn');
       const explanatoryNote = document.getElementById('calc-explanatory-note');
+      const originalUnit = document.getElementById('calc-original-unit');
 
-      durationBtns.forEach(btn => {
+      durationBtns.forEach((btn, idx) => {
         const weeks = parseInt(btn.getAttribute('data-weeks') || '20', 10);
         const baseDiscount = parseFloat(btn.getAttribute('data-base-discount') || '0');
-        const customBadge = btn.getAttribute('data-badge');
+        const customBadgeKids = btn.getAttribute('data-badge-kids');
+        const customBadgeTeens = btn.getAttribute('data-badge-teens');
         const badgeEl = btn.querySelector<HTMLElement>('.calc-duration-badge');
         if (!badgeEl) return;
 
-        if (isKids && customBadge) {
-          badgeEl.textContent = customBadge;
+        const rate = Math.round(basePrice * (1 - baseDiscount / 100));
+        let badgeText = '';
+        if (isKids) {
+          badgeText = customBadgeKids || `${rate} Kč / ${lessonUnit}`;
+          badgeEl.setAttribute('data-edit-key', `cenik.calculator.durations.${idx}.badgeKids`);
+          badgeEl.setAttribute('data-edit-label', `Štítek ceny Děti (${btn.getAttribute('data-label') || ''})`);
         } else {
-          const rate = Math.round(basePrice * (1 - baseDiscount / 100));
-          const totalCardCost = rate * weeks;
-          badgeEl.textContent = `${rate} Kč / lekce (${totalCardCost.toLocaleString('cs-CZ')} Kč)`;
+          badgeText = customBadgeTeens || `${rate} Kč / ${lessonUnit}`;
+          badgeEl.setAttribute('data-edit-key', `cenik.calculator.durations.${idx}.badgeTeens`);
+          badgeEl.setAttribute('data-edit-label', `Štítek ceny SŠ (${btn.getAttribute('data-label') || ''})`);
         }
+        badgeEl.textContent = badgeText;
       });
 
       freqBtns.forEach(btn => {
@@ -622,9 +647,15 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         }
       });
 
+      if (originalUnit) {
+        originalUnit.textContent = `${basePrice} Kč`;
+        originalUnit.setAttribute('data-edit-key', isKids ? 'cenik.calculator.basePrice' : 'cenik.calculator.basePriceTeens');
+        originalUnit.setAttribute('data-edit-label', isKids ? 'Základní cena Děti (Kč)' : 'Základní cena SŠ & dospělí (Kč)');
+      }
+
       if (explanatoryNote) {
-        const noteKidsHtml = calc.getAttribute('data-note-kids') || '<span class="font-bold text-espresso-950">💡 Jak slevy fungují pro žáky ZŠ (60 min):</span> Slevy se odvíjí od délky balíčku a frekvence: měsíční zkušební (<strong>300 Kč/h</strong>), čtvrtletní (<strong>280 Kč/h</strong>), nejoblíbenější pololetní (<strong>250 Kč/h</strong> = jen cca 1 000 Kč měsíčně) a roční či při docházce 2× týdně pouhých <strong>220 Kč/h</strong> (úspora až 31 %).';
-        const noteTeensHtml = calc.getAttribute('data-note-teens') || '<span class="font-bold text-espresso-950">💡 Jak slevy fungují pro SŠ a dospělé (90 min):</span> Základní sazba za 90 minut je <strong>480 Kč</strong> (odpovídá 320 Kč/h). U pololetního balíčku klesá na <strong>360 Kč / 90 min</strong> (= 240 Kč/h, celkem 7 200 Kč za 20 lekcí) a u ročního předplatného či docházky 2× týdně na <strong>330 Kč / 90 min</strong> (= 220 Kč/h, úspora až 31 %).';
+        const noteKidsHtml = calc.getAttribute('data-note-kids') || '<span class="font-bold text-espresso-950">💡 Jak slevy fungují pro žáky ZŠ (60 min):</span> Slevy se odvíjí od délky balíčku a frekvence: měsíční zkušební (<strong>320 Kč / 60 min.</strong>), čtvrtletní (<strong>304 Kč / 60 min.</strong>), nejoblíbenější pololetní (<strong>272 Kč / 60 min.</strong> = jen cca 1 100 Kč měsíčně) a roční či při docházce 2× týdně pouhých <strong>245 Kč / 60 min.</strong> (úspora až 30 %).';
+        const noteTeensHtml = calc.getAttribute('data-note-teens') || '<span class="font-bold text-espresso-950">💡 Jak slevy fungují pro SŠ a dospělé (90 min):</span> Základní sazba za 90 minut je <strong>480 Kč</strong> (odpovídá 320 Kč/h). U pololetního balíčku klesá na <strong>408 Kč / 90 min</strong> (= 272 Kč/h, celkem 8 160 Kč za 20 lekcí) a u ročního předplatného či docházky 2× týdně na <strong>360 Kč / 90 min</strong> (= 240 Kč/h, úspora až 30 %).';
 
         explanatoryNote.innerHTML = isKids ? noteKidsHtml : noteTeensHtml;
         explanatoryNote.setAttribute('data-edit-key', isKids ? 'cenik.calculator.noteKids' : 'cenik.calculator.noteTeens');
@@ -712,7 +743,11 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       if (breakdownPill) breakdownPill.textContent = tierExplanation;
       if (unitPrice) unitPrice.textContent = `${discountedPricePerLesson} Kč`;
       if (unitSuffix) unitSuffix.textContent = ` / ${lessonUnit}`;
-      if (originalUnit) originalUnit.textContent = `${basePrice} Kč`;
+      if (originalUnit) {
+        originalUnit.textContent = `${basePrice} Kč`;
+        originalUnit.setAttribute('data-edit-key', isKids ? 'cenik.calculator.basePrice' : 'cenik.calculator.basePriceTeens');
+        originalUnit.setAttribute('data-edit-label', isKids ? 'Základní cena Děti (Kč)' : 'Základní cena SŠ & dospělí (Kč)');
+      }
       if (unitSaving) unitSaving.textContent = `${savingPerLesson} Kč`;
       if (totalPrice) totalPrice.textContent = `${totalDiscountedCost.toLocaleString('cs-CZ')} Kč`;
       if (totalSavings) totalSavings.textContent = `${allSavings.toLocaleString('cs-CZ')} Kč`;
@@ -854,6 +889,40 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       }
     });
 
+    document.addEventListener('input', (e) => {
+      const target = e.target as HTMLElement;
+      if (!target) return;
+      const calc = document.getElementById('kalkulator-balicku');
+      if (!calc) return;
+
+      if (target.classList?.contains('calc-duration-badge')) {
+        const btn = target.closest<HTMLButtonElement>('.calc-duration-btn');
+        if (btn) {
+          if (currentMode === 'kids') {
+            btn.setAttribute('data-badge-kids', target.textContent || '');
+          } else {
+            btn.setAttribute('data-badge-teens', target.textContent || '');
+          }
+        }
+      } else if (target.id === 'calc-explanatory-note') {
+        if (currentMode === 'kids') {
+          calc.setAttribute('data-note-kids', target.innerHTML);
+        } else {
+          calc.setAttribute('data-note-teens', target.innerHTML);
+        }
+      } else if (target.id === 'calc-original-unit') {
+        const num = parseInt((target.textContent || '').replace(/[^\d]/g, ''), 10);
+        if (!isNaN(num) && num > 0) {
+          if (currentMode === 'kids') {
+            calc.setAttribute('data-base-price-kids', String(num));
+          } else {
+            calc.setAttribute('data-base-price-teens', String(num));
+          }
+          syncCalculator();
+        }
+      }
+    });
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', syncCalculator);
     } else {
@@ -875,7 +944,11 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
           target.id === 'calc-period-display' ||
           target.id === 'calc-freq-display' ||
           target.id === 'calc-lessons-display' ||
-          target.id === 'calc-unit-saving'
+          target.id === 'calc-unit-saving' ||
+          target.id === 'calc-original-unit' ||
+          target.id === 'calc-explanatory-note' ||
+          target.classList?.contains('calc-duration-badge') ||
+          target.closest?.('.calc-duration-badge') !== null
         );
       });
       if (isInternal) return;

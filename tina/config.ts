@@ -235,7 +235,9 @@ const calculatorField: any = {
         },
         { type: "string", name: "label", label: "Název období (např. 1 měsíc, Pololetí)" },
         { type: "string", name: "periodDesc", label: "Popis (např. 20 týdnů půl roku)" },
-        { type: "string", name: "badge", label: "Štítek slevy (např. 250 Kč / h)" },
+        { type: "string", name: "badgeKids", label: "Štítek ceny pro Děti (volitelný, např. 272 Kč / 60 min. – pokud nevyplníte, spočítá se automaticky)" },
+        { type: "string", name: "badgeTeens", label: "Štítek ceny pro SŠ & dospělé (volitelný, např. 408 Kč / 90 min. – pokud nevyplníte, spočítá se automaticky)" },
+        { type: "string", name: "badge", label: "Původní štítek slevy (zpětná kompatibilita)" },
         {
           type: "number",
           name: "baseDiscount",
