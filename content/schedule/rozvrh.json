@@ -162,7 +162,7 @@
         "emoji": "🐎",
         "cohort": "4.–6. třída",
         "cohortBadge": "Plynulost & Sebevědomí",
-        "occupiedSeats": 5,
+        "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
