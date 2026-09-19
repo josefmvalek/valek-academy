@@ -16,6 +16,8 @@ const page = await getHomePageData();
 const navbar = page?.navbar || {};
 const footer = page?.footer || {};
 const contact = page?.contact || {};
+const stickyCta = page?.stickyCta || {};
+const whatsappWidget = page?.whatsappWidget || {};
 
 const galleryQuery = await getGalleryDataQuery();
 const gallery = (galleryQuery.data as any)?.gallery || {};
@@ -42,13 +44,23 @@ const description = gallery.subtitle || "Nahlédněte do doučovny pana Válka v
     </TinaIsland>
   </main>
 
-  <MobileStickyCTA ctaLink="/rozvrh#kontakt" ctaText="🎁 1. lekce 100% ZDARMA" />
-  <WhatsAppFloating
-    phone={contact.phone?.replace('+', '')}
-    message="Dobrý den pane Válku, prohlížím si vaši fotogalerii doučovny a rád/a bych se zeptal/a na volná místa ve skupince na 1. ukázkovou lekci zdarma."
-    tooltipText={contact.whatsappText}
-    contact={contact}
-  />
+  {stickyCta.enabled !== false && (
+    <MobileStickyCTA
+      ctaLink="/rozvrh#kontakt"
+      ctaText={stickyCta.text || "🎁 1. lekce 100% ZDARMA"}
+      stickyCta={stickyCta}
+    />
+  )}
+  {whatsappWidget.enabled !== false && (
+    <WhatsAppFloating
+      phone={whatsappWidget.phone || contact.phone?.replace('+', '')}
+      message={whatsappWidget.message || "Dobrý den pane Válku, prohlížím si vaši fotogalerii doučovny a rád/a bych se zeptal/a na volná místa ve skupince na 1. ukázkovou lekci zdarma."}
+      tooltipText={whatsappWidget.tooltipText || contact.whatsappText}
+      badgeNotificationText={whatsappWidget.badgeNotificationText}
+      contact={contact}
+      whatsappWidget={whatsappWidget}
+    />
+  )}
 
   <Footer
     footer={footer}

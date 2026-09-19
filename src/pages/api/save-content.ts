@@ -96,7 +96,7 @@ export const POST: APIRoute = async ({ request }) => {
               source[key].forEach((item: any, i: number) => {
                 if (i < target[key].length && typeof target[key][i] === 'object' && typeof item === 'object') {
                   target[key][i] = deepMerge(target[key][i], item);
-                } else {
+                } else if (item !== undefined) {
                   target[key][i] = item;
                 }
               });
@@ -106,12 +106,12 @@ export const POST: APIRoute = async ({ request }) => {
                 if (!isNaN(idx) && idx >= 0) {
                   if (idx < target[key].length && typeof target[key][idx] === 'object' && typeof source[key][subKey] === 'object') {
                     target[key][idx] = deepMerge(target[key][idx], source[key][subKey]);
-                  } else {
+                  } else if (source[key][subKey] !== undefined) {
                     target[key][idx] = source[key][subKey];
                   }
                 }
               }
-            } else {
+            } else if (source[key] !== undefined) {
               target[key] = source[key];
             }
           } else if (target[key] && typeof target[key] === 'object' && source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {

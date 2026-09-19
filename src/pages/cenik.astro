@@ -16,6 +16,9 @@ const page = await getHomePageData();
 const navbar = page?.navbar || {};
 const footer = page?.footer || {};
 const contact = page?.contact || {};
+const stickyCta = page?.stickyCta || {};
+const whatsappWidget = page?.whatsappWidget || {};
+
 const cenikQuery = await getPricingPageDataQuery();
 const cenik = (cenikQuery.data as any)?.cenik || {};
 const calculator = cenik?.calculator || page?.pricing?.calculator || {};
@@ -48,13 +51,23 @@ const canonical = cenik?.seo?.canonicalUrl || "https://valekacademy.cz/cenik";
     </TinaIsland>
   </main>
 
-  <MobileStickyCTA ctaLink="/rozvrh#kontakt" ctaText="🎁 1. lekce 100% ZDARMA" />
-  <WhatsAppFloating
-    phone={contact.phone?.replace('+', '')}
-    message="Dobrý den pane Válku, rád/a bych se zeptal/a na ceník a volná místa ve skupince na 1. lekci zdarma."
-    tooltipText={contact.whatsappText}
-    contact={contact}
-  />
+  {stickyCta.enabled !== false && (
+    <MobileStickyCTA
+      ctaLink="/rozvrh#kontakt"
+      ctaText={stickyCta.text || "🎁 1. lekce 100% ZDARMA"}
+      stickyCta={stickyCta}
+    />
+  )}
+  {whatsappWidget.enabled !== false && (
+    <WhatsAppFloating
+      phone={whatsappWidget.phone || contact.phone?.replace('+', '')}
+      message={whatsappWidget.message || "Dobrý den pane Válku, rád/a bych se zeptal/a na ceník a volná místa ve skupince na 1. lekci zdarma."}
+      tooltipText={whatsappWidget.tooltipText || contact.whatsappText}
+      badgeNotificationText={whatsappWidget.badgeNotificationText}
+      contact={contact}
+      whatsappWidget={whatsappWidget}
+    />
+  )}
 
   <Footer
     footer={footer}

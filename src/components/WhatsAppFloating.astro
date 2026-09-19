@@ -39,7 +39,12 @@ const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(targ
       class="hidden md:flex items-center gap-2 mr-3 px-3.5 py-2 rounded-2xl bg-espresso-950 text-white text-xs font-heading font-bold shadow-xl border border-amber-400/40 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap"
     >
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span id="floating-wa-text" data-tina-field={whatsappWidget?.tooltipText ? tinaField(whatsappWidget, 'tooltipText') : (contact ? tinaField(contact, 'whatsappText') : undefined)}>{targetTooltip}</span>
+      <span
+        id="floating-wa-text"
+        data-tina-field={whatsappWidget?.tooltipText ? tinaField(whatsappWidget, 'tooltipText') : (contact ? tinaField(contact, 'whatsappText') : undefined)}
+        data-edit-key="whatsappWidget.tooltipText"
+        data-edit-label="WhatsApp text bubliny"
+      >{targetTooltip}</span>
     </div>
 
     <!-- Main Circular Button -->
@@ -61,7 +66,12 @@ const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(targ
       </svg>
 
       <!-- Mini notification badge -->
-      <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 border-2 border-white flex items-center justify-center text-[9px] font-black text-espresso-950">
+      <span
+        class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 border-2 border-white flex items-center justify-center text-[9px] font-black text-espresso-950"
+        data-tina-field={whatsappWidget ? tinaField(whatsappWidget, 'badgeNotificationText') : undefined}
+        data-edit-key="whatsappWidget.badgeNotificationText"
+        data-edit-label="WhatsApp odznak"
+      >
         {badgeText}
       </span>
     </a>

@@ -679,6 +679,28 @@
     current[keys[keys.length - 1]] = value;
   }
 
+  // Helper to determine target JSON file based on data-edit-key prefix and pathname
+  function getTargetFileForKey(key: string, pathname: string): string {
+    // Rozvrh & Schedule (always schedule/rozvrh.json)
+    if (key.startsWith('schedule.') || key.startsWith('rozvrh.')) {
+      return 'rozvrh.json';
+    }
+    // Ceník (always pricing/cenik.json)
+    if (key.startsWith('cenik.')) {
+      return 'cenik.json';
+    }
+    // Fotogalerie (always gallery/gallery.json)
+    if (key.startsWith('gallery.')) {
+      return 'gallery.json';
+    }
+    // Legal documents (privacy.json or terms.json depending on current page)
+    if (key.startsWith('legal.')) {
+      return pathname.includes('obchodni-podminky') ? 'terms.json' : 'privacy.json';
+    }
+    // All other components (navbar, footer, contact, hero, about, audience, scio, howItWorks, timeline, location, groupMatcher, faq, pricing, comparison, testimonials, stickyCta, whatsappWidget) belong to pages/home.json
+    return 'home.json';
+  }
+
   // Save changes to API
   async function saveChanges() {
     if (!saveBtn) return;
@@ -690,12 +712,18 @@
     saveBtn.setAttribute('disabled', 'true');
 
     try {
-      const payload: Record<string, any> = {};
+      const pathname = window.location.pathname.replace(/\/$/, '');
+      const filesPayloads: Record<string, any> = {};
       const editableElements = document.querySelectorAll<HTMLElement>('[data-edit-key]');
       
       editableElements.forEach((el) => {
         const key = el.getAttribute('data-edit-key');
         if (!key) return;
+
+        const targetFile = getTargetFileForKey(key, pathname);
+        if (!filesPayloads[targetFile]) {
+          filesPayloads[targetFile] = { _file: targetFile };
+        }
 
         const isImage = el.getAttribute('data-edit-type') === 'image' || el.tagName === 'IMG';
         
@@ -703,44 +731,43 @@
           const imgEl = el.tagName === 'IMG' ? (el as HTMLImageElement) : el.querySelector('img');
           const value = imgEl ? (imgEl.getAttribute('src') || '') : '';
           if (value) {
-            setDeepValue(payload, key, value);
+            setDeepValue(filesPayloads[targetFile], key, value);
             originalValues[key] = value;
           }
         } else {
           const value = cleanRichContent(el);
-          setDeepValue(payload, key, value);
+          setDeepValue(filesPayloads[targetFile], key, value);
           originalValues[key] = value;
         }
       });
 
-      // Determine target file based on current URL pathname
-      const pathname = window.location.pathname.replace(/\/$/, '');
-      let targetFile = 'home.json';
-      if (pathname.includes('/cenik')) {
-        targetFile = 'cenik.json';
-      } else if (pathname.includes('/rozvrh')) {
-        targetFile = 'rozvrh.json';
-      } else if (pathname.includes('/galerie')) {
-        targetFile = 'gallery.json';
-      } else if (pathname.includes('/ochrana-osobnich-udaju')) {
-        targetFile = 'privacy.json';
-      } else if (pathname.includes('/obchodni-podminky')) {
-        targetFile = 'terms.json';
+      const fileNames = Object.keys(filesPayloads);
+      if (fileNames.length === 0) {
+        showToast("Žádné editovatelné prvky k uložení.");
+        return;
       }
-      payload._file = targetFile;
 
-      const response = await fetch('/api/save-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      // Save each target file in parallel
+      const savePromises = fileNames.map(async (fileName) => {
+        const payload = filesPayloads[fileName];
+        const res = await fetch('/api/save-content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+        return { fileName, ok: res.ok && json.success, error: json.error };
       });
 
-      const result = await response.json();
+      const results = await Promise.all(savePromises);
+      const failures = results.filter(r => !r.ok);
 
-      if (response.ok && result.success) {
-        showToast(`✅ Změny uloženy! Texty a fotky byly úspěšně zapsány.`);
+      if (failures.length === 0) {
+        const savedFilesStr = fileNames.join(', ');
+        showToast(`✅ Změny uloženy! Texty a fotky byly úspěšně zapsány (${savedFilesStr}).`);
       } else {
-        showToast("❌ Chyba při ukládání: " + (result.error || "Neznámá chyba"), true);
+        const errMsgs = failures.map(f => `${f.fileName}: ${f.error}`).join('; ');
+        showToast(`❌ Chyba při ukládání: ${errMsgs}`, true);
       }
     } catch (err: any) {
       showToast("❌ Chyba sítě: " + err.message, true);

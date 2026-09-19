@@ -951,6 +951,15 @@ export default defineConfig({
             ],
           },
           {
+            type: "string",
+            name: "scheduleNotice",
+            label: "📅 Týdenní rozvrh (15 zvířecích skupinek)",
+            description: "💡 Týdenní rozvrh 15 skupinek a harmonogram se centrálně spravuje v samostatné sekci '📅 Rozvrh hodin (/rozvrh)', odkud se automaticky propisuje i na hlavní stránku.",
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
             type: "object",
             name: "faq",
             label: "❓ Časté dotazy (FAQ)",
