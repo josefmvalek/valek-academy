@@ -134,27 +134,27 @@
       {
         "weeks": 4,
         "label": "1 měsíc",
-        "periodDesc": "4 týdny výuky",
+        "periodDesc": "4 týdnů",
         "badge": "300 Kč / h (1 200 Kč)",
-        "baseDiscount": 6,
+        "baseDiscount": 5,
         "popular": false,
         "bestValue": false
       },
       {
         "weeks": 12,
         "label": "3 měsíce",
-        "periodDesc": "12 týdnů (čtvrtletí)",
-        "badge": "280 Kč / h (3 360 Kč)",
-        "baseDiscount": 12.5,
+        "periodDesc": "12 týdnů",
+        "badge": "290 Kč / h (3 480 Kč)",
+        "baseDiscount": 10,
         "popular": false,
         "bestValue": false
       },
       {
         "weeks": 20,
         "label": "Pololetí",
-        "periodDesc": "20 týdnů (půl roku)",
-        "badge": "250 Kč / h (5 000 Kč)",
-        "baseDiscount": 22,
+        "periodDesc": "20 týdnů",
+        "badge": "280 Kč / h (5 600 Kč)",
+        "baseDiscount": 15,
         "popular": true,
         "bestValue": false
       },
@@ -162,8 +162,8 @@
         "weeks": 40,
         "label": "Celý rok",
         "periodDesc": "40 týdnů (školní rok)",
-        "badge": "220 Kč / h (8 800 Kč)",
-        "baseDiscount": 31,
+        "badge": "265 Kč / h (10 600 Kč)",
+        "baseDiscount": 20,
         "popular": false,
         "bestValue": true
       }
@@ -180,17 +180,17 @@
       {
         "freq": 2,
         "label": "2× týdně",
-        "desc": "Rychlý pokrok & sazba 220 Kč",
-        "bonus": 9,
-        "badge": "Doporučeno (220 Kč/h)",
+        "desc": "Optimální (bonus sleva 10%) ",
+        "bonus": 10,
+        "badge": "Doporučeno (+10% extra sleva )",
         "recommended": true
       },
       {
         "freq": 3,
         "label": "3× týdně",
-        "desc": "Intenzivní příprava & testy",
-        "bonus": 9,
-        "badge": "Max. intenzita",
+        "desc": "Intenzivní (bonus sleva 10%)",
+        "bonus": 15,
+        "badge": "+10% sleva jako odměna",
         "recommended": false
       }
     ]
@@ -205,7 +205,7 @@
         "frequency": "1× týdně",
         "lessons": "4 lekce",
         "basePrice": "1 280 Kč",
-        "discount": "-6 %",
+        "discount": "-5 %",
         "unitPrice": "300 Kč",
         "totalPrice": "1 200 Kč"
       },
@@ -214,9 +214,9 @@
         "frequency": "1× týdně",
         "lessons": "12 lekcí",
         "basePrice": "4 080 Kč",
-        "discount": "-15 %",
-        "unitPrice": "280 Kč",
-        "totalPrice": "3 360 Kč"
+        "discount": "-10 %",
+        "unitPrice": "290 Kč",
+        "totalPrice": "3 480 Kč"
       },
       {
         "period": "Pololetí (20 týdnů)",
@@ -224,9 +224,9 @@
         "frequency": "1× týdně",
         "lessons": "20 lekcí",
         "basePrice": "6 400 Kč",
-        "discount": "-22 %",
-        "unitPrice": "250 Kč (~1 000 Kč/měsíc)",
-        "totalPrice": "5 000 Kč"
+        "discount": "-15 %",
+        "unitPrice": "280 Kč",
+        "totalPrice": "5 600 Kč"
       },
       {
         "period": "Pololetí (20 týdnů)",
@@ -234,28 +234,28 @@
         "frequency": "2× týdně",
         "lessons": "40 lekcí",
         "basePrice": "12 800 Kč",
-        "discount": "-31 % (sazba celého roku)",
-        "unitPrice": "220 Kč",
-        "totalPrice": "8 800 Kč"
+        "discount": "-25 %",
+        "unitPrice": "255 Kč",
+        "totalPrice": "10 240 Kč"
       },
       {
         "period": "Celý rok (40 týdnů)",
-        "tag": "Max. úspora",
+        "tag": "",
         "frequency": "1× týdně",
         "lessons": "40 lekcí",
         "basePrice": "12 800 Kč",
-        "discount": "-31 %",
-        "unitPrice": "220 Kč",
-        "totalPrice": "8 800 Kč"
+        "discount": "-20 %",
+        "unitPrice": "265 Kč",
+        "totalPrice": "10 670 Kč"
       },
       {
         "period": "Celý rok (40 týdnů)",
         "frequency": "2× týdně",
         "lessons": "80 lekcí",
         "basePrice": "25 600 Kč",
-        "discount": "-31 % (MAX)",
-        "unitPrice": "220 Kč",
-        "totalPrice": "17 600 Kč"
+        "discount": "-30 %",
+        "unitPrice": "245 Kč",
+        "totalPrice": "19 700 Kč"
       }
     ]
   },
