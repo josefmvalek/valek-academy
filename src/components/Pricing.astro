@@ -95,12 +95,12 @@ const pillars = pricing.pillars || defaultPillars;
       <div class="text-center text-xs font-black uppercase tracking-wider text-amber-950/80 mb-2" data-tina-field={tinaField(pricing as any, 'tabsLabel')} data-edit-key="pricing.tabsLabel" data-edit-label="Popisek přepínače ceníku">
         {tabsLabel}
       </div>
-      <div class="grid grid-cols-3 gap-1.5 p-1.5 rounded-card-md bg-parchment-200 border border-parchment-300 shadow-2xs" id="pricing-tabs">
+      <div class="grid grid-cols-3 gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-card-md bg-parchment-200 border border-parchment-300 shadow-2xs" id="pricing-tabs">
         {tiers.map((t, idx) => (
           <button
             type="button"
             class:list={[
-              "pricing-tab-btn py-2.5 px-1.5 rounded-card-sm font-heading text-xs transition-all text-center flex flex-col items-center justify-center gap-0.5 cursor-pointer",
+              "pricing-tab-btn py-2 sm:py-2.5 px-1 sm:px-1.5 rounded-card-sm font-heading text-[10px] sm:text-xs transition-all text-center flex flex-col items-center justify-center gap-0.5 cursor-pointer",
               idx === 0
                 ? "bg-amber-400 text-espresso-950 shadow-xs border border-amber-500 font-black"
                 : "bg-transparent text-espresso-800 hover:text-espresso-950 font-bold border border-transparent"
@@ -214,7 +214,7 @@ const pillars = pricing.pillars || defaultPillars;
 
     <!-- Fairness & Flexibility Pillars -->
     <div class="mt-10 sm:mt-14 max-w-4xl mx-auto space-y-5">
-      <div class="grid sm:grid-cols-3 gap-3.5">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
         {pillars.map((pillar, pIdx) => (
           <div
             data-tina-field={tinaField(pricing, 'pillars', pIdx)}
@@ -242,7 +242,7 @@ const pillars = pricing.pillars || defaultPillars;
     <div class="mt-10 sm:mt-12 text-center max-w-2xl mx-auto">
       <a
         href={fullPricingBtnLink}
-        class="btn-gold-pulse group w-full sm:w-auto inline-flex items-center justify-center gap-3 py-4 sm:py-5 px-6 sm:px-10 rounded-2xl font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border-2 border-amber-500 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+        class="btn-gold-pulse group w-full sm:w-auto inline-flex items-center justify-center gap-2 sm:gap-3 py-3.5 sm:py-5 px-5 sm:px-10 rounded-2xl font-heading font-black text-sm sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border-2 border-amber-500 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
         data-tina-field={tinaField(pricing, 'fullPricingBtnText')}
       >
         <span class="text-2xl group-hover:scale-110 transition-transform">🏷️</span>

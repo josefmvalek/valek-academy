@@ -95,16 +95,16 @@ const calendarEventTitle = contact.calendarEventTitle || "1. ukázková lekce an
 const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce angličtiny hrou v malé skupince pro {attendee}{group}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!";
 ---
 
-<div class="lg:col-span-7">
-  <div class="bg-surface-card rounded-card-xl p-6 sm:p-8 md:p-10 border-2 border-amber-300/80 shadow-card relative">
+<div class="lg:col-span-7 w-full max-w-full min-w-0">
+  <div class="bg-surface-card rounded-card-xl p-3 sm:p-8 md:p-10 border-2 border-amber-300/80 shadow-card relative w-full max-w-full min-w-0 overflow-hidden box-border">
     
-    <div class="flex items-center gap-2 mb-2">
+    <div class="flex flex-wrap items-center gap-2 mb-2">
       <span class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(contact, 'formBadge')} data-edit-key="contact.formBadge" data-edit-label="Formulář - štítek">
         {formBadge}
       </span>
       <span class="text-xs text-stone-500 font-bold" data-tina-field={tinaField(contact, 'formBadgeNote')} data-edit-key="contact.formBadgeNote" data-edit-label="Formulář - poznámka ke štítku">{formBadgeNote}</span>
     </div>
-    <h3 class="font-heading font-black text-fluid-h2 text-espresso-950 mb-1" data-tina-field={tinaField(contact, 'formTitle')} data-edit-key="contact.formTitle" data-edit-label="Formulář - nadpis">
+    <h3 class="font-heading font-black text-fluid-h2 text-espresso-950 mb-1 break-words" data-tina-field={tinaField(contact, 'formTitle')} data-edit-key="contact.formTitle" data-edit-label="Formulář - nadpis">
       {formTitle}
     </h3>
     <p class="text-xs sm:text-sm text-stone-600 mb-6 font-normal" data-tina-field={tinaField(contact, 'formSubtitle')} data-edit-key="contact.formSubtitle" data-edit-label="Formulář - podnadpis">
@@ -133,13 +133,13 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
       <!-- Form interactive fields container (hidden after successful submission) -->
       <div id="form-interactive-fields" class="space-y-4 sm:space-y-5">
         <!-- Selected Animal Group Callout (Active when clicked from weekly schedule) -->
-        <div id="selected-group-callout" class="hidden p-3.5 sm:p-4 rounded-card-lg bg-amber-100/90 border-2 border-amber-400 shadow-2xs transition-all">
-        <div class="flex items-center justify-between gap-3">
-          <div class="flex items-center gap-3 min-w-0">
+        <div id="selected-group-callout" class="hidden p-3.5 sm:p-4 rounded-card-lg bg-amber-100/90 border-2 border-amber-400 shadow-2xs transition-all w-full min-w-0">
+        <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 sm:gap-3">
+          <div class="flex items-center gap-3 min-w-0 flex-1">
             <span id="callout-group-emoji" class="w-10 h-10 rounded-card-md bg-amber-300 text-espresso-950 flex items-center justify-center text-xl flex-shrink-0 font-bold shadow-2xs border border-amber-400">
               🦘
             </span>
-            <div class="min-w-0">
+            <div class="min-w-0 flex-1">
               <div class="text-[11px] font-black uppercase tracking-wider text-amber-900" data-tina-field={tinaField(contact, 'selectedGroupCalloutTitle')} data-edit-key="contact.selectedGroupCalloutTitle" data-edit-label="Zvolená skupinka nadpis">
                 {selectedGroupCalloutTitle}
               </div>
@@ -201,15 +201,15 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
           aria-haspopup="listbox"
           aria-expanded="false"
           aria-labelledby="segment-label segment-trigger-title"
-          class="w-full flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-parchment-50 hover:bg-white border-2 border-amber-300/80 hover:border-amber-500 focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-400/20 text-left transition-all cursor-pointer shadow-2xs group"
+          class="w-full flex items-center justify-between gap-2 sm:gap-3 p-3 sm:p-4 rounded-2xl bg-parchment-50 hover:bg-white border-2 border-amber-300/80 hover:border-amber-500 focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-400/20 text-left transition-all cursor-pointer shadow-2xs group min-w-0"
         >
-          <div class="flex items-center gap-3 min-w-0">
-            <div id="segment-trigger-icon" class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-300 to-amber-400 text-espresso-950 border border-amber-400/80 flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 transition-transform shadow-2xs font-bold">
+          <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+            <div id="segment-trigger-icon" class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-300 to-amber-400 text-espresso-950 border border-amber-400/80 flex items-center justify-center text-lg sm:text-xl flex-shrink-0 group-hover:scale-105 transition-transform shadow-2xs font-bold">
               🎲
             </div>
-            <div class="min-w-0">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span id="segment-trigger-title" class="font-heading font-black text-sm sm:text-base text-espresso-950 truncate">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <span id="segment-trigger-title" class="font-heading font-black text-sm sm:text-base text-espresso-950 truncate max-w-full">
                   Děti na ZŠ (Skupinka 4–8 dětí hrou)
                 </span>
                 <span id="segment-trigger-badge" class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs">
@@ -356,15 +356,15 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
 
       <!-- Místo výuky: 100% osobně v UH -->
       <input type="hidden" name="forma" value="Osobně v doučovně (Uherské Hradiště, Růžová 1238)" />
-      <div class="p-3.5 sm:p-4 rounded-2xl bg-amber-50/90 border-2 border-amber-300 shadow-2xs flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 sm:gap-3 text-xs">
-        <div class="flex items-center gap-2.5 text-espresso-950 font-bold min-w-0">
-          <span class="w-8 h-8 rounded-xl bg-amber-200 text-espresso-950 flex items-center justify-center text-lg flex-shrink-0 border border-amber-300">🏡</span>
-          <div class="min-w-0">
+      <div class="p-3 sm:p-4 rounded-2xl bg-amber-50/90 border-2 border-amber-300 shadow-2xs flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 sm:gap-3 text-xs min-w-0">
+        <div class="flex items-center gap-2.5 text-espresso-950 font-bold min-w-0 flex-1">
+          <span class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-200 text-espresso-950 flex items-center justify-center text-base sm:text-lg flex-shrink-0 border border-amber-300">🏡</span>
+          <div class="min-w-0 flex-1">
             <span class="block text-[10px] font-black uppercase tracking-wider text-amber-900">Místo výuky</span>
-            <span class="text-xs sm:text-sm text-espresso-950 font-bold">Doučovna Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO)</span>
+            <span class="text-xs sm:text-sm text-espresso-950 font-bold break-words">Doučovna Růžová 1238, Uherské Hradiště (naproti ZŠ UNESCO)</span>
           </div>
         </div>
-        <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs flex-shrink-0 whitespace-nowrap">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs flex-shrink-0">
           100% naživo
         </span>
       </div>
@@ -474,18 +474,18 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
           aria-haspopup="listbox"
           aria-expanded="false"
           aria-labelledby="level-label level-trigger-title"
-          class="w-full flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl bg-parchment-50 hover:bg-white border-2 border-parchment-300 hover:border-amber-400 focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-400/20 text-left transition-all cursor-pointer shadow-2xs group"
+          class="w-full flex items-center justify-between gap-2 sm:gap-3 p-3 sm:p-3.5 rounded-2xl bg-parchment-50 hover:bg-white border-2 border-parchment-300 hover:border-amber-400 focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-400/20 text-left transition-all cursor-pointer shadow-2xs group min-w-0"
         >
-          <div class="flex items-center gap-3 min-w-0">
+          <div class="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
             <div id="level-trigger-icon" class="w-10 h-10 rounded-xl bg-amber-100 text-espresso-950 border border-amber-300 flex items-center justify-center text-lg flex-shrink-0 group-hover:scale-105 transition-transform shadow-2xs font-bold">
               🐉
             </div>
-            <div class="min-w-0">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span id="level-trigger-title" class="font-heading font-black text-sm text-espresso-950 truncate">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <span id="level-trigger-title" class="font-heading font-black text-sm text-espresso-950 truncate max-w-full">
                   ZŠ 2. stupeň (4.–6. třída)
                 </span>
-                <span id="level-trigger-badge" class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300">
+                <span id="level-trigger-badge" class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs">
                   ⭐ Nejpopulárnější • Karak
                 </span>
               </div>
@@ -684,54 +684,54 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
 
         <!-- Interactive Days Selector -->
         <input type="hidden" id="preferred-days-input" name="preferred_days" value="Kdykoliv po telefonické domluvě" />
-        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="days-buttons-grid">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-1.5 sm:gap-2 w-full max-w-full min-w-0" id="days-buttons-grid">
           <button
             type="button"
             data-day="Pondělí"
-            class="day-pill py-2.5 px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
           >
-            <span class="text-sm font-black">Po</span>
-            <span class="text-[10px] text-stone-500 font-normal">Pondělí</span>
+            <span class="text-xs sm:text-sm font-black">Po</span>
+            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Pondělí</span>
           </button>
           <button
             type="button"
             data-day="Úterý"
-            class="day-pill py-2.5 px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
           >
-            <span class="text-sm font-black">Út</span>
-            <span class="text-[10px] text-stone-500 font-normal">Úterý</span>
+            <span class="text-xs sm:text-sm font-black">Út</span>
+            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Úterý</span>
           </button>
           <button
             type="button"
             data-day="Středa"
-            class="day-pill py-2.5 px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
           >
-            <span class="text-sm font-black">St</span>
-            <span class="text-[10px] text-stone-500 font-normal">Středa</span>
+            <span class="text-xs sm:text-sm font-black">St</span>
+            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Středa</span>
           </button>
           <button
             type="button"
             data-day="Čtvrtek"
-            class="day-pill py-2.5 px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
           >
-            <span class="text-sm font-black">Čt</span>
-            <span class="text-[10px] text-stone-500 font-normal">Čtvrtek</span>
+            <span class="text-xs sm:text-sm font-black">Čt</span>
+            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Čtvrtek</span>
           </button>
           <button
             type="button"
             data-day="Pátek"
-            class="day-pill py-2.5 px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
           >
-            <span class="text-sm font-black">Pá</span>
-            <span class="text-[10px] text-stone-500 font-normal">Pátek</span>
+            <span class="text-xs sm:text-sm font-black">Pá</span>
+            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Pátek</span>
           </button>
           <button
             type="button"
             data-day="Kdykoliv"
-            class="day-pill py-2.5 px-2 rounded-xl border-2 border-amber-500 bg-amber-400 text-espresso-950 shadow-xs text-xs font-bold text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-amber-500 bg-amber-400 text-espresso-950 shadow-xs text-xs font-bold text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
           >
-            <span class="text-sm font-black">✨ Vše</span>
-            <span class="text-[10px] text-espresso-900 font-bold">Kdykoliv</span>
+            <span class="text-xs sm:text-sm font-black">✨ Vše</span>
+            <span class="text-[9px] sm:text-[10px] text-espresso-900 font-bold truncate max-w-full block">Kdykoliv</span>
           </button>
         </div>
       </div>
@@ -769,17 +769,17 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
           <span>⏱️</span> <span data-tina-field={tinaField(contact, 'stepsTitle')} data-edit-key="contact.stepsTitle" data-edit-label="Co se stane">{stepsTitle}</span>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-          <div class="flex items-start gap-1.5">
+          <div class="flex items-start gap-1.5 min-w-0">
             <span class="w-4 h-4 rounded-full bg-amber-300 text-espresso-950 flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">1</span>
-            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step1Text')} data-edit-key="contact.step1Text" data-edit-label="Krok 1">{step1Text}</span>
+            <span class="text-stone-700 text-[11px] leading-tight break-words min-w-0" data-tina-field={tinaField(contact, 'step1Text')} data-edit-key="contact.step1Text" data-edit-label="Krok 1">{step1Text}</span>
           </div>
-          <div class="flex items-start gap-1.5">
+          <div class="flex items-start gap-1.5 min-w-0">
             <span class="w-4 h-4 rounded-full bg-amber-300 text-espresso-950 flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">2</span>
-            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step2Text')} data-edit-key="contact.step2Text" data-edit-label="Krok 2">{step2Text}</span>
+            <span class="text-stone-700 text-[11px] leading-tight break-words min-w-0" data-tina-field={tinaField(contact, 'step2Text')} data-edit-key="contact.step2Text" data-edit-label="Krok 2">{step2Text}</span>
           </div>
-          <div class="flex items-start gap-1.5">
+          <div class="flex items-start gap-1.5 min-w-0">
             <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">3</span>
-            <span class="text-stone-700 text-[11px] leading-tight" data-tina-field={tinaField(contact, 'step3Text')} data-edit-key="contact.step3Text" data-edit-label="Krok 3">{step3Text}</span>
+            <span class="text-stone-700 text-[11px] leading-tight break-words min-w-0" data-tina-field={tinaField(contact, 'step3Text')} data-edit-key="contact.step3Text" data-edit-label="Krok 3">{step3Text}</span>
           </div>
         </div>
       </div>
@@ -788,10 +788,10 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
       <button
         type="submit"
         id="submit-button"
-        class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active w-full inline-flex items-center justify-center gap-3 py-4 sm:py-5 px-8 rounded-card-md font-heading font-black text-base sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 disabled:opacity-50 cursor-pointer transition-transform"
+        class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active w-full inline-flex items-center justify-center gap-2 sm:gap-3 py-3.5 sm:py-5 px-4 sm:px-8 rounded-card-md font-heading font-black text-sm sm:text-lg text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-600 disabled:opacity-50 cursor-pointer transition-transform min-w-0"
       >
-        <span id="button-text" data-tina-field={tinaField(contact, 'submitButtonText')} data-edit-key="contact.submitButtonText" data-edit-label="Text tlačítka">{submitButtonText}</span>
-        <svg id="button-icon" class="w-5 h-5 text-espresso-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <span id="button-text" class="truncate min-w-0" data-tina-field={tinaField(contact, 'submitButtonText')} data-edit-key="contact.submitButtonText" data-edit-label="Text tlačítka">{submitButtonText}</span>
+        <svg id="button-icon" class="w-5 h-5 text-espresso-950 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
       </button>

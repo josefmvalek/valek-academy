@@ -22,24 +22,24 @@ const title = contact.title || "Rezervujte ukázkovou lekci v malé skupince zda
 const subtitle = contact.subtitle || "Vyberte termín. Pro žáky ZŠ je 1. lekce v malé skupince (4–8 dětí) v Uherském Hradišti 100% ZDARMA a nezávazná!";
 ---
 
-<section id="kontakt" class="py-8 sm:py-12 md:py-16 relative bg-[#FAF7F2] border-t border-parchment-300 overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="kontakt" class="py-8 sm:py-12 md:py-16 relative bg-[#FAF7F2] border-t border-parchment-300 overflow-hidden w-full max-w-full">
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full min-w-0">
     
     <!-- Section Header -->
     <div class="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-14">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-extrabold uppercase tracking-wider text-amber-950" data-tina-field={tinaField(contact, 'badge')} data-edit-key="contact.badge" data-edit-label="Štítek kontaktu">
         <span>🎁</span> <span>{badge}</span>
       </div>
-      <h2 class="font-academy font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(contact, 'title')} data-edit-key="contact.title" data-edit-label="Nadpis kontaktu">
+      <h2 class="font-academy font-black text-2xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight break-words" data-tina-field={tinaField(contact, 'title')} data-edit-key="contact.title" data-edit-label="Nadpis kontaktu">
         {title}
       </h2>
-      <p class="text-espresso-800/80 text-base sm:text-lg" data-tina-field={tinaField(contact, 'subtitle')} data-edit-key="contact.subtitle" data-edit-label="Podnadpis kontaktu">
+      <p class="text-espresso-800/80 text-base sm:text-lg break-words" data-tina-field={tinaField(contact, 'subtitle')} data-edit-key="contact.subtitle" data-edit-label="Podnadpis kontaktu">
         {subtitle}
       </p>
     </div>
 
     <!-- Contact Grid -->
-    <div class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+    <div class="grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start w-full min-w-0">
       <ContactInfoCard contact={contact} locationInfo={locationInfo} />
       <ContactForm contact={contact} />
     </div>

@@ -54,7 +54,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4rem;
     background-color: var(--surface-base);
     color: var(--brand-espresso);
     font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
@@ -251,6 +251,7 @@
   .btn-gold-pulse {
     position: relative;
     overflow: hidden !important;
+    max-width: 100%;
     contain: paint;
     isolation: isolate;
     transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -285,21 +286,24 @@
   .btn-gold-pulse::after {
     content: '';
     position: absolute;
-    inset: -50%;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
     pointer-events: none;
     background: linear-gradient(
-      60deg,
-      transparent 30%,
-      rgba(255, 255, 255, 0.4) 50%,
-      transparent 70%
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.45) 50%,
+      transparent 100%
     );
-    transform: rotate(25deg) translateY(-100%);
+    transform: skewX(-25deg);
     animation: btn-sheen 4s infinite;
   }
 
   @keyframes btn-sheen {
-    0% { transform: rotate(25deg) translateY(-120%); }
-    20%, 100% { transform: rotate(25deg) translateY(120%); }
+    0% { left: -100%; }
+    20%, 100% { left: 200%; }
   }
 
   .gold-tag {

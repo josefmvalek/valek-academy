@@ -966,6 +966,7 @@
     ]
   },
   "scheduleNotice": "Týdenní rozvrh 15 zvířecích skupinek a harmonogram se centrálně spravuje v samostatné sekci '📅 Rozvrh hodin (/rozvrh)', odkud se automaticky propisuje i na hlavní stránku.",
+
   "faq": {
     "enabled": true,
     "badge": "ČASTÉ DOTAZY",

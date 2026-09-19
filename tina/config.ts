@@ -972,6 +972,34 @@ export default defineConfig({
           },
           {
             type: "object",
+            name: "blogPreview",
+            label: "📚 Sekce Rádce pro rodiče / Blog náhled (homepage)",
+            fields: [
+              {
+                type: "boolean",
+                name: "enabled",
+                label: "Zobrazit sekci blogu / rádce na hlavní stránce?",
+                description: "Pokud pole vypnete, sekce se na hlavní stránce nezobrazí. Články a blog zůstávají plně přístupné přes horní menu na adrese /blog.",
+              },
+              { type: "string", name: "badge", label: "Odznáček sekce" },
+              {
+                type: "string",
+                name: "title",
+                label: "Hlavní nadpis sekce",
+                description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)",
+              },
+              {
+                type: "string",
+                name: "subtitle",
+                label: "Podnadpis sekce",
+                description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)",
+                ui: { component: "textarea" },
+              },
+              { type: "string", name: "moreLinkText", label: "Text spodního tlačítka pro zobrazení všech článků" },
+            ],
+          },
+          {
+            type: "object",
             name: "faq",
             label: "❓ Časté dotazy (FAQ)",
             fields: [

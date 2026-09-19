@@ -50,10 +50,10 @@ const guaranteeTitle = contact.guaranteeTitle || "1. ukázková lekce je 100% ZD
 const guaranteeDesc = contact.guaranteeDesc || "Dítě si přijde nezávazně vyzkoušet deskovky a atmosféru v malé skupince (4–8 dětí). Žádné platby předem ani skryté závazky. Rozhodnete se až po lekci!";
 ---
 
-<div class="lg:col-span-5 space-y-5">
+<div class="lg:col-span-5 space-y-5 w-full max-w-full min-w-0">
   
-  <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300/80 shadow-soft-lg space-y-5">
-    <div class="flex items-center gap-3.5 pb-4 border-b border-parchment-200">
+  <div class="bg-white rounded-3xl p-4 sm:p-8 border-2 border-amber-300/80 shadow-soft-lg space-y-5 w-full max-w-full min-w-0">
+    <div class="flex items-center gap-3.5 pb-4 border-b border-parchment-200 min-w-0">
       {contact.tutorImage ? (
         <div class="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-sm flex-shrink-0">
           <img
@@ -126,7 +126,7 @@ const guaranteeDesc = contact.guaranteeDesc || "Dítě si přijde nezávazně vy
       </a>
 
       <!-- Physical Location in Uherské Hradiště -->
-      <div class="p-4 rounded-2xl bg-parchment-50 border border-parchment-300 space-y-2.5 text-xs text-espresso-900">
+      <div class="p-3.5 sm:p-4 rounded-2xl bg-parchment-50 border border-parchment-300 space-y-2.5 text-xs text-espresso-900 w-full min-w-0">
         <div class="flex items-start gap-2.5">
           <span class="text-base flex-shrink-0">📍</span>
           <div>
@@ -175,7 +175,7 @@ const guaranteeDesc = contact.guaranteeDesc || "Dítě si přijde nezávazně vy
   </div>
 
   <!-- 100% Free Lesson Guarantee Card -->
-  <div class="p-5 rounded-2xl bg-amber-100/80 border border-amber-300 shadow-xs flex items-start gap-3.5">
+  <div class="p-4 sm:p-5 rounded-2xl bg-amber-100/80 border border-amber-300 shadow-xs flex items-start gap-3.5 w-full min-w-0">
     <span class="text-3xl">🎁</span>
     <div>
       <h4 class="font-heading font-black text-sm text-espresso-950" data-tina-field={tinaField(contact, 'guaranteeTitle')} data-edit-key="contact.guaranteeTitle" data-edit-label="Garance nadpis">{guaranteeTitle}</h4>

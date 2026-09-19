@@ -126,7 +126,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
     data-buddy-percent={buddyDiscountPercent}
     data-buddy-title={buddyDiscountTitle}
     data-buddy-result-label={buddyDiscountResultLabel}
-    class="mt-12 sm:mt-16 bg-gradient-to-br from-[#FFFDF9] via-white to-[#FDF8EE] rounded-3xl p-5 sm:p-8 md:p-10 border-2 border-amber-300 shadow-xl relative overflow-hidden"
+    class="mt-12 sm:mt-16 bg-gradient-to-br from-[#FFFDF9] via-white to-[#FDF8EE] rounded-2xl sm:rounded-3xl p-3 sm:p-8 md:p-10 border-2 border-amber-300 shadow-xl relative overflow-hidden w-full max-w-full min-w-0"
   >
     
     <!-- Background subtle aura -->
@@ -139,7 +139,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         <span>🧮</span>
         <span data-edit-key="cenik.calculator.badge" data-edit-label="Odznak kalkulátoru">{badge}</span>
       </div>
-      <h3 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight" data-tina-field={tinaField(calculator, 'title')} data-edit-key="cenik.calculator.title" data-edit-label="Nadpis kalkulátoru" set:html={formatRichText(title)}>
+      <h3 class="font-heading font-black text-xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight" data-tina-field={tinaField(calculator, 'title')} data-edit-key="cenik.calculator.title" data-edit-label="Nadpis kalkulátoru" set:html={formatRichText(title)}>
       </h3>
       <p class="text-espresso-800/80 text-xs sm:text-base mt-2" data-tina-field={tinaField(calculator, 'subtitle')} data-edit-key="cenik.calculator.subtitle" data-edit-label="Podnadpis kalkulátoru" set:html={formatRichText(subtitle)}>
       </p>
@@ -147,15 +147,15 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
     <!-- Mode Switcher: 60 min (Děti ZŠ) vs 90 min (2. stupeň, SŠ & Dospělí) -->
     <div class="max-w-xl mx-auto mb-8 sm:mb-10 relative z-10">
-      <div class="bg-amber-100/70 p-1.5 rounded-2xl flex items-center gap-1.5 border border-amber-300/80 shadow-inner">
+      <div class="bg-amber-100/70 p-1 sm:p-1.5 rounded-2xl flex items-center gap-1 sm:gap-1.5 border border-amber-300/80 shadow-inner">
         <button
           type="button"
           id="calc-mode-kids"
-          class="calc-mode-btn flex-1 py-3 px-3 sm:px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-white shadow-xs border border-amber-400 transition-all flex items-center justify-center gap-2 cursor-pointer focus:outline-hidden"
+          class="calc-mode-btn flex-1 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl font-heading font-black text-[11px] sm:text-sm text-espresso-950 bg-white shadow-xs border border-amber-400 transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer focus:outline-hidden"
           data-mode="kids"
           aria-pressed="true"
         >
-          <span class="text-base sm:text-lg">🎒</span>
+          <span class="text-sm sm:text-lg">🎒</span>
           <span class="flex flex-col sm:flex-row sm:items-center sm:gap-1.5 text-left sm:text-center leading-tight">
             <span data-tina-field={tinaField(calculator, 'modeKidsLabel')} data-edit-key="cenik.calculator.modeKidsLabel" data-edit-label="Přepínač Děti">{modeKidsLabel}</span>
             <span class="text-[10px] sm:text-xs font-extrabold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded-md self-start sm:self-auto" data-tina-field={tinaField(calculator, 'modeKidsBadge')} data-edit-key="cenik.calculator.modeKidsBadge" data-edit-label="Čas Děti">{modeKidsBadge}</span>
@@ -164,11 +164,11 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         <button
           type="button"
           id="calc-mode-teens"
-          class="calc-mode-btn flex-1 py-3 px-3 sm:px-4 rounded-xl font-heading font-bold text-xs sm:text-sm text-stone-600 hover:text-espresso-950 bg-transparent transition-all flex items-center justify-center gap-2 cursor-pointer focus:outline-hidden"
+          class="calc-mode-btn flex-1 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl font-heading font-bold text-[11px] sm:text-sm text-stone-600 hover:text-espresso-950 bg-transparent transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer focus:outline-hidden"
           data-mode="teens"
           aria-pressed="false"
         >
-          <span class="text-base sm:text-lg">🎓</span>
+          <span class="text-sm sm:text-lg">🎓</span>
           <span class="flex flex-col sm:flex-row sm:items-center sm:gap-1.5 text-left sm:text-center leading-tight">
             <span data-tina-field={tinaField(calculator, 'modeTeensLabel')} data-edit-key="cenik.calculator.modeTeensLabel" data-edit-label="Přepínač SŠ & dospělí">{modeTeensLabel}</span>
             <span class="text-[10px] sm:text-xs font-extrabold text-purple-800 bg-purple-100 px-1.5 py-0.5 rounded-md self-start sm:self-auto" data-tina-field={tinaField(calculator, 'modeTeensBadge')} data-edit-key="cenik.calculator.modeTeensBadge" data-edit-label="Čas SŠ & dospělí">{modeTeensBadge}</span>
@@ -178,14 +178,14 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
     </div>
 
     <!-- Main Grid: Controls (Left) & Result (Right) -->
-    <div class="grid lg:grid-cols-12 gap-8 items-start relative z-10">
+    <div class="grid lg:grid-cols-12 gap-8 items-start relative z-10 w-full min-w-0">
       
       <!-- Interactive Selectors (Left 7 Cols) -->
-      <div class="lg:col-span-7 space-y-6 sm:space-y-7 flex flex-col justify-start">
+      <div class="lg:col-span-7 space-y-6 sm:space-y-7 flex flex-col justify-start w-full max-w-full min-w-0">
         
         <!-- Step 1: Duration (Weeks) -->
         <div class="space-y-3">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="font-heading font-black text-xs sm:text-sm uppercase tracking-wider text-espresso-950 flex items-center gap-1.5" data-tina-field={tinaField(calculator, 'step1Title')}>
               <span class="w-5 h-5 rounded-full bg-amber-400 text-espresso-950 font-black text-xs flex items-center justify-center">1</span>
               <span data-edit-key="cenik.calculator.step1Title" data-edit-label="Nadpis Krok 1">{step1Title}</span>
@@ -195,7 +195,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
             </span>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" role="radiogroup" aria-label="Délka období výuky">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5" role="radiogroup" aria-label="Délka období výuky">
             {durations.map((d: any, idx: number) => {
               const discount = Number(d.baseDiscount ?? 0);
               const calcRateKids = Math.round(basePrice * (1 - discount / 100));
@@ -214,7 +214,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
                   data-label={d.label}
                   data-period-desc={d.periodDesc}
                   class:list={[
-                    "calc-duration-btn p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer focus:outline-hidden",
+                    "calc-duration-btn p-2 sm:p-3 rounded-xl sm:rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer focus:outline-hidden min-w-0 min-h-[52px]",
                     d.weeks === 20
                       ? "bg-amber-100/90 border-amber-500 ring-2 ring-amber-400 shadow-sm"
                       : "bg-white/90 border-parchment-300 hover:border-amber-300 hover:bg-parchment-100/60"
@@ -222,12 +222,12 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
                   aria-checked={d.weeks === 20 ? "true" : "false"}
                 >
                   {d.popular && (
-                    <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-400 text-espresso-950 shadow-2xs">
+                    <span class="absolute -top-2 right-1.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-400 text-espresso-950 shadow-2xs max-w-[85%] truncate">
                       Populární
                     </span>
                   )}
                   {d.bestValue && (
-                    <span class="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-600 text-white shadow-2xs">
+                    <span class="absolute -top-2 right-1.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-600 text-white shadow-2xs max-w-[85%] truncate">
                       Nejvýhodnější
                     </span>
                   )}
@@ -236,7 +236,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
                     <div class="text-[11px] text-espresso-800/70" data-edit-key={`cenik.calculator.durations.${idx}.periodDesc`} data-edit-label="Popis období">{d.periodDesc}</div>
                   </div>
                   <div
-                    class="mt-2 pt-1 border-t border-parchment-200 text-xs font-extrabold text-amber-900 calc-duration-badge"
+                    class="mt-2 pt-1 border-t border-parchment-200 text-xs font-extrabold text-amber-900 calc-duration-badge leading-tight"
                     data-edit-key={`cenik.calculator.durations.${idx}.badgeKids`}
                     data-edit-label={`Štítek ceny Děti (${d.label})`}
                   >
@@ -250,7 +250,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
         <!-- Step 2: Frequency (Lessons per week) -->
         <div class="space-y-3">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="font-heading font-black text-xs sm:text-sm uppercase tracking-wider text-espresso-950 flex items-center gap-1.5" data-tina-field={tinaField(calculator, 'step2Title')}>
               <span class="w-5 h-5 rounded-full bg-amber-400 text-espresso-950 font-black text-xs flex items-center justify-center">2</span>
               <span data-edit-key="cenik.calculator.step2Title" data-edit-label="Nadpis Krok 2">{step2Title}</span>
@@ -355,14 +355,14 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
       </div>
 
       <!-- Result Card (Right 5 Cols) -->
-      <div class="lg:col-span-5 bg-gradient-to-b from-white via-[#FFFDF9] to-amber-50/50 rounded-3xl p-6 sm:p-7 border-2 border-amber-400 shadow-lg flex flex-col justify-between relative">
+      <div class="lg:col-span-5 bg-gradient-to-b from-white via-[#FFFDF9] to-amber-50/50 rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-amber-400 shadow-lg flex flex-col justify-between relative w-full max-w-full min-w-0">
         
         <!-- Top Badge -->
-        <div class="flex items-center justify-between gap-2 border-b border-parchment-200 pb-3 mb-4">
-          <span class="text-xs font-black uppercase tracking-wider text-amber-950" data-tina-field={tinaField(calculator, 'resultBadge')}>
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-parchment-200 pb-3 mb-4 min-w-0">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-950 flex-1 min-w-[170px]" data-tina-field={tinaField(calculator, 'resultBadge')}>
             <span data-edit-key="cenik.calculator.resultBadge" data-edit-label="Štítek výsledku">{resultBadge}</span>
           </span>
-          <span id="calc-total-discount-badge" class="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+          <span id="calc-total-discount-badge" class="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-300 flex-shrink-0">
             -22 % SLEVA
           </span>
         </div>
@@ -370,22 +370,22 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         <!-- Details list -->
         <div class="space-y-3.5 mb-6">
           
-          <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600">
+          <div class="flex flex-wrap items-center justify-between gap-y-1 text-xs sm:text-sm text-stone-600">
             <span data-tina-field={tinaField(calculator, 'targetGroupLabel')} data-edit-key="cenik.calculator.targetGroupLabel" data-edit-label="Popisek Cílová skupina">{targetGroupLabel}</span>
             <span id="calc-cohort-display" class="font-bold text-espresso-950">🎒 {modeKidsLabel} ({modeKidsBadge})</span>
           </div>
 
-          <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600">
+          <div class="flex flex-wrap items-center justify-between gap-y-1 text-xs sm:text-sm text-stone-600">
             <span data-tina-field={tinaField(calculator, 'periodLabel')} data-edit-key="cenik.calculator.periodLabel" data-edit-label="Popisek Délka období">{periodLabel}</span>
             <span id="calc-period-display" class="font-bold text-espresso-950">Pololetí (20 týdnů)</span>
           </div>
 
-          <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600">
+          <div class="flex flex-wrap items-center justify-between gap-y-1 text-xs sm:text-sm text-stone-600">
             <span data-tina-field={tinaField(calculator, 'frequencyLabel')} data-edit-key="cenik.calculator.frequencyLabel" data-edit-label="Popisek Frekvence">{frequencyLabel}</span>
             <span id="calc-freq-display" class="font-bold text-espresso-950">1× týdně</span>
           </div>
 
-          <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600">
+          <div class="flex flex-wrap items-center justify-between gap-y-1 text-xs sm:text-sm text-stone-600">
             <span data-tina-field={tinaField(calculator, 'totalLessonsLabel')} data-edit-key="cenik.calculator.totalLessonsLabel" data-edit-label="Popisek Celkem lekcí">{totalLessonsLabel}</span>
             <span id="calc-lessons-display" class="font-bold text-espresso-950">20 lekcí</span>
           </div>
@@ -412,21 +412,21 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
           </div>
 
           <div class="pt-2 border-t border-parchment-200">
-            <span id="calc-breakdown-pill" class="inline-block text-[11px] font-bold text-amber-900 bg-amber-100/70 px-2.5 py-1 rounded-lg">
+            <span id="calc-breakdown-pill" class="inline-block text-[11px] font-bold text-amber-900 bg-amber-100/70 px-2.5 py-1 rounded-lg break-words max-w-full leading-relaxed">
               Pololetní balíček 250 Kč/h (cca 1 000 Kč měsíčně)
             </span>
           </div>
 
           <!-- Unit price comparison -->
           <div class="p-3.5 rounded-2xl bg-white border border-amber-200/90 space-y-1">
-            <div class="flex items-baseline justify-between">
+            <div class="flex flex-wrap items-baseline justify-between gap-y-1">
               <span id="calc-unit-label" class="text-xs text-stone-600 font-medium" data-tina-field={tinaField(calculator, 'unitPriceLabel')} data-edit-key="cenik.calculator.unitPriceLabel" data-edit-label="Popisek Cena za lekci">{unitPriceLabel}</span>
               <div class="text-right">
                 <span id="calc-unit-price" class="font-heading font-black text-xl sm:text-2xl text-espresso-950">250 Kč</span>
                 <span id="calc-unit-suffix" class="text-xs text-stone-500 font-normal"> / 60 min</span>
               </div>
             </div>
-            <div class="flex items-center justify-between text-[11px] text-stone-500 pt-1 border-t border-parchment-100">
+            <div class="flex flex-wrap items-center justify-between gap-y-1 text-[11px] text-stone-500 pt-1 border-t border-parchment-100">
               <span><span data-tina-field={tinaField(calculator, 'standardPriceLabel')} data-edit-key="cenik.calculator.standardPriceLabel" data-edit-label="Popisek Běžná cena">{standardPriceLabel}</span> <span id="calc-original-unit" class="line-through" data-edit-key="cenik.calculator.basePrice" data-edit-label="Základní cena Děti (Kč)">{basePrice} Kč</span></span>
               <span class="text-emerald-700 font-bold"><span data-tina-field={tinaField(calculator, 'youSaveLabel')} data-edit-key="cenik.calculator.youSaveLabel" data-edit-label="Popisek Ušetříte">{youSaveLabel}</span> <span id="calc-unit-saving">70 Kč</span><span data-tina-field={tinaField(calculator, 'perLessonSuffix')} data-edit-key="cenik.calculator.perLessonSuffix" data-edit-label="Přípona jednotky">{perLessonSuffix}</span></span>
             </div>
@@ -434,7 +434,7 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
 
           <!-- Total price -->
           <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 text-espresso-950 shadow-md">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <span class="text-[11px] font-extrabold uppercase tracking-wider block opacity-90" data-tina-field={tinaField(calculator, 'totalPriceLabel')}>
                   <span data-edit-key="cenik.calculator.totalPriceLabel" data-edit-label="Nadpis Celková cena">{totalPriceLabel}</span>

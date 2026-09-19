@@ -156,7 +156,7 @@ const themePresets: Record<string, {
 };
 ---
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full max-w-full min-w-0">
   
   <!-- Top Breadcrumb -->
   <div class="mb-6 sm:mb-8">
@@ -174,18 +174,18 @@ const themePresets: Record<string, {
         <span>{header.badge}</span>
       </div>
     )}
-    <h1 class="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight" data-tina-field={tinaField(header, 'title')} data-edit-key="cenik.header.title" data-edit-label="Nadpis ceníku">
+    <h1 class="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight break-words" data-tina-field={tinaField(header, 'title')} data-edit-key="cenik.header.title" data-edit-label="Nadpis ceníku">
       {header.title || "Podrobný ceník všech programů, slevové balíčky & férové podmínky"}
     </h1>
-    <p class="text-espresso-800/85 text-sm sm:text-lg leading-relaxed max-w-3xl mx-auto font-normal" data-tina-field={tinaField(header, 'subtitle')} data-edit-key="cenik.header.subtitle" data-edit-label="Podnadpis ceníku" set:html={formatRichText(header.subtitle || "U nás neplatíte nic naslepo a nevážete se dlouhými smlouvami. Každý student začíná <strong>1. lekcí 100% ZDARMA</strong>. Teprve když je dítě nadšené, vyberete si výhodný balíček s motivační slevou až 30 %.")} />
+    <p class="text-espresso-800/85 text-sm sm:text-lg leading-relaxed max-w-3xl mx-auto font-normal break-words" data-tina-field={tinaField(header, 'subtitle')} data-edit-key="cenik.header.subtitle" data-edit-label="Podnadpis ceníku" set:html={formatRichText(header.subtitle || "U nás neplatíte nic naslepo a nevážete se dlouhými smlouvami. Každý student začíná <strong>1. lekcí 100% ZDARMA</strong>. Teprve když je dítě nadšené, vyberete si výhodný balíček s motivační slevou až 30 %.")} />
   </div>
 
   <!-- 4 Core Programs Detailed Pricing Cards -->
-  <div class="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-14 sm:mb-18" data-tina-field={tinaField(cenik, 'programs')}>
+  <div class="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-14 sm:mb-18 w-full min-w-0" data-tina-field={tinaField(cenik, 'programs')}>
     {programs.map((prog, idx) => {
       const theme = themePresets[prog.id] || themePresets.kids;
       return (
-        <div class={`bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative group ${theme.border}`} data-tina-field={tinaField(prog)}>
+        <div class={`bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-8 flex flex-col justify-between relative group w-full max-w-full min-w-0 ${theme.border}`} data-tina-field={tinaField(prog)}>
           {prog.popularBadge && (
             <div class={`absolute -top-3.5 right-4 sm:right-6 text-[10px] sm:text-xs font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-xs z-10 ${theme.badgeBg}`} data-tina-field={tinaField(prog, 'popularBadge')}>
               <span data-edit-key={`cenik.programs.${idx}.popularBadge`} data-edit-label="Zvýrazňující odznak">{prog.popularBadge}</span>
@@ -218,33 +218,33 @@ const themePresets: Record<string, {
             )}
 
             <!-- Pricing Details Box -->
-            <div class={`p-4 rounded-2xl border space-y-2 ${theme.priceBoxBg}`}>
+            <div class={`p-3.5 sm:p-4 rounded-2xl border space-y-2.5 ${theme.priceBoxBg}`}>
               {prog.baseRate && (
-                <div class="flex items-baseline justify-between">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
                   <span class="text-xs text-stone-600 font-medium">Základní sazba za lekci:</span>
-                  <span class="font-heading font-black text-xl text-espresso-950" data-tina-field={tinaField(prog, 'baseRate')}>
-                    <span data-edit-key={`cenik.programs.${idx}.baseRate`} data-edit-label="Základní cena">{prog.baseRate}</span> {prog.baseRateNote && <span class="text-xs text-stone-500 font-normal" data-tina-field={tinaField(prog, 'baseRateNote')} data-edit-key={`cenik.programs.${idx}.baseRateNote`} data-edit-label="Poznámka k zákl. ceně">{prog.baseRateNote}</span>}
+                  <span class="font-heading font-black text-lg sm:text-xl text-espresso-950 text-right" data-tina-field={tinaField(prog, 'baseRate')}>
+                    <span data-edit-key={`cenik.programs.${idx}.baseRate`} data-edit-label="Základní cena">{prog.baseRate}</span> {prog.baseRateNote && <span class="text-xs text-stone-500 font-normal block sm:inline" data-tina-field={tinaField(prog, 'baseRateNote')} data-edit-key={`cenik.programs.${idx}.baseRateNote`} data-edit-label="Poznámka k zákl. ceně">{prog.baseRateNote}</span>}
                   </span>
                 </div>
               )}
               {prog.packageRate && (
-                <div class="flex items-baseline justify-between text-espresso-950">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5 text-espresso-950">
                   <span class="text-xs font-bold">Pololetní balíček:</span>
-                  <span class={`font-heading font-black text-lg ${theme.highlightText}`} data-tina-field={tinaField(prog, 'packageRate')}>
-                    <span data-edit-key={`cenik.programs.${idx}.packageRate`} data-edit-label="Balíčková cena">{prog.packageRate}</span> {prog.packageRateNote && <span class="text-xs font-normal" data-tina-field={tinaField(prog, 'packageRateNote')} data-edit-key={`cenik.programs.${idx}.packageRateNote`} data-edit-label="Poznámka k balíčku">{prog.packageRateNote}</span>}
+                  <span class={`font-heading font-black text-base sm:text-lg text-right ${theme.highlightText}`} data-tina-field={tinaField(prog, 'packageRate')}>
+                    <span data-edit-key={`cenik.programs.${idx}.packageRate`} data-edit-label="Balíčková cena">{prog.packageRate}</span> {prog.packageRateNote && <span class="text-xs font-normal block sm:inline text-stone-600" data-tina-field={tinaField(prog, 'packageRateNote')} data-edit-key={`cenik.programs.${idx}.packageRateNote`} data-edit-label="Poznámka k balíčku">{prog.packageRateNote}</span>}
                   </span>
                 </div>
               )}
               {prog.fullYearRate && (
-                <div class="flex items-baseline justify-between text-emerald-800">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5 text-emerald-800">
                   <span class="text-xs font-bold">Při 2× týdně nebo celý rok:</span>
-                  <span class="font-heading font-black text-lg" data-tina-field={tinaField(prog, 'fullYearRate')}>
-                    <span data-edit-key={`cenik.programs.${idx}.fullYearRate`} data-edit-label="Roční cena">{prog.fullYearRate}</span> {prog.fullYearRateNote && <span class="text-xs font-normal" data-tina-field={prog.fullYearRateNote ? tinaField(prog, 'fullYearRateNote') : undefined} data-edit-key={`cenik.programs.${idx}.fullYearRateNote`} data-edit-label="Poznámka k roční ceně">{prog.fullYearRateNote}</span>}
+                  <span class="font-heading font-black text-base sm:text-lg text-right" data-tina-field={tinaField(prog, 'fullYearRate')}>
+                    <span data-edit-key={`cenik.programs.${idx}.fullYearRate`} data-edit-label="Roční cena">{prog.fullYearRate}</span> {prog.fullYearRateNote && <span class="text-xs font-normal block sm:inline text-stone-600" data-tina-field={prog.fullYearRateNote ? tinaField(prog, 'fullYearRateNote') : undefined} data-edit-key={`cenik.programs.${idx}.fullYearRateNote`} data-edit-label="Poznámka k roční ceně">{prog.fullYearRateNote}</span>}
                   </span>
                 </div>
               )}
               {prog.timeSlots && (
-                <div class="text-[11px] text-stone-600 border-t border-parchment-300/60 pt-1.5 flex items-center gap-1.5 font-medium" data-tina-field={tinaField(prog, 'timeSlots')}>
+                <div class="text-[11px] text-stone-600 border-t border-parchment-300/60 pt-1.5 flex flex-wrap items-center gap-1.5 font-medium" data-tina-field={tinaField(prog, 'timeSlots')}>
                   <span>⏰ Časové sloty:</span>
                   <strong data-edit-key={`cenik.programs.${idx}.timeSlots`} data-edit-label="Časové sloty">{prog.timeSlots}</strong>
                 </div>
@@ -268,7 +268,7 @@ const themePresets: Record<string, {
             {prog.ctaPrimaryText && (
               <a
                 href={prog.ctaPrimaryLink || "/rozvrh"}
-                class={`w-full ${prog.ctaSecondaryText ? 'sm:w-auto flex-1' : ''} inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-heading font-black text-xs border transition-all ${theme.primaryBtnStyle || 'bg-amber-400 text-espresso-950'}`}
+                class={`w-full ${prog.ctaSecondaryText ? 'sm:w-auto flex-1' : ''} inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-heading font-black text-xs border transition-all text-center leading-snug ${theme.primaryBtnStyle || 'bg-amber-400 text-espresso-950'}`}
                 data-tina-field={tinaField(prog, 'ctaPrimaryText')}
               >
                 <span data-edit-key={`cenik.programs.${idx}.ctaPrimaryText`} data-edit-label="Primární tlačítko">{prog.ctaPrimaryText}</span>
@@ -277,7 +277,7 @@ const themePresets: Record<string, {
             {prog.ctaSecondaryText && (
               <a
                 href={prog.ctaSecondaryLink || "#kalkulator-balicku"}
-                class="w-full sm:w-auto inline-flex items-center justify-center py-3 px-4 rounded-xl font-bold text-xs text-espresso-800 bg-parchment-100 hover:bg-parchment-200 border border-parchment-300 transition-colors"
+                class="w-full sm:w-auto inline-flex items-center justify-center py-3 px-4 rounded-xl font-bold text-xs text-espresso-800 bg-parchment-100 hover:bg-parchment-200 border border-parchment-300 transition-colors text-center leading-snug"
                 data-tina-field={tinaField(prog, 'ctaSecondaryText')}
               >
                 <span data-edit-key={`cenik.programs.${idx}.ctaSecondaryText`} data-edit-label="Sekundární tlačítko">{prog.ctaSecondaryText}</span>
@@ -290,31 +290,35 @@ const themePresets: Record<string, {
   </div>
 
   <!-- Embedded Package Calculator Section -->
-  <div class="mb-14 sm:mb-18">
+  <div class="mb-14 sm:mb-18 w-full max-w-full min-w-0">
     <PackageCalculator calculator={calculator} phone={phone} />
   </div>
 
   <!-- Srovnávací tabulka slev a balíčků -->
   {comparisonTable && (
-    <div class="mb-14 sm:mb-18 bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-parchment-300 shadow-soft-sm" data-tina-field={tinaField(cenik, 'comparisonTable')}>
+    <div class="mb-14 sm:mb-18 bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-8 md:p-10 border border-parchment-300 shadow-soft-sm w-full max-w-full min-w-0 overflow-hidden" data-tina-field={tinaField(cenik, 'comparisonTable')}>
       <div class="max-w-3xl mb-6">
         {comparisonTable.badge && (
           <span class="text-xs font-black uppercase tracking-wider text-amber-900 block mb-1" data-tina-field={tinaField(comparisonTable, 'badge')}>
             <span data-edit-key="cenik.comparisonTable.badge" data-edit-label="Štítek srovnání">{comparisonTable.badge}</span>
           </span>
         )}
-        <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950" data-tina-field={tinaField(comparisonTable, 'title')} data-edit-key="cenik.comparisonTable.title" data-edit-label="Nadpis srovnání">
+        <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950 break-words" data-tina-field={tinaField(comparisonTable, 'title')} data-edit-key="cenik.comparisonTable.title" data-edit-label="Nadpis srovnání">
           {comparisonTable.title || "Kolik přesně ušetříte při předplatném výuky?"}
         </h2>
         {comparisonTable.subtitle && (
-          <p class="text-xs sm:text-sm text-stone-600 mt-1" data-tina-field={tinaField(comparisonTable, 'subtitle')} data-edit-key="cenik.comparisonTable.subtitle" data-edit-label="Podnadpis srovnání">
+          <p class="text-xs sm:text-sm text-stone-600 mt-1 break-words" data-tina-field={tinaField(comparisonTable, 'subtitle')} data-edit-key="cenik.comparisonTable.subtitle" data-edit-label="Podnadpis srovnání">
             {comparisonTable.subtitle}
           </p>
         )}
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+      <div class="sm:hidden text-[11px] text-stone-500 mb-2 font-bold flex items-center gap-1">
+        <span>👉</span> <span>Posuňte tabulku do strany pro zobrazení všech sloupců</span>
+      </div>
+
+      <div class="w-full max-w-full overflow-x-auto rounded-2xl border border-parchment-200/80 shadow-inner">
+        <table class="w-full min-w-[560px] text-left text-xs sm:text-sm border-collapse">
           <thead>
             <tr class="border-b-2 border-parchment-300 text-espresso-950 font-heading">
               <th class="py-3 px-3">Období balíčku</th>
@@ -361,36 +365,36 @@ const themePresets: Record<string, {
 
   <!-- Férová pravidla & Platební podmínky (4 pillars) -->
   {guarantees && (
-    <div class="mb-14 sm:mb-18" data-tina-field={tinaField(cenik, 'guarantees')}>
+    <div class="mb-14 sm:mb-18 w-full max-w-full min-w-0" data-tina-field={tinaField(cenik, 'guarantees')}>
       <div class="max-w-3xl mb-8">
         {guarantees.badge && (
           <span class="text-xs font-black uppercase tracking-wider text-amber-900 block mb-1" data-tina-field={tinaField(guarantees, 'badge')}>
             <span data-edit-key="cenik.guarantees.badge" data-edit-label="Štítek pravidel">{guarantees.badge}</span>
           </span>
         )}
-        <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950" data-tina-field={tinaField(guarantees, 'title')} data-edit-key="cenik.guarantees.title" data-edit-label="Nadpis pravidel">
+        <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950 break-words" data-tina-field={tinaField(guarantees, 'title')} data-edit-key="cenik.guarantees.title" data-edit-label="Nadpis pravidel">
           {guarantees.title || "Férové platební podmínky a záruky pro rodiče"}
         </h2>
         {guarantees.subtitle && (
-          <p class="text-xs sm:text-sm text-stone-600 mt-1" data-tina-field={tinaField(guarantees, 'subtitle')} data-edit-key="cenik.guarantees.subtitle" data-edit-label="Podnadpis pravidel">
+          <p class="text-xs sm:text-sm text-stone-600 mt-1 break-words" data-tina-field={tinaField(guarantees, 'subtitle')} data-edit-key="cenik.guarantees.subtitle" data-edit-label="Podnadpis pravidel">
             {guarantees.subtitle}
           </p>
         )}
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6" data-tina-field={tinaField(guarantees, 'items')}>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 w-full min-w-0" data-tina-field={tinaField(guarantees, 'items')}>
         {guaranteeItems.map((item, gIdx) => (
-          <div class="p-6 rounded-3xl bg-white border border-parchment-300 shadow-xs space-y-2.5" data-tina-field={tinaField(item)}>
+          <div class="p-5 sm:p-6 rounded-3xl bg-white border border-parchment-300 shadow-xs space-y-2.5 w-full min-w-0" data-tina-field={tinaField(item)}>
             {item.icon && (
               <span class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 text-xl flex items-center justify-center font-bold" data-tina-field={tinaField(item, 'icon')} data-edit-key={`cenik.guarantees.items.${gIdx}.icon`} data-edit-label="Ikona pravidla">
                 {item.icon}
               </span>
             )}
-            <h3 class="font-heading font-black text-base text-espresso-950" data-tina-field={tinaField(item, 'title')} data-edit-key={`cenik.guarantees.items.${gIdx}.title`} data-edit-label="Nadpis pravidla">
+            <h3 class="font-heading font-black text-base text-espresso-950 break-words" data-tina-field={tinaField(item, 'title')} data-edit-key={`cenik.guarantees.items.${gIdx}.title`} data-edit-label="Nadpis pravidla">
               {item.title}
             </h3>
             {item.text && (
-              <p class="text-xs text-stone-600 leading-relaxed font-normal" data-tina-field={tinaField(item, 'text')} data-edit-key={`cenik.guarantees.items.${gIdx}.text`} data-edit-label="Popis pravidla">
+              <p class="text-xs text-stone-600 leading-relaxed font-normal break-words" data-tina-field={tinaField(item, 'text')} data-edit-key={`cenik.guarantees.items.${gIdx}.text`} data-edit-label="Popis pravidla">
                 {item.text}
               </p>
             )}
@@ -402,18 +406,18 @@ const themePresets: Record<string, {
 
   <!-- FAQ sekce ke ceníku -->
   {faq && (
-    <div class="mb-14 sm:mb-18 bg-parchment-100/70 rounded-3xl p-6 sm:p-8 md:p-10 border border-parchment-300" data-tina-field={tinaField(cenik, 'faq')}>
-      <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950 mb-6 text-center" data-tina-field={tinaField(faq, 'title')} data-edit-key="cenik.faq.title" data-edit-label="Nadpis FAQ ceníku">
+    <div class="mb-14 sm:mb-18 bg-parchment-100/70 rounded-3xl p-4 sm:p-8 md:p-10 border border-parchment-300 w-full max-w-full min-w-0" data-tina-field={tinaField(cenik, 'faq')}>
+      <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950 mb-6 text-center break-words" data-tina-field={tinaField(faq, 'title')} data-edit-key="cenik.faq.title" data-edit-label="Nadpis FAQ ceníku">
         {faq.title || "Časté dotazy ke ceníku a platbám"}
       </h2>
-      <div class="grid md:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto" data-tina-field={tinaField(faq, 'items')}>
+      <div class="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto w-full min-w-0" data-tina-field={tinaField(faq, 'items')}>
         {faqItems.map((item, fIdx) => (
-          <div class="p-5 rounded-2xl bg-white border border-parchment-300 shadow-2xs space-y-1.5" data-tina-field={tinaField(item)}>
-            <h3 class="font-heading font-bold text-sm text-espresso-950" data-tina-field={tinaField(item, 'question')} data-edit-key={`cenik.faq.items.${fIdx}.question`} data-edit-label="Dotaz FAQ">
+          <div class="p-4 sm:p-5 rounded-2xl bg-white border border-parchment-300 shadow-2xs space-y-1.5 w-full min-w-0" data-tina-field={tinaField(item)}>
+            <h3 class="font-heading font-bold text-sm text-espresso-950 break-words" data-tina-field={tinaField(item, 'question')} data-edit-key={`cenik.faq.items.${fIdx}.question`} data-edit-label="Dotaz FAQ">
               {item.question}
             </h3>
             {item.answer && (
-              <p class="text-xs text-stone-600 leading-relaxed font-normal" data-tina-field={tinaField(item, 'answer')} data-edit-key={`cenik.faq.items.${fIdx}.answer`} data-edit-label="Odpověď FAQ" set:html={formatRichText(item.answer)} />
+              <p class="text-xs text-stone-600 leading-relaxed font-normal break-words" data-tina-field={tinaField(item, 'answer')} data-edit-key={`cenik.faq.items.${fIdx}.answer`} data-edit-label="Odpověď FAQ" set:html={formatRichText(item.answer)} />
             )}
           </div>
         ))}
@@ -423,26 +427,26 @@ const themePresets: Record<string, {
 
   <!-- Bottom Global Action Callout Banner -->
   {ctaBanner && (
-    <div class="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-espresso-950 via-espresso-900 to-espresso-950 text-white shadow-xl text-center space-y-5 relative overflow-hidden" data-tina-field={tinaField(cenik, 'ctaBanner')}>
+    <div class="p-5 sm:p-10 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-espresso-950 via-espresso-900 to-espresso-950 text-white shadow-xl text-center space-y-4 sm:space-y-5 relative overflow-hidden w-full max-w-full min-w-0" data-tina-field={tinaField(cenik, 'ctaBanner')}>
       {ctaBanner.badge && (
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-espresso-950 text-xs font-black uppercase tracking-wider" data-tina-field={tinaField(ctaBanner, 'badge')}>
           <span>🎁</span>
           <span data-edit-key="cenik.ctaBanner.badge" data-edit-label="Štítek banneru ceníku">{ctaBanner.badge}</span>
         </div>
       )}
-      <h2 class="font-heading font-black text-2xl sm:text-4xl text-amber-300 tracking-tight max-w-2xl mx-auto" data-tina-field={tinaField(ctaBanner, 'title')} data-edit-key="cenik.ctaBanner.title" data-edit-label="Nadpis banneru ceníku">
+      <h2 class="font-heading font-black text-2xl sm:text-4xl text-amber-300 tracking-tight max-w-2xl mx-auto break-words" data-tina-field={tinaField(ctaBanner, 'title')} data-edit-key="cenik.ctaBanner.title" data-edit-label="Nadpis banneru ceníku">
         {ctaBanner.title || "Vyzkoušejte si atmosféru doučovny nezávazně a bez rizika"}
       </h2>
       {ctaBanner.subtitle && (
-        <p class="text-stone-300 text-xs sm:text-base max-w-xl mx-auto leading-relaxed font-normal" data-tina-field={tinaField(ctaBanner, 'subtitle')} data-edit-key="cenik.ctaBanner.subtitle" data-edit-label="Podnadpis banneru ceníku">
+        <p class="text-stone-300 text-xs sm:text-base max-w-xl mx-auto leading-relaxed font-normal break-words" data-tina-field={tinaField(ctaBanner, 'subtitle')} data-edit-key="cenik.ctaBanner.subtitle" data-edit-label="Podnadpis banneru ceníku">
           {ctaBanner.subtitle}
         </p>
       )}
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2 w-full">
         {ctaBanner.primaryBtnText && (
           <a
             href={ctaBanner.primaryBtnLink || "/rozvrh"}
-            class="btn-gold-pulse inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md hover:scale-105 transition-transform"
+            class="btn-gold-pulse inline-flex items-center justify-center gap-2 py-3.5 px-6 sm:px-8 rounded-2xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-md hover:scale-105 transition-transform w-full sm:w-auto text-center min-w-0"
             data-tina-field={tinaField(ctaBanner, 'primaryBtnText')}
           >
             <span data-edit-key="cenik.ctaBanner.primaryBtnText" data-edit-label="Tlačítko banneru">{ctaBanner.primaryBtnText}</span>
@@ -451,7 +455,7 @@ const themePresets: Record<string, {
         {ctaBanner.secondaryBtnText && (
           <a
             href={ctaBanner.secondaryBtnLink || "/#kontakt"}
-            class="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl font-heading font-bold text-sm text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-colors"
+            class="inline-flex items-center justify-center gap-2 py-3.5 px-5 sm:px-6 rounded-2xl font-heading font-bold text-xs sm:text-sm text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-colors w-full sm:w-auto text-center min-w-0"
             data-tina-field={tinaField(ctaBanner, 'secondaryBtnText')}
           >
             <span data-edit-key="cenik.ctaBanner.secondaryBtnText" data-edit-label="Sekundární tlačítko">{ctaBanner.secondaryBtnText}</span>
