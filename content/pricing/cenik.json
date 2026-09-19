@@ -141,11 +141,11 @@
         "bestValue": false
       },
       {
-        "weeks": 12,
-        "label": "3 měsíce",
-        "periodDesc": "12 týdnů (čtvrtletí)",
-        "badge": "280 Kč / h (3 360 Kč)",
-        "baseDiscount": 12.5,
+        "weeks": 10,
+        "label": "čtvrtletí",
+        "periodDesc": "10 týdnů (čtvrtletí)",
+        "badge": "290 Kč / h (3 360 Kč)",
+        "baseDiscount": 10,
         "popular": false,
         "bestValue": false
       },
