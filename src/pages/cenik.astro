@@ -16,10 +16,9 @@ const page = await getHomePageData();
 const navbar = page?.navbar || {};
 const footer = page?.footer || {};
 const contact = page?.contact || {};
-const calculator = page?.pricing?.calculator || {};
-
 const cenikQuery = await getPricingPageDataQuery();
 const cenik = (cenikQuery.data as any)?.cenik || {};
+const calculator = cenik?.calculator || page?.pricing?.calculator || {};
 
 const seoTitle = cenik?.seo?.metaTitle || cenik?.title || "Podrobný ceník výuky angličtiny, balíčky slev & kalkulátor | VALEK ACADEMY Uherské Hradiště";
 const seoDesc = cenik?.seo?.metaDescription || cenik?.header?.subtitle || "Kompletní ceník kurzů angličtiny pro děti i dospělé v Uherském Hradišti. 1. ukázková lekce 100% ZDARMA, slevy až 30 % za balíčky a frekvenci. Žádné platby předem.";

@@ -182,6 +182,28 @@ const calculatorField: any = {
     { type: "string", name: "fullPricingBtnText", label: "Spodní odkaz na ceník - text tlačítka" },
     { type: "string", name: "fullPricingBtnNote", label: "Spodní odkaz na ceník - popisek pod tlačítkem", ui: { component: "textarea" } },
     { type: "string", name: "fullPricingBtnLink", label: "Spodní odkaz na ceník - odkaz" },
+
+    // Režimy přepínače výuky
+    { type: "string", name: "modeKidsLabel", label: "Přepínač: Režim 1 – Název (např. Děti (1.–6. třída))" },
+    { type: "string", name: "modeKidsBadge", label: "Přepínač: Režim 1 – Čas (např. 60 min)" },
+    { type: "string", name: "modeTeensLabel", label: "Přepínač: Režim 2 – Název (např. SŠ & dospělí)" },
+    { type: "string", name: "modeTeensBadge", label: "Přepínač: Režim 2 – Čas (např. 90 min)" },
+
+    // Vysvětlující poznámky pod výběrem
+    { type: "string", name: "noteKids", label: "Vysvětlující poznámka pro ZŠ (pod výběrem)", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i>", ui: { component: "textarea" } },
+    { type: "string", name: "noteTeens", label: "Vysvětlující poznámka pro SŠ & dospělé (pod výběrem)", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i>", ui: { component: "textarea" } },
+
+    // Popisky výsledkové karty
+    { type: "string", name: "targetGroupLabel", label: "Karta výsledku: Popisek cílové skupiny (např. Cílová skupina:)" },
+    { type: "string", name: "periodLabel", label: "Karta výsledku: Popisek délky období (např. Délka období:)" },
+    { type: "string", name: "frequencyLabel", label: "Karta výsledku: Popisek frekvence (např. Frekvence:)" },
+    { type: "string", name: "totalLessonsLabel", label: "Karta výsledku: Popisek celkem lekcí (např. Celkem lekcí v balíčku:)" },
+    { type: "string", name: "unitPriceLabel", label: "Karta výsledku: Popisek ceny za lekci (např. Přepočtená cena za lekci:)" },
+    { type: "string", name: "standardPriceLabel", label: "Karta výsledku: Popisek běžné ceny (např. Běžná základní cena:)" },
+    { type: "string", name: "youSaveLabel", label: "Karta výsledku: Popisek úspory (např. Ušetříte)" },
+    { type: "string", name: "perLessonSuffix", label: "Karta výsledku: Přípona jednotky (např. / lekce)" },
+    { type: "string", name: "totalPriceLabel", label: "Karta výsledku: Hlavní nadpis ceny (např. Celková cena balíčku)" },
+    { type: "string", name: "whatsappBtnText", label: "Karta výsledku: Text WhatsApp tlačítka (např. Odeslat tuto kalkulaci přímo na WhatsApp)" },
     {
       type: "object",
       name: "durations",
