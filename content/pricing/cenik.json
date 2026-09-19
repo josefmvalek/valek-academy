@@ -169,8 +169,8 @@
         "weeks": 20,
         "label": "Pololetí",
         "periodDesc": "20 týdnů",
-        "badge": "288 Kč / 60 min.",
-        "baseDiscount": 10,
+        "badge": "272 Kč / 60 min.",
+        "baseDiscount": 15,
         "popular": true,
         "bestValue": false
       },
@@ -178,8 +178,8 @@
         "weeks": 40,
         "label": "Celý rok",
         "periodDesc": "40 týdnů (školní rok)",
-        "badge": "265 Kč / h (10 600 Kč)",
-        "baseDiscount": 20,
+        "badge": "272 Kč / 60 min.",
+        "baseDiscount": 15,
         "popular": false,
         "bestValue": true
       }
