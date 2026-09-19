@@ -188,8 +188,8 @@
       {
         "freq": 3,
         "label": "3× týdně",
-        "desc": "Intenzivní příprava & testy",
-        "bonus": 9,
+        "desc": "Intenzivní (bonus sleva 10%)",
+        "bonus": 10,
         "badge": "Max. intenzita",
         "recommended": false
       }
