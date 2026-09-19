@@ -41,6 +41,8 @@ let subpageName = "";
 if (pathname === '/cenik') subpageName = "Podrobný ceník & kalkulátor slev";
 else if (pathname === '/rozvrh') subpageName = "Rozvrh hodin & rezervace skupinky";
 else if (pathname === '/galerie') subpageName = "Fotogalerie doučovny a her";
+else if (pathname === '/blog') subpageName = "Rádce pro rodiče & Tipy z doučovny";
+else if (pathname.startsWith('/blog/')) subpageName = title.split('|')[0].trim();
 else if (pathname === '/obchodni-podminky') subpageName = "Všeobecné obchodní podmínky";
 else if (pathname === '/ochrana-osobnich-udaju') subpageName = "Ochrana osobních údajů";
 
@@ -126,6 +128,32 @@ const schemaGraph: any = {
           "priceCurrency": "CZK",
           "category": "Doučování angličtiny pro žáky ZŠ",
           "availability": "https://schema.org/InStock"
+        }
+      }
+    ] : []),
+    ...(pathname.startsWith('/blog/') && !noindex ? [
+      {
+        "@type": "BlogPosting",
+        "@id": `${canonical}#article`,
+        "headline": title.split('|')[0].trim(),
+        "description": description,
+        "image": normalizedOgImage,
+        "author": {
+          "@type": "Person",
+          "name": "Josef Válek",
+          "url": "https://valekacademy.cz/#o-mne"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "VALEK ACADEMY",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://valekacademy.cz/images/valek-academy-logo.webp"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": canonical
         }
       }
     ] : []),

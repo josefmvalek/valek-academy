@@ -6,12 +6,29 @@ import termsContent from '../../content/legal/terms.json';
 import galleryContent from '../../content/gallery/gallery.json';
 import cenikContent from '../../content/pricing/cenik.json';
 import rozvrhContent from '../../content/schedule/rozvrh.json';
+import blog1 from '../../content/blog/proc-deskovky-funguji.json';
+import blog2 from '../../content/blog/deskovky-na-doma.json';
+import blog3 from '../../content/blog/strach-z-mluveni.json';
+import blog4 from '../../content/blog/prijimacky-anglictina-uh.json';
 
 export type PageData = typeof homeContent;
 export type LegalData = typeof privacyContent;
 export type GalleryData = typeof galleryContent;
 export type CenikData = typeof cenikContent;
 export type SchedulePageData = typeof rozvrhContent;
+export type BlogPost = typeof blog1;
+
+export const defaultBlogPosts: BlogPost[] = [blog4, blog3, blog2, blog1];
+
+export function getBlogPosts(): BlogPost[] {
+  return defaultBlogPosts;
+}
+
+export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  return defaultBlogPosts.find(
+    (p) => p.slug === slug || p.slug === slug.replace(/\.json$/, '')
+  );
+}
 
 /**
  * Načte data domovské stránky pomocí Tina clienta zabaleného do requestWithMetadata.

@@ -1592,6 +1592,119 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: "blog",
+        label: "📚 Rádce pro rodiče & Tipy (/blog)",
+        path: "content/blog",
+        format: "json",
+        ui: {
+          router: ({ document }) => {
+            return `/blog/${document._sys.filename}`;
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Název článku",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "string",
+            name: "slug",
+            label: "URL identifikátor (např. proc-deskovky-funguji)",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "date",
+            label: "Datum vydání (YYYY-MM-DD)",
+          },
+          {
+            type: "string",
+            name: "category",
+            label: "Kategorie článku",
+            options: [
+              "Deskovky & Hry",
+              "Tipy pro rodiče",
+              "Psychologie & Tréma",
+              "Přijímačky & SŠ",
+            ],
+          },
+          {
+            type: "string",
+            name: "categoryIcon",
+            label: "Ikona kategorie (např. 🎲, 🏠, 💡, 🎓)",
+          },
+          {
+            type: "string",
+            name: "readTime",
+            label: "Doba čtení (např. 4 minuty čtení)",
+          },
+          {
+            type: "string",
+            name: "author",
+            label: "Autor článku",
+          },
+          {
+            type: "string",
+            name: "authorRole",
+            label: "Role autora",
+          },
+          {
+            type: "image",
+            name: "authorAvatar",
+            label: "Profilová fotka autora",
+          },
+          {
+            type: "image",
+            name: "coverImage",
+            label: "Hlavní úvodní fotka článku",
+          },
+          {
+            type: "string",
+            name: "summary",
+            label: "Krátká anotace (úryvek pro náhledy)",
+            ui: { component: "textarea" },
+          },
+          {
+            type: "string",
+            name: "content",
+            label: "Hlavní text článku (podporuje odstavce, odrážky, tučné písmo)",
+            ui: { component: "textarea" },
+          },
+          {
+            type: "object",
+            name: "tutorTip",
+            label: "💡 Zvýrazněný tip lektora (pan Válek)",
+            fields: [
+              { type: "string", name: "title", label: "Nadpis tipu" },
+              { type: "string", name: "text", label: "Text tipu", ui: { component: "textarea" } },
+            ],
+          },
+          {
+            type: "string",
+            name: "ctaTitle",
+            label: "Spodní CTA – Nadpis výzvy k akci",
+          },
+          {
+            type: "string",
+            name: "ctaText",
+            label: "Spodní CTA – Text výzvy k akci",
+          },
+          {
+            type: "object",
+            name: "seo",
+            label: "🔍 SEO Nastavení článku",
+            fields: [
+              { type: "string", name: "metaTitle", label: "SEO Titulek (<title>)" },
+              { type: "string", name: "metaDescription", label: "SEO Popis pro vyhledávače", ui: { component: "textarea" } },
+              { type: "image", name: "ogImage", label: "Sociální sítě / OpenGraph obrázek" },
+            ],
+          },
+        ],
+      },
     ],
   },
 });

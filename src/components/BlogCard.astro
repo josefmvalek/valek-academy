@@ -1,0 +1,83 @@
+---
+import type { BlogPost } from '../lib/data';
+
+interface Props {
+  post: BlogPost;
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+
+const href = `/blog/${post.slug}`;
+const coverImage = post.coverImage || '/images/doucovna-hry.webp';
+const category = post.category || 'Deskovky & Hry';
+const categoryIcon = post.categoryIcon || '🎲';
+const readTime = post.readTime || '4 minuty čtení';
+const author = post.author || 'Josef Válek';
+const authorRole = post.authorRole || 'Lektor angličtiny, otec 5 dětí';
+const authorAvatar = post.authorAvatar || '/images/josef-valek-thumb.webp';
+---
+
+<article class={`group bg-white rounded-card-lg border-2 border-parchment-300 hover:border-amber-400 shadow-card hover:shadow-card-lift transition-all duration-300 flex flex-col justify-between overflow-hidden ${featured ? 'md:col-span-2 md:grid md:grid-cols-2 md:gap-6' : ''}`}>
+  <!-- Cover Image Container with subtle hover zoom -->
+  <div class="relative aspect-[16/10] overflow-hidden bg-stone-100 border-b border-parchment-200">
+    <a href={href} class="block w-full h-full">
+      <img
+        src={coverImage}
+        alt={post.title}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+      />
+    </a>
+    <div class="absolute top-3 left-3 flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-white/95 text-espresso-950 border border-amber-300/80 shadow-2xs backdrop-blur-xs">
+        <span>{categoryIcon}</span>
+        <span>{category}</span>
+      </span>
+    </div>
+    <div class="absolute bottom-3 right-3">
+      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-card-sm text-[11px] font-bold bg-espresso-950/80 text-white backdrop-blur-xs shadow-2xs">
+        {readTime}
+      </span>
+    </div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="p-5 sm:p-6 flex flex-col justify-between flex-grow space-y-4">
+    <div class="space-y-2.5">
+      <h3 class="font-heading font-black text-lg sm:text-xl text-espresso-950 group-hover:text-amber-700 transition-colors leading-snug">
+        <a href={href} class="hover:underline">
+          {post.title}
+        </a>
+      </h3>
+
+      <p class="text-sm text-espresso-800/85 line-clamp-3 leading-relaxed font-normal">
+        {post.summary}
+      </p>
+    </div>
+
+    <!-- Card Footer: Author & Read Link -->
+    <div class="pt-4 border-t border-parchment-200 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <img
+          src={authorAvatar}
+          alt={author}
+          class="w-8 h-8 rounded-full border border-amber-300 object-cover flex-shrink-0"
+        />
+        <div class="min-w-0">
+          <span class="block text-xs font-black text-espresso-950 truncate">{author}</span>
+          <span class="block text-[10px] text-stone-500 truncate">{authorRole}</span>
+        </div>
+      </div>
+
+      <a
+        href={href}
+        class="inline-flex items-center gap-1 text-xs font-heading font-black text-amber-900 group-hover:text-amber-700 transition-colors whitespace-nowrap flex-shrink-0"
+      >
+        <span>Číst</span>
+        <span class="group-hover:translate-x-1 transition-transform">→</span>
+      </a>
+    </div>
+  </div>
+</article>

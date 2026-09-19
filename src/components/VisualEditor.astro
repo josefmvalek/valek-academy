@@ -716,6 +716,14 @@
     if (key.startsWith('legal.')) {
       return pathname.includes('obchodni-podminky') ? 'terms.json' : 'privacy.json';
     }
+    // Blog articles (content/blog/<slug>.json)
+    if (key.startsWith('blog.')) {
+      const parts = key.split('.');
+      const slug = parts[1];
+      if (slug) {
+        return `blog/${slug}.json`;
+      }
+    }
     // All other components (navbar, footer, contact, hero, about, audience, scio, howItWorks, timeline, location, groupMatcher, faq, pricing, comparison, testimonials, stickyCta, whatsappWidget) belong to pages/home.json
     return 'home.json';
   }

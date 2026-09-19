@@ -31,7 +31,23 @@ export const POST: APIRoute = async ({ request }) => {
       'obchodni-podminky.json': path.join(process.cwd(), 'content', 'legal', 'terms.json'),
     };
 
-    const filePath = fileMap[targetFileName] || fileMap['home.json'];
+    let filePath = fileMap[targetFileName];
+    if (!filePath && targetFileName.startsWith('blog/')) {
+      filePath = path.join(process.cwd(), 'content', targetFileName);
+    }
+    if (!filePath) {
+      filePath = fileMap['home.json'];
+    }
+
+    // If target is a blog article and payload contains blog.<slug> namespace, unwrap it
+    if (targetFileName.startsWith('blog/') && payload.blog && typeof payload.blog === 'object') {
+      const slug = targetFileName.replace(/^blog\//, '').replace(/\.json$/, '');
+      if (slug && payload.blog[slug]) {
+        const blogData = payload.blog[slug];
+        delete payload.blog;
+        Object.assign(payload, blogData);
+      }
+    }
 
     // If target is gallery.json and payload contains gallery namespace, unwrap it
     if (targetFileName === 'gallery.json' && payload.gallery && typeof payload.gallery === 'object') {

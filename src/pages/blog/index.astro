@@ -1,0 +1,192 @@
+---
+export const prerender = true;
+
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import WhatsAppFloating from '../../components/WhatsAppFloating.astro';
+import MobileStickyCTA from '../../components/MobileStickyCTA.astro';
+import VisualEditor from '../../components/VisualEditor.astro';
+import { getHomePageData, getBlogPosts } from '../../lib/data';
+
+const page = await getHomePageData();
+const navbar = page?.navbar || {};
+const footer = page?.footer || {};
+const contact = page?.contact || {};
+const stickyCta = page?.stickyCta || {};
+const whatsappWidget = page?.whatsappWidget || {};
+
+const posts = getBlogPosts();
+
+const seoTitle = "Rádce pro rodiče & Tipy lektora | VALEK ACADEMY Uherské Hradiště";
+const seoDesc = "Praktické rady lektora Josefa Válka: Jak zbavit děti strachu z mluvení, tipy na anglické deskovky na doma a příprava na přijímačky v Uherském Hradišti bez stresu.";
+const canonical = "https://valekacademy.cz/blog";
+
+const categories = [
+  { id: "all", label: "Všechny články", icon: "🌟" },
+  { id: "Deskovky & Hry", label: "Deskovky & Hry", icon: "🎲" },
+  { id: "Tipy pro rodiče", label: "Tipy pro rodiče", icon: "🏠" },
+  { id: "Psychologie & Tréma", label: "Psychologie & Tréma", icon: "💡" },
+  { id: "Přijímačky & SŠ", label: "Přijímačky & SŠ", icon: "🎓" }
+];
+---
+
+<Layout
+  title={seoTitle}
+  description={seoDesc}
+  canonical={canonical}
+>
+  <Navbar
+    navbar={navbar}
+    contact={contact}
+    phone={contact.phone}
+    phoneFormatted={contact.phoneFormatted}
+  />
+
+  <main class="flex-grow w-full max-w-full min-w-0 bg-gradient-to-b from-[#FAF7F2] via-[#FFFDF9] to-[#FAF7F2] py-8 sm:py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumbs -->
+      <nav aria-label="Drobečková navigace" class="mb-6">
+        <ol class="flex items-center gap-2 text-xs font-bold text-stone-500">
+          <li>
+            <a href="/" class="hover:text-amber-800 transition-colors flex items-center gap-1">
+              <span>🏠</span> <span>Domů</span>
+            </a>
+          </li>
+          <li><span>/</span></li>
+          <li class="text-espresso-950 font-black" aria-current="page">
+            Rádce pro rodiče & Tipy
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Header Section -->
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-10 sm:mb-14">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+          <span>📚 Rádce pro rodiče & Tipy z doučovny</span>
+        </div>
+
+        <h1 class="font-academy font-black text-3xl sm:text-4xl lg:text-5xl text-espresso-950 tracking-tight leading-tight">
+          Jak na angličtinu hrou: <span class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 bg-clip-text text-transparent">Rady a postřehy lektora</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-espresso-800/85 leading-relaxed font-normal max-w-2xl mx-auto">
+          Praktické tipy od otce 5 dětí a rodilého mluvčího z Melbourne. Zjistěte, proč deskovky děti okamžitě rozmluví, jak překonat strach ze známkování a jak se v klidu připravit na přijímačky.
+        </p>
+
+        <!-- Category Filter Pills -->
+        <div class="flex flex-wrap items-center justify-center gap-2 pt-4" id="blog-category-filters">
+          {categories.map((cat, idx) => (
+            <button
+              type="button"
+              data-cat={cat.id}
+              class={`blog-filter-btn px-4 py-2 rounded-full text-xs font-black transition-all cursor-pointer border ${idx === 0 ? 'bg-espresso-950 text-amber-300 border-espresso-950 shadow-2xs' : 'bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50'}`}
+            >
+              <span class="mr-1">{cat.icon}</span> {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 mb-16" id="blog-grid">
+        {posts.map((post) => (
+          <div class="blog-item-wrapper" data-category={post.category}>
+            <BlogCard post={post} />
+          </div>
+        ))}
+      </div>
+
+      <!-- Bottom Free Lesson CTA Callout -->
+      <div class="rounded-3xl bg-gradient-to-br from-espresso-950 via-espresso-900 to-stone-900 text-white p-8 sm:p-12 border-2 border-amber-400/60 shadow-2xl relative overflow-hidden text-center space-y-6">
+        <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-2xl mx-auto space-y-4">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black uppercase tracking-wider">
+            🎁 1. ukázková lekce je 100% zdarma
+          </span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-white tracking-tight">
+            Chcete vidět, jak výuka hrou funguje u vašeho dítěte?
+          </h2>
+          <p class="text-sm sm:text-base text-stone-300 leading-relaxed font-normal">
+            Přijďte se do naší doučovny v Uherském Hradišti podívat. Dítě si zahraje deskovku v partě 4–8 dětí a sami uvidíte, s jakou radostí bude odcházet.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/rozvrh"
+              class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-espresso-950 font-heading font-black text-sm sm:text-base shadow-soft hover:shadow-card-lift transition-all duration-300 cursor-pointer hover:scale-105"
+            >
+              📅 Vybrat skupinku v rozvrhu →
+            </a>
+            <a
+              href="/#o-mne"
+              class="px-6 py-3.5 rounded-2xl bg-stone-800/90 hover:bg-stone-800 text-white border border-stone-700 font-bold text-sm sm:text-base transition-colors"
+            >
+              Více o panu Válkovi
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  {stickyCta.enabled !== false && (
+    <MobileStickyCTA
+      ctaLink="/rozvrh#kontakt"
+      ctaText={stickyCta.text || "🎁 1. lekce 100% ZDARMA"}
+      stickyCta={stickyCta}
+    />
+  )}
+
+  {whatsappWidget.enabled !== false && (
+    <WhatsAppFloating
+      phone={whatsappWidget.phone || contact.phone?.replace('+', '')}
+      message={whatsappWidget.message || "Dobrý den pane Válku, čtu váš blog a rád/a bych se zeptal/a na ukázkovou lekci zdarma."}
+      tooltipText={whatsappWidget.tooltipText || contact.whatsappText}
+      badgeNotificationText={whatsappWidget.badgeNotificationText}
+      contact={contact}
+      whatsappWidget={whatsappWidget}
+    />
+  )}
+
+  <Footer
+    footer={footer}
+    contact={contact}
+    email={contact.email}
+    phone={contact.phone}
+    phoneFormatted={contact.phoneFormatted}
+  />
+
+  {import.meta.env.DEV && <VisualEditor />}
+
+  <!-- Category filtering script -->
+  <script>
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>('.blog-filter-btn');
+    const items = document.querySelectorAll<HTMLElement>('.blog-item-wrapper');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const cat = btn.getAttribute('data-cat') || 'all';
+
+        filterBtns.forEach((b) => {
+          b.classList.remove('bg-espresso-950', 'text-amber-300', 'border-espresso-950', 'shadow-2xs');
+          b.classList.add('bg-white', 'text-espresso-900', 'border-parchment-300');
+        });
+        btn.classList.add('bg-espresso-950', 'text-amber-300', 'border-espresso-950', 'shadow-2xs');
+        btn.classList.remove('bg-white', 'text-espresso-900', 'border-parchment-300');
+
+        items.forEach((item) => {
+          const itemCat = item.getAttribute('data-category') || '';
+          if (cat === 'all' || itemCat === cat) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</Layout>

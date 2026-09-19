@@ -11,6 +11,7 @@ import About from './About.astro';
 import GroupMatcher from './GroupMatcher.astro';
 import Testimonials from './Testimonials.astro';
 import ScioSection from './ScioSection.astro';
+import BlogPreviewSection from './BlogPreviewSection.astro';
 import FAQ from './FAQ.astro';
 import Contact from './Contact.astro';
 import Footer from './Footer.astro';
@@ -34,6 +35,7 @@ const howItWorks = page.howItWorks || {};
 const timeline = page.timeline || {};
 const groupMatcher = page.groupMatcher || {};
 const scio = page.scio || {};
+const blogPreview = page.blogPreview || {};
 const locationInfo = page.location || {};
 const faq = page.faq || {};
 const contact = page.contact || {};
@@ -85,7 +87,10 @@ const footer = page.footer || {};
   <!-- 9. SCIO Prep (Disabled by default, toggleable in CMS) -->
   {scio.enabled === true && <ScioSection scio={scio} />}
 
-  <!-- 10. Answers & Overcoming Objections: Semantic FAQ Accordion -->
+  <!-- 10. Educational Blog / Rádce pro rodiče -->
+  {blogPreview.enabled !== false && <BlogPreviewSection preview={blogPreview} />}
+
+  <!-- 11. Answers & Overcoming Objections: Semantic FAQ Accordion -->
   {faq.enabled !== false && <FAQ faq={faq} />}
 
   <!-- 11. Primary Conversion: Reservation form & Location Details -->

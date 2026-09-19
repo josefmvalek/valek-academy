@@ -1,0 +1,78 @@
+---
+import BlogCard from './BlogCard.astro';
+import { getBlogPosts } from '../lib/data';
+import { formatRichText } from '../lib/richText';
+
+interface Props {
+  preview?: {
+    enabled?: boolean;
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    moreLinkText?: string;
+    [key: string]: any;
+  };
+}
+
+const { preview = {} } = Astro.props;
+
+if (preview.enabled === false) {
+  // Can be disabled from CMS
+}
+
+const badge = preview.badge || "📚 RÁDCE PRO RODIČE & TIPY Z DOUČOVNY";
+const title = preview.title || "Jak na angličtinu hrou: Rady, hry a postřehy lektora";
+const subtitle = preview.subtitle || "Odbourání strachu z mluvení, deskovky na doma a klidná příprava na přijímačky. Tipy od otce 5 dětí a rodilého mluvčího z Melbourne.";
+const moreLinkText = preview.moreLinkText || "Zobrazit všechny články a tipy pro rodiče →";
+
+const allPosts = getBlogPosts();
+const recentPosts = allPosts.slice(0, 3);
+---
+
+<section id="radce" class="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#FFFDF9] via-[#FAF7F2] to-[#FFFDF9] border-t border-parchment-300 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Header -->
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-10 sm:mb-14">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-xs font-black uppercase tracking-wider text-amber-950 shadow-2xs">
+        <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+        <span data-edit-key="blogPreview.badge" data-edit-label="Štítek rádce">{badge}</span>
+      </div>
+
+      <h2
+        class="font-heading font-black text-fluid-h2 text-espresso-950 tracking-tight leading-tight"
+        data-edit-key="blogPreview.title"
+        data-edit-label="Nadpis rádce"
+        set:html={formatRichText(title)}
+      >
+      </h2>
+
+      <p
+        class="text-espresso-800/85 text-fluid-body max-w-2xl mx-auto font-normal leading-relaxed"
+        data-edit-key="blogPreview.subtitle"
+        data-edit-label="Podnadpis rádce"
+        set:html={formatRichText(subtitle)}
+      >
+      </p>
+    </div>
+
+    <!-- 3 Cards Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-10">
+      {recentPosts.map((post) => (
+        <BlogCard post={post} />
+      ))}
+    </div>
+
+    <!-- Bottom Hub Link CTA -->
+    <div class="text-center pt-2">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-espresso-950 hover:bg-espresso-900 text-amber-300 hover:text-amber-200 border-2 border-amber-400 font-heading font-black text-sm sm:text-base shadow-soft hover:shadow-card-lift transition-all duration-300 cursor-pointer hover:scale-[1.02] active:scale-[0.98] group"
+        data-edit-key="blogPreview.moreLinkText"
+        data-edit-label="Odkaz na všechny články"
+      >
+        <span>{moreLinkText}</span>
+        <span class="group-hover:translate-x-1.5 transition-transform text-amber-400">→</span>
+      </a>
+    </div>
+  </div>
+</section>

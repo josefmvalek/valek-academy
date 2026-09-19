@@ -1,0 +1,264 @@
+---
+export const prerender = true;
+
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import WhatsAppFloating from '../../components/WhatsAppFloating.astro';
+import MobileStickyCTA from '../../components/MobileStickyCTA.astro';
+import VisualEditor from '../../components/VisualEditor.astro';
+import { getHomePageData, getBlogPosts, getBlogPostBySlug } from '../../lib/data';
+import { formatRichText } from '../../lib/richText';
+
+export async function getStaticPaths() {
+  const posts = getBlogPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { slug } = Astro.params;
+const { post: passedPost } = Astro.props;
+const post = passedPost || getBlogPostBySlug(slug as string);
+
+if (!post) {
+  return Astro.redirect('/blog');
+}
+
+const page = await getHomePageData();
+const navbar = page?.navbar || {};
+const footer = page?.footer || {};
+const contact = page?.contact || {};
+const stickyCta = page?.stickyCta || {};
+const whatsappWidget = page?.whatsappWidget || {};
+
+const allPosts = getBlogPosts();
+const otherPosts = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+
+const seoTitle = post.seo?.metaTitle || `${post.title} | VALEK ACADEMY`;
+const seoDesc = post.seo?.metaDescription || post.summary;
+const ogImage = post.seo?.ogImage || post.coverImage || '/images/doucovna-hry.webp';
+const canonical = `https://valekacademy.cz/blog/${post.slug}`;
+
+// Helper to format content with headings and bullet points
+function renderArticleContent(rawContent?: string) {
+  if (!rawContent) return '';
+  
+  let formatted = rawContent;
+  
+  // Format Markdown headings ### Heading into stylish h3
+  formatted = formatted.replace(/^###\s+(.+)$/gm, '<h3 class="font-heading font-black text-xl sm:text-2xl text-espresso-950 tracking-tight mt-8 mb-4 pt-2 border-t border-parchment-200">$1</h3>');
+  
+  // Format bullet lines starting with • into clean list items
+  formatted = formatted.replace(/^•\s+(.+)$/gm, '<li class="ml-4 pl-2 my-1 text-espresso-900/90 leading-relaxed font-normal list-disc">$1</li>');
+  
+  // Pass through formatRichText for bold, italics, paragraphs and line breaks
+  return formatRichText(formatted);
+}
+---
+
+<Layout
+  title={seoTitle}
+  description={seoDesc}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Navbar
+    navbar={navbar}
+    contact={contact}
+    phone={contact.phone}
+    phoneFormatted={contact.phoneFormatted}
+  />
+
+  <main class="flex-grow w-full max-w-full min-w-0 bg-gradient-to-b from-[#FAF7F2] via-[#FFFDF9] to-[#FAF7F2] py-8 sm:py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumbs -->
+      <nav aria-label="Drobečková navigace" class="mb-6">
+        <ol class="flex items-center gap-2 text-xs font-bold text-stone-500 flex-wrap">
+          <li>
+            <a href="/" class="hover:text-amber-800 transition-colors flex items-center gap-1">
+              <span>🏠</span> <span>Domů</span>
+            </a>
+          </li>
+          <li><span>/</span></li>
+          <li>
+            <a href="/blog" class="hover:text-amber-800 transition-colors">
+              Rádce pro rodiče
+            </a>
+          </li>
+          <li><span>/</span></li>
+          <li class="text-espresso-950 font-black truncate max-w-xs sm:max-w-md" aria-current="page">
+            {post.title}
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Article Header Card -->
+      <article class="bg-white rounded-3xl p-6 sm:p-10 border-2 border-parchment-300 shadow-soft-lg space-y-8 mb-12">
+        
+        <!-- Category & Read Time Pills -->
+        <div class="flex items-center justify-between gap-3 flex-wrap border-b border-parchment-200 pb-4">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-amber-100 text-amber-950 border border-amber-300 shadow-2xs">
+            <span>{post.categoryIcon || '🎲'}</span>
+            <span data-edit-key={`blog.${post.slug}.category`}>{post.category}</span>
+          </span>
+
+          <div class="flex items-center gap-3 text-xs text-stone-500 font-bold">
+            <span data-edit-key={`blog.${post.slug}.readTime`}>⏱️ {post.readTime}</span>
+            <span>•</span>
+            <span>📍 Doučovna Uh. Hradiště</span>
+          </div>
+        </div>
+
+        <!-- Main Heading -->
+        <h1
+          class="font-academy font-black text-2xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight leading-tight"
+          data-edit-key={`blog.${post.slug}.title`}
+          data-edit-label="Název článku"
+        >
+          {post.title}
+        </h1>
+
+        <!-- Author Bar -->
+        <div class="flex items-center gap-3.5 pt-1 pb-4 border-b border-parchment-200">
+          <img
+            src={post.authorAvatar || '/images/josef-valek-thumb.webp'}
+            alt={post.author || 'Josef Válek'}
+            class="w-12 h-12 rounded-full border-2 border-amber-400 object-cover shadow-2xs flex-shrink-0"
+          />
+          <div class="min-w-0">
+            <div class="font-heading font-black text-sm sm:text-base text-espresso-950">
+              {post.author || 'Josef Válek'}
+            </div>
+            <div class="text-xs text-stone-500 font-medium">
+              {post.authorRole || 'Lektor angličtiny, otec 5 dětí, BBA Melbourne'}
+            </div>
+          </div>
+        </div>
+
+        <!-- Cover Image -->
+        {post.coverImage && (
+          <div class="rounded-2xl overflow-hidden aspect-[16/9] bg-stone-100 border border-parchment-300 shadow-xs relative">
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              class="w-full h-full object-cover object-center"
+            />
+          </div>
+        )}
+
+        <!-- Summary Perex -->
+        {post.summary && (
+          <div class="p-5 sm:p-6 rounded-2xl bg-amber-50/80 border-l-4 border-amber-500 border-t border-r border-b border-amber-200 text-espresso-950 text-base sm:text-lg font-medium leading-relaxed italic">
+            <span data-edit-key={`blog.${post.slug}.summary`} data-edit-label="Anotace článku">
+              {post.summary}
+            </span>
+          </div>
+        )}
+
+        <!-- Main Body Content -->
+        <div
+          class="prose prose-stone max-w-none text-espresso-900/90 text-fluid-body leading-relaxed space-y-4 font-normal"
+          data-edit-key={`blog.${post.slug}.content`}
+          data-edit-label="Text článku"
+          set:html={renderArticleContent(post.content)}
+        >
+        </div>
+
+        <!-- Tutor Tip Highlight Callout -->
+        {post.tutorTip && (
+          <div class="my-8 p-6 rounded-2xl bg-gradient-to-br from-amber-100/90 via-amber-50/80 to-parchment-100 border-2 border-amber-400/90 shadow-sm space-y-2">
+            <div class="flex items-center gap-2 text-amber-950 font-heading font-black text-base sm:text-lg">
+              <span>💡</span>
+              <span data-edit-key={`blog.${post.slug}.tutorTip.title`}>{post.tutorTip.title}</span>
+            </div>
+            <p
+              class="text-xs sm:text-sm text-espresso-950/90 leading-relaxed font-normal"
+              data-edit-key={`blog.${post.slug}.tutorTip.text`}
+              set:html={formatRichText(post.tutorTip.text)}
+            >
+            </p>
+          </div>
+        )}
+
+        <!-- End of Article Conversion Card -->
+        <div class="mt-10 p-6 sm:p-8 rounded-2xl bg-espresso-950 text-white border-2 border-amber-400 shadow-xl space-y-4 text-center sm:text-left sm:flex sm:items-center sm:justify-between sm:gap-6">
+          <div class="space-y-2 max-w-lg">
+            <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black uppercase tracking-wider">
+              🎁 1. lekce 100% ZDARMA
+            </span>
+            <h3 class="font-heading font-black text-lg sm:text-xl text-white">
+              {post.ctaTitle || "Chcete, aby angličtina vaše dítě bavila?"}
+            </h3>
+            <p class="text-xs sm:text-sm text-stone-300 font-normal leading-relaxed">
+              {post.ctaText || "Přijďte si do naší doučovny v Uherském Hradišti vyzkoušet deskovky naživo. 1. ukázková lekce je nezávazná a zcela zdarma."}
+            </p>
+          </div>
+
+          <a
+            href="/rozvrh"
+            class="inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-espresso-950 font-heading font-black text-xs sm:text-sm shadow-soft hover:shadow-card-lift transition-transform hover:scale-105 whitespace-nowrap flex-shrink-0 cursor-pointer"
+          >
+            Rezervovat lekci →
+          </a>
+        </div>
+
+      </article>
+
+      <!-- Back to All Articles & Related Posts -->
+      <div class="space-y-6">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <h2 class="font-heading font-black text-xl sm:text-2xl text-espresso-950 tracking-tight">
+            Další články a tipy lektora
+          </h2>
+          <a
+            href="/blog"
+            class="text-xs font-black text-amber-900 hover:text-amber-700 transition-colors flex items-center gap-1"
+          >
+            <span>Zobrazit všech 4 článků</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-6">
+          {otherPosts.map((other) => (
+            <BlogCard post={other} />
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  {stickyCta.enabled !== false && (
+    <MobileStickyCTA
+      ctaLink="/rozvrh#kontakt"
+      ctaText={stickyCta.text || "🎁 1. lekce 100% ZDARMA"}
+      stickyCta={stickyCta}
+    />
+  )}
+
+  {whatsappWidget.enabled !== false && (
+    <WhatsAppFloating
+      phone={whatsappWidget.phone || contact.phone?.replace('+', '')}
+      message={whatsappWidget.message || `Dobrý den pane Válku, čtu váš článek "${post.title}" a rád/a bych se zeptal/a na volná místa ve skupince na 1. lekci zdarma.`}
+      tooltipText={whatsappWidget.tooltipText || contact.whatsappText}
+      badgeNotificationText={whatsappWidget.badgeNotificationText}
+      contact={contact}
+      whatsappWidget={whatsappWidget}
+    />
+  )}
+
+  <Footer
+    footer={footer}
+    contact={contact}
+    email={contact.email}
+    phone={contact.phone}
+    phoneFormatted={contact.phoneFormatted}
+  />
+
+  {import.meta.env.DEV && <VisualEditor />}
+</Layout>
