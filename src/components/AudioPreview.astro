@@ -24,33 +24,33 @@ interface Props {
 
 const { className = "", audio = {}, card = {} } = Astro.props;
 
-const title = audio.title || "Ukázka výslovnosti (přirozená rodilá angličtina)";
-const subtitlePrompt = audio.subtitlePrompt || "Klikněte pro přehrání";
+const title = audio.title || "Ukázka rodilé výslovnosti";
+const subtitlePrompt = audio.subtitlePrompt || "Poslechněte si ukázku";
 
 const defaultPhrases: Phrase[] = [
   {
     id: "gday",
-    buttonLabel: "🦘 „G'day mate!“",
-    short: "G'day mate! I'm Mr. Valek.",
-    en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
-    cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
-    duration: 10
+    buttonLabel: "👋 „Welcome!“",
+    short: "Welcome to Valek Academy!",
+    en: "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
+    cz: "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!",
+    duration: 6
   },
   {
     id: "dice",
-    buttonLabel: "🎲 „Let's roll the dice!“",
+    buttonLabel: "🎲 „Roll the dice!“",
     short: "Let's roll the dice!",
     en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
     cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
-    duration: 8
+    duration: 7
   },
   {
     id: "noworries",
-    buttonLabel: "✨ „No worries at all!“",
-    short: "No worries at all!",
-    en: "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
-    cz: "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!",
-    duration: 9
+    buttonLabel: "✨ „Never fear mistakes!“",
+    short: "Never fear making mistakes!",
+    en: "Never fear making mistakes. In our small team, we learn by laughing and playing!",
+    cz: "Z chyb si vůbec nic nedělejte. V naší partě se učíme smíchem a hrou!",
+    duration: 7
   }
 ];
 
@@ -63,13 +63,13 @@ phrases.forEach((p) => {
     en: p.en,
     cz: p.cz,
     short: p.short,
-    duration: p.duration || (p.id === 'dice' ? 8 : p.id === 'noworries' ? 9 : 10)
+    duration: p.duration || (p.id === 'gday' ? 6 : 7)
   };
 });
 ---
 
 <div
-  class={`bg-gradient-to-br from-espresso-950 via-[#1F120A] to-[#140A05] text-white rounded-2xl p-3 sm:p-5 shadow-xl border-2 border-amber-500/40 relative overflow-hidden group w-full max-w-full min-w-0 ${className}`}
+  class={`bg-gradient-to-br from-[#1A1009] via-[#24170E] to-[#140A04] text-white rounded-2xl p-3.5 sm:p-4 shadow-xl border border-amber-500/30 ring-1 ring-amber-400/20 relative overflow-hidden group w-full max-w-full min-w-0 ${className}`}
   id="audio-preview-box"
   data-phrases={JSON.stringify(phrasesMap)}
   data-tina-field={card.audio ? tinaField(card, 'audio') : undefined}
@@ -79,26 +79,26 @@ phrases.forEach((p) => {
   <div class="absolute top-0 left-1/4 w-28 h-28 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
 
   <!-- Header line -->
-  <div class="flex items-center justify-between gap-2 mb-2.5 min-w-0">
+  <div class="flex items-center justify-between gap-2 mb-3 min-w-0">
     <div class="flex items-center gap-1.5 min-w-0 flex-1">
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
-      <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-300 truncate flex items-center gap-1" data-tina-field={audio.title ? tinaField(audio, 'title') : undefined} data-edit-key="hero.card.audio.title" data-edit-label="Nadpis zvuku">
-        <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-amber-400/20 text-xs">🦘</span>
-        <span>{title}</span>
+      <span class="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 truncate flex items-center gap-1.5" data-tina-field={audio.title ? tinaField(audio, 'title') : undefined} data-edit-key="hero.card.audio.title" data-edit-label="Nadpis zvuku">
+        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-400/20 text-xs">🎙️</span>
+        <span class="truncate">{title}</span>
       </span>
     </div>
-    <span class="text-[10px] sm:text-[11px] font-mono text-amber-200/90 bg-white/10 px-2 py-0.5 rounded-md border border-white/10 flex-shrink-0" id="audio-time">
-      0:10
+    <span class="text-[11px] font-mono font-bold text-amber-200/90 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 flex-shrink-0" id="audio-time">
+      0:06
     </span>
   </div>
 
   <!-- Interactive Phrase Chips (Fast click to hear) -->
-  <div class="flex flex-wrap gap-1.5 sm:gap-1.5 mb-2.5 w-full" id="phrase-chips-container">
+  <div class="flex flex-wrap gap-1.5 mb-3 w-full" id="phrase-chips-container">
     {phrases.map((phrase, idx) => (
       <button
         type="button"
         data-phrase={phrase.id}
-        class={`phrase-chip ${idx === 0 ? 'active bg-amber-400 text-espresso-950 border-amber-300 hover:bg-amber-300 shadow-xs' : 'bg-white/10 hover:bg-white/20 text-amber-100 border-white/15'} px-3 sm:px-2.5 py-1.5 sm:py-1 rounded-lg text-xs sm:text-[11px] font-bold border transition-all cursor-pointer whitespace-nowrap min-h-[36px] sm:min-h-0 flex items-center justify-center active:scale-95`}
+        class={`phrase-chip ${idx === 0 ? 'active bg-amber-400 text-espresso-950 border-amber-300 hover:bg-amber-300 shadow-xs' : 'bg-white/10 hover:bg-white/20 text-amber-100 border-white/15'} px-3 py-1.5 rounded-lg text-xs font-bold border transition-all cursor-pointer whitespace-nowrap flex items-center justify-center active:scale-95`}
         data-tina-field={audio.phrases ? tinaField(audio, 'phrases', idx) : undefined}
         data-edit-key={`hero.card.audio.phrases.${idx}.buttonLabel`}
         data-edit-label={`Tlačítko ${idx + 1}`}
@@ -109,7 +109,7 @@ phrases.forEach((p) => {
   </div>
 
   <!-- Main interactive player row -->
-  <div class="flex items-center gap-2.5 sm:gap-3.5 bg-black/30 p-2 sm:p-2.5 rounded-xl border border-white/10 min-w-0">
+  <div class="flex items-center gap-3 bg-black/40 p-2.5 rounded-xl border border-white/10 min-w-0">
     <!-- Play / Stop Button -->
     <button
       id="audio-play-btn"
@@ -128,7 +128,7 @@ phrases.forEach((p) => {
     </button>
 
     <!-- Visual Equalizer Waves & Speech Subtitles -->
-    <div class="flex-grow min-w-0 space-y-0.5 sm:space-y-1">
+    <div class="flex-grow min-w-0 space-y-1">
       <!-- Equalizer Bars -->
       <div class="flex items-center gap-1 sm:gap-1.5 h-5 sm:h-6">
         <span class="sound-wave-bar w-1 sm:w-1.5 rounded-full bg-amber-400 h-2.5 transition-all"></span>
@@ -143,23 +143,23 @@ phrases.forEach((p) => {
       </div>
 
       <!-- Spoken text subtitle -->
-      <p class="text-[11px] sm:text-xs text-amber-100 font-medium leading-tight truncate" id="audio-subtitle" data-tina-field={audio.subtitlePrompt ? tinaField(audio, 'subtitlePrompt') : undefined}>
-        <strong class="text-amber-300">„{firstPhrase.short}“</strong> – {subtitlePrompt}
+      <p class="text-[11px] sm:text-xs text-amber-100 font-medium leading-snug" id="audio-subtitle" data-tina-field={audio.subtitlePrompt ? tinaField(audio, 'subtitlePrompt') : undefined}>
+        <strong class="text-amber-300">„{firstPhrase.short}“</strong> <span class="text-amber-200/60">–</span> <span class="text-stone-300">{subtitlePrompt}</span>
       </p>
     </div>
   </div>
 
   <!-- Live Speech Translation Bubble -->
-  <div id="audio-speech-card" class="mt-2 pt-2 border-t border-white/10 text-xs space-y-1 transition-all min-w-0 overflow-hidden">
-    <div class="flex items-start gap-1.5 sm:gap-2 text-stone-300 leading-relaxed min-w-0">
-      <span class="text-amber-400 font-bold flex-shrink-0 text-[10px] sm:text-xs">🗣️ AJ:</span>
-      <span id="speech-live-text" class="text-white font-medium italic break-words min-w-0 text-[11px] sm:text-xs" data-tina-field={firstPhrase ? tinaField(firstPhrase, 'en') : undefined} data-edit-key="hero.card.audio.phrases.0.en" data-edit-label="Anglická věta">
+  <div id="audio-speech-card" class="mt-2.5 pt-2.5 border-t border-white/10 text-xs space-y-1.5 transition-all min-w-0 overflow-hidden">
+    <div class="flex items-start gap-2 text-stone-200 leading-snug min-w-0">
+      <span class="text-amber-400 font-bold flex-shrink-0 text-xs">🗣️ AJ:</span>
+      <span id="speech-live-text" class="text-amber-100 font-medium italic break-words min-w-0 text-xs" data-tina-field={firstPhrase ? tinaField(firstPhrase, 'en') : undefined} data-edit-key="hero.card.audio.phrases.0.en" data-edit-label="Anglická věta">
         „{firstPhrase.en}“
       </span>
     </div>
-    <div class="flex items-start gap-1.5 sm:gap-2 text-stone-400 text-[10px] sm:text-[11px] min-w-0">
-      <span class="text-emerald-400 font-bold flex-shrink-0 text-[10px] sm:text-xs">🇨🇿 CZ:</span>
-      <span id="speech-czech-text" class="break-words min-w-0" data-tina-field={firstPhrase ? tinaField(firstPhrase, 'cz') : undefined} data-edit-key="hero.card.audio.phrases.0.cz" data-edit-label="Český překlad">
+    <div class="flex items-start gap-2 text-stone-400 text-[11px] leading-snug min-w-0">
+      <span class="text-emerald-400 font-bold flex-shrink-0 text-xs">🇨🇿 CZ:</span>
+      <span id="speech-czech-text" class="text-stone-300 break-words min-w-0" data-tina-field={firstPhrase ? tinaField(firstPhrase, 'cz') : undefined} data-edit-key="hero.card.audio.phrases.0.cz" data-edit-label="Český překlad">
         „{firstPhrase.cz}“
       </span>
     </div>
@@ -172,27 +172,27 @@ phrases.forEach((p) => {
   (() => {
     let isPlaying = false;
     let timerInterval: any = null;
-    let secondsRemaining = 10;
+    let secondsRemaining = 6;
     let activePhraseKey = 'gday';
 
     let defaultPhrases: Record<string, { en: string; cz: string; short: string; duration: number }> = {
       gday: {
-        en: "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
-        cz: "Ahoj kamaráde! Vítejte ve Valek Academy. Hoďme kostkou a pojďme si hravě povídat anglicky!",
-        short: "G'day mate! I'm Mr. Valek.",
-        duration: 10
+        en: "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
+        cz: "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!",
+        short: "Welcome to Valek Academy!",
+        duration: 6
       },
       dice: {
         en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
         cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
         short: "Let's roll the dice!",
-        duration: 8
+        duration: 7
       },
       noworries: {
-        en: "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
-        cz: "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!",
-        short: "No worries at all!",
-        duration: 9
+        en: "Never fear making mistakes. In our small team, we learn by laughing and playing!",
+        cz: "Z chyb si vůbec nic nedělejte. V naší partě se učíme smíchem a hrou!",
+        short: "Never fear making mistakes!",
+        duration: 7
       }
     };
 
@@ -309,7 +309,7 @@ phrases.forEach((p) => {
         });
 
         if (subtitle) {
-          subtitle.innerHTML = `<strong class="text-amber-300">„${currentData.short}“</strong> – Klikněte pro přehrání`;
+          subtitle.innerHTML = `<strong class="text-amber-300">„${currentData.short}“</strong> <span class="text-amber-200/60">–</span> <span class="text-stone-300">Poslechněte si ukázku</span>`;
         }
 
         clearInterval(timerInterval);
@@ -352,7 +352,7 @@ phrases.forEach((p) => {
         const subtitle = document.getElementById('audio-subtitle');
         if (liveText) liveText.textContent = `„${data.en}“`;
         if (liveTextCz) liveTextCz.textContent = `„${data.cz}“`;
-        if (subtitle) subtitle.innerHTML = `<strong class="text-amber-300">„${data.short}“</strong> – Přehrává se`;
+        if (subtitle) subtitle.innerHTML = `<strong class="text-amber-300">„${data.short}“</strong> <span class="text-amber-200/60">–</span> <span class="text-emerald-400 font-bold animate-pulse">Přehrává se</span>`;
 
         stopAudio();
         setPlayingState(true);

@@ -412,7 +412,7 @@ export default defineConfig({
               {
                 type: "object",
                 name: "card",
-                label: "Karta pana Válka (Mr. Válek) & Hlasová ukázka (vpravo)",
+                label: "Karta pana Válka & Hlasová ukázka (vpravo)",
                 fields: [
                   { type: "boolean", name: "enabled", label: "Zobrazit kartu pana Válka v Hero na webu?" },
                   { type: "boolean", name: "showBenefits", label: "Zobrazit v kartě spodní minikarty výhod a adresu?" },
@@ -452,9 +452,9 @@ export default defineConfig({
                   { type: "string", name: "benefit2Desc", label: "Výhoda 2 - Podtitul" },
                   { type: "string", name: "locationNote", label: "Adresa v kartě" },
                   { type: "string", name: "onlineNote", label: "Online text v kartě" },
-                  { type: "string", name: "teacherBadgePhoto", label: "Jmenovka na fotce lektora v Hero (např. Mr. Válek)" },
+                  { type: "string", name: "teacherBadgePhoto", label: "Jmenovka na fotce lektora v Hero (volitelná)" },
                   { type: "string", name: "melbourneTag", label: "Štítek Melbourne na fotce" },
-                  { type: "string", name: "ctaText", label: "Text odkazu (např. Rezervovat →)" },
+                  { type: "string", name: "ctaText", label: "Text odkazu (např. Rezervovat 1. lekci zdarma →)" },
                   { type: "string", name: "ctaLink", label: "Cíl odkazu" },
                 ],
               },

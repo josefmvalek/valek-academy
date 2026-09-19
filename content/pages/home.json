@@ -126,44 +126,44 @@
       "image": "/uploads/Portrait-0.2.webp",
       "teacherName": "Josef Válek",
       "teacherRole": "BBA, RMIT Melbourne • 25+ let v ČR",
-      "teacherTag": "Čistá výslovnost rodilého mluvčího & výuka hrou",
+      "teacherTag": "Čistá výslovnost rodilého mluvčího",
       "badgeText": "1. lekce\nZDARMA",
       "audio": {
-        "title": "Ukázka výslovnosti (přirozená rodilá angličtina)",
-        "subtitlePrompt": "Klikněte pro přehrání",
+        "title": "Ukázka rodilé výslovnosti",
+        "subtitlePrompt": "Poslechněte si ukázku",
         "phrases": [
           {
             "id": "gday",
-            "buttonLabel": "🦘 „G'day mate!“",
-            "short": "G'day mate! I'm Mr. Valek.",
-            "en": "G'day, mate! Welcome to Valek Academy. Let's roll the dice and have fun speaking English together!",
-            "cz": "Ahoj! Vítej ve Valek Academy. Hoď kostkou a pojďme si hravě povídat anglicky!"
+            "buttonLabel": "👋 „Welcome!“",
+            "short": "Welcome to Valek Academy!",
+            "en": "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
+            "cz": "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!"
           },
           {
             "id": "dice",
-            "buttonLabel": "🎲 „Let's roll the dice!“",
+            "buttonLabel": "🎲 „Roll the dice!“",
             "short": "Let's roll the dice!",
             "en": "Let's roll the dice! It's your turn. What board game are we going to play today?",
             "cz": "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?"
           },
           {
             "id": "noworries",
-            "buttonLabel": "✨ „No worries at all!“",
-            "short": "No worries at all!",
-            "en": "No worries at all! Never fear making mistakes. In our small team, we learn by laughing and playing!",
-            "cz": "Žádný stres! Z chyb si vůbec nic nedělej. V naší partě se učíme smíchem a hrou!"
+            "buttonLabel": "✨ „Never fear mistakes!“",
+            "short": "Never fear making mistakes!",
+            "en": "Never fear making mistakes. In our small team, we learn by laughing and playing!",
+            "cz": "Z chyb si vůbec nic nedělejte. V naší partě se učíme smíchem a hrou!"
           }
         ]
       },
-      "benefit1Title": "Deskovky & karty",
-      "benefit1Desc": "Catan, Scrabble, Dixit",
+      "benefit1Title": "Deskovky & hry",
+      "benefit1Desc": "Karak, Scrabble, Dobble",
       "benefit2Title": "Skupinky 4–8 dětí",
       "benefit2Desc": "Konec strachu z chyb",
       "locationNote": "Růžová 1238, UH",
       "onlineNote": "(naproti ZŠ UNESCO)",
-      "teacherBadgePhoto": "Mr. Válek",
+      "teacherBadgePhoto": "",
       "melbourneTag": "Melbourne",
-      "ctaText": "Rezervovat →",
+      "ctaText": "Rezervovat 1. lekci zdarma →",
       "ctaLink": "#kontakt"
     },
     "stats": [
@@ -321,9 +321,9 @@
     "ctaText": "Vyzkoušet s dítětem 1. lekci zdarma",
     "locationNote": "📍 Růžová 1238, Uherské Hradiště",
     "teacherGreeting": "Dobrý den, jsem",
-    "melbournePhotoTag": "Mr. Válek",
+    "melbournePhotoTag": "Lektor",
     "locationPhotoBadge": "📍 Růžová 1238, UH",
-    "melbourneTag": "Vyrůstal v Melbourne, Austrálie 🇦🇺",
+    "melbourneTag": "Vyrůstal v Melbourne, Austrálie",
     "credentials": {
       "title": "Proč se učit s panem Válkem?",
       "subtitle": "BBA, RMIT Univ., Melbourne • 25+ let v ČR",
@@ -344,7 +344,7 @@
         "description": "Skupinky 4–8 dětí jsou ideální pro deskovky. Děti komunikují mezi sebou i s lektorem a učení je pro ně zábavou."
       },
       {
-        "icon": "🇦🇺",
+        "icon": "🎙️",
         "title": "Čistá výslovnost a přirozený cit pro jazyk",
         "description": "Díky vyrůstání a univerzitnímu studiu v Melbourne předávám dětem čistou mezinárodní výslovnost, správný rytmus řeči a živý jazyk bez typického českého přízvuku."
       },
