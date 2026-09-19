@@ -203,8 +203,8 @@
       },
       {
         "freq": 3,
-        "label": "3× týdně",
-        "desc": "Intenzivní (bonus sleva 10%)",
+        "label": "3× týdně (-10 %)",
+        "desc": "Intenzivní",
         "bonus": 10,
         "badge": "-10% za odhodlání",
         "recommended": false
