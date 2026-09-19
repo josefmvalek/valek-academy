@@ -218,12 +218,12 @@
     "rows": [
       {
         "period": "1 měsíc (4× 60 min.)",
-        "frequency": "1× týdně",
-        "lessons": "4 lekce",
-        "basePrice": "",
-        "discount": "-0 %",
-        "unitPrice": "320 Kč",
-        "totalPrice": "1 280 Kč"
+        "frequency": "2× týdně",
+        "lessons": "8 lekcí",
+        "basePrice": "2 560 Kč",
+        "discount": "-5 %",
+        "unitPrice": "304 Kč",
+        "totalPrice": "2 432 Kč"
       },
       {
         "period": "3 měsíce (12× 60 min.)",
