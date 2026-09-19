@@ -180,9 +180,9 @@
       {
         "freq": 2,
         "label": "2× týdně",
-        "desc": "Optimální (bonus sleva 5%) ",
-        "bonus": 9,
-        "badge": "Doporučeno (+5% extra sleva )",
+        "desc": "Optimální (bonus sleva 10%) ",
+        "bonus": 10,
+        "badge": "Doporučeno (+10% extra sleva )",
         "recommended": true
       },
       {
@@ -234,9 +234,9 @@
         "frequency": "2× týdně",
         "lessons": "40 lekcí",
         "basePrice": "12 800 Kč",
-        "discount": "-17 %",
-        "unitPrice": "220 Kč",
-        "totalPrice": "10 600 Kč"
+        "discount": "-25 %",
+        "unitPrice": "255 Kč",
+        "totalPrice": "10 200 Kč"
       },
       {
         "period": "Celý rok (40 týdnů)",
