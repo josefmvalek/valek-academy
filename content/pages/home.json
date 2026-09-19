@@ -123,7 +123,7 @@
     "card": {
       "enabled": true,
       "showBenefits": true,
-      "image": "/images/josef-valek.webp",
+      "image": "/uploads/images/josef-valek.webp",
       "teacherName": "Josef Válek",
       "teacherRole": "BBA, RMIT Melbourne • 25+ let v ČR",
       "teacherTag": "Rodilý přízvuk & výuka hrou",
@@ -274,6 +274,39 @@
       "description": "Tyto programy otevřeme v další vlně. Zapište se nezávazně na čekací listinu – jakmile vypíšeme termíny, ozveme se vám přednostně.",
       "ctaText": "Zapsat se na čekací listinu →"
     }
+  },
+  "scio": {
+    "enabled": false,
+    "badge": "PŘIPRAVUJEME PRO DALŠÍ SEMESTR",
+    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
+    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
+    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
+    "features": [
+      "Rozbor typových testových úloh z matematiky a češtiny",
+      "Osvědčené postupy a strategie pro zvládnutí časového limitu",
+      "Pravidelné testy nanečisto s detailním rozborem každé chyby",
+      "Trpělivé vysvětlení logiky úloh bez paniky a zbytečného tlaku"
+    ],
+    "ctaText": "Předběžně se zapsat na čekací listinu",
+    "ctaLink": "#kontakt",
+    "guaranteeNote": "* Zápis je 100% nezávazný, dáme vám vědět přednostně",
+    "subjectsTitle": "Přijímačky na SŠ (5. & 9. třída)",
+    "subjectsBadge": "Čekací listina",
+    "subjectsNote": "Přípravu v Uherském Hradišti vede zkušený pedagog s klidným a trpělivým přístupem.",
+    "subjects": [
+      {
+        "icon": "📖",
+        "title": "Český jazyk a literatura",
+        "subtitle": "Čtenářská gramotnost, pravopis a rozbory vět",
+        "desc": "Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět bez stresu."
+      },
+      {
+        "icon": "📐",
+        "title": "Matematika & Geometrie",
+        "subtitle": "Logické úlohy, zlomky, rovnice a konstrukce",
+        "desc": "Srozumitelný postup krok za krokem. Žádné memorování vzorců bez pochopení souvislostí."
+      }
+    ]
   },
   "about": {
     "enabled": true,
@@ -524,11 +557,11 @@
         "title": "Individuální doučování 1 na 1",
         "subtitle": "1 dospělý učitel na 1 dítě",
         "badge": "Drahé řešení",
-        "price": "700 – 1000 Kč / 60 min",
+        "price": "700 – 1100 Kč / 60 min",
         "speakingTime": "Maximální prostor, ale konverzace s dospělým je nerovná",
         "atmosphere": "Tlak na výkon, doučování často vnímáno jako trest za známky",
         "method": "Může být velmi účinné v případě, že student propadá a trápí se. Také učíme 1-on-1.",
-        "accent": "Rodilí mluvčí stojí 900-1000 Kč/hod, tzn. ve skupině je student vystaven jazyku třikrát tolik za stejnou cenu",
+        "accent": "Rodilí mluvčí stojí 900-1100 Kč/hod, tzn. ve skupině je student vystaven jazyku třikrát tolik za stejnou cenu",
         "motivation": "Chybí vrstevníci pro hry, smích a týmové soutěže",
         "footerNote": "Často drahé a bez party vrstevníků",
         "isWinner": false
@@ -593,39 +626,6 @@
         "highlight": "Úspěšné zvládnutí přijímacích zkoušek",
         "quote": "Pan Válek mi pomohl nejen s mluvením bez českého tvrdého přízvuku, ale i s testy k přijímačkám na gympl. Všechno vysvětluje logicky a v pohodě, žádný stres ze známkování. Na lekcích jsme se vždycky nasmáli.",
         "avatarText": "DS"
-      }
-    ]
-  },
-  "scio": {
-    "enabled": false,
-    "badge": "PŘIPRAVUJEME PRO DALŠÍ SEMESTR",
-    "title": "Příprava na přijímací zkoušky na SŠ a SCIO testy",
-    "subtitle": "Kromě angličtiny plánujeme také klidné a trpělivé procvičování jednotných přijímaček (CERMAT / SCIO) z Českého jazyka a Matematiky pro žáky 5. a 9. tříd.",
-    "tagline": "Dostaňte se na střední školu nebo gymnázium v klidu a se správnou strategií.",
-    "features": [
-      "Rozbor typových testových úloh z matematiky a češtiny",
-      "Osvědčené postupy a strategie pro zvládnutí časového limitu",
-      "Pravidelné testy nanečisto s detailním rozborem každé chyby",
-      "Trpělivé vysvětlení logiky úloh bez paniky a zbytečného tlaku"
-    ],
-    "ctaText": "Předběžně se zapsat na čekací listinu",
-    "ctaLink": "#kontakt",
-    "guaranteeNote": "* Zápis je 100% nezávazný, dáme vám vědět přednostně",
-    "subjectsTitle": "Přijímačky na SŠ (5. & 9. třída)",
-    "subjectsBadge": "Čekací listina",
-    "subjectsNote": "Přípravu v Uherském Hradišti vede zkušený pedagog s klidným a trpělivým přístupem.",
-    "subjects": [
-      {
-        "icon": "📖",
-        "title": "Český jazyk a literatura",
-        "subtitle": "Čtenářská gramotnost, pravopis a rozbory vět",
-        "desc": "Cílený nácvik na záludné úlohy s porozuměním textu a syntaktické rozbory vět bez stresu."
-      },
-      {
-        "icon": "📐",
-        "title": "Matematika & Geometrie",
-        "subtitle": "Logické úlohy, zlomky, rovnice a konstrukce",
-        "desc": "Srozumitelný postup krok za krokem. Žádné memorování vzorců bez pochopení souvislostí."
       }
     ]
   },
@@ -732,32 +732,32 @@
     "calloutCtaLink": "#kontakt",
     "phases": [
       {
-        "time": "00–10 min",
         "icon": "☕",
+        "time": "00–10 min",
         "badge": "1. Fáze: Zahřátí",
         "title": "Chit-chat & vypnutí školního stresu",
         "desc": "Dítě přijde po celém dni ve škole. Žádné zkoušení ani testy – sedneme si ke stolu, popovídáme si o událostech dne a přirozeně přepneme hlavu do angličtiny.",
         "highlight": "Odbourání ostychu hned od první minuty"
       },
       {
-        "time": "10–40 min",
         "icon": "🎲",
+        "time": "10–40 min",
         "badge": "2. Fáze: Hlavní hra",
         "title": "Deskovka v angličtině & rodilý přízvuk",
         "desc": "Srdce celé lekce. Student nesmí mluvit česky. Hrajeme Scrabble, Story Cubes nebo kartičky. Děti házejí kostkou, vymýšlejí strategie a v zápalu hry reagují v angličtině úplně automaticky a bez přemýšlení o poučkách. Nová slovíčka a výrazy se zaznamenávají na tabuli.",
         "highlight": "Přirozený přízvuk a živá mluva"
       },
       {
-        "time": "40–55 min",
         "icon": "🎒",
+        "time": "40–55 min",
         "badge": "3. Fáze: Školní látka",
         "title": "Vysvětlení i v češtině & pomoc s úkoly",
         "desc": "Co se ve škole zdálo složité, najednou dává smysl. Mr. Válek v klidu v češtině dovysvětlí gramatiku, projde s dětmi problematická cvičení a připraví je na písemky.",
         "highlight": "Jistota do školy a lepší známky v žákovské"
       },
       {
-        "time": "50–60 min",
         "icon": "🌟",
+        "time": "50–60 min",
         "badge": "4. Fáze: Závěr",
         "title": "Minikvíz, pochvala a razítko do pasu",
         "desc": "Krátké zopakování nově pochycených slovíček, pochvala za aktivitu a razítko do cestovního pasu malého učně. Dítě odchází s úsměvem a těší se na příští hodinu.",
