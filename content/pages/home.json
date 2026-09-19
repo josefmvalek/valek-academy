@@ -38,6 +38,10 @@
         "href": "#o-mne"
       },
       {
+        "label": "Rádce",
+        "href": "/blog"
+      },
+      {
         "label": "Fotogalerie",
         "href": "/galerie"
       },
@@ -61,6 +65,12 @@
             "href": "/cenik",
             "desc": "Slevy až 31 %, balíčky a platby",
             "icon": "🏷️"
+          },
+          {
+            "label": "Rádce pro rodiče & Tipy",
+            "href": "/blog",
+            "desc": "Články a rady lektora Josefa Válka",
+            "icon": "📚"
           },
           {
             "label": "Velká fotogalerie",
@@ -935,6 +945,13 @@
     ]
   },
   "scheduleNotice": "Týdenní rozvrh 15 zvířecích skupinek a harmonogram se centrálně spravuje v samostatné sekci '📅 Rozvrh hodin (/rozvrh)', odkud se automaticky propisuje i na hlavní stránku.",
+  "blogPreview": {
+    "enabled": true,
+    "badge": "📚 RÁDCE PRO RODIČE & TIPY Z DOUČOVNY",
+    "title": "Jak na angličtinu hrou: Rady, hry a postřehy lektora",
+    "subtitle": "Odbourání strachu z mluvení, deskovky na doma a klidná příprava na přijímačky. Tipy od otce 5 dětí a rodilého mluvčího z Melbourne.",
+    "moreLinkText": "Zobrazit všechny články a tipy pro rodiče →"
+  },
   "faq": {
     "enabled": true,
     "badge": "ČASTÉ DOTAZY",
@@ -1099,6 +1116,10 @@
       {
         "label": "🎁 Ceník & 1. lekce zdarma",
         "href": "#cenik"
+      },
+      {
+        "label": "📚 Rádce pro rodiče & Tipy",
+        "href": "/blog"
       },
       {
         "label": "❓ Časté dotazy (FAQ)",
