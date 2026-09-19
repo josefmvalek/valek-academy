@@ -206,7 +206,7 @@
         "label": "3× týdně",
         "desc": "Intenzivní (bonus sleva 10%)",
         "bonus": 10,
-        "badge": "+10% sleva jako odměna",
+        "badge": "-10% za odhodlání",
         "recommended": false
       }
     ]
