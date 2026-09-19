@@ -260,7 +260,7 @@
         "emoji": "🐃",
         "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Pohodový závěr týdne",
-        "occupiedSeats": 4,
+        "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
