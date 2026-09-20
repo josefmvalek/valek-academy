@@ -272,10 +272,10 @@
         "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Pohodový závěr týdne",
         "occupiedSeats": 0,
-        "maxSeats": 8,
+        "maxSeats": 12,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Pohodová páteční 90minutovka pro středoškoláky. Společenské hry v angličtině (Risk, Cluedo, Codenames) a diskuze o filmech, škole, životě, atp."
+        "description": "Pohodová páteční 90minutovka pro všechny středoškoláky. Společenské hry v angličtině (Risk, Cluedo, Codenames) a diskuze o filmech, škole, životě, atp. Možnost větší skupiny pro lepší atmosféru."
       }
     ],
     "adultsBlock": {
