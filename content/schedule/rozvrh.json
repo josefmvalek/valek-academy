@@ -170,11 +170,12 @@
         "emoji": "🐎",
         "cohort": "5. třída",
         "cohortBadge": "CERMAT zkouška z matematiky",
+        "walkHint": "Uh. Hradiště: 13:30 – Plynule po 5. vyučovací hodině.",
         "occupiedSeats": 2,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Tato skupinka se zaměřuje na přípravu žáků 5. třídy na přijimací zkoušky CERMAT z matematiky. Zaměření je úspěšné absolvování zkoušky, a mluví se více česky, nicméně se žáci naučí mnoho anglitiny z oblasti matematiky. "
+        "description": "Zvláštní skupina. Příprava žáků 5. třídy na přijimací zkoušky CERMAT z matematiky. Primární zaměření je úspěšné absolvování zkoušky, a \"výjimečně\" se mluví více česky, nicméně žáci se naučí základní anglitinu z oblasti matematiky. "
       },
       {
         "id": "camels",
