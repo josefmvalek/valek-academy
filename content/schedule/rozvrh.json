@@ -202,10 +202,10 @@
         "cohortBadge": "Páteční výzva & Smích",
         "walkHint": "Uh. Hradiště: 13:30 – Plynule po 5. vyučovací hodině.",
         "occupiedSeats": 0,
-        "maxSeats": 8,
+        "maxSeats": 12,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Legendární australské ropuchy přinášejí pořádnou porci humoru, blafovacích karetních her a uvolněné zábavy. Pátek je uvolněný, děti si hrají, ale pozor, čeština je zakázána!"
+        "description": "Legendární australské ropuchy přinášejí pořádnou porci humoru, blafovacích karetních her a uvolněné zábavy. Pátek je uvolněný, děti si hrají, ale pozor, čeština je zakázána! Větší skupina pro lepší atmosféru."
       },
       {
         "id": "crocodiles",
