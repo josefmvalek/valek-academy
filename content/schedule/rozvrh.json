@@ -127,10 +127,10 @@
         "cohortBadge": "Páteční herní klub",
         "walkHint": " Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
         "occupiedSeats": 0,
-        "maxSeats": 8,
+        "maxSeats": 12,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Páteční odměna za celý týden. Žádné učebnice, čistá radost ze hry a spontánní mluvení v angličtině."
+        "description": "Páteční odměna za celý týden. Žádné učebnice, čistá radost ze hry a spontánní mluvení v angličtině. Mraky deskových a karetních her. Větší skupina pro lepší atmosféru."
       },
       {
         "id": "rabbits",
