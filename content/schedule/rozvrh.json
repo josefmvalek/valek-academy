@@ -64,12 +64,12 @@
         "animal": "Kangaroos",
         "emoji": "🦘",
         "cohort": "1.–3. třída",
-        "cohortBadge": "Družina & První krůčky hrou",
+        "cohortBadge": "Přímá metoda hrou",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Hravý start po vyučování pro nejmenší školáky. Základní slovíčka, barvy, čísla a zvířata formou karet a deskovek."
+        "description": "Hravý start po vyučování pro nejmenší školáky. Prostřenictvím hraček, obrázků, kreslení na mini-tabulích, se žáci učí angličtinu přirozenou metodou."
       },
       {
         "id": "koalas",
