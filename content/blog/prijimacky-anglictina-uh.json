@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "title": "Přijímačky na gymnázia a SŠ v Uherském Hradišti: Jak na angličtinu bez paniky",
   "slug": "prijimacky-anglictina-uh",
   "date": "2025-09-18",
@@ -8,8 +8,8 @@
   "readTime": "5 minut čtení",
   "author": "Josef Válek",
   "authorRole": "Lektor angličtiny, otec 5 dětí, BBA Melbourne",
-  "authorAvatar": "/images/josef-valek-thumb.webp",
-  "coverImage": "/images/poster.webp",
+  "authorAvatar": "/uploads/images/josef-valek-thumb.webp",
+  "coverImage": "/uploads/images/poster.webp",
   "summary": "Příprava na víceletá gymnázia i střední školy v Uherském Hradišti nemusí být noční můra. Zde je přehled toho, kde děti v testech nejčastěji chybují a jak získat jistotu v poslechu i textu.",
   "content": "Podzim a zima bývají pro rodiče páťáků a deváťáků v Uherském Hradišti, Starém Městě i Kunovicích obdobím rostoucího napětí. Blíží se termíny jednotných přijímacích zkoušek (CERMAT), školních testů a SCIO srovnávacích zkoušek na gymnázia a prestižní střední školy.\n\nAčkoliv se v oficiální části CERMAT testuje především matematika a čeština, většina gymnázií i středních škol zařazuje **anglický jazyk jako klíčové rozřazovací kritérium** nebo ho zohledňuje ve školní části přijímaček.\n\nKde žáci v testech z angličtiny nejčastěji ztrácejí drahocenné body a jak se na ně v klidu připravit?\n\n### 1. Past zvaná „Čtení celého textu od začátku“\nNejčastější chyba žáků: Otevřou test, uvidí dlouhý článek na dvě stránky a začnou ho poctivě číst slovo od slova. Narazí na tři neznámá slovíčka, zpanikaří a ztratí 10 minut času.\n\n**Správná taktika:**\n• Nejdříve si přečtěte otázky a možnosti A, B, C, D.\n• Podtrhněte si v otázkách klíčová slova (jména, data, místa).\n• Teprve poté jděte do textu jako detektiv – hledáte pouze odpovědi na konkrétní dotazy. Ušetříte minimálně 10–15 minut a vyhnete se panice z neznámé slovní zásoby.\n\n### 2. Poslech: Chytáky s negací a zvraty\nTypický chyták v poslechových testech: Mluvčí v nahrávce nejprve řekne: *„We originally wanted to take the train...“*, ale o dvě věty později dodá: *„...however, because of the heavy rain, we finally went by car.“* Dítě, které slyšelo slovo *train*, okamžitě zaškrtne vlak a neposlouchá dál.\n\nU nás v 90minutových blocích pro starší studenty trénujeme právě tyto poslechové finesy. Žáci se učí vnímat spojky jako *however, but, actually, on the other hand*, které signalizují změnu děje.\n\n### 3. Ztráta ostychu před ústní zkouškou a prezentací\nPři přechodu na gymnázium nebo střední školu se po studentech okamžitě vyžaduje plynulé vyjadřování. Už nestačí doplňovat slova do cvičení. Student musí umět vyjádřit svůj názor, popsat obrázek nebo reagovat na otázku zkoušejícího.\n\nV našich pátečních a odpoledních blocích pro 7.–9. třídu a středoškoláky hrajeme asociační a debatní hry (*Codenames, Secret Hitler, Dilemmas*). Studenti si vyzkouší argumentovat, obhajovat své názory a reagovat pohotově bez českého přízvuku.\n\n### Klíč k úspěchu: Začít včas a v pohodě\n\nNejhorší strategií je nechat přípravu na březen a pak dítě zahltit desítkami testů týdně. Když se student zapojí do uvolněné skupinky už na podzim, testové úlohy bere jako logické hádanky a na přijímačky jde v dubnu s klidnou hlavou a čistým svědomím.",
   "tutorTip": {
@@ -21,6 +21,6 @@
   "seo": {
     "metaTitle": "Příprava na přijímačky z angličtiny v Uherském Hradišti | VALEK ACADEMY",
     "metaDescription": "Praktické tipy lektora Josefa Válka na zvládnutí testů z angličtiny (SCIO, CERMAT) a přijímaček na gymnázia a SŠ v Uherském Hradišti bez stresu.",
-    "ogImage": "/images/poster.webp"
+    "ogImage": "/uploads/images/poster.webp"
   }
 }
