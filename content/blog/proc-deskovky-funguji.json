@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "title": "Proč se děti u deskovky rozmluví za 15 minut, i když ve škole celé měsíce mlčí?",
   "slug": "proc-deskovky-funguji",
   "date": "2025-09-10",
@@ -8,8 +8,8 @@
   "readTime": "4 minuty čtení",
   "author": "Josef Válek",
   "authorRole": "Lektor angličtiny, otec 5 dětí, BBA Melbourne",
-  "authorAvatar": "/images/josef-valek-thumb.webp",
-  "coverImage": "/images/doucovna-hry.webp",
+  "authorAvatar": "/uploads/images/josef-valek-thumb.webp",
+  "coverImage": "/uploads/images/doucovna-hry.webp",
   "summary": "Sezení v lavici a obavy ze špatné známky děti často zablokují. U deskovky je ale vtažení do hry tak silné, že strach z chyb zmizí a děti začnou mluvit zcela spontánně.",
   "content": "Jako táta pěti dětí i jako lektor, který v Uherském Hradišti učí už přes 25 let, se s tím setkávám neustále: Rodiče přivedou devítiletého školáka se slovy: *„Pane Válku, on se ve škole hrozně stydí. Když ho paní učitelka vyvolá, raději řekne, že neví, i když slovíčka doma uměl.“*\n\nJe to naprosto pochopitelné. Běžná školní třída má často 20 až 25 dětí. Když má dítě promluvit před celou třídou, vnímá to jako obrovské riziko: Co když to řeknu špatně? Co když se mi někdo zasměje? Mozek dítěte se přepne do obranného režimu a raději zvolí bezpečné ticho.\n\n### Jak desková hra přepne dětský mozek do aktivního módu\n\nV naší doučovně na Růžové ulici děláme věci úplně jinak. Děti nesedí v řadách za sebou v lavicích, ale kolem jednoho stolu v partě **maximálně 4 až 8 kamarádů**. Uprostřed leží herní plán – třeba populární dobrodružný *Karak*, asociační *Dixit* nebo postřehový *Dobble*.\n\nV tu chvíli se stane kouzlo:\n• **Cíl není „mluvit správně podle učebnice“, ale vyhrát hru, zachránit kamaráda nebo najít poklad.**\n• Dítě chce hodit kostkou, posunout figurku a otevřít truhlu. Aby to mohlo udělat, musí říct: *„I open the chest with my key.“*\n• Hra má jasná pravidla a emoce. Když dítě hodí šestku a směje se s ostatními, přirozený ostych se rozplyne.\n\n### Žádné červené propisky ani stres ze zkoušení\n\nVe škole se často klade důraz na to, aby ve větě nechybělo koncové *-s* u třetí osoby nebo správný člen. Děti pak každé slovo třikrát zvažují v hlavě, než ho vypustí z pusy. Výsledek? Ztráta plynulosti a strach.\n\nU nás v partě platí jediné pravidlo: **Důležité je dorozumět se.** Když dítě v zápalu hry řekne *„He have a sword“*, lektor mu neskáče do řeči ani ho nenapomíná. Místo toho s úsměvem odpoví: *„Oh, he has a sword? Wow, that's dangerous!“* Dítě slyší správný tvar, ale jeho myšlenkový tok a radost ze hry zůstanou neporušené.\n\n### Přijďte se sami přesvědčit\n\nKaždé dítě je jiné – některé potřebuje pět minut na rozkoukání, jiné se do hry vrhne po hlavě. Právě proto nabízíme **1. ukázkovou lekci 100% ZDARMA**. Přijďte se s dítětem podívat, jak taková hodina probíhá. Sami uvidíte, že z doučovny bude odcházet s úsměvem od ucha k uchu.",
   "tutorTip": {
@@ -21,6 +21,6 @@
   "seo": {
     "metaTitle": "Proč se děti u deskovky rozmluví za 15 minut? | VALEK ACADEMY",
     "metaDescription": "Proč školní lavice děti v angličtině často zablokují a jak deskové hry s rodilým mluvčím v partě 4–8 dětí odbourají strach z mluvení bez biflování.",
-    "ogImage": "/images/doucovna-hry.webp"
+    "ogImage": "/uploads/images/doucovna-hry.webp"
   }
 }
