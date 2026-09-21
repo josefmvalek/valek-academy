@@ -131,7 +131,7 @@
     "ctaSecondaryText": "Jak výuka hrou a povídáním funguje",
     "ctaSecondaryLink": "#programy",
     "card": {
-      "enabled": true,
+      "enabled": false,
       "showBenefits": true,
       "image": "/uploads/Portrait-0.2.webp",
       "teacherName": "Josef Válek",
