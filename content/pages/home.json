@@ -132,7 +132,7 @@
     "ctaSecondaryLink": "#programy",
     "card": {
       "enabled": true,
-      "showBenefits": false,
+      "showBenefits": true,
       "image": "/uploads/Portrait-0.2.webp",
       "teacherName": "Josef Válek",
       "teacherRole": "RMIT Univ., Melbourne • 25+ let v ČR",
