@@ -131,8 +131,8 @@
     "ctaSecondaryText": "Jak výuka hrou a povídáním funguje",
     "ctaSecondaryLink": "#programy",
     "card": {
-      "enabled": false,
-      "showBenefits": true,
+      "enabled": true,
+      "showBenefits": false,
       "image": "/uploads/Portrait-0.2.webp",
       "teacherName": "Josef Válek",
       "teacherRole": "RMIT Univ., Melbourne • 25+ let v ČR",
