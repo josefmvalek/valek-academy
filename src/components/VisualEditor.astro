@@ -175,6 +175,182 @@
     </div>
   </div>
 
+  <!-- Audio Upload & Edit Modal -->
+  <div
+    id="ve-audio-modal"
+    class="fixed inset-0 bg-espresso-950/80 backdrop-blur-sm z-[10002] hidden items-center justify-center p-4"
+  >
+    <div class="bg-stone-900 text-white rounded-3xl border-2 border-amber-400 max-w-xl w-full p-6 shadow-2xl space-y-5 transform transition-all">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-stone-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🎵</span>
+            <h3 class="font-heading font-black text-lg text-amber-300" id="ve-audio-modal-title">Změnit zvukovou nahrávku (.mp3)</h3>
+          </div>
+          <div class="text-[10px] text-stone-400 font-mono mt-0.5" id="ve-audio-modal-key"></div>
+        </div>
+        <button id="ve-audio-modal-close" class="text-stone-400 hover:text-white text-lg font-bold p-1 cursor-pointer">✕</button>
+      </div>
+
+      <!-- Current Audio Preview -->
+      <div class="space-y-2">
+        <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">Aktuální poslech nahrávky:</div>
+        <div class="relative w-full rounded-2xl bg-stone-950 border border-stone-700 p-4 space-y-3">
+          <audio id="ve-audio-modal-player" controls class="w-full h-10 accent-amber-400"></audio>
+          <div class="text-[11px] text-stone-400 truncate font-mono" id="ve-audio-modal-file-display">Žádný vybraný soubor</div>
+          <div id="ve-audio-upload-spinner" class="absolute inset-0 bg-espresso-950/85 rounded-2xl hidden items-center justify-center flex-col gap-2">
+            <span class="text-3xl animate-spin">⏳</span>
+            <span class="text-xs font-bold text-amber-300">Nahrávám .mp3 nahrávku na server...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 1: Record from Microphone -->
+      <div class="space-y-2 p-3.5 rounded-2xl bg-amber-500/10 border border-amber-400/30">
+        <div class="flex items-center justify-between">
+          <div class="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🎙️</span>
+            <span>1. Nahrát přímo z mikrofonu (notebook / mobil):</span>
+          </div>
+          <span id="ve-audio-rec-timer" class="text-xs font-mono font-bold text-amber-200 hidden bg-black/60 px-2 py-0.5 rounded-full border border-amber-400/40">00:00</span>
+        </div>
+
+        <!-- Initial Record Button -->
+        <div id="ve-audio-rec-idle">
+          <button
+            id="ve-audio-rec-start-btn"
+            type="button"
+            class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-heading font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all hover:scale-[1.01]"
+          >
+            <span class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
+            <span>Začít nahrávat hlasem teď</span>
+          </button>
+        </div>
+
+        <!-- Live Recording State (Active) -->
+        <div id="ve-audio-rec-active" class="hidden flex-col sm:flex-row items-center justify-between gap-3 p-2.5 bg-red-950/70 rounded-xl border border-red-500/50">
+          <div class="flex items-center gap-2 text-xs text-red-200 font-bold">
+            <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+            <span class="animate-pulse">Probíhá záznam... Mluvte do mikrofonu!</span>
+          </div>
+          <button
+            id="ve-audio-rec-stop-btn"
+            type="button"
+            class="w-full sm:w-auto py-1.5 px-4 rounded-xl bg-white hover:bg-stone-200 text-red-950 font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+          >
+            <span>⏹️</span>
+            <span>Zastavit nahrávání</span>
+          </button>
+        </div>
+
+        <!-- Recording Finished State (Review) -->
+        <div id="ve-audio-rec-done" class="hidden flex-col sm:flex-row items-center justify-between gap-2.5 p-2 bg-stone-950 rounded-xl border border-amber-400/40">
+          <div class="flex items-center gap-1.5 text-xs text-emerald-300 font-bold truncate">
+            <span>✅</span>
+            <span class="truncate">Hlas zaznamenán! Poslechněte si náhled.</span>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button
+              id="ve-audio-rec-retry-btn"
+              type="button"
+              class="py-1.5 px-3 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold cursor-pointer"
+            >
+              🔄 Zkusit znovu
+            </button>
+            <button
+              id="ve-audio-rec-save-btn"
+              type="button"
+              class="py-1.5 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-espresso-950 text-xs font-black cursor-pointer shadow-xs"
+            >
+              ⬆️ Použít tuto nahrávku
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload from PC -->
+      <div class="space-y-2">
+        <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">2. Nebo vybrat existující .mp3 soubor z počítače:</div>
+        <input type="file" id="ve-audio-file-input" accept=".mp3,audio/mpeg,audio/wav,audio/ogg,audio/m4a,audio/mp4" class="hidden" />
+        <button
+          id="ve-audio-upload-btn"
+          type="button"
+          class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-espresso-950 font-heading font-black text-sm flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all hover:scale-[1.01]"
+        >
+          <span>📁</span>
+          <span>Vybrat soubor z počítače</span>
+        </button>
+      </div>
+
+      <!-- Quick Audio Presets -->
+      <div class="space-y-2">
+        <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">3. Nebo vybrat z existujících nahrávek webu:</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" id="ve-audio-preset-grid">
+          <button type="button" data-preset="/audio/gday.mp3" class="ve-audio-preset-btn p-2.5 rounded-xl border border-stone-700 hover:border-amber-400 bg-stone-950 cursor-pointer transition-all text-left flex items-center gap-2">
+            <span class="text-base">👋</span>
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-amber-200 truncate">Welcome!</div>
+              <div class="text-[10px] text-stone-400 truncate font-mono">/audio/gday.mp3</div>
+            </div>
+          </button>
+          <button type="button" data-preset="/audio/dice.mp3" class="ve-audio-preset-btn p-2.5 rounded-xl border border-stone-700 hover:border-amber-400 bg-stone-950 cursor-pointer transition-all text-left flex items-center gap-2">
+            <span class="text-base">🎲</span>
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-amber-200 truncate">Roll the dice!</div>
+              <div class="text-[10px] text-stone-400 truncate font-mono">/audio/dice.mp3</div>
+            </div>
+          </button>
+          <button type="button" data-preset="/audio/noworries.mp3" class="ve-audio-preset-btn p-2.5 rounded-xl border border-stone-700 hover:border-amber-400 bg-stone-950 cursor-pointer transition-all text-left flex items-center gap-2">
+            <span class="text-base">✨</span>
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-amber-200 truncate">Never fear!</div>
+              <div class="text-[10px] text-stone-400 truncate font-mono">/audio/noworries.mp3</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- URL Input -->
+      <div class="space-y-1.5">
+        <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">4. Nebo vložit URL / cestu k audiu:</div>
+        <div class="flex gap-2">
+          <input
+            type="text"
+            id="ve-audio-url-input"
+            placeholder="/uploads/audio/... nebo /audio/..."
+            class="flex-1 px-3 py-2 rounded-xl bg-stone-950 border border-stone-700 text-stone-200 text-xs focus:outline-hidden focus:border-amber-400 font-mono"
+          />
+          <button
+            id="ve-audio-url-apply-btn"
+            type="button"
+            class="px-3 py-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-amber-300 font-bold text-xs cursor-pointer"
+          >
+            Vyzkoušet
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-stone-800">
+        <button
+          id="ve-audio-modal-cancel"
+          type="button"
+          class="px-4 py-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold cursor-pointer"
+        >
+          Zavřít
+        </button>
+        <button
+          id="ve-audio-modal-confirm"
+          type="button"
+          class="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-espresso-950 font-heading font-black text-xs cursor-pointer shadow-md"
+        >
+          ✓ Použít tuto nahrávku
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Success / Info Toast -->
   <div
     id="ve-toast"
@@ -238,18 +414,18 @@
     transition: outline-color 0.2s ease, background-color 0.2s ease;
   }
 
-  body.ve-active [data-edit-key]:not([data-edit-type="image"]):hover {
+  body.ve-active [data-edit-key]:not([data-edit-type="image"]):not([data-edit-type="audio"]):hover {
     outline: 2px dashed rgba(217, 119, 6, 1) !important;
     background-color: rgba(254, 243, 199, 0.35) !important;
   }
 
-  body.ve-active [data-edit-key]:not([data-edit-type="image"]):focus {
+  body.ve-active [data-edit-key]:not([data-edit-type="image"]):not([data-edit-type="audio"]):focus {
     outline: 3px solid #d97706 !important;
     background-color: rgba(254, 243, 199, 0.6) !important;
   }
 
   /* Text label tag on hover */
-  body.ve-active [data-edit-key]:not([data-edit-type="image"]):hover::after {
+  body.ve-active [data-edit-key]:not([data-edit-type="image"]):not([data-edit-type="audio"]):hover::after {
     content: "✏️ " attr(data-edit-label);
     position: absolute;
     top: -24px;
@@ -300,6 +476,46 @@
     box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.4);
   }
 
+  /* In-Page Editor Visual Guides for Audio */
+  body.ve-active .ve-audio-edit-btn {
+    display: inline-flex !important;
+  }
+
+  body.ve-active .ve-add-phrase-chip {
+    display: inline-flex !important;
+  }
+
+  body.ve-active [data-edit-type="audio"] {
+    outline: 2.5px dashed rgba(245, 158, 11, 0.9) !important;
+    outline-offset: 2px;
+    cursor: pointer !important;
+    position: relative;
+    transition: transform 0.2s ease, outline-color 0.2s ease;
+  }
+
+  body.ve-active [data-edit-type="audio"]:hover {
+    outline: 2.5px solid #d97706 !important;
+    transform: scale(1.02);
+  }
+
+  body.ve-active [data-edit-type="audio"]:hover::after {
+    content: "🎵 Klikněte pro změnu / upload MP3";
+    position: absolute;
+    top: -28px;
+    right: 0;
+    background: #1c1917;
+    color: #fde68a;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1.5px solid #f59e0b;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
   /* Active button in floating formatting toolbar */
   .ve-fmt-active {
     background-color: #f59e0b !important;
@@ -314,6 +530,8 @@
   let originalValues: Record<string, string> = {};
   let currentActiveImageEl: HTMLImageElement | null = null;
   let selectedImageUrl: string = "";
+  let currentActiveAudioEl: HTMLElement | null = null;
+  let selectedAudioUrl: string = "";
 
   const toggleBtn = document.getElementById('ve-toggle-btn');
   const toggleText = document.getElementById('ve-toggle-text');
@@ -324,7 +542,7 @@
   const toast = document.getElementById('ve-toast');
   const toastMsg = document.getElementById('ve-toast-msg');
 
-  // Modal elements
+  // Image Modal elements
   const imageModal = document.getElementById('ve-image-modal');
   const modalTitle = document.getElementById('ve-modal-title');
   const modalKey = document.getElementById('ve-modal-key');
@@ -337,6 +555,38 @@
   const uploadSpinner = document.getElementById('ve-upload-spinner');
   const urlInput = document.getElementById('ve-url-input') as HTMLInputElement;
   const urlApplyBtn = document.getElementById('ve-url-apply-btn');
+
+  // Audio Modal elements
+  const audioModal = document.getElementById('ve-audio-modal');
+  const audioModalTitle = document.getElementById('ve-audio-modal-title');
+  const audioModalKey = document.getElementById('ve-audio-modal-key');
+  const audioModalPlayer = document.getElementById('ve-audio-modal-player') as HTMLAudioElement;
+  const audioModalFileDisplay = document.getElementById('ve-audio-modal-file-display');
+  const audioModalClose = document.getElementById('ve-audio-modal-close');
+  const audioModalCancel = document.getElementById('ve-audio-modal-cancel');
+  const audioModalConfirm = document.getElementById('ve-audio-modal-confirm');
+  const audioFileInput = document.getElementById('ve-audio-file-input') as HTMLInputElement;
+  const audioUploadBtn = document.getElementById('ve-audio-upload-btn');
+  const audioUploadSpinner = document.getElementById('ve-audio-upload-spinner');
+  const audioUrlInput = document.getElementById('ve-audio-url-input') as HTMLInputElement;
+  const audioUrlApplyBtn = document.getElementById('ve-audio-url-apply-btn');
+
+  // Audio Microphone Recording elements & state
+  const audioRecStartBtn = document.getElementById('ve-audio-rec-start-btn');
+  const audioRecStopBtn = document.getElementById('ve-audio-rec-stop-btn');
+  const audioRecRetryBtn = document.getElementById('ve-audio-rec-retry-btn');
+  const audioRecSaveBtn = document.getElementById('ve-audio-rec-save-btn');
+  const audioRecTimer = document.getElementById('ve-audio-rec-timer');
+  const audioRecIdle = document.getElementById('ve-audio-rec-idle');
+  const audioRecActive = document.getElementById('ve-audio-rec-active');
+  const audioRecDone = document.getElementById('ve-audio-rec-done');
+
+  let mediaRecorder: MediaRecorder | null = null;
+  let audioStream: MediaStream | null = null;
+  let audioChunks: Blob[] = [];
+  let recTimerInterval: any = null;
+  let recSeconds = 0;
+  let recordedAudioBlob: Blob | null = null;
 
   // Floating formatting toolbar elements
   const floatingToolbar = document.getElementById('ve-floating-toolbar');
@@ -585,31 +835,37 @@
       topbar?.classList.add('translate-y-0');
       if (toggleText) toggleText.textContent = "Ukončit úpravy";
 
-      // Enable text editing for text elements
+      // Enable text & media editing for elements
       const editableElements = document.querySelectorAll<HTMLElement>('[data-edit-key]');
       editableElements.forEach((el) => {
         const isImage = el.getAttribute('data-edit-type') === 'image' || el.tagName === 'IMG';
+        const isAudio = el.getAttribute('data-edit-type') === 'audio';
         const key = el.getAttribute('data-edit-key');
 
         if (key && !(key in originalValues)) {
           if (isImage) {
             const imgEl = el.tagName === 'IMG' ? (el as HTMLImageElement) : el.querySelector('img');
             originalValues[key] = imgEl ? (imgEl.getAttribute('src') || '') : '';
+          } else if (isAudio) {
+            originalValues[key] = el.getAttribute('data-audio-src') || '';
           } else {
             originalValues[key] = cleanRichContent(el);
           }
         }
 
-        if (!isImage) {
+        if (isImage) {
+          el.removeAttribute('contenteditable');
+          el.addEventListener('click', handleImageClick);
+        } else if (isAudio) {
+          el.removeAttribute('contenteditable');
+          el.addEventListener('click', handleAudioClick);
+        } else {
           el.setAttribute('contenteditable', 'true');
           el.setAttribute('spellcheck', 'false');
           el.addEventListener('paste', handlePaste);
           el.addEventListener('input', handleElementInput);
           el.addEventListener('keyup', handleElementInput);
           el.addEventListener('blur', handleElementInput);
-        } else {
-          el.removeAttribute('contenteditable');
-          el.addEventListener('click', handleImageClick);
         }
       });
 
@@ -618,14 +874,14 @@
         link.addEventListener('click', handleLinkClick);
       });
 
-      showToast("Režim úprav zapnut! Pro tučné/kurzívu/podtržení označte text myší nebo použijte Ctrl+B / Ctrl+I / Ctrl+U.");
+      showToast("Režim úprav zapnut! Můžete upravovat texty, fotky i hlasovou .mp3 nahrávku.");
     } else {
       document.body.classList.remove('ve-active');
       topbar?.classList.add('-translate-y-full');
       topbar?.classList.remove('translate-y-0');
       if (toggleText) toggleText.textContent = "Upravit web (texty & fotky)";
 
-      // Disable contenteditable and image handlers
+      // Disable contenteditable, image and audio handlers
       document.querySelectorAll<HTMLElement>('[data-edit-key]').forEach((el) => {
         el.removeAttribute('contenteditable');
         el.removeEventListener('paste', handlePaste);
@@ -633,6 +889,7 @@
         el.removeEventListener('keyup', handleElementInput);
         el.removeEventListener('blur', handleElementInput);
         el.removeEventListener('click', handleImageClick);
+        el.removeEventListener('click', handleAudioClick);
       });
 
       // Restore link navigation
@@ -641,6 +898,7 @@
       });
 
       closeImageModal();
+      closeAudioModal();
       hideFloatingToolbar();
     }
   }
@@ -725,6 +983,200 @@
     }
   }
 
+  // Handle clicking on an audio element in edit mode
+  function handleAudioClick(e: MouseEvent) {
+    if (!isEditing) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const target = e.currentTarget as HTMLElement;
+    const key = target.getAttribute('data-edit-key');
+    const label = target.getAttribute('data-edit-label') || 'Zvuková nahrávka';
+    const audioSrc = target.getAttribute('data-audio-src') || '';
+
+    if (!key) return;
+
+    currentActiveAudioEl = target;
+    selectedAudioUrl = audioSrc;
+
+    if (audioModalTitle) audioModalTitle.textContent = `Změnit: ${label}`;
+    if (audioModalKey) audioModalKey.textContent = `Klíč v obsahu: ${key}`;
+    if (audioModalFileDisplay) audioModalFileDisplay.textContent = audioSrc || 'Žádný vybraný soubor';
+    if (audioUrlInput) audioUrlInput.value = audioSrc;
+    if (audioModalPlayer) {
+      audioModalPlayer.src = audioSrc;
+      audioModalPlayer.load();
+    }
+
+    openAudioModal();
+  }
+
+  function openAudioModal() {
+    if (!audioModal) return;
+    resetRecordingUI();
+    audioModal.classList.remove('hidden');
+    audioModal.classList.add('flex');
+  }
+
+  function closeAudioModal() {
+    if (!audioModal) return;
+    audioModal.classList.add('hidden');
+    audioModal.classList.remove('flex');
+    stopMicrophoneRecording();
+    resetRecordingUI();
+    if (audioModalPlayer) {
+      audioModalPlayer.pause();
+      audioModalPlayer.currentTime = 0;
+    }
+    if (audioModalKey) audioModalKey.textContent = '';
+    currentActiveAudioEl = null;
+  }
+
+  // Upload audio file from computer
+  async function handleAudioFileUpload(file: File) {
+    if (!audioUploadSpinner) return;
+    audioUploadSpinner.classList.remove('hidden');
+    audioUploadSpinner.classList.add('flex');
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('/api/upload-audio', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success && data.url) {
+        selectedAudioUrl = data.url;
+        if (audioModalPlayer) {
+          audioModalPlayer.src = data.url;
+          audioModalPlayer.load();
+          audioModalPlayer.play().catch(() => {});
+        }
+        if (audioModalFileDisplay) audioModalFileDisplay.textContent = data.url;
+        if (audioUrlInput) audioUrlInput.value = data.url;
+        showToast("✅ Zvuk byl nahrán! Můžete si jej poslechnout a potvrdit.");
+      } else {
+        showToast("❌ Chyba při nahrávání: " + (data.error || "Neznámá chyba"), true);
+      }
+    } catch (err: any) {
+      showToast("❌ Chyba sítě při nahrávání: " + err.message, true);
+    } finally {
+      audioUploadSpinner.classList.add('hidden');
+      audioUploadSpinner.classList.remove('flex');
+    }
+  }
+
+  // --- Microphone Recording Functions ---
+  function resetRecordingUI() {
+    if (recTimerInterval) {
+      clearInterval(recTimerInterval);
+      recTimerInterval = null;
+    }
+    recSeconds = 0;
+    if (audioRecTimer) {
+      audioRecTimer.textContent = "00:00";
+      audioRecTimer.classList.add('hidden');
+    }
+    audioRecIdle?.classList.remove('hidden');
+    audioRecActive?.classList.add('hidden');
+    audioRecActive?.classList.remove('flex');
+    audioRecDone?.classList.add('hidden');
+    audioRecDone?.classList.remove('flex');
+    recordedAudioBlob = null;
+  }
+
+  async function startMicrophoneRecording() {
+    try {
+      audioChunks = [];
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioStream = stream;
+
+      let mimeType = 'audio/webm;codecs=opus';
+      if (!window.MediaRecorder || !MediaRecorder.isTypeSupported(mimeType)) {
+        if (window.MediaRecorder && MediaRecorder.isTypeSupported('audio/webm')) mimeType = 'audio/webm';
+        else if (window.MediaRecorder && MediaRecorder.isTypeSupported('audio/mp4')) mimeType = 'audio/mp4';
+        else mimeType = '';
+      }
+
+      mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) {
+          audioChunks.push(e.data);
+        }
+      };
+
+      mediaRecorder.onstop = () => {
+        const type = mediaRecorder?.mimeType || 'audio/webm';
+        recordedAudioBlob = new Blob(audioChunks, { type });
+        if (audioModalPlayer) {
+          const previewUrl = URL.createObjectURL(recordedAudioBlob);
+          audioModalPlayer.src = previewUrl;
+          audioModalPlayer.load();
+          audioModalPlayer.play().catch(() => {});
+        }
+        if (audioModalFileDisplay) {
+          audioModalFileDisplay.textContent = `Záznam z mikrofonu (${recSeconds}s) – připraven k nahrání`;
+        }
+        audioRecActive?.classList.add('hidden');
+        audioRecActive?.classList.remove('flex');
+        audioRecDone?.classList.remove('hidden');
+        audioRecDone?.classList.add('flex');
+      };
+
+      mediaRecorder.start(200);
+
+      // UI state to active
+      audioRecIdle?.classList.add('hidden');
+      audioRecActive?.classList.remove('hidden');
+      audioRecActive?.classList.add('flex');
+      audioRecDone?.classList.add('hidden');
+      audioRecDone?.classList.remove('flex');
+
+      recSeconds = 0;
+      if (audioRecTimer) {
+        audioRecTimer.textContent = "00:00";
+        audioRecTimer.classList.remove('hidden');
+      }
+      recTimerInterval = setInterval(() => {
+        recSeconds++;
+        const mins = Math.floor(recSeconds / 60).toString().padStart(2, '0');
+        const secs = (recSeconds % 60).toString().padStart(2, '0');
+        if (audioRecTimer) audioRecTimer.textContent = `${mins}:${secs}`;
+      }, 1000);
+    } catch (err: any) {
+      console.error('Mikrofon chyba:', err);
+      showToast("❌ Přístup k mikrofonu byl odepřen: " + (err.message || "Povolte mikrofon v prohlížeči"), true);
+      resetRecordingUI();
+    }
+  }
+
+  function stopMicrophoneRecording() {
+    if (recTimerInterval) {
+      clearInterval(recTimerInterval);
+      recTimerInterval = null;
+    }
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+    }
+    if (audioStream) {
+      audioStream.getTracks().forEach((track) => track.stop());
+      audioStream = null;
+    }
+  }
+
+  async function uploadRecordedMicrophoneAudio() {
+    if (!recordedAudioBlob) return;
+    const ext = recordedAudioBlob.type.includes('mp4') ? '.m4a' : '.webm';
+    const file = new File([recordedAudioBlob], `hlas-${Date.now()}${ext}`, { type: recordedAudioBlob.type });
+    await handleAudioFileUpload(file);
+    resetRecordingUI();
+  }
+
   // Set deep object property by dotted path
   function setDeepValue(obj: any, path: string, value: any) {
     const keys = path.split('.');
@@ -801,10 +1253,17 @@
         }
 
         const isImage = el.getAttribute('data-edit-type') === 'image' || el.tagName === 'IMG';
+        const isAudio = el.getAttribute('data-edit-type') === 'audio';
         
         if (isImage) {
           const imgEl = el.tagName === 'IMG' ? (el as HTMLImageElement) : el.querySelector('img');
           const value = imgEl ? (imgEl.getAttribute('src') || '') : '';
+          if (value) {
+            setDeepValue(filesPayloads[targetFile], key, value);
+            originalValues[key] = value;
+          }
+        } else if (isAudio) {
+          const value = el.getAttribute('data-audio-src') || '';
           if (value) {
             setDeepValue(filesPayloads[targetFile], key, value);
             originalValues[key] = value;
@@ -839,7 +1298,7 @@
 
       if (failures.length === 0) {
         const savedFilesStr = fileNames.join(', ');
-        showToast(`✅ Změny uloženy! Texty a fotky byly úspěšně zapsány (${savedFilesStr}).`);
+        showToast(`✅ Změny uloženy! Obsah byl úspěšně zapsán (${savedFilesStr}).`);
       } else {
         const errMsgs = failures.map(f => `${f.fileName}: ${f.error}`).join('; ');
         showToast(`❌ Chyba při ukládání: ${errMsgs}`, true);
@@ -855,18 +1314,22 @@
 
   // Discard changes and reload original values
   function discardChanges() {
-    if (confirm("Opravdu chcete zrušit neuložené úpravy a obnovit původní texty a fotky?")) {
+    if (confirm("Opravdu chcete zrušit neuložené úpravy a obnovit původní texty, fotky a nahrávky?")) {
       const editableElements = document.querySelectorAll<HTMLElement>('[data-edit-key]');
       editableElements.forEach((el) => {
         const key = el.getAttribute('data-edit-key');
         if (!key || !(key in originalValues)) return;
 
         const isImage = el.getAttribute('data-edit-type') === 'image' || el.tagName === 'IMG';
+        const isAudio = el.getAttribute('data-edit-type') === 'audio';
         if (isImage) {
           const imgEl = el.tagName === 'IMG' ? (el as HTMLImageElement) : el.querySelector('img');
           if (imgEl) {
             imgEl.src = originalValues[key];
           }
+        } else if (isAudio) {
+          el.setAttribute('data-audio-src', originalValues[key]);
+          window.dispatchEvent(new CustomEvent('ve-audio-updated', { detail: { key, newUrl: originalValues[key] } }));
         } else {
           el.innerHTML = originalValues[key];
         }
@@ -968,6 +1431,90 @@
       closeImageModal();
     }
   });
+
+  // Audio Modal event listeners
+  audioModalClose?.addEventListener('click', closeAudioModal);
+  audioModalCancel?.addEventListener('click', closeAudioModal);
+
+  audioUploadBtn?.addEventListener('click', () => audioFileInput?.click());
+  audioFileInput?.addEventListener('change', () => {
+    if (audioFileInput.files && audioFileInput.files[0]) {
+      handleAudioFileUpload(audioFileInput.files[0]);
+    }
+  });
+
+  // Audio Preset buttons
+  document.querySelectorAll('.ve-audio-preset-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const presetUrl = (e.currentTarget as HTMLElement).getAttribute('data-preset');
+      if (presetUrl) {
+        selectedAudioUrl = presetUrl;
+        if (audioModalPlayer) {
+          audioModalPlayer.src = presetUrl;
+          audioModalPlayer.load();
+        }
+        if (audioModalFileDisplay) audioModalFileDisplay.textContent = presetUrl;
+        if (audioUrlInput) audioUrlInput.value = presetUrl;
+      }
+    });
+  });
+
+  // Audio URL apply button
+  audioUrlApplyBtn?.addEventListener('click', () => {
+    if (audioUrlInput && audioUrlInput.value.trim()) {
+      selectedAudioUrl = audioUrlInput.value.trim();
+      if (audioModalPlayer) {
+        audioModalPlayer.src = selectedAudioUrl;
+        audioModalPlayer.load();
+      }
+      if (audioModalFileDisplay) audioModalFileDisplay.textContent = selectedAudioUrl;
+    }
+  });
+
+  // Audio Modal confirm button
+  audioModalConfirm?.addEventListener('click', () => {
+    if (currentActiveAudioEl && selectedAudioUrl) {
+      currentActiveAudioEl.setAttribute('data-audio-src', selectedAudioUrl);
+      const key = currentActiveAudioEl.getAttribute('data-edit-key') || '';
+      window.dispatchEvent(new CustomEvent('ve-audio-updated', { detail: { key, newUrl: selectedAudioUrl } }));
+      showToast("Nahrávka byla aktualizována! Nezapomeňte kliknout na 'Uložit změny' v horní liště.");
+      closeAudioModal();
+    }
+  });
+
+  // Audio Microphone button listeners
+  audioRecStartBtn?.addEventListener('click', startMicrophoneRecording);
+  audioRecStopBtn?.addEventListener('click', stopMicrophoneRecording);
+  audioRecRetryBtn?.addEventListener('click', () => {
+    resetRecordingUI();
+    startMicrophoneRecording();
+  });
+  audioRecSaveBtn?.addEventListener('click', uploadRecordedMicrophoneAudio);
+
+  // Listen for dynamically created phrases
+  window.addEventListener('ve-phrase-created', ((e: CustomEvent) => {
+    const { phrase, index } = e.detail || {};
+    if (!phrase) return;
+
+    // Register initial values so cancel / save knows them
+    originalValues[`hero.card.audio.phrases.${index}.buttonLabel`] = phrase.buttonLabel;
+    originalValues[`hero.card.audio.phrases.${index}.en`] = phrase.en;
+    originalValues[`hero.card.audio.phrases.${index}.cz`] = phrase.cz;
+    originalValues[`hero.card.audio.phrases.${index}.audioFile`] = phrase.audioFile;
+
+    // Enable editing on the new chip
+    const newChip = document.querySelector<HTMLElement>(`[data-phrase="${phrase.id}"]`);
+    if (newChip) {
+      newChip.setAttribute('contenteditable', 'true');
+      newChip.setAttribute('spellcheck', 'false');
+      newChip.addEventListener('paste', handlePaste);
+      newChip.addEventListener('input', handleElementInput);
+      newChip.addEventListener('keyup', handleElementInput);
+      newChip.addEventListener('blur', handleElementInput);
+    }
+
+    showToast(`✅ Fráze ${index + 1} přidána! Můžete upravit její texty nebo nahrát hlas a uložit změny.`);
+  }) as EventListener);
 
   // Auto-activate if ?edit=true is in URL
   if (window.location.search.includes('edit=true')) {

@@ -4,6 +4,7 @@ import { tinaField } from '@tinacms/astro/tina-field';
 interface Phrase {
   [key: string]: any;
   id: string;
+  audioFile?: string;
   buttonLabel: string;
   short: string;
   en: string;
@@ -30,6 +31,7 @@ const subtitlePrompt = audio.subtitlePrompt || "Poslechněte si ukázku";
 const defaultPhrases: Phrase[] = [
   {
     id: "gday",
+    audioFile: "/audio/gday.mp3",
     buttonLabel: "👋 „Welcome!“",
     short: "Welcome to Valek Academy!",
     en: "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
@@ -38,6 +40,7 @@ const defaultPhrases: Phrase[] = [
   },
   {
     id: "dice",
+    audioFile: "/audio/dice.mp3",
     buttonLabel: "🎲 „Roll the dice!“",
     short: "Let's roll the dice!",
     en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
@@ -46,6 +49,7 @@ const defaultPhrases: Phrase[] = [
   },
   {
     id: "noworries",
+    audioFile: "/audio/noworries.mp3",
     buttonLabel: "✨ „Never fear mistakes!“",
     short: "Never fear making mistakes!",
     en: "Never fear making mistakes. In our small team, we learn by laughing and playing!",
@@ -57,13 +61,16 @@ const defaultPhrases: Phrase[] = [
 const phrases: Phrase[] = (audio.phrases && audio.phrases.length > 0) ? audio.phrases : defaultPhrases;
 const firstPhrase = phrases[0] || defaultPhrases[0];
 
-const phrasesMap: Record<string, { en: string; cz: string; short: string; duration: number }> = {};
-phrases.forEach((p) => {
+const phrasesMap: Record<string, { en: string; cz: string; short: string; duration: number; audioFile: string; index: number; buttonLabel?: string }> = {};
+phrases.forEach((p, idx) => {
   phrasesMap[p.id] = {
     en: p.en,
     cz: p.cz,
     short: p.short,
-    duration: p.duration || (p.id === 'gday' ? 6 : 7)
+    duration: p.duration || (p.id === 'gday' ? 6 : 7),
+    audioFile: p.audioFile || `/audio/${p.id}.mp3`,
+    index: idx,
+    buttonLabel: p.buttonLabel
   };
 });
 ---
@@ -87,9 +94,25 @@ phrases.forEach((p) => {
         <span class="truncate">{title}</span>
       </span>
     </div>
-    <span class="text-[11px] font-mono font-bold text-amber-200/90 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 flex-shrink-0" id="audio-time">
-      0:06
-    </span>
+    <div class="flex items-center gap-1.5 flex-shrink-0">
+      <!-- Edit MP3 button (visible in Visual Editor) -->
+      <button
+        type="button"
+        id="audio-edit-file-btn"
+        data-edit-type="audio"
+        data-edit-key="hero.card.audio.phrases.0.audioFile"
+        data-edit-label={`Nahrávka MP3: ${firstPhrase.buttonLabel}`}
+        data-audio-src={firstPhrase.audioFile || `/audio/${firstPhrase.id}.mp3`}
+        class="hidden ve-audio-edit-btn items-center gap-1 text-[10px] font-bold bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full cursor-pointer transition-all"
+        title="Změnit nebo nahrát .mp3 soubor nahrávky"
+      >
+        <span>🎵</span>
+        <span class="ve-btn-label">Změnit MP3</span>
+      </button>
+      <span class="text-[11px] font-mono font-bold text-amber-200/90 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 flex-shrink-0" id="audio-time">
+        0:06
+      </span>
+    </div>
   </div>
 
   <!-- Interactive Phrase Chips (Fast click to hear) -->
@@ -106,6 +129,16 @@ phrases.forEach((p) => {
         {phrase.buttonLabel}
       </button>
     ))}
+    <!-- Add new phrase button (visible in Visual Editor) -->
+    <button
+      type="button"
+      id="ve-add-phrase-btn"
+      class="hidden ve-add-phrase-chip items-center gap-1 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 border border-dashed border-amber-400/50 px-2.5 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-all active:scale-95"
+      title="Přidat novou zvukovou frázi"
+    >
+      <span>➕</span>
+      <span>Přidat frázi</span>
+    </button>
   </div>
 
   <!-- Main interactive player row -->
@@ -175,24 +208,30 @@ phrases.forEach((p) => {
     let secondsRemaining = 6;
     let activePhraseKey = 'gday';
 
-    let defaultPhrases: Record<string, { en: string; cz: string; short: string; duration: number }> = {
+    let defaultPhrases: Record<string, { en: string; cz: string; short: string; duration: number; audioFile: string; index: number; buttonLabel?: string }> = {
       gday: {
         en: "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
         cz: "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!",
         short: "Welcome to Valek Academy!",
-        duration: 6
+        duration: 6,
+        audioFile: "/audio/gday.mp3",
+        index: 0
       },
       dice: {
         en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
         cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
         short: "Let's roll the dice!",
-        duration: 7
+        duration: 7,
+        audioFile: "/audio/dice.mp3",
+        index: 1
       },
       noworries: {
         en: "Never fear making mistakes. In our small team, we learn by laughing and playing!",
         cz: "Z chyb si vůbec nic nedělejte. V naší partě se učíme smíchem a hrou!",
         short: "Never fear making mistakes!",
-        duration: 7
+        duration: 7,
+        audioFile: "/audio/noworries.mp3",
+        index: 2
       }
     };
 
@@ -208,6 +247,17 @@ phrases.forEach((p) => {
       return p;
     }
 
+    function updateEditButton() {
+      const editBtn = document.getElementById('audio-edit-file-btn');
+      if (!editBtn) return;
+      const phrases = getPhrases();
+      const currentData = phrases[activePhraseKey] || phrases.gday;
+      const idx = currentData.index ?? 0;
+      editBtn.setAttribute('data-edit-key', `hero.card.audio.phrases.${idx}.audioFile`);
+      editBtn.setAttribute('data-edit-label', `Hlasová nahrávka MP3: ${currentData.short || activePhraseKey}`);
+      editBtn.setAttribute('data-audio-src', currentData.audioFile || `/audio/${activePhraseKey}.mp3`);
+    }
+
     function syncChipsUI() {
       const phraseChips = document.querySelectorAll<HTMLButtonElement>('.phrase-chip');
       phraseChips.forEach((c) => {
@@ -220,13 +270,29 @@ phrases.forEach((p) => {
           c.classList.add('bg-white/10', 'text-amber-100', 'border-white/15');
         }
       });
+      updateEditButton();
     }
 
     function playAudioFile() {
       const nativeAudio = document.getElementById('native-audio') as HTMLAudioElement | null;
       if (!nativeAudio) return;
 
-      nativeAudio.src = `/audio/${activePhraseKey}.mp3`;
+      const phrases = getPhrases();
+      const currentData = phrases[activePhraseKey] || phrases.gday;
+      const audioSrc = currentData.audioFile || `/audio/${activePhraseKey}.mp3`;
+
+      nativeAudio.src = audioSrc;
+
+      nativeAudio.onloadedmetadata = () => {
+        if (nativeAudio.duration && !isNaN(nativeAudio.duration)) {
+          secondsRemaining = Math.round(nativeAudio.duration);
+          const timeDisplay = document.getElementById('audio-time');
+          if (timeDisplay) {
+            timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
+          }
+        }
+      };
+
       nativeAudio.oncanplay = () => {
         if (!isPlaying) return;
         nativeAudio.play().catch(() => stopAudio());
@@ -250,6 +316,29 @@ phrases.forEach((p) => {
       };
       nativeAudio.load();
     }
+
+    window.addEventListener('ve-audio-updated', ((e: CustomEvent) => {
+      const { key, newUrl } = e.detail || {};
+      const previewBox = document.getElementById('audio-preview-box');
+      if (previewBox && key && newUrl) {
+        try {
+          const p = getPhrases();
+          const match = key.match(/phrases\.(\d+)\.audioFile/);
+          if (match) {
+            const phraseIdx = parseInt(match[1], 10);
+            const phraseKey = Object.keys(p).find(k => p[k].index === phraseIdx) || Object.keys(p)[phraseIdx];
+            if (phraseKey && p[phraseKey]) {
+              p[phraseKey].audioFile = newUrl;
+              previewBox.dataset.phrases = JSON.stringify(p);
+              updateEditButton();
+              if (activePhraseKey === phraseKey) {
+                stopAudio();
+              }
+            }
+          }
+        } catch (err) {}
+      }
+    }) as EventListener);
 
     function setPlayingState(playing: boolean) {
       isPlaying = playing;
@@ -334,10 +423,76 @@ phrases.forEach((p) => {
       }
     }
 
+    function addNewPhrase() {
+      const previewBox = document.getElementById('audio-preview-box');
+      const chipsContainer = document.getElementById('phrase-chips-container');
+      const addBtn = document.getElementById('ve-add-phrase-btn');
+      if (!previewBox || !chipsContainer || !addBtn) return;
+
+      const p = getPhrases();
+      const currentKeys = Object.keys(p);
+      const newIdx = currentKeys.length;
+      const newId = `phrase_${newIdx + 1}`;
+      
+      const newPhraseData = {
+        id: newId,
+        buttonLabel: `🎲 „Fráze ${newIdx + 1}“`,
+        short: `Nová fráze ${newIdx + 1}`,
+        en: "Welcome to our game! Let's roll the dice and speak English together.",
+        cz: "Vítejte u naší hry! Hoďme kostkou a pojďme si povídat anglicky.",
+        duration: 6,
+        audioFile: "/audio/gday.mp3",
+        index: newIdx
+      };
+
+      p[newId] = newPhraseData;
+      previewBox.dataset.phrases = JSON.stringify(p);
+
+      // Create new button element in DOM
+      const newBtn = document.createElement('button');
+      newBtn.type = 'button';
+      newBtn.setAttribute('data-phrase', newId);
+      newBtn.className = 'phrase-chip px-3 py-1.5 rounded-lg text-xs font-bold border transition-all cursor-pointer whitespace-nowrap flex items-center justify-center active:scale-95 bg-white/10 hover:bg-white/20 text-amber-100 border-white/15';
+      newBtn.setAttribute('data-edit-key', `hero.card.audio.phrases.${newIdx}.buttonLabel`);
+      newBtn.setAttribute('data-edit-label', `Tlačítko ${newIdx + 1}`);
+      newBtn.textContent = newPhraseData.buttonLabel;
+
+      chipsContainer.insertBefore(newBtn, addBtn);
+
+      // Switch active phrase to the new one
+      activePhraseKey = newId;
+      syncChipsUI();
+
+      const liveText = document.getElementById('speech-live-text');
+      const liveTextCz = document.getElementById('speech-czech-text');
+      const subtitle = document.getElementById('audio-subtitle');
+      if (liveText) {
+        liveText.textContent = `„${newPhraseData.en}“`;
+        liveText.setAttribute('data-edit-key', `hero.card.audio.phrases.${newIdx}.en`);
+        liveText.setAttribute('data-edit-label', `Anglická věta (${newPhraseData.short})`);
+      }
+      if (liveTextCz) {
+        liveTextCz.textContent = `„${newPhraseData.cz}“`;
+        liveTextCz.setAttribute('data-edit-key', `hero.card.audio.phrases.${newIdx}.cz`);
+        liveTextCz.setAttribute('data-edit-label', `Český překlad (${newPhraseData.short})`);
+      }
+      if (subtitle) {
+        subtitle.innerHTML = `<strong class="text-amber-300">„${newPhraseData.short}“</strong> <span class="text-amber-200/60">–</span> <span class="text-emerald-400 font-bold">Nová fráze vytvořena</span>`;
+      }
+
+      window.dispatchEvent(new CustomEvent('ve-phrase-created', { detail: { phrase: newPhraseData, index: newIdx } }));
+    }
+
     let lastHandledTime = 0;
     function handleAudioInteraction(e: Event) {
       const target = e.target as HTMLElement | null;
       if (!target) return;
+
+      const addPhraseBtn = target.closest<HTMLButtonElement>('#ve-add-phrase-btn');
+      if (addPhraseBtn) {
+        addNewPhrase();
+        return;
+      }
 
       const chip = target.closest<HTMLButtonElement>('.phrase-chip');
       if (chip) {
@@ -350,8 +505,16 @@ phrases.forEach((p) => {
         const liveText = document.getElementById('speech-live-text');
         const liveTextCz = document.getElementById('speech-czech-text');
         const subtitle = document.getElementById('audio-subtitle');
-        if (liveText) liveText.textContent = `„${data.en}“`;
-        if (liveTextCz) liveTextCz.textContent = `„${data.cz}“`;
+        if (liveText) {
+          liveText.textContent = `„${data.en}“`;
+          liveText.setAttribute('data-edit-key', `hero.card.audio.phrases.${data.index}.en`);
+          liveText.setAttribute('data-edit-label', `Anglická věta (${data.short || data.buttonLabel})`);
+        }
+        if (liveTextCz) {
+          liveTextCz.textContent = `„${data.cz}“`;
+          liveTextCz.setAttribute('data-edit-key', `hero.card.audio.phrases.${data.index}.cz`);
+          liveTextCz.setAttribute('data-edit-label', `Český překlad (${data.short || data.buttonLabel})`);
+        }
         if (subtitle) subtitle.innerHTML = `<strong class="text-amber-300">„${data.short}“</strong> <span class="text-amber-200/60">–</span> <span class="text-emerald-400 font-bold animate-pulse">Přehrává se</span>`;
 
         stopAudio();

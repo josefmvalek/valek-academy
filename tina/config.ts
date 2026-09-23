@@ -311,6 +311,7 @@ export default defineConfig({
       mediaRoot: "uploads",
       publicFolder: "public",
     },
+    accept: ["image/*", "audio/*", "audio/mpeg", "audio/mp3", "audio/wav", "audio/ogg", "audio/m4a"],
   },
   schema: {
     collections: [
@@ -446,9 +447,25 @@ export default defineConfig({
                         list: true,
                         ui: {
                           itemProps: (item) => ({ label: `🔊 ${item?.buttonLabel || item?.id || "Fráze"}` }),
+                          defaultItem: () => ({
+                            id: `phrase_${Date.now()}`,
+                            buttonLabel: "🎲 „Nová fráze“",
+                            short: "Nová fráze",
+                            en: "Welcome! Let's roll the dice and practice English together.",
+                            cz: "Vítejte! Hoďme kostkou a procvičme si angličtinu společně.",
+                            audioFile: "/audio/gday.mp3",
+                          }),
                         },
                         fields: [
                           { type: "string", name: "id", label: "Klíč zvuku (gday, dice, noworries)" },
+                          {
+                            type: "image",
+                            name: "audioFile",
+                            label: "Zvukový soubor (.mp3)",
+                            description: "Nahrajte nebo vyberte .mp3 nahrávku z médií (např. /uploads/audio/... nebo /audio/...)",
+                            // @ts-ignore
+                            accept: ["audio/*", "audio/mpeg", "audio/mp3", "audio/wav", "audio/ogg", "audio/m4a"],
+                          } as any,
                           { type: "string", name: "buttonLabel", label: "Text na tlačítku" },
                           { type: "string", name: "short", label: "Zkrácený text u vln" },
                           { type: "string", name: "en", label: "Anglická věta", ui: { component: "textarea" } },
