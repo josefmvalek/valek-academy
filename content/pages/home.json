@@ -152,7 +152,7 @@
           },
           {
             "id": "dice",
-            "audioFile": "/uploads/audio/dice.mp3",
+            "audioFile": "/uploads/Let's-roll-the-dice.mp3",
             "buttonLabel": "🎲 „Roll the dice!“",
             "short": "Let's roll the dice!",
             "en": "Let's roll the dice! It's your turn. What board game are we going to play today?",
