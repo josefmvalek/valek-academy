@@ -279,7 +279,7 @@
         "age": "Věk 13–15 let • Max 4–8 dětí",
         "badge": "PŘÍPRAVA NA SŠ",
         "highlight": "Plynulost, sebevědomí a přijímačky",
-        "description": "Pro starší žáky volíme náročnější společenské hry, rébusy a debaty. Osvojí si pohotovou argumentaci bez typického českého přízvuku a získají sebevědomí před přijímacími zkouškami na střední školy i gymnázia.",
+        "description": "Pro starší žáky volíme náročnější společenské hry, rébusy a debaty. Osvojí si pohotovou argumentaci bez typického českého přízvuku a získají sebevědomí před vstupem na střední školy.",
         "games": [
           "Dixit (asociace)",
           "Krycí jména (Codenames)",
@@ -289,8 +289,8 @@
         "points": [
           "1. ukázková lekce 100% ZDARMA",
           "Plynulá konverzace v reálných situacích",
-          "Rozbory typových testů SCIO a CERMAT",
-          "Příprava na přechod na gymnázium či SŠ"
+          "Příprava na přechod na gymnázium či SŠ",
+          "Procvičení a vyjasnění gramatiky"
         ],
         "ctaText": "Vyzkoušet lekci pro starší žáky",
         "ctaLink": "#kontakt"
