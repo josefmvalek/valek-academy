@@ -165,6 +165,14 @@
             "short": "Never fear making mistakes!",
             "en": "Never fear making mistakes. In our small team, we learn by laughing and playing!",
             "cz": "Z chyb si vůbec nic nedělejte. V naší partě se učíme smíchem a hrou!"
+          },
+          {
+            "id": "Mluvím česky",
+            "audioFile": "/uploads/Česky-vše-vysvětlím.mp3",
+            "buttonLabel": "🎲 „Česky vše vysvětlím“",
+            "short": "Česky vše vysvětlím",
+            "en": "",
+            "cz": "Žádný strach milí studenti, česky se krásně domluvíme. Vysvětlení v češtině šetří čas, ale jakmile pokročíte a budete lépe rozumět, budu používat angličtinu víc a víc. "
           }
         ]
       },
