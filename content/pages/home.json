@@ -173,6 +173,14 @@
             "short": "Česky vše vysvětlím",
             "en": "",
             "cz": "Žádný strach milí studenti, česky se krásně domluvíme. Vysvětlení v češtině šetří čas, ale jakmile pokročíte a budete lépe rozumět, budu používat angličtinu víc a víc. "
+          },
+          {
+            "id": "Auf Deutsch o en español",
+            "audioFile": "/uploads/Auf-Deutsch-o-en-español.mp3",
+            "buttonLabel": "🎲 „Auf Deutsch o en español“",
+            "short": "Auf Deutsch o en español",
+            "en": "Wenn Sie Deutsch sprechen, ist das kein Problem – der Unterricht kann natürlich in Ihrer Muttersprache stattfinden. Y si hablas castellano, no hay problema: la lección puede impartirse, por supuesto, en tu lengua materna.",
+            "cz": "Pokud mluvíte německy, není to žádný problém – lekce může samozřejmě probíhat ve vašem mateřském jazyce. A pokud mluvíte španělsky, rovněž to není problém: lekce může samozřejmě probíhat ve vašem mateřském jazyce."
           }
         ]
       },
