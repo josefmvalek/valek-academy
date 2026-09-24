@@ -139,9 +139,9 @@
     },
     {
       "id": "materialy",
-      "name": "Knihovna & Reálie",
+      "name": "Knihovna",
       "icon": "📚",
-      "description": "Autentické australské knihy, reálie z Melbourne, fonetické pomůcky a didaktické materiály.",
+      "description": "Velká kolekce knih, od slovníků po učebnice, od beletrie po literatury faktů, pro děti, mladistvé i dospělé, anglické, španělské, německé, latinské... všechny možné varianty a kombinace evropských jazyků.",
       "photos": [
         {
           "hidden": true,
@@ -154,6 +154,11 @@
           "image": "/uploads/images/board-games-3d.webp",
           "title": "Didaktické modely & 3D reálie",
           "description": "Prostorové herní komponenty a kartičky motivují děti ke spontánnímu popisování světa v angličtině."
+        },
+        {
+          "image": "/uploads/IMG_3473.webp",
+          "title": "Španělské knihy",
+          "description": "Jako student jazyků, Mr. Válek jde příkladem. Určitá míra posedlosti při učení není na škodu... ale nemělo by se to přehánět! "
         }
       ]
     }
