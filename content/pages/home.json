@@ -143,8 +143,8 @@
         "subtitlePrompt": "Poslechněte si ukázku",
         "phrases": [
           {
-            "id": "gday",
-            "audioFile": "/audio/gday.mp3",
+            "id": "Welcome!",
+            "audioFile": "/uploads/Welcome-roll-the-dice.mp3",
             "buttonLabel": "👋 „Welcome!“",
             "short": "Welcome to Valek Academy!",
             "en": "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
@@ -152,7 +152,7 @@
           },
           {
             "id": "dice",
-            "audioFile": "/audio/dice.mp3",
+            "audioFile": "/uploads/audio/dice.mp3",
             "buttonLabel": "🎲 „Roll the dice!“",
             "short": "Let's roll the dice!",
             "en": "Let's roll the dice! It's your turn. What board game are we going to play today?",
@@ -160,7 +160,7 @@
           },
           {
             "id": "noworries",
-            "audioFile": "/audio/noworries.mp3",
+            "audioFile": "/uploads/audio/noworries.mp3",
             "buttonLabel": "✨ „Never fear mistakes!“",
             "short": "Never fear making mistakes!",
             "en": "Never fear making mistakes. In our small team, we learn by laughing and playing!",
