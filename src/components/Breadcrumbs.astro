@@ -1,0 +1,66 @@
+---
+// Breadcrumbs component with Schema.org BreadcrumbList structured data
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  className?: string;
+}
+
+const { items = [], className = "" } = Astro.props;
+
+// Always prepend Home
+const allItems = [
+  { label: "Domů", href: "/" },
+  ...items
+];
+---
+
+<nav aria-label="Drobečková navigace" class={`select-none ${className}`}>
+  <ol
+    itemscope
+    itemtype="https://schema.org/BreadcrumbList"
+    class="flex items-center flex-wrap gap-1 sm:gap-1.5 text-[11px] sm:text-xs font-bold text-stone-500"
+  >
+    {allItems.map((item, index) => {
+      const isLast = index === allItems.length - 1;
+      const position = index + 1;
+
+      return (
+        <li
+          itemprop="itemListElement"
+          itemscope
+          itemtype="https://schema.org/ListItem"
+          class="flex items-center gap-1 sm:gap-1.5"
+        >
+          {isLast ? (
+            <span
+              itemprop="name"
+              class="text-espresso-950 font-black bg-amber-100/60 text-amber-950 px-2 py-0.5 rounded-md border border-amber-200/50 truncate max-w-[220px] sm:max-w-none"
+              aria-current="page"
+            >
+              {item.label}
+            </span>
+          ) : (
+            <a
+              itemprop="item"
+              href={item.href || "/"}
+              class="hover:text-amber-800 transition-colors py-0.5 px-1.5 rounded-md hover:bg-parchment-200/60 inline-flex items-center gap-1"
+            >
+              {index === 0 && <span class="text-xs">🏠</span>}
+              <span itemprop="name">{item.label}</span>
+            </a>
+          )}
+          <meta itemprop="position" content={String(position)} />
+
+          {!isLast && (
+            <span class="text-stone-300 font-normal select-none" aria-hidden="true">›</span>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

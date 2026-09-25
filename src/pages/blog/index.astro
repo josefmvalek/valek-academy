@@ -8,6 +8,7 @@ import BlogCard from '../../components/BlogCard.astro';
 import WhatsAppFloating from '../../components/WhatsAppFloating.astro';
 import MobileStickyCTA from '../../components/MobileStickyCTA.astro';
 import VisualEditor from '../../components/VisualEditor.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getHomePageData, getBlogPosts } from '../../lib/data';
 
 const page = await getHomePageData();
@@ -48,19 +49,9 @@ const categories = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Breadcrumbs -->
-      <nav aria-label="Drobečková navigace" class="mb-6">
-        <ol class="flex items-center gap-2 text-xs font-bold text-stone-500">
-          <li>
-            <a href="/" class="hover:text-amber-800 transition-colors flex items-center gap-1">
-              <span>🏠</span> <span>Domů</span>
-            </a>
-          </li>
-          <li><span>/</span></li>
-          <li class="text-espresso-950 font-black" aria-current="page">
-            Rádce pro rodiče & Tipy
-          </li>
-        </ol>
-      </nav>
+      <div class="mb-6">
+        <Breadcrumbs items={[{ label: "Rádce pro rodiče & Tipy", href: "/blog" }]} />
+      </div>
 
       <!-- Hero Header Section -->
       <div class="max-w-3xl mx-auto text-center space-y-4 mb-10 sm:mb-14">

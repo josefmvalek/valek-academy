@@ -3,6 +3,7 @@ import { tinaField } from '@tinacms/astro/tina-field';
 import ScheduleBlocks from './ScheduleBlocks.astro';
 import ContactForm from './ContactForm.astro';
 import ContactInfoCard from './ContactInfoCard.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
 
 interface Props {
   rozvrh?: {
@@ -28,7 +29,8 @@ const reservation = rozvrh.reservation || {};
 
 <div>
   <!-- Top Breadcrumb Bar -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 flex items-center justify-between flex-wrap gap-3">
+    <Breadcrumbs items={[{ label: "Rozvrh hodin & Rezervace", href: "/rozvrh" }]} />
     <a href="/" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-stone-600 hover:text-amber-900 transition-colors group">
       <span class="group-hover:-translate-x-1 transition-transform">←</span>
       <span data-tina-field={tinaField(rozvrh, 'backLinkText')} data-edit-key="rozvrh.backLinkText" data-edit-label="Zpětný odkaz">{backLinkText}</span>

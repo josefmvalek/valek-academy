@@ -5,34 +5,71 @@ interface Props {
   ctaText?: string;
   ctaLink?: string;
   stickyCta?: any;
+  phone?: string;
+  phoneFormatted?: string;
+  contact?: any;
 }
 
 const {
   ctaText = "🎁 1. ukázková lekce 100% ZDARMA",
   ctaLink = "#kontakt",
-  stickyCta = {}
+  stickyCta = {},
+  phone = "+420792372642",
+  phoneFormatted = "+420 792 372 642",
+  contact = {}
 } = Astro.props;
 
 const text = stickyCta.text || ctaText || "🎁 1. ukázková lekce 100% ZDARMA";
 const link = stickyCta.link || ctaLink || "#kontakt";
+
+const rawPhone = contact?.phone || stickyCta?.phone || phone || "+420792372642";
+const phoneDigits = rawPhone.replace(/\D/g, '');
+const normalizedPhone = `+${phoneDigits}`;
+const waPhone = phoneDigits;
+const displayPhone = contact?.phoneFormatted || phoneFormatted || "+420 792 372 642";
 ---
 
-<!-- Floating Bottom Bar for Mobile Devices -->
+<!-- Floating Ergonomical Bottom Thumb Bar for Mobile Devices -->
 <aside
   id="mobile-sticky-cta"
-  class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-surface-base/95 backdrop-blur-md border-t border-surface-border shadow-card-lift px-4 py-3 transition-transform duration-300 translate-y-0"
-  aria-label="Rychlá akce: Rezervace lekce zdarma"
+  class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-surface-base/95 backdrop-blur-md border-t border-surface-border shadow-card-lift px-3 py-2 sm:px-4 sm:py-2.5 pb-safe transition-transform duration-300 translate-y-0"
+  aria-label="Rychlé akce: Volání, WhatsApp a Rezervace lekce zdarma"
 >
-  <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+  <div class="max-w-md mx-auto flex items-center gap-1.5 sm:gap-2">
+    
+    <!-- Quick Call Icon Button -->
+    <a
+      href={`tel:${normalizedPhone}`}
+      class="flex-shrink-0 w-11 h-11 rounded-xl bg-white hover:bg-parchment-100 border border-parchment-300 text-espresso-950 flex items-center justify-center text-lg shadow-2xs active:scale-95 transition-all"
+      aria-label={`Zavolat lektorovi: ${displayPhone}`}
+      title={`Zavolat lektorovi: ${displayPhone}`}
+    >
+      <span>📞</span>
+    </a>
+
+    <!-- Quick WhatsApp Icon Button -->
+    <a
+      href={`https://wa.me/${waPhone}?text=${encodeURIComponent('Dobrý den pane Válku, rád/a bych se zeptal/a na volná místa v doučovně na 1. lekci zdarma.')}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex-shrink-0 w-11 h-11 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 flex items-center justify-center text-lg shadow-2xs active:scale-95 transition-all"
+      aria-label="Napsat panu Válkovi na WhatsApp"
+      title="Napsat na WhatsApp"
+    >
+      <span>💬</span>
+    </a>
+
+    <!-- Dominant Gold Booking CTA Button -->
     <a
       href={link}
       id="mobile-sticky-cta-btn"
-      class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active w-full py-3.5 px-4 rounded-card-md font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 flex items-center justify-center gap-2 text-center cursor-pointer transition-transform"
+      class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active flex-1 py-3 px-3 rounded-xl font-heading font-black text-xs min-[380px]:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 flex items-center justify-center gap-1 text-center cursor-pointer transition-transform truncate"
       data-tina-field={stickyCta ? tinaField(stickyCta, 'text') : undefined}
     >
-      <span data-edit-key="stickyCta.text" data-edit-label="Mobilní lišta text">{text}</span>
-      <span class="font-black text-espresso-950">→</span>
+      <span class="truncate" data-edit-key="stickyCta.text" data-edit-label="Mobilní lišta text">{text}</span>
+      <span class="font-black text-espresso-950 flex-shrink-0 text-xs">→</span>
     </a>
+
   </div>
 </aside>
 
@@ -41,9 +78,9 @@ const link = stickyCta.link || ctaLink || "#kontakt";
     const bar = document.getElementById('mobile-sticky-cta');
     const contactSection = document.getElementById('kontakt');
 
-    if (!bar || !contactSection) return;
+    if (!bar) return;
 
-    // Smooth scroll handler
+    // Smooth scroll handler for anchor links
     const btn = document.getElementById('mobile-sticky-cta-btn');
     if (btn) {
       btn.addEventListener('click', (e) => {
@@ -58,29 +95,26 @@ const link = stickyCta.link || ctaLink || "#kontakt";
       });
     }
 
-    // Auto-hide when user is already at the contact form & adjust WhatsApp widget position
-    const waWidget = document.getElementById('floating-whatsapp-widget');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          bar.classList.add('translate-y-full');
-          if (waWidget) {
-            waWidget.classList.remove('bottom-20');
-            waWidget.classList.add('bottom-4');
+    // Auto-hide when user is already viewing the contact form
+    if (contactSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            bar.classList.add('translate-y-full');
+          } else {
+            bar.classList.remove('translate-y-full');
           }
-        } else {
-          bar.classList.remove('translate-y-full');
-          if (waWidget) {
-            waWidget.classList.remove('bottom-4');
-            waWidget.classList.add('bottom-20');
-          }
-        }
-      });
-    }, { threshold: 0.15 });
+        });
+      }, { threshold: 0.15 });
 
-    observer.observe(contactSection);
+      observer.observe(contactSection);
+    }
   }
 
-  document.addEventListener('DOMContentLoaded', initMobileStickyCta);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileStickyCta);
+  } else {
+    initMobileStickyCta();
+  }
   document.addEventListener('astro:page-load', initMobileStickyCta);
 </script>

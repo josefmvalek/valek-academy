@@ -262,7 +262,9 @@ phrases.forEach((p, idx) => {
       const phraseChips = document.querySelectorAll<HTMLButtonElement>('.phrase-chip');
       phraseChips.forEach((c) => {
         const key = c.getAttribute('data-phrase') || 'gday';
-        if (key === activePhraseKey) {
+        const isCurrent = key === activePhraseKey;
+        c.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
+        if (isCurrent) {
           c.classList.remove('bg-white/10', 'text-amber-100', 'border-white/15');
           c.classList.add('bg-amber-400', 'text-espresso-950', 'border-amber-300', 'shadow-xs');
         } else {
@@ -542,6 +544,19 @@ phrases.forEach((p, idx) => {
       if (Date.now() - lastHandledTime < 350) return;
       handleAudioInteraction(e);
     }, true);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isPlaying) {
+        stopAudio();
+      }
+    });
+
+    // Cleanup audio on navigation away from page
+    document.addEventListener('astro:before-swap', () => {
+      stopAudio();
+      audioObserver.disconnect();
+    });
+    window.addEventListener('pagehide', stopAudio);
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', syncChipsUI);

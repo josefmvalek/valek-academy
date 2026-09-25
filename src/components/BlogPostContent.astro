@@ -2,6 +2,7 @@
 import BlogCard from './BlogCard.astro';
 import { formatRichText } from '../lib/richText';
 import { tinaField } from '@tinacms/astro/tina-field';
+import Breadcrumbs from './Breadcrumbs.astro';
 
 interface Props {
   post: any;
@@ -36,25 +37,14 @@ function renderArticleContent(rawContent?: string) {
   )}
 
   <!-- Breadcrumbs -->
-  <nav aria-label="Drobečková navigace" class="mb-6">
-    <ol class="flex items-center gap-2 text-xs font-bold text-stone-500 flex-wrap">
-      <li>
-        <a href="/" class="hover:text-amber-800 transition-colors flex items-center gap-1">
-          <span>🏠</span> <span>Domů</span>
-        </a>
-      </li>
-      <li><span>/</span></li>
-      <li>
-        <a href="/blog" class="hover:text-amber-800 transition-colors">
-          Rádce pro rodiče
-        </a>
-      </li>
-      <li><span>/</span></li>
-      <li class="text-espresso-950 font-black truncate max-w-xs sm:max-w-md" aria-current="page">
-        {post.title}
-      </li>
-    </ol>
-  </nav>
+  <div class="mb-6">
+    <Breadcrumbs
+      items={[
+        { label: "Rádce pro rodiče", href: "/blog" },
+        { label: post.title || "Článek" }
+      ]}
+    />
+  </div>
 
   <!-- Article Header Card -->
   <article class="bg-white rounded-3xl p-6 sm:p-10 border-2 border-parchment-300 shadow-soft-lg space-y-8 mb-12">

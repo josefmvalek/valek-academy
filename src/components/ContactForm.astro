@@ -415,6 +415,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
               name="phone"
               required
               autocomplete="tel"
+              aria-describedby="phone-feedback"
               placeholder="+420 777 000 000"
               class="w-full px-4 py-3 pr-10 rounded-xl bg-parchment-50 border border-parchment-300 text-espresso-950 placeholder-stone-400 focus:outline-none focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 transition-all text-base sm:text-sm font-medium"
             />
@@ -434,6 +435,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
               name="email"
               required
               autocomplete="email"
+              aria-describedby="email-feedback"
               placeholder="alena.novakova@email.cz"
               class="w-full px-4 py-3 pr-10 rounded-xl bg-parchment-50 border border-parchment-300 text-espresso-950 placeholder-stone-400 focus:outline-none focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 transition-all text-base sm:text-sm font-medium"
             />
@@ -1788,9 +1790,10 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     const rawKeys = ['name', 'child_name', 'phone', 'email', 'segment', 'level', 'days', 'preferred_days', 'selected_group', 'message', 'botcheck', 'forma'];
     rawKeys.forEach(k => formData.delete(k));
 
-    // Call internal server endpoint for autoresponder / receipts
+    // 1. Call internal server endpoint for autoresponder / receipts (primary reliable endpoint)
+    let internalSuccess = false;
     try {
-      fetch('/api/send-reservation', {
+      const serverRes = await fetch('/api/send-reservation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1804,13 +1807,21 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
           level: levelVal,
           message: messageVal
         })
-      }).catch(() => {});
-    } catch {
-      // Background task
+      });
+      if (serverRes.ok) {
+        const serverData = await serverRes.json();
+        if (serverData.success) {
+          internalSuccess = true;
+        }
+      }
+    } catch (serverErr) {
+      console.warn('Internal reservation endpoint error:', serverErr);
     }
 
-    try {
-      if (accessKey) {
+    // 2. Call Web3Forms for external email notification
+    let web3Success = false;
+    if (accessKey) {
+      try {
         formData.append("access_key", accessKey);
         const emailSubject = selectedGroupVal
           ? `Nová rezervace: ${selectedGroupVal} – ${nameVal}`
@@ -1818,29 +1829,32 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
         formData.append("subject", emailSubject);
         formData.append("from_name", "VALEK ACADEMY Rezervace");
         
-        const response = await fetch("https://api.web3Forms.com/submit".toLowerCase(), {
+        const response = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
           body: formData,
         });
 
         const data = await response.json();
         if (data.success) {
-          handleSuccess(nameVal, childNameVal, phoneVal, segmentVal, selectedGroupVal, daysVal);
+          web3Success = true;
         } else {
-          console.error("Web3Forms submission error:", data);
-          errorBox?.classList.remove('hidden');
+          console.warn("Web3Forms response not successful:", data);
         }
-      } else {
-        // Fallback for local development without active key
-        await new Promise((resolve) => setTimeout(resolve, 600));
-        handleSuccess(nameVal, childNameVal, phoneVal, segmentVal, selectedGroupVal, daysVal);
+      } catch (web3Err) {
+        // Typical when visitor uses uBlock Origin, Brave Shields, or AdGuard
+        console.warn('Web3Forms request blocked or network error:', web3Err);
       }
-    } catch {
-      errorBox?.classList.remove('hidden');
-    } finally {
-      submitBtn.disabled = false;
-      if (segmentSelect) applySegmentMode(segmentSelect.value);
     }
+
+    // If either internal endpoint succeeded, Web3Forms succeeded, or in dev mode without key:
+    if (internalSuccess || web3Success || !accessKey) {
+      handleSuccess(nameVal, childNameVal, phoneVal, segmentVal, selectedGroupVal, daysVal);
+    } else {
+      errorBox?.classList.remove('hidden');
+    }
+
+    submitBtn.disabled = false;
+    if (segmentSelect) applySegmentMode(segmentSelect.value);
   });
 
   function handleSuccess(name: string, childName: string, phone: string, segment: string, group: string, days: string) {

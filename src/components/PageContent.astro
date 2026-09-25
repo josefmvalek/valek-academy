@@ -77,23 +77,25 @@ const footer = page.footer || {};
   <!-- 7. Weekly Schedule: Animal groups timetable with Smart Group Finder -->
   <ScheduleBlocks schedule={schedule} />
 
-  <!-- 7. Transparency & Value: Svižný ceník + 1st lesson 100% FREE + comparison table vs school & 1-on-1 -->
+  <!-- 8. Transparency & Value: Svižný ceník + 1st lesson 100% FREE -->
   {pricing.enabled !== false && <Pricing pricing={pricing} />}
+
+  <!-- 9. Comparison: Comparison table vs school & 1-on-1 -->
   {comparison.enabled !== false && <ComparisonTable comparison={comparison} />}
 
-  <!-- 8. Social Proof (Disabled by default, toggleable in CMS) -->
+  <!-- 10. Social Proof (Disabled by default, toggleable in CMS) -->
   {testimonials.enabled !== false && <Testimonials testimonials={testimonials} />}
 
-  <!-- 9. SCIO Prep (Disabled by default, toggleable in CMS) -->
+  <!-- 11. SCIO Prep (Disabled by default, toggleable in CMS) -->
   {scio.enabled === true && <ScioSection scio={scio} />}
 
-  <!-- 10. Educational Blog / Rádce pro rodiče -->
+  <!-- 12. Educational Blog / Rádce pro rodiče -->
   {blogPreview.enabled !== false && <BlogPreviewSection preview={blogPreview} />}
 
-  <!-- 11. Answers & Overcoming Objections: Semantic FAQ Accordion -->
+  <!-- 13. Answers & Overcoming Objections: Semantic FAQ Accordion -->
   {faq.enabled !== false && <FAQ faq={faq} />}
 
-  <!-- 11. Primary Conversion: Reservation form & Location Details -->
+  <!-- 14. Primary Conversion: Reservation form & Location Details -->
   {contact.enabled !== false && <Contact contact={contact} locationInfo={locationInfo} />}
 </main>
 

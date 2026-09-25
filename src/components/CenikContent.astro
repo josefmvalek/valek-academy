@@ -2,6 +2,7 @@
 import { tinaField } from '@tinacms/astro/tina-field';
 import { formatRichText } from '../lib/richText';
 import PackageCalculator from './PackageCalculator.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
 
 interface Program {
   id: string;
@@ -159,7 +160,8 @@ const themePresets: Record<string, {
 <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full max-w-full min-w-0">
   
   <!-- Top Breadcrumb -->
-  <div class="mb-6 sm:mb-8">
+  <div class="mb-6 sm:mb-8 flex items-center justify-between flex-wrap gap-3">
+    <Breadcrumbs items={[{ label: "Podrobný ceník & Kalkulátor", href: "/cenik" }]} />
     <a href="/" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-stone-600 hover:text-amber-900 transition-colors group">
       <span class="group-hover:-translate-x-1 transition-transform">←</span>
       <span data-tina-field={tinaField(cenik, 'backLinkText')} data-edit-key="cenik.backLinkText" data-edit-label="Zpět">{backLinkText}</span>

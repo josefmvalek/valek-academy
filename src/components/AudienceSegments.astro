@@ -182,7 +182,7 @@ const waitingList = audience.waitingList || {
           id={`program-${prog.id}`}
           data-tina-field={tinaField(audience, 'kidsPrograms', idx)}
           class:list={[
-            "cohort-card reveal-on-scroll rounded-card-xl p-6 sm:p-8 flex-col justify-between border-2 border-parchment-300 hover:border-amber-400 hover:shadow-card-lift bg-white shadow-card transition-all duration-300 relative group hover:-translate-y-1.5",
+            `cohort-card reveal-on-scroll stagger-${idx + 1} rounded-card-xl p-6 sm:p-8 flex-col justify-between border-2 border-parchment-300 hover:border-amber-400 hover:shadow-card-lift bg-white shadow-card transition-all duration-300 relative group hover:-translate-y-1.5`,
             idx === 0 ? "flex md:flex" : "hidden md:flex"
           ]}
         >

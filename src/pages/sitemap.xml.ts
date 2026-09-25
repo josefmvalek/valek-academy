@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import galleryData from '../../content/gallery/gallery.json';
+import { getBlogPosts } from '../lib/data';
 
 export const prerender = true;
 
@@ -33,6 +34,39 @@ export const GET: APIRoute = async () => {
       }
     }
   }
+
+  // Extract active blog posts for sitemap
+  const activeBlogPosts = getBlogPosts();
+  const blogPages = [
+    {
+      loc: `${siteUrl}/blog`,
+      lastmod: today,
+      changefreq: 'weekly',
+      priority: '0.8',
+      images: [
+        {
+          url: `${siteUrl}/images/classroom-library.webp`,
+          title: 'Rádce pro rodiče & Tipy z doučovny – VALEK ACADEMY',
+          caption: 'Odborné i praktické články lektora Josefa Válka o výuce angličtiny hrou v Uherském Hradišti.'
+        }
+      ]
+    },
+    ...activeBlogPosts.map((post) => ({
+      loc: `${siteUrl}/blog/${post.slug}`,
+      lastmod: post.date || today,
+      changefreq: 'monthly',
+      priority: '0.7',
+      images: post.coverImage
+        ? [
+            {
+              url: post.coverImage.startsWith('http') ? post.coverImage : `${siteUrl}${post.coverImage}`,
+              title: post.title || 'VALEK ACADEMY',
+              caption: post.summary || ''
+            }
+          ]
+        : []
+    }))
+  ];
 
   const pages = [
     {
@@ -84,6 +118,7 @@ export const GET: APIRoute = async () => {
       priority: '0.8',
       images: galleryImages
     },
+    ...blogPages,
     {
       loc: `${siteUrl}/obchodni-podminky`,
       lastmod: today,

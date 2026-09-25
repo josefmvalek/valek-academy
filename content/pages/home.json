@@ -363,6 +363,32 @@
       "note": "VALEK ACADEMY • Doučovna Uherské Hradiště",
       "guarantee": "🎁 1. ukázková lekce je 100% ZDARMA"
     },
+    "stats": [
+      {
+        "target": "25",
+        "suffix": "+",
+        "label": "let zkušeností v ČR",
+        "colorScheme": "amber"
+      },
+      {
+        "target": "5",
+        "suffix": " dětí",
+        "label": "otec s trpělivostí",
+        "colorScheme": "espresso"
+      },
+      {
+        "target": "60",
+        "suffix": " min",
+        "label": "výuka plná deskovek",
+        "colorScheme": "amber"
+      },
+      {
+        "target": "100",
+        "suffix": "%",
+        "label": "1. lekce zdarma",
+        "colorScheme": "emerald"
+      }
+    ],
     "pillars": [
       {
         "icon": "🎲",
@@ -802,6 +828,124 @@
         "title": "Minikvíz a razítko do pasu",
         "desc": "Krátké zopakování nových slovíček a razítko do unikátního cestovního pasu malého cestovatele.",
         "highlight": ""
+      }
+    ]
+  },
+  "groupMatcher": {
+    "enabled": true,
+    "badge": "Rychlý 3krokový průvodce pro rodiče",
+    "title": "Jaká skupinka a deskovky budou vaše dítě bavit nejvíc?",
+    "subtitle": "Každé dítě je jiné. Klikněte níže a za 20 vteřin zjistíte, do jaké skupinky vrstevníků skvěle zapadne a jaké hry pro něj vybereme.",
+    "step1Title": "Do jaké třídy dítě chodí?",
+    "step2Title": "Co dítě nejvíc baví?",
+    "step3Title": "S čím potřebuje dítě nejvíc pomoci?",
+    "ticketBadge": "VAŠE ZLATÁ VSTUPENKA DO SKUPINKY",
+    "availabilityBadge": "Volná místa pro zápis",
+    "gamesLabel": "🎮 Vybrané hry pro tuto skupinku:",
+    "guaranteeText": "1. lekce v této skupince je 100% ZDARMA (Růžová 1238, Uherské Hradiště)",
+    "scheduleLinkText": "Zobrazit dny v rozvrhu ↓",
+    "whatsappText": "Napsat na WhatsApp",
+    "ctaText": "Přihlásit se do této skupinky",
+    "grades": [
+      {
+        "id": "1-3",
+        "icon": "🧒",
+        "title": "1.–3. třída ZŠ",
+        "age": "Věk 6–9 let",
+        "recommendedTitle": "Skupinka Malých Objevitelů (1.–3. třída ZŠ)",
+        "recommendedDesc": "Hravé prostředí plné obrázků, zvuků a jednoduchých gest pro děti od 6 do 9 let. Děti si osvojí správnou rodilou výslovnost dřív, než v nich škola vytvoří strach ze zkoušení.",
+        "recommendedGames": [
+          "🎲 Dobble & zvířata",
+          "🧩 Scrabble Junior",
+          "🃏 Karetní pexesa v AJ",
+          "🏰 Jednoduché deskovky"
+        ]
+      },
+      {
+        "id": "4-6",
+        "icon": "🎒",
+        "title": "4.–6. třída ZŠ",
+        "age": "Věk 10–12 let",
+        "recommendedTitle": "Skupinka Dobrodruhů (4.–6. třída ZŠ)",
+        "recommendedDesc": "Tato skupinka je sestavena přesně pro věk 10–12 let. Děti hrají fantasy a deskové hry, kde mluví přirozeně a bez obav z chyb. Pan Válek vede celou hru uvolněně s přirozenou výslovností rodilého mluvčího a na závěr v klidu česky dovysvětlí látku ze školy.",
+        "recommendedGames": [
+          "🎲 Karak & Dračí doupě",
+          "🗣️ Story Cubes (Tvorba vět)",
+          "🧩 Scrabble Junior"
+        ]
+      },
+      {
+        "id": "7-9",
+        "icon": "🚀",
+        "title": "7.–9. třída ZŠ",
+        "age": "Věk 13–15 let",
+        "recommendedTitle": "Skupinka Mladých Stratégů (7.–9. třída ZŠ)",
+        "recommendedDesc": "Pro dospívající, které už nebaví školní biflování slovíček. Diskutujeme témata z her, cestování a reálií s čistou výslovností a připravujeme se na přijímačky na střední školy i gymnázia.",
+        "recommendedGames": [
+          "🏰 Carcassonne & Strategie",
+          "🗣️ Debatní scénky z cest",
+          "🎲 Codenames (Krycí jména)",
+          "📐 Přijímačkové rébusy"
+        ]
+      },
+      {
+        "id": "ss",
+        "icon": "🎓",
+        "title": "SŠ & Maturant",
+        "age": "Věk 15–19 let",
+        "recommendedTitle": "Přednostní skupina: Středoškoláci & Maturita",
+        "recommendedDesc": "Cílená příprava k maturitě (ústní i písemná část), Cambridge certifikáty a příprava na vysokou školu. Odstranění ostychu z mluvení před komisí.",
+        "recommendedGames": [
+          "🎓 Simulace maturitního speakingu",
+          "🗣️ Byznys & reálie",
+          "📝 Rozbor esejí a didaktických testů"
+        ]
+      }
+    ],
+    "interests": [
+      {
+        "id": "fantasy",
+        "icon": "🐉",
+        "title": "Příběhy & Fantasy",
+        "desc": "Karak, hrdinové, dobrodružství"
+      },
+      {
+        "id": "words",
+        "icon": "🧩",
+        "title": "Slovní rébusy",
+        "desc": "Scrabble, křížovky, karty"
+      },
+      {
+        "id": "speed",
+        "icon": "⚡",
+        "title": "Postřeh & Akce",
+        "desc": "Karetní hry, bleskové kvízy"
+      },
+      {
+        "id": "strategy",
+        "icon": "🏰",
+        "title": "Stavění & Taktika",
+        "desc": "Carcassonne, deskové světy"
+      }
+    ],
+    "goals": [
+      {
+        "id": "confidence",
+        "icon": "🗣️",
+        "title": "Odbourat strach z mluvení",
+        "desc": "Bojí se otevřít pusu, aby neudělalo chybu před celou třídou."
+      },
+      {
+        "id": "grades",
+        "icon": "📝",
+        "title": "Zlepšit známky a testy",
+        "desc": "Pletou se mu časy a slovíčka, potřebuje záchranu před písemkami."
+      },
+      {
+        "id": "fun",
+        "icon": "🌟",
+        "title": "Chce být napřed & bavit se",
+        "desc": "Ve škole se nudí a hledá partu kamarádů pro živou angličtinu."
       }
     ]
   },

@@ -123,7 +123,7 @@ const pillars = pricing.pillars || defaultPillars;
             id={`pricing-tier-${idx}`}
             data-tina-field={tinaField(pricing, 'tiers', idx)}
             class:list={[
-              "pricing-card reveal-on-scroll rounded-card-xl p-6 sm:p-8 md:p-10 flex-col justify-between relative transition-all duration-300",
+              `pricing-card reveal-on-scroll stagger-${idx + 1} rounded-card-xl p-6 sm:p-8 md:p-10 flex-col justify-between relative transition-all duration-300`,
               idx === 0 ? "flex md:flex" : "hidden md:flex",
               isPopular
                 ? "bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFFDF9] border-2 border-amber-400 shadow-xl glow-amber md:-translate-y-3 z-10"

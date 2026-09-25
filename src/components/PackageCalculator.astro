@@ -957,6 +957,19 @@ const frequencies = (calculator.frequencies && calculator.frequencies.length > 0
         syncCalculator();
       }, 50);
     });
-    calcObserver.observe(document.body, { childList: true, subtree: true, attributes: true });
+
+    const bindCalcObserver = () => {
+      calcObserver.disconnect();
+      const calcRoot = document.getElementById('kalkulator');
+      if (calcRoot) {
+        calcObserver.observe(calcRoot, { childList: true, subtree: true, attributes: true });
+      }
+    };
+
+    bindCalcObserver();
+    document.addEventListener('astro:page-load', bindCalcObserver);
+    document.addEventListener('astro:before-swap', () => {
+      calcObserver.disconnect();
+    });
   })();
 </script>

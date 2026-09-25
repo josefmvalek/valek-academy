@@ -104,7 +104,7 @@ const poster = howItWorks.poster || {
   </div>
 
   <!-- Visual Showcase: The Real 3D Board Game Table Artwork with Glass Overlay -->
-  <div class="relative rounded-card-xl overflow-hidden border-2 border-amber-400 shadow-card-lift group">
+  <div class="relative rounded-card-xl overflow-hidden border-2 border-amber-400 shadow-card-lift group reveal-scale">
     <img
       src={poster.image || "/images/board-games-3d.webp"}
       alt="Deskové hry pro výuku angličtiny ve Valek Academy"
@@ -147,7 +147,7 @@ const poster = howItWorks.poster || {
       {gameSpotlights.map((game, idx) => (
         <div
           data-tina-field={tinaField(howItWorks, 'gameSpotlights', idx)}
-          class={`p-5 sm:p-6 rounded-card-lg border-2 bg-surface-card ${game.accent} shadow-tile hover:shadow-card-lift transition-all group flex flex-col justify-between`}
+          class={`reveal-on-scroll stagger-${idx + 1} p-5 sm:p-6 rounded-card-lg border-2 bg-surface-card ${game.accent} shadow-tile hover:shadow-card-lift transition-all group flex flex-col justify-between`}
         >
           <div class="space-y-3">
             <div class="flex items-center justify-between">

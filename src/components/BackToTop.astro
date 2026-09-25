@@ -1,0 +1,67 @@
+---
+// Floating Back to Top Button
+interface Props {
+  threshold?: number;
+}
+
+const { threshold = 500 } = Astro.props;
+---
+
+<button
+  id="back-to-top"
+  type="button"
+  class="fixed bottom-24 sm:bottom-24 right-4 sm:right-6 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-amber-50 text-espresso-950 border-2 border-parchment-300 hover:border-amber-400 shadow-dice-btn active:shadow-dice-btn-active flex items-center justify-center cursor-pointer transition-all duration-300 opacity-0 pointer-events-none translate-y-4 hover:scale-105 active:scale-95 group backdrop-blur-xs select-none"
+  aria-label="Zpět na začátek stránky"
+  title="Zpět nahoru"
+  data-threshold={threshold}
+>
+  <svg class="w-5 h-5 text-espresso-950 group-hover:text-amber-800 transition-transform group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+  </svg>
+</button>
+
+<script>
+  function setupBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    const threshold = parseInt(btn.getAttribute('data-threshold') || '500', 10);
+    let isVisible = false;
+    let ticking = false;
+
+    function update() {
+      const shouldShow = window.scrollY > threshold;
+      if (shouldShow !== isVisible) {
+        isVisible = shouldShow;
+        if (isVisible) {
+          btn?.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+          btn?.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        } else {
+          btn?.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          btn?.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        }
+      }
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
+  }
+
+  document.addEventListener('DOMContentLoaded', setupBackToTop);
+  document.addEventListener('astro:page-load', setupBackToTop);
+</script>

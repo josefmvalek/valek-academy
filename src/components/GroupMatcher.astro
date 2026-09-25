@@ -38,6 +38,7 @@ const availabilityBadge = groupMatcher.availabilityBadge || "Volná místa pro z
 const gamesLabel = groupMatcher.gamesLabel || "🎮 Vybrané hry pro tuto skupinku:";
 const guaranteeText = groupMatcher.guaranteeText || "1. lekce v této skupince je 100% ZDARMA (Růžová 1238, Uherské Hradiště)";
 const whatsappText = groupMatcher.whatsappText || "Napsat na WhatsApp";
+const scheduleLinkText = groupMatcher.scheduleLinkText || "Zobrazit dny v rozvrhu ↓";
 const ctaText = groupMatcher.ctaText || "Přihlásit se do této skupinky";
 
 const defaultGrades = [
@@ -130,10 +131,13 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
           <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs shadow-2xs">1</span>
           <span data-tina-field={tinaField(groupMatcher, 'step1Title')} data-edit-key="groupMatcher.step1Title" data-edit-label="Krok 1 rozřazovače">{step1Title}</span>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3" id="matcher-grade-group">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3" id="matcher-grade-group" role="radiogroup" aria-label="Výběr ročníku dítěte">
           {grades.map((grade: any, idx: number) => (
             <button
               type="button"
+              role="radio"
+              aria-checked={grade.id === '4-6' ? 'true' : 'false'}
+              aria-pressed={grade.id === '4-6' ? 'true' : 'false'}
               data-grade={grade.id}
               data-tina-field={tinaField(groupMatcher, 'grades', idx)}
               class={`grade-btn p-3.5 sm:p-4 rounded-2xl border-2 text-left transition-all cursor-pointer font-heading group ${
@@ -156,10 +160,13 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
           <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs shadow-2xs">2</span>
           <span data-tina-field={tinaField(groupMatcher, 'step2Title')} data-edit-key="groupMatcher.step2Title" data-edit-label="Krok 2 rozřazovače">{step2Title}</span>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3" id="matcher-interest-group">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3" id="matcher-interest-group" role="radiogroup" aria-label="Zájmy a oblíbené hry dítěte">
           {interests.map((interest: any, idx: number) => (
             <button
               type="button"
+              role="radio"
+              aria-checked={interest.id === 'fantasy' ? 'true' : 'false'}
+              aria-pressed={interest.id === 'fantasy' ? 'true' : 'false'}
               data-interest={interest.id}
               data-tina-field={tinaField(groupMatcher, 'interests', idx)}
               class={`interest-btn p-3 sm:p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer font-heading group ${
@@ -182,10 +189,13 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
           <span class="w-6 h-6 rounded-full bg-amber-200 text-amber-950 flex items-center justify-center font-black text-xs shadow-2xs">3</span>
           <span data-tina-field={tinaField(groupMatcher, 'step3Title')} data-edit-key="groupMatcher.step3Title" data-edit-label="Krok 3 nadpis">{step3Title}</span>
         </div>
-        <div class="grid sm:grid-cols-3 gap-2.5 sm:gap-3" id="matcher-goal-group">
+        <div class="grid sm:grid-cols-3 gap-2.5 sm:gap-3" id="matcher-goal-group" role="radiogroup" aria-label="S čím potřebuje dítě pomoci">
           {goals.map((goal: any, idx: number) => (
             <button
               type="button"
+              role="radio"
+              aria-checked={goal.id === 'confidence' ? 'true' : 'false'}
+              aria-pressed={goal.id === 'confidence' ? 'true' : 'false'}
               data-goal={goal.id}
               data-tina-field={tinaField(groupMatcher, 'goals', idx)}
               class={`goal-btn p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer font-heading group ${
@@ -249,6 +259,18 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
             <span>{guaranteeText}</span>
           </div>
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
+            <a
+              href="#rozvrh"
+              id="matcher-schedule-btn"
+              data-tina-field={tinaField(groupMatcher, 'scheduleLinkText')}
+              data-edit-key="groupMatcher.scheduleLinkText"
+              data-edit-label="Odkaz na rozvrh"
+              class="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-heading font-black text-xs sm:text-sm text-espresso-900 bg-amber-100 hover:bg-amber-200 border-2 border-amber-300 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              title="Zobrazit konkrétní dny a časy této skupinky v rozvrhu"
+            >
+              <span class="text-base">📅</span>
+              <span>{scheduleLinkText}</span>
+            </a>
             <a
               href={`https://wa.me/${phone}?text=${encodeURIComponent("Dobrý den pane Válku, rádi bychom se zeptali na volná místa ve skupince na 1. lekci zdarma.")}`}
               id="matcher-wa-btn"
@@ -346,6 +368,8 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
       const gradeBtns = matcherSection.querySelectorAll<HTMLButtonElement>('.grade-btn');
       gradeBtns.forEach(b => {
         const isMatch = (b.getAttribute('data-grade') || '4-6') === currentGrade;
+        b.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+        b.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
         if (isMatch) {
           b.classList.remove('border-parchment-300', 'bg-parchment-50');
           b.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
@@ -360,6 +384,8 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
       const interestBtns = matcherSection.querySelectorAll<HTMLButtonElement>('.interest-btn');
       interestBtns.forEach(b => {
         const isMatch = (b.getAttribute('data-interest') || 'fantasy') === currentInterest;
+        b.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+        b.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
         if (isMatch) {
           b.classList.remove('border-parchment-300', 'bg-parchment-50');
           b.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
@@ -374,6 +400,8 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
       const goalBtns = matcherSection.querySelectorAll<HTMLButtonElement>('.goal-btn');
       goalBtns.forEach(b => {
         const isMatch = (b.getAttribute('data-goal') || 'confidence') === currentGoal;
+        b.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+        b.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
         if (isMatch) {
           b.classList.remove('border-parchment-300', 'bg-parchment-50');
           b.classList.add('border-amber-500', 'bg-amber-100', 'shadow-xs', 'ring-2', 'ring-amber-400/40');
@@ -489,6 +517,39 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
         return;
       }
 
+      // Matcher schedule button (bridge to schedule and preselect cohort)
+      const matcherSchedule = target.closest<HTMLAnchorElement>('#matcher-schedule-btn');
+      if (matcherSchedule) {
+        e.preventDefault();
+        playClickPop();
+
+        let targetCohort = '4.–6. třída';
+        if (currentGrade === '1-3') targetCohort = '1.–3. třída';
+        else if (currentGrade === '4-6') targetCohort = '4.–6. třída';
+        else targetCohort = '7.–9. třída & SŠ';
+
+        // Switch to smart finder view if full timetable was open
+        const smartViewBtn = document.getElementById('view-smart-finder-btn') as HTMLButtonElement | null;
+        if (smartViewBtn && smartViewBtn.getAttribute('aria-selected') !== 'true') {
+          smartViewBtn.click();
+        }
+
+        // Activate corresponding smart cohort tab in ScheduleBlocks
+        const cohortBtns = document.querySelectorAll<HTMLButtonElement>('.smart-cohort-btn');
+        cohortBtns.forEach(btn => {
+          const cohortVal = btn.getAttribute('data-smart-cohort') || '';
+          if (cohortVal.includes(targetCohort) || targetCohort.includes(cohortVal)) {
+            btn.click();
+          }
+        });
+
+        const rozvrhSection = document.getElementById('rozvrh') || document.getElementById('harmonogram');
+        if (rozvrhSection) {
+          rozvrhSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        return;
+      }
+
       // Matcher CTA (form prefill)
       const matcherCta = target.closest<HTMLAnchorElement>('#matcher-cta-btn');
       if (matcherCta) {
@@ -574,6 +635,19 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
         syncGroupMatcher();
       }
     });
-    matcherObserver.observe(document.body, { childList: true, subtree: true });
+
+    const bindMatcherObserver = () => {
+      matcherObserver.disconnect();
+      const el = document.getElementById('rozrazovac');
+      if (el) {
+        matcherObserver.observe(el, { childList: true, subtree: true });
+      }
+    };
+
+    bindMatcherObserver();
+    document.addEventListener('astro:page-load', bindMatcherObserver);
+    document.addEventListener('astro:before-swap', () => {
+      matcherObserver.disconnect();
+    });
   })();
 </script>

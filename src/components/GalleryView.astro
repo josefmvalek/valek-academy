@@ -1,6 +1,7 @@
 ---
 import { tinaField } from '@tinacms/astro/tina-field';
 import { formatRichText } from '../lib/richText';
+import Breadcrumbs from './Breadcrumbs.astro';
 
 interface PhotoItem {
   image: string;
@@ -28,6 +29,8 @@ interface Props {
     backLinkText?: string;
     filterTitle?: string;
     allPhotosFilterLabel?: string;
+    viewMasonryLabel?: string;
+    viewGridLabel?: string;
     trustBadges?: Array<{
       icon?: string;
       text?: string;
@@ -81,7 +84,6 @@ let photoCounter = 0;
 
 categories.forEach((cat, cIdx) => {
   (cat.photos || []).forEach((p, pIdx) => {
-    // Pokud je fotka skrytá, nezobrazuje se na webu ani v lightboxu
     if (p.hidden) return;
     allPhotos.push({
       ...p,
@@ -115,7 +117,8 @@ const ctaBanner = gallery.ctaBanner || {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Top Breadcrumb -->
-    <div class="mb-6 sm:mb-8">
+    <div class="mb-6 sm:mb-8 flex items-center justify-between flex-wrap gap-3">
+      <Breadcrumbs items={[{ label: "Velká fotogalerie", href: "/galerie" }]} />
       <a href="/" class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-600 hover:text-amber-900 transition-colors group" data-tina-field={tinaField(gallery, 'backLinkText')}>
         <span class="group-hover:-translate-x-1 transition-transform">←</span>
         <span data-edit-key="gallery.backLinkText" data-edit-label="Zpět">{backLinkText}</span>
@@ -147,7 +150,7 @@ const ctaBanner = gallery.ctaBanner || {
     </div>
 
     <!-- Category Filter Bar -->
-    <div class="mb-10 sm:mb-14">
+    <div class="mb-6 sm:mb-8">
       <div class="text-center text-[11px] font-black uppercase tracking-wider text-stone-500 mb-3" data-tina-field={tinaField(gallery, 'filterTitle')} data-edit-key="gallery.filterTitle" data-edit-label="Nadpis filtrů">
         {filterTitle}
       </div>
@@ -191,10 +194,63 @@ const ctaBanner = gallery.ctaBanner || {
       </div>
     </div>
 
-    <!-- Gallery Grid (Clean 3-column responsive layout without height distortion or empty holes) -->
+    <!-- Controls Bar: Quick Topics & Layout Switcher -->
+    <div class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-parchment-200 pb-5">
+      <!-- Quick Topics Filter Pills -->
+      <div class="flex items-center gap-1.5 flex-wrap justify-center md:justify-start text-xs font-bold text-stone-600">
+        <span class="text-[11px] font-black uppercase tracking-wider text-amber-950 flex items-center gap-1 mr-1">
+          <span>🏷️</span> <span>Témata:</span>
+        </span>
+        <button type="button" data-topic="all" class="gallery-topic-pill px-3 py-1 rounded-full border border-amber-500 bg-amber-400 text-espresso-950 font-black cursor-pointer transition-all shadow-2xs">
+          Vše ({allPhotos.length})
+        </button>
+        <button type="button" data-topic="ucebna" class="gallery-topic-pill px-3 py-1 rounded-full border border-parchment-300 bg-white hover:bg-amber-100 hover:border-amber-400 text-espresso-900 cursor-pointer transition-all shadow-2xs">
+          🏠 Učebna & Stoly
+        </button>
+        <button type="button" data-topic="deskovky" class="gallery-topic-pill px-3 py-1 rounded-full border border-parchment-300 bg-white hover:bg-amber-100 hover:border-amber-400 text-espresso-900 cursor-pointer transition-all shadow-2xs">
+          🎲 Deskovky & Hry
+        </button>
+        <button type="button" data-topic="lektor" class="gallery-topic-pill px-3 py-1 rounded-full border border-parchment-300 bg-white hover:bg-amber-100 hover:border-amber-400 text-espresso-900 cursor-pointer transition-all shadow-2xs">
+          👨‍🏫 Pan Válek
+        </button>
+        <button type="button" data-topic="diplomy" class="gallery-topic-pill px-3 py-1 rounded-full border border-parchment-300 bg-white hover:bg-amber-100 hover:border-amber-400 text-espresso-900 cursor-pointer transition-all shadow-2xs">
+          📜 Diplomy & CELTA
+        </button>
+        <button type="button" data-topic="knihovna" class="gallery-topic-pill px-3 py-1 rounded-full border border-parchment-300 bg-white hover:bg-amber-100 hover:border-amber-400 text-espresso-900 cursor-pointer transition-all shadow-2xs">
+          📚 Knihovna
+        </button>
+      </div>
+
+      <!-- Layout View Mode Switcher -->
+      <div class="flex items-center gap-1 p-1 rounded-2xl bg-parchment-200/80 border border-parchment-300 shadow-2xs self-center md:self-auto flex-shrink-0">
+        <button
+          type="button"
+          id="view-mode-masonry"
+          class="px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer bg-white text-espresso-950 shadow-xs border border-parchment-300"
+          title="Zobrazit plné snímky v přirozeném poměru stran (žádný ořez hlav ani diplomů)"
+          aria-pressed="true"
+        >
+          <span>🧱</span>
+          <span>Mozaika (celé foto)</span>
+        </button>
+        <button
+          type="button"
+          id="view-mode-grid"
+          class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer text-stone-600 hover:text-espresso-950"
+          title="Zobrazit sjednocenou zarovnanou mřížku"
+          aria-pressed="false"
+        >
+          <span>⏹️</span>
+          <span>Mřížka</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Gallery Container (Default: Masonry mode with natural full-height photos) -->
     <div
-      id="gallery-grid"
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch"
+      id="gallery-container"
+      class="gallery-masonry columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance]"
+      data-view="masonry"
     >
       {allPhotos.map((photo) => (
         <div
@@ -205,39 +261,59 @@ const ctaBanner = gallery.ctaBanner || {
           data-desc={photo.description || ""}
           data-cat-name={photo.categoryName}
           data-cat-icon={photo.categoryIcon}
+          data-featured={photo.isFeatured ? "true" : "false"}
+          data-tags={`${photo.title} ${photo.description || ''} ${photo.categoryName}`.toLowerCase()}
           data-tina-field={tinaField(photo.catRef, 'photos', photo.pIdx)}
-          class="gallery-item group relative bg-white rounded-3xl p-3.5 sm:p-4 border border-parchment-300 hover:border-amber-400 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+          class={`gallery-item group relative bg-white rounded-3xl p-3 sm:p-4 border transition-all duration-300 flex flex-col justify-between cursor-pointer break-inside-avoid mb-6 w-full inline-block ${
+            photo.isFeatured
+              ? 'border-amber-400 ring-2 ring-amber-400/30 shadow-md hover:shadow-2xl hover:border-amber-500'
+              : 'border-parchment-300 hover:border-amber-400 shadow-xs hover:shadow-xl'
+          } hover:-translate-y-1`}
+          role="button"
+          tabindex="0"
+          aria-label={`Zvětšit fotografii: ${photo.title}`}
         >
-          <!-- Image Wrapper with uniform ratio & smooth hover zoom -->
+          <!-- Image Wrapper -->
           <div 
-            class="relative w-full aspect-4/3 overflow-hidden rounded-2xl bg-parchment-200"
+            class="gallery-img-wrapper relative w-full overflow-hidden rounded-2xl bg-parchment-200"
             data-tina-field={tinaField(photo.photoRef, 'image')}
           >
             <img
               src={photo.image}
               alt={`${photo.title} – výuka angličtiny hrou, VALEK ACADEMY Uherské Hradiště`}
               loading="lazy"
-              class="w-full h-full object-cover group-hover:scale-106 transition-transform duration-700 ease-out"
+              decoding="async"
+              class="gallery-card-img w-full h-auto object-cover group-hover:scale-104 transition-transform duration-500 ease-out"
             />
             
-            <!-- Category Tag on Photo -->
-            <div class="absolute top-3 left-3 z-10 pointer-events-none">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-black uppercase tracking-wider bg-espresso-950/85 text-amber-300 backdrop-blur-md shadow-md border border-amber-400/25">
+            <!-- Category Tag on Photo (Decent frosted glassmorphism) -->
+            <div class="gallery-photo-tag absolute top-3 left-3 z-10 pointer-events-none transition-opacity duration-300">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-espresso-950/75 text-amber-300 backdrop-blur-md shadow-md border border-amber-400/25">
                 <span>{photo.categoryIcon}</span>
                 <span>{photo.categoryName}</span>
               </span>
             </div>
 
-            <!-- Zoom lens overlay -->
-            <div class="absolute inset-0 bg-espresso-950/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-              <span class="w-12 h-12 rounded-full bg-amber-400 text-espresso-950 flex items-center justify-center text-xl font-black shadow-lg transform scale-75 group-hover:scale-100 transition-transform">
+            <!-- Featured Stamp -->
+            {photo.isFeatured && (
+              <div class="absolute top-3 right-3 z-10 pointer-events-none">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-md border border-amber-500">
+                  <span>⭐</span>
+                  <span>Výběr</span>
+                </span>
+              </div>
+            )}
+
+            <!-- Sleek hover zoom overlay -->
+            <div class="absolute inset-0 bg-espresso-950/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+              <span class="w-12 h-12 rounded-full bg-amber-400/95 text-espresso-950 backdrop-blur-xs flex items-center justify-center text-xl font-black shadow-lg transform scale-75 group-hover:scale-100 transition-transform">
                 🔍
               </span>
             </div>
           </div>
 
-          <!-- Caption & Description (Clean, compact, no empty white space) -->
-          <div class="pt-4 pb-1 px-1.5 flex flex-col justify-between flex-grow">
+          <!-- Caption & Description (Clean, compact, no empty white holes) -->
+          <div class="pt-3.5 pb-1 px-1 flex flex-col justify-between flex-grow">
             <div>
               <h3 
                 class="font-heading font-black text-base sm:text-lg text-espresso-950 group-hover:text-amber-900 transition-colors leading-snug"
@@ -247,17 +323,12 @@ const ctaBanner = gallery.ctaBanner || {
               </h3>
               {photo.description && (
                 <p 
-                  class="text-xs sm:text-sm text-stone-600 mt-2 line-clamp-2 leading-relaxed font-normal"
+                  class="text-xs sm:text-sm text-stone-600 mt-2 line-clamp-3 leading-relaxed font-normal"
                   data-tina-field={tinaField(photo.photoRef, 'description')}
                 >
                   {photo.description}
                 </p>
               )}
-            </div>
-
-            <div class="gallery-zoom-trigger mt-3.5 pt-2.5 border-t border-parchment-200 flex items-center justify-between text-xs font-bold text-amber-950 hover:text-amber-700 transition-colors">
-              <span>Zvětšit fotografii</span>
-              <span class="text-amber-700 group-hover:translate-x-1 transition-transform">→</span>
             </div>
           </div>
 
@@ -277,35 +348,22 @@ const ctaBanner = gallery.ctaBanner || {
       class="mt-14 sm:mt-20 max-w-4xl mx-auto rounded-3xl p-6 sm:p-10 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 border-2 border-amber-500 shadow-xl text-center space-y-4"
       data-tina-field={tinaField(gallery, 'ctaBanner')}
     >
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-espresso-950 text-amber-300 text-[11px] font-black uppercase tracking-wider shadow-xs" data-tina-field={tinaField(ctaBanner, 'badge')}>
-        <span>🎁</span> <span data-edit-key="gallery.ctaBanner.badge" data-edit-label="Štítek CTA">{ctaBanner.badge || "Přijďte se přesvědčit naživo"}</span>
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-espresso-950 text-amber-300 text-xs font-black uppercase tracking-wider">
+        <span>✨</span> <span>{ctaBanner.badge}</span>
       </div>
-      <h2 
-        class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-espresso-950 tracking-tight"
-        data-tina-field={tinaField(ctaBanner, 'title')}
-        data-edit-key="gallery.ctaBanner.title"
-        data-edit-label="Nadpis CTA banneru"
-      >
+      <h2 class="font-heading font-black text-2xl sm:text-3xl text-espresso-950">
         {ctaBanner.title}
       </h2>
-      <p 
-        class="text-espresso-900 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-medium"
-        data-tina-field={tinaField(ctaBanner, 'subtitle')}
-        data-edit-key="gallery.ctaBanner.subtitle"
-        data-edit-label="Podnadpis CTA banneru"
-      >
+      <p class="text-espresso-950/85 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
         {ctaBanner.subtitle}
       </p>
       <div class="pt-2">
         <a
-          href={ctaBanner.buttonLink || "/rozvrh#kontakt"}
-          class="inline-flex items-center justify-center gap-2 py-4 px-8 rounded-2xl font-heading font-black text-base bg-espresso-950 hover:bg-espresso-900 text-amber-300 shadow-md hover:shadow-xl transition-all cursor-pointer hover:scale-105 active:scale-95"
-          data-tina-field={tinaField(ctaBanner, 'buttonText')}
-          data-edit-key="gallery.ctaBanner.buttonText"
-          data-edit-label="Tlačítko CTA banneru"
+          href={ctaBanner.buttonLink}
+          class="btn-gold-pulse inline-flex items-center gap-2 py-3.5 px-8 rounded-2xl font-heading font-black text-sm text-espresso-950 bg-white hover:bg-amber-50 border-2 border-espresso-950 shadow-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
         >
-          <span>{ctaBanner.buttonText || "🎁 Vyzkoušet 1. lekci ZDARMA"}</span>
-          <span>→</span>
+          <span>{ctaBanner.buttonText}</span>
+          <span class="font-black">→</span>
         </a>
       </div>
     </div>
@@ -313,30 +371,42 @@ const ctaBanner = gallery.ctaBanner || {
   </div>
 </div>
 
-<!-- Modern Fullscreen Lightbox Modal (<dialog closedby="any">) -->
+<!-- Upgraded Lightbox Modal with Zoom & Thumbnail Strip -->
 <dialog
   id="gallery-lightbox"
-  closedby="any"
+  class="m-0 p-0 max-w-full max-h-full w-full h-full bg-espresso-950/95 backdrop-blur-xl border-none outline-none text-white fixed inset-0 z-50 overflow-hidden"
   aria-label="Prohlížeč fotografií"
-  class="fixed inset-0 m-auto max-w-5xl w-[95vw] sm:w-[90vw] p-0 rounded-3xl bg-espresso-950 text-white shadow-2xl border-2 border-amber-400 backdrop:bg-black/85 backdrop:backdrop-blur-md overflow-hidden focus:outline-hidden"
 >
-  <div class="relative flex flex-col h-full max-h-[92vh] sm:max-h-[88vh]">
+  <div class="w-full h-full flex flex-col justify-between">
     
-    <!-- Modal Header -->
-    <div class="p-3.5 sm:p-4 border-b border-stone-800 flex items-center justify-between gap-3 bg-espresso-950">
-      <div class="flex items-center gap-2.5 min-w-0">
-        <span id="lb-cat-badge" class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-black bg-amber-400 text-espresso-950 flex-shrink-0">
-          Učebna
+    <!-- Lightbox Top Control Bar -->
+    <div class="px-3 sm:px-5 py-2 sm:py-2.5 border-b border-stone-800 bg-espresso-950/95 flex items-center justify-between gap-3 z-30 flex-shrink-0">
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <span id="lb-cat-badge" class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-stone-800 text-amber-300 border border-amber-400/30 flex-shrink-0">
+          📁 Učebna
         </span>
-        <h4 id="lb-title" class="font-heading font-black text-sm sm:text-base md:text-lg text-white truncate">
+        <span id="lb-counter" class="text-xs font-bold text-stone-400 flex-shrink-0">
+          1 / {allPhotos.length}
+        </span>
+        <span id="lb-top-title" class="text-xs sm:text-sm font-bold text-stone-200 truncate hidden md:inline">
           Název fotografie
-        </h4>
+        </span>
       </div>
 
       <div class="flex items-center gap-2 flex-shrink-0">
-        <span id="lb-counter" class="text-xs text-amber-300 font-bold px-2.5 py-1 rounded-lg bg-stone-900 border border-stone-800 hidden sm:inline">
-          1 / 12
-        </span>
+        <!-- Zoom Toggle Button -->
+        <button
+          type="button"
+          id="lb-zoom-btn"
+          class="px-3 py-1.5 rounded-full bg-stone-800 hover:bg-amber-400 text-stone-200 hover:text-espresso-950 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border border-stone-700 hover:border-amber-500"
+          title="Zvětšit fotografii pro čtení detailů (diplomy, deskovky)"
+          aria-label="Přiblížit fotografii"
+        >
+          <span>🔍</span>
+          <span id="lb-zoom-text" class="hidden sm:inline">Lupa 100%</span>
+        </button>
+
+        <!-- Close Button -->
         <button
           type="button"
           id="lb-close-btn"
@@ -349,27 +419,28 @@ const ctaBanner = gallery.ctaBanner || {
       </div>
     </div>
 
-    <!-- Main Image Display & Navigation Arrows -->
-    <div class="relative flex-grow flex items-center justify-center p-2 sm:p-6 bg-black/40 min-h-[40vh] sm:min-h-[55vh] select-none">
+    <!-- Main Image Display & Navigation Arrows (Maximized to fill the screen viewport) -->
+    <div class="relative flex-1 w-full flex items-center justify-center p-1 sm:p-2 md:p-3 bg-black/60 select-none overflow-hidden min-h-0">
       
       <!-- Prev Button -->
       <button
         type="button"
         id="lb-prev-btn"
-        class="absolute left-2 sm:left-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-espresso-950/80 hover:bg-amber-400 text-amber-300 hover:text-espresso-950 border border-amber-400/50 flex items-center justify-center text-xl font-black transition-all shadow-lg cursor-pointer hover:scale-110 active:scale-95"
+        class="absolute left-2 sm:left-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-espresso-950/85 hover:bg-amber-400 text-amber-300 hover:text-espresso-950 border border-amber-400/50 flex items-center justify-center text-xl font-black transition-all shadow-xl cursor-pointer hover:scale-110 active:scale-95 backdrop-blur-xs"
         title="Předchozí fotografie (Šipka doleva)"
         aria-label="Předchozí"
       >
         ‹
       </button>
 
-      <!-- The Active Image -->
-      <div class="max-w-full max-h-[60vh] sm:max-h-[68vh] flex items-center justify-center overflow-hidden">
+      <!-- The Active Image Container -->
+      <div id="lb-img-container" class="w-full h-full flex items-center justify-center overflow-hidden transition-all duration-300 cursor-zoom-in min-h-0">
         <img
           id="lb-image"
           src=""
           alt=""
-          class="max-w-full max-h-[60vh] sm:max-h-[68vh] object-contain rounded-xl shadow-2xl transition-transform duration-300"
+          decoding="async"
+          class="max-w-[96vw] sm:max-w-[92vw] lg:max-w-[88vw] max-h-[calc(100vh-150px)] sm:max-h-[calc(100vh-140px)] w-auto h-auto object-contain rounded-xl shadow-2xl transition-transform duration-300 origin-center"
         />
       </div>
 
@@ -377,7 +448,7 @@ const ctaBanner = gallery.ctaBanner || {
       <button
         type="button"
         id="lb-next-btn"
-        class="absolute right-2 sm:right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-espresso-950/80 hover:bg-amber-400 text-amber-300 hover:text-espresso-950 border border-amber-400/50 flex items-center justify-center text-xl font-black transition-all shadow-lg cursor-pointer hover:scale-110 active:scale-95"
+        class="absolute right-2 sm:right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-espresso-950/85 hover:bg-amber-400 text-amber-300 hover:text-espresso-950 border border-amber-400/50 flex items-center justify-center text-xl font-black transition-all shadow-xl cursor-pointer hover:scale-110 active:scale-95 backdrop-blur-xs"
         title="Další fotografie (Šipka doprava)"
         aria-label="Další"
       >
@@ -385,22 +456,39 @@ const ctaBanner = gallery.ctaBanner || {
       </button>
     </div>
 
-    <!-- Modal Footer with detailed description and reservation action -->
-    <div class="p-3.5 sm:p-4 border-t border-stone-800 bg-espresso-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-      <p id="lb-desc" class="text-xs sm:text-sm text-stone-300 leading-relaxed font-normal max-w-2xl">
-        Podrobný popis fotografie.
-      </p>
-      
+    <!-- Description & Action Row (Slim & informative) -->
+    <div class="px-3 sm:px-5 py-2 sm:py-2.5 border-t border-stone-800/80 bg-espresso-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 flex-shrink-0">
+      <div class="min-w-0 max-w-3xl">
+        <h3 id="lb-title" class="font-heading font-black text-sm sm:text-base text-white truncate"></h3>
+        <p id="lb-desc" class="text-xs text-stone-300 leading-relaxed font-normal mt-0.5 line-clamp-1 sm:line-clamp-2"></p>
+      </div>
+
       <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end flex-shrink-0">
-        <span class="text-[11px] text-stone-500 font-bold hidden md:inline whitespace-nowrap">
-          Tip: Klávesnice ‹ › nebo Esc
+        <span class="text-[11px] text-stone-500 font-bold hidden xl:inline whitespace-nowrap">
+          Tip: ‹ › šipky • Lupa pro detail • Esc zavřít
         </span>
         <a
           href="/rozvrh#kontakt"
-          class="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-espresso-950 text-xs font-black transition-all shadow-xs whitespace-nowrap"
+          class="inline-flex items-center gap-1.5 py-1.5 px-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-espresso-950 text-xs font-black transition-all shadow-xs whitespace-nowrap"
         >
           <span>🎁 Rezervovat 1. lekci zdarma →</span>
         </a>
+      </div>
+    </div>
+
+    <!-- Bottom Thumbnail Strip (Pás miniatur) -->
+    <div class="px-2 sm:px-3 py-1.5 border-t border-stone-800 bg-stone-950/95 overflow-x-auto flex-shrink-0 no-scrollbar">
+      <div id="lb-thumbnails" class="flex items-center gap-2 justify-start min-w-max mx-auto py-0.5">
+        {allPhotos.map((p, idx) => (
+          <button
+            type="button"
+            data-lb-thumb-idx={idx}
+            class="lb-thumb-btn relative rounded-lg overflow-hidden flex-shrink-0 transition-all opacity-50 hover:opacity-100 hover:scale-105 border border-stone-700 w-14 h-9 sm:w-16 sm:h-10 cursor-pointer"
+            title={p.title}
+          >
+            <img src={p.image} alt={p.title} loading="lazy" decoding="async" class="w-full h-full object-cover pointer-events-none" />
+          </button>
+        ))}
       </div>
     </div>
 
@@ -410,50 +498,196 @@ const ctaBanner = gallery.ctaBanner || {
 <script>
   function initGallery() {
     const filterBtns = document.querySelectorAll<HTMLButtonElement>('.gallery-cat-btn');
+    const topicPills = document.querySelectorAll<HTMLButtonElement>('.gallery-topic-pill');
     const items = document.querySelectorAll<HTMLElement>('.gallery-item');
     const emptyNotice = document.getElementById('gallery-empty');
+    const container = document.getElementById('gallery-container');
+    const viewMasonryBtn = document.getElementById('view-mode-masonry');
+    const viewGridBtn = document.getElementById('view-mode-grid');
 
     const dialog = document.getElementById('gallery-lightbox') as HTMLDialogElement | null;
     const lbImage = document.getElementById('lb-image') as HTMLImageElement | null;
+    const lbImgContainer = document.getElementById('lb-img-container');
     const lbTitle = document.getElementById('lb-title');
+    const lbTopTitle = document.getElementById('lb-top-title');
     const lbDesc = document.getElementById('lb-desc');
     const lbCatBadge = document.getElementById('lb-cat-badge');
     const lbCounter = document.getElementById('lb-counter');
     const lbCloseBtn = document.getElementById('lb-close-btn');
     const lbPrevBtn = document.getElementById('lb-prev-btn');
     const lbNextBtn = document.getElementById('lb-next-btn');
+    const lbZoomBtn = document.getElementById('lb-zoom-btn');
+    const lbZoomText = document.getElementById('lb-zoom-text');
+    const lbThumbnails = document.querySelectorAll<HTMLButtonElement>('.lb-thumb-btn');
 
-    if (!dialog) return;
+    if (!container) return;
 
     let visibleItems: HTMLElement[] = Array.from(items);
     let currentIndex = 0;
+    let isZoomed = false;
+    let currentView: 'masonry' | 'grid' = (localStorage.getItem('valek_gallery_view') as any) || 'masonry';
 
-    // Filter categories
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const cat = btn.getAttribute('data-category') || 'all';
+    // Apply layout mode (Masonry vs Grid)
+    function applyLayout(mode: 'masonry' | 'grid') {
+      currentView = mode;
+      localStorage.setItem('valek_gallery_view', mode);
 
-        // Style buttons
-        filterBtns.forEach((b) => {
+      if (!container) return;
+
+      if (mode === 'masonry') {
+        container.className = 'gallery-masonry columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance]';
+        container.setAttribute('data-view', 'masonry');
+
+        viewMasonryBtn?.classList.remove('text-stone-600', 'font-bold');
+        viewMasonryBtn?.classList.add('bg-white', 'text-espresso-950', 'font-black', 'shadow-xs', 'border', 'border-parchment-300');
+        viewMasonryBtn?.setAttribute('aria-pressed', 'true');
+
+        viewGridBtn?.classList.remove('bg-white', 'text-espresso-950', 'font-black', 'shadow-xs', 'border', 'border-parchment-300');
+        viewGridBtn?.classList.add('text-stone-600', 'font-bold');
+        viewGridBtn?.setAttribute('aria-pressed', 'false');
+
+        items.forEach((item) => {
+          item.classList.remove('flex', 'flex-col', 'h-full');
+          item.classList.add('break-inside-avoid', 'mb-6', 'w-full', 'inline-block');
+          const wrapper = item.querySelector('.gallery-img-wrapper');
+          wrapper?.classList.remove('aspect-4/3');
+          const img = item.querySelector<HTMLImageElement>('.gallery-card-img');
+          img?.classList.remove('h-full', 'object-[center_20%]');
+          img?.classList.add('h-auto');
+        });
+      } else {
+        container.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch';
+        container.setAttribute('data-view', 'grid');
+
+        viewGridBtn?.classList.remove('text-stone-600', 'font-bold');
+        viewGridBtn?.classList.add('bg-white', 'text-espresso-950', 'font-black', 'shadow-xs', 'border', 'border-parchment-300');
+        viewGridBtn?.setAttribute('aria-pressed', 'true');
+
+        viewMasonryBtn?.classList.remove('bg-white', 'text-espresso-950', 'font-black', 'shadow-xs', 'border', 'border-parchment-300');
+        viewMasonryBtn?.classList.add('text-stone-600', 'font-bold');
+        viewMasonryBtn?.setAttribute('aria-pressed', 'false');
+
+        items.forEach((item) => {
+          item.classList.remove('break-inside-avoid', 'mb-6', 'inline-block');
+          item.classList.add('flex', 'flex-col', 'justify-between', 'h-full');
+          const wrapper = item.querySelector('.gallery-img-wrapper');
+          wrapper?.classList.add('aspect-4/3');
+          const img = item.querySelector<HTMLImageElement>('.gallery-card-img');
+          img?.classList.remove('h-auto');
+          img?.classList.add('h-full', 'object-[center_20%]');
+        });
+      }
+    }
+
+    applyLayout(currentView);
+
+    viewMasonryBtn?.addEventListener('click', () => applyLayout('masonry'));
+    viewGridBtn?.addEventListener('click', () => applyLayout('grid'));
+
+    // Filter categories logic
+    function filterByCategory(cat: string) {
+      // Style category buttons
+      filterBtns.forEach((b) => {
+        const isMatch = b.getAttribute('data-category') === cat;
+        if (isMatch) {
+          b.classList.remove('bg-white', 'text-espresso-900', 'border-parchment-300', 'font-bold');
+          b.classList.add('bg-amber-400', 'text-espresso-950', 'border-amber-500', 'font-black', 'shadow-xs');
+          b.setAttribute('aria-selected', 'true');
+        } else {
           b.classList.remove('bg-amber-400', 'text-espresso-950', 'border-amber-500', 'font-black', 'shadow-xs');
           b.classList.add('bg-white', 'text-espresso-900', 'border-parchment-300', 'font-bold');
           b.setAttribute('aria-selected', 'false');
+        }
+      });
+
+      // Reset topic pills styling
+      topicPills.forEach((p) => {
+        p.classList.remove('border-amber-500', 'bg-amber-400', 'text-espresso-950', 'font-black');
+        p.classList.add('border-parchment-300', 'bg-white', 'text-espresso-900');
+      });
+      const allTopic = document.querySelector<HTMLButtonElement>('.gallery-topic-pill[data-topic="all"]');
+      allTopic?.classList.remove('bg-white', 'border-parchment-300');
+      allTopic?.classList.add('border-amber-500', 'bg-amber-400', 'text-espresso-950', 'font-black');
+
+      visibleItems = [];
+      items.forEach((item) => {
+        const itemCat = item.getAttribute('data-category-id');
+        const photoTag = item.querySelector<HTMLElement>('.gallery-photo-tag');
+
+        if (cat === 'all' || itemCat === cat) {
+          item.classList.remove('hidden');
+          visibleItems.push(item);
+          // Only show tag in "all" view to prevent 10x repetitive badge
+          if (photoTag) {
+            if (cat === 'all') {
+              photoTag.classList.remove('hidden');
+            } else {
+              photoTag.classList.add('hidden');
+            }
+          }
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      if (emptyNotice) {
+        if (visibleItems.length === 0) {
+          emptyNotice.classList.remove('hidden');
+        } else {
+          emptyNotice.classList.add('hidden');
+        }
+      }
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const cat = btn.getAttribute('data-category') || 'all';
+        filterByCategory(cat);
+      });
+    });
+
+    // Quick topic pills logic
+    topicPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const topic = pill.getAttribute('data-topic') || 'all';
+
+        topicPills.forEach((p) => {
+          p.classList.remove('border-amber-500', 'bg-amber-400', 'text-espresso-950', 'font-black');
+          p.classList.add('border-parchment-300', 'bg-white', 'text-espresso-900');
         });
+        pill.classList.remove('bg-white', 'border-parchment-300');
+        pill.classList.add('border-amber-500', 'bg-amber-400', 'text-espresso-950', 'font-black');
 
-        btn.classList.remove('bg-white', 'text-espresso-900', 'border-parchment-300', 'font-bold');
-        btn.classList.add('bg-amber-400', 'text-espresso-950', 'border-amber-500', 'font-black', 'shadow-xs');
-        btn.setAttribute('aria-selected', 'true');
+        if (topic === 'all') {
+          filterByCategory('all');
+          return;
+        }
 
-        // Filter items in grid
+        // Filter by topic keywords
         visibleItems = [];
         items.forEach((item) => {
-          const itemCat = item.getAttribute('data-category-id');
-          if (cat === 'all' || itemCat === cat) {
+          const tags = (item.getAttribute('data-tags') || '').toLowerCase();
+          const cat = item.getAttribute('data-category-id') || '';
+          let match = false;
+
+          if (topic === 'ucebna') {
+            match = tags.includes('učebna') || tags.includes('stůl') || tags.includes('tabule') || tags.includes('zázemí') || cat === 'ucebna';
+          } else if (topic === 'deskovky') {
+            match = tags.includes('deskov') || tags.includes('hra') || tags.includes('karak') || tags.includes('karty') || cat === 'deskovky';
+          } else if (topic === 'lektor') {
+            match = tags.includes('válek') || tags.includes('lektor') || tags.includes('diplom') || tags.includes('celta');
+          } else if (topic === 'diplomy') {
+            match = tags.includes('diplom') || tags.includes('celta') || tags.includes('goethe') || tags.includes('certifikát');
+          } else if (topic === 'knihovna') {
+            match = tags.includes('knih') || cat === 'materialy';
+          }
+
+          const photoTag = item.querySelector<HTMLElement>('.gallery-photo-tag');
+          if (match) {
             item.classList.remove('hidden');
-            item.classList.add('flex');
             visibleItems.push(item);
+            photoTag?.classList.remove('hidden');
           } else {
-            item.classList.remove('flex');
             item.classList.add('hidden');
           }
         });
@@ -465,14 +699,40 @@ const ctaBanner = gallery.ctaBanner || {
             emptyNotice.classList.add('hidden');
           }
         }
-      }, true);
+      });
     });
+
+    // Zoom toggle in lightbox
+    function toggleZoom(forceState?: boolean) {
+      if (!lbImage || !lbImgContainer) return;
+      isZoomed = forceState !== undefined ? forceState : !isZoomed;
+
+      if (isZoomed) {
+        lbImage.classList.add('scale-150', 'sm:scale-175', 'cursor-zoom-out');
+        lbImage.classList.remove('cursor-zoom-in');
+        lbImgContainer.classList.remove('overflow-hidden');
+        lbImgContainer.classList.add('overflow-auto');
+        if (lbZoomText) lbZoomText.textContent = 'Oddálit';
+      } else {
+        lbImage.classList.remove('scale-150', 'sm:scale-175', 'cursor-zoom-out');
+        lbImage.classList.add('cursor-zoom-in');
+        lbImgContainer.classList.remove('overflow-auto');
+        lbImgContainer.classList.add('overflow-hidden');
+        lbImgContainer.scrollTop = 0;
+        lbImgContainer.scrollLeft = 0;
+        if (lbZoomText) lbZoomText.textContent = 'Lupa 100%';
+      }
+    }
+
+    lbZoomBtn?.addEventListener('click', () => toggleZoom());
+    lbImage?.addEventListener('click', () => toggleZoom());
 
     // Lightbox open function
     function openLightbox(index: number) {
       if (!dialog || visibleItems.length === 0) return;
       
-      // Bounds check with wrapping
+      toggleZoom(false); // Reset zoom on each photo change
+
       if (index < 0) index = visibleItems.length - 1;
       if (index >= visibleItems.length) index = 0;
 
@@ -485,30 +745,54 @@ const ctaBanner = gallery.ctaBanner || {
       const desc = currentItem.getAttribute('data-desc') || '';
       const catName = currentItem.getAttribute('data-cat-name') || '';
       const catIcon = currentItem.getAttribute('data-cat-icon') || '📁';
+      const globalIdx = parseInt(currentItem.getAttribute('data-photo-index') || '0', 10);
 
       if (lbImage) {
         lbImage.src = imgSrc;
         lbImage.alt = `${title} – doučovna VALEK ACADEMY Uherské Hradiště`;
       }
       if (lbTitle) lbTitle.textContent = title;
-      if (lbDesc) lbDesc.textContent = desc || title;
+      if (lbTopTitle) lbTopTitle.textContent = title;
+      if (lbDesc) lbDesc.textContent = desc || "Příjemné rodinné zázemí v doučovně v Uherském Hradišti.";
       if (lbCatBadge) lbCatBadge.textContent = `${catIcon} ${catName}`;
       if (lbCounter) lbCounter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
 
+      // Update active thumbnail in the strip
+      lbThumbnails.forEach((thumb) => {
+        const thumbIdx = parseInt(thumb.getAttribute('data-lb-thumb-idx') || '-1', 10);
+        if (thumbIdx === globalIdx) {
+          thumb.classList.remove('opacity-50', 'border-stone-700');
+          thumb.classList.add('opacity-100', 'ring-2', 'ring-amber-400', 'scale-105', 'border-amber-400');
+          thumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } else {
+          thumb.classList.remove('opacity-100', 'ring-2', 'ring-amber-400', 'scale-105', 'border-amber-400');
+          thumb.classList.add('opacity-50', 'border-stone-700');
+        }
+      });
+
       if (!dialog.open) {
         dialog.showModal();
+      }
+
+      // Prefetch adjacent images for instant next/prev browsing
+      if (visibleItems.length > 1) {
+        const nextIdx = (index + 1) % visibleItems.length;
+        const prevIdx = (index - 1 + visibleItems.length) % visibleItems.length;
+        const nextSrc = visibleItems[nextIdx]?.getAttribute('data-image');
+        const prevSrc = visibleItems[prevIdx]?.getAttribute('data-image');
+        if (nextSrc) { const img = new Image(); img.src = nextSrc; }
+        if (prevSrc) { const img = new Image(); img.src = prevSrc; }
       }
     }
 
     const isInIframe = window.self !== window.top;
 
-    // Attach click to all gallery cards
+    // Attach click and keydown to all gallery cards
     items.forEach((item) => {
-      item.addEventListener('click', (e) => {
-        // Inside visual editor iframe, don't open lightbox on text/card clicks so user can edit fields
+      const openHandler = (e: Event) => {
         if (isInIframe) {
           const target = e.target as HTMLElement;
-          if (!target.closest('.gallery-zoom-trigger')) {
+          if (!target.closest('.gallery-card-img') && !target.closest('.gallery-img-wrapper')) {
             return;
           }
         }
@@ -516,67 +800,93 @@ const ctaBanner = gallery.ctaBanner || {
         if (itemIdx !== -1) {
           openLightbox(itemIdx);
         }
+      };
+
+      item.addEventListener('click', openHandler);
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openHandler(e);
+        }
+      });
+    });
+
+    // Attach click to thumbnails in strip
+    lbThumbnails.forEach((thumb) => {
+      thumb.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const globalIdx = parseInt(thumb.getAttribute('data-lb-thumb-idx') || '0', 10);
+        const targetVisibleIdx = visibleItems.findIndex(
+          (it) => parseInt(it.getAttribute('data-photo-index') || '-1', 10) === globalIdx
+        );
+        if (targetVisibleIdx !== -1) {
+          openLightbox(targetVisibleIdx);
+        }
       });
     });
 
     // Navigation buttons
-    if (lbPrevBtn) {
-      lbPrevBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openLightbox(currentIndex - 1);
-      });
-    }
+    lbPrevBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox(currentIndex - 1);
+    });
 
-    if (lbNextBtn) {
-      lbNextBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openLightbox(currentIndex + 1);
-      });
-    }
+    lbNextBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox(currentIndex + 1);
+    });
 
-    if (lbCloseBtn) {
-      lbCloseBtn.addEventListener('click', () => {
-        dialog.close();
-      });
-    }
+    lbCloseBtn?.addEventListener('click', () => {
+      dialog?.close();
+    });
 
     // Fallback backdrop click
-    if (!('closedBy' in HTMLDialogElement.prototype)) {
-      dialog.addEventListener('click', (event) => {
-        if (event.target !== dialog) return;
-        const rect = dialog.getBoundingClientRect();
-        const isDialogContent = (
-          rect.top <= event.clientY &&
-          event.clientY <= rect.top + rect.height &&
-          rect.left <= event.clientX &&
-          event.clientX <= rect.left + rect.width
-        );
-        if (!isDialogContent) {
-          dialog.close();
-        }
-      });
-    }
+    dialog?.addEventListener('click', (event) => {
+      if (event.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      const isDialogContent = (
+        rect.top <= event.clientY &&
+        event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX &&
+        event.clientX <= rect.left + rect.width
+      );
+      if (!isDialogContent) {
+        dialog.close();
+      }
+    });
 
-    // Keyboard navigation
-    window.addEventListener('keydown', (e) => {
-      if (!dialog.open) return;
+    // Keyboard navigation with cleanup
+    const handleGalleryKeydown = (e: KeyboardEvent) => {
+      if (!dialog || !dialog.open) return;
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
         openLightbox(currentIndex - 1);
       } else if (e.key === 'ArrowRight') {
         e.preventDefault();
         openLightbox(currentIndex + 1);
+      } else if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        toggleZoom(true);
+      } else if (e.key === '-') {
+        e.preventDefault();
+        toggleZoom(false);
       }
+    };
+
+    window.removeEventListener('keydown', handleGalleryKeydown);
+    window.addEventListener('keydown', handleGalleryKeydown);
+    document.addEventListener('astro:before-swap', () => {
+      window.removeEventListener('keydown', handleGalleryKeydown);
     });
 
     // Mobile swipe gestures
     let touchStartX = 0;
     let touchEndX = 0;
-    dialog.addEventListener('touchstart', (e) => {
+    dialog?.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
 
-    dialog.addEventListener('touchend', (e) => {
+    dialog?.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       const deltaX = touchEndX - touchStartX;
       if (Math.abs(deltaX) > 45) {

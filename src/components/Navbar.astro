@@ -125,7 +125,18 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
   : defaultDrawerSections;
 ---
 
-<header class="sticky top-0 z-40 w-full bg-surface-base/95 backdrop-blur-md border-b border-surface-border transition-all select-none" data-tina-field={tinaField(navbar, 'brandName')}>
+<header
+  id="site-navbar"
+  class="sticky top-0 z-40 w-full bg-surface-base/95 backdrop-blur-md border-b border-surface-border transition-transform duration-300 ease-out select-none"
+  data-tina-field={tinaField(navbar, 'brandName')}
+>
+  <!-- Scroll Progress Bar -->
+  <div
+    id="scroll-progress-bar"
+    class="absolute bottom-0 left-0 h-[2.5px] bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 w-0 transition-[width] duration-75 ease-out pointer-events-none z-50 shadow-xs"
+    aria-hidden="true"
+  ></div>
+
   <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-14 sm:h-20 gap-1.5 sm:gap-2">
       
@@ -143,12 +154,13 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
         </div>
       </a>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-bold text-stone-700" aria-label="Hlavní navigace">
+      <!-- Desktop Navigation with Active Scrollspy -->
+      <nav id="desktop-nav" class="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-bold text-stone-700" aria-label="Hlavní navigace">
         {navLinks.map((link: any, lIdx: number) => (
           <a
             href={link.href}
-            class="hover:text-amber-900 transition-colors whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-card-sm hover:bg-amber-100/60 text-stone-800 font-extrabold"
+            data-nav-link={link.href}
+            class="nav-link-item hover:text-amber-900 transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-card-sm hover:bg-amber-100/60 text-stone-800 font-extrabold border border-transparent"
             data-tina-field={link.rawItem ? tinaField(link.rawItem, 'label') : undefined}
           >
             <span data-edit-key={link.rawItem ? `navbar.navLinks.${lIdx}.label` : undefined} data-edit-label="Odkaz v menu">{link.label}</span>
@@ -156,7 +168,7 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
         ))}
       </nav>
 
-      <!-- Right Action Area (Phone + Gold CTA + Slide-over Drawer Trigger) -->
+      <!-- Right Action Area (Phone + Gold CTA on tablet/desktop + Slide-over Drawer Trigger) -->
       <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
         
         <!-- Direct Phone Link (Desktop XL only) -->
@@ -169,10 +181,10 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
           <span data-edit-key="contact.phoneFormatted" data-edit-label="Telefon v menu">{phoneFormatted}</span>
         </a>
 
-        <!-- Primary CTA Button (Gold Pulse with 3D haptic shadow) -->
+        <!-- Primary CTA Button (Visible on md+ devices; mobile uses the ergonomical thumb bar) -->
         <a
           href={ctaDestination}
-          class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active inline-flex items-center justify-center gap-1 px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-heading font-black text-[11px] sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 cursor-pointer transition-transform whitespace-nowrap flex-shrink-0"
+          class="btn-gold-pulse shadow-dice-btn active:shadow-dice-btn-active hidden md:inline-flex items-center justify-center gap-1 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 cursor-pointer transition-transform whitespace-nowrap flex-shrink-0"
         >
           <span data-tina-field={tinaField(navbar, 'ctaText')} data-edit-key="navbar.ctaText" data-edit-label="Text tlačítka v menu">{ctaText}</span>
         </a>
@@ -202,119 +214,164 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
 <div
   id="drawer-backdrop"
   data-close-drawer
-  class="fixed inset-0 bg-espresso-950/60 backdrop-blur-xs z-50 transition-opacity duration-300 opacity-0 pointer-events-none"
+  class="fixed inset-0 bg-espresso-950/60 backdrop-blur-xs z-[10001] transition-opacity duration-300 opacity-0 pointer-events-none"
   aria-hidden="true"
 ></div>
 
 <!-- Slide-over Sidebar Drawer Panel -->
 <aside
   id="drawer-panel"
-  class="fixed top-0 right-0 bottom-0 w-full sm:w-[420px] max-w-[92vw] bg-[#FAF7F2] border-l border-parchment-300 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between overflow-y-auto invisible"
+  class="fixed top-0 right-0 bottom-0 w-full sm:w-[400px] max-w-[92vw] h-full max-h-screen bg-[#FAF7F2] border-l border-parchment-300 shadow-2xl z-[10002] transform translate-x-full transition-transform duration-300 ease-out flex flex-col overflow-hidden invisible"
   role="dialog"
   aria-modal="true"
   aria-label="Kompletní navigace a sekce webu"
 >
   
   <!-- Drawer Header -->
-  <div class="p-5 sm:p-6 border-b border-parchment-300 bg-white/90 flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
+  <div class="flex-shrink-0 px-4 py-3 sm:px-5 sm:py-3.5 border-b border-parchment-300 bg-white/95 flex items-center justify-between backdrop-blur-md">
     <div class="flex items-center gap-2.5">
       <ParrotLogo className="w-8 h-8 rounded-full shadow-2xs" />
       <div>
-        <div class="font-heading font-black text-sm text-espresso-950 leading-tight" data-tina-field={tinaField(navbar, 'drawerTitle')} data-edit-key="navbar.drawerTitle" data-edit-label="Nadpis v menu">{drawerTitle}</div>
+        <div class="font-heading font-black text-xs sm:text-sm text-espresso-950 leading-tight" data-tina-field={tinaField(navbar, 'drawerTitle')} data-edit-key="navbar.drawerTitle" data-edit-label="Nadpis v menu">{drawerTitle}</div>
         <div class="text-[10px] text-amber-900 font-bold leading-tight" data-tina-field={tinaField(navbar, 'drawerSubtitle')} data-edit-key="navbar.drawerSubtitle" data-edit-label="Podnadpis v menu">{drawerSubtitle}</div>
       </div>
     </div>
     <button
       type="button"
       data-close-drawer
-      class="p-2 rounded-xl text-stone-500 hover:text-espresso-950 hover:bg-parchment-200 transition-colors cursor-pointer text-xs font-bold flex items-center gap-1"
-      aria-label="Zavřít menu"
+      class="w-8 h-8 rounded-full text-stone-500 hover:text-espresso-950 bg-parchment-100 hover:bg-parchment-200 transition-colors cursor-pointer text-xs font-black flex items-center justify-center"
+      aria-label={drawerCloseText}
+      title={drawerCloseText}
     >
       <span>✕</span>
-      <span class="hidden sm:inline" data-tina-field={tinaField(navbar, 'drawerCloseText')} data-edit-key="navbar.drawerCloseText" data-edit-label="Text zavřít">{drawerCloseText}</span>
     </button>
   </div>
 
   <!-- Drawer Body Navigation Links -->
-  <div class="p-5 sm:p-6 space-y-6 flex-grow">
+  <div class="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5 space-y-4">
     
     {drawerSections.map((sec, sIdx) => (
-      <div class="space-y-2.5" data-tina-field={tinaField(sec, 'category')}>
+      <div class="space-y-2" data-tina-field={tinaField(sec, 'category')}>
         <div
-          class="text-[11px] font-black uppercase tracking-wider text-stone-500 px-1"
+          class="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-stone-500 px-0.5"
           data-edit-key={`navbar.drawerSections.${sIdx}.category`}
           data-edit-label="Kategorie v menu"
         >
           {sec.category}
         </div>
-        <div class="space-y-1.5">
-          {sec.items.map((item, iIdx) => (
-            <a
-              href={item.href}
-              data-drawer-link
-              class="group p-3 rounded-2xl bg-white hover:bg-amber-50 border border-parchment-300 hover:border-amber-400 shadow-2xs transition-all flex items-center justify-between gap-3 cursor-pointer"
-              data-tina-field={tinaField(item, 'label')}
-            >
-              <div class="flex items-center gap-3 min-w-0">
-                <span
-                  class="text-xl flex-shrink-0 group-hover:scale-110 transition-transform"
-                  data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.icon`}
-                  data-edit-label="Ikona odkazu"
-                >{item.icon}</span>
-                <div class="min-w-0">
+
+        {sIdx === 0 ? (
+          <!-- First Category: Modern 2x2 Grid Tiles for Main Pages -->
+          <div class="grid grid-cols-2 gap-2">
+            {sec.items.map((item, iIdx) => (
+              <a
+                href={item.href}
+                data-drawer-link
+                class="group p-2.5 sm:p-3 rounded-2xl bg-white hover:bg-amber-50/80 border border-parchment-300 hover:border-amber-400 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between cursor-pointer relative overflow-hidden"
+                data-tina-field={tinaField(item, 'label')}
+              >
+                <div class="flex items-center justify-between mb-1.5">
+                  <span
+                    class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform"
+                    data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.icon`}
+                    data-edit-label="Ikona odkazu"
+                  >{item.icon}</span>
+                  <span class="text-stone-300 group-hover:text-amber-700 group-hover:translate-x-0.5 transition-all text-xs font-bold">→</span>
+                </div>
+                <div>
                   <div
-                    class="font-heading font-black text-xs sm:text-sm text-espresso-950 truncate group-hover:text-amber-950"
+                    class="font-heading font-black text-xs text-espresso-950 leading-snug group-hover:text-amber-950 line-clamp-2"
                     data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.label`}
                     data-edit-label="Název odkazu v menu"
                   >
                     {item.label}
                   </div>
-                  <div
-                    class="text-[11px] text-stone-500 truncate font-medium"
-                    data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.desc`}
-                    data-edit-label="Popis odkazu v menu"
-                  >
-                    {item.desc}
-                  </div>
+                  {item.desc && (
+                    <div
+                      class="text-[9.5px] text-stone-400 line-clamp-1 font-medium mt-0.5"
+                      data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.desc`}
+                      data-edit-label="Popis odkazu v menu"
+                    >
+                      {item.desc}
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div class="flex items-center gap-1.5 flex-shrink-0">
                 {item.badge && (
                   <span
-                    class="text-[9px] font-black bg-amber-200 text-espresso-950 px-2 py-0.5 rounded-full border border-amber-300 whitespace-nowrap"
+                    class="absolute top-1.5 right-1.5 text-[8px] font-black bg-amber-200 text-espresso-950 px-1.5 py-0.2 rounded-full border border-amber-300"
                     data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.badge`}
                     data-edit-label="Štítek odkazu"
                   >
                     {item.badge}
                   </span>
                 )}
-                <span class="text-stone-400 group-hover:translate-x-1 group-hover:text-amber-700 transition-all font-bold">→</span>
-              </div>
-            </a>
-          ))}
-        </div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <!-- Other Categories: Compact single-row streamlined list -->
+          <div class="space-y-1">
+            {sec.items.map((item, iIdx) => (
+              <a
+                href={item.href}
+                data-drawer-link
+                class="group py-2 px-3 rounded-xl bg-white hover:bg-amber-50/60 border border-parchment-200/80 hover:border-amber-300 shadow-2xs transition-all flex items-center justify-between gap-2.5 cursor-pointer"
+                data-tina-field={tinaField(item, 'label')}
+              >
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span
+                    class="text-base flex-shrink-0 group-hover:scale-110 transition-transform"
+                    data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.icon`}
+                    data-edit-label="Ikona odkazu"
+                  >{item.icon}</span>
+                  <div class="min-w-0">
+                    <span
+                      class="font-heading font-black text-xs text-espresso-950 truncate group-hover:text-amber-950 block leading-tight"
+                      data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.label`}
+                      data-edit-label="Název odkazu v menu"
+                    >
+                      {item.label}
+                    </span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  {item.badge && (
+                    <span
+                      class="text-[8.5px] font-black bg-amber-100 text-espresso-950 px-1.5 py-0.2 rounded-full border border-amber-200"
+                      data-edit-key={`navbar.drawerSections.${sIdx}.items.${iIdx}.badge`}
+                      data-edit-label="Štítek odkazu"
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                  <span class="text-stone-300 group-hover:translate-x-0.5 group-hover:text-amber-700 transition-all text-xs font-bold">→</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     ))}
 
   </div>
 
-  <!-- Drawer Footer: Quick Contact & Booking CTA -->
-  <div class="p-5 sm:p-6 pb-safe border-t border-parchment-300 bg-white/95 space-y-3 sticky bottom-0 z-10 backdrop-blur-md">
+  <!-- Drawer Footer: Streamlined Quick Contact & Booking CTA -->
+  <div class="flex-shrink-0 p-3.5 sm:p-4 pb-safe border-t border-parchment-300 bg-white/95 space-y-2 backdrop-blur-md shadow-[0_-4px_12px_rgba(0,0,0,0.03)]">
     
     <a
       href={drawerCtaLink}
       data-drawer-link
-      class="btn-gold-pulse w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs text-center"
+      class="btn-gold-pulse w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl font-heading font-black text-xs sm:text-sm text-espresso-950 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 border border-amber-500 shadow-xs text-center"
       data-tina-field={tinaField(navbar, 'drawerCtaText')}
     >
       <span data-edit-key="navbar.drawerCtaText" data-edit-label="Text tlačítka v menu">{drawerCtaText}</span>
-      <span>→</span>
+      <span class="text-xs">→</span>
     </a>
 
-    <div class="grid grid-cols-2 gap-2 pt-1">
+    <div class="grid grid-cols-2 gap-2">
       <a
         href={`tel:${normalizedPhone}`}
-        class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-parchment-100 hover:bg-parchment-200 border border-parchment-300 text-xs font-bold text-espresso-950 transition-colors text-center"
+        class="inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-parchment-100 hover:bg-parchment-200 border border-parchment-300 text-[11px] sm:text-xs font-bold text-espresso-950 transition-colors text-center"
       >
         <span>📞</span>
         <span class="truncate">{phoneFormatted}</span>
@@ -323,14 +380,14 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
         href={`https://wa.me/${waPhone}?text=${encodeURIComponent('Dobrý den pane Válku, rád/a bych se zeptal/a na volná místa v doučovně na 1. lekci zdarma.')}`}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-xs font-bold text-emerald-950 transition-colors text-center"
+        class="inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-[11px] sm:text-xs font-bold text-emerald-950 transition-colors text-center"
       >
         <span>💬</span>
         <span>WhatsApp</span>
       </a>
     </div>
 
-    <div class="text-[10px] text-center text-stone-500 pt-1" data-tina-field={tinaField(navbar, 'drawerLocationNote')}>
+    <div class="text-[9.5px] sm:text-[10px] text-center text-stone-500 pt-0.5 leading-tight" data-tina-field={tinaField(navbar, 'drawerLocationNote')}>
       <span data-edit-key="navbar.drawerLocationNote" data-edit-label="Poznámka adresy v menu">{drawerLocationNote}</span>
     </div>
 
@@ -338,9 +395,10 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
 
 </aside>
 
-<!-- Client-side script for Slide-over Drawer behavior -->
+<!-- Client-side script for Navbar, Slide-over Drawer, Progress Bar & Scrollspy -->
 <script>
-  function setupNavDrawer() {
+  function setupNavbarFeatures() {
+    // 1. Slide-over Drawer behavior
     const openBtns = document.querySelectorAll('[data-open-drawer]');
     const closeBtns = document.querySelectorAll('[data-close-drawer]');
     const drawerLinks = document.querySelectorAll('[data-drawer-link]');
@@ -377,14 +435,152 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
     closeBtns.forEach((btn) => btn.addEventListener('click', closeDrawer, true));
     drawerLinks.forEach((link) => link.addEventListener('click', closeDrawer, true));
 
-    // Close on Escape key
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeDrawer();
+      if (e.key === 'Escape') closeDrawer();
+    });
+
+    // 2. Scroll Progress Bar
+    const progressBar = document.getElementById('scroll-progress-bar');
+    function updateProgress() {
+      if (!progressBar) return;
+      const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    }
+
+    // 3. Smart Hide/Show Navbar on Scroll (Smooth accumulated delta for mousewheel, touch & trackpad)
+    const header = document.getElementById('site-navbar');
+    let lastScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+    let isHidden = false;
+    const topThreshold = 60;
+
+    // Reset initial state on page mount/transition
+    if (header) {
+      header.classList.remove('-translate-y-full');
+    }
+
+    function handleSmartNavbar() {
+      if (!header) return;
+      // Do not hide if mobile drawer is currently open
+      if (panel && !panel.classList.contains('translate-x-full') && !panel.classList.contains('invisible')) {
+        if (isHidden) {
+          header.classList.remove('-translate-y-full');
+          isHidden = false;
+        }
+        return;
+      }
+
+      const currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
+      // Ignore iOS elastic rubber-banding past top and bottom bounds
+      if (currentScrollY < 0 || currentScrollY > maxScroll) {
+        return;
+      }
+
+      // Always show when near the top of the page
+      if (currentScrollY <= topThreshold) {
+        if (isHidden) {
+          header.classList.remove('-translate-y-full');
+          isHidden = false;
+        }
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      const delta = currentScrollY - lastScrollY;
+
+      // Scrolling down: hide after 15px accumulated downward scroll
+      if (delta > 15 && !isHidden) {
+        header.classList.add('-translate-y-full');
+        isHidden = true;
+        lastScrollY = currentScrollY;
+      }
+      // Scrolling up: reveal after 10px upward scroll
+      else if (delta < -10 && isHidden) {
+        header.classList.remove('-translate-y-full');
+        isHidden = false;
+        lastScrollY = currentScrollY;
+      }
+      // Keep tracking lastScrollY when continuing in current visible/hidden state
+      else if ((delta > 0 && isHidden) || (delta < 0 && !isHidden)) {
+        lastScrollY = currentScrollY;
+      }
+    }
+
+    // 4. Desktop Active Scrollspy
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>('#desktop-nav .nav-link-item');
+    const sectionMap: { id: string; link: HTMLAnchorElement }[] = [];
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#') && href.length > 1) {
+        const id = href.slice(1);
+        if (document.getElementById(id)) {
+          sectionMap.push({ id, link });
+        }
       }
     });
+
+    function updateScrollspy() {
+      if (sectionMap.length === 0) return;
+      const scrollPos = window.scrollY + 180;
+      let currentSectionId = '';
+
+      for (let i = sectionMap.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sectionMap[i].id);
+        if (section && section.offsetTop <= scrollPos) {
+          currentSectionId = sectionMap[i].id;
+          break;
+        }
+      }
+
+      sectionMap.forEach(({ id, link }) => {
+        if (id === currentSectionId) {
+          link.classList.add('bg-amber-200/70', 'text-amber-950', 'border-amber-300');
+          link.classList.remove('border-transparent');
+        } else {
+          link.classList.remove('bg-amber-200/70', 'text-amber-950', 'border-amber-300');
+          link.classList.add('border-transparent');
+        }
+      });
+    }
+
+    // Combined optimized scroll listener
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateProgress();
+          handleSmartNavbar();
+          updateScrollspy();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateProgress();
+    updateScrollspy();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
   }
 
-  document.addEventListener('DOMContentLoaded', setupNavDrawer);
-  document.addEventListener('astro:page-load', setupNavDrawer);
+  let cleanupNavbar: (() => void) | null = null;
+  function initNavbar() {
+    if (cleanupNavbar) cleanupNavbar();
+    const cleanup = setupNavbarFeatures();
+    cleanupNavbar = typeof cleanup === 'function' ? cleanup : null;
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
+  } else {
+    initNavbar();
+  }
+  document.addEventListener('astro:page-load', initNavbar);
 </script>

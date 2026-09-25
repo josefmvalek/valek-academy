@@ -81,7 +81,7 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
         return (
           <div
             data-tina-field={tinaField(timeline, 'phases', idx)}
-            class="reveal-on-scroll rounded-card-lg p-6 sm:p-7 bg-surface-card border-2 border-parchment-300 shadow-tile hover:border-amber-400 hover:shadow-card-lift transition-all flex flex-col justify-between group relative"
+            class={`reveal-on-scroll stagger-${idx + 1} rounded-card-lg p-6 sm:p-7 bg-surface-card border-2 border-parchment-300 shadow-tile hover:border-amber-400 hover:shadow-card-lift transition-all flex flex-col justify-between group relative z-10`}
           >
             
             <!-- Top Row: Time Badge & Icon -->
@@ -128,7 +128,7 @@ const calloutCtaLink = timeline.calloutCtaLink || "#kontakt";
     </div>
 
     <!-- Bottom Guarantee Callout -->
-    <div class="mt-10 max-w-3xl mx-auto text-center p-5 sm:p-6 rounded-card-xl bg-amber-50/90 border-2 border-amber-300 shadow-card flex flex-col sm:flex-row items-center justify-center gap-4">
+    <div class="mt-10 max-w-3xl mx-auto text-center p-5 sm:p-6 rounded-card-xl bg-amber-50/90 border-2 border-amber-300 shadow-card flex flex-col sm:flex-row items-center justify-center gap-4 reveal-scale">
       <div class="w-12 h-12 rounded-card-md bg-amber-400 text-espresso-950 flex items-center justify-center text-2xl flex-shrink-0 font-bold shadow-xs">
         🎁
       </div>

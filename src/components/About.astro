@@ -119,6 +119,15 @@ const defaultCredentials: Credentials = {
 };
 
 const credentials = about.credentials || defaultCredentials;
+
+const defaultStats = [
+  { target: "25", suffix: "+", label: "let zkušeností v ČR", colorScheme: "amber" },
+  { target: "5", suffix: " dětí", label: "otec s trpělivostí", colorScheme: "espresso" },
+  { target: "60", suffix: " min", label: "výuka plná deskovek", colorScheme: "amber" },
+  { target: "100", suffix: "%", label: "1. lekce zdarma", colorScheme: "emerald" },
+];
+
+const stats = (about.stats && about.stats.length > 0) ? about.stats : defaultStats;
 ---
 
 <section id="o-mne" class="py-8 sm:py-12 md:py-16 relative bg-surface-base border-t border-parchment-200 overflow-hidden">
@@ -138,7 +147,7 @@ const credentials = about.credentials || defaultCredentials;
     <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-10 sm:mb-14">
       
       <!-- Bio Text Column -->
-      <div class="lg:col-span-7 space-y-5">
+      <div class="lg:col-span-7 space-y-5 reveal-from-left">
         <div class="flex items-center gap-2 flex-wrap">
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-card-sm bg-amber-100 border border-amber-300 text-espresso-950 text-xs font-extrabold" data-tina-field={tinaField(about, 'role')} data-edit-key="about.role" data-edit-label="Role lektora">
             <span>🎓</span> <span>{role}</span>
@@ -179,7 +188,7 @@ const credentials = about.credentials || defaultCredentials;
       </div>
 
       <!-- Experience & Credentials Highlight Box -->
-      <div class="lg:col-span-5">
+      <div class="lg:col-span-5 reveal-from-right">
         <div class="bg-surface-card rounded-card-xl p-6 sm:p-8 border-2 border-amber-300 shadow-card space-y-5 relative overflow-hidden" data-tina-field={tinaField(about, 'credentials')}>
           <div class="flex items-center justify-between pb-5 border-b border-parchment-200 gap-4">
             <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
@@ -231,7 +240,7 @@ const credentials = about.credentials || defaultCredentials;
             })}
           </ul>
 
-          <div class="p-4 rounded-card-md bg-amber-100/90 border border-amber-300 text-center">
+          <div class="p-4 rounded-card-md bg-amber-100/90 border border-amber-300 text-center reveal-scale">
             <div class="text-xs font-bold text-amber-950" data-tina-field={tinaField(credentials, 'note')}>{credentials.note}</div>
             <div class="text-sm sm:text-base font-heading font-black text-espresso-950 mt-0.5" data-tina-field={tinaField(credentials, 'guarantee')}>{credentials.guarantee}</div>
           </div>
@@ -240,12 +249,49 @@ const credentials = about.credentials || defaultCredentials;
 
     </div>
 
+    <!-- Key Numerical Highlights (Animated Counters) -->
+    {stats && stats.length > 0 && (
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10" data-tina-field={tinaField(about, 'stats')}>
+        {stats.map((stat: any, idx: number) => {
+          const colorClass = stat.colorScheme === 'emerald'
+            ? 'text-emerald-800'
+            : stat.colorScheme === 'espresso'
+            ? 'text-espresso-950'
+            : 'text-amber-800';
+          return (
+            <div
+              class={`reveal-on-scroll stagger-${idx + 1} p-3.5 sm:p-4 rounded-card-md bg-white border border-parchment-300 shadow-2xs text-center`}
+              data-tina-field={tinaField(about, 'stats', idx)}
+            >
+              <div
+                class={`font-heading font-black text-2xl sm:text-3xl ${colorClass}`}
+                data-counter-target={stat.target || "0"}
+                data-counter-suffix={stat.suffix || ""}
+                data-counter-prefix={stat.prefix || ""}
+                data-edit-key={`about.stats.${idx}.target`}
+                data-edit-label="Číselná hodnota"
+              >
+                {`${stat.prefix || ""}${stat.target || ""}${stat.suffix || ""}`}
+              </div>
+              <div
+                class="text-[11px] sm:text-xs font-bold text-stone-600 mt-0.5"
+                data-edit-key={`about.stats.${idx}.label`}
+                data-edit-label="Popisek statistiky"
+              >
+                {stat.label}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    )}
+
     <!-- 4 Pillars Grid -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
       {pillars.map((pillar, idx) => (
         <div
           data-tina-field={tinaField(about, 'pillars', idx)}
-          class="bg-surface-card rounded-card-lg p-5 sm:p-6 border-2 border-parchment-300 shadow-tile hover:shadow-card-lift hover:border-amber-400 transition-all space-y-2.5"
+          class={`reveal-on-scroll stagger-${idx + 1} bg-surface-card rounded-card-lg p-5 sm:p-6 border-2 border-parchment-300 shadow-tile hover:shadow-card-lift hover:border-amber-400 transition-all space-y-2.5`}
         >
           <div class="text-3xl">
             {pillar.icon}

@@ -348,11 +348,11 @@ function getLocalWalkHint(cohort: string) {
       </div>
 
       <!-- 1. SMART GROUP FINDER VIEW (Default & Fast) -->
-      <div id="smart-finder-view" class="space-y-6 mb-8">
-        <div class="max-w-5xl mx-auto p-5 sm:p-8 rounded-card-xl bg-white border-2 border-amber-400 shadow-card-lift relative overflow-hidden">
+      <div id="smart-finder-view" class="space-y-4 sm:space-y-6 mb-8">
+        <div class="max-w-5xl mx-auto p-3.5 sm:p-8 rounded-card-xl bg-white border-2 border-amber-400 shadow-card-lift relative overflow-hidden">
           
           <!-- Top subtle ribbon -->
-          <div class="flex items-center justify-between gap-2 mb-6 pb-4 border-b border-parchment-200">
+          <div class="flex items-center justify-between gap-2 mb-3 sm:mb-6 pb-2.5 sm:pb-4 border-b border-parchment-200">
             <div class="flex items-center gap-2">
               <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-950 text-xs font-black uppercase tracking-wider border border-amber-300" data-tina-field={tinaField(schedule, 'smartFinderBadge')} data-edit-key="schedule.smartFinderBadge" data-edit-label="Štítek vyhledávače">
                 {smartFinderBadge}
@@ -362,66 +362,66 @@ function getLocalWalkHint(cohort: string) {
             <span class="text-xs text-emerald-800 font-bold" data-tina-field={tinaField(schedule, 'smartFinderFree')} data-edit-key="schedule.smartFinderFree" data-edit-label="Štítek lekce zdarma">{smartFinderFree}</span>
           </div>
 
-          <!-- Step 1: Cohort Selection (3 big interactive cards) -->
-          <div class="space-y-3 mb-6">
+          <!-- Step 1: Cohort Selection (Compact 3-col mobile grid) -->
+          <div class="space-y-2 sm:space-y-3 mb-3.5 sm:mb-6">
             <label class="block text-xs sm:text-sm font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'smartStep1Title')} data-edit-key="schedule.smartStep1Title" data-edit-label="Krok 1: Nadpis">
               {smartStep1Title}
             </label>
-            <div class="grid sm:grid-cols-3 gap-2.5" id="smart-cohort-buttons">
+            <div class="grid grid-cols-3 gap-1.5 sm:gap-2.5" id="smart-cohort-buttons">
               <button
                 type="button"
                 data-smart-cohort="1.–3. třída"
-                class="smart-cohort-btn p-3.5 rounded-card-md border-2 text-left transition-all cursor-pointer flex items-center gap-3 bg-amber-100/90 border-amber-500 shadow-2xs group"
+                class="smart-cohort-btn p-2 sm:p-3.5 rounded-card-md border-2 text-center sm:text-left transition-all cursor-pointer flex flex-col sm:flex-row items-center gap-1 sm:gap-3 bg-amber-100/90 border-amber-500 shadow-2xs group"
               >
-                <span class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🎒</span>
-                <div class="min-w-0">
-                  <div class="font-heading font-black text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort1Title')} data-edit-key="schedule.smartCohort1Title" data-edit-label="Krok 1: 1.–3. třída">{smartCohort1Title}</div>
-                  <div class="text-xs text-stone-600 truncate" data-tina-field={tinaField(schedule, 'smartCohort1Sub')} data-edit-key="schedule.smartCohort1Sub" data-edit-label="Krok 1: 1.–3. třída čas">{smartCohort1Sub}</div>
+                <span class="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🎒</span>
+                <div class="min-w-0 w-full">
+                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort1Title')} data-edit-key="schedule.smartCohort1Title" data-edit-label="Krok 1: 1.–3. třída">{smartCohort1Title}</div>
+                  <div class="text-[10px] sm:text-xs text-stone-600 truncate mt-0.5" data-tina-field={tinaField(schedule, 'smartCohort1Sub')} data-edit-key="schedule.smartCohort1Sub" data-edit-label="Krok 1: 1.–3. třída čas">{smartCohort1Sub}</div>
                 </div>
               </button>
 
               <button
                 type="button"
                 data-smart-cohort="4.–6. třída"
-                class="smart-cohort-btn p-3.5 rounded-card-md border-2 text-left transition-all cursor-pointer flex items-center gap-3 bg-parchment-50 border-parchment-300 hover:border-amber-400 group"
+                class="smart-cohort-btn p-2 sm:p-3.5 rounded-card-md border-2 text-center sm:text-left transition-all cursor-pointer flex flex-col sm:flex-row items-center gap-1 sm:gap-3 bg-parchment-50 border-parchment-300 hover:border-amber-400 group"
               >
-                <span class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🚀</span>
-                <div class="min-w-0">
-                  <div class="font-heading font-black text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort2Title')} data-edit-key="schedule.smartCohort2Title" data-edit-label="Krok 1: 4.–6. třída">{smartCohort2Title}</div>
-                  <div class="text-xs text-stone-600 truncate" data-tina-field={tinaField(schedule, 'smartCohort2Sub')} data-edit-key="schedule.smartCohort2Sub" data-edit-label="Krok 1: 4.–6. třída čas">{smartCohort2Sub}</div>
+                <span class="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🚀</span>
+                <div class="min-w-0 w-full">
+                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort2Title')} data-edit-key="schedule.smartCohort2Title" data-edit-label="Krok 1: 4.–6. třída">{smartCohort2Title}</div>
+                  <div class="text-[10px] sm:text-xs text-stone-600 truncate mt-0.5" data-tina-field={tinaField(schedule, 'smartCohort2Sub')} data-edit-key="schedule.smartCohort2Sub" data-edit-label="Krok 1: 4.–6. třída čas">{smartCohort2Sub}</div>
                 </div>
               </button>
 
               <button
                 type="button"
                 data-smart-cohort="7.–9. třída & SŠ"
-                class="smart-cohort-btn p-3.5 rounded-card-md border-2 text-left transition-all cursor-pointer flex items-center gap-3 bg-parchment-50 border-parchment-300 hover:border-amber-400 group"
+                class="smart-cohort-btn p-2 sm:p-3.5 rounded-card-md border-2 text-center sm:text-left transition-all cursor-pointer flex flex-col sm:flex-row items-center gap-1 sm:gap-3 bg-parchment-50 border-parchment-300 hover:border-amber-400 group"
               >
-                <span class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🎓</span>
-                <div class="min-w-0">
-                  <div class="font-heading font-black text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort3Title')} data-edit-key="schedule.smartCohort3Title" data-edit-label="Krok 1: 7.–9. třída & SŠ">{smartCohort3Title}</div>
-                  <div class="text-xs text-stone-600 truncate" data-tina-field={tinaField(schedule, 'smartCohort3Sub')} data-edit-key="schedule.smartCohort3Sub" data-edit-label="Krok 1: 7.–9. třída čas">{smartCohort3Sub}</div>
+                <span class="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🎓</span>
+                <div class="min-w-0 w-full">
+                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort3Title')} data-edit-key="schedule.smartCohort3Title" data-edit-label="Krok 1: 7.–9. třída & SŠ">{smartCohort3Title}</div>
+                  <div class="text-[10px] sm:text-xs text-stone-600 truncate mt-0.5" data-tina-field={tinaField(schedule, 'smartCohort3Sub')} data-edit-key="schedule.smartCohort3Sub" data-edit-label="Krok 1: 7.–9. třída čas">{smartCohort3Sub}</div>
                 </div>
               </button>
             </div>
           </div>
 
-          <!-- Step 2: Day Selection (Day Pills) -->
-          <div class="space-y-3 mb-6 pb-6 border-b border-parchment-200">
+          <!-- Step 2: Day Selection (Scrollable chip bar on mobile) -->
+          <div class="space-y-2 sm:space-y-3 mb-3.5 sm:mb-6 pb-3 sm:pb-6 border-b border-parchment-200">
             <div class="flex items-center justify-between flex-wrap gap-2">
               <label class="block text-xs sm:text-sm font-black uppercase tracking-wider text-espresso-950" data-tina-field={tinaField(schedule, 'smartStep2Title')} data-edit-key="schedule.smartStep2Title" data-edit-label="Krok 2: Nadpis">
                 {smartStep2Title}
               </label>
-              <span class="text-[11px] font-bold text-amber-900 bg-amber-100/80 border border-amber-300/70 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs" data-tina-field={tinaField(schedule, 'smartDayMultiNote')} data-edit-key="schedule.smartDayMultiNote" data-edit-label="Krok 2: Výběr více dní">
+              <span class="text-[10px] sm:text-[11px] font-bold text-amber-900 bg-amber-100/80 border border-amber-300/70 px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full flex items-center gap-1 shadow-2xs" data-tina-field={tinaField(schedule, 'smartDayMultiNote')} data-edit-key="schedule.smartDayMultiNote" data-edit-label="Krok 2: Výběr více dní">
                 {smartDayMultiNote}
               </span>
             </div>
-            <div class="flex flex-wrap gap-2" id="smart-day-pills">
+            <div class="flex overflow-x-auto sm:flex-wrap gap-1.5 sm:gap-2 pb-1.5 sm:pb-0 scrollbar-none no-scrollbar -mx-1 px-1" id="smart-day-pills">
               <button
                 type="button"
                 data-smart-day="all"
                 aria-pressed="true"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-black transition-all cursor-pointer border bg-espresso-950 text-amber-300 border-espresso-950 shadow-2xs select-none"
+                class="smart-day-btn flex-shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-black transition-all cursor-pointer border bg-espresso-950 text-amber-300 border-espresso-950 shadow-2xs select-none whitespace-nowrap"
               >
                 <span data-tina-field={tinaField(schedule, 'smartDayAllLabel')} data-edit-key="schedule.smartDayAllLabel" data-edit-label="Krok 2: Všechny dny">{smartDayAllLabel}</span>
               </button>
@@ -429,7 +429,7 @@ function getLocalWalkHint(cohort: string) {
                 type="button"
                 data-smart-day="Pondělí"
                 aria-pressed="false"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
+                class="smart-day-btn flex-shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none whitespace-nowrap"
               >
                 Pondělí
               </button>
@@ -437,7 +437,7 @@ function getLocalWalkHint(cohort: string) {
                 type="button"
                 data-smart-day="Úterý"
                 aria-pressed="false"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
+                class="smart-day-btn flex-shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none whitespace-nowrap"
               >
                 Úterý
               </button>
@@ -445,7 +445,7 @@ function getLocalWalkHint(cohort: string) {
                 type="button"
                 data-smart-day="Středa"
                 aria-pressed="false"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
+                class="smart-day-btn flex-shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none whitespace-nowrap"
               >
                 Středa
               </button>
@@ -453,7 +453,7 @@ function getLocalWalkHint(cohort: string) {
                 type="button"
                 data-smart-day="Čtvrtek"
                 aria-pressed="false"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
+                class="smart-day-btn flex-shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none whitespace-nowrap"
               >
                 Čtvrtek
               </button>
@@ -461,7 +461,7 @@ function getLocalWalkHint(cohort: string) {
                 type="button"
                 data-smart-day="Pátek"
                 aria-pressed="false"
-                class="smart-day-btn px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none"
+                class="smart-day-btn flex-shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer border bg-white text-espresso-900 border-parchment-300 hover:border-amber-400 hover:bg-amber-50 select-none whitespace-nowrap"
               >
                 Pátek
               </button>
@@ -469,30 +469,65 @@ function getLocalWalkHint(cohort: string) {
           </div>
 
           <!-- Matching Results Showcase Area -->
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-black uppercase tracking-wider text-amber-950" data-tina-field={tinaField(schedule, 'smartResultsTitle')} data-edit-key="schedule.smartResultsTitle" data-edit-label="Nadpis doporučených skupinek">
-                {smartResultsTitle}
-              </span>
-              <span id="smart-match-count" class="text-xs font-bold text-stone-500">
-                Zobrazeno skupinek: 5
-              </span>
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <span class="text-xs font-black uppercase tracking-wider text-amber-950 block truncate" data-tina-field={tinaField(schedule, 'smartResultsTitle')} data-edit-key="schedule.smartResultsTitle" data-edit-label="Nadpis doporučených skupinek">
+                  {smartResultsTitle}
+                </span>
+                <span id="smart-match-count" class="text-xs font-bold text-stone-500">
+                  Zobrazeno skupinek: 5
+                </span>
+              </div>
+
+              <!-- Mobile Carousel Controls: Arrows & Page Indicator -->
+              <div class="flex sm:hidden items-center gap-1.5 flex-shrink-0" id="smart-carousel-controls">
+                <button
+                  type="button"
+                  id="smart-prev-btn"
+                  aria-label="Předchozí skupinka"
+                  class="w-8 h-8 rounded-full bg-white hover:bg-amber-100 border-2 border-amber-300 text-espresso-950 flex items-center justify-center font-black text-sm shadow-2xs active:scale-90 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  ←
+                </button>
+                <span id="smart-carousel-page" class="text-[11px] font-black text-amber-950 px-1 font-mono">1/5</span>
+                <button
+                  type="button"
+                  id="smart-next-btn"
+                  aria-label="Další skupinka"
+                  class="w-8 h-8 rounded-full bg-amber-400 hover:bg-amber-300 border-2 border-amber-500 text-espresso-950 flex items-center justify-center font-black text-sm shadow-2xs active:scale-90 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed animate-pulse"
+                >
+                  →
+                </button>
+              </div>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="smart-cards-container">
-              {groups.map((group, idx) => {
-                const cap = getCapacityInfo(group);
-                const walkHint = group.walkHint || getLocalWalkHint(group.cohort);
-                const isInitialSmartVisible = matchesCohort(group.cohort, '1.–3. třída');
-                return (
-                  <div
-                    data-tina-field={tinaField(schedule, 'groups', idx)}
-                    data-smart-card-id={group.id}
-                    data-smart-cohort={group.cohort}
-                    data-smart-day={group.day}
-                    style={{ display: isInitialSmartVisible ? 'flex' : 'none' }}
-                    class="smart-result-card bg-surface-highlight rounded-card-lg p-5 border-2 border-amber-300/80 hover:border-amber-500 shadow-card hover:shadow-card-lift transition-all flex-col justify-between"
-                  >
+            <!-- Horizontal Carousel with prominent peek and edge indicator -->
+            <div class="relative">
+              <div
+                class="flex sm:grid overflow-x-auto sm:overflow-visible sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 pb-2 sm:pb-0 snap-x snap-mandatory -mx-2 px-2 sm:mx-0 sm:px-0"
+                id="smart-cards-container"
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="Doporučené zvířecí skupinky"
+                style="scrollbar-width: none; -ms-overflow-style: none;"
+              >
+                {groups.map((group, idx) => {
+                  const cap = getCapacityInfo(group);
+                  const walkHint = group.walkHint || getLocalWalkHint(group.cohort);
+                  const isInitialSmartVisible = matchesCohort(group.cohort, '1.–3. třída');
+                  return (
+                    <div
+                      data-tina-field={tinaField(schedule, 'groups', idx)}
+                      data-smart-card-id={group.id}
+                      data-smart-cohort={group.cohort}
+                      data-smart-day={group.day}
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label={`${group.emoji || '🐾'} ${group.animal} – ${group.day} ${group.time}`}
+                      style={{ display: isInitialSmartVisible ? 'flex' : 'none' }}
+                      class="smart-result-card flex-shrink-0 w-[78vw] min-[400px]:w-[80vw] max-w-[310px] snap-center sm:w-auto sm:max-w-none bg-surface-highlight rounded-card-lg p-4 sm:p-5 border-2 border-amber-300/80 hover:border-amber-500 shadow-card hover:shadow-card-lift transition-all flex-col justify-between"
+                    >
                     <div class="space-y-3">
                       <div class="flex items-center justify-between gap-2 flex-wrap">
                         <span class="px-2.5 py-1 rounded-card-sm bg-espresso-950 text-white text-xs font-black">
@@ -602,6 +637,13 @@ function getLocalWalkHint(cohort: string) {
                 <button type="button" id="smart-reset-day-btn" class="text-xs font-bold text-amber-900 underline hover:text-amber-950 cursor-pointer" data-tina-field={tinaField(schedule, 'smartEmptyReset')} data-edit-key="schedule.smartEmptyReset" data-edit-label="Nenalezeno: Reset">{smartEmptyReset}</button>
               </div>
             </div>
+
+            <!-- Subtle right shadow indicator for horizontal scroll -->
+            <div class="pointer-events-none absolute top-0 bottom-2 right-0 w-8 bg-gradient-to-l from-white/90 to-transparent sm:hidden" id="smart-carousel-gradient"></div>
+          </div>
+
+          <!-- Mobile Pagination Dots Indicator -->
+          <div class="flex sm:hidden items-center justify-center gap-1.5 pt-1" id="smart-carousel-dots"></div>
 
           </div>
 
@@ -1089,6 +1131,71 @@ function getLocalWalkHint(cohort: string) {
           smartEmptyState.classList.add('hidden');
         }
       }
+
+      updateSmartCarouselUI();
+    }
+
+    function updateSmartCarouselUI() {
+      const container = document.getElementById('smart-cards-container');
+      const prevBtn = document.getElementById('smart-prev-btn') as HTMLButtonElement | null;
+      const nextBtn = document.getElementById('smart-next-btn') as HTMLButtonElement | null;
+      const pageIndicator = document.getElementById('smart-carousel-page');
+      const dotsContainer = document.getElementById('smart-carousel-dots');
+      const gradient = document.getElementById('smart-carousel-gradient');
+
+      if (!container) return;
+
+      const visibleCards = Array.from(container.querySelectorAll<HTMLElement>('.smart-result-card')).filter(
+        (c) => c.style.display !== 'none'
+      );
+      const total = visibleCards.length;
+
+      const controls = document.getElementById('smart-carousel-controls');
+      if (controls) {
+        controls.style.display = total <= 1 ? 'none' : 'flex';
+      }
+      if (gradient) {
+        gradient.style.display = total <= 1 ? 'none' : 'block';
+      }
+
+      if (total <= 1) {
+        if (dotsContainer) dotsContainer.innerHTML = '';
+        return;
+      }
+
+      const cardWidth = (visibleCards[0]?.offsetWidth || 280) + 12;
+      const scrollLeft = container.scrollLeft;
+      const activeIndex = Math.max(0, Math.min(total - 1, Math.round(scrollLeft / cardWidth)));
+
+      if (pageIndicator) {
+        pageIndicator.textContent = `${activeIndex + 1}/${total}`;
+      }
+
+      if (prevBtn) {
+        prevBtn.disabled = activeIndex === 0;
+      }
+      if (nextBtn) {
+        nextBtn.disabled = activeIndex >= total - 1;
+        if (activeIndex >= total - 1) {
+          nextBtn.classList.remove('animate-pulse');
+        } else {
+          nextBtn.classList.add('animate-pulse');
+        }
+      }
+
+      if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        visibleCards.forEach((_, idx) => {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = `h-2 rounded-full transition-all cursor-pointer ${
+            idx === activeIndex ? 'bg-amber-600 w-6 shadow-xs' : 'bg-parchment-300 hover:bg-parchment-400 w-2'
+          }`;
+          dot.setAttribute('aria-label', `Přejít na skupinku ${idx + 1}`);
+          dot.setAttribute('data-smart-dot-idx', String(idx));
+          dotsContainer.appendChild(dot);
+        });
+      }
     }
 
     function updateFullCohortFilter() {
@@ -1121,12 +1228,24 @@ function getLocalWalkHint(cohort: string) {
       });
     }
 
+    let hasBoundCarouselScroll = false;
+    function bindCarouselScroll() {
+      const container = document.getElementById('smart-cards-container');
+      if (container && !hasBoundCarouselScroll) {
+        hasBoundCarouselScroll = true;
+        container.addEventListener('scroll', () => {
+          window.requestAnimationFrame(updateSmartCarouselUI);
+        }, { passive: true });
+      }
+    }
+
     function syncAllUI() {
       updateViewUI();
       updateCohortButtonsUI();
       updateDayButtonsUI();
       updateSmartFilters();
       updateFullCohortFilter();
+      bindCarouselScroll();
     }
 
     let lastHandledTime = 0;
@@ -1167,6 +1286,40 @@ function getLocalWalkHint(cohort: string) {
         updateViewUI();
         const switcher = document.getElementById('schedule-mode-switcher');
         switcher?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      // 2b. Smart Carousel Mobile Controls
+      const prevCarouselBtn = target.closest('#smart-prev-btn');
+      if (prevCarouselBtn) {
+        const container = document.getElementById('smart-cards-container');
+        if (container) {
+          const visibleCards = Array.from(container.querySelectorAll<HTMLElement>('.smart-result-card')).filter(c => c.style.display !== 'none');
+          const cardWidth = visibleCards[0]?.offsetWidth || 280;
+          container.scrollBy({ left: -(cardWidth + 12), behavior: 'smooth' });
+        }
+        return;
+      }
+
+      const nextCarouselBtn = target.closest('#smart-next-btn');
+      if (nextCarouselBtn) {
+        const container = document.getElementById('smart-cards-container');
+        if (container) {
+          const visibleCards = Array.from(container.querySelectorAll<HTMLElement>('.smart-result-card')).filter(c => c.style.display !== 'none');
+          const cardWidth = visibleCards[0]?.offsetWidth || 280;
+          container.scrollBy({ left: cardWidth + 12, behavior: 'smooth' });
+        }
+        return;
+      }
+
+      const dotBtn = target.closest<HTMLButtonElement>('[data-smart-dot-idx]');
+      if (dotBtn) {
+        const idx = parseInt(dotBtn.getAttribute('data-smart-dot-idx') || '0', 10);
+        const container = document.getElementById('smart-cards-container');
+        if (container) {
+          const visibleCards = Array.from(container.querySelectorAll<HTMLElement>('.smart-result-card')).filter(c => c.style.display !== 'none');
+          visibleCards[idx]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
         return;
       }
 
