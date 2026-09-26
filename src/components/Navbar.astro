@@ -127,7 +127,7 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
 
 <header
   id="site-navbar"
-  class="sticky top-0 z-40 w-full bg-surface-base/95 backdrop-blur-md border-b border-surface-border transition-transform duration-300 ease-out select-none"
+  class="sticky top-0 z-40 w-full bg-surface-base border-b border-surface-border shadow-xs transition-all duration-300 ease-out select-none"
   data-tina-field={tinaField(navbar, 'brandName')}
 >
   <!-- Scroll Progress Bar -->
@@ -462,14 +462,6 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
 
     function handleSmartNavbar() {
       if (!header) return;
-      // Do not hide if mobile drawer is currently open
-      if (panel && !panel.classList.contains('translate-x-full') && !panel.classList.contains('invisible')) {
-        if (isHidden) {
-          header.classList.remove('-translate-y-full');
-          isHidden = false;
-        }
-        return;
-      }
 
       const currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
       const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
@@ -479,7 +471,34 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
         return;
       }
 
-      // Always show when near the top of the page
+      // Dynamic shadow based on scroll depth (works on all screen sizes)
+      if (currentScrollY > 10) {
+        header.classList.add('shadow-sm');
+        header.classList.remove('shadow-xs');
+      } else {
+        header.classList.remove('shadow-sm');
+        header.classList.add('shadow-xs');
+      }
+
+      // On desktop (lg screens >= 1024px): keep navbar permanently visible and stable
+      if (window.innerWidth >= 1024) {
+        if (isHidden) {
+          header.classList.remove('-translate-y-full');
+          isHidden = false;
+        }
+        return;
+      }
+
+      // Mobile/Tablet: Do not hide if mobile drawer is currently open
+      if (panel && !panel.classList.contains('translate-x-full') && !panel.classList.contains('invisible')) {
+        if (isHidden) {
+          header.classList.remove('-translate-y-full');
+          isHidden = false;
+        }
+        return;
+      }
+
+      // Mobile/Tablet: Always show when near the top of the page
       if (currentScrollY <= topThreshold) {
         if (isHidden) {
           header.classList.remove('-translate-y-full');
@@ -561,12 +580,21 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
       }
     }
 
+    function onResize() {
+      if (window.innerWidth >= 1024 && isHidden && header) {
+        header.classList.remove('-translate-y-full');
+        isHidden = false;
+      }
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
     updateProgress();
     updateScrollspy();
 
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
     };
   }
 

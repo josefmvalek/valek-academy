@@ -84,40 +84,22 @@ const contactPromptLinkText = faq.contactPromptLinkText || "Napište mi do formu
 </section>
 
 <script>
-  (() => {
-    let lastHandledTime = 0;
-    function handleFaqInteraction(e: Event) {
-      const target = e.target as HTMLElement | null;
-      if (!target) return;
-
-      const summary = target.closest('summary');
-      if (!summary) return;
-
-      const details = summary.closest<HTMLDetailsElement>('.faq-details');
-      if (!details) return;
-
-      const willBeOpen = !details.open;
-      if (willBeOpen) {
-        document.querySelectorAll<HTMLDetailsElement>('.faq-details').forEach((other) => {
-          if (other !== details && other.open) other.open = false;
-        });
-      }
-
-      setTimeout(() => {
-        if (details.open !== willBeOpen) {
-          details.open = willBeOpen;
+  function initFaqAccordion() {
+    const faqItems = document.querySelectorAll<HTMLDetailsElement>('.faq-details');
+    faqItems.forEach((details) => {
+      details.addEventListener('toggle', () => {
+        // When an item is opened, close other open items in the accordion
+        if (details.open) {
+          faqItems.forEach((other) => {
+            if (other !== details && other.open) {
+              other.open = false;
+            }
+          });
         }
-      }, 10);
-    }
+      });
+    });
+  }
 
-    document.addEventListener('pointerdown', (e) => {
-      lastHandledTime = Date.now();
-      handleFaqInteraction(e);
-    }, true);
-
-    document.addEventListener('click', (e) => {
-      if (Date.now() - lastHandledTime < 350) return;
-      handleFaqInteraction(e);
-    }, true);
-  })();
+  initFaqAccordion();
+  document.addEventListener('astro:page-load', initFaqAccordion);
 </script>
