@@ -4,6 +4,8 @@ import { tinaField } from '@tinacms/astro/tina-field';
 
 interface Props {
   contact?: {
+    directContactBadge?: string;
+    directContactTitle?: string;
     tutorImage?: string;
     tutorName?: string;
     tutorCredentials?: string;
@@ -29,6 +31,8 @@ interface Props {
 
 const { contact = {}, locationInfo = {} } = Astro.props;
 
+const directContactBadge = contact.directContactBadge || "📞 PŘÍMÝ KONTAKT & DOUČOVNA";
+const directContactTitle = contact.directContactTitle || "Preferujete telefonickou domluvu nebo se chcete stavit osobně?";
 const tutorName = contact.tutorName || "Josef Válek";
 const tutorCredentials = contact.tutorCredentials || "BBA (RMIT Univ., Melbourne) • 25+ let v ČR";
 const tutorRole = contact.tutorRole || "Doučovna v Uherském Hradišti";
@@ -50,8 +54,18 @@ const guaranteeTitle = contact.guaranteeTitle || "1. ukázková lekce je 100% ZD
 const guaranteeDesc = contact.guaranteeDesc || "Dítě si přijde nezávazně vyzkoušet deskovky a atmosféru v malé skupince (4–8 dětí). Žádné platby předem ani skryté závazky. Rozhodnete se až po lekci!";
 ---
 
-<div class="lg:col-span-5 space-y-5 w-full max-w-full min-w-0">
+<div class="lg:col-span-5 space-y-4 w-full max-w-full min-w-0">
   
+  <!-- Contextual Section Header for Direct Contact Card -->
+  <div class="space-y-1.5 pt-2 lg:pt-0">
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/90 border border-amber-300/80 text-[11px] font-black uppercase tracking-wider text-amber-950 shadow-2xs" data-tina-field={tinaField(contact, 'directContactBadge')} data-edit-key="contact.directContactBadge" data-edit-label="Přímý kontakt - štítek">
+      <span>{directContactBadge}</span>
+    </div>
+    <h3 class="font-heading font-black text-lg sm:text-xl lg:text-2xl text-espresso-950 tracking-tight leading-snug break-words" data-tina-field={tinaField(contact, 'directContactTitle')} data-edit-key="contact.directContactTitle" data-edit-label="Přímý kontakt - nadpis">
+      {directContactTitle}
+    </h3>
+  </div>
+
   <div class="bg-white rounded-3xl p-4 sm:p-8 border-2 border-amber-300/80 shadow-soft-lg space-y-5 w-full max-w-full min-w-0">
     <div class="flex items-center gap-3.5 pb-4 border-b border-parchment-200 min-w-0">
       {contact.tutorImage ? (

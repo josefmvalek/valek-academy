@@ -1080,6 +1080,8 @@ export default defineConfig({
               { type: "string", name: "badge", label: "Odznáček" },
               { type: "string", name: "title", label: "Nadpis sekce" },
               { type: "string", name: "subtitle", label: "Podnadpis sekce", description: "Podporuje formátování: <b>tučné</b>, <i>kurzíva</i> (nebo **tučné**, *kurzíva*)", ui: { component: "textarea" } },
+              { type: "string", name: "directContactBadge", label: "Přímý kontakt - štítek (např. 📞 PŘÍMÝ KONTAKT & DOUČOVNA)" },
+              { type: "string", name: "directContactTitle", label: "Přímý kontakt - nadpis (např. Preferujete telefonickou domluvu nebo se chcete stavit osobně?)" },
               { type: "image", name: "tutorImage", label: "Fotka lektora u kontaktu", description: "Portrét lektora (čtverec nebo portrét, WebP)." },
               { type: "string", name: "tutorName", label: "Jméno lektora na kartě" },
               { type: "string", name: "tutorCredentials", label: "Titul a zkušenosti" },

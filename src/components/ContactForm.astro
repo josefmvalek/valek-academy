@@ -98,18 +98,20 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
 <div class="lg:col-span-7 w-full max-w-full min-w-0">
   <div class="bg-surface-card rounded-card-xl p-3 sm:p-8 md:p-10 border-2 border-amber-300/80 shadow-card relative w-full max-w-full min-w-0 overflow-hidden box-border">
     
-    <div class="flex flex-wrap items-center gap-2 mb-2">
-      <span class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(contact, 'formBadge')} data-edit-key="contact.formBadge" data-edit-label="Formulář - štítek">
-        {formBadge}
-      </span>
-      <span class="text-xs text-stone-500 font-bold" data-tina-field={tinaField(contact, 'formBadgeNote')} data-edit-key="contact.formBadgeNote" data-edit-label="Formulář - poznámka ke štítku">{formBadgeNote}</span>
+    <div class="hidden lg:block mb-6">
+      <div class="flex flex-wrap items-center gap-2 mb-2">
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-espresso-950 shadow-2xs" data-tina-field={tinaField(contact, 'formBadge')} data-edit-key="contact.formBadge" data-edit-label="Formulář - štítek">
+          {formBadge}
+        </span>
+        <span class="text-xs text-stone-500 font-bold" data-tina-field={tinaField(contact, 'formBadgeNote')} data-edit-key="contact.formBadgeNote" data-edit-label="Formulář - poznámka ke štítku">{formBadgeNote}</span>
+      </div>
+      <h3 class="font-heading font-black text-fluid-h2 text-espresso-950 mb-1 break-words" data-tina-field={tinaField(contact, 'formTitle')} data-edit-key="contact.formTitle" data-edit-label="Formulář - nadpis">
+        {formTitle}
+      </h3>
+      <p class="text-xs sm:text-sm text-stone-600 font-normal" data-tina-field={tinaField(contact, 'formSubtitle')} data-edit-key="contact.formSubtitle" data-edit-label="Formulář - podnadpis">
+        {formSubtitle}
+      </p>
     </div>
-    <h3 class="font-heading font-black text-fluid-h2 text-espresso-950 mb-1 break-words" data-tina-field={tinaField(contact, 'formTitle')} data-edit-key="contact.formTitle" data-edit-label="Formulář - nadpis">
-      {formTitle}
-    </h3>
-    <p class="text-xs sm:text-sm text-stone-600 mb-6 font-normal" data-tina-field={tinaField(contact, 'formSubtitle')} data-edit-key="contact.formSubtitle" data-edit-label="Formulář - podnadpis">
-      {formSubtitle}
-    </p>
 
     <form
       id="contact-form"
@@ -382,6 +384,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
             id="name"
             name="name"
             required
+            autocomplete="name"
             placeholder="např. Alena Nováková"
             class="w-full px-4 py-3 rounded-xl bg-parchment-50 border border-parchment-300 text-espresso-950 placeholder-stone-400 focus:outline-none focus:border-amber-500 focus:bg-white transition-colors text-base sm:text-sm font-medium"
           />
@@ -396,6 +399,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
             type="text"
             id="child-name"
             name="child_name"
+            autocomplete="off"
             placeholder="např. Tomáš, 10 let (4. třída)"
             class="w-full px-4 py-3 rounded-xl bg-parchment-50 border border-parchment-300 text-espresso-950 placeholder-stone-400 focus:outline-none focus:border-amber-500 focus:bg-white transition-colors text-base sm:text-sm font-medium"
           />
@@ -690,50 +694,56 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
           <button
             type="button"
             data-day="Pondělí"
-            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
+            aria-pressed="false"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 text-xs font-bold text-espresso-950 text-center cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full touch-manipulation select-none active:scale-95 transition-[border-color,background-color,transform] duration-150"
           >
-            <span class="text-xs sm:text-sm font-black">Po</span>
-            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Pondělí</span>
+            <span class="text-xs sm:text-sm font-black pointer-events-none">Po</span>
+            <span class="day-subtext text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block pointer-events-none">Pondělí</span>
           </button>
           <button
             type="button"
             data-day="Úterý"
-            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
+            aria-pressed="false"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 text-xs font-bold text-espresso-950 text-center cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full touch-manipulation select-none active:scale-95 transition-[border-color,background-color,transform] duration-150"
           >
-            <span class="text-xs sm:text-sm font-black">Út</span>
-            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Úterý</span>
+            <span class="text-xs sm:text-sm font-black pointer-events-none">Út</span>
+            <span class="day-subtext text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block pointer-events-none">Úterý</span>
           </button>
           <button
             type="button"
             data-day="Středa"
-            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
+            aria-pressed="false"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 text-xs font-bold text-espresso-950 text-center cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full touch-manipulation select-none active:scale-95 transition-[border-color,background-color,transform] duration-150"
           >
-            <span class="text-xs sm:text-sm font-black">St</span>
-            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Středa</span>
+            <span class="text-xs sm:text-sm font-black pointer-events-none">St</span>
+            <span class="day-subtext text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block pointer-events-none">Středa</span>
           </button>
           <button
             type="button"
             data-day="Čtvrtek"
-            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
+            aria-pressed="false"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 text-xs font-bold text-espresso-950 text-center cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full touch-manipulation select-none active:scale-95 transition-[border-color,background-color,transform] duration-150"
           >
-            <span class="text-xs sm:text-sm font-black">Čt</span>
-            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Čtvrtek</span>
+            <span class="text-xs sm:text-sm font-black pointer-events-none">Čt</span>
+            <span class="day-subtext text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block pointer-events-none">Čtvrtek</span>
           </button>
           <button
             type="button"
             data-day="Pátek"
-            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 hover:border-amber-400 hover:bg-amber-50/50 text-xs font-bold text-espresso-950 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
+            aria-pressed="false"
+            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-parchment-300 bg-parchment-50 text-xs font-bold text-espresso-950 text-center cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full touch-manipulation select-none active:scale-95 transition-[border-color,background-color,transform] duration-150"
           >
-            <span class="text-xs sm:text-sm font-black">Pá</span>
-            <span class="text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block">Pátek</span>
+            <span class="text-xs sm:text-sm font-black pointer-events-none">Pá</span>
+            <span class="day-subtext text-[9px] sm:text-[10px] text-stone-500 font-normal truncate max-w-full block pointer-events-none">Pátek</span>
           </button>
           <button
             type="button"
             data-day="Kdykoliv"
-            class="day-pill py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-amber-500 bg-amber-400 text-espresso-950 shadow-xs text-xs font-bold text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full"
+            aria-pressed="true"
+            class="day-pill active py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl border-2 border-amber-500 bg-amber-400 text-espresso-950 shadow-xs text-xs font-bold text-center cursor-pointer flex flex-col items-center justify-center gap-0.5 min-w-0 w-full touch-manipulation select-none active:scale-95 transition-[border-color,background-color,transform] duration-150"
           >
-            <span class="text-xs sm:text-sm font-black">✨ Vše</span>
-            <span class="text-[9px] sm:text-[10px] text-espresso-900 font-bold truncate max-w-full block">Kdykoliv</span>
+            <span class="text-xs sm:text-sm font-black pointer-events-none">✨ Vše</span>
+            <span class="day-subtext text-[9px] sm:text-[10px] text-espresso-900 font-bold truncate max-w-full block pointer-events-none">Kdykoliv</span>
           </button>
         </div>
       </div>
@@ -913,8 +923,6 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
 </div>
 
 <script>
-  import confetti from 'canvas-confetti';
-
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const submitBtn = document.getElementById('submit-button') as HTMLButtonElement | null;
   const btnText = document.getElementById('button-text');
@@ -1478,64 +1486,118 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
   });
 
   // Preferovane dny v tydnu interactive multi-select pills
-  const dayPills = document.querySelectorAll<HTMLButtonElement>('.day-pill');
-  const daysHiddenInput = document.getElementById('preferred-days-input') as HTMLInputElement | null;
   const selectedDays = new Set<string>(['Kdykoliv']);
 
   function updateDaysState() {
-    if (!daysHiddenInput) return;
-    if (selectedDays.size === 0 || selectedDays.has('Kdykoliv')) {
-      daysHiddenInput.value = 'Kdykoliv po telefonické domluvě';
-      dayPills.forEach((p) => {
-        if (p.dataset.day === 'Kdykoliv') {
-          p.classList.remove('border-parchment-300', 'bg-parchment-50');
-          p.classList.add('border-amber-500', 'bg-amber-400', 'shadow-xs');
-        } else {
-          p.classList.remove('border-amber-500', 'bg-amber-400', 'shadow-xs');
-          p.classList.add('border-parchment-300', 'bg-parchment-50');
-        }
-      });
-    } else {
-      const order = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek'];
-      const sorted = order.filter((d) => selectedDays.has(d));
-      daysHiddenInput.value = sorted.join(', ');
-      dayPills.forEach((p) => {
-        const d = p.dataset.day;
-        if (d && selectedDays.has(d)) {
-          p.classList.remove('border-parchment-300', 'bg-parchment-50');
-          p.classList.add('border-amber-500', 'bg-amber-400', 'shadow-xs');
-        } else {
-          p.classList.remove('border-amber-500', 'bg-amber-400', 'shadow-xs');
-          p.classList.add('border-parchment-300', 'bg-parchment-50');
-        }
-      });
-    }
-  }
-
-  dayPills.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const day = btn.dataset.day;
-      if (!day) return;
-
-      if (day === 'Kdykoliv') {
-        selectedDays.clear();
-        selectedDays.add('Kdykoliv');
+    const daysHiddenInput = document.getElementById('preferred-days-input') as HTMLInputElement | null;
+    const isAll = selectedDays.size === 0 || selectedDays.has('Kdykoliv');
+    
+    if (daysHiddenInput) {
+      if (isAll) {
+        daysHiddenInput.value = 'Kdykoliv po telefonické domluvě';
       } else {
-        if (selectedDays.has('Kdykoliv')) {
-          selectedDays.delete('Kdykoliv');
+        const order = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek'];
+        const sorted = order.filter((d) => selectedDays.has(d));
+        daysHiddenInput.value = sorted.join(', ');
+      }
+    }
+
+    const currentPills = document.querySelectorAll<HTMLButtonElement>('.day-pill');
+    currentPills.forEach((p) => {
+      const d = p.dataset.day;
+      const isSelected = isAll ? (d === 'Kdykoliv') : (!!d && selectedDays.has(d));
+      const subText = p.querySelector<HTMLElement>('.day-subtext');
+
+      p.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+      
+      if (isSelected) {
+        p.classList.add('active', 'border-amber-500', 'bg-amber-400', 'shadow-xs');
+        p.classList.remove('border-parchment-300', 'bg-parchment-50');
+        if (subText) {
+          subText.classList.add('text-espresso-900', 'font-bold');
+          subText.classList.remove('text-stone-500', 'font-normal');
         }
-        if (selectedDays.has(day)) {
-          selectedDays.delete(day);
-          if (selectedDays.size === 0) {
-            selectedDays.add('Kdykoliv');
-          }
-        } else {
-          selectedDays.add(day);
+      } else {
+        p.classList.remove('active', 'border-amber-500', 'bg-amber-400', 'shadow-xs');
+        p.classList.add('border-parchment-300', 'bg-parchment-50');
+        if (subText) {
+          subText.classList.remove('text-espresso-900', 'font-bold');
+          subText.classList.add('text-stone-500', 'font-normal');
         }
       }
-      updateDaysState();
-    }, true);
-  });
+    });
+  }
+
+  function handleDaySelection(btn: HTMLButtonElement) {
+    const day = btn.dataset.day;
+    if (!day) return;
+
+    if (day === 'Kdykoliv') {
+      selectedDays.clear();
+      selectedDays.add('Kdykoliv');
+    } else {
+      if (selectedDays.has('Kdykoliv')) {
+        selectedDays.delete('Kdykoliv');
+      }
+      if (selectedDays.has(day)) {
+        selectedDays.delete(day);
+        if (selectedDays.size === 0) {
+          selectedDays.add('Kdykoliv');
+        }
+      } else {
+        selectedDays.add(day);
+      }
+    }
+    updateDaysState();
+  }
+
+  let lastDayHandledTime = 0;
+
+  function handleDayButtonInteraction(e: Event) {
+    const target = e.target as HTMLElement | null;
+    const btn = target?.closest<HTMLButtonElement>('.day-pill');
+    if (!btn) return;
+
+    e.stopPropagation();
+    handleDaySelection(btn);
+  }
+
+  // Pointerdown captures mobile tap immediately (0ms delay) before TinaCMS or touch scrolling can swallow it
+  document.addEventListener('pointerdown', (e) => {
+    const target = e.target as HTMLElement | null;
+    if (target?.closest('.day-pill')) {
+      lastDayHandledTime = Date.now();
+      handleDayButtonInteraction(e);
+    }
+  }, true);
+
+  // Click listener for keyboard accessibility and fallback
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    if (target?.closest('.day-pill')) {
+      if (Date.now() - lastDayHandledTime < 350) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+      handleDayButtonInteraction(e);
+    }
+  }, true);
+
+  function syncDaysFromDOM() {
+    const daysHiddenInput = document.getElementById('preferred-days-input') as HTMLInputElement | null;
+    if (daysHiddenInput && daysHiddenInput.value && daysHiddenInput.value !== 'Kdykoliv po telefonické domluvě') {
+      selectedDays.clear();
+      daysHiddenInput.value.split(',').forEach((d) => {
+        const trimmed = d.trim();
+        if (trimmed) selectedDays.add(trimmed);
+      });
+      if (selectedDays.size === 0) selectedDays.add('Kdykoliv');
+    }
+    updateDaysState();
+  }
+
+  document.addEventListener('astro:page-load', syncDaysFromDOM);
 
   // --- Selected Animal Group Integration from ScheduleBlocks ---
   const calloutEl = document.getElementById('selected-group-callout');
@@ -1658,8 +1720,9 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     setSelectedGroup(e.detail);
   }) as EventListener);
 
-  function triggerCelebration() {
+  async function triggerCelebration() {
     try {
+      const confetti = (await import('canvas-confetti')).default;
       confetti({
         particleCount: 90,
         spread: 70,
@@ -1747,7 +1810,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     const emailVal = emailInput?.value?.trim() || "";
     const segmentVal = segmentSelect?.value || "";
     const levelVal = (document.getElementById('level') as HTMLSelectElement)?.value || "";
-    const daysVal = daysHiddenInput?.value || "Kdykoliv v týdnu";
+    const daysVal = (document.getElementById('preferred-days-input') as HTMLInputElement | null)?.value || "Kdykoliv v týdnu";
     const selectedGroupVal = selectedGroupInput?.value || "";
     const messageVal = (document.getElementById('message') as HTMLTextAreaElement)?.value?.trim() || "";
 
@@ -1921,3 +1984,60 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     triggerCelebration();
   }
 </script>
+
+<style>
+  .day-pill {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  }
+
+  /* Explicit active pill styling with priority */
+  .day-pill.active {
+    background-color: #fbbf24 !important; /* amber-400 */
+    border-color: #f59e0b !important;     /* amber-500 */
+    color: #180e08 !important;             /* espresso-950 */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .day-pill.active .day-subtext {
+    color: #3d2517 !important;             /* espresso-900 */
+    font-weight: 700 !important;
+  }
+
+  /* Unselected pill styling */
+  .day-pill:not(.active) {
+    background-color: #fdfbf7;             /* parchment-50 */
+    border-color: #e8dcbf;                 /* parchment-300 */
+    color: #180e08;
+  }
+
+  .day-pill:not(.active) .day-subtext {
+    color: #78716c;                        /* stone-500 */
+    font-weight: 400;
+  }
+
+  /* Prevent persistent focus outlines on touch/mouse tap */
+  .day-pill:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Only apply hover effects on fine pointers (mouse) to prevent sticky hover on touch */
+  @media (hover: hover) and (pointer: fine) {
+    .day-pill:not(.active):hover {
+      border-color: #f59e0b;
+      background-color: #fef3c7;
+    }
+    .day-pill.active:hover {
+      background-color: #f59e0b !important;
+      border-color: #d97706 !important;
+    }
+  }
+
+  .day-pill:active {
+    transform: scale(0.95);
+  }
+</style>
