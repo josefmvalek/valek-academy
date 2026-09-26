@@ -48,21 +48,31 @@ export async function convertSingleImage(filePath) {
   }
 }
 
+async function walkAndConvert(currentDir) {
+  let count = 0;
+  if (!fs.existsSync(currentDir)) return 0;
+  const entries = fs.readdirSync(currentDir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(currentDir, entry.name);
+    if (entry.isDirectory()) {
+      count += await walkAndConvert(fullPath);
+    } else if (entry.isFile()) {
+      const res = await convertSingleImage(fullPath);
+      if (res) count++;
+    }
+  }
+  return count;
+}
+
 export async function scanAndConvertAll() {
   let count = 0;
   for (const targetDir of DIRS_TO_SCAN) {
-    if (!fs.existsSync(targetDir)) continue;
-    const files = fs.readdirSync(targetDir);
-    for (const file of files) {
-      const fullPath = path.join(targetDir, file);
-      if (fs.statSync(fullPath).isFile()) {
-        const res = await convertSingleImage(fullPath);
-        if (res) count++;
-      }
-    }
+    count += await walkAndConvert(targetDir);
   }
   if (count > 0) {
     console.log(`[WebP Auto-Convert] Hotovo: Zkonvertováno ${count} nových/změněných obrázků.`);
+  } else {
+    console.log('[WebP Auto-Convert] Všechny obrázky jsou již aktuální a ve formátu WebP.');
   }
   return count;
 }

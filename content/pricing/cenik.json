@@ -19,7 +19,7 @@
       "popularBadge": "⭐ Nejoblíbenější • 1. lekce ZDARMA",
       "title": "Děti & Žáci ZŠ (Skupinky hrou)",
       "description": "Trpělivá a zábavná výuka v partě 4–8 dětí. Plno deskovek (Catan, Dobble, Doba kamenná), obrázkové karty a spontánní mluvení u mini-tabulí bez strachu ze špatných známek.",
-      "baseRate": "320 Kč / 60 min. ",
+      "baseRate": "320 Kč / 60 min.",
       "baseRateNote": "",
       "packageRate": "280 Kč / 60 min.",
       "packageRateNote": "(sleva 15 %)",
@@ -69,7 +69,7 @@
       "cohortBadge": "Dospělí & VŠ • 90 minut",
       "popularBadge": "",
       "title": "Odborné profesní skupiny",
-      "description": "Specializované skupiny pro 4 profese: Medici 🩺, Právníci ⚖️, Technici & Inženýři ⚙️, Obchod & Účetnictví 📊 a v pátek \"All-In\". Cílem je odbourat ostych, zvládnout prezentace a osvojit si odbornou terminologii.",
+      "description": "Specializované skupiny pro 4 profese: Medici 🩺, Právníci ⚖️, Technici & Inženýři ⚙️, Obchod & Účetnictví 📊 a v pátek „All-In“. Cílem je odbourat ostych, zvládnout prezentace a osvojit si odbornou terminologii.",
       "baseRate": "550 Kč / 90 min.",
       "baseRateNote": "370 Kč / 60 min.",
       "packageRate": "480 Kč / 90 min.",
@@ -134,8 +134,8 @@
     "modeKidsBadge": "60 min",
     "modeTeensLabel": "SŠ & dospělí",
     "modeTeensBadge": "90 min",
-    "noteKids": "💡 Jak slevy fungují pro žáky ZŠ (60 min): Slevy se odvíjí od délky balíčku a frekvence: měsíční zkušební (<b>320 Kč / 60 min.</b>), čtvrtletní (<b>304 Kč / 60 min.</b>), nejoblíbenější pololetní (<b>272 Kč / 60 min.</b> = jen cca 1 100 Kč měsíčně) a roční či při docházce 2× týdně pouhých <b>245 Kč / 60 min.</b> (úspora až 30 %).",
-    "noteTeens": "💡 Jak slevy fungují pro SŠ a dospělé (90 min): Základní sazba za 90 minut je <b>480 Kč</b> (odpovídá 320 Kč/h). U pololetního balíčku klesá na <b>408 Kč / 90 min</b> (= 272 Kč/h, celkem 8 160 Kč za 20x 90 minutových lekcí) a u ročního předplatného či docházky 2× týdně na <b>360 Kč / 90 min</b> (= 240 Kč/h, úspora až 30 %).",
+    "noteKids": "💡 Jak slevy fungují pro žáky ZŠ (60 min): Slevy se odvíjejí od délky balíčku a frekvence: měsíční zkušební (<b>320 Kč / 60 min.</b>), čtvrtletní (<b>304 Kč / 60 min.</b>), nejoblíbenější pololetní (<b>272 Kč / 60 min.</b> = jen cca 1 100 Kč měsíčně) a roční či při docházce 2× týdně pouhých <b>245 Kč / 60 min.</b> (úspora až 30 %).",
+    "noteTeens": "💡 Jak slevy fungují pro SŠ a dospělé (90 min): Základní sazba za 90 minut je <b>480 Kč</b> (odpovídá 320 Kč/h). U pololetního balíčku klesá na <b>408 Kč / 90 min</b> (= 272 Kč/h, celkem 8 160 Kč za 20 devadesátiminutových lekcí) a u ročního předplatného či docházky 2× týdně na <b>360 Kč / 90 min</b> (= 240 Kč/h, úspora až 30 %).",
     "targetGroupLabel": "Cílová skupina:",
     "periodLabel": "Délka období:",
     "frequencyLabel": "Frekvence:",
@@ -206,7 +206,7 @@
         "label": "2× týdně (-5 %)",
         "desc": "Optimální frekvence",
         "bonus": 5,
-        "badge": "-5% za důslenost",
+        "badge": "-5 % za důslednost",
         "recommended": true
       },
       {
@@ -214,7 +214,7 @@
         "label": "3× týdně (-10 %)",
         "desc": "Intenzivní",
         "bonus": 10,
-        "badge": "-10% za odhodlání",
+        "badge": "-10 % za odhodlání",
         "recommended": false
       }
     ]
@@ -311,7 +311,7 @@
     ]
   },
   "faq": {
-    "title": "Časté dotazy ke ceníku a platbám",
+    "title": "Časté dotazy k ceníku a platbám",
     "items": [
       {
         "question": "Poskytujete sourozeneckou slevu?",

@@ -47,43 +47,43 @@
           "isFeatured": true
         },
         {
-          "image": "/uploads/IMG_3482.jpg",
+          "image": "/uploads/IMG_3482.webp",
           "title": "Slunná učebna v historickém centru UH",
           "description": "Klidné a bezpečné zázemí v centru města Uherského Hradiště, v dostupné vzdálenosti všech škol.",
           "isFeatured": true
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.15-(1).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.15-(1).webp",
           "title": "Knihovna a studijní zázemí v Uherském Hradišti",
           "description": "Poličky plné originálních anglických knih, australských map a populárních deskovek pro děti i dospívající."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.14-(2).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.14-(2).webp",
           "title": "Velká výškově nastavitelná tabule",
-          "description": "Tabuli lze různě nastavit, rozšířit, snížit pro malé žáky, atp. Rozvoj kreativity a soutěže. Celá hodina popsána na tabuli, ta se vyfotí a studenti nejsou nucení psát do sešitů v době, kdy mluví a poslouchají. "
+          "description": "Tabuli lze výškově nastavit i pro malé žáky. Celé učivo z lekce zůstává přehledně zaznamenané na tabuli a po hodině se vyfotí, takže studenti nejsou nuceni psát do sešitů v době, kdy mluví a poslouchají."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.00-(1).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.00-(1).webp",
           "title": "Magnetické mini-tabulky",
           "description": "Žáci a studenti pracují s mini-tabulkami pro malé úkoly a soutěže."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.58.jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.58.webp",
           "title": "Globus",
           "description": "Z druhé strany zeměkoule – přehled kontinentů a anglicky mluvících zemí."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.55.jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.55.webp",
           "title": "Projektor",
-          "description": "Přestože učebna je vybavená projektorem, nečiní základní část metody. Koncept akademie spočívá v klasickém učení, fyzické předměty a hry, mini-tabulky, sešity, knihy... smysl projektoru je pro případ promítání filmů během školních táborů."
+          "description": "Přestože je učebna vybavená projektorem, netvoří základ výuky. Koncept akademie staví na živé komunikaci, deskových hrách, minitabulkách a knihách. Projektor slouží hlavně pro tematické akce a promítání filmů."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.08-(2).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.08-(2).webp",
           "title": "Univerzitní diplom a Cambridge CELTA",
           "description": "Bakalářský diplom z univerzity RMIT v Melbourne a mezinárodní certifikát Cambridge CELTA pro výuku angličtiny."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.07-(1).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.07-(1).webp",
           "title": "Goethe Institut Zentrale Mittelstufenprüfung a Cambridge CELTA",
           "description": "Osvědčení z Goethe Institutu a certifikát Cambridge prokazující jazykové zkoušky a pedagogickou kvalifikaci."
         }
@@ -96,7 +96,7 @@
       "description": "Naše hlavní zbraň proti nudě: Karak, Scrabble, Dixit, Catan, Dobble a bleskové kvízy.",
       "photos": [
         {
-          "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.43.01.jpeg",
+          "image": "/uploads/WhatsApp-Image-2026-09-09-at-16.43.01.webp",
           "title": "Herní stůl připravený na lekci",
           "description": "Otevřený Karak, Scrabble a kartičky. Děti se nemohou dočkat, až hodí kostkou a začnou tvořit první anglické věty."
         },
@@ -113,13 +113,13 @@
           "description": "Hry pečlivě vybíráme podle věku – od jednoduchého Dobble pro 1. třídu až po strategický Carcassonne a Codenames."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.17-(1).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.17-(1).webp",
           "title": "Rostoucí kolekce deskovek pro děti",
           "description": "Různé hry pro děti a studenty pro rozvoj komunikačních schopností v angličtině.",
           "isFeatured": true
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.17.jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.17.webp",
           "title": "Deskovky",
           "description": "Originální anglické a deskové hry rozvíjející slovní zásobu a pohotovou reakci."
         }
@@ -150,12 +150,12 @@
           "description": "Medici, právníci, inženýři i milovníci cestování u šálku čaje v přátelské debatě s přirozenou výslovností rodilého mluvčího."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-24-at-10.34.51.jpeg",
-          "title": "První krůčky v CERMAT přípravavě",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-24-at-10.34.51.webp",
+          "title": "První krůčky v CERMAT přípravě",
           "description": "Používají se různé pomůcky pro vysvětlení nových pojmů, např. v tomto případě mocniny, rozměry, plocha, obsah, objem... nejen nudné papíry!"
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.00.jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.00.webp",
           "title": "Mini-tabule",
           "description": "Každý má svou vlastní. Co mi nakreslíš? Jak se řekne to či ono?"
         }
@@ -165,7 +165,7 @@
       "id": "materialy",
       "name": "Knihovna",
       "icon": "📚",
-      "description": "Velká kolekce knih, od slovníků po učebnice, od beletrie po literatury faktů, pro děti, mladistvé i dospělé, anglické, španělské, německé, latinské... všechny možné varianty a kombinace evropských jazyků.",
+      "description": "Velká kolekce knih, od slovníků po učebnice, od beletrie po literaturu faktu, pro děti, mladistvé i dospělé, anglické, španělské, německé, latinské... všechny možné varianty a kombinace evropských jazyků.",
       "photos": [
         {
           "hidden": true,
@@ -182,52 +182,52 @@
         {
           "image": "/uploads/IMG_3473.webp",
           "title": "Španělské knihy",
-          "description": "Jako student jazyků, Mr. Válek jde příkladem. Určitá míra posedlosti při učení není na škodu... ale nemělo by se to přehánět! "
+          "description": "Jako student jazyků jde pan Válek příkladem. Určitá míra posedlosti při učení není na škodu... ale nemělo by se to přehánět!"
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.57-(1).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.57-(1).webp",
           "title": "Cvičebnice",
-          "description": "Cvičebnice pro gramatické drily. Student nemusí nic kupovat, jelikož učebna je vybavená."
+          "description": "Cvičebnice pro procvičování gramatiky. Veškeré materiály máme v učebně k dispozici, rodiče nemusí nic dokupovat."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.51-(1).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.51-(1).webp",
           "title": "CLIL (integrovaná výuka předmětu a cizího jazyka)",
-          "description": "Knihovna je vybavená spoustou knih na různé témata od chemie, fyziky, medicíny, historie, atd. atp., ... zde se nabízí učení angličtiny prostřednictvím samotných předmětů/témat."
+          "description": "Knihovna je vybavená spoustou knih na různá témata od chemie, fyziky a medicíny po historii. Otevírá se zde možnost učení angličtiny přímo prostřednictvím samotných oborů a témat."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.53-(3).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.53-(3).webp",
           "title": "Knihy pro mladistvé",
-          "description": "Mladí studenti si mohou pujčit zajímavé knihy na čtení doma. "
+          "description": "Mladí studenti si mohou půjčit zajímavé knihy na čtení doma."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.53-(2).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.53-(2).webp",
           "title": "Dvoujazyčné knihy",
           "description": "Mnoho dvoujazyčných knih, kde jedna stránka je česky a vedlejší je anglicky. Toto je pro trochu pokročilejší studenty. Máme česko-anglické a anglicko-německé sbírky."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.53-(1).jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.53-(1).webp",
           "title": "Obrázkové knihy pro nejmenší",
           "description": "Zdroj materiálů pro výuku je nevyčerpatelný. Děti mohou sledovat obrázky v knížce a přitom pan Válek bude číst dobrodružný příběh."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.53.jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.53.webp",
           "title": "Učebnice Murphy",
           "description": "Tyto učebnice jsou ověřená klasika pro učení gramatiky. Je jich dost pro každého studenta."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.52.jpeg",
-          "title": "Pro nejmenší",
-          "description": "Mnoho knih pro nejmenší čtenáře."
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.04.52.webp",
+          "title": "Pohádky pro nejmenší",
+          "description": "Bohatě ilustrované anglické pohádky a leporela, u kterých si i předškoláci a prvňáčci přirozeně osvojí první slovíčka."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.16.jpeg",
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.16.webp",
           "title": "Anglický koutek",
-          "description": "Klasiky, Self-help & business, beletrie"
+          "description": "Světová beletrie, populárně naučné knihy i byznysová literatura pro starší studenty a dospělé."
         },
         {
-          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.04.jpeg",
-          "title": "Slovníky atp.",
-          "description": "Velká sbírka slovníků a referenčních materiálů."
+          "image": "/uploads/Photos%20of%20classroom/WhatsApp-Image-2026-09-22-at-21.05.04.webp",
+          "title": "Slovníky a referenční literatura",
+          "description": "Velká sbírka výkladových i překladových slovníků, frazeologie a přehledných gramatických příruček."
         }
       ]
     }

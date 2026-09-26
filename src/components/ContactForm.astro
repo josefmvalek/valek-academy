@@ -90,7 +90,7 @@ const receiptLocation = contact.receiptLocation || "📍 Růžová 1238, Uhersk�
 const receiptPrice = contact.receiptPrice || "100% ZDARMA (nezávazně vyzkoušíte)";
 const receiptGoogleCalBtnText = contact.receiptGoogleCalBtnText || "Uložit do Google Kalendáře";
 const receiptWhatsAppBtnText = contact.receiptWhatsAppBtnText || "Napsat panu Válkovi na WhatsApp";
-const whatsappConfirmationMessage = contact.whatsappConfirmationMessage || "Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro {attendee}{group}. Rád/a bych se domluvil/a na konkrétním termínu.";
+const whatsappConfirmationMessage = contact.whatsappConfirmationMessage || "Dobrý den, pane Válku, právě jsem odeslal/a rezervaci lekce pro {attendee}{group}. Rád/a bych se domluvil/a na konkrétním termínu.";
 const calendarEventTitle = contact.calendarEventTitle || "1. ukázková lekce angličtiny ZDARMA | VALEK ACADEMY";
 const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce angličtiny hrou v malé skupince pro {attendee}{group}.\nLektor: Josef Válek (+420 792 372 642)\nWeb: https://valekacademy.cz\nS sebou: Pouze přezůvky a dobrou náladu!";
 ---
@@ -1126,7 +1126,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
           const buddyLine = buddyParam === '1' ? "\n• Přijdeme ve dvou (kamarád ze třídy / sourozenec) – chceme uplatnit slevu 5 % pro obě děti." : "";
           const weeksStr = weeksParam ? `${weeksParam} týdnů` : "pololetí";
           const freqStr = freqParam ? `${freqParam}× týdně` : "1× týdně";
-          msgEl.value = `Dobrý den pane Válku, máme zájem o balíček z kalkulátoru (${modeLabel}):\n• Období: ${weeksStr}\n• Frekvence: ${freqStr}${buddyLine}\n\nRádi bychom nejprve nezávazně vyzkoušeli 1. lekci 100% zdarma.`;
+          msgEl.value = `Dobrý den, pane Válku, máme zájem o balíček z kalkulátoru (${modeLabel}):\n• Období: ${weeksStr}\n• Frekvence: ${freqStr}${buddyLine}\n\nRádi bychom nejprve nezávazně vyzkoušeli 1. lekci 100% zdarma.`;
         }
       }
     } catch {}
@@ -1967,7 +1967,7 @@ const calendarEventDesc = contact.calendarEventDesc || "Ukázková lekce anglič
     if (confirmWhatsAppBtn) {
       const attendee = isAdult ? 'mě' : (childName ? `mého syna/dceru ${childName}` : 'mé dítě');
       const groupNote = group ? ` (skupinka ${group})` : '';
-      const waTpl = form?.dataset.whatsappTemplate || "Dobrý den pane Válku, právě jsem odeslal/a rezervaci lekce pro {attendee}{group}. Rád/a bych se domluvil/a na konkrétním termínu.";
+      const waTpl = form?.dataset.whatsappTemplate || "Dobrý den, pane Válku, právě jsem odeslal/a rezervaci lekce pro {attendee}{group}. Rád/a bych se domluvil/a na konkrétním termínu.";
       const finalWaMsg = waTpl.replace('{attendee}', attendee).replace('{group}', groupNote);
       const tutorPhone = form?.dataset.contactPhone || '420792372642';
 

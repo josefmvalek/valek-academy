@@ -116,10 +116,20 @@ export async function getLegalPageData(relativePath: 'privacy.json' | 'terms.jso
  */
 export async function getGalleryDataQuery() {
   try {
-    return await requestWithMetadata(
+    const res = await requestWithMetadata(
       (client.queries as any).gallery({ relativePath: 'gallery.json' }),
       { priority: 'primary' }
     );
+    const data = (res?.data as any)?.gallery;
+    if (!data || Object.keys(data).length === 0) {
+      return {
+        data: { gallery: galleryContent as any },
+        query: res?.query || '',
+        variables: { relativePath: 'gallery.json' },
+        id: 'gallery',
+      };
+    }
+    return res;
   } catch (e) {
     return {
       data: { gallery: galleryContent as any },
@@ -140,10 +150,20 @@ export async function getGalleryData(): Promise<GalleryData> {
  */
 export async function getPricingPageDataQuery() {
   try {
-    return await requestWithMetadata(
+    const res = await requestWithMetadata(
       (client.queries as any).cenik({ relativePath: 'cenik.json' }),
       { priority: 'primary' }
     );
+    const data = (res?.data as any)?.cenik;
+    if (!data || Object.keys(data).length === 0 || !data.programs) {
+      return {
+        data: { cenik: cenikContent as any },
+        query: res?.query || '',
+        variables: { relativePath: 'cenik.json' },
+        id: 'cenik',
+      };
+    }
+    return res;
   } catch (e) {
     return {
       data: { cenik: cenikContent as any },
@@ -164,10 +184,20 @@ export async function getPricingPageData(): Promise<CenikData> {
  */
 export async function getSchedulePageDataQuery() {
   try {
-    return await requestWithMetadata(
+    const res = await requestWithMetadata(
       (client.queries as any).rozvrh({ relativePath: 'rozvrh.json' }),
       { priority: 'primary' }
     );
+    const data = (res?.data as any)?.rozvrh;
+    if (!data || Object.keys(data).length === 0) {
+      return {
+        data: { rozvrh: rozvrhContent as any },
+        query: res?.query || '',
+        variables: { relativePath: 'rozvrh.json' },
+        id: 'rozvrh',
+      };
+    }
+    return res;
   } catch (e) {
     return {
       data: { rozvrh: rozvrhContent as any },

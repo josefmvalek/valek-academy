@@ -58,9 +58,9 @@ const scheduleField: any = {
     { type: "string", name: "filterGrade13Label", label: "Popisek filtru: 1.–3. třída" },
     { type: "string", name: "filterGrade46Label", label: "Popisek filtru: 4.–6. třída" },
     { type: "string", name: "filterGrade713Label", label: "Popisek filtru: 7.–9. třída & SŠ" },
-    { type: "string", name: "legendOpen", label: "Popisek legendy: Volno" },
+    { type: "string", name: "legendOpen", label: "Popisek legendy: Volná místa" },
     { type: "string", name: "legendWaitingList", label: "Popisek legendy: Čekací listina" },
-    { type: "string", name: "legendFull", label: "Popisek legendy: Obsazeno" },
+    { type: "string", name: "legendFull", label: "Popisek legendy: Plně obsazeno" },
     { type: "string", name: "ctaText", label: "Text hlavního tlačítka (na /rozvrh pro přechod k rezervaci)" },
     { type: "string", name: "bottomCtaText", label: "Text spodního tlačítka na homepage (pro otevření rozvrhu)" },
     {

@@ -34,10 +34,10 @@
     "smartSwitchToFull": "Chcete si prohlédnout všech 15 skupinek v kompletní týdenní tabulce? Přepnout na celý rozvrh →",
     "whyInPersonIcon": "🎲",
     "whyInPersonTitle": "Proč učíme 100% naživo v doučovně a ne přes internet?",
-    "whyInPersonText": "Děti i studenti tráví u monitorů hodiny denně. Jazyk hrou funguje nejlépe při živém očním kontaktu, házení kostkou, smíchu a týmových deskovkách. U obrazovky takové zapojení nevznikne. V učebně mají žáci/studenti mobily zakázané. ",
+    "whyInPersonText": "Děti i studenti tráví u monitorů hodiny denně. Jazyk hrou funguje nejlépe při živém očním kontaktu, házení kostkou, smíchu a týmových deskovkách. U obrazovky takové zapojení nevznikne. V učebně mají děti i studenti telefony bezpečně odložené v taškách – vytváříme klidný offline prostor bez displejů, kde se naplno ponoří do hry a živé komunikace.",
     "rollingSystemBadge": "🔄 PLYNULÝ CELOROČNÍ SYSTÉM",
     "rollingSystemTitle": "Žádný začátek ani konec – do skupinky se můžete přidat kdykoliv",
-    "rollingSystemText": "Kurz nemá pevné datum začátku ani konce. Noví studenti se přijímají plynule po celý rok, pokud je ve skupince volno. Pan Válek dbá na to, aby skupinky byly věkově i jazykově sladěné a děti i dospělí si ve skupince skvěle rozuměly. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Stávající studenti si drží svou původní příznivou sazbu po celou předplacenou dobu!",
+    "rollingSystemText": "Kurz nemá pevné datum začátku ani konce. Noví studenti se přijímají plynule po celý rok, pokud je ve skupince volno. Pan Válek dbá na to, aby skupinky byly věkově i jazykově sladěné a děti i dospělí si ve skupince skvěle rozuměli. Jakmile se třída naplní (8 míst), otevírá se 4místná čekací listina. **Garance výhodné ceny:** Stávající studenti si drží svou původní příznivou sazbu po celou předplacenou dobu!",
     "pillar1Number": "8",
     "pillar1Title": "Optimální kapacita 8 míst",
     "pillar1Desc": "Ideální pro deskovky, karty a každé dítě se dostane ke slovu.",
@@ -51,9 +51,9 @@
     "filterGrade13Label": "🎒 1.–3. třída (12:30–13:30 • 60 min)",
     "filterGrade46Label": "🚀 4.–6. třída (13:30–14:30 • 60 min)",
     "filterGrade713Label": "🎓 7.–9. třída & SŠ (14:30–16:00 • 90 min)",
-    "legendOpen": "Volno (do 8 dětí)",
-    "legendWaitingList": "Čekací listina (8–11 dětí)",
-    "legendFull": "Obsazeno (včetně čekací listiny)",
+    "legendOpen": "Volná místa",
+    "legendWaitingList": "Čekací listina",
+    "legendFull": "Plně obsazeno",
     "ctaText": "Vybrat skupinku a rezervovat 1. lekci zdarma ↓",
     "bottomCtaText": "Otevřít velký rozvrh hodin & rezervaci místa ve skupince →",
     "groups": [
@@ -65,12 +65,12 @@
         "emoji": "🦘",
         "cohort": "1.–3. třída",
         "cohortBadge": "Přímá metoda hrou",
-        "walkHint": " Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
+        "walkHint": "Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Hravý start po vyučování pro nejmenší školáky. Prostřenictvím hraček, obrázků, kreslení na mini-tabulích, se žáci učí angličtinu přirozenou metodou."
+        "description": "Hravý start po vyučování pro nejmenší školáky. Prostřednictvím hraček, obrázků a kreslení na minitabulích se žáci učí angličtinu přirozenou metodou."
       },
       {
         "id": "koalas",
@@ -80,7 +80,7 @@
         "emoji": "🐨",
         "cohort": "1.–3. třída",
         "cohortBadge": "Pohodová parta si povídá",
-        "walkHint": " Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
+        "walkHint": "Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
@@ -95,7 +95,7 @@
         "emoji": "🐻",
         "cohort": "1.–3. třída",
         "cohortBadge": "Karak Junior & Karty",
-        "walkHint": " Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
+        "walkHint": "Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
@@ -110,7 +110,7 @@
         "emoji": "🦘",
         "cohort": "1.–3. třída",
         "cohortBadge": "Pohyb & Rychlá reakce",
-        "walkHint": " Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
+        "walkHint": "Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
@@ -125,7 +125,7 @@
         "emoji": "😈",
         "cohort": "1.–3. třída",
         "cohortBadge": "Páteční herní klub",
-        "walkHint": " Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
+        "walkHint": "Uh. Hradiště: 12:30 – Ideální hned po obědě a před družinou",
         "occupiedSeats": 0,
         "maxSeats": 12,
         "waitingListSeats": 4,
@@ -163,7 +163,7 @@
         "description": "Bystrá parta mladých stratégů. Asociační hry, dedukce a přirozené domlouvání pravidel v angličtině. Procvičení ze školních materiálů pro lepší známky."
       },
       {
-        "id": "Brumbies",
+        "id": "brumbies",
         "day": "Středa",
         "time": "13:30 – 14:30",
         "animal": "Brumbies (brumbící)",
@@ -175,7 +175,7 @@
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Zvláštní skupina. Příprava žáků 5. třídy na přijimací zkoušky CERMAT z matematiky. Primární zaměření je úspěšné absolvování zkoušky, a \"výjimečně\" se mluví více česky, nicméně žáci se naučí základní anglitinu z oblasti matematiky. "
+        "description": "Zvláštní skupina. Příprava žáků 5. třídy na přijímací zkoušky CERMAT z matematiky. Primárním zaměřením je úspěšné absolvování zkoušky, proto se výjimečně mluví více česky, nicméně žáci se naučí základní anglickou terminologii z oblasti matematiky."
       },
       {
         "id": "camels",
@@ -190,7 +190,7 @@
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Oproti ostatním dnům, velbloudci intenzivně cvičí mluvení non-stop přímou metodou otázka odpověď. Jazyková posilovna! Výborný doplněk k ostatním dnům. "
+        "description": "Oproti ostatním dnům velbloudci intenzivně cvičí mluvení non-stop přímou metodou otázka–odpověď. Jazyková posilovna! Výborný doplněk k ostatním dnům."
       },
       {
         "id": "cane-toads",
@@ -215,6 +215,7 @@
         "emoji": "🐊",
         "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Maturita & Pokročilá konverzace",
+        "walkHint": "Uh. Hradiště: 14:30 – 90 minut po škole. Maturitní speaking, SCIO a konverzace bez ostychu.",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
@@ -229,11 +230,12 @@
         "emoji": "🦈",
         "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Příprava na SŠ & SCIO testy",
+        "walkHint": "Uh. Hradiště: 14:30 – 90 minut po škole. Maturitní speaking, SCIO a konverzace bez ostychu.",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Univerzální skupina pro studenty 7.-9. třídy. Konverzace, cvičení školních témat a řešení nejasností, rozbory textů, debatování, standardní situace, budování slovní zásoby. 30 minut Czech-free her."
+        "description": "Univerzální skupina pro studenty 7.–9. třídy. Konverzace, cvičení školních témat a řešení nejasností, rozbory textů, debatování, standardní situace, budování slovní zásoby. 30 minut Czech-free her."
       },
       {
         "id": "snakes",
@@ -243,11 +245,12 @@
         "emoji": "🐍",
         "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Debatní klub & Reálie",
+        "walkHint": "Uh. Hradiště: 14:30 – 90 minut po škole. Maturitní speaking, SCIO a konverzace bez ostychu.",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
         "statusOverride": "auto",
-        "description": "Tato skupinka zahrnuje 60 minut intenzivního drilování formou non-stop otázka-odpověď. Jazyková posilovna pro vývoj instinktu a aktivace responzivního mluvení. Pro ročníky 7.-13.  "
+        "description": "Tato skupinka zahrnuje 60 minut intenzivního drilování formou non-stop otázka–odpověď. Jazyková posilovna pro vývoj instinktu a aktivaci responzivního mluvení. Pro ročníky 7.–9. třídy a SŠ."
       },
       {
         "id": "spiders",
@@ -257,6 +260,7 @@
         "emoji": "🕷️",
         "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Maturitní témata & Eseje",
+        "walkHint": "Uh. Hradiště: 14:30 – 90 minut po škole. Maturitní speaking, SCIO a konverzace bez ostychu.",
         "occupiedSeats": 0,
         "maxSeats": 8,
         "waitingListSeats": 4,
@@ -271,6 +275,7 @@
         "emoji": "🐃",
         "cohort": "7.–9. třída & SŠ",
         "cohortBadge": "Pohodový závěr týdne",
+        "walkHint": "Uh. Hradiště: 14:30 – 90 minut po škole. Maturitní speaking, SCIO a konverzace bez ostychu.",
         "occupiedSeats": 0,
         "maxSeats": 12,
         "waitingListSeats": 4,
@@ -285,7 +290,7 @@
       "icon": "💼",
       "title": "Dospělí & Odborné profesní skupiny",
       "subtitle": "Medici 🩺, Právníci ⚖️, Technici ⚙️, Obchod 📊",
-      "desc": "Intenzivní podvečerní skupiny pro specifické obory (medicína, právo, technika, obchod) zaměřené na rozvoj odborné slovní zásoby a obratů ve 4-8 skupině kolegů. Náprava českého přízvuku k dosažení více přirozené mluvené angličtiny.",
+      "desc": "Intenzivní podvečerní skupiny pro specifické obory (medicína, právo, technika, obchod) zaměřené na rozvoj odborné slovní zásoby a obratů ve skupince 4–8 kolegů. Náprava českého přízvuku k dosažení přirozenější mluvené angličtiny.",
       "ctaText": "Rezervovat profesní skupinu →"
     },
     "individualBlock": {

@@ -272,7 +272,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
               <span>{scheduleLinkText}</span>
             </a>
             <a
-              href={`https://wa.me/${phone}?text=${encodeURIComponent("Dobrý den pane Válku, rádi bychom se zeptali na volná místa ve skupince na 1. lekci zdarma.")}`}
+              href={`https://wa.me/${phone}?text=${encodeURIComponent("Dobrý den, pane Válku, rádi bychom se zeptali na volná místa ve skupince na 1. lekci zdarma.")}`}
               id="matcher-wa-btn"
               target="_blank"
               rel="noopener noreferrer"
@@ -455,7 +455,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
       const interestText = interestMap[currentInterest] || "deskové hry";
       const goalText = goalMap[currentGoal] || "získat jistotu v angličtině";
 
-      const waMessage = `Dobrý den pane Válku, v průvodci na webu Valek Academy nám pro dítě vyšla skupinka: ${data.title}. Dítě nejvíce baví ${interestText} a rádi bychom pomohli: ${goalText}. Máte v této skupince volné místo na 1. ukázkovou lekci zdarma?`;
+      const waMessage = `Dobrý den, pane Válku, v průvodci na webu Valek Academy nám pro dítě vyšla skupinka: ${data.title}. Dítě nejvíce baví ${interestText} a rádi bychom pomohli: ${goalText}. Máte v této skupince volné místo na 1. ukázkovou lekci zdarma?`;
       const waUrl = `https://wa.me/${phoneNum}?text=${encodeURIComponent(waMessage)}`;
 
       if (matcherWaBtn) {
@@ -591,7 +591,7 @@ const defaultSelectedGrade = grades.find((g: any) => g.id === '4-6') || grades[0
 
         const msgField = document.getElementById('message') as HTMLTextAreaElement | null;
         if (msgField) {
-          msgField.value = `Dobrý den pane Válku, rádi bychom vyzkoušeli 1. lekci zdarma v doučovně. Máme zájem o: ${data.title}.\nDítě baví: ${interestText}.\nPotřebujeme pomoci: ${goalText}.`;
+          msgField.value = `Dobrý den, pane Válku, rádi bychom vyzkoušeli 1. lekci zdarma v doučovně. Máme zájem o: ${data.title}.\nDítě baví: ${interestText}.\nPotřebujeme pomoci: ${goalText}.`;
         }
 
         const formCard = document.getElementById('contact-form')?.parentElement;

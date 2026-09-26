@@ -35,7 +35,7 @@ const normalizedPhone = `+${phoneDigits}`;
 const waPhone = phoneDigits;
 
 const brandName = navbar.brandName || "VALEK ACADEMY";
-const brandTagline = navbar.brandTagline || "Uherské Hradiště • Výuka hrou";
+const brandTagline = navbar.brandTagline || "Uherské Hradiště";
 const ctaText = navbar.ctaText || "🎁 1. lekce zdarma";
 const ctaLink = navbar.ctaLink || "#kontakt";
 
@@ -141,15 +141,15 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
     <div class="flex items-center justify-between h-14 sm:h-20 gap-1.5 sm:gap-2">
       
       <!-- Clean Brand Logo -->
-      <a href="/" class="flex items-center gap-1.5 sm:gap-3 group flex-shrink min-w-0">
+      <a href="/" class="flex items-center gap-1.5 sm:gap-3 group flex-shrink-0">
         <ParrotLogo className="w-7 h-7 sm:w-11 sm:h-11 shadow-2xs rounded-full group-hover:scale-105 transition-transform flex-shrink-0" />
         <div class="flex flex-col min-w-0">
-          <span class="font-heading font-black text-[13px] sm:text-lg lg:text-xl text-espresso-950 tracking-tight leading-none group-hover:text-amber-800 transition-colors truncate" data-tina-field={tinaField(navbar, 'brandName')} data-edit-key="navbar.brandName" data-edit-label="Název v hlavičce">
+          <span class="font-heading font-black text-[13px] sm:text-lg lg:text-xl text-espresso-950 tracking-tight leading-none group-hover:text-amber-800 transition-colors whitespace-nowrap" data-tina-field={tinaField(navbar, 'brandName')} data-edit-key="navbar.brandName" data-edit-label="Název v hlavičce">
             {brandName}
           </span>
-          <span class="hidden min-[380px]:flex text-[9px] sm:text-xs text-amber-900 font-bold tracking-wide mt-0.5 sm:mt-1 items-center gap-1 sm:gap-1.5 leading-none truncate">
+          <span class="hidden min-[380px]:flex text-[9px] sm:text-xs text-amber-900 font-bold tracking-wide mt-0.5 sm:mt-1 items-center gap-1 sm:gap-1.5 leading-none whitespace-nowrap">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
-            <span class="truncate" data-tina-field={tinaField(navbar, 'brandTagline')} data-edit-key="navbar.brandTagline" data-edit-label="Podtitul v hlavičce">{brandTagline}</span>
+            <span class="whitespace-nowrap" data-tina-field={tinaField(navbar, 'brandTagline')} data-edit-key="navbar.brandTagline" data-edit-label="Podtitul v hlavičce">{brandTagline}</span>
           </span>
         </div>
       </a>
@@ -377,7 +377,7 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
         <span class="truncate">{phoneFormatted}</span>
       </a>
       <a
-        href={`https://wa.me/${waPhone}?text=${encodeURIComponent('Dobrý den pane Válku, rád/a bych se zeptal/a na volná místa v doučovně na 1. lekci zdarma.')}`}
+        href={`https://wa.me/${waPhone}?text=${encodeURIComponent('Dobrý den, pane Válku, rád/a bych se zeptal/a na volná místa v doučovně na 1. lekci zdarma.')}`}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-[11px] sm:text-xs font-bold text-emerald-950 transition-colors text-center"

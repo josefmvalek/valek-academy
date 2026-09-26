@@ -41,7 +41,7 @@ const email = contact.email || "info@valekacademy.cz";
 const phone = contact.phone || "+420792372642";
 const phoneFormatted = contact.phoneFormatted || "+420 792 372 642";
 const rawWhatsApp = contact.whatsapp || `https://wa.me/${(contact.phone || '420792372642').replace(/\D/g, '')}`;
-const whatsappMessage = contact.whatsappMessage || "Dobrý den pane Válku, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.";
+const whatsappMessage = contact.whatsappMessage || "Dobrý den, pane Válku, rád/a bych se zeptal/a na volná místa ve skupince dětí na 1. lekci zdarma.";
 const whatsapp = rawWhatsApp.includes('text=')
   ? rawWhatsApp
   : `${rawWhatsApp}${rawWhatsApp.includes('?') ? '&' : '?'}text=${encodeURIComponent(whatsappMessage)}`;

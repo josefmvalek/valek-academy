@@ -94,7 +94,7 @@ const smartSwitchToFull = schedule.smartSwitchToFull || "Chcete si prohlédnout 
 
 const whyInPersonIcon = schedule.whyInPersonIcon || "🎲";
 const whyInPersonTitle = schedule.whyInPersonTitle || "Proč učíme 100% naživo v doučovně a ne přes internet?";
-const whyInPersonText = schedule.whyInPersonText || "Děti i studenti tráví u monitorů hodiny denně. Jazyk hrou funguje nejlépe při živém očním kontaktu, házení kostkou, smíchu a týmových deskovkách. U obrazovky takové zapojení nevznikne.";
+const whyInPersonText = schedule.whyInPersonText || "Děti i studenti tráví u monitorů hodiny denně. Jazyk hrou funguje nejlépe při živém očním kontaktu, házení kostkou, smíchu a týmových deskovkách. U obrazovky takové zapojení nevznikne. V učebně mají děti i studenti telefony bezpečně odložené v taškách – vytváříme klidný offline prostor bez displejů, kde se naplno ponoří do hry a živé komunikace.";
 
 const pillar1Number = schedule.pillar1Number || "8";
 const pillar1Title = schedule.pillar1Title || "Optimální kapacita 8 míst";
@@ -113,9 +113,9 @@ const filterGrade13Label = schedule.filterGrade13Label || "🎒 1.–3. třída 
 const filterGrade46Label = schedule.filterGrade46Label || "🚀 4.–6. třída (13:30–14:30 • 60 min)";
 const filterGrade713Label = schedule.filterGrade713Label || "🎓 7.–9. třída & SŠ (14:30–16:00 • 90 min)";
 
-const legendOpen = schedule.legendOpen || "Volno (do 8 dětí)";
-const legendWaitingList = schedule.legendWaitingList || "Čekací listina (8–11 dětí)";
-const legendFull = schedule.legendFull || "Obsazeno (včetně čekací listiny)";
+const legendOpen = schedule.legendOpen || "Volná místa";
+const legendWaitingList = schedule.legendWaitingList || "Čekací listina";
+const legendFull = schedule.legendFull || "Plně obsazeno";
 
 const adultsBlock = schedule.adultsBlock || {};
 const individualBlock = schedule.individualBlock || {};
@@ -141,7 +141,7 @@ const defaultGroups: GroupItem[] = [
   { id: "sharks", day: "Úterý", time: "14:30 – 16:00", animal: "Sharks", emoji: "🦈", cohort: "7.–9. třída & SŠ", cohortBadge: "Příprava na SŠ & SCIO testy", occupiedSeats: 7, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Pohotovost a přesnost. Trénink typových úloh na přijímačky, práce s textem a poslech rodilého mluvčího." },
   { id: "snakes", day: "Středa", time: "14:30 – 16:00", animal: "Snakes", emoji: "🐍", cohort: "7.–9. třída & SŠ", cohortBadge: "Debatní klub & Reálie", occupiedSeats: 12, maxSeats: 8, waitingListSeats: 4, statusOverride: "full", description: "Tato skupinka dosáhla maximální kapacity včetně čekací listiny (12/12). Pro zájemce doporučujeme čtvrtek či pátek." },
   { id: "spiders", day: "Čtvrtek", time: "14:30 – 16:00", animal: "Spiders", emoji: "🕷️", cohort: "7.–9. třída & SŠ", cohortBadge: "Maturitní témata & Eseje", occupiedSeats: 5, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Jeden ze 2 specializovaných bloků zaměřených na maturitní didaktické testy, rozbor článků a mluvený projev." },
-  { id: "buffalos", day: "Pátek", time: "14:30 – 16:00", animal: "Buffalos", emoji: "🐃", cohort: "7.–9. třída & SŠ", cohortBadge: "Pohodový závěr týdne", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Páteční 90minutovka pro středoškoláky. Společenské hry v angličtině (Secret Hitler, Codenames) a diskuze o filmech a hudbě." }
+  { id: "buffalos", day: "Pátek", time: "14:30 – 16:00", animal: "Buffalos", emoji: "🐃", cohort: "7.–9. třída & SŠ", cohortBadge: "Pohodový závěr týdne", occupiedSeats: 4, maxSeats: 8, waitingListSeats: 4, statusOverride: "auto", description: "Páteční 90minutovka pro středoškoláky. Společenské hry v angličtině (Risk, Cluedo, Codenames) a diskuze o filmech a hudbě." }
 ];
 
 const groups = (schedule.groups && schedule.groups.length > 0) ? schedule.groups : defaultGroups;
@@ -173,7 +173,7 @@ function matchesCohort(groupCohort: string, selectedCohort: string): boolean {
   return groupCohort.trim().toLowerCase() === selectedCohort.trim().toLowerCase();
 }
 
-// Helper to compute capacity state
+// Helper to compute capacity state with Smart Scarcity (no "0/8" cold-start stigma)
 function getCapacityInfo(group: GroupItem) {
   const maxSeats = Number(group.maxSeats) || 8;
   const wlSeats = Number(group.waitingListSeats) || 4;
@@ -181,11 +181,12 @@ function getCapacityInfo(group: GroupItem) {
   const totalMax = maxSeats + wlSeats; // 12
   const override = group.statusOverride || 'auto';
 
+  // 1. Plně obsazeno (override nebo zaplněna základní kapacita i čekací listina)
   if (override === 'full' || (override !== 'open' && override !== 'waiting_list' && occupied >= totalMax)) {
     return {
       status: 'full',
-      badgeText: "We're full! (12/12)",
-      badgeClass: "bg-red-100 text-red-900 border-red-300",
+      badgeText: "Plně obsazeno",
+      badgeClass: "bg-red-100 text-red-900 border-red-300 font-bold",
       indicatorColor: "bg-red-500",
       ctaText: "Plně obsazeno (zkuste jiný den)",
       ctaDisabled: true,
@@ -193,41 +194,80 @@ function getCapacityInfo(group: GroupItem) {
       occupiedCount: totalMax,
       maxCount: totalMax,
       availableInBase: 0,
-      availableInWl: 0
+      availableInWl: 0,
+      isUrgent: false,
+      showMeter: false,
+      meterLabel: `Kapacita ${maxSeats} míst naplněna`,
+      meterSub: "Plně obsazeno",
     };
   }
 
+  // 2. Čekací listina (override nebo zaplněno základních 8 míst)
   if (override === 'waiting_list' || (override !== 'open' && occupied >= maxSeats)) {
     const wlOccupied = Math.max(1, occupied - maxSeats);
     const wlAvailable = Math.max(0, wlSeats - wlOccupied);
     return {
       status: 'waiting_list',
-      badgeText: `Čekací listina: ${wlOccupied}/${wlSeats}`,
-      badgeClass: "bg-amber-100 text-amber-950 border-amber-300",
+      badgeText: "Čekací listina",
+      badgeClass: "bg-amber-100 text-amber-950 border-amber-300 font-bold",
       indicatorColor: "bg-amber-500",
-      ctaText: `Zapsat na waiting list (zbývají ${wlAvailable}) →`,
+      ctaText: `Zapsat na čekací listinu →`,
       ctaDisabled: false,
       percentage: Math.min(100, Math.round(((maxSeats + wlOccupied) / totalMax) * 100)),
       occupiedCount: maxSeats + wlOccupied,
       maxCount: totalMax,
       availableInBase: 0,
-      availableInWl: wlAvailable
+      availableInWl: wlAvailable,
+      isUrgent: false,
+      showMeter: false,
+      meterLabel: `Základních ${maxSeats} míst obsazeno`,
+      meterSub: `Čekací listina (${wlAvailable} ${wlAvailable === 1 ? 'místo' : wlAvailable < 5 ? 'místa' : 'míst'})`,
     };
   }
 
-  const freeSeats = Math.max(1, maxSeats - occupied);
+  // 3. Volná místa – Smart Scarcity
+  const freeSeats = Math.max(0, maxSeats - occupied);
+  // Zobrazit urgenci a teploměr POUZE pokud zbývá 1–2 místa A alespoň 1 student už je přihlášen
+  const isUrgent = freeSeats > 0 && freeSeats <= 2 && occupied > 0;
+
+  if (isUrgent) {
+    const freeText = freeSeats === 1 ? "1 volné místo" : "2 volná místa";
+    return {
+      status: 'open',
+      badgeText: `🔥 Poslední ${freeText}!`,
+      badgeClass: "bg-amber-200 text-amber-950 border-amber-400 font-black shadow-xs",
+      indicatorColor: "bg-amber-500",
+      ctaText: "Vybrat tuto skupinku →",
+      ctaDisabled: false,
+      percentage: Math.min(100, Math.round((occupied / maxSeats) * 100)),
+      occupiedCount: occupied,
+      maxCount: maxSeats,
+      availableInBase: freeSeats,
+      availableInWl: wlSeats,
+      isUrgent: true,
+      showMeter: true,
+      meterLabel: `Rychle se plní (${occupied}/${maxSeats})`,
+      meterSub: `Zbývá jen ${freeText}`,
+    };
+  }
+
+  // Běžný stav (volno, 0 až 5 dětí) – čisté, pozitivní zobrazení bez trapného 0/8
   return {
     status: 'open',
-    badgeText: `🟢 Volno: zbývá ${freeSeats} ${freeSeats === 1 ? 'místo' : freeSeats < 5 ? 'místa' : 'míst'}`,
-    badgeClass: "bg-emerald-100 text-emerald-950 border-emerald-300",
+    badgeText: "🟢 Volná místa",
+    badgeClass: "bg-emerald-100 text-emerald-950 border-emerald-300 font-bold",
     indicatorColor: "bg-emerald-500",
     ctaText: "Vybrat tuto skupinku →",
     ctaDisabled: false,
-    percentage: Math.min(100, Math.round((occupied / maxSeats) * 100)),
+    percentage: 0,
     occupiedCount: occupied,
     maxCount: maxSeats,
     availableInBase: freeSeats,
-    availableInWl: wlSeats
+    availableInWl: wlSeats,
+    isUrgent: false,
+    showMeter: false,
+    meterLabel: `Kapacita: max. ${maxSeats} dětí`,
+    meterSub: "Osobní přístup",
   };
 }
 
@@ -375,7 +415,7 @@ function getLocalWalkHint(cohort: string) {
               >
                 <span class="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🎒</span>
                 <div class="min-w-0 w-full">
-                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort1Title')} data-edit-key="schedule.smartCohort1Title" data-edit-label="Krok 1: 1.–3. třída">{smartCohort1Title}</div>
+                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 leading-tight" data-tina-field={tinaField(schedule, 'smartCohort1Title')} data-edit-key="schedule.smartCohort1Title" data-edit-label="Krok 1: 1.–3. třída">{smartCohort1Title}</div>
                   <div class="text-[10px] sm:text-xs text-stone-600 truncate mt-0.5" data-tina-field={tinaField(schedule, 'smartCohort1Sub')} data-edit-key="schedule.smartCohort1Sub" data-edit-label="Krok 1: 1.–3. třída čas">{smartCohort1Sub}</div>
                 </div>
               </button>
@@ -387,7 +427,7 @@ function getLocalWalkHint(cohort: string) {
               >
                 <span class="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🚀</span>
                 <div class="min-w-0 w-full">
-                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort2Title')} data-edit-key="schedule.smartCohort2Title" data-edit-label="Krok 1: 4.–6. třída">{smartCohort2Title}</div>
+                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 leading-tight" data-tina-field={tinaField(schedule, 'smartCohort2Title')} data-edit-key="schedule.smartCohort2Title" data-edit-label="Krok 1: 4.–6. třída">{smartCohort2Title}</div>
                   <div class="text-[10px] sm:text-xs text-stone-600 truncate mt-0.5" data-tina-field={tinaField(schedule, 'smartCohort2Sub')} data-edit-key="schedule.smartCohort2Sub" data-edit-label="Krok 1: 4.–6. třída čas">{smartCohort2Sub}</div>
                 </div>
               </button>
@@ -399,7 +439,7 @@ function getLocalWalkHint(cohort: string) {
               >
                 <span class="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">🎓</span>
                 <div class="min-w-0 w-full">
-                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 truncate" data-tina-field={tinaField(schedule, 'smartCohort3Title')} data-edit-key="schedule.smartCohort3Title" data-edit-label="Krok 1: 7.–9. třída & SŠ">{smartCohort3Title}</div>
+                  <div class="font-heading font-black text-[11px] min-[360px]:text-xs sm:text-sm text-espresso-950 leading-tight" data-tina-field={tinaField(schedule, 'smartCohort3Title')} data-edit-key="schedule.smartCohort3Title" data-edit-label="Krok 1: 7.–9. třída & SŠ">{smartCohort3Title}</div>
                   <div class="text-[10px] sm:text-xs text-stone-600 truncate mt-0.5" data-tina-field={tinaField(schedule, 'smartCohort3Sub')} data-edit-key="schedule.smartCohort3Sub" data-edit-label="Krok 1: 7.–9. třída čas">{smartCohort3Sub}</div>
                 </div>
               </button>
@@ -585,19 +625,52 @@ function getLocalWalkHint(cohort: string) {
                         {walkHint}
                       </div>
 
-                      <!-- Capacity Meter Bar -->
-                      <div class="space-y-1 pt-1 border-t border-parchment-200">
-                        <div class="flex items-center justify-between text-[11px]">
-                          <span class="font-bold text-espresso-950">
-                            Obsazeno: <span data-tina-field={tinaField(group, 'occupiedSeats')} data-edit-key={`schedule.groups.${idx}.occupiedSeats`} data-edit-label="Počet obsazených míst">{group.occupiedSeats ?? 0}</span>/8
-                          </span>
-                          <span class="text-[11px] font-bold text-stone-500">
-                            {cap.status === 'open' ? `${cap.availableInBase} volno` : cap.status === 'waiting_list' ? 'Waiting list' : 'Plno'}
-                          </span>
-                        </div>
-                        <div class="w-full h-2 rounded-full bg-parchment-200 overflow-hidden flex">
-                          <div class:list={["h-full transition-all duration-500", cap.indicatorColor]} style={`width: ${cap.percentage}%;`}></div>
-                        </div>
+                      <!-- Capacity Strip (Smart Scarcity) -->
+                      <div class="space-y-1.5 pt-2 border-t border-parchment-200">
+                        {cap.showMeter ? (
+                          <div class="space-y-1">
+                            <div class="flex items-center justify-between text-[11px]">
+                              <span class="font-black text-amber-950 flex items-center gap-1">
+                                <span>🔥</span>
+                                <span
+                                  data-tina-field={tinaField(group, 'occupiedSeats')}
+                                  data-edit-key={`schedule.groups.${idx}.occupiedSeats`}
+                                  data-edit-label="Počet obsazených míst"
+                                >
+                                  {cap.meterLabel}
+                                </span>
+                              </span>
+                              <span class="text-[10px] font-bold text-amber-800">
+                                {cap.meterSub}
+                              </span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-parchment-200 overflow-hidden flex">
+                              <div class:list={["h-full transition-all duration-500", cap.indicatorColor]} style={`width: ${cap.percentage}%;`}></div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div class="flex items-center justify-between text-[11px] py-0.5">
+                            <div class="flex items-center gap-1.5">
+                              <span class="text-stone-400 text-xs">👥</span>
+                              <span
+                                class="font-bold text-espresso-950"
+                                data-tina-field={tinaField(group, 'occupiedSeats')}
+                                data-edit-key={`schedule.groups.${idx}.occupiedSeats`}
+                                data-edit-label="Kapacita skupinky"
+                              >
+                                {cap.meterLabel}
+                              </span>
+                            </div>
+                            <span class:list={[
+                              "text-[10px] font-bold px-2 py-0.5 rounded-full border",
+                              cap.status === 'open' ? "bg-emerald-50 text-emerald-800 border-emerald-200" :
+                              cap.status === 'waiting_list' ? "bg-amber-50 text-amber-800 border-amber-200" :
+                              "bg-red-50 text-red-800 border-red-200"
+                            ]}>
+                              {cap.meterSub}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -855,27 +928,55 @@ function getLocalWalkHint(cohort: string) {
                 >
                 </p>
 
-                <!-- Capacity Visual Meter Bar -->
+                <!-- Capacity Strip (Smart Scarcity) -->
                 <div class="space-y-1.5 pt-2 border-t border-parchment-200">
-                  <div class="flex items-center justify-between text-[11px]">
-                    <span class="font-bold text-espresso-950">
-                      Obsazenost: <span class="text-amber-900 font-black"><span data-tina-field={tinaField(group, 'occupiedSeats')} data-edit-key={`schedule.groups.${idx}.occupiedSeats`} data-edit-label="Počet obsazených míst">{group.occupiedSeats ?? 0}</span>/8</span>
-                      {((group.occupiedSeats ?? 0) > 8) && (
-                        <span class="text-amber-700 font-extrabold"> (+{((group.occupiedSeats ?? 0) - 8)} na čekačce)</span>
-                      )}
-                    </span>
-                    <span class="text-[10px] font-bold text-stone-500">
-                      {cap.status === 'open' ? `${cap.availableInBase} volno` : cap.status === 'waiting_list' ? 'Čekací listina' : 'We\'re full!'}
-                    </span>
-                  </div>
-
-                  <!-- Multi-segmented Progress Bar -->
-                  <div class="w-full h-2 rounded-full bg-parchment-200 overflow-hidden flex">
-                    <div
-                      class:list={["h-full transition-all duration-500", cap.indicatorColor]}
-                      style={`width: ${cap.percentage}%;`}
-                    ></div>
-                  </div>
+                  {cap.showMeter ? (
+                    <div class="space-y-1">
+                      <div class="flex items-center justify-between text-[11px]">
+                        <span class="font-black text-amber-950 flex items-center gap-1">
+                          <span>🔥</span>
+                          <span
+                            data-tina-field={tinaField(group, 'occupiedSeats')}
+                            data-edit-key={`schedule.groups.${idx}.occupiedSeats`}
+                            data-edit-label="Počet obsazených míst"
+                          >
+                            {cap.meterLabel}
+                          </span>
+                        </span>
+                        <span class="text-[10px] font-bold text-amber-800">
+                          {cap.meterSub}
+                        </span>
+                      </div>
+                      <div class="w-full h-2 rounded-full bg-parchment-200 overflow-hidden flex">
+                        <div
+                          class:list={["h-full transition-all duration-500", cap.indicatorColor]}
+                          style={`width: ${cap.percentage}%;`}
+                        ></div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div class="flex items-center justify-between text-[11px] py-0.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="text-stone-400 text-xs">👥</span>
+                        <span
+                          class="font-bold text-espresso-950"
+                          data-tina-field={tinaField(group, 'occupiedSeats')}
+                          data-edit-key={`schedule.groups.${idx}.occupiedSeats`}
+                          data-edit-label="Kapacita skupinky"
+                        >
+                          {cap.meterLabel}
+                        </span>
+                      </div>
+                      <span class:list={[
+                        "text-[10px] font-bold px-2 py-0.5 rounded-full border",
+                        cap.status === 'open' ? "bg-emerald-50 text-emerald-800 border-emerald-200" :
+                        cap.status === 'waiting_list' ? "bg-amber-50 text-amber-800 border-amber-200" :
+                        "bg-red-50 text-red-800 border-red-200"
+                      ]}>
+                        {cap.meterSub}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -922,7 +1023,7 @@ function getLocalWalkHint(cohort: string) {
                 <span class="px-2.5 py-1 rounded-xl bg-blue-100 border border-blue-300 text-blue-950 text-xs font-black" data-tina-field={tinaField(adultsBlock, 'timeBadge')} data-edit-key="schedule.adultsBlock.timeBadge" data-edit-label="Dospělí: Časový štítek">
                   {adultsBlock.timeBadge || "Po – Čt 17:00 – 18:30"}
                 </span>
-                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(adultsBlock, 'timeNote')} data-edit-key="schedule.adultsBlock.timeNote" data-edit-label="Dospělí: Časová poznámka">{adultsBlock.timeNote || "90 minut • 5 bloků týdně"}</span>
+                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(adultsBlock, 'timeNote')} data-edit-key="schedule.adultsBlock.timeNote" data-edit-label="Dospělí: Časová poznámka">{adultsBlock.timeNote || "90 minut • 4 bloky týdně • 550 Kč / 90 min."}</span>
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-3xl" data-tina-field={tinaField(adultsBlock, 'icon')} data-edit-key="schedule.adultsBlock.icon" data-edit-label="Dospělí: Ikona">{adultsBlock.icon || "💼"}</span>
@@ -953,7 +1054,7 @@ function getLocalWalkHint(cohort: string) {
                 <span class="px-2.5 py-1 rounded-xl bg-purple-100 border border-purple-300 text-purple-950 text-xs font-black" data-tina-field={tinaField(individualBlock, 'timeBadge')} data-edit-key="schedule.individualBlock.timeBadge" data-edit-label="Individuální: Časový štítek">
                   {individualBlock.timeBadge || "Dopoledne dle domluvy"}
                 </span>
-                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(individualBlock, 'timeNote')} data-edit-key="schedule.individualBlock.timeNote" data-edit-label="Individuální: Cena/čas">{individualBlock.timeNote || "950 Kč / 60 min"}</span>
+                <span class="text-xs font-bold text-stone-500" data-tina-field={tinaField(individualBlock, 'timeNote')} data-edit-key="schedule.individualBlock.timeNote" data-edit-label="Individuální: Cena/čas">{individualBlock.timeNote || "1050 Kč / 60 min"}</span>
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-3xl" data-tina-field={tinaField(individualBlock, 'icon')} data-edit-key="schedule.individualBlock.icon" data-edit-label="Individuální: Ikona">{individualBlock.icon || "👤"}</span>
