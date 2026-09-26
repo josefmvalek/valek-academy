@@ -1543,7 +1543,7 @@ function getLocalWalkHint(cohort: string) {
     }
     document.addEventListener('astro:page-load', syncAllUI);
 
-    // Observe TinaCMS island swaps to preserve selected cohort & filter states
+    // Observe TinaCMS island swaps in DEV/admin iframe to preserve selected cohort & filter states
     let lastContainer = document.getElementById('smart-finder-view');
     const observer = new MutationObserver(() => {
       const currentContainer = document.getElementById('smart-finder-view');
@@ -1552,6 +1552,19 @@ function getLocalWalkHint(cohort: string) {
         syncAllUI();
       }
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+
+    const bindScheduleObserver = () => {
+      observer.disconnect();
+      const el = document.getElementById('harmonogram');
+      if (el && (window.self !== window.top || import.meta.env.DEV)) {
+        observer.observe(el, { childList: true, subtree: true });
+      }
+    };
+
+    bindScheduleObserver();
+    document.addEventListener('astro:page-load', bindScheduleObserver);
+    document.addEventListener('astro:before-swap', () => {
+      observer.disconnect();
+    });
   })();
 </script>

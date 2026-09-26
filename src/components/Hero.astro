@@ -146,7 +146,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
 
       <!-- Right Column: 3D Josef Portrait & Voice Player Stage (Only if cardEnabled) -->
       {cardEnabled && (
-        <div class="lg:col-span-5 relative mt-4 lg:mt-0 w-full min-w-0 reveal-scale">
+        <div class="lg:col-span-5 relative mt-4 lg:mt-0 w-full min-w-0">
           <div class="relative mx-auto max-w-md lg:max-w-none w-full min-w-0">
             
             <!-- Outer glowing ambient aura -->
@@ -272,7 +272,7 @@ const cardCtaLink = card.ctaLink || "#kontakt";
           };
           return (
             <div
-              class={`reveal-on-scroll stagger-${idx + 1} group relative bg-white/95 hover:bg-white rounded-card-lg p-4 sm:p-5 text-center border border-parchment-300 shadow-2xs hover:shadow-card-lift hover:border-amber-400/80 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between overflow-hidden`}
+              class="group relative bg-white/95 hover:bg-white rounded-card-lg p-4 sm:p-5 text-center border border-parchment-300 shadow-2xs hover:shadow-card-lift hover:border-amber-400/80 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between overflow-hidden"
               data-tina-field={tinaField(hero, 'stats', idx)}
             >
               <!-- Ambient top shimmer on hover -->

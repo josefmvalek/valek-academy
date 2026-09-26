@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
-import VisualEditor from '../components/VisualEditor.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import RozvrhContent from '../components/RozvrhContent.astro';
 import { getHomePageData, getSchedulePageDataQuery } from '../lib/data';
@@ -73,6 +72,4 @@ const canonical = rozvrh?.seo?.canonicalUrl || "https://valekacademy.cz/rozvrh";
     phone={contact.phone}
     phoneFormatted={contact.phoneFormatted}
   />
-
-  {import.meta.env.DEV && <VisualEditor />}
 </Layout>

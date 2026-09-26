@@ -181,29 +181,50 @@ const enabled = testimonials.enabled !== false;
 )}
 
 <script>
-  function initTestimonialsCarousel() {
-    const slider = document.getElementById('reviews-slider');
-    const dots = document.querySelectorAll<HTMLElement>('.testimonial-dot');
-    if (!slider || !dots.length) return;
+  (() => {
+    let testimonialsAbort: AbortController | null = null;
 
-    slider.addEventListener('scroll', () => {
-      const scrollLeft = slider.scrollLeft;
-      const cardWidth = slider.firstElementChild?.clientWidth || 300;
-      const activeIdx = Math.min(dots.length - 1, Math.max(0, Math.round(scrollLeft / cardWidth)));
+    function initTestimonialsCarousel() {
+      if (testimonialsAbort) {
+        testimonialsAbort.abort();
+        testimonialsAbort = null;
+      }
 
-      dots.forEach((dot, idx) => {
-        if (idx === activeIdx) {
-          dot.classList.add('bg-amber-500', 'w-5');
-          dot.classList.remove('bg-stone-300', 'w-2');
-        } else {
-          dot.classList.remove('bg-amber-500', 'w-5');
-          dot.classList.add('bg-stone-300', 'w-2');
-        }
-      });
-    }, { passive: true });
-  }
+      const slider = document.getElementById('reviews-slider');
+      const dots = document.querySelectorAll<HTMLElement>('.testimonial-dot');
+      if (!slider || !dots.length) return;
 
-  document.addEventListener('DOMContentLoaded', initTestimonialsCarousel);
-  document.addEventListener('astro:page-load', initTestimonialsCarousel);
+      testimonialsAbort = new AbortController();
+
+      slider.addEventListener('scroll', () => {
+        const scrollLeft = slider.scrollLeft;
+        const cardWidth = slider.firstElementChild?.clientWidth || 300;
+        const activeIdx = Math.min(dots.length - 1, Math.max(0, Math.round(scrollLeft / cardWidth)));
+
+        dots.forEach((dot, idx) => {
+          if (idx === activeIdx) {
+            dot.classList.add('bg-amber-500', 'w-5');
+            dot.classList.remove('bg-stone-300', 'w-2');
+          } else {
+            dot.classList.remove('bg-amber-500', 'w-5');
+            dot.classList.add('bg-stone-300', 'w-2');
+          }
+        });
+      }, { passive: true, signal: testimonialsAbort.signal });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTestimonialsCarousel);
+    } else {
+      initTestimonialsCarousel();
+    }
+    document.addEventListener('astro:page-load', initTestimonialsCarousel);
+    document.addEventListener('astro:before-swap', () => {
+      if (testimonialsAbort) {
+        testimonialsAbort.abort();
+        testimonialsAbort = null;
+      }
+    });
+  })();
 </script>
 

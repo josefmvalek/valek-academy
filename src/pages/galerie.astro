@@ -7,7 +7,6 @@ import Footer from '../components/Footer.astro';
 import GalleryView from '../components/GalleryView.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
-import VisualEditor from '../components/VisualEditor.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import { getHomePageData, getGalleryDataQuery } from '../lib/data';
 import { islands } from '../lib/islands';
@@ -69,6 +68,4 @@ const description = gallery.subtitle || "Nahlédněte do doučovny pana Válka v
     phone={contact.phone}
     phoneFormatted={contact.phoneFormatted}
   />
-
-  {import.meta.env.DEV && <VisualEditor />}
 </Layout>

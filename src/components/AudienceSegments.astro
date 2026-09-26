@@ -400,7 +400,20 @@ const waitingList = audience.waitingList || {
         syncCohortTabsUI();
       }
     });
-    cohortObserver.observe(document.body, { childList: true, subtree: true });
+
+    const bindCohortObserver = () => {
+      cohortObserver.disconnect();
+      const el = document.getElementById('programy');
+      if (el && (window.self !== window.top || import.meta.env.DEV)) {
+        cohortObserver.observe(el, { childList: true, subtree: true });
+      }
+    };
+
+    bindCohortObserver();
+    document.addEventListener('astro:page-load', bindCohortObserver);
+    document.addEventListener('astro:before-swap', () => {
+      cohortObserver.disconnect();
+    });
   })();
 </script>
 

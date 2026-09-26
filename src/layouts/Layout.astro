@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import BackToTop from '../components/BackToTop.astro';
+import VisualEditor from '../components/VisualEditor.astro';
 import { ClientRouter } from 'astro:transitions';
 import Analytics from '@vercel/analytics/astro';
 import fontPlusJakarta400 from '@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-400-normal.woff2?url';
@@ -289,39 +290,40 @@ const schemaGraph: any = {
     <slot />
     <BackToTop />
 
-    <!-- Dynamic Tab Title on Page Inactivity / Tab Switch -->
-    <script is:inline>
-      (function () {
-        const truePageTitle = document.title;
-        const awayTitle = "🎁 1. lekce angličtiny pro děti je zdarma – VALEK ACADEMY";
-        let returnTimer = null;
+    <!-- Dynamic Tab Title on Page Inactivity / Tab Switch & Scroll Observers -->
+    <script>
+      (() => {
+        // 1. Dynamic Tab Title on Inactivity (Single global registration)
+        if (!(window as any).__valekTitleInitialized) {
+          (window as any).__valekTitleInitialized = true;
+          let truePageTitle = document.title;
+          const awayTitle = "🎁 1. lekce angličtiny pro děti je zdarma – VALEK ACADEMY";
+          let returnTimer: ReturnType<typeof setTimeout> | null = null;
 
-        document.addEventListener("visibilitychange", function () {
-          if (document.hidden) {
-            document.title = awayTitle;
-          } else {
-            if (returnTimer) clearTimeout(returnTimer);
-            document.title = "👋 Vítejte zpět! | VALEK ACADEMY";
-            returnTimer = setTimeout(function () {
-              document.title = truePageTitle;
-            }, 2000);
-          }
-        });
-      })();
-    </script>
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+              truePageTitle = document.title;
+              document.title = awayTitle;
+            } else {
+              if (returnTimer) clearTimeout(returnTimer);
+              document.title = "👋 Vítejte zpět! | VALEK ACADEMY";
+              returnTimer = setTimeout(() => {
+                document.title = truePageTitle;
+              }, 2000);
+            }
+          });
 
-    <!-- Smooth Scroll-Driven Reveal Observer & Number Counters -->
-    <script is:inline>
-      (function () {
-        const isInIframe = window.self !== window.top;
-        if (isInIframe) {
-          document.documentElement.classList.add('in-iframe');
-          if (document.body) document.body.classList.add('in-iframe');
+          document.addEventListener('astro:page-load', () => {
+            truePageTitle = document.title;
+          });
         }
 
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // 2. Scroll-Driven Reveal Observer & Number Counters with Lifecycle Cleanup
+        let revealObserver: IntersectionObserver | null = null;
+        let counterObserver: IntersectionObserver | null = null;
+        let tinaMutObserver: MutationObserver | null = null;
 
-        function animateCounter(el) {
+        function animateCounter(el: HTMLElement) {
           const rawTarget = el.getAttribute('data-counter-target');
           if (!rawTarget) return;
           const target = parseFloat(rawTarget);
@@ -331,13 +333,16 @@ const schemaGraph: any = {
           const suffix = el.getAttribute('data-counter-suffix') || '';
           const duration = parseInt(el.getAttribute('data-counter-duration') || '1200', 10);
 
+          const isInIframe = window.self !== window.top;
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
           if (isInIframe || prefersReducedMotion) {
             el.textContent = `${prefix}${target}${suffix}`;
             return;
           }
 
           const startTime = performance.now();
-          function updateCounter(currentTime) {
+          function updateCounter(currentTime: number) {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
             // Ease out cubic
@@ -354,16 +359,40 @@ const schemaGraph: any = {
           requestAnimationFrame(updateCounter);
         }
 
+        function cleanupScrollFeatures() {
+          if (revealObserver) {
+            revealObserver.disconnect();
+            revealObserver = null;
+          }
+          if (counterObserver) {
+            counterObserver.disconnect();
+            counterObserver = null;
+          }
+          if (tinaMutObserver) {
+            tinaMutObserver.disconnect();
+            tinaMutObserver = null;
+          }
+        }
+
         function initScrollFeatures() {
+          cleanupScrollFeatures();
+
+          const isInIframe = window.self !== window.top;
+          if (isInIframe) {
+            document.documentElement.classList.add('in-iframe');
+            if (document.body) document.body.classList.add('in-iframe');
+          }
+
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           const revealSelector = '.reveal-on-scroll, .reveal-from-left, .reveal-from-right, .reveal-scale';
-          
+
           if (isInIframe || prefersReducedMotion) {
             document.querySelectorAll(revealSelector).forEach(el => el.classList.add('is-visible'));
-            document.querySelectorAll('[data-counter-target]').forEach(el => animateCounter(el));
+            document.querySelectorAll<HTMLElement>('[data-counter-target]').forEach(el => animateCounter(el));
             return;
           }
 
-          const revealObserver = new IntersectionObserver((entries, obs) => {
+          revealObserver = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
@@ -372,18 +401,29 @@ const schemaGraph: any = {
             });
           }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-          document.querySelectorAll(revealSelector).forEach(el => revealObserver.observe(el));
+          document.querySelectorAll(revealSelector).forEach(el => revealObserver?.observe(el));
 
-          const counterObserver = new IntersectionObserver((entries, obs) => {
+          counterObserver = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
-                animateCounter(entry.target);
+                animateCounter(entry.target as HTMLElement);
                 obs.unobserve(entry.target);
               }
             });
           }, { threshold: 0.2 });
 
-          document.querySelectorAll('[data-counter-target]').forEach(el => counterObserver.observe(el));
+          document.querySelectorAll<HTMLElement>('[data-counter-target]').forEach(el => counterObserver?.observe(el));
+
+          // TinaCMS visual editor auto-reveal in iframe
+          if (isInIframe) {
+            const makeVisible = () => {
+              document.querySelectorAll(`${revealSelector}:not(.is-visible)`).forEach(el => el.classList.add('is-visible'));
+              document.querySelectorAll<HTMLElement>('[data-counter-target]').forEach(el => animateCounter(el));
+            };
+            makeVisible();
+            tinaMutObserver = new MutationObserver(makeVisible);
+            tinaMutObserver.observe(document.documentElement, { childList: true, subtree: true });
+          }
         }
 
         if (document.readyState === 'loading') {
@@ -392,19 +432,10 @@ const schemaGraph: any = {
           initScrollFeatures();
         }
         document.addEventListener('astro:page-load', initScrollFeatures);
-
-        // TinaCMS iframe auto-observer to ensure newly rendered elements stay visible
-        if (isInIframe) {
-          const makeVisible = () => {
-            document.querySelectorAll('.reveal-on-scroll:not(.is-visible), .reveal-from-left:not(.is-visible), .reveal-from-right:not(.is-visible), .reveal-scale:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
-            document.querySelectorAll('[data-counter-target]').forEach(el => animateCounter(el));
-          };
-          makeVisible();
-          const mutObserver = new MutationObserver(makeVisible);
-          mutObserver.observe(document.documentElement, { childList: true, subtree: true });
-        }
+        document.addEventListener('astro:before-swap', cleanupScrollFeatures);
       })();
     </script>
     <Analytics />
+    {import.meta.env.DEV && <VisualEditor />}
   </body>
 </html>

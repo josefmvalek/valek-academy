@@ -74,47 +74,70 @@ const displayPhone = contact?.phoneFormatted || phoneFormatted || "+420 792 372 
 </aside>
 
 <script>
-  function initMobileStickyCta() {
-    const bar = document.getElementById('mobile-sticky-cta');
-    const contactSection = document.getElementById('kontakt');
+  (() => {
+    let contactObserver: IntersectionObserver | null = null;
+    let cleanupCtaBtn: (() => void) | null = null;
 
-    if (!bar) return;
-
-    // Smooth scroll handler for anchor links
-    const btn = document.getElementById('mobile-sticky-cta-btn');
-    if (btn) {
-      btn.addEventListener('click', (e) => {
-        const href = btn.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          const target = document.querySelector(href);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-      });
+    function cleanupMobileStickyCta() {
+      if (contactObserver) {
+        contactObserver.disconnect();
+        contactObserver = null;
+      }
+      if (cleanupCtaBtn) {
+        cleanupCtaBtn();
+        cleanupCtaBtn = null;
+      }
     }
 
-    // Auto-hide when user is already viewing the contact form
-    if (contactSection) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            bar.classList.add('translate-y-full');
-          } else {
-            bar.classList.remove('translate-y-full');
+    function initMobileStickyCta() {
+      cleanupMobileStickyCta();
+
+      const bar = document.getElementById('mobile-sticky-cta');
+      const contactSection = document.getElementById('kontakt');
+
+      if (!bar) return;
+
+      // Smooth scroll handler for anchor links
+      const btn = document.getElementById('mobile-sticky-cta-btn');
+      if (btn) {
+        const onBtnClick = (e: MouseEvent) => {
+          const href = btn.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
           }
-        });
-      }, { threshold: 0.15 });
+        };
+        btn.addEventListener('click', onBtnClick);
+        cleanupCtaBtn = () => {
+          btn.removeEventListener('click', onBtnClick);
+        };
+      }
 
-      observer.observe(contactSection);
+      // Auto-hide when user is already viewing the contact form
+      if (contactSection) {
+        contactObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              bar.classList.add('translate-y-full');
+            } else {
+              bar.classList.remove('translate-y-full');
+            }
+          });
+        }, { threshold: 0.15 });
+
+        contactObserver.observe(contactSection);
+      }
     }
-  }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobileStickyCta);
-  } else {
-    initMobileStickyCta();
-  }
-  document.addEventListener('astro:page-load', initMobileStickyCta);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileStickyCta);
+    } else {
+      initMobileStickyCta();
+    }
+    document.addEventListener('astro:page-load', initMobileStickyCta);
+    document.addEventListener('astro:before-swap', cleanupMobileStickyCta);
+  })();
 </script>

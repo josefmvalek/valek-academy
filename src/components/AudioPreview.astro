@@ -238,60 +238,21 @@ phrases.forEach((p, idx) => {
     let secondsRemaining = 6;
     let activePhraseKey = '';
 
-    let defaultPhrases: Record<string, { en: string; cz: string; short: string; duration: number; audioFile: string; index: number; buttonLabel?: string }> = {
-      "Welcome!": {
-        en: "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
-        cz: "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!",
-        short: "Welcome to Valek Academy!",
-        duration: 6,
-        audioFile: "/uploads/Welcome-roll-the-dice.mp3",
-        index: 0
-      },
-      "dice": {
-        en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
-        cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
-        short: "Let's roll the dice!",
-        duration: 7,
-        audioFile: "/uploads/Let's-roll-the-dice.mp3",
-        index: 1
-      },
-      "No fear": {
-        en: "Never fear making mistakes. In our small team, we learn by laughing and playing!",
-        cz: "Z chyb si vůbec nic nedělejte. V naší partě se učíme smíchem a hrou!",
-        short: "Never fear making mistakes!",
-        duration: 7,
-        audioFile: "/uploads/Never-fear-making-mistakes.mp3",
-        index: 2
-      },
-      "Mluvím česky": {
-        en: "",
-        cz: "Žádný strach milí studenti, česky se krásně domluvíme. Vysvětlení v češtině šetří čas, ale jakmile pokročíte a budete lépe rozumět, budu používat angličtinu víc a víc.",
-        short: "Česky vše vysvětlím",
-        duration: 11,
-        audioFile: "/uploads/Česky-vše-vysvětlím.mp3",
-        index: 3
-      },
-      "Auf Deutsch o en español": {
-        en: "Wenn Sie Deutsch sprechen, ist das kein Problem – der Unterricht kann natürlich in Ihrer Muttersprache stattfinden. Y si hablas castellano, no hay problema: la lección puede impartirse, por supuesto, en tu lengua materna.",
-        cz: "Pokud mluvíš německy, tak žádný problém – lekce může samozřejmě probíhat v tvém mateřském jazyce. A pokud mluvíš španělsky, rovněž to není problém: lekce může samozřejmě probíhat ve tvém mateřském jazyce.",
-        short: "Auf Deutsch o en español",
-        duration: 15,
-        audioFile: "/uploads/Auf-Deutsch-o-en-español-2.mp3",
-        index: 4
-      }
-    };
+    let cachedPhrases: Record<string, { en: string; cz: string; short: string; duration: number; audioFile: string; index: number; buttonLabel?: string }> | null = null;
 
     function getPhrases() {
+      if (cachedPhrases) return cachedPhrases;
       const previewBox = document.getElementById('audio-preview-box');
       if (previewBox?.dataset.phrases) {
         try {
           const parsed = JSON.parse(previewBox.dataset.phrases);
           if (parsed && Object.keys(parsed).length > 0) {
+            cachedPhrases = parsed;
             return parsed;
           }
         } catch (e) {}
       }
-      return defaultPhrases;
+      return {};
     }
 
     function initActivePhraseKey() {
@@ -316,7 +277,14 @@ phrases.forEach((p, idx) => {
         activePhraseKey = firstKey;
         return phrases[firstKey];
       }
-      return defaultPhrases["Welcome!"];
+      return {
+        en: "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
+        cz: "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!",
+        short: "Welcome to Valek Academy!",
+        duration: 6,
+        audioFile: "/uploads/Welcome-roll-the-dice.mp3",
+        index: 0
+      };
     }
 
     function updateEditButton() {
@@ -330,6 +298,7 @@ phrases.forEach((p, idx) => {
     }
 
     function syncChipsUI() {
+      cachedPhrases = null;
       initActivePhraseKey();
       const phraseChips = document.querySelectorAll<HTMLButtonElement>('.phrase-chip');
       phraseChips.forEach((c) => {
@@ -667,6 +636,25 @@ phrases.forEach((p, idx) => {
     });
 
     // Cleanup audio on navigation away from page
+    let lastAudioBox = document.getElementById('audio-preview-box');
+    const audioObserver = new MutationObserver(() => {
+      const currentBox = document.getElementById('audio-preview-box');
+      if (currentBox && currentBox !== lastAudioBox) {
+        lastAudioBox = currentBox;
+        syncChipsUI();
+      }
+    });
+
+    const bindAudioObserver = () => {
+      audioObserver.disconnect();
+      const el = document.getElementById('audio-preview-box');
+      if (el && (window.self !== window.top || import.meta.env.DEV)) {
+        audioObserver.observe(el, { childList: true, subtree: true });
+      }
+    };
+
+    bindAudioObserver();
+    document.addEventListener('astro:page-load', bindAudioObserver);
     document.addEventListener('astro:before-swap', () => {
       stopAudio();
       audioObserver.disconnect();
@@ -679,15 +667,5 @@ phrases.forEach((p, idx) => {
       syncChipsUI();
     }
     document.addEventListener('astro:page-load', syncChipsUI);
-
-    let lastAudioBox = document.getElementById('audio-preview-box');
-    const audioObserver = new MutationObserver(() => {
-      const currentBox = document.getElementById('audio-preview-box');
-      if (currentBox && currentBox !== lastAudioBox) {
-        lastAudioBox = currentBox;
-        syncChipsUI();
-      }
-    });
-    audioObserver.observe(document.body, { childList: true, subtree: true });
   })();
 </script>

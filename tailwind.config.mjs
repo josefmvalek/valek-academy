@@ -80,8 +80,7 @@ export default {
         heading: ['Outfit', 'Plus Jakarta Sans', 'Inter', 'sans-serif'],
         display: ['Outfit', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        academy: ['Outfit', 'Playfair Display', 'Cinzel', 'serif'],
-        vintage: ['Cinzel', 'Playfair Display', 'Georgia', 'serif'],
+        academy: ['Outfit', 'Playfair Display', 'serif'],
       },
       boxShadow: {
         'soft': '0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04)',

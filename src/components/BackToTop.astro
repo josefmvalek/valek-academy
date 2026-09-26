@@ -21,47 +21,72 @@ const { threshold = 500 } = Astro.props;
 </button>
 
 <script>
-  function setupBackToTop() {
-    const btn = document.getElementById('back-to-top');
-    if (!btn) return;
+  (() => {
+    let cleanupScroll: (() => void) | null = null;
 
-    const threshold = parseInt(btn.getAttribute('data-threshold') || '500', 10);
-    let isVisible = false;
-    let ticking = false;
+    function setupBackToTop() {
+      if (cleanupScroll) {
+        cleanupScroll();
+        cleanupScroll = null;
+      }
 
-    function update() {
-      const shouldShow = window.scrollY > threshold;
-      if (shouldShow !== isVisible) {
-        isVisible = shouldShow;
-        if (isVisible) {
-          btn?.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-          btn?.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-        } else {
-          btn?.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-          btn?.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+      const btn = document.getElementById('back-to-top');
+      if (!btn) return;
+
+      const threshold = parseInt(btn.getAttribute('data-threshold') || '500', 10);
+      let isVisible = false;
+      let ticking = false;
+
+      function update() {
+        const shouldShow = window.scrollY > threshold;
+        if (shouldShow !== isVisible) {
+          isVisible = shouldShow;
+          if (isVisible) {
+            btn?.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            btn?.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          } else {
+            btn?.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            btn?.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+          }
+        }
+        ticking = false;
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
         }
       }
-      ticking = false;
+
+      const onClick = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      };
+
+      btn.addEventListener('click', onClick);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      update();
+
+      cleanupScroll = () => {
+        btn.removeEventListener('click', onClick);
+        window.removeEventListener('scroll', onScroll);
+      };
     }
 
-    function onScroll() {
-      if (!ticking) {
-        window.requestAnimationFrame(update);
-        ticking = true;
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupBackToTop);
+    } else {
+      setupBackToTop();
+    }
+    document.addEventListener('astro:page-load', setupBackToTop);
+    document.addEventListener('astro:before-swap', () => {
+      if (cleanupScroll) {
+        cleanupScroll();
+        cleanupScroll = null;
       }
-    }
-
-    btn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
     });
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    update();
-  }
-
-  document.addEventListener('DOMContentLoaded', setupBackToTop);
-  document.addEventListener('astro:page-load', setupBackToTop);
+  })();
 </script>

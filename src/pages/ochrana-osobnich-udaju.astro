@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import LegalContent from '../components/LegalContent.astro';
-import VisualEditor from '../components/VisualEditor.astro';
 import { getHomePageData, getLegalPageDataQuery } from '../lib/data';
 import { islands } from '../lib/islands';
 
@@ -44,5 +43,4 @@ const seoDescription = legal.seoDescription || "Informace o zpracování osobní
     phone={contact.phone}
     phoneFormatted={contact.phoneFormatted}
   />
-  {import.meta.env.DEV && <VisualEditor />}
 </Layout>

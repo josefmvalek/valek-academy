@@ -7,7 +7,6 @@
 @import '@fontsource/outfit/700.css';
 @import '@fontsource/outfit/800.css';
 @import '@fontsource/outfit/900.css';
-@import '@fontsource/cinzel/700.css';
 
 @tailwind base;
 @tailwind components;
@@ -130,10 +129,6 @@
     letter-spacing: -0.02em;
   }
 
-  .font-vintage {
-    font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
-    letter-spacing: 0.05em;
-  }
 
   .academic-card {
     background-color: var(--surface-card);

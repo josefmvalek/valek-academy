@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
-import VisualEditor from '../components/VisualEditor.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import CenikContent from '../components/CenikContent.astro';
 import { getHomePageData, getPricingPageDataQuery } from '../lib/data';
@@ -76,6 +75,4 @@ const canonical = cenik?.seo?.canonicalUrl || "https://valekacademy.cz/cenik";
     phone={contact.phone}
     phoneFormatted={contact.phoneFormatted}
   />
-
-  {import.meta.env.DEV && <VisualEditor />}
 </Layout>

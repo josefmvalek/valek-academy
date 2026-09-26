@@ -3,7 +3,6 @@ export const prerender = true;
 
 import Layout from '../layouts/Layout.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
-import VisualEditor from '../components/VisualEditor.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
 import PageContent from '../components/PageContent.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
@@ -42,5 +41,4 @@ const whatsappWidget = page.whatsappWidget || {};
       whatsappWidget={whatsappWidget}
     />
   )}
-  {import.meta.env.DEV && <VisualEditor />}
 </Layout>

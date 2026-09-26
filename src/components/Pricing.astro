@@ -353,7 +353,20 @@ const pillars = pricing.pillars || defaultPillars;
         syncPricingTabsUI();
       }
     });
-    pricingObserver.observe(document.body, { childList: true, subtree: true });
+
+    const bindPricingObserver = () => {
+      pricingObserver.disconnect();
+      const el = document.getElementById('cenik');
+      if (el && (window.self !== window.top || import.meta.env.DEV)) {
+        pricingObserver.observe(el, { childList: true, subtree: true });
+      }
+    };
+
+    bindPricingObserver();
+    document.addEventListener('astro:page-load', bindPricingObserver);
+    document.addEventListener('astro:before-swap', () => {
+      pricingObserver.disconnect();
+    });
   })();
 </script>
 

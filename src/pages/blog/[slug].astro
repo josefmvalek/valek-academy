@@ -6,7 +6,6 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import WhatsAppFloating from '../../components/WhatsAppFloating.astro';
 import MobileStickyCTA from '../../components/MobileStickyCTA.astro';
-import VisualEditor from '../../components/VisualEditor.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import BlogPostContent from '../../components/BlogPostContent.astro';
 import { getHomePageData, getBlogPosts, getBlogPostBySlug, getBlogPostDataQuery } from '../../lib/data';
@@ -100,6 +99,4 @@ const canonical = `https://valekacademy.cz/blog/${post.slug}`;
     phone={contact.phone}
     phoneFormatted={contact.phoneFormatted}
   />
-
-  {import.meta.env.DEV && <VisualEditor />}
 </Layout>

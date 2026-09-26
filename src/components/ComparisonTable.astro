@@ -339,7 +339,20 @@ const columns = comparison.columns || defaultColumns;
         syncComparisonUI();
       }
     });
-    compObserver.observe(document.body, { childList: true, subtree: true });
+
+    const bindCompObserver = () => {
+      compObserver.disconnect();
+      const el = document.getElementById('srovnani');
+      if (el && (window.self !== window.top || import.meta.env.DEV)) {
+        compObserver.observe(el, { childList: true, subtree: true });
+      }
+    };
+
+    bindCompObserver();
+    document.addEventListener('astro:page-load', bindCompObserver);
+    document.addEventListener('astro:before-swap', () => {
+      compObserver.disconnect();
+    });
   })();
 </script>
 
