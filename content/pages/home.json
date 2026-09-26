@@ -48,6 +48,10 @@
       {
         "label": "FAQ",
         "href": "#faq"
+      },
+      {
+        "label": "Kontakt",
+        "href": "#kontakt"
       }
     ],
     "drawerSections": [
@@ -112,6 +116,12 @@
             "href": "/#kde-ucime",
             "desc": "Růžová 1238, naproti ZŠ UNESCO",
             "icon": "📍"
+          },
+          {
+            "label": "Kontakt & Rezervace",
+            "href": "/#kontakt",
+            "desc": "Zpráva panu Válkovi, telefon a dotazy",
+            "icon": "✉️"
           },
           {
             "label": "Časté dotazy rodičů (FAQ)",

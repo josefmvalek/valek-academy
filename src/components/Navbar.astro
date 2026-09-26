@@ -52,14 +52,18 @@ const defaultNavLinks = [
   { label: "Programy", href: isHomePage ? "#programy" : "/#programy" },
   { label: "O lektorovi", href: isHomePage ? "#o-mne" : "/#o-mne" },
   { label: "Rádce", href: "/blog" },
+  { label: "Fotogalerie", href: "/galerie" },
   { label: "FAQ", href: isHomePage ? "#faq" : "/#faq" },
-  { label: "Fotogalerie", href: "/galerie" }
+  { label: "Kontakt", href: isHomePage ? "#kontakt" : (pathname === '/rozvrh' ? '#kontakt' : '/#kontakt') }
 ];
 
 const resolveNavLinkHref = (rawHref: string) => {
   if (!isHomePage) {
     if (rawHref === '#harmonogram' || rawHref === '/#harmonogram') return '/rozvrh';
     if (rawHref === '#cenik' || rawHref === '/#cenik') return '/cenik';
+    if (rawHref === '#kontakt' || rawHref === '/#kontakt') {
+      return pathname === '/rozvrh' ? '#kontakt' : '/#kontakt';
+    }
     if (rawHref.startsWith('#')) return `/${rawHref}`;
   }
   return rawHref;
@@ -115,6 +119,7 @@ const defaultDrawerSections: DrawerCategory[] = [
       { label: "O lektorovi (pan Válek)", href: "/#o-mne", desc: "Vyrůstal v Melbourne, RMIT Univ.", icon: "🦘" },
       { label: "Týdenní rozvrh skupinek", href: "/#harmonogram", desc: "Výběr dne, času a volná místa", icon: "📅" },
       { label: "Kde učíme (Doučovna UH)", href: "/#kde-ucime", desc: "Růžová 1238, naproti ZŠ UNESCO", icon: "📍" },
+      { label: "Kontakt & Rezervace", href: isHomePage ? "#kontakt" : (pathname === '/rozvrh' ? '#kontakt' : '/#kontakt'), desc: "Formulář, telefon a dotazy lektorovi", icon: "✉️" },
       { label: "Časté dotazy rodičů (FAQ)", href: "/#faq", desc: "Odpovědi na vše, co vás zajímá", icon: "❓" }
     ]
   }
@@ -155,12 +160,12 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
       </a>
 
       <!-- Desktop Navigation with Active Scrollspy -->
-      <nav id="desktop-nav" class="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-bold text-stone-700" aria-label="Hlavní navigace">
+      <nav id="desktop-nav" class="hidden lg:flex items-center gap-0.5 xl:gap-1.5 text-xs xl:text-sm font-bold text-stone-700" aria-label="Hlavní navigace">
         {navLinks.map((link: any, lIdx: number) => (
           <a
             href={link.href}
             data-nav-link={link.href}
-            class="nav-link-item hover:text-amber-900 transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-card-sm hover:bg-amber-100/60 text-stone-800 font-extrabold border border-transparent"
+            class="nav-link-item hover:text-amber-900 transition-all whitespace-nowrap py-1.5 px-2 xl:px-2.5 rounded-card-sm hover:bg-amber-100/60 text-stone-800 font-extrabold border border-transparent"
             data-tina-field={link.rawItem ? tinaField(link.rawItem, 'label') : undefined}
           >
             <span data-edit-key={link.rawItem ? `navbar.navLinks.${lIdx}.label` : undefined} data-edit-label="Odkaz v menu">{link.label}</span>
@@ -611,4 +616,10 @@ const drawerSections: DrawerCategory[] = (navbar.drawerSections && navbar.drawer
     initNavbar();
   }
   document.addEventListener('astro:page-load', initNavbar);
+  document.addEventListener('astro:before-swap', () => {
+    if (cleanupNavbar) {
+      cleanupNavbar();
+      cleanupNavbar = null;
+    }
+  });
 </script>
