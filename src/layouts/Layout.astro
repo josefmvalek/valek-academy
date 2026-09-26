@@ -57,14 +57,21 @@ const schemaGraph: any = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "EducationalOrganization",
+      "@type": ["EducationalOrganization", "LanguageSchool", "LocalBusiness"],
       "@id": "https://valekacademy.cz/#organization",
       "name": "VALEK ACADEMY",
       "legalName": "Josef Válek",
       "identifier": "72419563",
-      "alternateName": "Doučování angličtiny Josef Válek",
+      "alternateName": [
+        "VALEK ACADEMY Uherské Hradiště",
+        "Doučování angličtiny Josef Válek",
+        "Angličtina Uherské Hradiště"
+      ],
       "description": "Trpělivá a hravá výuka angličtiny pro žáky ZŠ a studenty v malých skupinkách (4–8 dětí) formou deskových her v Uherském Hradišti. Lektor Josef Válek (BBA RMIT Melbourne, 25+ let v ČR).",
       "url": "https://valekacademy.cz",
+      "sameAs": [
+        "https://www.firmy.cz/detail/13271737-valek-academy-uherske-hradiste"
+      ],
       "telephone": "+420792372642",
       "email": "info@valekacademy.cz",
       "image": "https://valekacademy.cz/images/og-valek-academy.jpg",
@@ -81,6 +88,7 @@ const schemaGraph: any = {
         "latitude": 49.0708,
         "longitude": 17.4665
       },
+      "hasMap": "https://maps.google.com/?q=R%C5%AF%C5%BEov%C3%A1+1238,+686+01+Uhersk%C3%A9+Hradi%C5%A1t%C4%9B",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -90,6 +98,8 @@ const schemaGraph: any = {
         }
       ],
       "priceRange": "320 Kč – 480 Kč",
+      "currenciesAccepted": "CZK",
+      "paymentAccepted": "Hotově, Bankovní převod",
       "areaServed": [
         "Uherské Hradiště",
         "Kunovice",
