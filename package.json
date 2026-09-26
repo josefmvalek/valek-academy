@@ -21,6 +21,7 @@
     "@fontsource/outfit": "^5.3.0",
     "@fontsource/plus-jakarta-sans": "^5.3.0",
     "@tinacms/astro": "^0.6.1",
+    "@vercel/analytics": "^2.0.1",
     "astro": "^5.4.2",
     "canvas-confetti": "^1.9.4",
     "lucide-astro": "^0.477.0",

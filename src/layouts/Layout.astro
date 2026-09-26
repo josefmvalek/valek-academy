@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import BackToTop from '../components/BackToTop.astro';
 import { ClientRouter } from 'astro:transitions';
+import Analytics from '@vercel/analytics/astro';
 import fontPlusJakarta400 from '@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-400-normal.woff2?url';
 import fontPlusJakarta700 from '@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-700-normal.woff2?url';
 
@@ -404,5 +405,6 @@ const schemaGraph: any = {
         }
       })();
     </script>
+    <Analytics />
   </body>
 </html>
