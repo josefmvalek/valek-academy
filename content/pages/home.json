@@ -125,7 +125,7 @@
   },
   "hero": {
     "title": "Angličtina, která studenty opravdu rozmluví",
-    "subtitle": "Konec tichého sezení v lavici a obav ze špatných známek. Čechoaustralan Josef Válek otevřel přátelskou učebnu pro děti a dospělé v malých skupinkách 4–8 studetů. Učí formou živého povídání, her a aktivího cvičení. Žáci a studenti sami aktivně mluví, lektor je trpělivě vede a cokoliv složitého čemu nerozumí nebo kde chybují v klidu vysvětlí v češtině.",
+    "subtitle": "Konec tichého sezení v lavici a obav ze špatných známek. Čechoaustralan Josef Válek otevřel přátelskou učebnu pro děti i dospělé v malých skupinkách 4–8 studentů. Učí formou živého povídání, her a aktivního cvičení. Žáci a studenti sami aktivně mluví, lektor je trpělivě vede a cokoliv složitého v klidu vysvětlí v češtině.",
     "ctaPrimaryText": "🎯 Najít volnou skupinku (1. lekce zdarma)",
     "ctaPrimaryLink": "#harmonogram",
     "ctaSecondaryText": "Jak výuka hrou a povídáním funguje",
@@ -145,7 +145,7 @@
           {
             "id": "Welcome!",
             "audioFile": "/uploads/Welcome-roll-the-dice.mp3",
-            "buttonLabel": "👋 „Welcome!“",
+            "buttonLabel": "🇬🇧 👋 „Welcome!“",
             "short": "Welcome to Valek Academy!",
             "en": "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
             "cz": "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!"
@@ -169,15 +169,15 @@
           {
             "id": "Mluvím česky",
             "audioFile": "/uploads/Česky-vše-vysvětlím.mp3",
-            "buttonLabel": "🎲 „Česky vše vysvětlím“",
+            "buttonLabel": "🇨🇿 💡 „Česky vše vysvětlím“",
             "short": "Česky vše vysvětlím",
             "en": "",
-            "cz": "Žádný strach milí studenti, česky se krásně domluvíme. Vysvětlení v češtině šetří čas, ale jakmile pokročíte a budete lépe rozumět, budu používat angličtinu víc a víc. "
+            "cz": "Žádný strach milí studenti, česky se krásně domluvíme. Vysvětlení v češtině šetří čas, ale jakmile pokročíte a budete lépe rozumět, budu používat angličtinu víc a víc."
           },
           {
             "id": "Auf Deutsch o en español",
             "audioFile": "/uploads/Auf-Deutsch-o-en-español-2.mp3",
-            "buttonLabel": "🎲 „Auf Deutsch o en español“",
+            "buttonLabel": "🇩🇪 🇪🇸 „Auf Deutsch o en español“",
             "short": "Auf Deutsch o en español",
             "en": "Wenn Sie Deutsch sprechen, ist das kein Problem – der Unterricht kann natürlich in Ihrer Muttersprache stattfinden. Y si hablas castellano, no hay problema: la lección puede impartirse, por supuesto, en tu lengua materna.",
             "cz": "Pokud mluvíš německy, tak žádný problém – lekce může samozřejmě probíhat v tvém mateřském jazyce. A pokud mluvíš španělsky, rovněž to není problém: lekce může samozřejmě probíhat ve tvém mateřském jazyce."
@@ -210,7 +210,7 @@
       },
       {
         "number": "Austrálie",
-        "label": ""
+        "label": "studium & život v Melbourne (RMIT)"
       }
     ]
   },

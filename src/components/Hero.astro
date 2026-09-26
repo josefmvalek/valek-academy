@@ -93,10 +93,17 @@ const cardCtaLink = card.ctaLink || "#kontakt";
       <!-- Copy & Direct CTAs -->
       <div class:list={["space-y-4 sm:space-y-6 w-full min-w-0", cardEnabled ? "lg:col-span-7 text-center lg:text-left" : "text-center"]}>
 
-
         <!-- Main Headline with warm gradient accent -->
         <h1 class:list={["font-heading font-black text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl text-fluid-h1 tracking-tight leading-[1.12] break-words text-espresso-950", cardEnabled ? "text-center lg:text-left" : "max-w-3xl mx-auto text-center"]} data-tina-field={tinaField(hero, 'title')} data-edit-key="hero.title" data-edit-label="Hlavní nadpis">
-          {title.includes('–') ? (
+          {title.includes('opravdu rozmluví') ? (
+            <>
+              {title.split('opravdu rozmluví')[0]}
+              <span class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent underline decoration-amber-400/50 decoration-wavy decoration-2 underline-offset-8">
+                opravdu rozmluví
+              </span>
+              {title.split('opravdu rozmluví')[1]}
+            </>
+          ) : title.includes('–') ? (
             <>
               <span set:html={formatRichText(title.split('–')[0].trim())} /> <span>–</span>{' '}
               <span class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 bg-clip-text text-transparent" set:html={formatRichText(title.split('–').slice(1).join('–').trim())} />
@@ -152,13 +159,13 @@ const cardCtaLink = card.ctaLink || "#kontakt";
               <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-parchment-50 via-white to-parchment-50 border border-amber-200 shadow-2xs flex items-center justify-between gap-2.5 relative overflow-hidden min-w-0" data-tina-field={hero.card ? tinaField(hero, 'card') : undefined}>
                 
                 <div class="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                  <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-amber-500 shadow-sm flex-shrink-0 bg-parchment-100">
+                  <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden ring-2 ring-amber-400/80 ring-offset-2 ring-offset-white border-2 border-amber-500 shadow-md flex-shrink-0 bg-parchment-100">
                     <img
                       src={card.image || "/images/josef-valek-thumb.webp"}
                       alt="Josef Válek – lektor angličtiny"
-                      class="w-full h-full object-cover"
-                      width="64"
-                      height="64"
+                      class="w-full h-full object-cover object-top"
+                      width="80"
+                      height="80"
                       loading="eager"
                       data-tina-field={hero.card ? tinaField(card, 'image') : undefined}
                       data-edit-key="hero.card.image"

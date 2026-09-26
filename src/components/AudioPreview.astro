@@ -30,9 +30,9 @@ const subtitlePrompt = audio.subtitlePrompt || "Poslechněte si ukázku";
 
 const defaultPhrases: Phrase[] = [
   {
-    id: "gday",
-    audioFile: "/audio/gday.mp3",
-    buttonLabel: "👋 „Welcome!“",
+    id: "Welcome!",
+    audioFile: "/uploads/Welcome-roll-the-dice.mp3",
+    buttonLabel: "🇬🇧 👋 „Welcome!“",
     short: "Welcome to Valek Academy!",
     en: "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
     cz: "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!",
@@ -40,7 +40,7 @@ const defaultPhrases: Phrase[] = [
   },
   {
     id: "dice",
-    audioFile: "/audio/dice.mp3",
+    audioFile: "/uploads/Let's-roll-the-dice.mp3",
     buttonLabel: "🎲 „Roll the dice!“",
     short: "Let's roll the dice!",
     en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
@@ -48,13 +48,31 @@ const defaultPhrases: Phrase[] = [
     duration: 7
   },
   {
-    id: "noworries",
-    audioFile: "/audio/noworries.mp3",
+    id: "No fear",
+    audioFile: "/uploads/Never-fear-making-mistakes.mp3",
     buttonLabel: "✨ „Never fear mistakes!“",
     short: "Never fear making mistakes!",
     en: "Never fear making mistakes. In our small team, we learn by laughing and playing!",
     cz: "Z chyb si vůbec nic nedělejte. V naší partě se učíme smíchem a hrou!",
     duration: 7
+  },
+  {
+    id: "Mluvím česky",
+    audioFile: "/uploads/Česky-vše-vysvětlím.mp3",
+    buttonLabel: "🇨🇿 💡 „Česky vše vysvětlím“",
+    short: "Česky vše vysvětlím",
+    en: "",
+    cz: "Žádný strach milí studenti, česky se krásně domluvíme. Vysvětlení v češtině šetří čas, ale jakmile pokročíte a budete lépe rozumět, budu používat angličtinu víc a víc.",
+    duration: 11
+  },
+  {
+    id: "Auf Deutsch o en español",
+    audioFile: "/uploads/Auf-Deutsch-o-en-español-2.mp3",
+    buttonLabel: "🇩🇪 🇪🇸 „Auf Deutsch o en español“",
+    short: "Auf Deutsch o en español",
+    en: "Wenn Sie Deutsch sprechen, ist das kein Problem – der Unterricht kann natürlich in Ihrer Muttersprache stattfinden. Y si hablas castellano, no hay problema: la lección puede impartirse, por supuesto, en tu lengua materna.",
+    cz: "Pokud mluvíš německy, tak žádný problém – lekce může samozřejmě probíhat v tvém mateřském jazyce. A pokud mluvíš španělsky, rovněž to není problém: lekce může samozřejmě probíhat ve tvém mateřském jazyce.",
+    duration: 15
   }
 ];
 
@@ -67,8 +85,8 @@ phrases.forEach((p, idx) => {
     en: p.en,
     cz: p.cz,
     short: p.short,
-    duration: p.duration || (p.id === 'gday' ? 6 : 7),
-    audioFile: p.audioFile || `/audio/${p.id}.mp3`,
+    duration: p.duration || 7,
+    audioFile: p.audioFile || `/uploads/${p.id}.mp3`,
     index: idx,
     buttonLabel: p.buttonLabel
   };
@@ -95,6 +113,18 @@ phrases.forEach((p, idx) => {
       </span>
     </div>
     <div class="flex items-center gap-1.5 flex-shrink-0">
+      <!-- Roll the Dice Interactive Button -->
+      <button
+        type="button"
+        id="audio-roll-dice-btn"
+        class="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold bg-amber-400/20 hover:bg-amber-400 text-amber-300 hover:text-espresso-950 border border-amber-400/40 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full cursor-pointer transition-all active:scale-95 shadow-2xs group/dice"
+        title="Hodit kostkou a vylosovat náhodnou hlášku lektora"
+        aria-label="Hodit kostkou a vylosovat náhodnou hlášku"
+      >
+        <span class="dice-icon inline-block transition-transform duration-500 text-xs">🎲</span>
+        <span class="hidden min-[380px]:inline">Hodit kostkou!</span>
+      </button>
+
       <!-- Edit MP3 button (visible in Visual Editor) -->
       <button
         type="button"
@@ -184,13 +214,13 @@ phrases.forEach((p, idx) => {
 
   <!-- Live Speech Translation Bubble -->
   <div id="audio-speech-card" class="mt-2.5 pt-2.5 border-t border-white/10 text-xs space-y-1.5 transition-all min-w-0 overflow-hidden">
-    <div class="flex items-start gap-2 text-stone-200 leading-snug min-w-0">
+    <div id="speech-live-en-row" class={`flex items-start gap-2 text-stone-200 leading-snug min-w-0 ${!firstPhrase.en ? 'hidden' : ''}`}>
       <span class="text-amber-400 font-bold flex-shrink-0 text-xs">🗣️ AJ:</span>
       <span id="speech-live-text" class="text-amber-100 font-medium italic break-words min-w-0 text-xs" data-tina-field={firstPhrase ? tinaField(firstPhrase, 'en') : undefined} data-edit-key="hero.card.audio.phrases.0.en" data-edit-label="Anglická věta">
-        „{firstPhrase.en}“
+        {firstPhrase.en ? `„${firstPhrase.en}“` : ''}
       </span>
     </div>
-    <div class="flex items-start gap-2 text-stone-400 text-[11px] leading-snug min-w-0">
+    <div id="speech-live-cz-row" class="flex items-start gap-2 text-stone-400 text-[11px] leading-snug min-w-0">
       <span class="text-emerald-400 font-bold flex-shrink-0 text-xs">🇨🇿 CZ:</span>
       <span id="speech-czech-text" class="text-stone-300 break-words min-w-0" data-tina-field={firstPhrase ? tinaField(firstPhrase, 'cz') : undefined} data-edit-key="hero.card.audio.phrases.0.cz" data-edit-label="Český překlad">
         „{firstPhrase.cz}“
@@ -206,62 +236,104 @@ phrases.forEach((p, idx) => {
     let isPlaying = false;
     let timerInterval: any = null;
     let secondsRemaining = 6;
-    let activePhraseKey = 'gday';
+    let activePhraseKey = '';
 
     let defaultPhrases: Record<string, { en: string; cz: string; short: string; duration: number; audioFile: string; index: number; buttonLabel?: string }> = {
-      gday: {
+      "Welcome!": {
         en: "Welcome to Valek Academy! Let's roll the dice and have fun speaking English together!",
         cz: "Vítejte ve Valek Academy! Hoďme kostkou a pojďme si hravě povídat anglicky!",
         short: "Welcome to Valek Academy!",
         duration: 6,
-        audioFile: "/audio/gday.mp3",
+        audioFile: "/uploads/Welcome-roll-the-dice.mp3",
         index: 0
       },
-      dice: {
+      "dice": {
         en: "Let's roll the dice! It's your turn. What board game are we going to play today?",
         cz: "Hoďme kostkou! Jsi na řadě. Jakou deskovou hru si dnes zahrajeme?",
         short: "Let's roll the dice!",
         duration: 7,
-        audioFile: "/audio/dice.mp3",
+        audioFile: "/uploads/Let's-roll-the-dice.mp3",
         index: 1
       },
-      noworries: {
+      "No fear": {
         en: "Never fear making mistakes. In our small team, we learn by laughing and playing!",
         cz: "Z chyb si vůbec nic nedělejte. V naší partě se učíme smíchem a hrou!",
         short: "Never fear making mistakes!",
         duration: 7,
-        audioFile: "/audio/noworries.mp3",
+        audioFile: "/uploads/Never-fear-making-mistakes.mp3",
         index: 2
+      },
+      "Mluvím česky": {
+        en: "",
+        cz: "Žádný strach milí studenti, česky se krásně domluvíme. Vysvětlení v češtině šetří čas, ale jakmile pokročíte a budete lépe rozumět, budu používat angličtinu víc a víc.",
+        short: "Česky vše vysvětlím",
+        duration: 11,
+        audioFile: "/uploads/Česky-vše-vysvětlím.mp3",
+        index: 3
+      },
+      "Auf Deutsch o en español": {
+        en: "Wenn Sie Deutsch sprechen, ist das kein Problem – der Unterricht kann natürlich in Ihrer Muttersprache stattfinden. Y si hablas castellano, no hay problema: la lección puede impartirse, por supuesto, en tu lengua materna.",
+        cz: "Pokud mluvíš německy, tak žádný problém – lekce může samozřejmě probíhat v tvém mateřském jazyce. A pokud mluvíš španělsky, rovněž to není problém: lekce může samozřejmě probíhat ve tvém mateřském jazyce.",
+        short: "Auf Deutsch o en español",
+        duration: 15,
+        audioFile: "/uploads/Auf-Deutsch-o-en-español-2.mp3",
+        index: 4
       }
     };
 
     function getPhrases() {
       const previewBox = document.getElementById('audio-preview-box');
-      let p = { ...defaultPhrases };
       if (previewBox?.dataset.phrases) {
         try {
           const parsed = JSON.parse(previewBox.dataset.phrases);
-          p = { ...p, ...parsed };
+          if (parsed && Object.keys(parsed).length > 0) {
+            return parsed;
+          }
         } catch (e) {}
       }
-      return p;
+      return defaultPhrases;
+    }
+
+    function initActivePhraseKey() {
+      if (activePhraseKey) return;
+      const activeChip = document.querySelector<HTMLButtonElement>('.phrase-chip.active') || document.querySelector<HTMLButtonElement>('.phrase-chip');
+      if (activeChip && activeChip.getAttribute('data-phrase')) {
+        activePhraseKey = activeChip.getAttribute('data-phrase')!;
+      } else {
+        const phrases = getPhrases();
+        activePhraseKey = Object.keys(phrases)[0] || 'Welcome!';
+      }
+    }
+
+    function getCurrentPhraseData() {
+      initActivePhraseKey();
+      const phrases = getPhrases();
+      if (activePhraseKey && phrases[activePhraseKey]) {
+        return phrases[activePhraseKey];
+      }
+      const firstKey = Object.keys(phrases)[0];
+      if (firstKey && phrases[firstKey]) {
+        activePhraseKey = firstKey;
+        return phrases[firstKey];
+      }
+      return defaultPhrases["Welcome!"];
     }
 
     function updateEditButton() {
       const editBtn = document.getElementById('audio-edit-file-btn');
       if (!editBtn) return;
-      const phrases = getPhrases();
-      const currentData = phrases[activePhraseKey] || phrases.gday;
+      const currentData = getCurrentPhraseData();
       const idx = currentData.index ?? 0;
       editBtn.setAttribute('data-edit-key', `hero.card.audio.phrases.${idx}.audioFile`);
       editBtn.setAttribute('data-edit-label', `Hlasová nahrávka MP3: ${currentData.short || activePhraseKey}`);
-      editBtn.setAttribute('data-audio-src', currentData.audioFile || `/audio/${activePhraseKey}.mp3`);
+      editBtn.setAttribute('data-audio-src', currentData.audioFile || '');
     }
 
     function syncChipsUI() {
+      initActivePhraseKey();
       const phraseChips = document.querySelectorAll<HTMLButtonElement>('.phrase-chip');
       phraseChips.forEach((c) => {
-        const key = c.getAttribute('data-phrase') || 'gday';
+        const key = c.getAttribute('data-phrase');
         const isCurrent = key === activePhraseKey;
         c.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
         if (isCurrent) {
@@ -279,9 +351,12 @@ phrases.forEach((p, idx) => {
       const nativeAudio = document.getElementById('native-audio') as HTMLAudioElement | null;
       if (!nativeAudio) return;
 
-      const phrases = getPhrases();
-      const currentData = phrases[activePhraseKey] || phrases.gday;
-      const audioSrc = currentData.audioFile || `/audio/${activePhraseKey}.mp3`;
+      const currentData = getCurrentPhraseData();
+      const audioSrc = currentData.audioFile;
+      if (!audioSrc) {
+        stopAudio();
+        return;
+      }
 
       nativeAudio.src = audioSrc;
 
@@ -297,7 +372,9 @@ phrases.forEach((p, idx) => {
 
       nativeAudio.oncanplay = () => {
         if (!isPlaying) return;
-        nativeAudio.play().catch(() => stopAudio());
+        if (nativeAudio.paused) {
+          nativeAudio.play().catch(() => stopAudio());
+        }
       };
       nativeAudio.ontimeupdate = () => {
         if (!nativeAudio.duration || isNaN(nativeAudio.duration)) return;
@@ -309,14 +386,15 @@ phrases.forEach((p, idx) => {
       };
       nativeAudio.onended = () => stopAudio();
       nativeAudio.onerror = () => {
-        if (nativeAudio.src.endsWith('.mp3')) {
-          nativeAudio.src = `/audio/${activePhraseKey}.wav`;
-          nativeAudio.play().catch(() => stopAudio());
-        } else {
-          stopAudio();
-        }
+        stopAudio();
       };
       nativeAudio.load();
+      const playPromise = nativeAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // If browser is buffering, oncanplay listener will trigger playback
+        });
+      }
     }
 
     window.addEventListener('ve-audio-updated', ((e: CustomEvent) => {
@@ -344,8 +422,7 @@ phrases.forEach((p, idx) => {
 
     function setPlayingState(playing: boolean) {
       isPlaying = playing;
-      const phrases = getPhrases();
-      const currentData = phrases[activePhraseKey] || phrases.gday;
+      const currentData = getCurrentPhraseData();
 
       const playIcon = document.getElementById('audio-play-icon');
       const pauseIcon = document.getElementById('audio-pause-icon');
@@ -369,7 +446,7 @@ phrases.forEach((p, idx) => {
           subtitle.innerHTML = `<span class="text-emerald-400 font-bold animate-pulse">● Hraje:</span> <strong class="text-white">„${currentData.short}“</strong>`;
         }
 
-        secondsRemaining = currentData.duration;
+        secondsRemaining = currentData.duration || 6;
         if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
 
         playAudioFile();
@@ -413,9 +490,8 @@ phrases.forEach((p, idx) => {
 
     function stopAudio() {
       setPlayingState(false);
-      const phrases = getPhrases();
-      const currentData = phrases[activePhraseKey] || phrases.gday;
-      secondsRemaining = currentData.duration;
+      const currentData = getCurrentPhraseData();
+      secondsRemaining = currentData.duration || 6;
       const timeDisplay = document.getElementById('audio-time');
       if (timeDisplay) timeDisplay.textContent = `0:${secondsRemaining.toString().padStart(2, '0')}`;
       const nativeAudio = document.getElementById('native-audio') as HTMLAudioElement | null;
@@ -443,7 +519,7 @@ phrases.forEach((p, idx) => {
         en: "Welcome to our game! Let's roll the dice and speak English together.",
         cz: "Vítejte u naší hry! Hoďme kostkou a pojďme si povídat anglicky.",
         duration: 6,
-        audioFile: "/audio/gday.mp3",
+        audioFile: "/uploads/Welcome-roll-the-dice.mp3",
         index: newIdx
       };
 
@@ -485,6 +561,43 @@ phrases.forEach((p, idx) => {
       window.dispatchEvent(new CustomEvent('ve-phrase-created', { detail: { phrase: newPhraseData, index: newIdx } }));
     }
 
+    function selectAndPlayPhrase(key: string) {
+      activePhraseKey = key;
+      syncChipsUI();
+
+      const data = getCurrentPhraseData();
+      const liveText = document.getElementById('speech-live-text');
+      const liveEnRow = document.getElementById('speech-live-en-row');
+      const liveTextCz = document.getElementById('speech-czech-text');
+      const subtitle = document.getElementById('audio-subtitle');
+      if (liveText) {
+        if (!data.en || data.en.trim() === '') {
+          liveEnRow?.classList.add('hidden');
+        } else {
+          liveEnRow?.classList.remove('hidden');
+          liveText.textContent = `„${data.en}“`;
+        }
+        liveText.setAttribute('data-edit-key', `hero.card.audio.phrases.${data.index}.en`);
+        liveText.setAttribute('data-edit-label', `Anglická věta (${data.short || data.buttonLabel})`);
+      }
+      if (liveTextCz) {
+        liveTextCz.textContent = `„${data.cz}“`;
+        liveTextCz.setAttribute('data-edit-key', `hero.card.audio.phrases.${data.index}.cz`);
+        liveTextCz.setAttribute('data-edit-label', `Český překlad (${data.short || data.buttonLabel})`);
+      }
+      if (subtitle) {
+        subtitle.innerHTML = `<span class="text-emerald-400 font-bold animate-pulse">● Hraje:</span> <strong class="text-white">„${data.short}“</strong>`;
+      }
+
+      const activeChip = document.querySelector<HTMLButtonElement>(`.phrase-chip[data-phrase="${key}"]`);
+      if (activeChip && typeof activeChip.scrollIntoView === 'function') {
+        activeChip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+      }
+
+      stopAudio();
+      setPlayingState(true);
+    }
+
     let lastHandledTime = 0;
     function handleAudioInteraction(e: Event) {
       const target = e.target as HTMLElement | null;
@@ -496,31 +609,33 @@ phrases.forEach((p, idx) => {
         return;
       }
 
+      const diceBtn = target.closest<HTMLButtonElement>('#audio-roll-dice-btn');
+      if (diceBtn) {
+        const diceIcon = diceBtn.querySelector<HTMLElement>('.dice-icon');
+        if (diceIcon) {
+          diceIcon.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+          diceIcon.style.transform = 'rotate(720deg) scale(1.35)';
+          setTimeout(() => {
+            diceIcon.style.transition = '';
+            diceIcon.style.transform = '';
+          }, 600);
+        }
+
+        const phrases = getPhrases();
+        const keys = Object.keys(phrases);
+        if (keys.length > 0) {
+          let candidates = keys.filter(k => k !== activePhraseKey);
+          if (candidates.length === 0) candidates = keys;
+          const chosenKey = candidates[Math.floor(Math.random() * candidates.length)];
+          selectAndPlayPhrase(chosenKey);
+        }
+        return;
+      }
+
       const chip = target.closest<HTMLButtonElement>('.phrase-chip');
       if (chip) {
         const key = chip.getAttribute('data-phrase') || 'gday';
-        activePhraseKey = key;
-        syncChipsUI();
-
-        const phrases = getPhrases();
-        const data = phrases[key] || phrases.gday;
-        const liveText = document.getElementById('speech-live-text');
-        const liveTextCz = document.getElementById('speech-czech-text');
-        const subtitle = document.getElementById('audio-subtitle');
-        if (liveText) {
-          liveText.textContent = `„${data.en}“`;
-          liveText.setAttribute('data-edit-key', `hero.card.audio.phrases.${data.index}.en`);
-          liveText.setAttribute('data-edit-label', `Anglická věta (${data.short || data.buttonLabel})`);
-        }
-        if (liveTextCz) {
-          liveTextCz.textContent = `„${data.cz}“`;
-          liveTextCz.setAttribute('data-edit-key', `hero.card.audio.phrases.${data.index}.cz`);
-          liveTextCz.setAttribute('data-edit-label', `Český překlad (${data.short || data.buttonLabel})`);
-        }
-        if (subtitle) subtitle.innerHTML = `<strong class="text-amber-300">„${data.short}“</strong> <span class="text-amber-200/60">–</span> <span class="text-emerald-400 font-bold animate-pulse">Přehrává se</span>`;
-
-        stopAudio();
-        setPlayingState(true);
+        selectAndPlayPhrase(key);
         return;
       }
 
